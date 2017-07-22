@@ -74,12 +74,14 @@ module Testable = struct
     include Traits.Representable.Testable.S0 with type t := t
     include Traits.Equatable.Testable.S0 with type t := t and module O := O
     include Traits.Comparable.Testable.S0 with type t := t and module O := O
+
+    val addition_examples: (t * t * t) list
   end
 end
 
 module Tests = struct
   module Make0(T: Testable.S0) = struct
-    module Testable = struct
+    module T = struct
       include T
 
       let representation_examples = representation_examples @ [
@@ -101,14 +103,41 @@ module Tests = struct
       let ordered_lists = ordered_lists @ [
         [zero; one];
       ]
+
+      let addition_examples = addition_examples @ [
+        (zero, zero, zero);
+        (one, zero, one);
+      ]
     end
 
+    open T
+    open T.O
     open Testing
+    open StdLabels
 
     let test = "Integer" >::: [
-      (let module M = Traits.Representable.Tests.Make0(Testable) in M.test);
-      (let module M = Traits.Equatable.Tests.Make0(Testable) in M.test);
-      (let module M = Traits.Comparable.Tests.Make0(Testable) in M.test);
-    ]
+      (let module M = Traits.Representable.Tests.Make0(T) in M.test);
+      (let module M = Traits.Equatable.Tests.Make0(T) in M.test);
+      (let module M = Traits.Comparable.Tests.Make0(T) in M.test);
+    ] @ (
+      addition_examples
+      |> List.map ~f:(fun (x, y, z) ->
+        let rx = repr x and ry = repr y and rz = repr z in
+        [
+          (* x + y = y + x = z *)
+          Printf.sprintf "add %s %s" rx ry >:: (fun () -> check ~repr ~equal ~expected:z (add x y));
+          Printf.sprintf "add %s %s" ry rx >:: (fun () -> check ~repr ~equal ~expected:z (add y x));
+          Printf.sprintf "%s + %s" rx ry >:: (fun () -> check ~repr ~equal ~expected:z (x + y));
+          Printf.sprintf "%s + %s" ry rx >:: (fun () -> check ~repr ~equal ~expected:z (y + x));
+          (* z - y = x *)
+          Printf.sprintf "sub %s %s" rz ry >:: (fun () -> check ~repr ~equal ~expected:x (sub z y));
+          Printf.sprintf "%s - %s" rz ry >:: (fun () -> check ~repr ~equal ~expected:x (z - y));
+          (* z - x = y *)
+          Printf.sprintf "sub %s %s" rz rx >:: (fun () -> check ~repr ~equal ~expected:y (sub z x));
+          Printf.sprintf "%s - %s" rz rx >:: (fun () -> check ~repr ~equal ~expected:y (z - x));
+        ]
+      )
+      |> List.concat
+    )
   end
 end

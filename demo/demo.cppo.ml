@@ -67,6 +67,11 @@ module IntMod3Testable = struct
   let different_pairs = []
 
   let representation_examples = []
+
+  let addition_examples = [
+    (1, 2, 0);
+    (2, 2, 1);
+  ]
 end
 
 let () =

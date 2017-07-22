@@ -61,6 +61,10 @@ module Testable = struct
   let ordered_lists = [
     [-10; -5; -1; 0; 1; 2; 5];
   ]
+
+  let addition_examples = [
+    (4, 3, 7);
+  ]
 end
 
 let test = "Int" >::: [

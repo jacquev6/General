@@ -36,6 +36,10 @@ echo
 bisect-ppx-report -html _build/bisect bisect0001.out
 echo "See coverage report in $(pwd)/_build/bisect/index.html"
 echo
+
+echo "Running demo"
+_build/demo/demo.byte
+
 rm -f bisect????.out
 
 if [ "x$1" == "x--quick" ]
@@ -48,8 +52,5 @@ opam reinstall --yes General
 
 cd demo
 rm -rf _build
-
 build -package General demo.native demo.js
-
-node _build/demo.js
 cd ..

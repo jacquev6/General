@@ -15,8 +15,8 @@ module Testable = struct
 end
 
 module Tests = struct
-  module Make0(M: Testable.S0) = struct
-    open M
+  module Make0(T: Testable.S0) = struct
+    open T
     open Testing
     open StdLabels
 
