@@ -1,4 +1,5 @@
 <src>: include
 <src/BuiltinTypes/*.cmx>: for-pack(BuiltinTypes)
 <src/Concepts/*.cmx>: for-pack(Concepts)
+<src/Concepts/Numbers/*.cmx>: for-pack(Concepts.Numbers)
 <src/Traits/*.cmx>: for-pack(Traits)
