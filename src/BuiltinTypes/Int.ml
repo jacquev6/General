@@ -36,8 +36,8 @@ module Testable = struct
   ]
 
   let equal_lists = [
-    [zero; 0; -0];
-    [one; 1];
+    [0; zero; of_int 0; -0];
+    [1; one; of_int 1];
     [2];
   ]
 
@@ -50,4 +50,5 @@ let test = "Int" >::: [
   (let module T = Traits.Representable.Tests.Make0(Testable) in T.test);
   (let module T = Traits.Equatable.Tests.Make0(Testable) in T.test);
   (let module T = Traits.Comparable.Tests.Make0(Testable) in T.test);
+  "to_int 2" >:: (fun () -> check_int ~expected:2 (to_int 2));
 ]

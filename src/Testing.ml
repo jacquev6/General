@@ -1,5 +1,7 @@
 open StdLabels
 
+(*BISECT-IGNORE-BEGIN*) (* @todo Test Testing *)
+
 module Test = struct
   type single = {
     label: string;
@@ -127,3 +129,7 @@ let check_true = check_bool ~expected:true
 let check_false = check_bool ~expected:false
 
 let check_string = check ~repr:(fun x -> x) ~equal:(=)
+
+let check_int = check ~repr:(string_of_int) ~equal:(=)
+
+(*BISECT-IGNORE-END*)
