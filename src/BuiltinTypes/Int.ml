@@ -7,6 +7,9 @@ module Basic = struct
 
   let zero = 0
   let one = 1
+  let of_int a = a
+  let to_int a = a
+  let to_string = string_of_int
 
   let add = (+)
   let sub = (-)

@@ -7,6 +7,9 @@ module Basic = struct
 
     val zero: t
     val one: t
+    val of_int: int -> t
+    val to_int: t -> int
+    val to_string: t -> string
 
     val add: t -> t -> t
     val sub: t -> t -> t
@@ -19,6 +22,9 @@ module Operators = struct
 
     include Traits.Equatable.Operators.S0 with type t := t
     include Traits.Comparable.Operators.S0 with type t := t
+
+    val (+): t -> t -> t
+    val (-): t -> t -> t
   end
 end
 
@@ -41,6 +47,11 @@ module Extensions = struct
     module O = struct
       include Equatable.O
       include Comparable.O
+
+      open B
+
+      let (+) = add
+      let (-) = sub
     end
 
     include (Equatable: Traits.Equatable.Extensions.S0 with type t := t and module O := O)
