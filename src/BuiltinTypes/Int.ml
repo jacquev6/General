@@ -36,9 +36,14 @@ module Testable = struct
   ]
 
   let equal_lists = [
-    [0; zero; of_int 0; -0];
-    [1; one; of_int 1];
+    [0];
+    [1];
     [2];
+  ]
+
+  let different_pairs = [
+    (0, 1);
+    (1, -1);
   ]
 
   let ordered_lists = [
@@ -47,8 +52,6 @@ module Testable = struct
 end
 
 let test = "Int" >::: [
-  (let module T = Traits.Representable.Tests.Make0(Testable) in T.test);
-  (let module T = Traits.Equatable.Tests.Make0(Testable) in T.test);
-  (let module T = Traits.Comparable.Tests.Make0(Testable) in T.test);
+  (let module M = Concepts.Numbers.Integer.Tests.Make0(Testable) in M.test);
   "to_int 2" >:: (fun () -> check_int ~expected:2 (to_int 2));
 ]

@@ -1,10 +1,13 @@
 module Traits = Traits
+
 module Concepts = Concepts
+
 include BuiltinTypes
+
 module Compare = Compare
 
-open Testing
+module Testing = Testing
 
-let test = "General" >::: [
+let test = Testing.("General" >::: [
   Int.test;
-]
+])

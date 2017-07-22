@@ -58,14 +58,18 @@ module type S0 = sig
   include Extensions.S0 with type t := t
 end
 
-module Tests = struct
-  module Make0(M: sig
+module Testable = struct
+  module type S0 = sig
     include S0
     include Representable.S0 with type t := t
 
     val ordered_lists: t list list
     val equal_lists: t list list
-  end) = struct
+  end
+end
+
+module Tests = struct
+  module Make0(M: Testable.S0) = struct
     open M
     open Testing
     open StdLabels

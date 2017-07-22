@@ -54,3 +54,22 @@ module IntMod3 = struct
 end
 
 module DemoIntMod3 = DemoInteger(struct let name = "IntMod3" end)(IntMod3)
+
+module IntMod3Testable = struct
+  include IntMod3
+
+  let equal_lists = [
+    [of_int 0; of_int 3];
+  ]
+
+  let ordered_lists = []
+
+  let different_pairs = []
+
+  let representation_examples = []
+end
+
+let () =
+  (let module M = General.Concepts.Numbers.Integer.Tests.Make0(IntMod3Testable) in M.test)
+  |> General.Testing.run
+  |> General.Testing.report_to_console

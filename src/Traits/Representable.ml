@@ -6,12 +6,16 @@ module type S0 = sig
   val repr: t -> string
 end
 
-module Tests = struct
-  module Make0(M: sig
+module Testable = struct
+  module type S0 = sig
     include S0
 
     val representation_examples: (t * string) list
-  end) = struct
+  end
+end
+
+module Tests = struct
+  module Make0(M: Testable.S0) = struct
     open M
     open Testing
     open StdLabels
