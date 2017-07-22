@@ -36,9 +36,6 @@ echo
 bisect-ppx-report -html _build/bisect bisect0001.out
 echo "See coverage report in $(pwd)/_build/bisect/index.html"
 echo
-
-echo "Running demo"
-_build/demo/demo.byte
 rm -f bisect????.out
 
 if [ "x$1" == "x--quick" ]
@@ -54,6 +51,5 @@ rm -rf _build
 
 build -package General demo.native demo.js
 
-_build/demo.native
 node _build/demo.js
 cd ..
