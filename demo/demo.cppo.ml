@@ -15,11 +15,14 @@ module DemoInteger(N: sig val name: string end)(I: General.Concepts.Numbers.Inte
   let print_bool s v =
     print s (string_of_bool v)
 
-  let () = print_int "zero" zero
-  let () = print_int "one" one
-  let () = print_int "O.(one + one)" O.(one + one)
-  let () = print_int "O.(one - one)" O.(one - one)
-  let () = print_bool "O.(one = zero)" O.(one = zero)
+  #define TEST(type, value) let () = CONCAT(print_, type) STRINGIFY(value) value
+
+  TEST(int, zero)
+  TEST(int, one)
+  TEST(int, O.(one + one))
+  TEST(int, O.(one - one))
+  TEST(bool, O.(one = one))
+  TEST(bool, O.(zero = one))
 end
 
 module DemoGeneralInt = DemoInteger(struct let name = "General.Int" end)(General.Int)

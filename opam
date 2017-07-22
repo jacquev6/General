@@ -7,7 +7,7 @@ dev-repo: "https://github.com/jacquev6/General.git"
 bug-reports: "http://github.com/jacquev6/General/issues/"
 available: [ ocaml-version = "4.02.3" ]
 build: [
-  ["ocamlbuild" "-use-ocamlfind" "General.cma" "General.cmxa"]
+  ["ocamlbuild" "-use-ocamlfind" "-plugin-tag" "package(cppo_ocamlbuild)" "General.cma" "General.cmxa"]
 ]
 install: [
   ["mkdir" "-p" "%{prefix}%/lib/General"]
@@ -18,4 +18,5 @@ remove: [
 ]
 depends: [
   "ocamlfind" {build}
+  "cppo" {build}
 ]
