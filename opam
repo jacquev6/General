@@ -19,4 +19,5 @@ remove: [
 depends: [
   "ocamlfind" {build}
   "cppo" {build}
+  "js_of_ocaml" {build}
 ]
