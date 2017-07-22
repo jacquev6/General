@@ -27,13 +27,27 @@ open Testing
 module Testable = struct
   include Self
 
-  let equality_classes = [
-    [zero; 0];
+  let representation_examples = [
+    (-3, "-3");
+    (-0, "0");
+    (0, "0");
+    (1, "1");
+    (15, "15");
+  ]
+
+  let equal_lists = [
+    [zero; 0; -0];
     [one; 1];
     [2];
+  ]
+
+  let ordered_lists = [
+    [-10; -5; -1; 0; 1; 2; 5];
   ]
 end
 
 let test = "Int" >::: [
+  (let module T = Traits.Representable.Tests.Make0(Testable) in T.test);
   (let module T = Traits.Equatable.Tests.Make0(Testable) in T.test);
+  (let module T = Traits.Comparable.Tests.Make0(Testable) in T.test);
 ]

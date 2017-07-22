@@ -125,3 +125,5 @@ let check_bool = check ~repr:string_of_bool ~equal:(=)
 let check_true = check_bool ~expected:true
 
 let check_false = check_bool ~expected:false
+
+let check_string = check ~repr:(fun x -> x) ~equal:(=)

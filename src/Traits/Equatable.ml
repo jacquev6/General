@@ -47,7 +47,7 @@ module Tests = struct
     include S0
     include Representable.S0 with type t := t
 
-    val equality_classes: t list list
+    val equal_lists: t list list
   end) = struct
     open M
     open Testing
@@ -60,7 +60,7 @@ module Tests = struct
         | x::xs -> (List.map ys ~f:(fun y -> (x, y))) @ (cartesian_product xs ys)
 
     let test = "Equatable" >::: (
-      cartesian_product equality_classes equality_classes
+      cartesian_product equal_lists equal_lists
       |> List.map ~f:(fun (xs, ys) ->
         let eq = xs == ys in
         cartesian_product xs ys
