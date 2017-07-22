@@ -13,7 +13,7 @@ do
 done
 
 cd src
-ocamlbuild -use-ocamlfind -no-links General.cma
+ocamlbuild -use-ocamlfind -no-links General.cmxa
 cd ..
 
 opam pin add --yes --no-action .

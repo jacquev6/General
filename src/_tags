@@ -1,2 +1,3 @@
-"BuiltinTypes/Int.cmx": for-pack(BuiltinTypes)
-"Concepts/Numbers.cmx": for-pack(Concepts)
+<BuiltinTypes/*.cmx>: for-pack(BuiltinTypes)
+<Concepts/*.cmx>: for-pack(Concepts)
+<Traits/*.cmx>: for-pack(Traits)
