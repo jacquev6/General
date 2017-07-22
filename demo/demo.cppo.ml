@@ -32,20 +32,20 @@ module IntMod3 = struct
     type t = int
     let zero = 0
     let one = 1
-    let of_int a = a mod 3
-    let to_int a = a
+    let of_int x = x mod 3
+    let to_int x = x
     let repr = string_of_int
 
-    let add a b =
-      (a + b) mod 3
+    let add x y =
+      (x + y) mod 3
 
-    let sub a b =
-      (a - b + 6) mod 3
+    let sub x y =
+      (x - y + 6) mod 3
 
     let equal = (=)
 
-    let compare a b =
-      let c = compare a b in
+    let compare x y =
+      let c = compare x y in
       General.Compare.(if c = 0 then EQ else if c < 0 then LT else GT)
   end
 

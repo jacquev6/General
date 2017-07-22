@@ -27,8 +27,8 @@ module Extensions = struct
   module Make0(B: Basic.S0): S0 with type t := B.t = struct
     open B
 
-    let different a b =
-      not (equal a b)
+    let different x y =
+      not (equal x y)
 
     module O = struct
       let (=) = equal

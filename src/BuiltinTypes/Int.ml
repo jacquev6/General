@@ -8,8 +8,8 @@ module Self = struct
 
     let zero = 0
     let one = 1
-    let of_int a = a
-    let to_int a = a
+    let of_int x = x
+    let to_int x = x
     let repr = string_of_int
 
     let add = (+)
