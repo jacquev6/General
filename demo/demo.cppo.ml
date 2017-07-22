@@ -10,7 +10,7 @@ module DemoInteger(N: sig val name: string end)(I: General.Concepts.Numbers.Inte
     Printf.printf "%s.(%s): %s\n" N.name s v
 
   let print_int s v =
-    print s (to_string v)
+    print s (repr v)
 
   let print_bool s v =
     print s (string_of_bool v)
@@ -34,7 +34,7 @@ module IntMod3 = struct
     let one = 1
     let of_int a = a mod 3
     let to_int a = a
-    let to_string = string_of_int
+    let repr = string_of_int
 
     let add a b =
       (a + b) mod 3

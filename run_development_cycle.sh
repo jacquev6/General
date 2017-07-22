@@ -12,7 +12,8 @@ do
     fi
 done
 
-ocamlbuild -use-ocamlfind -no-links -plugin-tag "package(cppo_ocamlbuild)" General.cmxa -I demo demo.byte
+ocamlbuild -use-ocamlfind -no-links -plugin-tag "package(cppo_ocamlbuild)" General.cmxa unit_tests.byte -I demo demo.byte
+_build/src/unit_tests.byte
 _build/demo/demo.byte
 
 opam pin add --yes --no-action .
