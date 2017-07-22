@@ -50,8 +50,11 @@ module Extensions = struct
 
       open B
 
-      let (+) = add
-      let (-) = sub
+      let (+) x y =
+        add x y
+
+      let (-) x y =
+        sub x y
     end
 
     include (Equatable: Traits.Equatable.Extensions.S0 with type t := t and module O := O)

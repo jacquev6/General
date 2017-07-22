@@ -2,18 +2,30 @@ module Self = struct
   module Basic = struct
     type t = int
 
-    let equal = (=)
+    let equal x y =
+      x = y
 
-    let compare = Compare.Poly.compare
+    let compare x y =
+      Compare.Poly.compare x y
 
     let zero = 0
-    let one = 1
-    let of_int x = x
-    let to_int x = x
-    let repr = string_of_int
 
-    let add = (+)
-    let sub = (-)
+    let one = 1
+
+    let of_int x =
+      x
+
+    let to_int x =
+      x
+
+    let repr x =
+      string_of_int x
+
+    let add x y =
+      x + y
+
+    let sub x y =
+      x - y
   end
 
   include Basic

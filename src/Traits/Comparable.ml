@@ -36,19 +36,34 @@ module Extensions = struct
     open B
     open Compare
 
-    let less_than x y = compare x y = LT
-    let less_or_equal x y = compare x y <> GT
-    let greater_than x y = compare x y = GT
-    let greater_or_equal x y = compare x y <> LT
+    let less_than x y =
+      compare x y = LT
+    let less_or_equal x y =
+      compare x y <> GT
 
-    let min x y = match compare x y with LT -> x | GT | EQ -> y
-    let max x y = match compare x y with GT -> x | LT | EQ -> y
+    let greater_than x y =
+      compare x y = GT
+
+    let greater_or_equal x y =
+      compare x y <> LT
+
+    let min x y =
+      match compare x y with LT -> x | GT | EQ -> y
+
+    let max x y =
+      match compare x y with GT -> x | LT | EQ -> y
 
     module O = struct
-      let (<) = less_than
-      let (<=) = less_or_equal
-      let (>) = greater_than
-      let (>=) = greater_or_equal
+      let (<) x y =
+        less_than x y
+
+      let (<=) x y =
+        less_or_equal x y
+      let (>) x y =
+        greater_than x y
+
+      let (>=) x y =
+        greater_or_equal x y
     end
   end
 end

@@ -31,8 +31,11 @@ module Extensions = struct
       not (equal x y)
 
     module O = struct
-      let (=) = equal
-      let (<>) = different
+      let (=) x y =
+        equal x y
+
+      let (<>) x y =
+        different x y
     end
   end
 end
