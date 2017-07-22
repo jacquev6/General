@@ -3,9 +3,7 @@ module Basic = struct
 
   let equal = (=)
 
-  let compare a b =
-    let c = compare a b in
-    Traits.Comparable.Result.(if c = 0 then EQ else if c < 0 then LT else GT)
+  let compare = Compare.Poly.compare
 
   let zero = 0
   let one = 1

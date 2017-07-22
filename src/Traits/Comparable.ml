@@ -1,12 +1,8 @@
-module Result = struct
-  type t = GT | EQ | LT
-end
-
 module Basic = struct
   module type S0 = sig
     type t
 
-    val compare: t -> t -> Result.t
+    val compare: t -> t -> Compare.t
   end
 end
 
@@ -38,7 +34,7 @@ module Extensions = struct
 
   module Make0(B: Basic.S0): S0 with type t := B.t = struct
     open B
-    open Result
+    open Compare
 
     let less_than a b = compare a b = LT
     let less_or_equal a b = compare a b <> GT
