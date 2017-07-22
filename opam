@@ -7,11 +7,11 @@ dev-repo: "https://github.com/jacquev6/General.git"
 bug-reports: "http://github.com/jacquev6/General/issues/"
 available: [ ocaml-version = "4.02.3" ]
 build: [
-  ["sh" "-c" "cd src; ocamlbuild -use-ocamlfind General.cma General.cmxa"]
+  ["ocamlbuild" "-use-ocamlfind" "General.cma" "General.cmxa"]
 ]
 install: [
   ["mkdir" "-p" "%{prefix}%/lib/General"]
-  ["cp" "META" "src/_build/General.cmi" "src/_build/General.cma" "src/_build/General.a" "src/_build/General.cmxa" "%{prefix}%/lib/General"]
+  ["cp" "META" "_build/src/General.cmi" "_build/src/General.cma" "_build/src/General.a" "_build/src/General.cmxa" "%{prefix}%/lib/General"]
 ]
 remove: [
   ["ocamlfind" "remove" "General"]

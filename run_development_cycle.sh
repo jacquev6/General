@@ -12,16 +12,14 @@ do
     fi
 done
 
-cd src
-ocamlbuild -use-ocamlfind -no-links General.cmxa
-cd ..
+ocamlbuild -use-ocamlfind -no-links General.cmxa -I demo demo.byte
+_build/demo/demo.byte
 
 opam pin add --yes --no-action .
 opam reinstall --yes General
 
 cd demo
-ocamlbuild -use-ocamlfind -no-links demo.byte demo.native
+ocamlbuild -use-ocamlfind -no-links -package General demo.native
+_build/demo.native
 cd ..
 
-demo/_build/demo.byte
-demo/_build/demo.native
