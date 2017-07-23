@@ -23,9 +23,13 @@ module Testing: sig
 
   val report_to_console: Result.t -> unit
 
-  val (>:::): string -> Test.t list -> Test.t
+  val (>::): string -> Test.t list -> Test.t
 
-  val (>::): string -> (unit -> unit) -> Test.t
+  val (>:): string -> unit lazy_t -> Test.t
+
+  val (~:): ('a, unit, string, unit lazy_t -> Test.t) format4 -> 'a
+
+  val (~::): ('a, unit, string, Test.t list -> Test.t) format4 -> 'a
 
   val fail: string -> unit
 

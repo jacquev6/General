@@ -5,7 +5,7 @@ open StdLabels
 module Test = struct
   type single = {
     label: string;
-    f: unit -> unit;
+    check: unit lazy_t;
   }
 
   type group = {
@@ -21,12 +21,6 @@ end
 module type Testable = sig
   val test: Test.t
 end
-
-let (>::) label f =
-  Test.(Single {label; f})
-
-let (>:::) name tests =
-  Test.(Group {name; tests})
 
 module Result = struct
   type failure =
@@ -69,9 +63,9 @@ exception TestFailure of Result.failure
 
 let run test =
   Printexc.record_backtrace true;
-  let single {Test.label; f} =
+  let single {Test.label; check} =
     try
-      f ();
+      Lazy.force check;
       {Result.label; status=Result.Success}
     with
       | TestFailure reason -> {Result.label; status=Result.Failed reason}
@@ -114,7 +108,21 @@ let report_to_console result =
     | Result.Group {Result.failures=0; errors=0; _} -> ()
     | _ -> exit 1
 
-(* Utilities for test writers *)
+(* Test factories *)
+
+let (>::) name tests =
+  Test.(Group {name; tests})
+
+let (>:) label check =
+  Test.(Single {label; check})
+
+let (~::) format =
+  Printf.ksprintf (>::) format
+
+let (~:) format =
+  Printf.ksprintf (>:) format
+
+(* Checks *)
 
 let fail message = raise (TestFailure (Result.Custom message))
 

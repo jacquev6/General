@@ -20,10 +20,10 @@ module Tests = struct
     open Testing
     open StdLabels
 
-    let test = "Representable" >::: (
+    let test = "Representable" >:: (
       representation_examples
       |> List.map ~f:(fun (v, expected) ->
-        (Printf.sprintf "repr %s" expected) >:: (fun () -> check_string ~expected (repr v))
+        ~: "repr %s" expected (lazy (check_string ~expected (repr v)))
       )
     )
   end

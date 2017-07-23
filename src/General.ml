@@ -8,6 +8,6 @@ module Compare = Compare
 
 module Testing = Testing
 
-let test = Testing.("General" >::: [
+let test = Testing.("General" >:: [
   Int.test;
 ])

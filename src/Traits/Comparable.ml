@@ -96,33 +96,33 @@ module Tests = struct
         | [] -> []
         | x::xs -> (List.map ys ~f:(fun y -> (x, y))) @ (cartesian_product xs ys)
 
-    let test = "Comparable" >::: (
+    let test = "Comparable" >:: (
       ordered_lists
       |> List.map ~f:(fun xs ->
         List.fold_left ~init:(List.hd xs, []) (List.tl xs) ~f:(fun (x, tests) y ->
           let rx = repr x and ry = repr y in
           let new_tests = [
-            (Printf.sprintf "less_than %s %s" rx ry) >:: (fun () -> check_true (less_than x y));
-            (Printf.sprintf "less_or_equal %s %s" rx ry) >:: (fun () -> check_true (less_or_equal x y));
-            (Printf.sprintf "greater_or_equal %s %s" rx ry) >:: (fun () -> check_false (greater_or_equal x y));
-            (Printf.sprintf "greater_than %s %s" rx ry) >:: (fun () -> check_false (greater_than x y));
-            (Printf.sprintf "%s < %s" rx ry) >:: (fun () -> check_true (x < y));
-            (Printf.sprintf "%s <= %s" rx ry) >:: (fun () -> check_true (x <= y));
-            (Printf.sprintf "%s >= %s" rx ry) >:: (fun () -> check_false (x >= y));
-            (Printf.sprintf "%s > %s" rx ry) >:: (fun () -> check_false (x > y));
-            (Printf.sprintf "min %s %s" rx ry) >:: (fun () -> check ~repr ~equal:(==) ~expected:x (min x y));
-            (Printf.sprintf "max %s %s" rx ry) >:: (fun () -> check ~repr ~equal:(==) ~expected:y (max x y));
+            ~: "less_than %s %s" rx ry (lazy (check_true (less_than x y)));
+            ~: "less_or_equal %s %s" rx ry (lazy (check_true (less_or_equal x y)));
+            ~: "greater_or_equal %s %s" rx ry (lazy (check_false (greater_or_equal x y)));
+            ~: "greater_than %s %s" rx ry (lazy (check_false (greater_than x y)));
+            ~: "%s < %s" rx ry (lazy (check_true (x < y)));
+            ~: "%s <= %s" rx ry (lazy (check_true (x <= y)));
+            ~: "%s >= %s" rx ry (lazy (check_false (x >= y)));
+            ~: "%s > %s" rx ry (lazy (check_false (x > y)));
+            ~: "min %s %s" rx ry (lazy (check ~repr ~equal:(==) ~expected:x (min x y)));
+            ~: "max %s %s" rx ry (lazy (check ~repr ~equal:(==) ~expected:y (max x y)));
 
-            (Printf.sprintf "less_than %s %s" ry rx) >:: (fun () -> check_false (less_than y x));
-            (Printf.sprintf "less_or_equal %s %s" ry rx) >:: (fun () -> check_false (less_or_equal y x));
-            (Printf.sprintf "greater_or_equal %s %s" ry rx) >:: (fun () -> check_true (greater_or_equal y x));
-            (Printf.sprintf "greater_than %s %s" ry rx) >:: (fun () -> check_true (greater_than y x));
-            (Printf.sprintf "%s < %s" ry rx) >:: (fun () -> check_false (y < x));
-            (Printf.sprintf "%s <= %s" ry rx) >:: (fun () -> check_false (y <= x));
-            (Printf.sprintf "%s >= %s" ry rx) >:: (fun () -> check_true (y >= x));
-            (Printf.sprintf "%s > %s" ry rx) >:: (fun () -> check_true (y > x));
-            (Printf.sprintf "min %s %s" ry rx) >:: (fun () -> check ~repr ~equal:(==) ~expected:x (min y x));
-            (Printf.sprintf "max %s %s" ry rx) >:: (fun () -> check ~repr ~equal:(==) ~expected:y (max y x));
+            ~: "less_than %s %s" ry rx (lazy (check_false (less_than y x)));
+            ~: "less_or_equal %s %s" ry rx (lazy (check_false (less_or_equal y x)));
+            ~: "greater_or_equal %s %s" ry rx (lazy (check_true (greater_or_equal y x)));
+            ~: "greater_than %s %s" ry rx (lazy (check_true (greater_than y x)));
+            ~: "%s < %s" ry rx (lazy (check_false (y < x)));
+            ~: "%s <= %s" ry rx (lazy (check_false (y <= x)));
+            ~: "%s >= %s" ry rx (lazy (check_true (y >= x)));
+            ~: "%s > %s" ry rx (lazy (check_true (y > x)));
+            ~: "min %s %s" ry rx (lazy (check ~repr ~equal:(==) ~expected:x (min y x)));
+            ~: "max %s %s" ry rx (lazy (check ~repr ~equal:(==) ~expected:y (max y x)));
           ] in
           (y, new_tests @ tests)
         )
@@ -136,31 +136,31 @@ module Tests = struct
         |> List.map ~f:(fun (x, y) ->
           let rx = repr x and ry = repr y in
           [
-            (Printf.sprintf "less_than %s %s" rx ry) >:: (fun () -> check_false (less_than x y));
-            (Printf.sprintf "less_or_equal %s %s" rx ry) >:: (fun () -> check_true (less_or_equal x y));
-            (Printf.sprintf "greater_or_equal %s %s" rx ry) >:: (fun () -> check_true (greater_or_equal x y));
-            (Printf.sprintf "greater_than %s %s" rx ry) >:: (fun () -> check_false (greater_than x y));
-            (Printf.sprintf "%s < %s" rx ry) >:: (fun () -> check_false (x < y));
-            (Printf.sprintf "%s <= %s" rx ry) >:: (fun () -> check_true (x <= y));
-            (Printf.sprintf "%s >= %s" rx ry) >:: (fun () -> check_true (x >= y));
-            (Printf.sprintf "%s > %s" rx ry) >:: (fun () -> check_false (x > y));
-            (Printf.sprintf "min %s %s" rx ry) >:: (fun () -> check ~repr ~equal:(==) ~expected:x (min x y));
-            (Printf.sprintf "min %s %s" rx ry) >:: (fun () -> check ~repr ~equal:(==) ~expected:y (min x y));
-            (Printf.sprintf "max %s %s" rx ry) >:: (fun () -> check ~repr ~equal:(==) ~expected:x (max x y));
-            (Printf.sprintf "max %s %s" rx ry) >:: (fun () -> check ~repr ~equal:(==) ~expected:y (max x y));
+            ~: "less_than %s %s" rx ry (lazy (check_false (less_than x y)));
+            ~: "less_or_equal %s %s" rx ry (lazy (check_true (less_or_equal x y)));
+            ~: "greater_or_equal %s %s" rx ry (lazy (check_true (greater_or_equal x y)));
+            ~: "greater_than %s %s" rx ry (lazy (check_false (greater_than x y)));
+            ~: "%s < %s" rx ry (lazy (check_false (x < y)));
+            ~: "%s <= %s" rx ry (lazy (check_true (x <= y)));
+            ~: "%s >= %s" rx ry (lazy (check_true (x >= y)));
+            ~: "%s > %s" rx ry (lazy (check_false (x > y)));
+            ~: "min %s %s" rx ry (lazy (check ~repr ~equal:(==) ~expected:x (min x y)));
+            ~: "min %s %s" rx ry (lazy (check ~repr ~equal:(==) ~expected:y (min x y)));
+            ~: "max %s %s" rx ry (lazy (check ~repr ~equal:(==) ~expected:x (max x y)));
+            ~: "max %s %s" rx ry (lazy (check ~repr ~equal:(==) ~expected:y (max x y)));
 
-            (Printf.sprintf "less_than %s %s" ry rx) >:: (fun () -> check_false (less_than y x));
-            (Printf.sprintf "less_or_equal %s %s" ry rx) >:: (fun () -> check_true (less_or_equal y x));
-            (Printf.sprintf "greater_or_equal %s %s" ry rx) >:: (fun () -> check_true (greater_or_equal y x));
-            (Printf.sprintf "greater_than %s %s" ry rx) >:: (fun () -> check_false (greater_than y x));
-            (Printf.sprintf "%s < %s" ry rx) >:: (fun () -> check_false (y < x));
-            (Printf.sprintf "%s <= %s" ry rx) >:: (fun () -> check_true (y <= x));
-            (Printf.sprintf "%s >= %s" ry rx) >:: (fun () -> check_true (y >= x));
-            (Printf.sprintf "%s > %s" ry rx) >:: (fun () -> check_false (y > x));
-            (Printf.sprintf "min %s %s" ry rx) >:: (fun () -> check ~repr ~equal:(==) ~expected:x (min y x));
-            (Printf.sprintf "min %s %s" ry rx) >:: (fun () -> check ~repr ~equal:(==) ~expected:y (min y x));
-            (Printf.sprintf "max %s %s" ry rx) >:: (fun () -> check ~repr ~equal:(==) ~expected:x (max y x));
-            (Printf.sprintf "max %s %s" ry rx) >:: (fun () -> check ~repr ~equal:(==) ~expected:y (max y x));
+            ~: "less_than %s %s" ry rx (lazy (check_false (less_than y x)));
+            ~: "less_or_equal %s %s" ry rx (lazy (check_true (less_or_equal y x)));
+            ~: "greater_or_equal %s %s" ry rx (lazy (check_true (greater_or_equal y x)));
+            ~: "greater_than %s %s" ry rx (lazy (check_false (greater_than y x)));
+            ~: "%s < %s" ry rx (lazy (check_false (y < x)));
+            ~: "%s <= %s" ry rx (lazy (check_true (y <= x)));
+            ~: "%s >= %s" ry rx (lazy (check_true (y >= x)));
+            ~: "%s > %s" ry rx (lazy (check_false (y > x)));
+            ~: "min %s %s" ry rx (lazy (check ~repr ~equal:(==) ~expected:x (min y x)));
+            ~: "min %s %s" ry rx (lazy (check ~repr ~equal:(==) ~expected:y (min y x)));
+            ~: "max %s %s" ry rx (lazy (check ~repr ~equal:(==) ~expected:x (max y x)));
+            ~: "max %s %s" ry rx (lazy (check ~repr ~equal:(==) ~expected:y (max y x)));
           ]
         )
         |> List.concat

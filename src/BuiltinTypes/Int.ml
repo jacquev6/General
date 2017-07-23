@@ -67,7 +67,7 @@ module Testable = struct
   ]
 end
 
-let test = "Int" >::: [
+let test = "Int" >:: [
   (let module M = Concepts.Numbers.Integer.Tests.Make0(Testable) in M.test);
-  "to_int 2" >:: (fun () -> check_int ~expected:2 (to_int 2));
+  "to_int 2" >: (lazy (check_int ~expected:2 (to_int 2)));
 ]
