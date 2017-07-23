@@ -31,7 +31,7 @@ module Testing: sig
 
   val (~::): ('a, unit, string, Test.t list -> Test.t) format4 -> 'a
 
-  val fail: string -> unit
+  val fail: ('a, unit, string, 'b) format4 -> 'a
 
   val check: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
 

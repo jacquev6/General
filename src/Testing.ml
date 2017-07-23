@@ -124,20 +124,30 @@ let (~:) format =
 
 (* Checks *)
 
-let fail message = raise (TestFailure (Result.Custom message))
+let fail format =
+  Printf.ksprintf
+    (fun message ->
+      raise (TestFailure (Result.Custom message))
+    )
+    format
 
 let check ~repr ~equal ~expected actual =
   if not (equal expected actual) then
     raise (TestFailure (Result.NotEqual (repr expected, repr actual)))
 
-let check_bool = check ~repr:string_of_bool ~equal:(=)
+let check_bool ~expected actual =
+  check ~repr:string_of_bool ~equal:(=) ~expected actual
 
-let check_true = check_bool ~expected:true
+let check_true actual =
+  check_bool ~expected:true actual
 
-let check_false = check_bool ~expected:false
+let check_false actual =
+  check_bool ~expected:false actual
 
-let check_string = check ~repr:(fun x -> x) ~equal:(=)
+let check_string ~expected actual =
+  check ~repr:(fun x -> x) ~equal:(=) ~expected actual
 
-let check_int = check ~repr:(string_of_int) ~equal:(=)
+let check_int ~expected actual =
+  check ~repr:(string_of_int) ~equal:(=) ~expected actual
 
 (*BISECT-IGNORE-END*)
