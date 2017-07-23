@@ -4,3 +4,5 @@ true: warn(@A-4-44)
 <src/Concepts/*.cmx>: for-pack(Concepts)
 <src/Concepts/Numbers/*.cmx>: for-pack(Concepts.Numbers)
 <src/Traits/*.cmx>: for-pack(Traits)
+not <src/Testing.*> and not <demo/**> and not <OperatorForBisectPpx.*>: nopervasives
+not <src/Testing.*> and not <demo/**> and not <OperatorForBisectPpx.*> and not <src/Ubiquitous.*>: open(Ubiquitous)

@@ -2,7 +2,7 @@ module Basic = struct
   type t = float
 
   let equal x y =
-    x = y
+    Pervasives.(=) x y
 
   let compare x y =
     Compare.Poly.compare x y
@@ -12,10 +12,10 @@ module Basic = struct
   let one = 1.
 
   let of_int x =
-    float_of_int x
+    Pervasives.float_of_int x
 
   let to_int x =
-    int_of_float x
+    Pervasives.int_of_float x
 
   let of_float x =
     x
@@ -24,28 +24,28 @@ module Basic = struct
     x
 
   let of_string x =
-    float_of_string x
+    Pervasives.float_of_string x
 
   let repr x =
-    string_of_float x
+    Pervasives.string_of_float x
 
   let add x y =
-    x +. y
+    Pervasives.(+.) x y
 
   let substract x y =
-    x -. y
+    Pervasives.(-.) x y
 
   let negate x =
-    -.x
+    Pervasives.(~-.) x
 
   let multiply x y =
-    x *. y
+    Pervasives.( *. ) x y
 
   let divide x y =
-    x /. y
+    Pervasives.(/.) x y
 
   let abs x =
-    abs_float x
+    Pervasives.abs_float x
 end
 
 module Self = Concepts.Numbers.RealNumber.Make0(Basic)

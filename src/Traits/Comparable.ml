@@ -38,15 +38,24 @@ module Make0(B: Basic.S0) = struct
   open Compare
 
   let less_than x y =
-    compare x y = LT
+    match compare x y with
+      | LT -> true
+      | _ -> false
+
   let less_or_equal x y =
-    compare x y <> GT
+    match compare x y with
+      | GT -> false
+      | _ -> true
 
   let greater_than x y =
-    compare x y = GT
+    match compare x y with
+      | GT -> true
+      | _ -> false
 
   let greater_or_equal x y =
-    compare x y <> LT
+    match compare x y with
+      | LT -> false
+      | _ -> true
 
   let min x y =
     match compare x y with LT -> x | GT | EQ -> y
@@ -104,7 +113,7 @@ module Tests = struct
 
     let equal_pair (x, y) (x', y') =
       (* @todo General.Tuple2.equal *)
-      (equal x x') && (equal y y')
+      Pervasives.(&&) (equal x x') (equal y y')
 
     let check_pair = check ~repr:repr_pair ~equal:equal_pair
 
@@ -142,7 +151,7 @@ module Tests = struct
           ] in
           (y, new_tests @ tests)
         )
-        |> snd
+        |> Pervasives.snd
       )
       |> List.concat (* @todo General.List.concat_map (in all tests) *)
     ) @ (

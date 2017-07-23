@@ -27,11 +27,11 @@ module Testing: sig
 
   val (>:): string -> unit lazy_t -> Test.t
 
-  val (~:): ('a, unit, string, unit lazy_t -> Test.t) format4 -> 'a
+  val (~:): ('a, unit, string, unit lazy_t -> Test.t) Pervasives.format4 -> 'a
 
-  val (~::): ('a, unit, string, Test.t list -> Test.t) format4 -> 'a
+  val (~::): ('a, unit, string, Test.t list -> Test.t) Pervasives.format4 -> 'a
 
-  val fail: ('a, unit, string, 'b) format4 -> 'a
+  val fail: ('a, unit, string, 'b) Pervasives.format4 -> 'a
 
   val check: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
 

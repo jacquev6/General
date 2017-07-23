@@ -27,7 +27,7 @@ module Make0(B: Basic.S0) = struct
   include B
 
   let different x y =
-    not (equal x y)
+    Pervasives.not (equal x y)
 
   module O = struct
     let (=) x y =

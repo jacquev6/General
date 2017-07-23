@@ -20,15 +20,22 @@ do
     fi
 done
 
-build -package bisect_ppx General.cmxa unit_tests.byte unit_tests.js -I demo demo.byte
+build -I demo -build-dir _build_native \
+    General.cmxa unit_tests.native demo.native
+
+build -I demo \
+    -package bisect_ppx \
+    -tag-line 'true:+open(OperatorForBisectPpx)' \
+    -tag-line '<OperatorForBisectPpx.*>:-open(OperatorForBisectPpx)' \
+    General.cma unit_tests.byte unit_tests.js demo.byte
 
 echo
 echo "Running unit tests in node.js"
 node _build/src/unit_tests.js
 echo
 
-echo "Running unit tests in byte code"
 rm -f bisect????.out
+echo "Running unit tests in byte code"
 _build/src/unit_tests.byte
 echo
 bisect-summary bisect0001.out
@@ -36,11 +43,10 @@ echo
 bisect-ppx-report -html _build/bisect bisect0001.out
 echo "See coverage report in $(pwd)/_build/bisect/index.html"
 echo
+rm -f bisect????.out
 
 echo "Running demo"
-_build/demo/demo.byte
-
-rm -f bisect????.out
+_build_native/demo/demo.native
 
 if [ "x$1" == "x--quick" ]
 then
