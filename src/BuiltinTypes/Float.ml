@@ -1,59 +1,54 @@
-module Self = struct
-  module Basic = struct
-    type t = float
+module Basic = struct
+  type t = float
 
-    let equal x y =
-      x = y
+  let equal x y =
+    x = y
 
-    let compare x y =
-      Compare.Poly.compare x y
+  let compare x y =
+    Compare.Poly.compare x y
 
-    let zero = 0.
+  let zero = 0.
 
-    let one = 1.
+  let one = 1.
 
-    let of_int x =
-      float_of_int x
+  let of_int x =
+    float_of_int x
 
-    let to_int x =
-      int_of_float x
+  let to_int x =
+    int_of_float x
 
-    let of_float x =
-      x
+  let of_float x =
+    x
 
-    let to_float x =
-      x
+  let to_float x =
+    x
 
-    let of_string x =
-      float_of_string x
+  let of_string x =
+    float_of_string x
 
-    let repr x =
-      string_of_float x
+  let repr x =
+    string_of_float x
 
-    let add x y =
-      x +. y
+  let add x y =
+    x +. y
 
-    let substract x y =
-      x -. y
+  let substract x y =
+    x -. y
 
-    let negate x =
-      -.x
+  let negate x =
+    -.x
 
-    let multiply x y =
-      x *. y
+  let multiply x y =
+    x *. y
 
-    let divide x y =
-      x /. y
+  let divide x y =
+    x /. y
 
-    let abs x =
-      abs_float x
-  end
-
-  include Concepts.Numbers.RealNumber.Extensions.Make0(Basic)
-  include Basic
+  let abs x =
+    abs_float x
 end
 
-include Self
+module Self = Concepts.Numbers.RealNumber.Make0(Basic)
 
 module Examples = struct
   let repr = [
@@ -108,3 +103,5 @@ end
 let test = Testing.("Float" >:: [
   (let module T = Concepts.Numbers.RealNumber.Tests.Make0(Self)(Examples) in T.test);
 ])
+
+include Self

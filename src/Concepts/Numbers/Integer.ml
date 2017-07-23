@@ -1,35 +1,22 @@
-module Basic = struct
-  module type S0 = RealNumber.Basic.S0
-end
+module Basic = RealNumber.Basic
 
-module Operators = struct
-  module type S0 = RealNumber.Operators.S0
-end
-
-module Extensions = struct
-  module type S0 = sig
-    include RealNumber.Extensions.S0
-
-    val succ: t -> t
-    val pred: t -> t
-  end
-
-  module Make0(B: Basic.S0): S0 with type t := B.t = struct
-    open B
-
-    include RealNumber.Extensions.Make0(B)
-
-    let succ x =
-      add x one
-
-    let pred x =
-      substract x one
-  end
-end
+module Operators = RealNumber.Operators
 
 module type S0 = sig
-  include Basic.S0
-  include Extensions.S0 with type t := t
+  include RealNumber.S0
+
+  val succ: t -> t
+  val pred: t -> t
+end
+
+module Make0(B: Basic.S0) = struct
+  include RealNumber.Make0(B)
+
+  let succ x =
+    add x one
+
+  let pred x =
+    substract x one
 end
 
 module Tests = struct

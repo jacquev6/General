@@ -17,71 +17,57 @@ module Operators = struct
   end
 end
 
-module Extensions = struct
-  module type S0 = sig
-    type t
-
-    val less_than: t -> t -> bool
-    val less_or_equal: t -> t -> bool
-    val greater_than: t -> t -> bool
-    val greater_or_equal: t -> t -> bool
-
-    val min: t -> t -> t
-    val max: t -> t -> t
-    val min_max: t -> t -> t * t
-
-    module O: Operators.S0 with type t := t
-  end
-
-  module Make0(B: Basic.S0): S0 with type t := B.t = struct
-    open B
-    open Compare
-
-    let less_than x y =
-      compare x y = LT
-    let less_or_equal x y =
-      compare x y <> GT
-
-    let greater_than x y =
-      compare x y = GT
-
-    let greater_or_equal x y =
-      compare x y <> LT
-
-    let min x y =
-      match compare x y with LT -> x | GT | EQ -> y
-
-    let max x y =
-      match compare x y with GT -> x | LT | EQ -> y
-
-    let min_max x y =
-      match compare x y with LT -> (x, y) | GT | EQ -> (y, x)
-
-    module O = struct
-      let (<) x y =
-        less_than x y
-
-      let (<=) x y =
-        less_or_equal x y
-      let (>) x y =
-        greater_than x y
-
-      let (>=) x y =
-        greater_or_equal x y
-    end
-  end
-end
-
 module type S0 = sig
   include Basic.S0
-  include Extensions.S0 with type t := t
+
+  val less_than: t -> t -> bool
+  val less_or_equal: t -> t -> bool
+  val greater_than: t -> t -> bool
+  val greater_or_equal: t -> t -> bool
+
+  val min: t -> t -> t
+  val max: t -> t -> t
+  val min_max: t -> t -> t * t
+
+  module O: Operators.S0 with type t := t
 end
 
-module Testable = struct
-  module type S0 = sig
-    include S0
-    include Representable.S0 with type t := t
-    include Equatable.Basic.S0 with type t := t
+module Make0(B: Basic.S0) = struct
+  include B
+
+  open Compare
+
+  let less_than x y =
+    compare x y = LT
+  let less_or_equal x y =
+    compare x y <> GT
+
+  let greater_than x y =
+    compare x y = GT
+
+  let greater_or_equal x y =
+    compare x y <> LT
+
+  let min x y =
+    match compare x y with LT -> x | GT | EQ -> y
+
+  let max x y =
+    match compare x y with GT -> x | LT | EQ -> y
+
+  let min_max x y =
+    match compare x y with LT -> (x, y) | GT | EQ -> (y, x)
+
+  module O = struct
+    let (<) x y =
+      less_than x y
+
+    let (<=) x y =
+      less_or_equal x y
+    let (>) x y =
+      greater_than x y
+
+    let (>=) x y =
+      greater_or_equal x y
   end
 end
 
@@ -95,7 +81,11 @@ module Examples = struct
 end
 
 module Tests = struct
-  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+  module Make0(M: sig
+    include S0
+    include Representable.S0 with type t := t
+    include Equatable.Basic.S0 with type t := t
+  end)(E: Examples.S0 with type t := M.t) = struct
     open Testing
     open StdLabels
 

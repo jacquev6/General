@@ -29,44 +29,41 @@ let () = Printf.printf "General.Int.succ 4: %n\n" (General.Int.succ 4)
 
 module DemoGeneralInt = DemoInteger(struct let name = "General.Int" end)(General.Int)
 
-module IntMod3 = struct
-  module Basic = struct
-    type t = int
-    let zero = 0
-    let one = 1
-    let of_int x = x mod 3
-    let to_int x = x
-    let repr = string_of_int
-    let of_float x = (int_of_float x) mod 3
-    let to_float = float_of_int
-    let of_string x = (int_of_string x) mod 3
-    let abs x = x
+module BasicIntMod3 = struct
+  type t = int
+  let zero = 0
+  let one = 1
+  let of_int x = x mod 3
+  let to_int x = x
+  let repr = string_of_int
+  let of_float x = (int_of_float x) mod 3
+  let to_float = float_of_int
+  let of_string x = (int_of_string x) mod 3
+  let abs x = x
 
-    let add x y =
-      (x + y) mod 3
+  let add x y =
+    (x + y) mod 3
 
-    let substract x y =
-      (x - y + 6) mod 3
+  let substract x y =
+    (x - y + 6) mod 3
 
-    let negate x =
-      (6 - x) mod 3
+  let negate x =
+    (6 - x) mod 3
 
-    let multiply x y =
-      (x * y) mod 3
+  let multiply x y =
+    (x * y) mod 3
 
-    let divide x y =
-      (x / y + 6) mod 3
+  let divide x y =
+    (x / y + 6) mod 3
 
-    let equal = (=)
+  let equal = (=)
 
-    let compare x y =
-      let c = compare x y in
-      General.Compare.(if c = 0 then EQ else if c < 0 then LT else GT)
-  end
-
-  include Basic
-  include General.Concepts.Numbers.Integer.Extensions.Make0(Basic)
+  let compare x y =
+    let c = compare x y in
+    General.Compare.(if c = 0 then EQ else if c < 0 then LT else GT)
 end
+
+module IntMod3 = General.Concepts.Numbers.Integer.Make0(BasicIntMod3)
 
 module DemoIntMod3 = DemoInteger(struct let name = "IntMod3" end)(IntMod3)
 

@@ -7,7 +7,7 @@ module Basic = struct
 
     val negate: t -> t
     val add: t -> t -> t
-    val substract: t -> t -> t (* @todo Should this be an extension defined as add x (negate y)? *)
+    val substract: t -> t -> t
     val multiply: t -> t -> t
     val divide: t -> t -> t
   end
@@ -25,51 +25,36 @@ module Operators = struct
   end
 end
 
-module Extensions = struct
-  module type S0 = sig
-    type t
-
-    val square: t -> t
-    (* @todo val exponentiate: t -> int -> t *)
-
-    module O: Operators.S0 with type t := t
-  end
-
-  module Make0(B: Basic.S0): S0 with type t := B.t = struct
-    open B
-
-    let square x =
-      multiply x x
-
-    module O = struct
-      let (~-) x =
-        negate x
-
-      let (+) x y =
-        add x y
-
-      let (-) x y =
-        substract x y
-
-      let ( * ) x y =
-        multiply x y
-
-      let (/) x y =
-        divide x y
-    end
-  end
-end
-
 module type S0 = sig
   include Basic.S0
-  include Extensions.S0 with type t := t
+
+  val square: t -> t
+  (* @todo val exponentiate: t -> int -> t *)
+
+  module O: Operators.S0 with type t := t
 end
 
-module Testable = struct
-  module type S0 = sig
-    include S0
-    include Representable.S0 with type t := t
-    include Equatable.Basic.S0 with type t := t
+module Make0(B: Basic.S0) = struct
+  include B
+
+  let square x =
+    multiply x x
+
+  module O = struct
+    let (~-) x =
+      negate x
+
+    let (+) x y =
+      add x y
+
+    let (-) x y =
+      substract x y
+
+    let ( * ) x y =
+      multiply x y
+
+    let (/) x y =
+      divide x y
   end
 end
 
@@ -85,7 +70,11 @@ module Examples = struct
 end
 
 module Tests = struct
-  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+  module Make0(M: sig
+    include S0
+    include Representable.S0 with type t := t
+    include Equatable.Basic.S0 with type t := t
+  end)(E: Examples.S0 with type t := M.t) = struct
     open Testing
     open StdLabels
 

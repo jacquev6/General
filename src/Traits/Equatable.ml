@@ -15,40 +15,26 @@ module Operators = struct
   end
 end
 
-module Extensions = struct
-  module type S0 = sig
-    type t
-
-    val different: t -> t -> bool
-
-    module O: Operators.S0 with type t := t
-  end
-
-  module Make0(B: Basic.S0): S0 with type t := B.t = struct
-    open B
-
-    let different x y =
-      not (equal x y)
-
-    module O = struct
-      let (=) x y =
-        equal x y
-
-      let (<>) x y =
-        different x y
-    end
-  end
-end
-
 module type S0 = sig
   include Basic.S0
-  include Extensions.S0 with type t := t
+
+  val different: t -> t -> bool
+
+  module O: Operators.S0 with type t := t
 end
 
-module Testable = struct
-  module type S0 = sig
-    include S0
-    include Representable.S0 with type t := t
+module Make0(B: Basic.S0) = struct
+  include B
+
+  let different x y =
+    not (equal x y)
+
+  module O = struct
+    let (=) x y =
+      equal x y
+
+    let (<>) x y =
+      different x y
   end
 end
 
@@ -62,7 +48,10 @@ module Examples = struct
 end
 
 module Tests = struct
-  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+  module Make0(M: sig
+    include S0
+    include Representable.S0 with type t := t
+  end)(E: Examples.S0 with type t := M.t) = struct
     open Testing
     open StdLabels
 

@@ -18,35 +18,28 @@ module Operators = struct
   end
 end
 
-module Extensions = struct
-  module type S0 = sig
-    type t
-
-    module O: Operators.S0 with type t := t
-
-    include Number.Extensions.S0 with type t := t and module O := O
-    include Traits.Comparable.Extensions.S0 with type t := t and module O := O
-  end
-
-  module Make0(B: Basic.S0): S0 with type t := B.t = struct
-    module Number_ = Number.Extensions.Make0(B)
-    module Comparable_ = Traits.Comparable.Extensions.Make0(B)
-
-    type t = B.t
-
-    module O = struct
-      include Number_.O
-      include Comparable_.O
-    end
-
-    include (Number_: Number.Extensions.S0 with type t := t and module O := O)
-    include (Comparable_: Traits.Comparable.Extensions.S0 with type t := t and module O := O)
-  end
-end
-
 module type S0 = sig
   include Basic.S0
-  include Extensions.S0 with type t := t
+
+  module O: Operators.S0 with type t := t
+
+  include Number.S0 with type t := t and module O := O
+  include Traits.Comparable.S0 with type t := t and module O := O
+end
+
+module Make0(B: Basic.S0) = struct
+  include B
+
+  module Number_ = Number.Make0(B)
+  module Comparable_ = Traits.Comparable.Make0(B)
+
+  module O = struct
+    include Number_.O
+    include Comparable_.O
+  end
+
+  include (Number_: Number.S0 with type t := t and module O := O)
+  include (Comparable_: Traits.Comparable.S0 with type t := t and module O := O)
 end
 
 module Examples = struct

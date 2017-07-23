@@ -17,35 +17,28 @@ module Operators = struct
   end
 end
 
-module Extensions = struct
-  module type S0 = sig
-    type t
-
-    module O: Operators.S0 with type t := t
-
-    include Traits.Equatable.Extensions.S0 with type t := t and module O := O
-    include Traits.Ringoid.Extensions.S0 with type t := t and module O := O
-  end
-
-  module Make0(B: Basic.S0): S0 with type t := B.t = struct
-    module Equatable_ = Traits.Equatable.Extensions.Make0(B)
-    module Ringoid_ = Traits.Ringoid.Extensions.Make0(B)
-
-    type t = B.t
-
-    module O = struct
-      include Equatable_.O
-      include Ringoid_.O
-    end
-
-    include (Equatable_: Traits.Equatable.Extensions.S0 with type t := t and module O := O)
-    include (Ringoid_: Traits.Ringoid.Extensions.S0 with type t := t and module O := O)
-  end
-end
-
 module type S0 = sig
   include Basic.S0
-  include Extensions.S0 with type t := t
+
+  module O: Operators.S0 with type t := t
+
+  include Traits.Equatable.S0 with type t := t and module O := O
+  include Traits.Ringoid.S0 with type t := t and module O := O
+end
+
+module Make0(B: Basic.S0) = struct
+  include B
+
+  module Equatable_ = Traits.Equatable.Make0(B)
+  module Ringoid_ = Traits.Ringoid.Make0(B)
+
+  module O = struct
+    include Equatable_.O
+    include Ringoid_.O
+  end
+
+  include (Equatable_: Traits.Equatable.S0 with type t := t and module O := O)
+  include (Ringoid_: Traits.Ringoid.S0 with type t := t and module O := O)
 end
 
 module Examples = struct
