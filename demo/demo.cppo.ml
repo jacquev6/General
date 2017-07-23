@@ -25,6 +25,8 @@ module DemoInteger(N: sig val name: string end)(I: General.Concepts.Numbers.Inte
   TEST(bool, O.(zero = one))
 end
 
+let () = Printf.printf "General.Int.succ 4: %n\n" (General.Int.succ 4)
+
 module DemoGeneralInt = DemoInteger(struct let name = "General.Int" end)(General.Int)
 
 module IntMod3 = struct
