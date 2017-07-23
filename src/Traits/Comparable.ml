@@ -28,6 +28,7 @@ module Extensions = struct
 
     val min: t -> t -> t
     val max: t -> t -> t
+    val min_max: t -> t -> t * t
 
     module O: Operators.S0 with type t := t
   end
@@ -52,6 +53,9 @@ module Extensions = struct
 
     let max x y =
       match compare x y with GT -> x | LT | EQ -> y
+
+    let min_max x y =
+      match compare x y with LT -> (x, y) | GT | EQ -> (y, x)
 
     module O = struct
       let (<) x y =
@@ -96,6 +100,14 @@ module Tests = struct
         | [] -> []
         | x::xs -> (List.map ys ~f:(fun y -> (x, y))) @ (cartesian_product xs ys)
 
+    let repr_pair (x, y) =
+      (* @todo Tuple2.repr *)
+      Printf.sprintf "(%s, %s)" (repr x) (repr y) (*BISECT-IGNORE*)
+
+    let check_pair = check ~repr:repr_pair ~equal:(=) (* @todo Tuple2.equal *)
+
+    let check = check ~repr ~equal:(=) (* @todo Use `equal` from Equatable (like in Ringoid) *)
+
     let test = "Comparable" >:: (
       ordered_lists
       |> List.map ~f:(fun xs ->
@@ -110,8 +122,9 @@ module Tests = struct
             ~: "%s <= %s" rx ry (lazy (check_true (x <= y)));
             ~: "%s >= %s" rx ry (lazy (check_false (x >= y)));
             ~: "%s > %s" rx ry (lazy (check_false (x > y)));
-            ~: "min %s %s" rx ry (lazy (check ~repr ~equal:(==) ~expected:x (min x y)));
-            ~: "max %s %s" rx ry (lazy (check ~repr ~equal:(==) ~expected:y (max x y)));
+            ~: "min %s %s" rx ry (lazy (check ~expected:x (min x y)));
+            ~: "max %s %s" rx ry (lazy (check ~expected:y (max x y)));
+            ~: "min_max %s %s" rx ry (lazy (check_pair ~expected:(x, y) (min_max x y)));
 
             ~: "less_than %s %s" ry rx (lazy (check_false (less_than y x)));
             ~: "less_or_equal %s %s" ry rx (lazy (check_false (less_or_equal y x)));
@@ -121,8 +134,9 @@ module Tests = struct
             ~: "%s <= %s" ry rx (lazy (check_false (y <= x)));
             ~: "%s >= %s" ry rx (lazy (check_true (y >= x)));
             ~: "%s > %s" ry rx (lazy (check_true (y > x)));
-            ~: "min %s %s" ry rx (lazy (check ~repr ~equal:(==) ~expected:x (min y x)));
-            ~: "max %s %s" ry rx (lazy (check ~repr ~equal:(==) ~expected:y (max y x)));
+            ~: "min %s %s" ry rx (lazy (check ~expected:x (min y x)));
+            ~: "max %s %s" ry rx (lazy (check ~expected:y (max y x)));
+            ~: "min_max %s %s" ry rx (lazy (check_pair ~expected:(x, y) (min_max y x)));
           ] in
           (y, new_tests @ tests)
         )
@@ -144,10 +158,14 @@ module Tests = struct
             ~: "%s <= %s" rx ry (lazy (check_true (x <= y)));
             ~: "%s >= %s" rx ry (lazy (check_true (x >= y)));
             ~: "%s > %s" rx ry (lazy (check_false (x > y)));
-            ~: "min %s %s" rx ry (lazy (check ~repr ~equal:(==) ~expected:x (min x y)));
-            ~: "min %s %s" rx ry (lazy (check ~repr ~equal:(==) ~expected:y (min x y)));
-            ~: "max %s %s" rx ry (lazy (check ~repr ~equal:(==) ~expected:x (max x y)));
-            ~: "max %s %s" rx ry (lazy (check ~repr ~equal:(==) ~expected:y (max x y)));
+            ~: "min %s %s" rx ry (lazy (check ~expected:x (min x y)));
+            ~: "min %s %s" rx ry (lazy (check ~expected:y (min x y)));
+            ~: "max %s %s" rx ry (lazy (check ~expected:x (max x y)));
+            ~: "max %s %s" rx ry (lazy (check ~expected:y (max x y)));
+            ~: "min_max %s %s" rx ry (lazy (check_pair ~expected:(x, y) (min_max x y)));
+            ~: "min_max %s %s" rx ry (lazy (check_pair ~expected:(y, x) (min_max x y)));
+            ~: "min_max %s %s" rx ry (lazy (check_pair ~expected:(x, x) (min_max x y)));
+            ~: "min_max %s %s" rx ry (lazy (check_pair ~expected:(y, y) (min_max x y)));
 
             ~: "less_than %s %s" ry rx (lazy (check_false (less_than y x)));
             ~: "less_or_equal %s %s" ry rx (lazy (check_true (less_or_equal y x)));
@@ -157,10 +175,14 @@ module Tests = struct
             ~: "%s <= %s" ry rx (lazy (check_true (y <= x)));
             ~: "%s >= %s" ry rx (lazy (check_true (y >= x)));
             ~: "%s > %s" ry rx (lazy (check_false (y > x)));
-            ~: "min %s %s" ry rx (lazy (check ~repr ~equal:(==) ~expected:x (min y x)));
-            ~: "min %s %s" ry rx (lazy (check ~repr ~equal:(==) ~expected:y (min y x)));
-            ~: "max %s %s" ry rx (lazy (check ~repr ~equal:(==) ~expected:x (max y x)));
-            ~: "max %s %s" ry rx (lazy (check ~repr ~equal:(==) ~expected:y (max y x)));
+            ~: "min %s %s" ry rx (lazy (check ~expected:x (min y x)));
+            ~: "min %s %s" ry rx (lazy (check ~expected:y (min y x)));
+            ~: "max %s %s" ry rx (lazy (check ~expected:x (max y x)));
+            ~: "max %s %s" ry rx (lazy (check ~expected:y (max y x)));
+            ~: "min_max %s %s" ry rx (lazy (check_pair ~expected:(x, y) (min_max y x)));
+            ~: "min_max %s %s" ry rx (lazy (check_pair ~expected:(y, x) (min_max y x)));
+            ~: "min_max %s %s" ry rx (lazy (check_pair ~expected:(x, x) (min_max y x)));
+            ~: "min_max %s %s" ry rx (lazy (check_pair ~expected:(y, y) (min_max y x)));
           ]
         )
         |> List.concat
