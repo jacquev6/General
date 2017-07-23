@@ -67,62 +67,58 @@ end
 
 module Testable = struct
   module type S0 = sig
+    include S0
+    include Representable.S0 with type t := t
+    include Equatable.Basic.S0 with type t := t
+  end
+end
+
+module Examples = struct
+  module type S0 = sig
     type t
 
-    module O: sig
-      include Operators.S0 with type t := t
-      include Equatable.Operators.S0 with type t := t
-    end
-
-    include S0 with type t := t and module O := O
-    include Representable.S0 with type t := t
-    include Equatable.S0 with type t := t and module O := O
-
-    val add_substract_examples: (t * t * t) list
-    val negate_examples: (t * t) list
-    val multiply_examples: (t * t * t) list
-    val divide_examples: (t * t * t) list
+    val add_substract: (t * t * t) list
+    val negate: (t * t) list
+    val multiply: (t * t * t) list
+    val divide: (t * t * t) list
   end
 end
 
 module Tests = struct
-  module Make0(T: Testable.S0) = struct
-    open T
-    open T.O
+  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
     open Testing
     open StdLabels
 
-    let add_substract_examples =
-      add_substract_examples
-      @ [
+    open M
+    open M.O
+
+    module E = struct
+      include E
+
+      let add_substract = add_substract @ [
         (zero, zero, zero);
         (one, zero, one);
       ]
 
-    let negate_examples =
-      negate_examples
-      @ [
+      let negate = negate @ [
         (zero, zero);
       ]
 
-    let multiply_examples =
-      multiply_examples
-      @ [
+      let multiply = multiply @ [
         (zero, zero, zero);
         (one, zero, zero);
       ]
 
-    let divide_examples =
-      divide_examples
-      @ [
+      let divide = divide @ [
         (zero, one, zero);
         (one, one, one);
       ]
+    end
 
     let check = check ~repr ~equal
 
     let test = "Ringoid" >:: (
-      add_substract_examples
+      E.add_substract
       |> List.map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y and rz = repr z in
         [
@@ -138,7 +134,7 @@ module Tests = struct
       )
       |> List.concat
     ) @ (
-      negate_examples
+      E.negate
       |> List.map ~f:(fun (x, y) ->
         let rx = repr x and ry = repr y in
         [
@@ -160,7 +156,7 @@ module Tests = struct
       )
       |> List.concat
     ) @ (
-      multiply_examples
+      E.multiply
       |> List.map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y in
         [
@@ -170,7 +166,7 @@ module Tests = struct
       )
       |> List.concat
     ) @ (
-      divide_examples
+      E.divide
       |> List.map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y in
         [

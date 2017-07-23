@@ -55,10 +55,8 @@ end
 
 include Self
 
-module Testable = struct
-  include Self
-
-  let representation_examples = [
+module Examples = struct
+  let repr = [
     (-3, "-3");
     (-0, "0");
     (0, "0");
@@ -66,39 +64,39 @@ module Testable = struct
     (15, "15");
   ]
 
-  let equal_lists = [
+  let equal = [
     [0];
     [1];
     [2];
   ]
 
-  let different_pairs = [
+  let different = [
     (0, 1);
     (1, -1);
   ]
 
-  let ordered_lists = [
+  let ordered = [
     [-10; -5; -1; 0; 1; 2; 5];
   ]
 
-  let add_substract_examples = [
+  let add_substract = [
     (4, 3, 7);
     (4, -2, 2);
     (5, -7, -2);
   ]
 
-  let negate_examples = [
+  let negate = [
     (4, -4);
     (-7, 7);
   ]
 
-  let multiply_examples = [
+  let multiply = [
     (4, 3, 12);
     (4, -3, -12);
     (-4, -3, 12);
   ]
 
-  let divide_examples = [
+  let divide = [
     (5, 2, 2);
     (4, 2, 2);
     (4, 3, 1);
@@ -108,5 +106,5 @@ module Testable = struct
 end
 
 let test = Testing.("Int" >:: [
-  (let module M = Concepts.Numbers.Integer.Tests.Make0(Testable) in M.test);
+  (let module T = Concepts.Numbers.Integer.Tests.Make0(Self)(Examples) in T.test);
 ])

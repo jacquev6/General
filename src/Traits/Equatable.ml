@@ -49,18 +49,25 @@ module Testable = struct
   module type S0 = sig
     include S0
     include Representable.S0 with type t := t
+  end
+end
 
-    val equal_lists: t list list
-    val different_pairs: (t * t) list
+module Examples = struct
+  module type S0 = sig
+    type t
+
+    val equal: t list list
+    val different: (t * t) list
   end
 end
 
 module Tests = struct
-  module Make0(T: Testable.S0) = struct
-    open T
-    open T.O
+  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
     open Testing
     open StdLabels
+
+    open M
+    open M.O
 
     (* @todo (Make terminal recursive and) Put in General.List *)
     let rec cartesian_product xs ys =
@@ -69,7 +76,7 @@ module Tests = struct
         | x::xs -> (List.map ys ~f:(fun y -> (x, y))) @ (cartesian_product xs ys)
 
     let test = "Equatable" >:: (
-      equal_lists
+      E.equal
       |> List.map ~f:(fun xs ->
         cartesian_product xs xs
         |> List.map ~f:(fun (x, y) ->
@@ -90,7 +97,7 @@ module Tests = struct
       )
       |> List.concat
     ) @ (
-      different_pairs
+      E.different
       |> List.map ~f:(fun (x, y) ->
         let rx = repr x and ry = repr y in
         [

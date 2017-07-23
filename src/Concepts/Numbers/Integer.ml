@@ -32,21 +32,14 @@ module type S0 = sig
   include Extensions.S0 with type t := t
 end
 
-module Testable = struct
-  module type S0 = sig
-    include S0
-
-    include RealNumber.Testable.S0 with type t := t and module O := O
-  end
-end
-
 module Tests = struct
-  module Make0(T: Testable.S0) = struct
+  module Make0(M: S0)(E: RealNumber.Examples.S0 with type t := M.t) = struct
     open Testing
-    open T
+
+    open M
 
     let test = "Integer" >:: [
-      (let module M = RealNumber.Tests.Make0(T) in M.test);
+      (let module T = RealNumber.Tests.Make0(M)(E) in T.test);
       "succ zero" >: (lazy (check ~repr ~equal ~expected:one (succ zero)));
       "pred one" >: (lazy (check ~repr ~equal ~expected:zero (pred one)));
     ]

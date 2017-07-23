@@ -81,18 +81,26 @@ module Testable = struct
   module type S0 = sig
     include S0
     include Representable.S0 with type t := t
+    include Equatable.Basic.S0 with type t := t
+  end
+end
 
-    val ordered_lists: t list list
-    val equal_lists: t list list
+module Examples = struct
+  module type S0 = sig
+    type t
+
+    val ordered: t list list
+    val equal: t list list
   end
 end
 
 module Tests = struct
-  module Make0(T: Testable.S0) = struct
-    open T
-    open T.O
+  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
     open Testing
     open StdLabels
+
+    open M
+    open M.O
 
     (* @todo (Make terminal recursive and) Put in General.List *)
     let rec cartesian_product xs ys =
@@ -101,15 +109,19 @@ module Tests = struct
         | x::xs -> (List.map ys ~f:(fun y -> (x, y))) @ (cartesian_product xs ys)
 
     let repr_pair (x, y) =
-      (* @todo Tuple2.repr *)
+      (* @todo General.Tuple2.repr *)
       Printf.sprintf "(%s, %s)" (repr x) (repr y) (*BISECT-IGNORE*)
 
-    let check_pair = check ~repr:repr_pair ~equal:(=) (* @todo Tuple2.equal *)
+    let equal_pair (x, y) (x', y') =
+      (* @todo General.Tuple2.equal *)
+      (equal x x') && (equal y y')
 
-    let check = check ~repr ~equal:(=) (* @todo Use `equal` from Equatable (like in Ringoid) *)
+    let check_pair = check ~repr:repr_pair ~equal:equal_pair
+
+    let check = check ~repr ~equal
 
     let test = "Comparable" >:: (
-      ordered_lists
+      E.ordered
       |> List.map ~f:(fun xs ->
         List.fold_left ~init:(List.hd xs, []) (List.tl xs) ~f:(fun (x, tests) y ->
           let rx = repr x and ry = repr y in
@@ -142,9 +154,9 @@ module Tests = struct
         )
         |> snd
       )
-      |> List.concat
+      |> List.concat (* @todo General.List.concat_map (in all tests) *)
     ) @ (
-      equal_lists
+      E.equal
       |> List.map ~f:(fun xs ->
         cartesian_product xs xs
         |> List.map ~f:(fun (x, y) ->

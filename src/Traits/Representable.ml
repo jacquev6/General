@@ -6,22 +6,23 @@ module type S0 = sig
   val repr: t -> string
 end
 
-module Testable = struct
+module Examples = struct
   module type S0 = sig
-    include S0
+    type t
 
-    val representation_examples: (t * string) list
+    val repr: (t * string) list
   end
 end
 
 module Tests = struct
-  module Make0(T: Testable.S0) = struct
-    open T
+  module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
     open Testing
     open StdLabels
 
+    open M
+
     let test = "Representable" >:: (
-      representation_examples
+      E.repr
       |> List.map ~f:(fun (v, expected) ->
         ~: "repr %s" expected (lazy (check_string ~expected (repr v)))
       )

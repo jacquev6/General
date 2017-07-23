@@ -70,34 +70,34 @@ end
 
 module DemoIntMod3 = DemoInteger(struct let name = "IntMod3" end)(IntMod3)
 
-module IntMod3Testable = struct
-  include IntMod3
+module IntMod3Examples = struct
+  open IntMod3
 
-  let equal_lists = [
+  let equal = [
     [of_int 0; of_int 3];
   ]
 
-  let ordered_lists = []
+  let ordered = []
 
-  let different_pairs = []
+  let different = []
 
-  let representation_examples = []
+  let repr = []
 
-  let add_substract_examples = [
+  let add_substract = [
     (1, 2, 0);
     (2, 2, 1);
   ]
 
-  let negate_examples = [
+  let negate = [
     (0, 0);
     (1, 2);
   ]
 
-  let multiply_examples = [
+  let multiply = [
     (2, 2, 1);
   ]
 
-  let divide_examples = [
+  let divide = [
     (2, 1, 2);
     (2, 2, 1);
     (1, 2, 0);
@@ -105,6 +105,6 @@ module IntMod3Testable = struct
 end
 
 let () =
-  (let module M = General.Concepts.Numbers.Integer.Tests.Make0(IntMod3Testable) in M.test)
+  (let module T = General.Concepts.Numbers.Integer.Tests.Make0(IntMod3)(IntMod3Examples) in T.test)
   |> General.Testing.run
   |> General.Testing.report_to_console

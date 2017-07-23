@@ -1,8 +1,6 @@
 module Basic = struct
   module type S0 = sig
-    type t
-
-    include Number.Basic.S0 with type t := t
+    include Number.Basic.S0
     include Traits.Comparable.Basic.S0 with type t := t
 
     val abs: t -> t
@@ -15,9 +13,7 @@ end
 
 module Operators = struct
   module type S0 = sig
-    type t
-
-    include Number.Operators.S0 with type t := t
+    include Number.Operators.S0
     include Traits.Comparable.Operators.S0 with type t := t
   end
 end
@@ -53,37 +49,35 @@ module type S0 = sig
   include Extensions.S0 with type t := t
 end
 
-module Testable = struct
+module Examples = struct
   module type S0 = sig
-    include S0
-
-    include Number.Testable.S0 with type t := t and module O := O
-    include Traits.Comparable.Testable.S0 with type t := t and module O := O
+    include Number.Examples.S0
+    include Traits.Comparable.Examples.S0 with type t := t
   end
 end
 
 module Tests = struct
-  module Make0(T: Testable.S0) = struct
+  module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
     open Testing
     open StdLabels
 
-    module T = struct
-      include T
+    open M
 
-      let ordered_lists = ordered_lists @ [
+    module E = struct
+      include E
+
+      let ordered = ordered @ [
         [zero; one];
       ]
     end
 
-    open T
-
     let check = check ~repr ~equal
 
     let test = "RealNumber" >:: [
-      (let module M = Number.Tests.Make0(T) in M.test);
-      (let module M = Traits.Comparable.Tests.Make0(T) in M.test);
+      (let module T = Number.Tests.Make0(M)(E) in T.test);
+      (let module T = Traits.Comparable.Tests.Make0(M)(E) in T.test);
     ] @ (
-      negate_examples
+      E.negate
       |> List.map ~f:(fun (x, y) ->
         let abs_x = if greater_or_equal x zero then x else y
         and abs_y = if greater_or_equal y zero then y else x in
