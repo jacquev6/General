@@ -35,12 +35,25 @@ module IntMod3 = struct
     let of_int x = x mod 3
     let to_int x = x
     let repr = string_of_int
+    let of_float x = (int_of_float x) mod 3
+    let to_float = float_of_int
+    let of_string x = (int_of_string x) mod 3
+    let abs x = x
 
     let add x y =
       (x + y) mod 3
 
-    let sub x y =
+    let substract x y =
       (x - y + 6) mod 3
+
+    let negate x =
+      (6 - x) mod 3
+
+    let multiply x y =
+      (x * y) mod 3
+
+    let divide x y =
+      (x / y + 6) mod 3
 
     let equal = (=)
 
@@ -68,9 +81,24 @@ module IntMod3Testable = struct
 
   let representation_examples = []
 
-  let addition_examples = [
+  let add_substract_examples = [
     (1, 2, 0);
     (2, 2, 1);
+  ]
+
+  let negate_examples = [
+    (0, 0);
+    (1, 2);
+  ]
+
+  let multiply_examples = [
+    (2, 2, 1);
+  ]
+
+  let divide_examples = [
+    (2, 1, 2);
+    (2, 2, 1);
+    (1, 2, 0);
   ]
 end
 

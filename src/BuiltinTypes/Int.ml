@@ -18,23 +18,42 @@ module Self = struct
     let to_int x =
       x
 
+    let of_float x =
+      int_of_float x
+
+    let to_float x =
+      float_of_int x
+
+    let of_string x =
+      int_of_string x
+
     let repr x =
       string_of_int x
 
     let add x y =
       x + y
 
-    let sub x y =
+    let substract x y =
       x - y
+
+    let negate x =
+      -x
+
+    let multiply x y =
+      x * y
+
+    let divide x y =
+      x / y
+
+    let abs x =
+      abs x
   end
 
-  include Basic
   include Concepts.Numbers.Integer.Extensions.Make0(Basic)
+  include Basic
 end
 
 include Self
-
-open Testing
 
 module Testable = struct
   include Self
@@ -62,12 +81,32 @@ module Testable = struct
     [-10; -5; -1; 0; 1; 2; 5];
   ]
 
-  let addition_examples = [
+  let add_substract_examples = [
     (4, 3, 7);
+    (4, -2, 2);
+    (5, -7, -2);
+  ]
+
+  let negate_examples = [
+    (4, -4);
+    (-7, 7);
+  ]
+
+  let multiply_examples = [
+    (4, 3, 12);
+    (4, -3, -12);
+    (-4, -3, 12);
+  ]
+
+  let divide_examples = [
+    (5, 2, 2);
+    (4, 2, 2);
+    (4, 3, 1);
+    (4, 4, 1);
+    (4, 5, 0);
   ]
 end
 
-let test = "Int" >:: [
+let test = Testing.("Int" >:: [
   (let module M = Concepts.Numbers.Integer.Tests.Make0(Testable) in M.test);
-  "to_int 2" >: (lazy (check_int ~expected:2 (to_int 2)));
-]
+])

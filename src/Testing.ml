@@ -148,6 +148,9 @@ let check_string ~expected actual =
   check ~repr:(fun x -> x) ~equal:(=) ~expected actual
 
 let check_int ~expected actual =
-  check ~repr:(string_of_int) ~equal:(=) ~expected actual
+  check ~repr:string_of_int ~equal:(=) ~expected actual
+
+let check_float_exact ~expected actual =
+  check ~repr:string_of_float ~equal:(=) ~expected actual
 
 (*BISECT-IGNORE-END*)

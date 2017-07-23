@@ -44,6 +44,7 @@ module type S0 = sig
   include Basic.S0
   include Extensions.S0 with type t := t
 end
+
 module Testable = struct
   module type S0 = sig
     include S0
