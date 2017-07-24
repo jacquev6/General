@@ -50,6 +50,11 @@ module Examples = struct
   ]
 end
 
-let test = Testing.("Int" >:: [
-  (let module T = Concepts.Integer.Tests.Make0(BuiltinTypes_.Int_)(Examples) in T.test);
-])
+module Tests = struct
+  open General_
+  open Testing
+
+  let test = "Int" >:: [
+    (let module T = Concepts.Integer.Tests.Make0(BuiltinTypes_.Int_)(Examples) in T.test);
+  ]
+end

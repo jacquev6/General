@@ -1,22 +1,16 @@
 include (Traits_.Comparable_: module type of Comparable_)
 
 module Tests = struct
+  open General_
+  open Testing
+
   module Make0(M: sig
     include Comparable_.S0
     include Representable_.S0 with type t := t
     include Equatable_.Basic.S0 with type t := t
   end)(E: Comparable_.Examples.S0 with type t := M.t) = struct
-    open Testing
-    open StdLabels
-
     open M
     open M.O
-
-    (* @todo (Make terminal recursive and) Put in General.List *)
-    let rec cartesian_product xs ys =
-      match xs with
-        | [] -> []
-        | x::xs -> (List.map ys ~f:(fun y -> (x, y))) @ (cartesian_product xs ys)
 
     let repr_pair (x, y) =
       (* @todo General.Tuple2.repr *)
@@ -32,8 +26,8 @@ module Tests = struct
 
     let test = "Comparable" >:: (
       E.ordered
-      |> List.map ~f:(fun xs ->
-        List.fold_left ~init:(List.hd xs, []) (List.tl xs) ~f:(fun (x, tests) y ->
+      |> List_.concat_map ~f:(fun xs ->
+        List_.fold ~init:(List_.head xs, []) (List_.tail xs) ~f:(fun (x, tests) y ->
           let rx = repr x and ry = repr y in
           let new_tests = [
             ~: "less_than %s %s" rx ry (lazy (check_true (less_than x y)));
@@ -62,14 +56,13 @@ module Tests = struct
           ] in
           (y, new_tests @ tests)
         )
-        |> Pervasives.snd
+        |> Tuple2_.get_1
       )
-      |> List.concat (* @todo General.List.concat_map (in all tests) *)
     ) @ (
       E.equal
-      |> List.map ~f:(fun xs ->
-        cartesian_product xs xs
-        |> List.map ~f:(fun (x, y) ->
+      |> List_.concat_map ~f:(fun xs ->
+        List_.cartesian_product xs xs
+        |> List_.concat_map ~f:(fun (x, y) ->
           let rx = repr x and ry = repr y in
           [
             ~: "less_than %s %s" rx ry (lazy (check_false (less_than x y)));
@@ -107,9 +100,7 @@ module Tests = struct
             ~: "min_max %s %s" ry rx (lazy (check_pair ~expected:(y, y) (min_max y x)));
           ]
         )
-        |> List.concat
       )
-      |> List.concat
     )
   end
 end

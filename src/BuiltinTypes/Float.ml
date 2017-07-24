@@ -50,6 +50,11 @@ module Examples = struct
   ]
 end
 
-let test = Testing.("Float" >:: [
-  (let module T = Concepts.RealNumber.Tests.Make0(BuiltinTypes_.Float_)(Examples) in T.test);
-])
+module Tests = struct
+  open General_
+  open Testing
+
+  let test = "Float" >:: [
+    (let module T = Concepts.RealNumber.Tests.Make0(BuiltinTypes_.Float_)(Examples) in T.test);
+  ]
+end

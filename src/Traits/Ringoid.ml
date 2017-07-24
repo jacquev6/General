@@ -1,14 +1,14 @@
 include (Traits_.Ringoid_: module type of Ringoid_)
 
 module Tests = struct
+  open General_
+  open Testing
+
   module Make0(M: sig
     include Ringoid_.S0
     include Representable_.S0 with type t := t
     include Equatable_.Basic.S0 with type t := t
   end)(E: Ringoid_.Examples.S0 with type t := M.t) = struct
-    open Testing
-    open StdLabels
-
     open M
     open M.O
 
@@ -39,7 +39,7 @@ module Tests = struct
 
     let test = "Ringoid" >:: (
       E.add_substract
-      |> List.map ~f:(fun (x, y, z) ->
+      |> List_.concat_map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y and rz = repr z in
         [
           ~: "add %s %s" rx ry (lazy (check ~expected:z (add x y)));
@@ -52,10 +52,9 @@ module Tests = struct
           ~: "%s - %s" rz rx (lazy (check ~expected:y (z - x)));
         ]
       )
-      |> List.concat
     ) @ (
       E.negate
-      |> List.map ~f:(fun (x, y) ->
+      |> List_.concat_map ~f:(fun (x, y) ->
         let rx = repr x and ry = repr y in
         [
           ~: "negate %s" rx (lazy (check ~expected:y (negate x)));
@@ -74,27 +73,24 @@ module Tests = struct
           ~: "square %s" ry (lazy (check ~expected:(negate (multiply x y)) (square y)));
         ]
       )
-      |> List.concat
     ) @ (
       E.multiply
-      |> List.map ~f:(fun (x, y, z) ->
+      |> List_.concat_map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y in
         [
           ~: "multiply %s %s" rx ry (lazy (check ~expected:z (multiply x y)));
           ~: "%s * %s" rx ry (lazy (check ~expected:z (x * y)));
         ]
       )
-      |> List.concat
     ) @ (
       E.divide
-      |> List.map ~f:(fun (x, y, z) ->
+      |> List_.concat_map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y in
         [
           ~: "divide %s %s" rx ry (lazy (check ~expected:z (divide x y)));
           ~: "%s / %s" rx ry (lazy (check ~expected:z (x / y)));
         ]
       )
-      |> List.concat
     )
   end
 end

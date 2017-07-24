@@ -9,7 +9,7 @@ module Compare: module type of Compare with type t = Compare.t
 
 module Testing: sig
   module Test: sig
-    type t = Testing.Test.t
+    type t = General_.Testing.Test.t
   end
 
   module Result: sig

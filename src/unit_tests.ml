@@ -1,6 +1,6 @@
 let test = Testing.("General" >:: [
-  BuiltinTypes.Float.test;
-  BuiltinTypes.Int.test;
+  BuiltinTypes.Float.Tests.test;
+  BuiltinTypes.Int.Tests.test;
 ])
 
 let () =
