@@ -1,14 +1,14 @@
 module Traits = struct
-  module Comparable = Traits_Tests.Comparable_Tests
-  module Equatable = Traits_Tests.Equatable_Tests
-  module Representable = Traits_Tests.Representable_Tests
-  module Ringoid = Traits_Tests.Ringoid_Tests
+  module Comparable = Traits.Comparable
+  module Equatable = Traits.Equatable
+  module Representable = Traits.Representable
+  module Ringoid = Traits.Ringoid
 end
 
 module Concepts = struct
-  module Number = Concepts_Tests.Number_Tests
-  module RealNumber = Concepts_Tests.RealNumber_Tests
-  module Integer = Concepts_Tests.Integer_Tests
+  module Number = Concepts.Number
+  module RealNumber = Concepts.RealNumber
+  module Integer = Concepts.Integer
 end
 
 include GeneralMin

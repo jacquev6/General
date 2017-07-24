@@ -7,7 +7,7 @@ module Tests = struct
     open M
 
     let test = "Integer" >:: [
-      (let module T = RealNumber_Tests.Tests.Make0(M)(E) in T.test);
+      (let module T = RealNumber.Tests.Make0(M)(E) in T.test);
       "succ zero" >: (lazy (check ~repr ~equal ~expected:one (succ zero)));
       "pred one" >: (lazy (check ~repr ~equal ~expected:zero (pred one)));
     ]

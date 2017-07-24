@@ -20,9 +20,9 @@ module Tests = struct
     end
 
     let test = "Number" >:: [
-      (let module T = Traits_Tests.Representable_Tests.Tests.Make0(M)(E) in T.test);
-      (let module T = Traits_Tests.Equatable_Tests.Tests.Make0(M)(E) in T.test);
-      (let module T = Traits_Tests.Ringoid_Tests.Tests.Make0(M)(E) in T.test);
+      (let module T = Traits.Representable.Tests.Make0(M)(E) in T.test);
+      (let module T = Traits.Equatable.Tests.Make0(M)(E) in T.test);
+      (let module T = Traits.Ringoid.Tests.Make0(M)(E) in T.test);
     ]
   end
 end

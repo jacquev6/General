@@ -18,8 +18,8 @@ module Tests = struct
     let check = check ~repr ~equal
 
     let test = "RealNumber" >:: [
-      (let module T = Number_Tests.Tests.Make0(M)(E) in T.test);
-      (let module T = Traits_Tests.Comparable_Tests.Tests.Make0(M)(E) in T.test);
+      (let module T = Number.Tests.Make0(M)(E) in T.test);
+      (let module T = Traits.Comparable.Tests.Make0(M)(E) in T.test);
     ] @ (
       E.negate
       |> List.map ~f:(fun (x, y) ->
