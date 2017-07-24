@@ -2,7 +2,8 @@ module Traits: module type of Traits
 
 module Concepts: module type of Concepts
 
-include module type of BuiltinTypes
+module Int: Concepts.Numbers.Integer.S0 with type t = int
+module Float: Concepts.Numbers.RealNumber.S0 with type t = float
 
 module Compare: module type of Compare with type t = Compare.t
 
@@ -11,12 +12,9 @@ module Testing: sig
     type t = Testing.Test.t
   end
 
-  module type Testable = sig
-    val test: Test.t
-  end
-
   module Result: sig
     type t
+    (* @todo Publish this type (so that clients can write reports) *)
   end
 
   val run: Test.t -> Result.t
@@ -45,5 +43,3 @@ module Testing: sig
 
   val check_false: bool -> unit
 end
-
-include Testing.Testable
