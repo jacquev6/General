@@ -1,15 +1,6 @@
-module Traits: sig
-  module Comparable: module type of Traits.Comparable
-  module Equatable: module type of Traits.Equatable
-  module Representable: module type of Traits.Representable
-  module Ringoid: module type of Traits.Ringoid
-end
+module Traits: module type of Traits
 
-module Concepts: sig
-  module Number: module type of Concepts.Number
-  module RealNumber: module type of Concepts.RealNumber
-  module Integer: module type of Concepts.Integer
-end
+module Concepts: module type of Concepts
 
 module Int: Concepts.Integer.S0 with type t = int
 module Float: Concepts.RealNumber.S0 with type t = float
