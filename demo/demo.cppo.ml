@@ -101,7 +101,20 @@ module IntMod3Examples = struct
   ]
 end
 
+
 let () =
-  (let module T = General.Concepts.Integer.Tests.Make0(IntMod3)(IntMod3Examples) in T.test)
+  let test = General.Testing.(
+    "demo" >:: [
+      (let module T = General.Traits.Comparable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      (let module T = General.Traits.Equatable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      (let module T = General.Traits.Representable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      (let module T = General.Traits.Ringoid.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      (let module T = General.Concepts.Number.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      (let module T = General.Concepts.RealNumber.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      (* Integer.Tests includes all tests above. The previous lines are only here to prove that we export the functors. *)
+      (let module T = General.Concepts.Integer.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+    ]
+  ) in
+  test
   |> General.Testing.run
   |> General.Testing.report_to_console

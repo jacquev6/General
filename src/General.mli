@@ -1,40 +1,14 @@
 module Traits: sig
-  module Comparable: sig
-    include module type of Traits.Comparable
-    module Tests: module type of Traits_Tests.Comparable_Tests
-  end
-
-  module Equatable: sig
-    include module type of Traits.Equatable
-    module Tests: module type of Traits_Tests.Equatable_Tests
-  end
-
-  module Representable: sig
-    include module type of Traits.Representable
-    module Tests: module type of Traits_Tests.Representable_Tests
-  end
-
-  module Ringoid: sig
-    include module type of Traits.Ringoid
-    module Tests: module type of Traits_Tests.Ringoid_Tests
-  end
+  module Comparable: module type of Traits_Tests.Comparable_Tests
+  module Equatable: module type of Traits_Tests.Equatable_Tests
+  module Representable: module type of Traits_Tests.Representable_Tests
+  module Ringoid: module type of Traits_Tests.Ringoid_Tests
 end
 
 module Concepts: sig
-  module Number: sig
-    include module type of Concepts.Number
-    module Tests: module type of Concepts_Tests.Number_Tests
-  end
-
-  module RealNumber: sig
-    include module type of Concepts.RealNumber
-    module Tests: module type of Concepts_Tests.RealNumber_Tests
-  end
-
-  module Integer: sig
-    include module type of Concepts.Integer
-    module Tests: module type of Concepts_Tests.Integer_Tests
-  end
+  module Number: module type of Concepts_Tests.Number_Tests
+  module RealNumber: module type of Concepts_Tests.RealNumber_Tests
+  module Integer: module type of Concepts_Tests.Integer_Tests
 end
 
 module Int: Concepts.Integer.S0 with type t = int

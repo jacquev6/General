@@ -49,5 +49,5 @@ module Examples = struct
 end
 
 let test = Testing.("Float" >:: [
-  (let module T = Concepts_Tests.RealNumber_Tests.Make0(BuiltinTypes.Float)(Examples) in T.test);
+  (let module T = Concepts_Tests.RealNumber_Tests.Tests.Make0(BuiltinTypes.Float)(Examples) in T.test);
 ])
