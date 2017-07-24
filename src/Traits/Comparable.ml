@@ -1,11 +1,11 @@
-include (Traits_.Comparable_: module type of Traits_.Comparable_)
+include (Traits_.Comparable_: module type of Comparable_)
 
 module Tests = struct
   module Make0(M: sig
-    include Traits_.Comparable_.S0
-    include Traits_.Representable_.S0 with type t := t
-    include Traits_.Equatable_.Basic.S0 with type t := t
-  end)(E: Traits_.Comparable_.Examples.S0 with type t := M.t) = struct
+    include Comparable_.S0
+    include Representable_.S0 with type t := t
+    include Equatable_.Basic.S0 with type t := t
+  end)(E: Comparable_.Examples.S0 with type t := M.t) = struct
     open Testing
     open StdLabels
 
