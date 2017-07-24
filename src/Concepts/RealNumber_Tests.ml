@@ -1,4 +1,4 @@
-include (Concepts.RealNumber: module type of Concepts.RealNumber)
+include (Concepts_.RealNumber_: module type of Concepts_.RealNumber_)
 
 module Tests = struct
   module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct

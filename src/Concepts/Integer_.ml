@@ -1,16 +1,16 @@
-module Basic = RealNumber.Basic
+module Basic = RealNumber_.Basic
 
-module Operators = RealNumber.Operators
+module Operators = RealNumber_.Operators
 
 module type S0 = sig
-  include RealNumber.S0
+  include RealNumber_.S0
 
   val succ: t -> t
   val pred: t -> t
 end
 
 module Make0(B: Basic.S0) = struct
-  include RealNumber.Make0(B)
+  include RealNumber_.Make0(B)
 
   let succ x =
     add x one

@@ -1,4 +1,4 @@
-include Concepts.Integer.Make0(struct
+include Concepts_.Integer_.Make0(struct
   type t = int
 
   let equal x y =

@@ -1,11 +1,11 @@
-include (Traits.Ringoid: module type of Traits.Ringoid)
+include (Traits_.Ringoid_: module type of Traits_.Ringoid_)
 
 module Tests = struct
   module Make0(M: sig
-    include Traits.Ringoid.S0
-    include Traits.Representable.S0 with type t := t
-    include Traits.Equatable.Basic.S0 with type t := t
-  end)(E: Traits.Ringoid.Examples.S0 with type t := M.t) = struct
+    include Traits_.Ringoid_.S0
+    include Traits_.Representable_.S0 with type t := t
+    include Traits_.Equatable_.Basic.S0 with type t := t
+  end)(E: Traits_.Ringoid_.Examples.S0 with type t := M.t) = struct
     open Testing
     open StdLabels
 
