@@ -1,4 +1,4 @@
-include Concepts.Numbers.RealNumber.Make0(struct
+include Concepts.RealNumber.Make0(struct
   type t = float
 
   let equal x y =

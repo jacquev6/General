@@ -1,4 +1,4 @@
-module Make0(M: Concepts.Numbers.Number.S0)(E: Concepts.Numbers.Number.Examples.S0 with type t := M.t) = struct
+module Make0(M: Concepts.Number.S0)(E: Concepts.Number.Examples.S0 with type t := M.t) = struct
   open Testing
 
   open M

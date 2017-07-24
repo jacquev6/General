@@ -1,7 +1,7 @@
 (* @todo This `sig include ... end` is error-prone: we need to do it everywhere.
 Find a way to ensure we actually do it everywhere or, even better, a way to avoid the need for this trick.
 *)
-module Make0(M: sig include Concepts.Numbers.Integer.S0 end)(E: Concepts.Numbers.RealNumber.Examples.S0 with type t := M.t) = struct
+module Make0(M: sig include Concepts.Integer.S0 end)(E: Concepts.RealNumber.Examples.S0 with type t := M.t) = struct
   open Testing
 
   open M

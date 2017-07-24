@@ -21,26 +21,24 @@ module Traits: sig
 end
 
 module Concepts: sig
-  module Numbers: sig
-    module Number: sig
-      include module type of Concepts.Numbers.Number
-      module Tests: module type of Concepts_Tests.Numbers_Tests.Number_Tests
-    end
+  module Number: sig
+    include module type of Concepts.Number
+    module Tests: module type of Concepts_Tests.Number_Tests
+  end
 
-    module RealNumber: sig
-      include module type of Concepts.Numbers.RealNumber
-      module Tests: module type of Concepts_Tests.Numbers_Tests.RealNumber_Tests
-    end
+  module RealNumber: sig
+    include module type of Concepts.RealNumber
+    module Tests: module type of Concepts_Tests.RealNumber_Tests
+  end
 
-    module Integer: sig
-      include module type of Concepts.Numbers.Integer
-      module Tests: module type of Concepts_Tests.Numbers_Tests.Integer_Tests
-    end
+  module Integer: sig
+    include module type of Concepts.Integer
+    module Tests: module type of Concepts_Tests.Integer_Tests
   end
 end
 
-module Int: Concepts.Numbers.Integer.S0 with type t = int
-module Float: Concepts.Numbers.RealNumber.S0 with type t = float
+module Int: Concepts.Integer.S0 with type t = int
+module Float: Concepts.RealNumber.S0 with type t = float
 
 module Compare: module type of Compare with type t = Compare.t
 

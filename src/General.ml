@@ -21,21 +21,19 @@ module Traits = struct
 end
 
 module Concepts = struct
-  module Numbers = struct
-    module Number = struct
-      include Concepts.Numbers.Number
-      module Tests = Concepts_Tests.Numbers_Tests.Number_Tests
-    end
+  module Number = struct
+    include Concepts.Number
+    module Tests = Concepts_Tests.Number_Tests
+  end
 
-    module RealNumber = struct
-      include Concepts.Numbers.RealNumber
-      module Tests = Concepts_Tests.Numbers_Tests.RealNumber_Tests
-    end
+  module RealNumber = struct
+    include Concepts.RealNumber
+    module Tests = Concepts_Tests.RealNumber_Tests
+  end
 
-    module Integer = struct
-      include Concepts.Numbers.Integer
-      module Tests = Concepts_Tests.Numbers_Tests.Integer_Tests
-    end
+  module Integer = struct
+    include Concepts.Integer
+    module Tests = Concepts_Tests.Integer_Tests
   end
 end
 

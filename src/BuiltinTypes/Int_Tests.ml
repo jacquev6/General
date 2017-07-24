@@ -49,5 +49,5 @@ module Examples = struct
 end
 
 let test = Testing.("Int" >:: [
-  (let module T = Concepts_Tests.Numbers_Tests.Integer_Tests.Make0(BuiltinTypes.Int)(Examples) in T.test);
+  (let module T = Concepts_Tests.Integer_Tests.Make0(BuiltinTypes.Int)(Examples) in T.test);
 ])

@@ -1,4 +1,4 @@
-module DemoInteger(N: sig val name: string end)(I: General.Concepts.Numbers.Integer.S0) = struct
+module DemoInteger(N: sig val name: string end)(I: General.Concepts.Integer.S0) = struct
   (* Define unusable operators to demonstrate that O actually defines the operators we use. *)
   let (=) = ()
   let (+) = ()
@@ -63,7 +63,7 @@ module BasicIntMod3 = struct
     General.Compare.(if c = 0 then EQ else if c < 0 then LT else GT)
 end
 
-module IntMod3 = General.Concepts.Numbers.Integer.Make0(BasicIntMod3)
+module IntMod3 = General.Concepts.Integer.Make0(BasicIntMod3)
 
 module DemoIntMod3 = DemoInteger(struct let name = "IntMod3" end)(IntMod3)
 
@@ -102,6 +102,6 @@ module IntMod3Examples = struct
 end
 
 let () =
-  (let module T = General.Concepts.Numbers.Integer.Tests.Make0(IntMod3)(IntMod3Examples) in T.test)
+  (let module T = General.Concepts.Integer.Tests.Make0(IntMod3)(IntMod3Examples) in T.test)
   |> General.Testing.run
   |> General.Testing.report_to_console

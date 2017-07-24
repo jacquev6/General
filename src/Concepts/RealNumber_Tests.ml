@@ -1,4 +1,4 @@
-module Make0(M: Concepts.Numbers.RealNumber.S0)(E: Concepts.Numbers.RealNumber.Examples.S0 with type t := M.t) = struct
+module Make0(M: Concepts.RealNumber.S0)(E: Concepts.RealNumber.Examples.S0 with type t := M.t) = struct
   open Testing
   open StdLabels
 
