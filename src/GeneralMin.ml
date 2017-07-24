@@ -1,4 +1,4 @@
-include BuiltinTypes
+include BuiltinTypes_
 
 module Compare = Compare
 

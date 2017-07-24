@@ -1,7 +1,7 @@
 true: warn(@A-4-44)
 <src>: include
-<src/BuiltinTypes/*.cmx> and not <src/BuiltinTypes/*_Tests.cmx>: for-pack(BuiltinTypes)
-<src/BuiltinTypes/*_Tests.cmx>: for-pack(BuiltinTypes_Tests)
+<src/BuiltinTypes/*_.cmx>: for-pack(BuiltinTypes_)
+<src/BuiltinTypes/*.cmx> and not <src/BuiltinTypes/*_.cmx>: for-pack(BuiltinTypes)
 <src/Concepts/*_.cmx>: for-pack(Concepts_)
 <src/Concepts/*.cmx> and not <src/Concepts/*_.cmx>: for-pack(Concepts)
 <src/Traits/*_.cmx>: for-pack(Traits_)

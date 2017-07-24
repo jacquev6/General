@@ -2,4 +2,8 @@ module Traits = Traits
 
 module Concepts = Concepts
 
-include GeneralMin
+include BuiltinTypes
+
+module Compare = Compare
+
+module Testing = Testing

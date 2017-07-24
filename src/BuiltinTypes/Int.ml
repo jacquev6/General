@@ -1,49 +1,55 @@
-include Concepts_.Integer_.Make0(struct
-  type t = int
+include (BuiltinTypes_.Int_: module type of Int_ with type t = int)
 
-  let equal x y =
-    Pervasives.(=) x y
+module Examples = struct
+  let repr = [
+    (-3, "-3");
+    (-0, "0");
+    (0, "0");
+    (1, "1");
+    (15, "15");
+  ]
 
-  let compare x y =
-    Compare.Poly.compare x y
+  let equal = [
+    [0];
+    [1];
+    [2];
+  ]
 
-  let zero = 0
+  let different = [
+    (0, 1);
+    (1, -1);
+  ]
 
-  let one = 1
+  let ordered = [
+    [-10; -5; -1; 0; 1; 2; 5];
+  ]
 
-  let of_int x =
-    x
+  let add_substract = [
+    (4, 3, 7);
+    (4, -2, 2);
+    (5, -7, -2);
+  ]
 
-  let to_int x =
-    x
+  let negate = [
+    (4, -4);
+    (-7, 7);
+  ]
 
-  let of_float x =
-    Pervasives.int_of_float x
+  let multiply = [
+    (4, 3, 12);
+    (4, -3, -12);
+    (-4, -3, 12);
+  ]
 
-  let to_float x =
-    Pervasives.float_of_int x
+  let divide = [
+    (5, 2, 2);
+    (4, 2, 2);
+    (4, 3, 1);
+    (4, 4, 1);
+    (4, 5, 0);
+  ]
+end
 
-  let of_string x =
-    Pervasives.int_of_string x
-
-  let repr x =
-    Pervasives.string_of_int x
-
-  let add x y =
-    Pervasives.(+) x y
-
-  let substract x y =
-    Pervasives.(-) x y
-
-  let negate x =
-    Pervasives.(~-) x
-
-  let multiply x y =
-    Pervasives.( * ) x y
-
-  let divide x y =
-    Pervasives.(/) x y
-
-  let abs x =
-    Pervasives.abs x
-end)
+let test = Testing.("Int" >:: [
+  (let module T = Concepts.Integer.Tests.Make0(BuiltinTypes_.Int_)(Examples) in T.test);
+])
