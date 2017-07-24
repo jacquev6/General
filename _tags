@@ -1,8 +1,12 @@
 true: warn(@A-4-44)
 <src>: include
-<src/BuiltinTypes/*.cmx>: for-pack(BuiltinTypes)
-<src/Concepts/*.cmx>: for-pack(Concepts)
-<src/Concepts/Numbers/*.cmx>: for-pack(Concepts.Numbers)
-<src/Traits/*.cmx>: for-pack(Traits)
+<src/BuiltinTypes/*.cmx> and not <src/BuiltinTypes/*_Tests.cmx>: for-pack(BuiltinTypes)
+<src/BuiltinTypes/*_Tests.cmx>: for-pack(BuiltinTypes_Tests)
+<src/Concepts/*.cmx> and not <src/Concepts/*_Tests.cmx>: for-pack(Concepts)
+<src/Concepts/*_Tests.cmx>: for-pack(Concepts_Tests)
+<src/Concepts/Numbers/*.cmx> and not <src/Concepts/Numbers/*_Tests.cmx>: for-pack(Concepts.Numbers)
+<src/Concepts/Numbers/*_Tests.cmx>: for-pack(Concepts_Tests.Numbers_Tests)
+<src/Traits/*.cmx> and not <src/Traits/*_Tests.cmx>: for-pack(Traits)
+<src/Traits/*_Tests.cmx>: for-pack(Traits_Tests)
 not <src/Testing.*> and not <demo/**> and not <OperatorForBisectPpx.*>: nopervasives
 not <src/Testing.*> and not <demo/**> and not <OperatorForBisectPpx.*> and not <src/Ubiquitous.*>: open(Ubiquitous)

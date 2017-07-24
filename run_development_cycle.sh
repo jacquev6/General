@@ -10,13 +10,14 @@ function build {
         $@
 }
 
-for pack in $(git ls-files "*.mlpack")
+for pack in $(git ls-files "*.mlpack" --exclude "*_Tests.mlpack")
 do
     directory=${pack%.mlpack}
     if [ -d $directory ]
     then
         # echo "Rebuilding $pack from $directory's contents"
-        ls $directory | grep "^.*\.ml.*$" | sed "s/\.ml.*//" | sort -u >$pack
+        ls $directory | grep -v "_Tests\.ml" | grep "^.*\.ml.*$" | sed "s#\(.*\)\.ml.*#$directory/\1#" | sort -u >${directory}.mlpack
+        ls $directory | grep    "_Tests\.ml" | grep "^.*\.ml.*$" | sed "s#\(.*\)\.ml.*#$directory/\1#" | sort -u >${directory}_Tests.mlpack
     fi
 done
 
