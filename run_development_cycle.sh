@@ -10,16 +10,16 @@ function build {
         $@
 }
 
-# for pack in $(git ls-files "*.mlpack" --exclude "*_Tests.mlpack")
-# do
-#     directory=${pack%.mlpack}
-#     if [ -d $directory ]
-#     then
-#         # echo "Rebuilding $pack from $directory's contents"
-#         ls $directory | grep -v "_Tests\.ml" | grep "^.*\.ml.*$" | sed "s#\(.*\)\.ml.*#$directory/\1#" | sort -u >${directory}.mlpack
-#         ls $directory | grep    "_Tests\.ml" | grep "^.*\.ml.*$" | sed "s#\(.*\)\.ml.*#$directory/\1#" | sort -u >${directory}_Tests.mlpack
-#     fi
-# done
+for pack in $(git ls-files "*.mlpack" --exclude "*_.mlpack")
+do
+    directory=${pack%.mlpack}
+    if [ -d $directory ]
+    then
+        # echo "Rebuilding $pack from $directory's contents"
+        ls $directory | grep -v "_\.ml" | grep "^.*\.ml.*$" | sed "s#\(.*\)\.ml.*#$directory/\1#" | sort -u >${directory}.mlpack
+        ls $directory | grep    "_\.ml" | grep "^.*\.ml.*$" | sed "s#\(.*\)\.ml.*#$directory/\1#" | sort -u >${directory}_.mlpack
+    fi
+done
 
 build -I demo -build-dir _build_native \
     General.cmxa unit_tests.native demo.native
