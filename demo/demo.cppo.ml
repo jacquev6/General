@@ -63,6 +63,14 @@ module BasicIntMod3 = struct
     General.Compare.(if c = 0 then EQ else if c < 0 then LT else GT)
 end
 
+(* Just to check that these functors are exported correctly *)
+module IntMod3_AsComparable = General.Traits.Comparable.Make0(BasicIntMod3)
+module IntMod3_AsEquatable = General.Traits.Equatable.Make0(BasicIntMod3)
+(* No General.Traits.Representable.Make0 *)
+module IntMod3_AsRingoid = General.Traits.Ringoid.Make0(BasicIntMod3)
+module IntMod3_AsNumber = General.Concepts.Number.Make0(BasicIntMod3)
+module IntMod3_AsRealNumber = General.Concepts.RealNumber.Make0(BasicIntMod3)
+
 module IntMod3 = General.Concepts.Integer.Make0(BasicIntMod3)
 
 module DemoIntMod3 = DemoInteger(struct let name = "IntMod3" end)(IntMod3)
