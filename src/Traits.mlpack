@@ -1,4 +1,4 @@
-Comparable
-Equatable
-Representable
-Ringoid
+src/Traits/Comparable
+src/Traits/Equatable
+src/Traits/Representable
+src/Traits/Ringoid

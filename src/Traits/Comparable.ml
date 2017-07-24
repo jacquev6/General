@@ -1,111 +1,16 @@
-module Basic = struct
-  module type S0 = sig
-    type t
-
-    val compare: t -> t -> Compare.t
-  end
-end
-
-module Operators = struct
-  module type S0 = sig
-    type t
-
-    val (<): t -> t -> bool
-    val (<=): t -> t -> bool
-    val (>): t -> t -> bool
-    val (>=): t -> t -> bool
-  end
-end
-
-module type S0 = sig
-  include Basic.S0
-
-  val less_than: t -> t -> bool
-  val less_or_equal: t -> t -> bool
-  val greater_than: t -> t -> bool
-  val greater_or_equal: t -> t -> bool
-
-  val min: t -> t -> t
-  val max: t -> t -> t
-  val min_max: t -> t -> t * t
-
-  module O: Operators.S0 with type t := t
-end
-
-module Make0(B: Basic.S0) = struct
-  include B
-
-  open Compare
-
-  let less_than x y =
-    match compare x y with
-      | LT -> true
-      | _ -> false
-
-  let less_or_equal x y =
-    match compare x y with
-      | GT -> false
-      | _ -> true
-
-  let greater_than x y =
-    match compare x y with
-      | GT -> true
-      | _ -> false
-
-  let greater_or_equal x y =
-    match compare x y with
-      | LT -> false
-      | _ -> true
-
-  let min x y =
-    match compare x y with LT -> x | GT | EQ -> y
-
-  let max x y =
-    match compare x y with GT -> x | LT | EQ -> y
-
-  let min_max x y =
-    match compare x y with LT -> (x, y) | GT | EQ -> (y, x)
-
-  module O = struct
-    let (<) x y =
-      less_than x y
-
-    let (<=) x y =
-      less_or_equal x y
-    let (>) x y =
-      greater_than x y
-
-    let (>=) x y =
-      greater_or_equal x y
-  end
-end
-
-module Examples = struct
-  module type S0 = sig
-    type t
-
-    val ordered: t list list
-    val equal: t list list
-  end
-end
+include (Traits_.Comparable_: module type of Comparable_)
 
 module Tests = struct
-  module Make0(M: sig
-    include S0
-    include Representable.S0 with type t := t
-    include Equatable.Basic.S0 with type t := t
-  end)(E: Examples.S0 with type t := M.t) = struct
-    open Testing
-    open StdLabels
+  open General_
+  open Testing
 
+  module Make0(M: sig
+    include Comparable_.S0
+    include Representable_.S0 with type t := t
+    include Equatable_.Basic.S0 with type t := t
+  end)(E: Comparable_.Examples.S0 with type t := M.t) = struct
     open M
     open M.O
-
-    (* @todo (Make terminal recursive and) Put in General.List *)
-    let rec cartesian_product xs ys =
-      match xs with
-        | [] -> []
-        | x::xs -> (List.map ys ~f:(fun y -> (x, y))) @ (cartesian_product xs ys)
 
     let repr_pair (x, y) =
       (* @todo General.Tuple2.repr *)
@@ -121,8 +26,8 @@ module Tests = struct
 
     let test = "Comparable" >:: (
       E.ordered
-      |> List.map ~f:(fun xs ->
-        List.fold_left ~init:(List.hd xs, []) (List.tl xs) ~f:(fun (x, tests) y ->
+      |> List_.concat_map ~f:(fun xs ->
+        List_.fold ~init:(List_.head xs, []) (List_.tail xs) ~f:(fun (x, tests) y ->
           let rx = repr x and ry = repr y in
           let new_tests = [
             ~: "less_than %s %s" rx ry (lazy (check_true (less_than x y)));
@@ -151,14 +56,13 @@ module Tests = struct
           ] in
           (y, new_tests @ tests)
         )
-        |> Pervasives.snd
+        |> Tuple2_.get_1
       )
-      |> List.concat (* @todo General.List.concat_map (in all tests) *)
     ) @ (
       E.equal
-      |> List.map ~f:(fun xs ->
-        cartesian_product xs xs
-        |> List.map ~f:(fun (x, y) ->
+      |> List_.concat_map ~f:(fun xs ->
+        List_.cartesian_product xs xs
+        |> List_.concat_map ~f:(fun (x, y) ->
           let rx = repr x and ry = repr y in
           [
             ~: "less_than %s %s" rx ry (lazy (check_false (less_than x y)));
@@ -196,9 +100,7 @@ module Tests = struct
             ~: "min_max %s %s" ry rx (lazy (check_pair ~expected:(y, y) (min_max y x)));
           ]
         )
-        |> List.concat
       )
-      |> List.concat
     )
   end
 end
