@@ -1,4 +1,4 @@
-include (BuiltinTypes_.Float_: module type of Float_ with type t = float)
+include BuiltinTypes_.Float_
 
 module Examples = struct
   let repr = [

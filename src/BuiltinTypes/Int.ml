@@ -1,4 +1,4 @@
-include (BuiltinTypes_.Int_: module type of Int_ with type t = int)
+include BuiltinTypes_.Int_
 
 module Examples = struct
   let repr = [
