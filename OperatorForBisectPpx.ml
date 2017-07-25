@@ -4,3 +4,5 @@ Error: Unbound value <
 *)
 
 let (<) = Pervasives.(<)
+module Array = Array
+module Pervasives = Pervasives

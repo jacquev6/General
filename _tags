@@ -1,4 +1,6 @@
 true: warn(@A-4-44)
+true: package(num)
+true: cppo_V_OCAML
 <src>: include
 <src/BuiltinTypes/*_.cmx>: for-pack(BuiltinTypes_)
 <src/BuiltinTypes/*.cmx> and not <src/BuiltinTypes/*_.cmx>: for-pack(BuiltinTypes)

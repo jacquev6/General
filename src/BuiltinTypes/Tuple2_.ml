@@ -1,1 +1,1 @@
-let get_1 = Pervasives.snd
+let get_1 = OCamlStandard.Pervasives.snd

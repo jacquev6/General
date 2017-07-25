@@ -2,7 +2,7 @@ include Concepts_.RealNumber_.Make0(struct
   type t = float
 
   let equal x y =
-    Pervasives.(=) x y
+    OCamlStandard.Pervasives.(=) x y
 
   let compare x y =
     Compare.Poly.compare x y
@@ -12,10 +12,10 @@ include Concepts_.RealNumber_.Make0(struct
   let one = 1.
 
   let of_int x =
-    Pervasives.float_of_int x
+    OCamlStandard.Pervasives.float_of_int x
 
   let to_int x =
-    Pervasives.int_of_float x
+    OCamlStandard.Pervasives.int_of_float x
 
   let of_float x =
     x
@@ -24,26 +24,26 @@ include Concepts_.RealNumber_.Make0(struct
     x
 
   let of_string x =
-    Pervasives.float_of_string x
+    OCamlStandard.Pervasives.float_of_string x
 
   let repr x =
-    Pervasives.string_of_float x
+    OCamlStandard.Pervasives.string_of_float x
 
   let add x y =
-    Pervasives.(+.) x y
+    OCamlStandard.Pervasives.(+.) x y
 
   let substract x y =
-    Pervasives.(-.) x y
+    OCamlStandard.Pervasives.(-.) x y
 
   let negate x =
-    Pervasives.(~-.) x
+    OCamlStandard.Pervasives.(~-.) x
 
   let multiply x y =
-    Pervasives.( *. ) x y
+    OCamlStandard.Pervasives.( *. ) x y
 
   let divide x y =
-    Pervasives.(/.) x y
+    OCamlStandard.Pervasives.(/.) x y
 
   let abs x =
-    Pervasives.abs_float x
+    OCamlStandard.Pervasives.abs_float x
 end)

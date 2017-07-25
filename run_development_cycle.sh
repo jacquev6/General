@@ -41,7 +41,7 @@ _build/src/unit_tests.byte
 echo
 bisect-summary bisect0001.out
 echo
-bisect-ppx-report -html _build/bisect bisect0001.out
+bisect-ppx-report -I _build -html _build/bisect bisect0001.out
 echo "See coverage report in $(pwd)/_build/bisect/index.html"
 echo
 rm -f bisect????.out

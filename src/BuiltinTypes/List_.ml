@@ -1,4 +1,4 @@
-include ListLabels
+include OCamlStandard.ListLabels
 
 (* @todo Make terminal recursive *)
 let concat_map xs ~f =

@@ -14,11 +14,11 @@ module Tests = struct
 
     let repr_pair (x, y) =
       (* @todo General.Tuple2.repr *)
-      Printf.sprintf "(%s, %s)" (repr x) (repr y) (*BISECT-IGNORE*)
+      OCamlStandard.Printf.sprintf "(%s, %s)" (repr x) (repr y) (*BISECT-IGNORE*)
 
     let equal_pair (x, y) (x', y') =
       (* @todo General.Tuple2.equal *)
-      Pervasives.(&&) (equal x x') (equal y y')
+      OCamlStandard.Pervasives.(&&) (equal x x') (equal y y')
 
     let check_pair = check ~repr:repr_pair ~equal:equal_pair
 
