@@ -19,6 +19,21 @@ module Operators = struct
     val (=): t -> t -> bool
     val (<>): t -> t -> bool
   end
+
+  module Make0(M: sig
+    type t
+
+    val equal: t -> t -> bool
+    val different: t -> t -> bool
+  end) = struct
+    open M
+
+    let (=) x y =
+      equal x y
+
+    let (<>) x y =
+      different x y
+  end
 end
 
 module type S0 = sig
@@ -35,24 +50,28 @@ module type S1 = sig
   val different: 'a t -> 'a t -> equal:('a -> 'a -> bool) -> bool
 end
 
-module Make0(B: Basic.S0) = struct
-  include B
+module Different = struct
+  module Make0(M: sig
+    type t
 
-  let different x y =
-    OCamlStandard.Pervasives.not (equal x y)
+    val equal: t -> t -> bool
+  end) = struct
+    open M
 
-  module O = struct
-    let (=) x y =
-      equal x y
-
-    let (<>) x y =
-      different x y
+    let different x y =
+      OCamlStandard.Pervasives.not (equal x y)
   end
-end
 
-module Make1(B: Basic.S1) = struct
-  include B
+  module type M1 = sig
+    type 'a t
 
-  let different x y ~equal:eq =
-    OCamlStandard.Pervasives.not (equal x y ~equal:eq)
+    val equal: 'a t -> 'a t -> equal:('a -> 'a -> bool) -> bool
+  end
+
+  module Make1(M: M1) = struct
+    open M
+
+    let different x y ~equal:eq =
+      OCamlStandard.Pervasives.not (equal x y ~equal:eq)
+  end
 end

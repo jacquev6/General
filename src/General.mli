@@ -20,7 +20,7 @@ module Testing: sig
   end
 
   module Test: sig
-    type t = Testing.Test.t
+    type t = Testing_.Test.t
 
     val run: ?record_backtrace:bool -> t -> Result.t
   end

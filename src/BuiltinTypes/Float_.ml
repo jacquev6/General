@@ -1,4 +1,4 @@
-include Concepts_.RealNumber_.Make0(struct
+module SelfA = struct
   type t = float
 
   let equal x y =
@@ -52,4 +52,26 @@ include Concepts_.RealNumber_.Make0(struct
 
   let exponentiate_negative_exponent ~exponentiate x n =
     exponentiate (divide 1. x) OCamlStandard.Pervasives.(-n)
-end)
+end
+
+module SelfB = struct
+  include Traits_.Ringoid_.Square.Make0(SelfA)
+  include SelfA
+end
+
+module SelfC = struct
+  include Concepts_.Integer_.PredSucc.Make0(SelfB)
+  include Traits_.Comparable_.GreaterLessThan.Make0(SelfB)
+  include Traits_.Comparable_.MinMax.Make0(SelfB)
+  include Traits_.Equatable_.Different.Make0(SelfB)
+  include Traits_.Ringoid_.Exponentiate.Make0(SelfB)
+  include SelfB
+end
+
+include SelfC
+
+module O = struct
+  include Traits_.Comparable_.Operators.Make0(SelfC)
+  include Traits_.Equatable_.Operators.Make0(SelfC)
+  include Traits_.Ringoid_.Operators.Make0(SelfC)
+end

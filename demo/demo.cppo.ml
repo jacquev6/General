@@ -32,55 +32,54 @@ let () = Printf.printf "General.Int.succ 4: %n\n" (General.Int.succ 4)
 
 module DemoGeneralInt = DemoInteger(struct let name = "General.Int" end)(General.Int)
 
-module BasicIntMod3 = struct
-  open OCamlStandard.Pervasives
+module IntMod3 = struct
+  module SelfA = struct
+    open OCamlStandard.Pervasives
 
-  type t = int
-  let zero = 0
-  let one = 1
-  let of_int x = x mod 3
-  let to_int x = x
-  let repr = string_of_int
-  let of_float x = (int_of_float x) mod 3
-  let to_float = float_of_int
-  let of_string x = (int_of_string x) mod 3
-  let to_string = string_of_int
-  let abs x = x
+    type t = int
+    let zero = 0
+    let one = 1
+    let of_int x = x mod 3
+    let to_int x = x
+    let repr = string_of_int
+    let of_float x = (int_of_float x) mod 3
+    let to_float = float_of_int
+    let of_string x = (int_of_string x) mod 3
+    let to_string = string_of_int
+    let abs x = x
+    let add x y = (x + y) mod 3
+    let negate x = (6 - x) mod 3
+    let multiply x y = (x * y) mod 3
+    let divide x y = (x / y + 6) mod 3
+    let equal = (=)
+    let compare = General.Compare.Poly.compare
+    let exponentiate_negative_exponent ~exponentiate:_ _ _ =
+      OCamlStandard.Pervasives.invalid_arg "Negative exponent"
+  end
 
-  let add x y =
-    (x + y) mod 3
+  module SelfB = struct
+    include General.Traits.Ringoid.Substract.Make0(SelfA)
+    include General.Traits.Ringoid.Square.Make0(SelfA)
+    include SelfA
+  end
 
-  let substract x y =
-    (x - y + 6) mod 3
+  module SelfC = struct
+    include General.Traits.Ringoid.Exponentiate.Make0(SelfB)
+    include General.Concepts.Integer.PredSucc.Make0(SelfB)
+    include General.Traits.Comparable.MinMax.Make0(SelfB)
+    include General.Traits.Comparable.GreaterLessThan.Make0(SelfB)
+    include General.Traits.Equatable.Different.Make0(SelfB)
+    include SelfB
+  end
 
-  let negate x =
-    (6 - x) mod 3
+  include SelfC
 
-  let multiply x y =
-    (x * y) mod 3
-
-  let divide x y =
-    (x / y + 6) mod 3
-
-  let equal = (=)
-
-  let compare x y =
-    let c = compare x y in
-    General.Compare.(if c = 0 then EQ else if c < 0 then LT else GT)
-
-  let exponentiate_negative_exponent ~exponentiate:_ _ _ =
-    OCamlStandard.Pervasives.invalid_arg "Negative exponent"
+  module O = struct
+    include General.Traits.Ringoid.Operators.Make0(SelfC)
+    include General.Traits.Comparable.Operators.Make0(SelfC)
+    include General.Traits.Equatable.Operators.Make0(SelfC)
+  end
 end
-
-(* Just to check that these functors are exported correctly *)
-module IntMod3_AsComparable = General.Traits.Comparable.Make0(BasicIntMod3)
-module IntMod3_AsEquatable = General.Traits.Equatable.Make0(BasicIntMod3)
-(* No General.Traits.Representable.Make0 *)
-module IntMod3_AsRingoid = General.Traits.Ringoid.Make0(BasicIntMod3)
-module IntMod3_AsNumber = General.Concepts.Number.Make0(BasicIntMod3)
-module IntMod3_AsRealNumber = General.Concepts.RealNumber.Make0(BasicIntMod3)
-
-module IntMod3 = General.Concepts.Integer.Make0(BasicIntMod3)
 
 module DemoIntMod3 = DemoInteger(struct let name = "IntMod3" end)(IntMod3)
 

@@ -1,7 +1,7 @@
 module Lazy = OCamlStandard.Lazy
 module Printf = OCamlStandard.Printf
 
-include Traits_.Equatable_.Make1(struct
+module Self = struct
   type 'a t = 'a option
 
   let equal x y ~equal =
@@ -9,12 +9,15 @@ include Traits_.Equatable_.Make1(struct
       | (None, None) -> true
       | (None, Some _) | (Some _, None) -> false
       | (Some x, Some y) -> equal x y
-end)
 
-let repr x ~repr =
-  match x with
-    | None -> "None"
-    | Some x -> Printf.sprintf "Some %s" (repr x)
+  let repr x ~repr =
+    match x with
+      | None -> "None"
+      | Some x -> Printf.sprintf "Some %s" (repr x)
 
-let some_if condition value =
-  if condition then Some (Lazy.force value) else None
+  let some_if condition value =
+    if condition then Some (Lazy.force value) else None
+end
+
+include Traits_.Equatable_.Different.Make1(Self)
+include Self

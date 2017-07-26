@@ -15,6 +15,28 @@ module Operators = struct
     val (>): t -> t -> bool
     val (>=): t -> t -> bool
   end
+
+  module Make0(M: sig
+    type t
+
+    val less_than: t -> t -> bool
+    val less_or_equal: t -> t -> bool
+    val greater_than: t -> t -> bool
+    val greater_or_equal: t -> t -> bool
+  end) = struct
+    open M
+
+    let (<) x y =
+      less_than x y
+
+    let (<=) x y =
+      less_or_equal x y
+    let (>) x y =
+      greater_than x y
+
+    let (>=) x y =
+      greater_or_equal x y
+  end
 end
 
 module type S0 = sig
@@ -32,50 +54,53 @@ module type S0 = sig
   module O: Operators.S0 with type t := t
 end
 
-module Make0(B: Basic.S0) = struct
-  include B
+module GreaterLessThan = struct
+  module Make0(M: sig
+    type t
 
-  open Compare
+    val compare: t -> t -> Compare.t
+  end) = struct
+    open M
+    open Compare
 
-  let less_than x y =
-    match compare x y with
-      | LT -> true
-      | _ -> false
+    let less_than x y =
+      match compare x y with
+        | LT -> true
+        | _ -> false
 
-  let less_or_equal x y =
-    match compare x y with
-      | GT -> false
-      | _ -> true
+    let less_or_equal x y =
+      match compare x y with
+        | GT -> false
+        | _ -> true
 
-  let greater_than x y =
-    match compare x y with
-      | GT -> true
-      | _ -> false
+    let greater_than x y =
+      match compare x y with
+        | GT -> true
+        | _ -> false
 
-  let greater_or_equal x y =
-    match compare x y with
-      | LT -> false
-      | _ -> true
+    let greater_or_equal x y =
+      match compare x y with
+        | LT -> false
+        | _ -> true
+  end
+end
 
-  let min x y =
-    match compare x y with LT -> x | GT | EQ -> y
+module MinMax = struct
+  module Make0(M: sig
+    type t
 
-  let max x y =
-    match compare x y with GT -> x | LT | EQ -> y
+    val compare: t -> t -> Compare.t
+  end) = struct
+    open M
+    open Compare
 
-  let min_max x y =
-    match compare x y with LT -> (x, y) | GT | EQ -> (y, x)
+    let min x y =
+      match compare x y with LT -> x | GT | EQ -> y
 
-  module O = struct
-    let (<) x y =
-      less_than x y
+    let max x y =
+      match compare x y with GT -> x | LT | EQ -> y
 
-    let (<=) x y =
-      less_or_equal x y
-    let (>) x y =
-      greater_than x y
-
-    let (>=) x y =
-      greater_or_equal x y
+    let min_max x y =
+      match compare x y with LT -> (x, y) | GT | EQ -> (y, x)
   end
 end
