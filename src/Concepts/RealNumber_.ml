@@ -41,10 +41,3 @@ module Make0(B: Basic.S0) = struct
   include (Number': Number_.S0 with type t := t and module O := O)
   include (Comparable': Traits_.Comparable_.S0 with type t := t and module O := O)
 end
-
-module Examples = struct
-  module type S0 = sig
-    include Number_.Examples.S0
-    include Traits_.Comparable_.Examples.S0 with type t := t
-  end
-end

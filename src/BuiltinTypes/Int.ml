@@ -1,3 +1,5 @@
+open General_.Abbr
+
 include BuiltinTypes_.Int_
 
 module Examples = struct
@@ -51,8 +53,7 @@ module Examples = struct
 end
 
 module Tests = struct
-  open General_.Abbr
-  open Tst
+  open Testing
 
   let test = "Int" >:: [
     (let module T = Concepts.Integer.Tests.Make0(BuiltinTypes_.Int_)(Examples) in T.test);

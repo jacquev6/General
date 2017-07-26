@@ -1,10 +1,11 @@
+open General_.Abbr
+
 include (Concepts_.Integer_: module type of Integer_)
 
 module Tests = struct
-  open General_.Abbr
-  open Tst
+  open Testing
 
-  module Make0(M: S0)(E: RealNumber_.Examples.S0 with type t := M.t) = struct
+  module Make0(M: S0)(E: RealNumber.Tests.Examples.S0 with type t := M.t) = struct
     open M
 
     let test = "Integer" >:: [

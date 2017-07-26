@@ -43,6 +43,9 @@ build -I demo \
     -tag-line '<DependenciesForBisectPpx.*>:-open(DependenciesForBisectPpx)' \
     General.cma unit_tests.byte unit_tests.js demo.byte
 
+# @todo Could we build with *one* module using bisect_ppx and measure coverage of this module by its own tests?
+# Currently, a few functions are measured as covered because they are used in the test framework.
+
 echo
 echo "Running unit tests in node.js"
 node _build/src/unit_tests.js

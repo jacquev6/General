@@ -1,14 +1,24 @@
+open General_.Abbr
+
 include (Traits_.Comparable_: module type of Comparable_)
 
 module Tests = struct
-  open General_.Abbr
-  open Tst
+  open Testing
+
+  module Examples = struct
+    module type S0 = sig
+      type t
+
+      val ordered: t list list
+      val equal: t list list
+    end
+  end
 
   module Make0(M: sig
-    include Comparable_.S0
-    include Representable_.S0 with type t := t
+    include S0
+    include Representable_.Basic.S0 with type t := t
     include Equatable_.Basic.S0 with type t := t
-  end)(E: Comparable_.Examples.S0 with type t := M.t) = struct
+  end)(E: Examples.S0 with type t := M.t) = struct
     open M
     open M.O
 

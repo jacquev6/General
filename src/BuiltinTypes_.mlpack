@@ -1,6 +1,9 @@
+src/BuiltinTypes/Bool_
 src/BuiltinTypes/Exception_
 src/BuiltinTypes/Float_
 src/BuiltinTypes/Int_
 src/BuiltinTypes/List_
+src/BuiltinTypes/Option_
 src/BuiltinTypes/Reference_
+src/BuiltinTypes/String_
 src/BuiltinTypes/Tuple2_

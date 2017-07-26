@@ -1,8 +1,16 @@
+open General_.Abbr
+
 include (Concepts_.RealNumber_: module type of RealNumber_)
 
 module Tests = struct
-  open General_.Abbr
-  open Tst
+  open Testing
+
+  module Examples = struct
+    module type S0 = sig
+      include Number.Tests.Examples.S0
+      include Traits.Comparable.Tests.Examples.S0 with type t := t
+    end
+  end
 
   module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
     open M

@@ -57,14 +57,3 @@ module Make0(B: Basic.S0) = struct
       divide x y
   end
 end
-
-module Examples = struct
-  module type S0 = sig
-    type t
-
-    val add_substract: (t * t * t) list
-    val negate: (t * t) list
-    val multiply: (t * t * t) list
-    val divide: (t * t * t) list
-  end
-end

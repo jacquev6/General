@@ -1,14 +1,26 @@
+open General_.Abbr
+
 include (Traits_.Ringoid_: module type of Ringoid_)
 
 module Tests = struct
-  open General_.Abbr
-  open Tst
+  open Testing
+
+  module Examples = struct
+    module type S0 = sig
+      type t
+
+      val add_substract: (t * t * t) list
+      val negate: (t * t) list
+      val multiply: (t * t * t) list
+      val divide: (t * t * t) list
+    end
+  end
 
   module Make0(M: sig
-    include Ringoid_.S0
-    include Representable_.S0 with type t := t
+    include S0
+    include Representable_.Basic.S0 with type t := t
     include Equatable_.Basic.S0 with type t := t
-  end)(E: Ringoid_.Examples.S0 with type t := M.t) = struct
+  end)(E: Examples.S0 with type t := M.t) = struct
     open M
     open M.O
 

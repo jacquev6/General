@@ -4,25 +4,22 @@ module Abbr = struct
   include Ubiquitous
 
   open BuiltinTypes_
-  module Int = Int_
+  module Bo = Bool_
+  module Exn = Exception_
   module Fl = Float_
+  module Int = Int_
   module Li = List_
+  module Opt = Option_
+  module Ref = Reference_
+  module Str = String_
   module Tu2 = Tuple2_
 
-  module Cmp = Compare
-  module Tst = Testing
-
+  (* @todo Find suitable homes for these values *)
+  (* @todo Implement operators as 'O' modules and open them here *)
   let (@) = Li.append
-
-  (* @todo Function.apply' *)
-  let (|>) v f =
-    f v
-
-  (* @todo Function.apply *)
-  let (@@) f v =
-    f v
+  let (^) = OCamlStandard.Pervasives.(^)
+  let (|>) = OCamlStandard.Pervasives.(|>)
+  let exit = OCamlStandard.Pervasives.exit
+  let ignore = OCamlStandard.Pervasives.ignore
+  let not = OCamlStandard.Pervasives.not
 end
-
-module Compare = Compare
-
-module Testing = Testing

@@ -79,12 +79,3 @@ module Make0(B: Basic.S0) = struct
       greater_or_equal x y
   end
 end
-
-module Examples = struct
-  module type S0 = sig
-    type t
-
-    val ordered: t list list
-    val equal: t list list
-  end
-end

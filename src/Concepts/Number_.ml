@@ -40,11 +40,3 @@ module Make0(B: Basic.S0) = struct
   include (Equatable': Traits_.Equatable_.S0 with type t := t and module O := O)
   include (Ringoid': Traits_.Ringoid_.S0 with type t := t and module O := O)
 end
-
-module Examples = struct
-  module type S0 = sig
-    include Traits_.Representable_.Examples.S0
-    include Traits_.Equatable_.Examples.S0 with type t := t
-    include Traits_.Ringoid_.Examples.S0 with type t := t
-  end
-end

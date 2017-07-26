@@ -1,8 +1,17 @@
+open General_.Abbr
+
 include (Concepts_.Number_: module type of Number_)
 
 module Tests = struct
-  open General_.Abbr
-  open Tst
+  open Testing
+
+  module Examples = struct
+    module type S0 = sig
+      include Traits.Representable.Tests.Examples.S0
+      include Traits.Equatable.Tests.Examples.S0 with type t := t
+      include Traits.Ringoid.Tests.Examples.S0 with type t := t
+    end
+  end
 
   module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
     open M
