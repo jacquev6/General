@@ -44,6 +44,7 @@ module BasicIntMod3 = struct
   let of_float x = (int_of_float x) mod 3
   let to_float = float_of_int
   let of_string x = (int_of_string x) mod 3
+  let to_string = string_of_int
   let abs x = x
 
   let add x y =
@@ -92,6 +93,8 @@ module IntMod3Examples = struct
   let different = []
 
   let repr = []
+
+  let to_string = []
 
   let add_substract = [
     (1, 2, 0);

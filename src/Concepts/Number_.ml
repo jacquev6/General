@@ -1,6 +1,7 @@
 module Basic = struct
   module type S0 = sig
-    include Traits_.Representable_.S0
+    include Traits_.Representable_.Basic.S0
+    include Traits_.Displayable_.Basic.S0 with type t := t
     include Traits_.Equatable_.Basic.S0 with type t := t
     include Traits_.Ringoid_.Basic.S0 with type t := t
 
@@ -22,6 +23,8 @@ module type S0 = sig
 
   module O: Operators.S0 with type t := t
 
+  include Traits_.Representable_.S0 with type t := t
+  include Traits_.Displayable_.S0 with type t := t
   include Traits_.Equatable_.S0 with type t := t and module O := O
   include Traits_.Ringoid_.S0 with type t := t and module O := O
 end

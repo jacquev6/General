@@ -1,4 +1,5 @@
 src/Traits/Comparable_
+src/Traits/Displayable_
 src/Traits/Equatable_
 src/Traits/Representable_
 src/Traits/Ringoid_

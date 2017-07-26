@@ -8,6 +8,7 @@ module Tests = struct
   module Examples = struct
     module type S0 = sig
       include Traits.Representable.Tests.Examples.S0
+      include Traits.Displayable.Tests.Examples.S0 with type t := t
       include Traits.Equatable.Tests.Examples.S0 with type t := t
       include Traits.Ringoid.Tests.Examples.S0 with type t := t
     end
@@ -31,6 +32,7 @@ module Tests = struct
 
     let test = "Number" >:: [
       (let module T = Traits.Representable.Tests.Make0(M)(E) in T.test);
+      (let module T = Traits.Displayable.Tests.Make0(M)(E) in T.test);
       (let module T = Traits.Equatable.Tests.Make0(M)(E) in T.test);
       (let module T = Traits.Ringoid.Tests.Make0(M)(E) in T.test);
     ]

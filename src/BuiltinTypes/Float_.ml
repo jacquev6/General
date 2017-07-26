@@ -26,6 +26,9 @@ include Concepts_.RealNumber_.Make0(struct
   let of_string x =
     OCamlStandard.Pervasives.float_of_string x
 
+  let to_string x =
+    OCamlStandard.Pervasives.string_of_float x
+
   let repr x =
     OCamlStandard.Pervasives.string_of_float x
 

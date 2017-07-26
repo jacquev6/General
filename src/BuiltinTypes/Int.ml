@@ -11,6 +11,8 @@ module Examples = struct
     (15, "15");
   ]
 
+  let to_string = repr
+
   let equal = [
     [0];
     [1];
