@@ -8,5 +8,5 @@ true: cppo_V_OCAML
 <src/Concepts/*.cmx> and not <src/Concepts/*_.cmx>: for-pack(Concepts)
 <src/Traits/*_.cmx>: for-pack(Traits_)
 <src/Traits/*.cmx> and not <src/Traits/*_.cmx>: for-pack(Traits)
-not <src/Testing.*> and not <demo/**> and not <OperatorForBisectPpx.*>: nopervasives
-not <src/Testing.*> and not <demo/**> and not <src/Reset*.*> and not <OperatorForBisectPpx.*> and not <src/Ubiquitous.*>: open(Ubiquitous)
+not <src/Testing.*> and not <demo/**> and not <DependenciesForBisectPpx.*>: nopervasives
+not <src/Testing.*> and not <demo/**> and not <src/Reset*.*> and not <DependenciesForBisectPpx.*> and not <src/Ubiquitous.*>: open(Ubiquitous)
