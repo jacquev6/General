@@ -4,6 +4,4 @@ let test = Testing.("General" >:: [
 ])
 
 let () =
-  test
-  |> Testing.run
-  |> Testing.report_to_console
+  Testing.report_to_console (Testing.run test)

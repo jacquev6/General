@@ -1,8 +1,8 @@
 include (Traits_.Comparable_: module type of Comparable_)
 
 module Tests = struct
-  open General_
-  open Testing
+  open General_.Abbr
+  open Tst
 
   module Make0(M: sig
     include Comparable_.S0
@@ -26,8 +26,8 @@ module Tests = struct
 
     let test = "Comparable" >:: (
       E.ordered
-      |> List_.concat_map ~f:(fun xs ->
-        List_.fold ~init:(List_.head xs, []) (List_.tail xs) ~f:(fun (x, tests) y ->
+      |> Li.concat_map ~f:(fun xs ->
+        Li.fold ~init:(Li.head xs, []) (Li.tail xs) ~f:(fun (x, tests) y ->
           let rx = repr x and ry = repr y in
           let new_tests = [
             ~: "less_than %s %s" rx ry (lazy (check_true (less_than x y)));
@@ -56,13 +56,13 @@ module Tests = struct
           ] in
           (y, new_tests @ tests)
         )
-        |> Tuple2_.get_1
+        |> Tu2.get_1
       )
     ) @ (
       E.equal
-      |> List_.concat_map ~f:(fun xs ->
-        List_.cartesian_product xs xs
-        |> List_.concat_map ~f:(fun (x, y) ->
+      |> Li.concat_map ~f:(fun xs ->
+        Li.cartesian_product xs xs
+        |> Li.concat_map ~f:(fun (x, y) ->
           let rx = repr x and ry = repr y in
           [
             ~: "less_than %s %s" rx ry (lazy (check_false (less_than x y)));

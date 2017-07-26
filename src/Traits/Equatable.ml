@@ -1,8 +1,8 @@
 include (Traits_.Equatable_: module type of Equatable_)
 
 module Tests = struct
-  open General_
-  open Testing
+  open General_.Abbr
+  open Tst
 
   module Make0(M: sig
     include Equatable_.S0
@@ -13,9 +13,9 @@ module Tests = struct
 
     let test = "Equatable" >:: (
       E.equal
-      |> List_.concat_map ~f:(fun xs ->
-        List_.cartesian_product xs xs
-        |> List_.concat_map ~f:(fun (x, y) ->
+      |> Li.concat_map ~f:(fun xs ->
+        Li.cartesian_product xs xs
+        |> Li.concat_map ~f:(fun (x, y) ->
           let rx = repr x and ry = repr y in
           [
             ~: "equal %s %s" rx ry (lazy (check_true (equal x y)));
@@ -32,7 +32,7 @@ module Tests = struct
       )
     ) @ (
       E.different
-      |> List_.concat_map ~f:(fun (x, y) ->
+      |> Li.concat_map ~f:(fun (x, y) ->
         let rx = repr x and ry = repr y in
         [
           ~: "equal %s %s" rx ry (lazy (check_false (equal x y)));

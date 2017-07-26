@@ -22,7 +22,20 @@ do
 done
 
 build -I demo -build-dir _build_native \
+    ResetPervasives.inferred.mli \
     General.cmxa unit_tests.native demo.native
+
+echo
+grep _build_native/src/ResetPervasives.inferred.mli -v \
+    -e "^ " -e "^type " -e "^exception " -e "^module LargeFile" \
+    -e "\`Please_use__General_" -e "\`You_should_not_be_using_that" \
+    -e __LOC__ -e __FILE__ -e __LINE__ -e __MODULE__ -e __POS__ -e __LOC_OF__ -e __LINE_OF__ -e __POS_OF__ \
+| sed "s/^/Not overriden in Pervasives: /"
+
+if [ ${PIPESTATUS[0]} == 0 ]
+then
+    exit 1
+fi
 
 build -I demo \
     -package bisect_ppx \

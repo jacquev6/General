@@ -1,8 +1,8 @@
 include (Concepts_.RealNumber_: module type of RealNumber_)
 
 module Tests = struct
-  open General_
-  open Testing
+  open General_.Abbr
+  open Tst
 
   module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
     open M
@@ -22,7 +22,7 @@ module Tests = struct
       (let module T = Traits.Comparable.Tests.Make0(M)(E) in T.test);
     ] @ (
       E.negate
-      |> List_.concat_map ~f:(fun (x, y) ->
+      |> Li.concat_map ~f:(fun (x, y) ->
         let abs_x = if greater_or_equal x zero then x else y
         and abs_y = if greater_or_equal y zero then y else x in
         [

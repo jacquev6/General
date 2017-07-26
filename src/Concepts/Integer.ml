@@ -1,8 +1,8 @@
 include (Concepts_.Integer_: module type of Integer_)
 
 module Tests = struct
-  open General_
-  open Testing
+  open General_.Abbr
+  open Tst
 
   module Make0(M: S0)(E: RealNumber_.Examples.S0 with type t := M.t) = struct
     open M

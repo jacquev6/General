@@ -2,14 +2,16 @@ module Traits: module type of Traits
 
 module Concepts: module type of Concepts
 
-module Int: Concepts.Integer.S0 with type t = int
-module Float: Concepts.RealNumber.S0 with type t = float
+module Int: module type of BuiltinTypes_.Int_
+module Float: module type of BuiltinTypes_.Float_
+
+module Abbr: module type of General_.Abbr
 
 module Compare: module type of Compare with type t = Compare.t
 
 module Testing: sig
   module Test: sig
-    type t = General_.Testing.Test.t
+    type t = General_.Abbr.Tst.Test.t
   end
 
   module Result: sig

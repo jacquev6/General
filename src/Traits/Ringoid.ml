@@ -1,8 +1,8 @@
 include (Traits_.Ringoid_: module type of Ringoid_)
 
 module Tests = struct
-  open General_
-  open Testing
+  open General_.Abbr
+  open Tst
 
   module Make0(M: sig
     include Ringoid_.S0
@@ -39,7 +39,7 @@ module Tests = struct
 
     let test = "Ringoid" >:: (
       E.add_substract
-      |> List_.concat_map ~f:(fun (x, y, z) ->
+      |> Li.concat_map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y and rz = repr z in
         [
           ~: "add %s %s" rx ry (lazy (check ~expected:z (add x y)));
@@ -54,7 +54,7 @@ module Tests = struct
       )
     ) @ (
       E.negate
-      |> List_.concat_map ~f:(fun (x, y) ->
+      |> Li.concat_map ~f:(fun (x, y) ->
         let rx = repr x and ry = repr y in
         [
           ~: "negate %s" rx (lazy (check ~expected:y (negate x)));
@@ -75,7 +75,7 @@ module Tests = struct
       )
     ) @ (
       E.multiply
-      |> List_.concat_map ~f:(fun (x, y, z) ->
+      |> Li.concat_map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y in
         [
           ~: "multiply %s %s" rx ry (lazy (check ~expected:z (multiply x y)));
@@ -84,7 +84,7 @@ module Tests = struct
       )
     ) @ (
       E.divide
-      |> List_.concat_map ~f:(fun (x, y, z) ->
+      |> Li.concat_map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y in
         [
           ~: "divide %s %s" rx ry (lazy (check ~expected:z (divide x y)));

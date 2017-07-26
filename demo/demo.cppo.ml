@@ -1,3 +1,6 @@
+open General.Abbr
+module Printf = OCamlStandard.Printf
+
 module DemoInteger(N: sig val name: string end)(I: General.Concepts.Integer.S0) = struct
   (* Define unusable operators to demonstrate that O actually defines the operators we use. *)
   let (=) = ()
@@ -13,7 +16,7 @@ module DemoInteger(N: sig val name: string end)(I: General.Concepts.Integer.S0) 
     print s (repr v)
 
   let print_bool s v =
-    print s (string_of_bool v)
+    print s (OCamlStandard.Pervasives.string_of_bool v)
 
   #define TEST(type, value) let () = CONCAT(print_, type) STRINGIFY(value) value
 
@@ -30,6 +33,8 @@ let () = Printf.printf "General.Int.succ 4: %n\n" (General.Int.succ 4)
 module DemoGeneralInt = DemoInteger(struct let name = "General.Int" end)(General.Int)
 
 module BasicIntMod3 = struct
+  open OCamlStandard.Pervasives
+
   type t = int
   let zero = 0
   let one = 1
