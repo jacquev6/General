@@ -13,6 +13,7 @@ module Tests = struct
       val negate: (t * t) list
       val multiply: (t * t * t) list
       val divide: (t * t * t) list
+      val exponentiate: (t * int * t) list
     end
   end
 
@@ -44,6 +45,15 @@ module Tests = struct
       let divide = divide @ [
         (zero, one, zero);
         (one, one, one);
+      ]
+
+      let exponentiate = exponentiate @ [
+        (zero, 0, one);
+        (zero, 1, zero);
+        (zero, 7, zero);
+        (one, 0, one);
+        (one, 1, one);
+        (one, 7, one);
       ]
     end
 
@@ -87,20 +97,29 @@ module Tests = struct
       )
     ) @ (
       E.multiply
-      |> Li.concat_map ~f:(fun (x, y, z) ->
+      |> Li.concat_map ~f:(fun (x, y, expected) ->
         let rx = repr x and ry = repr y in
         [
-          ~: "multiply %s %s" rx ry (lazy (check ~expected:z (multiply x y)));
-          ~: "%s * %s" rx ry (lazy (check ~expected:z (x * y)));
+          ~: "multiply %s %s" rx ry (lazy (check ~expected (multiply x y)));
+          ~: "%s * %s" rx ry (lazy (check ~expected (x * y)));
         ]
       )
     ) @ (
       E.divide
-      |> Li.concat_map ~f:(fun (x, y, z) ->
+      |> Li.concat_map ~f:(fun (x, y, expected) ->
         let rx = repr x and ry = repr y in
         [
-          ~: "divide %s %s" rx ry (lazy (check ~expected:z (divide x y)));
-          ~: "%s / %s" rx ry (lazy (check ~expected:z (x / y)));
+          ~: "divide %s %s" rx ry (lazy (check ~expected (divide x y)));
+          ~: "%s / %s" rx ry (lazy (check ~expected (x / y)));
+        ]
+      )
+    ) @ (
+      E.exponentiate
+      |> Li.concat_map ~f:(fun (x, n, expected) ->
+        let rx = repr x in
+        [
+          ~: "exponentiate %s %n" rx n (lazy (check ~expected (exponentiate x n)));
+          ~: "%s ** %n" rx n (lazy (check ~expected (x ** n)));
         ]
       )
     )

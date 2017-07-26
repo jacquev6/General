@@ -52,6 +52,11 @@ module Examples = struct
     (4, 4, 1);
     (4, 5, 0);
   ]
+
+  let exponentiate = [
+    (3, 3, 27);
+    (2, 7, 128);
+  ]
 end
 
 module Tests = struct
@@ -59,5 +64,6 @@ module Tests = struct
 
   let test = "Int" >:: [
     (let module T = Concepts.Integer.Tests.Make0(BuiltinTypes_.Int_)(Examples) in T.test);
+    "exponentiate 2 (-4)" >: (lazy (expect_exception ~expected:(Invalid_argument "Negative exponent") (lazy (exponentiate 2 (-4)))));
   ]
 end

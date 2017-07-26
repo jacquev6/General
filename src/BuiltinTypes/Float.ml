@@ -52,6 +52,13 @@ module Examples = struct
     (4., 4., 1.);
     (4., 5., 0.8);
   ]
+
+  let exponentiate = [
+    (3., 3, 27.);
+    (2., 7, 128.);
+    (0.5, 4, 0.0625);
+    (2., -4, 0.0625);
+  ]
 end
 
 module Tests = struct
