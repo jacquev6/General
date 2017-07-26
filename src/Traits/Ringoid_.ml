@@ -36,7 +36,15 @@ module type S0 = sig
   module O: Operators.S0 with type t := t
 end
 
-module Make0(B: Basic.S0) = struct
+module Makeable = struct
+  module type S0 = sig
+    include Basic.S0
+
+    val exponentiate_negative_exponent: exponentiate:(t -> int -> t) -> t -> int -> t
+  end
+end
+
+module Make0(B: Makeable.S0): S0 with type t = B.t = struct
   include B
 
   let square x =
@@ -45,7 +53,7 @@ module Make0(B: Basic.S0) = struct
   let exponentiate =
     let rec aux y x n = OCamlStandard.Pervasives.(
       if n < 0 then
-        invalid_arg "Negative exponent"
+        exponentiate_negative_exponent ~exponentiate:(aux one) x n
       else if n = 0 then
         y
       else if n = 1 then

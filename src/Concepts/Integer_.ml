@@ -9,7 +9,15 @@ module type S0 = sig
   val pred: t -> t
 end
 
-module Make0(B: Basic.S0) = struct
+module Makeable = struct
+  module type S0 = sig
+    include Basic.S0
+
+    include Traits_.Ringoid_.Makeable.S0 with type t := t
+  end
+end
+
+module Make0(B: Makeable.S0) = struct
   include RealNumber_.Make0(B)
 
   let succ x =

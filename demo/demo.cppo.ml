@@ -67,6 +67,9 @@ module BasicIntMod3 = struct
   let compare x y =
     let c = compare x y in
     General.Compare.(if c = 0 then EQ else if c < 0 then LT else GT)
+
+  let exponentiate_negative_exponent ~exponentiate:_ _ _ =
+    OCamlStandard.Pervasives.invalid_arg "Negative exponent"
 end
 
 (* Just to check that these functors are exported correctly *)

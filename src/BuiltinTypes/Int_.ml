@@ -49,4 +49,7 @@ include Concepts_.Integer_.Make0(struct
 
   let abs x =
     OCamlStandard.Pervasives.abs x
+
+  let exponentiate_negative_exponent ~exponentiate:_ _ _ =
+    OCamlStandard.Pervasives.invalid_arg "Negative exponent"
 end)

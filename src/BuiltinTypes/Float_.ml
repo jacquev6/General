@@ -1,4 +1,4 @@
-module Made = Concepts_.RealNumber_.Make0(struct
+include Concepts_.RealNumber_.Make0(struct
   type t = float
 
   let equal x y =
@@ -49,22 +49,7 @@ module Made = Concepts_.RealNumber_.Make0(struct
 
   let abs x =
     OCamlStandard.Pervasives.abs_float x
+
+  let exponentiate_negative_exponent ~exponentiate x n =
+    exponentiate (divide 1. x) OCamlStandard.Pervasives.(-n)
 end)
-
-let fixed_exponentiate x n = OCamlStandard.Pervasives.(
-  if n >= 0 then
-    Made.exponentiate x n
-  else
-    Made.exponentiate (1. /. x) (-n)
-)
-
-module O = struct
-  include Made.O
-
-  let ( ** ) x n =
-    fixed_exponentiate x n
-end
-
-include (Made: module type of Made with module O := O)
-
-let exponentiate = fixed_exponentiate
