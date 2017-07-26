@@ -1,4 +1,4 @@
-open General_.Abbr
+open Abbr_
 
 include (Concepts_.RealNumber_: module type of RealNumber_)
 

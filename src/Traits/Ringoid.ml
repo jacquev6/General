@@ -1,4 +1,4 @@
-open General_.Abbr
+open Abbr_
 
 include (Traits_.Ringoid_: module type of Ringoid_)
 

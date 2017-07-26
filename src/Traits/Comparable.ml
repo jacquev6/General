@@ -1,4 +1,4 @@
-open General_.Abbr
+open Abbr_
 
 include (Traits_.Comparable_: module type of Comparable_)
 

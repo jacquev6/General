@@ -4,7 +4,7 @@ let test = Testing.("General" >:: [
   BuiltinTypes.Float.Tests.test;
   BuiltinTypes.Int.Tests.test;
   BuiltinTypes.Option.Tests.test;
-  BuiltinTypes.StringInternal.Tests.test;
+  BuiltinTypes.String'.Tests.test;
 ])
 
 let () =

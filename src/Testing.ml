@@ -1,4 +1,4 @@
-open General_.Abbr
+open Abbr_
 module Lazy = OCamlStandard.Lazy
 module Printexc = OCamlStandard.Printexc
 module Printf = OCamlStandard.Printf

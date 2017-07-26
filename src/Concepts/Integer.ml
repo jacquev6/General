@@ -1,4 +1,4 @@
-open General_.Abbr
+open Abbr_
 
 include (Concepts_.Integer_: module type of Integer_)
 

@@ -9,7 +9,7 @@ module Int: module type of BuiltinTypes_.Int_
 module Option: module type of BuiltinTypes_.Option_
 module String: module type of BuiltinTypes_.String_
 
-module Abbr: module type of General_.Abbr
+module Abbr: module type of Abbr_
 
 module Compare: module type of Compare with type t = Compare.t
 

@@ -1,4 +1,4 @@
-open General_.Abbr
+open Abbr_
 
 include (Traits_.Representable_: module type of Representable_)
 

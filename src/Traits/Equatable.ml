@@ -1,4 +1,4 @@
-open General_.Abbr
+open Abbr_
 
 include (Traits_.Equatable_: module type of Equatable_)
 

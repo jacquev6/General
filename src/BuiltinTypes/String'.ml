@@ -1,4 +1,4 @@
-open General_.Abbr
+open Abbr_
 
 include BuiltinTypes_.String_
 

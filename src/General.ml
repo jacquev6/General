@@ -3,9 +3,9 @@ module Traits = Traits
 module Concepts = Concepts
 
 include BuiltinTypes
-module String = StringInternal
+module String = String'
 
-module Abbr = General_.Abbr
+module Abbr = Abbr_
 
 module Compare = Compare
 
