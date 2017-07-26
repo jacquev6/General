@@ -1,191 +1,155 @@
 open Abbr_
-module Lazy = OCamlStandard.Lazy
-module Printexc = OCamlStandard.Printexc
-module Printf = OCamlStandard.Printf
 
-module Test = struct
-  type single = {
-    label: string;
-    check: unit lazy_t;
+include Testing_
+
+module Tests = struct
+  exception TestException0
+  exception TestException0'
+  exception TestException1 of string
+
+  type many = {
+    byte: string;
+    js: string;
   }
 
-  type group = {
-    name: string;
-    tests: t list;
-  }
+  type expected =
+    | One of string
+    | Many of many
 
-  and t =
-    | Single of single
-    | Group of group
+  (*BISECT-IGNORE-BEGIN*) (* Test code *)
+  let homogenize =
+    if OCamlStandard.(Int.O.(StringLabels.sub ~pos:((StringLabels.length Sys.argv.(0)) - 3) ~len:3 (Sys.argv.(0))) = ".js") then
+      function
+        | One x -> x
+        | Many {js; _} -> js
+    else
+      function
+        | One x -> x
+        | Many {byte; _} -> byte
+  (*BISECT-IGNORE-END*)
+
+  module ResultExamples = struct
+    open Result
+    open Status
+
+    let repr = [
+      (Single {label="foo"; status=Success}, "Single {label=\"foo\"; status=Success}");
+      (Single {label="foo"; status=Failure (NotEqual ("a", "b"))}, "Single {label=\"foo\"; status=Failure (NotEqual (\"a\", \"b\"))}");
+      (Single {label="foo"; status=Failure (NoException TestException0)}, "Single {label=\"foo\"; status=Failure (NoException Testing.Tests.TestException0)}");
+      (Single {label="foo"; status=Failure (WrongException (TestException0, TestException0', None))}, "Single {label=\"foo\"; status=Failure (WrongException (Testing.Tests.TestException0, Testing.Tests.TestException0', None))}");
+      (Single {label="foo"; status=Failure (Custom "bad")}, "Single {label=\"foo\"; status=Failure (Custom \"bad\")}");
+      (Single {label="foo"; status=Error (TestException0, None)}, "Single {label=\"foo\"; status=Error (Testing.Tests.TestException0, None)}");
+      (Group {name="bar"; children=[Single {label="foo"; status=Success}]}, "Group {name=\"bar\"; children=[Single {label=\"foo\"; status=Success}]}");
+    ]
+  end
+
+  let test = "Testing" >:: [
+    "Result" >:: [
+      (let module T = Traits.Representable.Tests.Make0(Result)(ResultExamples) in T.test);
+      "to_indented_strings" >:: (
+        let make expected result =
+          let expected =
+            expected
+            |> Li.map ~f:homogenize
+          in
+          (expected |> OCamlStandard.StringLabels.concat ~sep:"\n") >: (lazy (
+            let actual =
+              result
+              |> Result.decorate_with_counts
+              |> Result.to_indented_strings ~verbose:true
+            in
+            check_string_list ~expected actual
+          ))
+        in
+        Result.(Status.[
+          make
+            [One "\"foo\": OK"]
+            (Single {label="foo"; status=Success});
+          make
+            [One "\"bar 1\": FAILED: expected a, but got b"]
+            (Single {label="bar 1"; status=Failure (NotEqual ("a", "b"))});
+          make
+            [One "\"bar 2\": FAILED: expected exception Testing.Tests.TestException0 not raised"]
+            (Single {label="bar 2"; status=Failure (NoException (TestException0))});
+          make
+            [One "\"bar 3\": FAILED: expected exception Testing.Tests.TestException0 not raised, but exception Testing.Tests.TestException0' raised (no backtrace)"]
+            (Single {label="bar 3"; status=Failure (WrongException (TestException0, TestException0', None))});
+          make
+            [
+              Many {
+                js = "\"bar 4\": FAILED: expected exception Testing.Tests.TestException1(bad) not raised, but exception Testing.Tests.TestException1(too bad) raised\n";
+                byte = "\"bar 4\": FAILED: expected exception Testing.Tests.TestException1(\"bad\") not raised, but exception Testing.Tests.TestException1(\"too bad\") raised\n\
+                        Raised by primitive operation at file \"src/TestingCallstack.ml\", line 1, characters 16-54\n";
+              }
+            ]
+            (Single {label="bar 4"; status=Failure (WrongException (TestException1 "bad", TestException1 "too bad", Some TestingCallstack.callstack))});
+          make
+            [One "\"bar 5\": FAILED: too bad"]
+            (Single {label="bar 5"; status=Failure (Custom "too bad")});
+          make
+            [One "\"bar 6\": ERROR: exception Testing.Tests.TestException0 raised (no backtrace)"]
+            (Single {label="bar 6"; status=Error (TestException0, None)});
+          make
+            [Many {
+              js = "\"bar 7\": ERROR: exception Testing.Tests.TestException1(bad) raised\n";
+              byte = "\"bar 7\": ERROR: exception Testing.Tests.TestException1(\"bad\") raised\n\
+                      Raised by primitive operation at file \"src/TestingCallstack.ml\", line 1, characters 16-54\n";
+            }]
+            (Single {label="bar 7"; status=Error (TestException1 "bad", Some TestingCallstack.callstack)});
+          make
+            [
+              One "\"foo\" (Successes: 2)";
+              One "  \"bar\": OK";
+              One "  \"baz\": OK";
+            ]
+            (Group {name="foo"; children=[Single {label="bar"; status=Success}; Single {label="baz"; status=Success}]});
+          make
+            [
+              One "\"foo\" (Successes: 1, failures: 1, errors: 0)";
+              One "  \"bar\": FAILED: nope";
+              One "  \"baz\": OK";
+            ]
+            (Group {name="foo"; children=[Single {label="bar"; status=Failure (Custom "nope")}; Single {label="baz"; status=Success}]});
+          make
+            [
+              One "\"foo\" (Successes: 0, failures: 0, errors: 1)";
+              One "  \"bar\": ERROR: exception Testing.Tests.TestException0 raised (no backtrace)";
+            ]
+            (Group {name="foo"; children=[Single {label="bar"; status=Error (TestException0, None)}]});
+        ])
+      );
+    ];
+    "Test" >:: [
+      ~:: "ru%s" "n" (
+        let make expected test =
+          let name = match test with
+            | Test.Single {Test.label; _} -> label
+            | Test.Group {Test.name; _} -> name
+          in
+          name >: (lazy (check ~repr:Result.repr ~equal:Result.equal ~expected (Test.run ~record_backtrace:false test)))
+        in
+        Result.(Status.[
+          make (Single {label="single success"; status=Success}) ("single success" >: (lazy ()));
+          make
+            (Group {name="group success"; children=[Single {label="child"; status=Success}]})
+            ("group success" >:: ["child" >: (lazy ())]);
+          make
+            (Single {label="not equal failure"; status=Failure (NotEqual ("42", "43"))})
+            ("not equal failure" >: (lazy (check_int ~expected:42 43)));
+          make
+            (Single {label="no exception"; status=Failure (NoException TestException0)})
+            ("no exception" >: (lazy (expect_exception ~expected:TestException0 (lazy ()))));
+          make
+            (Single {label="wrong exception"; status=Failure (WrongException (TestException0, TestException0', None))})
+            ("wrong exception" >: (lazy (expect_exception ~expected:TestException0 (lazy (Exn.raise TestException0')))));
+          make
+            (Single {label="custom failure"; status=Failure (Custom "bad")})
+            ("custom failure" >: (lazy (fail "bad")));
+          make
+            (Single {label="error"; status=Error (TestException0, None)})
+            ("error" >: (lazy (Exn.raise TestException0)));
+        ])
+      );
+    ];
+  ]
 end
-
-module type Testable = sig
-  val test: Test.t
-end
-
-module Result = struct
-  type failure =
-    | NotEqual of (string * string)
-    | NoException of exn
-    | WrongException of exn * exn * Printexc.raw_backtrace option
-    | Custom of string
-
-  type status =
-    | Success
-    | Failed of failure
-    | Error of exn * Printexc.raw_backtrace option
-
-  type single = {
-    label: string;
-    status: status;
-  }
-
-  type group = {
-    name: string;
-    successes: int;
-    failures: int;
-    errors: int;
-    children: t list;
-  }
-
-  and t =
-    | Single of single
-    | Group of group
-end
-
-let string_of_status = Result.(function
-    | Success ->
-      "OK"
-    | Failed (NotEqual (expected, actual)) ->
-      (* @todo split lines, quote each line, display very explicitly. Unless both values are single line. Quote anyway *)
-      Printf.sprintf "FAILED: expected %s, but got %s" expected actual
-    | Failed (NoException expected) ->
-      OCamlStandard.Printf.sprintf "FAILED: expected exception %s not raised" (OCamlStandard.Printexc.to_string expected)
-    | Failed (WrongException (expected, exc, None)) ->
-      OCamlStandard.Printf.sprintf "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" (OCamlStandard.Printexc.to_string expected) (OCamlStandard.Printexc.to_string exc) (*BISECT-IGNORE*) (* Covered only in Javascript *)
-    | Failed (WrongException (expected, exc, Some bt)) ->
-      OCamlStandard.Printf.sprintf "FAILED: expected exception %s not raised, but exception %s raised\n%s"(OCamlStandard.Printexc.to_string expected) (OCamlStandard.Printexc.to_string exc) (OCamlStandard.Printexc.raw_backtrace_to_string bt)
-    | Failed (Custom message) ->
-      Printf.sprintf "FAILED: %s" message
-    | Error (exc, None) ->
-      Printf.sprintf "ERROR: exception %s raised (no backtrace)" (Printexc.to_string exc)
-    | Error (exc, Some bt) ->
-      Printf.sprintf "ERROR: exception %s raised\n%s" (Printexc.to_string exc) (Printexc.raw_backtrace_to_string bt)
-)
-
-exception TestFailure of Result.failure
-
-let run test =
-  Printexc.record_backtrace true;
-  let single {Test.label; check} =
-    try
-      Lazy.force check;
-      {Result.label; status=Result.Success}
-    with
-      | TestFailure reason -> {Result.label; status=Result.Failed reason}
-      | exc -> {Result.label; status=Result.Error (exc, if Printexc.backtrace_status () then Some (Printexc.get_raw_backtrace ()) else None)}
-  in
-  let rec group {Test.name; tests} =
-    let children = Li.map ~f:aux tests in
-    let (successes, failures, errors) =
-      Li.fold ~init:(0, 0, 0) children ~f:Int.O.(fun (s, f, e) -> function
-        | Result.Single {Result.status=Result.Success; _} -> (s + 1, f, e)
-        | Result.Single {Result.status=Result.Failed _; _} -> (s, f + 1, e)
-        | Result.Single {Result.status=Result.Error _; _} -> (s, f, e + 1)
-        | Result.Group {Result.successes; failures; errors; _} -> (s + successes, f + failures, e + errors)
-      )
-    in
-    {Result.name; successes; failures; errors; children}
-  and aux = function
-    | Test.Single s -> Result.Single (single s)
-    | Test.Group g -> Result.Group (group g)
-  in
-  aux test
-
-let string_of_result result = Ref.O.(
-  let report = Ref.of_contents "" in
-  let rec aux indent = function
-    | Result.Group {Result.name; successes; failures=0; errors=0; _} ->
-      report := !report ^ Printf.sprintf "%s%s (Success: %i)\n" indent name successes
-    | Result.Group  {Result.name; successes; failures; errors; children}  ->
-      report := !report ^ Printf.sprintf "%s%s (Success: %i, failure: %i, error: %i)\n" indent name successes failures errors;
-      Li.iter children ~f:(aux (indent ^ "  "))
-    | Result.Single {Result.status=Result.Success; _} -> ()
-    | Result.Single {Result.label; status} -> report := !report ^ Printf.sprintf "%s%s: %s\n" indent label (string_of_status status)
-  in aux "" result;
-  !report
-)
-
-let report_to_console result =
-  result |> string_of_result |> Printf.printf "%s";
-  match result with
-    | Result.Single {Result.status=Result.Success; _}
-    | Result.Group {Result.failures=0; errors=0; _} -> ()
-    | _ -> exit 1
-
-(* Test factories *)
-
-let (>::) name tests =
-  Test.(Group {name; tests})
-
-let (>:) label check =
-  Test.(Single {label; check})
-
-let (~::) format =
-  Printf.ksprintf (>::) format
-
-let (~:) format =
-  Printf.ksprintf (>:) format
-
-(* Checks *)
-
-let fail format =
-  Printf.ksprintf
-    (fun message ->
-      Exn.raise (TestFailure (Result.Custom message))
-    )
-    format
-
-exception FunctionReturned
-let expect_exception ~expected x =
-  try
-    ignore (Lazy.force x);
-    Exn.raise FunctionReturned
-  with
-    | FunctionReturned -> Exn.raise (TestFailure (Result.NoException expected))
-    | actual when Exn.equal actual expected -> ()
-    | exc -> Exn.raise (TestFailure (Result.WrongException (expected, exc, Opt.some_if (OCamlStandard.Printexc.backtrace_status ()) (lazy (OCamlStandard.Printexc.get_raw_backtrace ())))))
-
-let check ~repr ~equal ~expected actual =
-  if not (equal expected actual) then
-    Exn.raise (TestFailure (Result.NotEqual (repr expected, repr actual)))
-
-let check_bool ~expected actual =
-  check ~repr:Bo.repr ~equal:Bo.equal ~expected actual
-
-let check_true actual =
-  check_bool ~expected:true actual
-
-let check_false actual =
-  check_bool ~expected:false actual
-
-let check_string ~expected actual =
-  check ~repr:Str.repr ~equal:Str.equal ~expected actual
-
-let check_int ~expected actual =
-  check ~repr:Int.repr ~equal:Int.equal ~expected actual
-
-let check_float_exact ~expected actual =
-  check ~repr:Fl.repr ~equal:Fl.equal ~expected actual
-
-let check_option ~repr ~equal ~expected actual =
-  check ~repr:(Opt.repr ~repr) ~equal:(Opt.equal ~equal) ~expected actual
-
-let check_int_option ~expected actual =
-  check_option ~repr:Int.repr ~equal:Int.equal ~expected actual
-
-let check_some_int ~expected actual =
-  check_int_option ~expected:(Some expected) actual
-
-let check_none_int actual =
-  check_int_option ~expected:None actual

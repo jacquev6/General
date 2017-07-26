@@ -3,7 +3,7 @@ open Abbr_
 include (Concepts_.Number_: module type of Number_)
 
 module Tests = struct
-  open Testing
+  open Testing_
 
   module Examples = struct
     module type S0 = sig

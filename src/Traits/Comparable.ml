@@ -3,7 +3,7 @@ open Abbr_
 include (Traits_.Comparable_: module type of Comparable_)
 
 module Tests = struct
-  open Testing
+  open Testing_
 
   module Examples = struct
     module type S0 = sig

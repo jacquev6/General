@@ -3,7 +3,7 @@ open Abbr_
 include (Traits_.Representable_: module type of Representable_)
 
 module Tests = struct
-  open Testing
+  open Testing_
 
   module Examples = struct
     module type S0 = sig

@@ -38,7 +38,7 @@ then
 fi
 
 build -I demo \
-    -package bisect_ppx \
+    -package bisect_ppx -tag debug \
     -tag-line 'true:+open(DependenciesForBisectPpx)' \
     -tag-line '<DependenciesForBisectPpx.*>:-open(DependenciesForBisectPpx)' \
     General.cma unit_tests.byte unit_tests.js demo.byte
@@ -54,10 +54,11 @@ echo
 rm -f bisect????.out
 echo "Running unit tests in byte code"
 _build/src/unit_tests.byte
+_build/src/unit_tests.byte --verbose > _build/unit_tests_output.txt
 echo
-bisect-summary bisect0001.out | grep -v -e "^100.0% \[.*\] src/" -e "^100.0% .*ForBisectPpx.ml$" -e "^  0.0% \[.*0/0.*\] src/"
+bisect-summary bisect????.out | grep -v -e "^100.0% \[.*\] src/" -e "^100.0% .*ForBisectPpx.ml$" -e "^  0.0% \[.*0/0.*\] src/"
 echo
-bisect-ppx-report -I _build -html _build/bisect bisect0001.out
+bisect-ppx-report -I _build -html _build/bisect bisect????.out
 echo "See coverage report in $(pwd)/_build/bisect/index.html"
 echo
 rm -f bisect????.out

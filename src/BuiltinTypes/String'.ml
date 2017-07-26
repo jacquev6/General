@@ -3,7 +3,7 @@ open Abbr_
 include BuiltinTypes_.String_
 
 module Tests = struct
-  open Testing
+  open Testing_
 
   module Examples = struct
     let repr = [

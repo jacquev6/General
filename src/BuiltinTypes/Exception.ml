@@ -3,7 +3,7 @@ open Abbr_
 include BuiltinTypes_.Exception_
 
 module Tests = struct
-  open Testing
+  open Testing_
 
   exception TestException
 

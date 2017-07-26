@@ -3,7 +3,7 @@ open Abbr_
 include (Concepts_.Integer_: module type of Integer_)
 
 module Tests = struct
-  open Testing
+  open Testing_
 
   module Make0(M: S0)(E: RealNumber.Tests.Examples.S0 with type t := M.t) = struct
     open M

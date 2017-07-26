@@ -131,6 +131,4 @@ let () =
       (let module T = General.Concepts.Integer.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
     ]
   ) in
-  test
-  |> General.Testing.run
-  |> General.Testing.report_to_console
+  exit (General.Testing.command_line_main ~argv:OCamlStandard.(Array.to_list Sys.argv) test)

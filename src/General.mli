@@ -14,18 +14,18 @@ module Abbr: module type of Abbr_
 module Compare: module type of Compare with type t = Compare.t
 
 module Testing: sig
+  module Result: sig
+    (* @todo Publish this type (so that clients can write reports) *)
+    type t
+  end
+
   module Test: sig
     type t = Testing.Test.t
+
+    val run: ?record_backtrace:bool -> t -> Result.t
   end
 
-  module Result: sig
-    type t
-    (* @todo Publish this type (so that clients can write reports) *)
-  end
-
-  val run: Test.t -> Result.t
-
-  val report_to_console: Result.t -> unit
+  val command_line_main: argv:string list -> Test.t -> int (* @todo Should we have a type for exit codes? (In the module containing exit) *)
 
   val (>::): string -> Test.t list -> Test.t
 

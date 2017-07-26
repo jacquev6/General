@@ -3,7 +3,7 @@ open Abbr_
 include BuiltinTypes_.Option_
 
 module Tests = struct
-  open Testing
+  open Testing_
 
   module Examples = struct
     module Element = Int

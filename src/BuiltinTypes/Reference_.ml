@@ -1,3 +1,4 @@
+(*BISECT-IGNORE-BEGIN*) (* @todo Test and publish *)
 type 'a t = 'a OCamlStandard.Pervasives.ref = {
   mutable contents: 'a;
 }
@@ -18,3 +19,4 @@ module O = struct
   let (:=) x y =
     assign x y
 end
+(*BISECT-IGNORE-END*)

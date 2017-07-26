@@ -3,7 +3,7 @@ open Abbr_
 include (Traits_.Ringoid_: module type of Ringoid_)
 
 module Tests = struct
-  open Testing
+  open Testing_
 
   module Examples = struct
     module type S0 = sig

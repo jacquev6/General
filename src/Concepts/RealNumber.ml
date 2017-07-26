@@ -3,7 +3,7 @@ open Abbr_
 include (Concepts_.RealNumber_: module type of RealNumber_)
 
 module Tests = struct
-  open Testing
+  open Testing_
 
   module Examples = struct
     module type S0 = sig
