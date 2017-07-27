@@ -4,9 +4,6 @@ module SelfA = struct
   let equal x y =
     OCamlStandard.Pervasives.(=) x y
 
-  let compare x y =
-    Compare.Poly.compare x y
-
   let zero = 0.
 
   let one = 1.
@@ -61,8 +58,6 @@ end
 
 module SelfC = struct
   include Concepts_.Integer_.PredSucc.Make0(SelfB)
-  include Traits_.Comparable_.GreaterLessThan.Make0(SelfB)
-  include Traits_.Comparable_.MinMax.Make0(SelfB)
   include Traits_.Equatable_.Different.Make0(SelfB)
   include Traits_.Ringoid_.Exponentiate.Make0(SelfB)
   include SelfB
@@ -71,10 +66,12 @@ end
 include SelfC
 
 module O = struct
-  include Traits_.Comparable_.Operators.Make0(SelfC)
+  include Compare_.Poly.O
   include Traits_.Equatable_.Operators.Make0(SelfC)
   include Traits_.Ringoid_.Operators.Make0(SelfC)
 end
+
+include (Compare_.Poly: module type of Compare_.Poly with module O := O)
 
 module ClassA = struct
   type t =

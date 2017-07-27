@@ -1,12 +1,23 @@
 module Basic = struct
+  module type SP = sig
+    val compare: 'a -> 'a -> Compare_.t
+  end
+
   module type S0 = sig
     type t
 
-    val compare: t -> t -> Compare.t
+    val compare: t -> t -> Compare_.t
   end
 end
 
 module Operators = struct
+  module type SP = sig
+    val (<): 'a -> 'a -> bool
+    val (<=): 'a -> 'a -> bool
+    val (>): 'a -> 'a -> bool
+    val (>=): 'a -> 'a -> bool
+  end
+
   module type S0 = sig
     type t
 
@@ -39,6 +50,21 @@ module Operators = struct
   end
 end
 
+module type SP = sig
+  include Basic.SP
+
+  val less_than: 'a -> 'a -> bool
+  val less_or_equal: 'a -> 'a -> bool
+  val greater_than: 'a -> 'a -> bool
+  val greater_or_equal: 'a -> 'a -> bool
+
+  val min: 'a -> 'a -> 'a
+  val max: 'a -> 'a -> 'a
+  val min_max: 'a -> 'a -> 'a * 'a
+
+  module O: Operators.SP
+end
+
 module type S0 = sig
   include Basic.S0
 
@@ -58,10 +84,10 @@ module GreaterLessThan = struct
   module Make0(M: sig
     type t
 
-    val compare: t -> t -> Compare.t
+    val compare: t -> t -> Compare_.t
   end) = struct
     open M
-    open Compare
+    open Compare_
 
     let less_than x y =
       match compare x y with
@@ -89,10 +115,10 @@ module MinMax = struct
   module Make0(M: sig
     type t
 
-    val compare: t -> t -> Compare.t
+    val compare: t -> t -> Compare_.t
   end) = struct
     open M
-    open Compare
+    open Compare_
 
     let min x y =
       match compare x y with LT -> x | GT | EQ -> y
