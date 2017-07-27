@@ -1,4 +1,7 @@
 true: warn(@A-4-33-44-45-48)
+true: safe_string
+true: strict_formats
+true: strict_sequence
 true: package(num)
 true: cppo_V_OCAML
 <src>: include
