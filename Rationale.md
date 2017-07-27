@@ -11,6 +11,14 @@ Why:
 - to allow measuring test coverage
 - this is required in some cases to help the type system (Error: The type of this expression, ... contains type variables that cannot be generalized), so let's do this consistently
 
+Why not:
+
+- this is more verbose
+
+Remarks
+
+- this add a stack frame. Sometimes we want, sometimes we don't.
+
 Short variable names
 --------------------
 
