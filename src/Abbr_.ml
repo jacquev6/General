@@ -40,3 +40,7 @@ let exit = OCamlStandard.Pervasives.exit
 let ignore = OCamlStandard.Pervasives.ignore
 let not = OCamlStandard.Pervasives.not
 let (||) = OCamlStandard.Pervasives.(||)
+let (+) = OCamlStandard.Pervasives.(+)
+let (-) = OCamlStandard.Pervasives.(-)
+let ( * ) = OCamlStandard.Pervasives.( * )
+let (/) = OCamlStandard.Pervasives.(/)

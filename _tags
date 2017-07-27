@@ -1,10 +1,14 @@
-true: warn(@A-4-33-44-45-48)
+not <src/BuiltinTypes/Exception.*>: warn(@A-4-33-44-45-48)
+<src/BuiltinTypes/Exception.*>: warn(@A-8-33-44)
+
 true: safe_string
 true: strict_formats
 true: strict_sequence
 true: package(num)
 true: cppo_V_OCAML
+
 <src>: include
+
 <src/BuiltinTypes/*_.cmx>: for-pack(BuiltinTypes_)
 <src/BuiltinTypes/*.cmx> and not <src/BuiltinTypes/*_.cmx>: for-pack(BuiltinTypes)
 <src/StdLibTypes/*_.cmx>: for-pack(StdLibTypes_)
@@ -15,5 +19,6 @@ true: cppo_V_OCAML
 <src/Concepts/*.cmx> and not <src/Concepts/*_.cmx>: for-pack(Concepts)
 <src/Traits/*_.cmx>: for-pack(Traits_)
 <src/Traits/*.cmx> and not <src/Traits/*_.cmx>: for-pack(Traits)
+
 not <demo/**> and not <DependenciesForBisectPpx.*>: nopervasives
 not <demo/**> and not <src/Reset*.*> and not <DependenciesForBisectPpx.*> and not <src/Ubiquitous.*>: open(Ubiquitous)

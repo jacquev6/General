@@ -1,3 +1,7 @@
+(* The position of these symbols is tested bellow. Moving them requires fixing the tests *)
+let callstack = OCamlStandard.Printexc.get_callstack 1
+(* End of symbols to not move *)
+
 open Abbr_
 
 include Testing_
@@ -79,10 +83,10 @@ module Tests = struct
               Many {
                 js = "\"bar 4\": FAILED: expected exception Testing.Tests.TestException1(bad) not raised, but exception Testing.Tests.TestException1(too bad) raised\n";
                 byte = "\"bar 4\": FAILED: expected exception Testing.Tests.TestException1(\"bad\") not raised, but exception Testing.Tests.TestException1(\"too bad\") raised\n\
-                        Raised by primitive operation at file \"src/TestingCallstack.ml\", line 1, characters 16-54\n";
+                        Raised by primitive operation at file \"src/Testing.ml\", line 2, characters 16-54\n";
               }
             ]
-            (Single {label="bar 4"; status=Failure (WrongException (TestException1 "bad", TestException1 "too bad", Some TestingCallstack.callstack))});
+            (Single {label="bar 4"; status=Failure (WrongException (TestException1 "bad", TestException1 "too bad", Some callstack))});
           make
             [One "\"bar 5\": FAILED: too bad"]
             (Single {label="bar 5"; status=Failure (Custom "too bad")});
@@ -93,9 +97,9 @@ module Tests = struct
             [Many {
               js = "\"bar 7\": ERROR: exception Testing.Tests.TestException1(bad) raised\n";
               byte = "\"bar 7\": ERROR: exception Testing.Tests.TestException1(\"bad\") raised\n\
-                      Raised by primitive operation at file \"src/TestingCallstack.ml\", line 1, characters 16-54\n";
+                      Raised by primitive operation at file \"src/Testing.ml\", line 2, characters 16-54\n";
             }]
-            (Single {label="bar 7"; status=Error (TestException1 "bad", Some TestingCallstack.callstack)});
+            (Single {label="bar 7"; status=Error (TestException1 "bad", Some callstack)});
           make
             [
               One "\"foo\" (Successes: 2)";

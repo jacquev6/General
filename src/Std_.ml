@@ -33,15 +33,3 @@ include (Ubiquitous: module type of Ubiquitous
   and module List := List
   and module String := String
 )
-
-(* @todo Find suitable homes for these values *)
-(* @todo Implement operators as 'O' modules and open them here *)
-let (@) = List.append
-let (^) = OCamlStandard.Pervasives.(^)
-let (=) = OCamlStandard.Pervasives.(=)
-let (<>) = OCamlStandard.Pervasives.(<>)
-let (|>) = OCamlStandard.Pervasives.(|>)
-let exit = OCamlStandard.Pervasives.exit
-let ignore = OCamlStandard.Pervasives.ignore
-let not = OCamlStandard.Pervasives.not
-let (||) = OCamlStandard.Pervasives.(||)
