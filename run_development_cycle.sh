@@ -25,23 +25,54 @@ build -I demo -build-dir _build_native \
     ResetPervasives.inferred.mli \
     General.cmxa unit_tests.native demo.native
 
-echo
-grep _build_native/src/ResetPervasives.inferred.mli -v \
-    -e "^ " -e "^type " -e "^exception " -e "^module LargeFile" \
-    -e "\`Please_use__General_" -e "\`You_should_not_be_using_that" \
-    -e __LOC__ -e __FILE__ -e __LINE__ -e __MODULE__ -e __POS__ -e __LOC_OF__ -e __LINE_OF__ -e __POS_OF__ \
-| sed "s/^/Not overriden in Pervasives: /"
+python3 <<END
+def complete_definitions():
+    with open("_build_native/src/ResetPervasives.inferred.mli") as f:
+        current_line = None
+        for line in f:
+            if line.startswith("  "):
+                current_line += " " + line.strip()
+            else:
+                if current_line is not None:
+                    yield current_line
+                current_line = line.strip()
+        yield current_line
 
-if [ ${PIPESTATUS[0]} == 0 ]
-then
-    exit 1
-fi
+ok = True
+for line in complete_definitions():
+    if all(x not in line for x in [
+        "\`Please_use_General_",
+        "\`You_should_not_be_using_that",
+    ]) and all(not line.startswith(prefix) for prefix in [
+        "external __LOC__",
+        "external __FILE__",
+        "external __LINE__",
+        "external __MODULE__",
+        "external __POS__",
+        "external __LOC_OF__",
+        "external __LINE_OF__",
+        "external __POS_OF__",
+        "type ",
+        "exception ",
+        "module ",
+    ]):
+        ok = False
+        print("Not overriden in Pervasives:", line)
+
+if not ok:
+    exit(1)
+END
+
+grep "\`Please_use_" _build_native/src/ResetPervasives.inferred.mli \
+| sed "s/.*\`Please_use_\(.*\) ]/let _ = \1/" | sed "s/__/./g" \
+| grep -v todo \
+> demo/demo_pervasives.ml
 
 build -I demo \
     -package bisect_ppx -tag debug \
     -tag-line 'true:+open(DependenciesForBisectPpx)' \
     -tag-line '<DependenciesForBisectPpx.*>:-open(DependenciesForBisectPpx)' \
-    General.cma unit_tests.byte unit_tests.js demo.byte
+    General.cma unit_tests.byte unit_tests.js demo.byte demo_pervasives.byte
 
 # @todo Could we build with *one* module using bisect_ppx and measure coverage of this module by its own tests?
 # Currently, a few functions are measured as covered because they are used in the test framework.
