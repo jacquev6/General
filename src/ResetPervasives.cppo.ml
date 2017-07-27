@@ -113,7 +113,7 @@ PLEASE_USE(nan, todo)
 PLEASE_USE(max_float, todo)
 PLEASE_USE(min_float, todo)
 PLEASE_USE(epsilon_float, todo)
-PLEASE_USE(classify_float, todo)
+PLEASE_USE(classify_float, Float_Class_of_float)
 
 (* String operations *)
 PLEASE_USE((^), String_concat)

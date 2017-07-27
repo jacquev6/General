@@ -61,10 +61,52 @@ module Examples = struct
   ]
 end
 
+module ClassExamples = struct
+  open BuiltinTypes_.Float_.Class
+
+  let repr = [
+    (Normal, "Normal");
+    (SubNormal, "SubNormal");
+    (Zero, "Zero");
+    (Infinite, "Infinite");
+    (Nan, "Nan");
+  ]
+
+  let equal = [
+    [Normal];
+    [SubNormal];
+    [Zero];
+    [Infinite];
+    [Nan];
+  ]
+
+  let different = [
+    (Normal, SubNormal);
+  ]
+end
+
 module Tests = struct
   open Testing_
+  open BuiltinTypes_.Float_.O
 
   let test = "Float" >:: [
     (let module T = Concepts.RealNumber.Tests.Make0(BuiltinTypes_.Float_)(Examples) in T.test);
+    "Class" >:: [
+      (let module T = Traits.Representable.Tests.Make0(BuiltinTypes_.Float_.Class)(ClassExamples) in T.test);
+      (let module T = Traits.Equatable.Tests.Make0(BuiltinTypes_.Float_.Class)(ClassExamples) in T.test);
+      "of_float" >:: BuiltinTypes_.Float_.Class.(
+        let check = check ~repr ~equal in
+        [
+          "Normal" >: (lazy (check ~expected:Normal (of_float 1.)));
+          "SubNormal" >: (lazy (check ~expected:SubNormal (of_float (1. / OCamlStandard.Pervasives.max_float))));
+          "Zero" >: (lazy (check ~expected:Zero (of_float 0.)));
+          "Zero-" >: (lazy (check ~expected:Zero (of_float (-0.))));
+          "Infinite+" >: (lazy (check ~expected:Infinite (of_float (1. / 0.))));
+          "Infinite-" >: (lazy (check ~expected:Infinite (of_float (-1. / 0.))));
+          "Nan" >: (lazy (check ~expected:Nan (of_float (0. / 0.))));
+          "Nan-" >: (lazy (check ~expected:Nan (of_float (-0. / 0.))));
+        ]
+      );
+    ];
   ]
 end

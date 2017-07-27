@@ -75,3 +75,41 @@ module O = struct
   include Traits_.Equatable_.Operators.Make0(SelfC)
   include Traits_.Ringoid_.Operators.Make0(SelfC)
 end
+
+module ClassA = struct
+  type t =
+    | Normal
+    | SubNormal
+    | Zero
+    | Infinite
+    | Nan
+
+  let of_float x =
+    match OCamlStandard.Pervasives.classify_float x with
+      | OCamlStandard.Pervasives.FP_normal -> Normal
+      | OCamlStandard.Pervasives.FP_subnormal -> SubNormal
+      | OCamlStandard.Pervasives.FP_zero -> Zero
+      | OCamlStandard.Pervasives.FP_infinite -> Infinite
+      | OCamlStandard.Pervasives.FP_nan -> Nan
+
+  let repr = function
+    | Normal -> "Normal"
+    | SubNormal -> "SubNormal"
+    | Zero -> "Zero"
+    | Infinite -> "Infinite"
+    | Nan -> "Nan"
+
+  let equal x y =
+    OCamlStandard.Pervasives.(=) x y
+end
+
+module ClassB = struct
+  include Traits_.Equatable_.Different.Make0(ClassA)
+  include ClassA
+end
+
+module Class = struct
+  include ClassB
+
+  module O = Traits_.Equatable_.Operators.Make0(ClassB)
+end

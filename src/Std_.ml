@@ -16,6 +16,8 @@ module String = String_
 module Unit = Unit_
 
 open StdLibTypes_
+module InChannel = InChannel_
+module OutChannel = OutChannel_
 module Reference = Reference_
 
 open ExtensionTypes_
