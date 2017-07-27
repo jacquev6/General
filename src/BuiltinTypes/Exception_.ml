@@ -1,3 +1,5 @@
+(* @todo Aliases for predefined exceptions (https://caml.inria.fr/pub/docs/manual-ocaml-4.02/core.html#sec475) *)
+
 module SelfA = struct
   type t = exn
 

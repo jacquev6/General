@@ -6,6 +6,7 @@ include BuiltinTypes
 module String = String'
 
 module Abbr = Abbr_
+module Std = Std_
 
 module Compare = Compare
 

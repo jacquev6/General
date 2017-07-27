@@ -7,6 +7,10 @@ true: cppo_V_OCAML
 <src>: include
 <src/BuiltinTypes/*_.cmx>: for-pack(BuiltinTypes_)
 <src/BuiltinTypes/*.cmx> and not <src/BuiltinTypes/*_.cmx>: for-pack(BuiltinTypes)
+<src/StdLibTypes/*_.cmx>: for-pack(StdLibTypes_)
+<src/StdLibTypes/*.cmx> and not <src/StdLibTypes/*_.cmx>: for-pack(StdLibTypes)
+<src/ExtensionTypes/*_.cmx>: for-pack(ExtensionTypes_)
+<src/ExtensionTypes/*.cmx> and not <src/ExtensionTypes/*_.cmx>: for-pack(ExtensionTypes)
 <src/Concepts/*_.cmx>: for-pack(Concepts_)
 <src/Concepts/*.cmx> and not <src/Concepts/*_.cmx>: for-pack(Concepts)
 <src/Traits/*_.cmx>: for-pack(Traits_)
