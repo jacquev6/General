@@ -75,7 +75,7 @@ module Result = struct
       Printf.sprintf "Group {name=%S; children=%s}" name (Li.repr ~repr children)
 
   let equal x y =
-    OCamlStandard.Pervasives.(=) x y
+    Equate_.Poly.equal x y
 
   module Counts = struct
     type t = {

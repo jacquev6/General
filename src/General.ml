@@ -14,4 +14,6 @@ module Std = Std_
 
 module Compare = Compare
 
+module Equate = Equate
+
 module Testing = Testing

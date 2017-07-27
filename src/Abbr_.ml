@@ -33,14 +33,12 @@ include (Ubiquitous: module type of Ubiquitous
 (* @todo Implement operators as 'O' modules and open them here *)
 let (@) = Li.append
 let (^) = OCamlStandard.Pervasives.(^)
-let (=) = OCamlStandard.Pervasives.(=)
-let (<>) = OCamlStandard.Pervasives.(<>)
 let (|>) = OCamlStandard.Pervasives.(|>)
 let exit = OCamlStandard.Pervasives.exit
 let ignore = OCamlStandard.Pervasives.ignore
 let not = OCamlStandard.Pervasives.not
 let (||) = OCamlStandard.Pervasives.(||)
-let (+) = OCamlStandard.Pervasives.(+)
-let (-) = OCamlStandard.Pervasives.(-)
-let ( * ) = OCamlStandard.Pervasives.( * )
-let (/) = OCamlStandard.Pervasives.(/)
+
+include Int.O
+include Compare_.Poly.O
+include Equate_.Poly.O

@@ -1,4 +1,8 @@
 module Basic = struct
+  module type SP = sig
+    val equal: 'a -> 'a -> bool
+  end
+
   module type S0 = sig
     type t
 
@@ -13,6 +17,11 @@ module Basic = struct
 end
 
 module Operators = struct
+  module type SP = sig
+    val (=): 'a -> 'a -> bool
+    val (<>): 'a -> 'a -> bool
+  end
+
   module type S0 = sig
     type t
 
@@ -34,6 +43,14 @@ module Operators = struct
     let (<>) x y =
       different x y
   end
+end
+
+module type SP = sig
+  include Basic.SP
+
+  val different: 'a -> 'a -> bool
+
+  module O: Operators.SP
 end
 
 module type S0 = sig

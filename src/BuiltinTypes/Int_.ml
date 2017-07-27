@@ -1,9 +1,6 @@
 module SelfA = struct
   type t = int
 
-  let equal x y =
-    OCamlStandard.Pervasives.(=) x y
-
   let zero = 0
 
   let one = 1
@@ -58,17 +55,16 @@ end
 
 module SelfC = struct
   include Concepts_.Integer_.PredSucc.Make0(SelfB)
-  include Traits_.Equatable_.Different.Make0(SelfB)
   include Traits_.Ringoid_.Exponentiate.Make0(SelfB)
   include SelfB
 end
 
-include SelfC
-
 module O = struct
   include Compare_.Poly.O
-  include Traits_.Equatable_.Operators.Make0(SelfC)
+  include Equate_.Poly.O
   include Traits_.Ringoid_.Operators.Make0(SelfC)
 end
 
 include (Compare_.Poly: module type of Compare_.Poly with module O := O)
+include (Equate_.Poly: module type of Equate_.Poly with module O := O)
+include SelfC

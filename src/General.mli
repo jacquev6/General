@@ -13,6 +13,8 @@ module Abbr: module type of Abbr_
 
 module Compare: module type of Compare with type t = Compare.t
 
+module Equate: module type of Equate
+
 module Testing: sig
   module Result: sig
     (* @todo Publish this type (so that clients can write reports) *)
