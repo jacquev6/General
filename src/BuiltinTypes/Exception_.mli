@@ -30,6 +30,6 @@ val raise: t -> 'a
 
 val raise_without_backtrace: t -> 'a
 
-val invalid_argument: ('a, unit, string, 'b) format4 -> 'a
+val invalid_argument: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
 
-val failure: ('a, unit, string, 'b) format4 -> 'a
+val failure: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a

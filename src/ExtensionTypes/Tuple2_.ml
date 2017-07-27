@@ -1,2 +1,7 @@
-let get_0 = OCamlStandard.Pervasives.fst
-let get_1 = OCamlStandard.Pervasives.snd
+type ('a, 'b) t = 'a * 'b
+
+let get_0 (x, _) =
+  x
+
+let get_1 (_, x) =
+  x

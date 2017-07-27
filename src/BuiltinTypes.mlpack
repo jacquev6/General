@@ -1,6 +1,7 @@
 src/BuiltinTypes/Bool
 src/BuiltinTypes/Exception
 src/BuiltinTypes/Float
+src/BuiltinTypes/Format'
 src/BuiltinTypes/Int
 src/BuiltinTypes/Option
 src/BuiltinTypes/String'

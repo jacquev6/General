@@ -5,6 +5,7 @@ module Concepts: module type of Concepts
 module Bool: module type of BuiltinTypes_.Bool_
 module Exception: module type of BuiltinTypes_.Exception_
 module Float: module type of BuiltinTypes_.Float_
+module Format: module type of BuiltinTypes_.Format_
 module Int: module type of BuiltinTypes_.Int_
 module Option: module type of BuiltinTypes_.Option_
 module String: module type of BuiltinTypes_.String_
@@ -33,11 +34,11 @@ module Testing: sig
 
   val (>:): string -> unit lazy_t -> Test.t
 
-  val (~:): ('a, unit, string, unit lazy_t -> Test.t) OCamlStandard.Pervasives.format4 -> 'a
+  val (~:): ('a, unit, string, string, string, unit lazy_t -> Test.t) CamlinternalFormatBasics.format6 -> 'a
 
-  val (~::): ('a, unit, string, Test.t list -> Test.t) OCamlStandard.Pervasives.format4 -> 'a
+  val (~::): ('a, unit, string, string, string, Test.t list -> Test.t) CamlinternalFormatBasics.format6 -> 'a
 
-  val fail: ('a, unit, string, 'b) OCamlStandard.Pervasives.format4 -> 'a
+  val fail: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
 
   val check: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
 

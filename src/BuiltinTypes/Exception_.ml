@@ -1,3 +1,5 @@
+module P = OCamlStandard.Pervasives
+
 type t = exn
 
 include Equate_.Poly
@@ -15,18 +17,18 @@ exception DivisionByZero = Division_by_zero
 exception SysBlockedIO = Sys_blocked_io
 exception UndefinedRecursiveModule = Undefined_recursive_module
 
-exception Exit = OCamlStandard.Pervasives.Exit
+exception Exit = P.Exit
 
 (* Direct aliases, without named parameter. Rationale: don't add a stack frame. *)
-let raise = OCamlStandard.Pervasives.raise
-let raise_without_backtrace = OCamlStandard.Pervasives.raise_notrace
+let raise = P.raise
+let raise_without_backtrace = P.raise_notrace
 
 let invalid_argument format =
-  OCamlStandard.Printf.ksprintf
-    OCamlStandard.Pervasives.invalid_arg
+  Format_.ksprintf
+    ~f:(fun message -> raise (InvalidArgument message))
     format
 
 let failure format =
-  OCamlStandard.Printf.ksprintf
-    OCamlStandard.Pervasives.failwith
+  Format_.ksprintf
+    ~f:(fun message -> raise (Failure message))
     format

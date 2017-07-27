@@ -24,7 +24,7 @@ module Tests = struct
 
     let repr_pair (x, y) =
       (* @todo General.Tuple2.repr *)
-      OCamlStandard.Printf.sprintf "(%s, %s)" (repr x) (repr y) (*BISECT-IGNORE*)
+      Frmt.sprintf "(%s, %s)" (repr x) (repr y) (*BISECT-IGNORE*)
 
     let equal_pair (x, y) (x', y') =
       (* @todo General.Tuple2.equal *)

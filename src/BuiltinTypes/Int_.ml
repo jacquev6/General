@@ -1,9 +1,12 @@
+module P = OCamlStandard.Pervasives
+
 module SelfA = struct
   type t = int
 
   let zero = 0
-
   let one = 1
+  let smallest = P.min_int
+  let greatest = P.max_int
 
   let of_int x =
     x
@@ -12,43 +15,43 @@ module SelfA = struct
     x
 
   let of_float x =
-    OCamlStandard.Pervasives.int_of_float x
+    P.int_of_float x
 
   let to_float x =
-    OCamlStandard.Pervasives.float_of_int x
+    P.float_of_int x
 
   let of_string x =
-    OCamlStandard.Pervasives.int_of_string x
+    P.int_of_string x
 
   let to_string x =
-    OCamlStandard.Pervasives.string_of_int x
+    P.string_of_int x
 
   let repr x =
-    OCamlStandard.Pervasives.string_of_int x
+    P.string_of_int x
 
   let add x y =
-    OCamlStandard.Pervasives.(+) x y
+    P.(+) x y
 
   let substract x y =
-    OCamlStandard.Pervasives.(-) x y
+    P.(-) x y
 
   let negate x =
-    OCamlStandard.Pervasives.(~-) x
+    P.(~-) x
 
   let multiply x y =
-    OCamlStandard.Pervasives.( * ) x y
+    P.( * ) x y
 
   let divide x y =
-    OCamlStandard.Pervasives.(/) x y
+    P.(/) x y
 
   let abs x =
-    OCamlStandard.Pervasives.abs x
+    P.abs x
 
   let modulo x y =
-    OCamlStandard.Pervasives.(mod) x y
+    P.(mod) x y
 
-  let exponentiate_negative_exponent ~exponentiate:_ _ _ =
-    OCamlStandard.Pervasives.invalid_arg "Negative exponent"
+  let exponentiate_negative_exponent ~exponentiate:_ _ n =
+    Exception_.invalid_argument "Int.exponentiate: Negative exponent: %i" n
 end
 
 module SelfB = struct
@@ -68,7 +71,7 @@ module O = struct
   include Traits_.Ringoid_.Operators.Make0(SelfC)
 
   let (mod) x y =
-    OCamlStandard.Pervasives.(mod) x y
+    P.(mod) x y
 end
 
 include (Compare_.Poly: module type of Compare_.Poly with module O := O)

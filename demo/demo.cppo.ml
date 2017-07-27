@@ -1,5 +1,4 @@
 open General.Abbr
-module Printf = OCamlStandard.Printf
 
 module DemoInteger(N: sig val name: string end)(I: General.Concepts.Integer.S0) = struct
   (* Define unusable operators to demonstrate that O actually defines the operators we use. *)
@@ -10,13 +9,13 @@ module DemoInteger(N: sig val name: string end)(I: General.Concepts.Integer.S0) 
   open I
 
   let print s v =
-    Printf.printf "%s.(%s): %s\n" N.name s v
+    Frmt.printf "%s.(%s): %s\n" N.name s v
 
   let print_int s v =
     print s (repr v)
 
   let print_bool s v =
-    print s (OCamlStandard.Pervasives.string_of_bool v)
+    print s (Bo.repr v)
 
   #define TEST(type, value) let () = CONCAT(print_, type) STRINGIFY(value) value
 
@@ -28,32 +27,30 @@ module DemoInteger(N: sig val name: string end)(I: General.Concepts.Integer.S0) 
   TEST(bool, O.(zero = one))
 end
 
-let () = Printf.printf "General.Int.succ 4: %n\n" (General.Int.succ 4)
+let () = Frmt.printf "General.Int.succ 4: %n\n" (General.Int.succ 4)
 
 module DemoGeneralInt = DemoInteger(struct let name = "General.Int" end)(General.Int)
 
 module IntMod3 = struct
   module SelfA = struct
-    open OCamlStandard.Pervasives
-
     type t = int
     let zero = 0
     let one = 1
     let of_int x = x mod 3
     let to_int x = x
-    let repr = string_of_int
-    let of_float x = (int_of_float x) mod 3
-    let to_float = float_of_int
-    let of_string x = (int_of_string x) mod 3
-    let to_string = string_of_int
+    let repr = Int.repr
+    let of_float x = (Int.of_float x) mod 3
+    let to_float = Int.to_float
+    let of_string x = (Int.of_string x) mod 3
+    let to_string = Int.to_string
     let abs x = x
     let add x y = (x + y) mod 3
     let negate x = (6 - x) mod 3
     let multiply x y = (x * y) mod 3
     let divide x y = (x / y + 6) mod 3
     let modulo x y = (x mod y)
-    let exponentiate_negative_exponent ~exponentiate:_ _ _ =
-      OCamlStandard.Pervasives.invalid_arg "Negative exponent"
+    let exponentiate_negative_exponent ~exponentiate:_ _ n =
+      Exn.invalid_argument "IntMod3.exponentiate: Negative exponent: %i" n
   end
 
   module SelfB = struct
@@ -128,7 +125,7 @@ end
 
 let () =
   let test = General.Testing.(
-    "demo" >:: [
+    ~:: "de%s" "mo" [
       (let module T = General.Traits.Comparable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
       (let module T = General.Traits.Equatable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
       (let module T = General.Traits.Representable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
@@ -137,6 +134,7 @@ let () =
       (let module T = General.Concepts.RealNumber.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
       (* Integer.Tests includes all tests above. The previous lines are only here to prove that we export the functors. *)
       (let module T = General.Concepts.Integer.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      ~: "some %s" "test" (lazy ());
     ]
   ) in
   exit (General.Testing.command_line_main ~argv:OCamlStandard.(Array.to_list Sys.argv) test)

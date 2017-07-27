@@ -3,6 +3,7 @@ module Traits = Traits
 module Concepts = Concepts
 
 include BuiltinTypes
+module Format = Format'
 module String = String'
 
 include StdLibTypes

@@ -25,7 +25,7 @@ let repr xs ~repr =
   xs
   |> map ~f:repr
   |> OCamlStandard.StringLabels.concat ~sep:", "
-  |> OCamlStandard.Printf.sprintf "[%s]"
+  |> Format_.sprintf "[%s]"
 
 let equal xs ys ~equal =
   try

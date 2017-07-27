@@ -1,15 +1,22 @@
+module P = OCamlStandard.Pervasives
+
 module SelfA = struct
   type t = float
 
   let zero = 0.
-
   let one = 1.
+  let greatest = P.max_float
+  let smallest = P.min_float
+  let epsilon = P.epsilon_float
+  let infinity = P.infinity
+  let negative_infinity = P.neg_infinity
+  let not_a_number = P.nan
 
   let of_int x =
-    OCamlStandard.Pervasives.float_of_int x
+    P.float_of_int x
 
   let to_int x =
-    OCamlStandard.Pervasives.int_of_float x
+    P.int_of_float x
 
   let of_float x =
     x
@@ -18,37 +25,37 @@ module SelfA = struct
     x
 
   let of_string x =
-    OCamlStandard.Pervasives.float_of_string x
+    P.float_of_string x
 
   let to_string x =
-    OCamlStandard.Pervasives.string_of_float x
+    P.string_of_float x
 
   let repr x =
-    OCamlStandard.Pervasives.string_of_float x
+    P.string_of_float x
 
   let add x y =
-    OCamlStandard.Pervasives.(+.) x y
+    P.(+.) x y
 
   let substract x y =
-    OCamlStandard.Pervasives.(-.) x y
+    P.(-.) x y
 
   let negate x =
-    OCamlStandard.Pervasives.(~-.) x
+    P.(~-.) x
 
   let multiply x y =
-    OCamlStandard.Pervasives.( *. ) x y
+    P.( *. ) x y
 
   let divide x y =
-    OCamlStandard.Pervasives.(/.) x y
+    P.(/.) x y
 
   let abs x =
-    OCamlStandard.Pervasives.abs_float x
+    P.abs_float x
 
   let modulo x y =
-    OCamlStandard.Pervasives.mod_float x y
+    P.mod_float x y
 
   let exponentiate_negative_exponent ~exponentiate x n =
-    exponentiate (divide 1. x) OCamlStandard.Pervasives.(-n)
+    exponentiate (divide 1. x) P.(-n)
 end
 
 module SelfB = struct
@@ -68,7 +75,7 @@ module O = struct
   include Traits_.Ringoid_.Operators.Make0(SelfC)
 
   let (mod) x y =
-    OCamlStandard.Pervasives.mod_float x y
+    P.mod_float x y
 end
 
 include (Compare_.Poly: module type of Compare_.Poly with module O := O)
@@ -81,22 +88,22 @@ module Class = struct
     | SubNormal
     | Zero
     | Infinite
-    | Nan
+    | NotANumber
 
   let of_float x =
-    match OCamlStandard.Pervasives.classify_float x with
-      | OCamlStandard.Pervasives.FP_normal -> Normal
-      | OCamlStandard.Pervasives.FP_subnormal -> SubNormal
-      | OCamlStandard.Pervasives.FP_zero -> Zero
-      | OCamlStandard.Pervasives.FP_infinite -> Infinite
-      | OCamlStandard.Pervasives.FP_nan -> Nan
+    match P.classify_float x with
+      | P.FP_normal -> Normal
+      | P.FP_subnormal -> SubNormal
+      | P.FP_zero -> Zero
+      | P.FP_infinite -> Infinite
+      | P.FP_nan -> NotANumber
 
   let repr = function
     | Normal -> "Normal"
     | SubNormal -> "SubNormal"
     | Zero -> "Zero"
     | Infinite -> "Infinite"
-    | Nan -> "Nan"
+    | NotANumber -> "NotANumber"
 
   module O = struct
     include Compare_.Poly.O

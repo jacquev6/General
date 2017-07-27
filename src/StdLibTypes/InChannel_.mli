@@ -1,3 +1,3 @@
 type t = OCamlStandard.Pervasives.in_channel
 
-(* @todo Alias for type OCamlStandard.Pervasives.open_flag *)
+(* @todo Alias for type P.open_flag *)

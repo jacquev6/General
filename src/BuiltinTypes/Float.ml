@@ -17,11 +17,18 @@ module Examples = struct
     [0.];
     [1.];
     [2.];
+    [infinity];
+    [negative_infinity];
   ]
 
   let different = [
     (0., 1.);
     (1., -1.);
+    (not_a_number, infinity);
+    (not_a_number, negative_infinity);
+    (not_a_number, 1.);
+    (not_a_number, 0.);
+    (not_a_number, not_a_number);
   ]
 
   let ordered = [
@@ -69,7 +76,7 @@ module ClassExamples = struct
     (SubNormal, "SubNormal");
     (Zero, "Zero");
     (Infinite, "Infinite");
-    (Nan, "Nan");
+    (NotANumber, "NotANumber");
   ]
 
   let equal = [
@@ -77,7 +84,7 @@ module ClassExamples = struct
     [SubNormal];
     [Zero];
     [Infinite];
-    [Nan];
+    [NotANumber];
   ]
 
   let different = [
@@ -98,13 +105,16 @@ module Tests = struct
         let check = check ~repr ~equal in
         [
           "Normal" >: (lazy (check ~expected:Normal (of_float 1.)));
-          "SubNormal" >: (lazy (check ~expected:SubNormal (of_float (1. / OCamlStandard.Pervasives.max_float))));
+          "SubNormal" >: (lazy (check ~expected:SubNormal (of_float (1. / greatest))));
           "Zero" >: (lazy (check ~expected:Zero (of_float 0.)));
           "Zero-" >: (lazy (check ~expected:Zero (of_float (-0.))));
           "Infinite+" >: (lazy (check ~expected:Infinite (of_float (1. / 0.))));
+          "Infinite+" >: (lazy (check ~expected:Infinite (of_float infinity)));
           "Infinite-" >: (lazy (check ~expected:Infinite (of_float (-1. / 0.))));
-          "Nan" >: (lazy (check ~expected:Nan (of_float (0. / 0.))));
-          "Nan-" >: (lazy (check ~expected:Nan (of_float (-0. / 0.))));
+          "Infinite-" >: (lazy (check ~expected:Infinite (of_float negative_infinity)));
+          "NotANumber" >: (lazy (check ~expected:NotANumber (of_float (0. / 0.))));
+          "NotANumber" >: (lazy (check ~expected:NotANumber (of_float not_a_number)));
+          "NotANumber-" >: (lazy (check ~expected:NotANumber (of_float (-0. / 0.))));
         ]
       );
     ];

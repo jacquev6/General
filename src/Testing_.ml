@@ -1,7 +1,6 @@
 open Abbr_
 module Lazy = OCamlStandard.Lazy
 module Printexc = OCamlStandard.Printexc
-module Printf = OCamlStandard.Printf
 
 module Result = struct
   module Status = struct
@@ -13,13 +12,13 @@ module Result = struct
 
     let failure_repr = function
       | NotEqual (x, y) ->
-        Printf.sprintf "NotEqual (%S, %S)" x y
+        Frmt.sprintf "NotEqual (%S, %S)" x y
       | NoException exc ->
-        Printf.sprintf "NoException %s" (Printexc.to_string exc)
+        Frmt.sprintf "NoException %s" (Printexc.to_string exc)
       | WrongException (expected, exc, bt) ->
-        Printf.sprintf "WrongException (%s, %s, %s)" (Printexc.to_string expected) (Printexc.to_string exc) (Opt.repr ~repr:Printexc.raw_backtrace_to_string bt)
+        Frmt.sprintf "WrongException (%s, %s, %s)" (Printexc.to_string expected) (Printexc.to_string exc) (Opt.repr ~repr:Printexc.raw_backtrace_to_string bt)
       | Custom x ->
-        Printf.sprintf "Custom %S" x
+        Frmt.sprintf "Custom %S" x
 
     type t =
       | Success
@@ -30,28 +29,28 @@ module Result = struct
       | Success ->
         "Success"
       | Failure reason ->
-        Printf.sprintf "Failure (%s)" (failure_repr reason)
+        Frmt.sprintf "Failure (%s)" (failure_repr reason)
       | Error (exc, bt) ->
-        Printf.sprintf "Error (%s, %s)" (Printexc.to_string exc) (Opt.repr ~repr:Printexc.raw_backtrace_to_string bt)
+        Frmt.sprintf "Error (%s, %s)" (Printexc.to_string exc) (Opt.repr ~repr:Printexc.raw_backtrace_to_string bt)
 
     let to_string = function
         | Success ->
           "OK"
         | Failure (NotEqual (expected, actual)) ->
           (* @todo split lines, quote each line, display very explicitly. Unless both values are single line. Quote anyway *)
-          Printf.sprintf "FAILED: expected %s, but got %s" expected actual
+          Frmt.sprintf "FAILED: expected %s, but got %s" expected actual
         | Failure (NoException expected) ->
-          OCamlStandard.Printf.sprintf "FAILED: expected exception %s not raised" (OCamlStandard.Printexc.to_string expected)
+          Frmt.sprintf "FAILED: expected exception %s not raised" (OCamlStandard.Printexc.to_string expected)
         | Failure (WrongException (expected, exc, None)) ->
-          OCamlStandard.Printf.sprintf "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" (OCamlStandard.Printexc.to_string expected) (OCamlStandard.Printexc.to_string exc) (*BISECT-IGNORE*) (* Covered only in Javascript *)
+          Frmt.sprintf "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" (OCamlStandard.Printexc.to_string expected) (OCamlStandard.Printexc.to_string exc) (*BISECT-IGNORE*) (* Covered only in Javascript *)
         | Failure (WrongException (expected, exc, Some bt)) ->
-          OCamlStandard.Printf.sprintf "FAILED: expected exception %s not raised, but exception %s raised\n%s"(OCamlStandard.Printexc.to_string expected) (OCamlStandard.Printexc.to_string exc) (OCamlStandard.Printexc.raw_backtrace_to_string bt)
+          Frmt.sprintf "FAILED: expected exception %s not raised, but exception %s raised\n%s"(OCamlStandard.Printexc.to_string expected) (OCamlStandard.Printexc.to_string exc) (OCamlStandard.Printexc.raw_backtrace_to_string bt)
         | Failure (Custom message) ->
-          Printf.sprintf "FAILED: %s" message
+          Frmt.sprintf "FAILED: %s" message
         | Error (exc, None) ->
-          Printf.sprintf "ERROR: exception %s raised (no backtrace)" (Printexc.to_string exc)
+          Frmt.sprintf "ERROR: exception %s raised (no backtrace)" (Printexc.to_string exc)
         | Error (exc, Some bt) ->
-          Printf.sprintf "ERROR: exception %s raised\n%s" (Printexc.to_string exc) (Printexc.raw_backtrace_to_string bt)
+          Frmt.sprintf "ERROR: exception %s raised\n%s" (Printexc.to_string exc) (Printexc.raw_backtrace_to_string bt)
   end
 
   type single = {
@@ -70,9 +69,9 @@ module Result = struct
 
   let rec repr = function
     | Single {label; status} ->
-      Printf.sprintf "Single {label=%S; status=%s}" label (Status.repr status)
+      Frmt.sprintf "Single {label=%S; status=%s}" label (Status.repr status)
     | Group {name; children} ->
-      Printf.sprintf "Group {name=%S; children=%s}" name (Li.repr ~repr children)
+      Frmt.sprintf "Group {name=%S; children=%s}" name (Li.repr ~repr children)
 
   let equal x y =
     Equate_.Poly.equal x y
@@ -121,7 +120,7 @@ module Result = struct
       | `Single (label, status) ->
         if verbose || status <> Status.Success then
           (* @todo Indent potential backtrace or anything else that could span several lines *)
-          [Printf.sprintf "%s%S: %s" indent label (Status.to_string status)]
+          [Frmt.sprintf "%s%S: %s" indent label (Status.to_string status)]
         else
           []
       | `Group (name, children, {Counts.successes; failures; errors}) ->
@@ -130,9 +129,9 @@ module Result = struct
           |> Li.concat_map ~f:(aux (indent ^ "  "))
         and line =
           if Int.O.(failures + errors = 0) then
-            Printf.sprintf "%s%S (Successes: %i)" indent name successes
+            Frmt.sprintf "%s%S (Successes: %i)" indent name successes
           else
-            Printf.sprintf "%s%S (Successes: %i, failures: %i, errors: %i)" indent name successes failures errors
+            Frmt.sprintf "%s%S (Successes: %i, failures: %i, errors: %i)" indent name successes failures errors
         in
         if verbose || Int.O.(failures + errors <> 0) then
           line::children
@@ -197,7 +196,7 @@ let command_line_main ~argv test =
   in
   result
   |> Result.to_indented_strings ~verbose
-  |> Li.iter ~f:(Printf.printf "%s\n");
+  |> Li.iter ~f:(Frmt.printf "%s\n");
   match result with
     | `Single (_, Result.Status.Success) | `Group (_, _, {Result.Counts.failures=0; errors=0; _}) ->
       0
@@ -213,16 +212,16 @@ let (>:) label check =
   Test.(Single {label; check})
 
 let (~::) format =
-  Printf.ksprintf (>::) format
+  Frmt.ksprintf ~f:(>::) format
 
 let (~:) format =
-  Printf.ksprintf (>:) format
+  Frmt.ksprintf ~f:(>:) format
 
 (* Checks *)
 
 let fail format =
-  Printf.ksprintf
-    (fun message ->
+  Frmt.ksprintf
+    ~f:(fun message ->
       Exn.raise (TestFailure (Result.Status.Custom message))
     )
     format

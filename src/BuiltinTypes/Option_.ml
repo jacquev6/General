@@ -1,5 +1,4 @@
 module Lazy = OCamlStandard.Lazy
-module Printf = OCamlStandard.Printf
 
 module Self = struct
   type 'a t = 'a option
@@ -13,7 +12,7 @@ module Self = struct
   let repr x ~repr =
     match x with
       | None -> "None"
-      | Some x -> Printf.sprintf "Some %s" (repr x)
+      | Some x -> Format_.sprintf "Some %s" (repr x)
 
   let some_if condition value =
     if condition then Some (Lazy.force value) else None
