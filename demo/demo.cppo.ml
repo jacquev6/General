@@ -51,6 +51,7 @@ module IntMod3 = struct
     let negate x = (6 - x) mod 3
     let multiply x y = (x * y) mod 3
     let divide x y = (x / y + 6) mod 3
+    let modulo x y = (x mod y)
     let exponentiate_negative_exponent ~exponentiate:_ _ _ =
       OCamlStandard.Pervasives.invalid_arg "Negative exponent"
   end
@@ -71,6 +72,8 @@ module IntMod3 = struct
     include General.Compare.Poly.O
     include General.Equate.Poly.O
     include General.Traits.Ringoid.Operators.Make0(SelfC)
+
+    let (mod) x y = (x mod y)
   end
 
   include (General.Compare.Poly: module type of General.Compare.Poly with module O := O)

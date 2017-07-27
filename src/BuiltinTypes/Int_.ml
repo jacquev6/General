@@ -44,6 +44,9 @@ module SelfA = struct
   let abs x =
     OCamlStandard.Pervasives.abs x
 
+  let modulo x y =
+    OCamlStandard.Pervasives.(mod) x y
+
   let exponentiate_negative_exponent ~exponentiate:_ _ _ =
     OCamlStandard.Pervasives.invalid_arg "Negative exponent"
 end
@@ -63,6 +66,9 @@ module O = struct
   include Compare_.Poly.O
   include Equate_.Poly.O
   include Traits_.Ringoid_.Operators.Make0(SelfC)
+
+  let (mod) x y =
+    OCamlStandard.Pervasives.(mod) x y
 end
 
 include (Compare_.Poly: module type of Compare_.Poly with module O := O)
