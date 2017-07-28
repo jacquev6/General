@@ -42,7 +42,7 @@ module Result = struct
         | Failure (NoException expected) ->
           Frmt.sprintf "FAILED: expected exception %s not raised" (OCamlStandard.Printexc.to_string expected)
         | Failure (WrongException (expected, exc, None)) ->
-          Frmt.sprintf "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" (OCamlStandard.Printexc.to_string expected) (OCamlStandard.Printexc.to_string exc) (*BISECT-IGNORE*) (* Covered only in Javascript *)
+          Frmt.sprintf "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" (OCamlStandard.Printexc.to_string expected) (OCamlStandard.Printexc.to_string exc)
         | Failure (WrongException (expected, exc, Some bt)) ->
           Frmt.sprintf "FAILED: expected exception %s not raised, but exception %s raised\n%s"(OCamlStandard.Printexc.to_string expected) (OCamlStandard.Printexc.to_string exc) (OCamlStandard.Printexc.raw_backtrace_to_string bt)
         | Failure (Custom message) ->
