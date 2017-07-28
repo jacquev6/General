@@ -10,15 +10,11 @@ function build {
         $@
 }
 
-for pack in $(git ls-files "*.mlpack" --exclude "*_.mlpack")
+for directory in $(find src -mindepth 1 -type d)
 do
-    directory=${pack%.mlpack}
-    if [ -d $directory ]
-    then
-        # echo "Rebuilding $pack from $directory's contents"
-        ls $directory | grep -v "_\.ml" | grep "^.*\.ml.*$" | sed "s#\(.*\)\.ml.*#$directory/\1#" | sort -u >${directory}.mlpack
-        ls $directory | grep    "_\.ml" | grep "^.*\.ml.*$" | sed "s#\(.*\)\.ml.*#$directory/\1#" | sort -u >${directory}_.mlpack
-    fi
+    echo "Rebuilding ${directory}.mlpack from $directory's contents"
+    ls $directory/*.ml* | grep -v "_\.ml" | sed "s#\..*##" | sort -u >${directory}.mlpack
+    ls $directory/*_.ml*                  | sed "s#\..*##" | sort -u >${directory}_.mlpack
 done
 
 build -I demo -build-dir _build_native \
