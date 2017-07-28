@@ -1,5 +1,5 @@
-not <src/BuiltinTypes/Exception.*>: warn(@A-4-33-44-45-48)
 <src/BuiltinTypes/Exception.*>: warn(@A-8-33-44)
+true: warn(@A-4-33-44-45-48)
 
 true: safe_string
 true: strict_formats
