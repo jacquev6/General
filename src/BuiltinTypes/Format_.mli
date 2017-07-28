@@ -8,7 +8,7 @@ val ksprintf: ('b, unit, string, string, string, 'a) t -> f:(string -> 'a) -> 'b
 
 val sprintf : ('a, unit, string, string, string, string) t -> 'a
 
-val printf : ('a, out_channel, unit, unit, unit, unit) t -> 'a
+val printf : ('a, OCamlStandard.Pervasives.out_channel, unit, unit, unit, unit) t -> 'a
 
 val to_string: ('a, 'b, 'c, 'd, 'e, 'f) t -> string
 

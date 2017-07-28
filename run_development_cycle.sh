@@ -26,43 +26,44 @@ def complete_definitions():
     with open("_build_native/src/ResetPervasives.inferred.mli") as f:
         current_line = None
         for line in f:
-            if line.startswith("  "):
-                current_line += " " + line.strip()
-            else:
+            line = line.strip()
+            if any(line.startswith(prefix + " ") for prefix in ["exception", "external", "type", "val", "module"]):
                 if current_line is not None:
                     yield current_line
-                current_line = line.strip()
+                current_line = line
+            else:
+                current_line += " " + line
         yield current_line
 
 ok = True
 for line in complete_definitions():
-    if all(x not in line for x in [
-        "\`Please_use_General_",
-        "\`You_should_not_be_using_that",
-    ]) and all(not line.startswith(prefix) for prefix in [
-        "external __LOC__",
-        "external __FILE__",
-        "external __LINE__",
-        "external __MODULE__",
-        "external __POS__",
-        "external __LOC_OF__",
-        "external __LINE_OF__",
-        "external __POS_OF__",
-        "type ",
-        "exception ",
-        "module ",
-    ]):
+    assert line.count(" : ") <= 1, line
+    if (
+        "\`Please_use_General_" not in line and
+        line not in ["exception Exit", "module LargeFile : sig"] and
+        all(not line.startswith("external __{}__ : ".format(x)) for x in ["LOC", "FILE", "LINE", "MODULE", "POS", "LOC_OF", "LINE_OF", "POS_OF"])
+    ):
         ok = False
-        print("Not overriden in Pervasives:", line)
+        print("Not reset in Pervasives:", line)
 
 if not ok:
     exit(1)
 END
 
-grep "\`Please_use_" _build_native/src/ResetPervasives.inferred.mli \
-| sed "s/.*\`Please_use_\(.*\) ]/let _ = \1/" | sed "s/__/./g" \
-| grep -v todo \
-> demo/demo_pervasives.ml
+python3 <<END
+def all_please_uses():
+    with open("_build_native/src/ResetPervasives.inferred.mli") as f:
+        for line in f:
+            for word in line.split():
+                if word.startswith("\`Please_use_") and not word.endswith("__todo"):
+                    yield word[12:].replace("__", ".")
+with open("demo/demo_pervasives.ml", "w") as f:
+    for symbol in sorted(set(all_please_uses())):
+        if symbol.endswith(".t"):
+            f.write("let (_: {} option) = None\n".format(symbol))
+        else:
+            f.write("let _ = {}\n".format(symbol))
+END
 
 build -I demo \
     -package bisect_ppx -tag debug \
