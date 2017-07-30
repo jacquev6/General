@@ -21,6 +21,14 @@ build -I demo -build-dir _build_native \
     ResetPervasives.inferred.mli \
     General.cmxa unit_tests.native demo.native
 
+cd demo
+# This simulates the 'opam install' process, but is quicker
+rm -rf _build_with_lib
+mkdir _build_with_lib
+cp ../_build_native/src/General.cmi ../_build_native/src/General.a ../_build_native/src/General.cmxa _build_with_lib
+build -build-dir _build_with_lib -package num -lib General demo.native
+cd ..
+
 python3 <<END
 def complete_definitions():
     with open("_build_native/src/ResetPervasives.inferred.mli") as f:
