@@ -1,3 +1,5 @@
+(* Basics *)
+
 module Compare: sig
   type t = LT | EQ | GT
 
@@ -14,11 +16,7 @@ module Traits: module type of Traits
 
 module Concepts: module type of Concepts
 
-module Bool: sig
-  type t = bool
-
-  include Traits.Representable.S0 with type t := t
-end
+(* Technical, utility modules *)
 
 module Exception: sig
   type t = exn
@@ -62,6 +60,20 @@ module Exit: sig
   val exit: int -> unit
 end
 
+(* Numbers *)
+
+module Bool: sig
+  type t = bool
+
+  include Traits.Representable.S0 with type t := t
+end
+
+module Int: sig
+  type t = int
+
+  include Concepts.Integer.S0 with type t := t
+end
+
 module Float: sig
   type t = float
 
@@ -88,6 +100,8 @@ module Float: sig
   end
 end
 
+(* Input/output *)
+
 module Format: sig
   type ('a, 'b, 'c, 'd, 'e, 'f) t = ('a, 'b, 'c, 'd, 'e, 'f) CamlinternalFormatBasics.format6
 
@@ -108,32 +122,7 @@ module Format: sig
   val concat: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('f, 'b, 'c, 'e, 'g, 'h) t -> ('a, 'b, 'c, 'd, 'g, 'h) t
 end
 
-module Int: sig
-  type t = int
-
-  include Concepts.Integer.S0 with type t := t
-end
-
-module Std: sig
-  module Bool: module type of Bool
-  module Exception: module type of Exception
-  module Exit: module type of Exit
-  module Float: module type of Float
-  module Format: module type of Format
-  module Int: module type of Int
-
-  include module type of Pervasives_ with module Format := Format
-end
-
-module Abbr: sig
-  module Bo: module type of Bool
-  module Exn: module type of Exception
-  module Fl: module type of Float
-  module Frmt: module type of Format
-  module Int: module type of Int
-
-  include module type of Pervasives_
-end
+(* Testing *)
 
 module Testing: sig
   module Result: sig
@@ -170,4 +159,29 @@ module Testing: sig
   val check_true: bool -> unit
 
   val check_false: bool -> unit
+end
+
+(* Modules to be opened *)
+
+module Pervasives: module type of Pervasives_
+
+module Std: sig
+  module Bool: module type of Bool
+  module Exception: module type of Exception
+  module Exit: module type of Exit
+  module Float: module type of Float
+  module Format: module type of Format
+  module Int: module type of Int
+
+  include module type of Pervasives with module Format := Format
+end
+
+module Abbr: sig
+  module Bo: module type of Bool
+  module Exn: module type of Exception
+  module Fl: module type of Float
+  module Frmt: module type of Format
+  module Int: module type of Int
+
+  include module type of Pervasives
 end
