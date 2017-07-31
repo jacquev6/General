@@ -234,6 +234,24 @@ module Tuple2: sig
   val get_1: (_, 'b) t -> 'b
 end
 
+(* Specializations of fixed-size containers *)
+
+module IntReference: sig
+  type t = int Reference.t
+
+  val of_contents: int -> t
+  val contents: t -> int
+  val assign: t -> int -> unit
+
+  val increment: t -> unit
+  val decrement: t -> unit
+
+  module O: sig
+    val (!): t -> int
+    val (:=): t -> int -> unit
+  end
+end
+
 (* Input/output *)
 
 module Format: sig
@@ -319,6 +337,8 @@ module Std: sig
   module Tuple2: module type of Tuple2
   module Unit: module type of Unit
 
+  module IntReference: module type of IntReference
+
   include module type of Pervasives
   with module Char := Char
   and module Format := Format
@@ -341,6 +361,8 @@ module Abbr: sig
   module Str: module type of String
   module Tu2: module type of Tuple2
   module Unit: module type of Unit
+
+  module IntRef: module type of IntReference
 
   include module type of Pervasives
 end

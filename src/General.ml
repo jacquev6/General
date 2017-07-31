@@ -22,6 +22,8 @@ module String = Implementation.String_
 module Tuple2 = Implementation.Tuple2
 module Unit = Implementation.Unit
 
+module IntReference = Specializations.Reference.Int
+
 module Std = struct
   module Bool = Bool
   module Char = Char
@@ -37,6 +39,8 @@ module Std = struct
   module String = String
   module Tuple2 = Tuple2
   module Unit = Unit
+
+  module IntReference = IntReference
 
   include (
     Pervasives: module type of Pervasives
@@ -62,6 +66,8 @@ module Abbr = struct
   module Str = String
   module Tu2 = Tuple2
   module Unit = Unit
+
+  module IntRef = IntReference
 
   include Pervasives
 end

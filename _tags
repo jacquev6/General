@@ -13,6 +13,8 @@ true: cppo_V_OCAML
 <src/Traits/*.cmx>: for-pack(Traits)
 <src/Concepts/*.cmx>: for-pack(Concepts)
 <src/Implementation/*.cmx>: for-pack(Implementation)
+<src/Specializations/*.cmx>: for-pack(Specializations)
+<src/Specializations/Reference/*.cmx>: for-pack(Specializations.Reference)
 
 <src/**>: nopervasives
 <src/Foundations/**> and not <src/Foundations/Reset*.*>: open(Reset)
