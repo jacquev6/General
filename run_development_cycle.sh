@@ -16,17 +16,9 @@ do
     ls $directory/*.ml* | sed "s#\..*##" | sort -u >${directory}.mlpack
 done
 
-build -I demo -build-dir _build_native \
+build -build-dir _build_native \
     src/Foundations/ResetPervasives.inferred.mli \
-    General.cmxa unit_tests.native demo.native
-
-cd demo
-# This simulates the 'opam install' process, but is quicker
-rm -rf _build_with_lib
-mkdir _build_with_lib
-cp ../_build_native/src/General.cmi ../_build_native/src/General.a ../_build_native/src/General.cmxa _build_with_lib
-build -build-dir _build_with_lib -package num -lib General demo.native
-cd ..
+    General.cmxa unit_tests.native
 
 python3 <<END
 def complete_definitions():
@@ -72,11 +64,19 @@ with open("demo/demo_pervasives.ml", "w") as f:
             f.write("let _ = {}\n".format(symbol))
 END
 
+cd demo
+# This simulates the 'opam install' process, but is quicker
+rm -rf _build_with_lib
+mkdir _build_with_lib
+cp ../_build_native/src/General.cmi ../_build_native/src/General.a ../_build_native/src/General.cmxa _build_with_lib
+build -build-dir _build_with_lib -package num -lib General demo.native demo_pervasives.native
+cd ..
+
 build -I demo \
     -package bisect_ppx -tag debug \
     -tag-line 'true:+open(DependenciesForBisectPpx)' \
     -tag-line '<DependenciesForBisectPpx.*>:-open(DependenciesForBisectPpx)' \
-    General.cma unit_tests.byte unit_tests.js demo.byte demo_pervasives.byte
+    unit_tests.byte unit_tests.js
 
 # @todo Could we build with *one* module using bisect_ppx and measure coverage of this module by its own tests?
 # Currently, a few functions are measured as covered because they are used in the test framework.
@@ -99,7 +99,7 @@ node _build/src/unit_tests.js
 echo
 
 echo "Running demo"
-_build_native/demo/demo.native
+demo/_build_with_lib/demo.native
 
 if [ "x$1" == "x--quick" ]
 then

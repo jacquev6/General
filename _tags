@@ -9,12 +9,11 @@ true: cppo_V_OCAML
 
 <src>: include
 
-not <demo/**> and not <DependenciesForBisectPpx.*>: nopervasives
-
 <src/Foundations/*.cmx>: for-pack(Foundations)
 <src/Traits/*.cmx>: for-pack(Traits)
 <src/Concepts/*.cmx>: for-pack(Concepts)
 <src/Implementation/*.cmx>: for-pack(Implementation)
 
+<src/**>: nopervasives
 <src/Foundations/**> and not <src/Foundations/Reset*.*>: open(Reset)
 <src/**> and not <src/Reset/**> and not <src/Foundations/**> and not <src/Pervasives_.*>: open(Pervasives_)
