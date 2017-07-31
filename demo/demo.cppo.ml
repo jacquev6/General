@@ -137,4 +137,4 @@ let () =
       ~: "some %s" "test" (lazy ());
     ]
   ) in
-  exit (General.Testing.command_line_main ~argv:OCamlStandard.(Array.to_list Sys.argv) test)
+  General.Exit.exit (General.Testing.command_line_main ~argv:OCamlStandard.(Array.to_list Sys.argv) test)

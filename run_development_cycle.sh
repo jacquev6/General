@@ -12,13 +12,12 @@ function build {
 
 for directory in $(find src -mindepth 1 -type d)
 do
-    echo "Rebuilding ${directory}.mlpack from $directory's contents"
-    ls $directory/*.ml* | grep -v "_\.ml" | sed "s#\..*##" | sort -u >${directory}.mlpack
-    ls $directory/*_.ml*                  | sed "s#\..*##" | sort -u >${directory}_.mlpack
+    # echo "Rebuilding ${directory}.mlpack from $directory's contents"
+    ls $directory/*.ml* | sed "s#\..*##" | sort -u >${directory}.mlpack
 done
 
 build -I demo -build-dir _build_native \
-    ResetPervasives.inferred.mli \
+    src/Foundations/ResetPervasives.inferred.mli \
     General.cmxa unit_tests.native demo.native
 
 cd demo
@@ -31,7 +30,7 @@ cd ..
 
 python3 <<END
 def complete_definitions():
-    with open("_build_native/src/ResetPervasives.inferred.mli") as f:
+    with open("_build_native/src/Foundations/ResetPervasives.inferred.mli") as f:
         current_line = None
         for line in f:
             line = line.strip()
@@ -60,7 +59,7 @@ END
 
 python3 <<END
 def all_please_uses():
-    with open("_build_native/src/ResetPervasives.inferred.mli") as f:
+    with open("_build_native/src/Foundations/ResetPervasives.inferred.mli") as f:
         for line in f:
             for word in line.split():
                 if word.startswith("\`Please_use_") and not word.endswith("__todo"):
@@ -82,11 +81,6 @@ build -I demo \
 # @todo Could we build with *one* module using bisect_ppx and measure coverage of this module by its own tests?
 # Currently, a few functions are measured as covered because they are used in the test framework.
 
-echo
-echo "Running unit tests in node.js"
-node _build/src/unit_tests.js
-echo
-
 rm -f bisect????.out
 echo "Running unit tests in byte code"
 _build/src/unit_tests.byte
@@ -98,6 +92,11 @@ bisect-ppx-report -I _build -html _build/bisect bisect????.out
 echo "See coverage report in $(pwd)/_build/bisect/index.html"
 echo
 rm -f bisect????.out
+
+echo
+echo "Running unit tests in node.js"
+node _build/src/unit_tests.js
+echo
 
 echo "Running demo"
 _build_native/demo/demo.native

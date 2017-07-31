@@ -1,9 +1,135 @@
-open Abbr_
+open Foundations
 
-include (Traits_.Ringoid_: module type of Ringoid_)
+module Basic = struct
+  module type S0 = sig
+    type t
+
+    val zero: t
+    val one: t
+
+    val negate: t -> t
+    val add: t -> t -> t
+    val substract: t -> t -> t
+    val multiply: t -> t -> t
+    val divide: t -> t -> t
+  end
+end
+
+module Operators = struct
+  module type S0 = sig
+    type t
+
+    val (~-): t -> t
+    val (+): t -> t -> t
+    val (-): t -> t -> t
+    val ( * ): t -> t -> t
+    val (/): t -> t -> t
+
+    val ( ** ): t -> int -> t
+  end
+
+  module Make0(M: sig
+    type t
+
+    val negate: t -> t
+    val add: t -> t -> t
+    val substract: t -> t -> t
+    val multiply: t -> t -> t
+    val divide: t -> t -> t
+
+    val exponentiate: t -> int -> t
+  end) = struct
+    open M
+
+    let (~-) x =
+      negate x
+
+    let (+) x y =
+      add x y
+
+    let (-) x y =
+      substract x y
+
+    let ( * ) x y =
+      multiply x y
+
+    let (/) x y =
+      divide x y
+
+    let ( ** ) x n =
+      exponentiate x n
+  end
+end
+
+module type S0 = sig
+  include Basic.S0
+
+  val square: t -> t
+  val exponentiate: t -> int -> t
+
+  module O: Operators.S0 with type t := t
+end
+
+module Substract = struct
+  module Make0(M: sig
+    type t
+
+    val negate: t -> t
+    val add: t -> t -> t
+  end) = struct
+    open M
+
+    let substract x y =
+      add x (negate y)
+  end
+end
+
+module Square = struct
+  module Make0(M: sig
+    type t
+
+    val multiply: t -> t -> t
+  end) = struct
+    open M
+
+    let square x =
+      multiply x x
+  end
+end
+
+module Exponentiate = struct
+  module Make0(M: sig
+    type t
+
+    val one: t
+
+    val square: t -> t
+    val multiply: t -> t -> t
+
+    val exponentiate_negative_exponent: exponentiate:(t -> int -> t) -> t -> int -> t
+  end) = struct
+    open M
+
+    let exponentiate =
+      let rec aux y x n = OCamlStandard.Pervasives.(
+        if n < 0 then
+          exponentiate_negative_exponent ~exponentiate:(aux one) x n
+        else if n = 0 then
+          y
+        else if n = 1 then
+          multiply x y
+        else if n mod 2 = 0 then
+          aux y (square x) (n / 2)
+        else
+          aux (multiply x y) (square x) ((n - 1) / 2)
+      ) in
+      fun x n ->
+      aux one x n
+  end
+end
 
 module Tests = struct
-  open Testing_
+  open Testing
 
   module Examples = struct
     module type S0 = sig
@@ -19,8 +145,8 @@ module Tests = struct
 
   module Make0(M: sig
     include S0
-    include Representable_.Basic.S0 with type t := t
-    include Equatable_.Basic.S0 with type t := t
+    include Representable.Basic.S0 with type t := t
+    include Equatable.Basic.S0 with type t := t
   end)(E: Examples.S0 with type t := M.t) = struct
     open M
     open M.O
@@ -61,7 +187,7 @@ module Tests = struct
 
     let test = "Ringoid" >:: (
       E.add_substract
-      |> Li.concat_map ~f:(fun (x, y, z) ->
+      |> List_.concat_map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y and rz = repr z in
         [
           ~: "add %s %s" rx ry (lazy (check ~expected:z (add x y)));
@@ -76,7 +202,7 @@ module Tests = struct
       )
     ) @ (
       E.negate
-      |> Li.concat_map ~f:(fun (x, y) ->
+      |> List_.concat_map ~f:(fun (x, y) ->
         let rx = repr x and ry = repr y in
         [
           ~: "negate %s" rx (lazy (check ~expected:y (negate x)));
@@ -97,7 +223,7 @@ module Tests = struct
       )
     ) @ (
       E.multiply
-      |> Li.concat_map ~f:(fun (x, y, expected) ->
+      |> List_.concat_map ~f:(fun (x, y, expected) ->
         let rx = repr x and ry = repr y in
         [
           ~: "multiply %s %s" rx ry (lazy (check ~expected (multiply x y)));
@@ -106,7 +232,7 @@ module Tests = struct
       )
     ) @ (
       E.divide
-      |> Li.concat_map ~f:(fun (x, y, expected) ->
+      |> List_.concat_map ~f:(fun (x, y, expected) ->
         let rx = repr x and ry = repr y in
         [
           ~: "divide %s %s" rx ry (lazy (check ~expected (divide x y)));
@@ -115,7 +241,7 @@ module Tests = struct
       )
     ) @ (
       E.exponentiate
-      |> Li.concat_map ~f:(fun (x, n, expected) ->
+      |> List_.concat_map ~f:(fun (x, n, expected) ->
         let rx = repr x in
         [
           ~: "exponentiate %s %n" rx n (lazy (check ~expected (exponentiate x n)));

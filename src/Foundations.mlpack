@@ -1,0 +1,17 @@
+src/Foundations/Bool
+src/Foundations/Compare
+src/Foundations/Equate
+src/Foundations/Exception
+src/Foundations/Float
+src/Foundations/Format_
+src/Foundations/Function
+src/Foundations/Int
+src/Foundations/Lazy_
+src/Foundations/List_
+src/Foundations/Option
+src/Foundations/Reset
+src/Foundations/ResetPervasives
+src/Foundations/ResetStandardLibrary
+src/Foundations/String_
+src/Foundations/Tuple2
+src/Foundations/Unit

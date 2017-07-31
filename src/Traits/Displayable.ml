@@ -1,9 +1,17 @@
-open Abbr_
+open Foundations
 
-include (Traits_.Displayable_: module type of Displayable_)
+module Basic = struct
+  module type S0 = sig
+    type t
+
+    val to_string: t -> string
+  end
+end
+
+include Basic
 
 module Tests = struct
-  open Testing_
+  open Testing
 
   module Examples = struct
     module type S0 = sig
@@ -18,7 +26,7 @@ module Tests = struct
 
     let test = "Displayable" >:: (
       E.to_string
-      |> Li.map ~f:(fun (v, expected) ->
+      |> List_.map ~f:(fun (v, expected) ->
         ~: "to_string %s" expected (lazy (check_string ~expected (to_string v)))
       )
     )

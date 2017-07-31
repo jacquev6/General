@@ -1,9 +1,25 @@
-open Abbr_
+open Foundations
 
-include (Traits_.Representable_: module type of Representable_)
+module Basic = struct
+  module type S0 = sig
+    type t
+
+    (** Representation: a string representing the object for a software developer audience.
+    When possible, it should a valid OCaml expression representing the value. **)
+    val repr: t -> string
+  end
+
+  module type S1 = sig
+    type 'a t
+
+    val repr: 'a t -> repr:('a -> string) -> string
+  end
+end
+
+include Basic
 
 module Tests = struct
-  open Testing_
+  open Testing
 
   module Examples = struct
     module type S0 = sig
@@ -26,7 +42,7 @@ module Tests = struct
 
     let test = "Representable" >:: (
       E.repr
-      |> Li.map ~f:(fun (v, expected) ->
+      |> List_.map ~f:(fun (v, expected) ->
         ~: "repr %s" expected (lazy (check_string ~expected (repr v)))
       )
     )
@@ -37,7 +53,7 @@ module Tests = struct
 
     let test = "Representable" >:: (
       E.repr
-      |> Li.map ~f:(fun (v, expected) ->
+      |> List_.map ~f:(fun (v, expected) ->
         ~: "repr %s" expected (lazy (check_string ~expected (repr ~repr:E.Element.repr v)))
       )
     )

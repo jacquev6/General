@@ -1,9 +1,31 @@
-open Abbr_
+module type S0 = sig
+  include RealNumber.S0
 
-include (Concepts_.Integer_: module type of Integer_)
+  val succ: t -> t
+  val pred: t -> t
+end
+
+module PredSucc = struct
+  module Make0(M: sig
+    type t
+
+    val one: t
+
+    val add: t -> t -> t
+    val substract: t -> t -> t
+  end) = struct
+    open M
+
+    let pred x =
+      substract x one
+
+    let succ x =
+      add x one
+  end
+end
 
 module Tests = struct
-  open Testing_
+  open Testing
 
   module Make0(M: S0)(E: RealNumber.Tests.Examples.S0 with type t := M.t) = struct
     open M

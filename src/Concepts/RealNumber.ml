@@ -1,9 +1,31 @@
-open Abbr_
+open Foundations
 
-include (Concepts_.RealNumber_: module type of RealNumber_)
+module Operators = struct
+  module type S0 = sig
+    include Number.Operators.S0
+    include Traits.Comparable.Operators.S0 with type t := t
+
+    val (mod): t -> t -> t
+  end
+end
+
+module type S0 = sig
+  type t
+
+  module O: Operators.S0 with type t := t
+
+  include Number.S0 with type t := t and module O := O
+  include Traits.Comparable.S0 with type t := t and module O := O
+
+  val abs: t -> t
+  val modulo: t -> t -> t
+
+  val to_int: t -> int
+  val to_float: t -> float
+end
 
 module Tests = struct
-  open Testing_
+  open Testing
 
   module Examples = struct
     module type S0 = sig
@@ -30,7 +52,7 @@ module Tests = struct
       (let module T = Traits.Comparable.Tests.Make0(M)(E) in T.test);
     ] @ (
       E.negate
-      |> Li.concat_map ~f:(fun (x, y) ->
+      |> List_.concat_map ~f:(fun (x, y) ->
         let abs_x = if greater_or_equal x zero then x else y
         and abs_y = if greater_or_equal y zero then y else x in
         [

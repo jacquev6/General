@@ -1,4 +1,4 @@
-<src/BuiltinTypes/Exception.*>: warn(@A-8-33-44)
+<src/Implementation/Exception.*>: warn(@A-8-33-44)
 true: warn(@A-4-33-44-45-48)
 
 true: safe_string
@@ -9,16 +9,12 @@ true: cppo_V_OCAML
 
 <src>: include
 
-<src/BuiltinTypes/*_.cmx>: for-pack(BuiltinTypes_)
-<src/BuiltinTypes/*.cmx> and not <src/BuiltinTypes/*_.cmx>: for-pack(BuiltinTypes)
-<src/StdLibTypes/*_.cmx>: for-pack(StdLibTypes_)
-<src/StdLibTypes/*.cmx> and not <src/StdLibTypes/*_.cmx>: for-pack(StdLibTypes)
-<src/ExtensionTypes/*_.cmx>: for-pack(ExtensionTypes_)
-<src/ExtensionTypes/*.cmx> and not <src/ExtensionTypes/*_.cmx>: for-pack(ExtensionTypes)
-<src/Concepts/*_.cmx>: for-pack(Concepts_)
-<src/Concepts/*.cmx> and not <src/Concepts/*_.cmx>: for-pack(Concepts)
-<src/Traits/*_.cmx>: for-pack(Traits_)
-<src/Traits/*.cmx> and not <src/Traits/*_.cmx>: for-pack(Traits)
-
 not <demo/**> and not <DependenciesForBisectPpx.*>: nopervasives
-not <demo/**> and not <src/Reset*.*> and not <DependenciesForBisectPpx.*> and not <src/Ubiquitous.*>: open(Ubiquitous)
+
+<src/Foundations/*.cmx>: for-pack(Foundations)
+<src/Traits/*.cmx>: for-pack(Traits)
+<src/Concepts/*.cmx>: for-pack(Concepts)
+<src/Implementation/*.cmx>: for-pack(Implementation)
+
+<src/Foundations/**> and not <src/Foundations/Reset*.*>: open(Reset)
+<src/**> and not <src/Reset/**> and not <src/Foundations/**> and not <src/Pervasives_.*>: open(Pervasives_)

@@ -1,16 +1,17 @@
-open Abbr_
-open Testing_
+open Implementation
+
+open Testing
 
 let test = "General" >:: [
-  BuiltinTypes.Bool.Tests.test;
-  BuiltinTypes.Exception.Tests.test;
-  BuiltinTypes.Float.Tests.test;
-  BuiltinTypes.Int.Tests.test;
-  BuiltinTypes.Option.Tests.test;
-  BuiltinTypes.String'.Tests.test;
-  Testing.Tests.test;
+  Bool.Tests.test;
+  Exception.Tests.test;
+  Float.Tests.test;
+  Int.Tests.test;
+  Option.Tests.test;
+  String_.Tests.test;
+  TestingTests.Tests.test;
 ]
 
 let () =
   let argv = OCamlStandard.(Array.to_list Sys.argv) in
-  exit (command_line_main ~argv test)
+  Exit.exit (command_line_main ~argv test)
