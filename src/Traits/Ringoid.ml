@@ -19,6 +19,7 @@ module Operators = struct
   module type S0 = sig
     type t
 
+    val (~+): t -> t
     val (~-): t -> t
     val (+): t -> t -> t
     val (-): t -> t -> t
@@ -40,6 +41,9 @@ module Operators = struct
     val exponentiate: t -> int -> t
   end) = struct
     open M
+
+    let (~+) x =
+      identity x
 
     let (~-) x =
       negate x

@@ -9,6 +9,7 @@ src/Foundations/Int
 src/Foundations/Lazy_
 src/Foundations/List_
 src/Foundations/Option
+src/Foundations/PervasivesWhitelist
 src/Foundations/Reset
 src/Foundations/ResetPervasives
 src/Foundations/ResetStandardLibrary

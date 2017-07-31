@@ -41,3 +41,13 @@ end
 
 include (Compare.Poly: module type of Compare.Poly with module O := O)
 include (Equate.Poly: module type of Equate.Poly with module O := O)
+
+module Bitwise = struct
+  let logical_and = OCSP.(land)
+  let logical_or = OCSP.(lor)
+  let logical_xor = OCSP.(lxor)
+  let logical_not = OCSP.(lnot)
+  let logical_shift_left n ~shift = OCSP.(n lsl shift)
+  let logical_shift_right n ~shift = OCSP.(n lsr shift)
+  let arithmetic_shift_right n ~shift = OCSP.(n asr shift)
+end

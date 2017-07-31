@@ -58,7 +58,9 @@ def all_please_uses():
                     yield word[12:].replace("__", ".")
 with open("demo/demo_pervasives.ml", "w") as f:
     for symbol in sorted(set(all_please_uses())):
-        if symbol.endswith(".t"):
+        if symbol.endswith("Reference.t") or symbol.endswith("Format.t"):
+            f.write("let (_: _ {} option) = None\n".format(symbol))
+        elif symbol.endswith(".t"):
             f.write("let (_: {} option) = None\n".format(symbol))
         else:
             f.write("let _ = {}\n".format(symbol))

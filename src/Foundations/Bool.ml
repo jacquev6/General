@@ -16,3 +16,7 @@ end
 
 include (Compare.Poly: module type of Compare.Poly with module O:= O)
 include (Equate.Poly: module type of Equate.Poly with module O:= O)
+
+let not = OCSP.not
+let and_ = OCSP.(&&)
+let or_ = OCSP.(||)

@@ -2,6 +2,8 @@ type t = float
 
 let zero = 0.
 let one = 1.
+let pi = OCSP.(4. *. atan 1.)
+let e = OCSP.exp 1.
 let smallest = OCSP.min_float
 let greatest = OCSP.max_float
 let epsilon = OCSP.epsilon_float
@@ -16,6 +18,11 @@ let to_float = Function.identity
 let of_string = OCSP.float_of_string
 let to_string = OCSP.string_of_float
 
+let of_parts ~significand ~exponent = OCSP.ldexp significand exponent
+let to_parts = OCSP.frexp
+
+let to_fractional_and_integral = OCSP.modf
+
 let repr = OCSP.string_of_float
 
 let add = OCSP.(+.)
@@ -27,6 +34,30 @@ let divide = OCSP.(/.)
 let square x = multiply x x
 let abs = OCSP.abs_float
 let modulo = OCSP.mod_float
+
+let sqrt = OCSP.sqrt
+
+let exp = OCSP.exp
+let log = OCSP.log
+let log10 = OCSP.log10
+let expm1 = OCSP.expm1
+let log1p = OCSP.log1p
+
+let cos = OCSP.cos
+let sin = OCSP.sin
+let tan = OCSP.tan
+let acos = OCSP.acos
+let asin = OCSP.asin
+let atan = OCSP.atan
+let atan2 ~y ~x = OCSP.atan2 y x
+let hypot = OCSP.hypot
+let cosh = OCSP.cosh
+let sinh = OCSP.sinh
+let tanh = OCSP.tanh
+
+let ceil = OCSP.ceil
+let floor = OCSP.floor
+let copy_sign x ~sign = OCSP.copysign x sign
 
 module O = struct
   include Compare.Poly.O

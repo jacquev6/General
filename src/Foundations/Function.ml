@@ -1,10 +1,12 @@
-let identity x = x
+type ('a, 'b) t = 'a -> 'b
 
-let rev_apply x f = f x
+let identity x = x
 
 let apply f x = f x
 
+let rev_apply x f = f x
+
 module O = struct
-  let (|>) = rev_apply
   let (@@) = apply
+  let (|>) = rev_apply
 end
