@@ -147,7 +147,7 @@ module Tests = struct
     include S0
     include Representable.Basic.S0 with type t := t
     include Equatable.Basic.S0 with type t := t
-  end)(E: Examples.S0 with type t := M.t) = struct
+  end)(E: Examples.S0 with type t := M.t): sig val test: Test.t end = struct
     open M
     open M.O
 

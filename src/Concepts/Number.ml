@@ -32,7 +32,7 @@ module Tests = struct
     end
   end
 
-  module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
+  module Make0(M: S0)(E: Examples.S0 with type t := M.t): sig val test: Test.t end = struct
     open M
 
     module E = struct
