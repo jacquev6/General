@@ -1,10 +1,7 @@
-(* @todo Pick everything from Implementation.
-Foundations modules should all be replicated in Implementation, if only for tests. *)
-
 module Pervasives = Pervasives_
 
-module Compare = Foundations.Compare
-module Equate = Foundations.Equate
+module Compare = Implementation.Compare
+module Equate = Implementation.Equate
 
 module Traits = Traits
 module Concepts = Concepts
@@ -15,15 +12,15 @@ module Char = Implementation.Char_
 module Exception = Implementation.Exception
 module Exit = Implementation.Exit
 module Float = Implementation.Float
-module Format = Foundations.Format_
-module Function = Foundations.Function
+module Format = Implementation.Format_
+module Function = Implementation.Function
 module Int = Implementation.Int
-module Lazy = Foundations.Lazy_
+module Lazy = Implementation.Lazy_
 module Option = Implementation.Option
 module Reference = Implementation.Reference
 module String = Implementation.String_
-module Tuple2 = Foundations.Tuple2
-module Unit = Foundations.Unit
+module Tuple2 = Implementation.Tuple2
+module Unit = Implementation.Unit
 
 module Std = struct
   module Bool = Bool
