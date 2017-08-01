@@ -258,6 +258,9 @@ let check_string ~expected actual =
 let check_int ~expected actual =
   check ~repr:Int.repr ~equal:Int.equal ~expected actual
 
+let check_42 actual =
+  check ~repr:Int.repr ~equal:Int.equal ~expected:42 actual
+
 let check_float_exact ~expected actual =
   check ~repr:Float.repr ~equal:Float.equal ~expected actual
 
@@ -275,6 +278,9 @@ let check_int_option ~expected actual =
 
 let check_some_int ~expected actual =
   check_int_option ~expected:(Some expected) actual
+
+let check_some_42 actual =
+  check_some_int ~expected:42 actual
 
 let check_none_int actual =
   check_int_option ~expected:None actual

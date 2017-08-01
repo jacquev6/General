@@ -139,7 +139,7 @@ module Tests = struct
             ("group success" >:: ["child" >: (lazy ())]);
           make
             (Single {label="not equal failure"; status=Failure (NotEqual ("42", "43"))})
-            ("not equal failure" >: (lazy (check_int ~expected:42 43)));
+            ("not equal failure" >: (lazy (check_42 43)));
           make
             (Single {label="no exception"; status=Failure (NoException TestException0)})
             ("no exception" >: (lazy (expect_exception ~expected:TestException0 (lazy ()))));
