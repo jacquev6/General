@@ -1,3 +1,28 @@
+let g = ref 0
+
+module WithoutGeneral = struct
+  let _ = "a".[0]
+  let _ = [|0|].(0)
+end
+
+module WithGeneralStandard = struct
+  open General.Standard
+
+  let _ = Reference.contents g
+  let _ = OCamlStandard.Arg.Clear (ref true)
+  let _ = "a".[0]
+  let _ = [|0|].(0)
+end
+
+module WithGeneralAbbr = struct
+  open General.Abbr
+
+  let _ = Ref.contents g
+  let _ = OCamlStandard.Arg.Clear (ref true)
+  let _ = "a".[0]
+  let _ = [|0|].(0)
+end
+
 open General.Abbr
 
 module DemoInteger(N: sig val name: string end)(I: General.Concepts.Integer.S0) = struct

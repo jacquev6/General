@@ -20,3 +20,18 @@ let repr x ~repr =
 
 let some_if condition value =
   if condition then Some (Lazy_.force value) else None
+
+let value_def x ~def =
+  match x with
+    | Some x -> x
+    | None -> def
+
+let map x ~f =
+  match x with
+    | None -> None
+    | Some x -> Some (f x)
+
+let value_map x ~def ~f =
+  match x with
+    | None -> def
+    | Some x -> f x

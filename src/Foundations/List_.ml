@@ -58,6 +58,13 @@ let fold xs ~init ~f =
   in
   aux init xs
 
+let fold_i xs ~init ~f =
+  let rec aux i y = function
+    | [] -> y
+    | x::xs -> aux (Int.succ i) (f i y x) xs
+  in
+  aux 0 init xs
+
 let try_reduce xs ~f =
   match xs with
     | [] -> None
@@ -81,12 +88,54 @@ let iter xs ~f =
   in
   aux xs
 
+let iter_i xs ~f =
+  let rec aux i = function
+    | [] -> ()
+    | x::xs -> f i x; aux (Int.succ i) xs
+  in
+  aux 0 xs
+
 let repr xs ~repr =
   xs
   |> map ~f:repr
   |> OCamlStandard.StringLabels.concat ~sep:"; "
   |> Format_.sprintf "[%s]"
 
+let filter xs ~f =
+  let rec aux ys = function
+    | [] -> reverse ys
+    | x::xs -> aux (if f x then x::ys else ys) xs
+  in
+  aux [] xs
+
+let filter_map xs ~f =
+  let rec aux ys = function
+    | [] -> reverse ys
+    | x::xs ->
+      let ys = match f x with
+        | Some y -> y::ys
+        | None -> ys
+      in
+      aux ys xs
+  in
+  aux [] xs
+
+module Poly = struct
+  let contains xs x =
+    let rec aux = function
+      | [] -> false
+      | x'::_ when Equate.Poly.equal x' x -> true
+      | _::xs -> aux xs
+    in
+    aux xs
+end
+
+let size xs =
+  let rec aux s = function
+    | [] -> s
+    | _::xs -> aux (Int.succ s) xs
+  in
+  aux 0 xs
 
 
 

@@ -1,35 +1,17 @@
-module OCSP = OCamlStandard.Pervasives
-
-module Self = struct
-  type 'a t = 'a OCSP.ref = {
-    mutable contents: 'a;
-  }
-
-  let of_contents = OCSP.ref
-  let contents = OCSP.(!)
-  let assign = OCSP.(:=)
-
-  module O = struct
-    let ref = OCSP.ref
-    let (!) = OCSP.(!)
-    let (:=) = OCSP.(:=)
-  end
-end
-
-include Self
+include Foundations.Reference
 
 module Specialize(E: sig type t end) = struct
-  type t = E.t Self.t
+  type t = E.t Foundations.Reference.t
 
   include (
-    Self:
-    module type of Self
-    with type 'a t := 'a Self.t
+    Foundations.Reference:
+    module type of Foundations.Reference
+    with type 'a t := 'a Foundations.Reference.t
   )
 end
 
 module SpecializePredSucc(E: Traits.PredSucc.S0) = struct
-  open Self.O
+  open Foundations.Reference.O
 
   let increment r =
     r := E.succ !r

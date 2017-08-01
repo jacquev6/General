@@ -1,5 +1,53 @@
 (* Basics *)
 
+module Pervasives: sig
+  include module type of Foundations.ResetPervasives
+  include module type of Foundations.ResetStandardLibrary
+
+  val not: bool -> bool
+  val (&&): bool -> bool -> bool
+  val (||): bool -> bool -> bool
+
+  val (~-.): float -> float
+  val (~+.): float -> float
+  val (+.): float -> float -> float
+  val (-.): float -> float -> float
+  val ( *. ): float -> float -> float
+  val (/.): float -> float -> float
+  val ( ** ): float -> float -> float
+
+  val (@@): ('a -> 'b) -> 'a -> 'b
+  val (|>): 'a -> ('a -> 'b) -> 'b
+
+  val (~-): int -> int
+  val (~+): int -> int
+  val (+): int -> int -> int
+  val (-): int -> int -> int
+  val ( * ): int -> int -> int
+  val (/): int -> int -> int
+  val (mod): int -> int -> int
+
+  val (@): 'a list -> 'a list -> 'a list
+
+  val (^): string -> string -> string
+
+  val ref: 'a -> 'a OCamlStandard.Pervasives.ref
+  val (:=): 'a OCamlStandard.Pervasives.ref -> 'a -> unit
+  val (!): 'a OCamlStandard.Pervasives.ref -> 'a
+
+  val (=): 'a -> 'a -> bool
+  val (<>): 'a -> 'a -> bool
+
+  val (<): 'a -> 'a -> bool
+  val (<=): 'a -> 'a -> bool
+  val (>=): 'a -> 'a -> bool
+  val (>): 'a -> 'a -> bool
+
+  val ignore: 'a -> unit
+
+  val identity: 'a -> 'a
+end
+
 module Compare: sig
   type t = LT | EQ | GT
 
@@ -190,6 +238,8 @@ end
 module String: sig
   type t = string
 
+  val get: t -> int -> char
+
   module O: sig
     include Traits.Comparable.Operators.S0 with type t := t
     include Traits.Equatable.Operators.S0 with type t := t
@@ -202,12 +252,32 @@ module String: sig
   include Traits.Equatable.S0 with type t := t and module O := O
 
   val concat: t -> t -> t
+
+  (* val try_substring: t -> pos:int -> len:int -> t option *)
+  val substring: t -> pos:int -> len:int -> t
+  (* val try_prefix: t -> len:int -> t option *)
+  val prefix: t -> len:int -> t
+  (* val try_suffix: t -> len:int -> t option *)
+  val suffix: t -> len:int -> t
+
+  val has_prefix: t -> pre:t -> bool
+  val try_drop_prefix: t -> pre:t -> t option
+  val drop_prefix: t -> pre:t -> t
+  val has_suffix: t -> suf:t -> bool
+  val try_drop_suffix: t -> suf:t -> t option
+  val drop_suffix: t -> suf:t -> t
+
+  val split: t -> sep:t -> t list
 end
 
 (* Fixed-size containers *)
 
 module Option: sig
   type 'a t = 'a option
+
+  val map: 'a t -> f:('a -> 'b) -> 'b t
+
+  val value_map: 'a t -> def:'b -> f:('a -> 'b) -> 'b
 end
 
 module Lazy: sig
@@ -215,7 +285,7 @@ module Lazy: sig
 end
 
 module Reference: sig
-  type 'a t = 'a OCamlStandard.Pervasives.ref = {mutable contents: 'a}
+  type 'a t = 'a Pervasives.OCamlStandard.Pervasives.ref = {mutable contents: 'a}
 
   val of_contents: 'a -> 'a t
   val contents: 'a t -> 'a
@@ -283,6 +353,8 @@ module List: sig
   val of_array: 'a array -> 'a t
   val to_array: 'a t -> 'a array
 
+  val size: 'a t -> int
+
   val cons: 'a -> 'a t -> 'a t
   val head: 'a t -> 'a
   val tail: 'a t -> 'a t
@@ -299,9 +371,35 @@ module List: sig
   val reduce: 'a t -> f:('a -> 'a -> 'a) -> 'a
   (* val scan: *)
 
+  val concat_map: 'a t -> f:('a -> 'b t) -> 'b t
+
+  val filter: 'a t -> f:('a -> bool) -> 'a t
+  val filter_map: 'a t -> f:('a -> 'b option) -> 'b t
+
+  val iter_i: 'a t -> f:(int -> 'a -> unit) -> unit
+  val fold_i: 'a t -> init:'b -> f:(int -> 'b -> 'a -> 'b) -> 'b
+
   module O: sig
     val (@): 'a t -> 'a t -> 'a t
   end
+
+  module Poly: sig
+    val contains: 'a t -> 'a -> bool
+  end
+end
+
+module Array: sig
+  type 'a t = 'a array
+
+  val get: 'a t -> int -> 'a
+end
+
+(* Specializations of collection containers *)
+
+module StringList: sig
+  type t = string list
+
+  val concat: ?sep:string -> t -> string
 end
 
 (* Input/output *)
@@ -352,28 +450,49 @@ module Testing: sig
 
   val fail: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
 
+  val expect_exception: expected:exn -> 'a lazy_t -> unit
+
   val check: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
+
+  val check_poly: repr:('a -> string) -> expected:'a -> 'a -> unit
 
   val check_string: expected:string -> string -> unit
 
   val check_bool: expected:bool -> bool -> unit
 
-  val check_int: expected:int -> int -> unit
-
   val check_true: bool -> unit
 
   val check_false: bool -> unit
+
+  val check_int: expected:int -> int -> unit
+
+  val check_float_exact: expected:float -> float -> unit
+
+  val check_option: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a option -> 'a option -> unit
+
+  val check_some: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a option -> unit
+
+  val check_none: repr:('a -> string) -> equal:('a -> 'a -> bool) -> 'a option -> unit
+
+  val check_int_option: expected:int option -> int option -> unit
+
+  val check_some_int: expected:int -> int option -> unit
+
+  val check_none_int: int option -> unit
+
+  val check_list: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a list -> 'a list -> unit
+
+  val check_string_list: expected:string list -> string list -> unit
+
+  val check_int_list: expected:int list -> int list -> unit
 end
 
 (* Modules to be opened *)
 
-module Pervasives: sig
-  include module type of Foundations.ResetPervasives
-  include module type of Foundations.ResetStandardLibrary
-  include module type of Foundations.PervasivesWhitelist
-end
+module Standard: sig
+  module Testing: module type of Testing
 
-module Std: sig
+  module Array: module type of Array
   module Bool: module type of Bool
   module Char: module type of Char
   module Exception: module type of Exception
@@ -391,9 +510,11 @@ module Std: sig
   module Unit: module type of Unit
 
   module IntReference: module type of IntReference
+  module StringList: module type of StringList
 
   include module type of Pervasives
-  with module Char := Char
+  with module Array := Array
+  and module Char := Char
   and module Format := Format
   and module Lazy := Lazy
   and module List := List
@@ -401,6 +522,9 @@ module Std: sig
 end
 
 module Abbr: sig
+  module Tst: module type of Testing
+
+  module Ar: module type of Array
   module Bo: module type of Bool
   module Ch: module type of Char
   module Exit: module type of Exit
@@ -418,6 +542,7 @@ module Abbr: sig
   module Unit: module type of Unit
 
   module IntRef: module type of IntReference
+  module StrLi: module type of StringList
 
   include module type of Pervasives
 end

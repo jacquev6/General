@@ -6,6 +6,8 @@ let repr x =
 let to_string = Function.identity
 let of_string = Function.identity
 
+let get = OCamlStandard.String.get
+
 let concat = OCSP.(^)
 
 module O = struct

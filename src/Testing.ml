@@ -240,6 +240,9 @@ let check ~repr ~equal ~expected actual =
   if not (equal expected actual) then
     Exception.raise (TestFailure (Result.Status.NotEqual (repr expected, repr actual)))
 
+let check_poly ~repr ~expected actual =
+  check ~repr ~equal:Equate.Poly.equal ~expected actual
+
 let check_bool ~expected actual =
   check ~repr:Bool.repr ~equal:Bool.equal ~expected actual
 

@@ -82,7 +82,9 @@ end
 EMPTY(Pervasives)
 
 EMPTY(Arg)
-EMPTY(Array)
+module Array = struct
+  let get = OCamlStandard.Array.get
+end
 EMPTY(ArrayLabels)
 EMPTY(Buffer)
 EMPTY(Bytes)
@@ -122,7 +124,9 @@ EMPTY(Spacetime)
 EMPTY(Stack)
 EMPTY(StdLabels)
 EMPTY(Stream)
-EMPTY(String)
+module String = struct
+  let get = OCamlStandard.String.get
+end
 EMPTY(StringLabels)
 EMPTY(Sys)
 #ifdef HAS_Uchar

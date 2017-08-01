@@ -7,6 +7,7 @@ module Traits = Traits
 module Concepts = Concepts
 module Testing = Testing
 
+module Array = Implementation.Array_
 module Bool = Implementation.Bool
 module Char = Implementation.Char_
 module Exception = Implementation.Exception
@@ -24,8 +25,12 @@ module Tuple2 = Implementation.Tuple2
 module Unit = Implementation.Unit
 
 module IntReference = Specializations.Reference.Int
+module StringList = Specializations.List_.String_
 
-module Std = struct
+module Standard = struct
+  module Testing = Testing
+
+  module Array = Array
   module Bool = Bool
   module Char = Char
   module Exception = Exception
@@ -43,10 +48,12 @@ module Std = struct
   module Unit = Unit
 
   module IntReference = IntReference
+  module StringList = StringList
 
   include (
     Pervasives: module type of Pervasives
-    with module Char := Char
+    with module Array := Array
+    and module Char := Char
     and module Format := Format
     and module Lazy := Lazy
     and module List := List
@@ -55,6 +62,9 @@ module Std = struct
 end
 
 module Abbr = struct
+  module Tst = Testing
+
+  module Ar = Array
   module Bo = Bool
   module Ch = Char
   module Exit = Exit
@@ -72,6 +82,7 @@ module Abbr = struct
   module Unit = Unit
 
   module IntRef = IntReference
+  module StrLi = StringList
 
   include Pervasives
 end
