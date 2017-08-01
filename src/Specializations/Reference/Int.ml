@@ -1,10 +1,6 @@
-type t = int Implementation.Reference.t
+module OCSP = OCamlStandard.Pervasives
 
-include (
-  Implementation.Reference:
-  module type of Implementation.Reference
-  with type 'a t := 'a Implementation.Reference.t
-)
+include Implementation.Reference.Specialize(Implementation.Int)
 
 let increment = OCSP.incr
 let decrement = OCSP.decr

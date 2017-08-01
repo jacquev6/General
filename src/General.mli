@@ -225,6 +225,24 @@ module Reference: sig
     val (!): 'a t -> 'a
     val (:=): 'a t -> 'a -> unit
   end
+
+  module Specialize(E: sig type t end): sig
+    type nonrec t = E.t t
+
+    val of_contents: E.t -> t
+    val contents: t -> E.t
+    val assign: t -> E.t -> unit
+
+    module O: sig
+      val (!): t -> E.t
+      val (:=): t -> E.t -> unit
+    end
+  end
+
+  module SpecializePredSucc(E: Traits.PredSucc.S0): sig
+    val increment: E.t t -> unit
+    val decrement: E.t t -> unit
+  end
 end
 
 module Tuple2: sig
