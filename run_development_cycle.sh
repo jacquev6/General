@@ -78,15 +78,15 @@ build -I demo \
     -package bisect_ppx -tag debug \
     -tag-line 'true:+open(DependenciesForBisectPpx)' \
     -tag-line '<DependenciesForBisectPpx.*>:-open(DependenciesForBisectPpx)' \
-    unit_tests.byte unit_tests.js
+    unit_tests.byte
 
 # @todo Could we build with *one* module using bisect_ppx and measure coverage of this module by its own tests?
 # Currently, a few functions are measured as covered because they are used in the test framework.
 
 echo
-rm -f bisect????.out
 echo "Running unit tests in byte code"
 _build/src/unit_tests.byte
+rm -f bisect????.out
 _build/src/unit_tests.byte --verbose > _build/unit_tests_output.txt
 echo
 bisect-summary bisect????.out | grep -v -e "^100.0% \[.*\] src/" -e "^100.0% .*ForBisectPpx.ml$" -e "^  0.0% \[.*0/0.*\] src/"
@@ -96,6 +96,13 @@ echo "See coverage report in $(pwd)/_build/bisect/index.html"
 echo
 rm -f bisect????.out
 
+build -I demo \
+    -package bisect_ppx -tag debug \
+    -tag-line 'true:+open(DependenciesForBisectPpx)' \
+    -tag-line '<DependenciesForBisectPpx.*>:-open(DependenciesForBisectPpx)' \
+    unit_tests.js
+
+echo
 echo "Running unit tests in node.js"
 node _build/src/unit_tests.js
 echo
