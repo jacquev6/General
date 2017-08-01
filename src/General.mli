@@ -282,11 +282,27 @@ end
 module Option: sig
   type 'a t = 'a option
 
+  include Traits.Comparable.S1 with type 'a t := 'a t
+  include Traits.Equatable.S1 with type 'a t := 'a t
+  include Traits.Representable.S1 with type 'a t := 'a t
 
   (* @todo OptionPair.to_pair_option (Some a, Some b) -> Some (a, b) | _ -> None *)
   (* @todo OptionList.first_some *)
   (* @todo OptionList.filter_some *)
+
+  val some_if: bool -> 'a lazy_t -> 'a t
+  val some_if': bool -> 'a -> 'a t
+
+  val is_some: 'a t -> bool
+  val is_none: 'a t -> bool
+
+  val value_def: 'a t -> def:'a -> 'a
+  val value: ?exc:exn -> 'a t -> 'a
+
   val map: 'a t -> f:('a -> 'b) -> 'b t
+  val iter: 'a t -> f:('a -> unit) -> unit
+  val filter: 'a t -> f:('a -> bool) -> 'a t
+  val filter_map: 'a t -> f:('a -> 'b option) -> 'b t
 
   val value_map: 'a t -> def:'b -> f:('a -> 'b) -> 'b
 end
