@@ -310,8 +310,14 @@ end
 module Lazy: sig
   type 'a t = 'a lazy_t
 
-  (* @todo val map: 'a t -> f:('a -> 'b) -> 'b t *)
   (* @todo LazyPair.to_pair_lazy *)
+  (* @todo LazyList.to_list_lazy *)
+
+  val is_value: 'a t -> bool
+
+  val value: 'a t -> 'a
+
+  val map: 'a t -> f:('a -> 'b) -> 'b t
 end
 
 module Reference: sig
