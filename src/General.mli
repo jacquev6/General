@@ -7,6 +7,7 @@ module Pervasives: sig
   val not: bool -> bool
   val (&&): bool -> bool -> bool
   val (||): bool -> bool -> bool
+  val xor: bool -> bool -> bool
 
   val (~-.): float -> float
   val (~+.): float -> float
@@ -137,20 +138,26 @@ end
 module Bool: sig
   type t = bool
 
-  include Traits.Representable.S0 with type t := t
-  include Traits.Displayable.S0 with type t := t
+  module O: sig
+    include Traits.Comparable.Operators.S0 with type t := t
+    include Traits.Equatable.Operators.S0 with type t := t
 
-  val of_string: string -> t
+    val not: t -> t
+    val (&&): t -> t -> t (* Lazy *)
+    val (||): t -> t -> t (* Lazy *)
+    val xor: t -> t -> t
+  end
+
+  include Traits.Comparable.S0 with type t := t and module O := O
+  include Traits.Displayable.S0 with type t := t
+  include Traits.Equatable.S0 with type t := t and module O := O
+  include Traits.Parsable.S0 with type t := t
+  include Traits.Representable.S0 with type t := t
 
   val not: t -> t
-  val and_: t -> t -> t
-  val or_: t -> t -> t
-
-  module O: sig
-    val not: t -> t
-    val (&&): t -> t -> t
-    val (||): t -> t -> t
-  end
+  val and_: t -> t -> t (* Not lazy *)
+  val or_: t -> t -> t (* Not lazy *)
+  val xor: t -> t -> t
 end
 
 module Char: sig
