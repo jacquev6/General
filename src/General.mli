@@ -282,6 +282,10 @@ end
 module Option: sig
   type 'a t = 'a option
 
+
+  (* @todo OptionPair.to_pair_option (Some a, Some b) -> Some (a, b) | _ -> None *)
+  (* @todo OptionList.first_some *)
+  (* @todo OptionList.filter_some *)
   val map: 'a t -> f:('a -> 'b) -> 'b t
 
   val value_map: 'a t -> def:'b -> f:('a -> 'b) -> 'b
@@ -289,6 +293,9 @@ end
 
 module Lazy: sig
   type 'a t = 'a lazy_t
+
+  (* @todo val map: 'a t -> f:('a -> 'b) -> 'b t *)
+  (* @todo LazyPair.to_pair_lazy *)
 end
 
 module Reference: sig

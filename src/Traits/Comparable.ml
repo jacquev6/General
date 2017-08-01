@@ -1,5 +1,8 @@
 open Foundations
 
+(* @todo Descending, ascending *)
+(* @todo val between[_or_equal]: t -> low:t -> high:t -> bool *)
+
 module Basic = struct
   module type SP = sig
     val compare: 'a -> 'a -> Compare.t
