@@ -19,7 +19,7 @@ let repr x ~repr =
     | Some x -> Format_.sprintf "Some %s" (repr x)
 
 let some_if condition value =
-  if condition then Some (Lazy_.force value) else None
+  if condition then Some (Lazy_.value value) else None
 
 let some_if' condition value =
   if condition then Some value else None

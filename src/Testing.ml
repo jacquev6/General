@@ -169,7 +169,7 @@ module Test = struct
         Result.Group {Result.name; children}
       | Single {label; check} ->
         try
-          Lazy_.force check;
+          Lazy_.value check;
           Result.Single {Result.label; status=Result.Status.Success}
         with
           | TestFailure reason ->
@@ -229,7 +229,7 @@ let fail format =
 exception NoExceptionRaised
 let expect_exception ~expected x =
   try
-    ignore (Lazy_.force x);
+    ignore (Lazy_.value x);
     Exception.raise NoExceptionRaised
   with
     | NoExceptionRaised -> Exception.raise (TestFailure (Result.Status.NoException expected))
