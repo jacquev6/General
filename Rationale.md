@@ -17,7 +17,7 @@ Why not:
 
 Remarks
 
-- this add a stack frame. Sometimes we want, sometimes we don't.
+- this adds a stack frame. Sometimes it's ok, sometimes not.
 
 Short variable names
 --------------------
