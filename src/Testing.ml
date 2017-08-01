@@ -261,6 +261,12 @@ let check_float_exact ~expected actual =
 let check_option ~repr ~equal ~expected actual =
   check ~repr:(Option.repr ~repr) ~equal:(Option.equal ~equal) ~expected actual
 
+let check_some ~repr ~equal ~expected actual =
+  check_option ~repr ~equal ~expected:(Some expected) actual
+
+let check_none ~repr ~equal actual =
+  check_option ~repr ~equal ~expected:None actual
+
 let check_int_option ~expected actual =
   check_option ~repr:Int.repr ~equal:Int.equal ~expected actual
 
@@ -275,3 +281,6 @@ let check_list ~repr ~equal ~expected actual =
 
 let check_string_list ~expected actual =
   check_list ~repr:String_.repr ~equal:String_.equal ~expected actual
+
+let check_int_list ~expected actual =
+  check_list ~repr:Int.repr ~equal:Int.equal ~expected actual

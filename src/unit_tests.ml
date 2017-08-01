@@ -7,6 +7,7 @@ let test = "General" >:: [
   Exception.Tests.test;
   Float.Tests.test;
   Int.Tests.test;
+  List_.Tests.test;
   Option.Tests.test;
   String_.Tests.test;
   TestingTests.Tests.test;

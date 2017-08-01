@@ -272,6 +272,38 @@ module IntReference: sig
   end
 end
 
+(* Collection containers *)
+
+module List: sig
+  type 'a t = 'a list
+
+  val empty: 'a t
+  val of_list: 'a list -> 'a t
+  val to_list: 'a t -> 'a list
+  val of_array: 'a array -> 'a t
+  val to_array: 'a t -> 'a array
+
+  val cons: 'a -> 'a t -> 'a t
+  val head: 'a t -> 'a
+  val tail: 'a t -> 'a t
+  val try_head: 'a t -> 'a option
+  val try_tail: 'a t -> 'a t option
+
+  val reverse: 'a t -> 'a t
+  val append: 'a t -> 'a t -> 'a t
+
+  val map: 'a t -> f:('a -> 'b) -> 'b t
+  val iter: 'a t -> f:('a -> unit) -> unit
+  val fold: 'a t -> init:'b -> f:('b -> 'a -> 'b) -> 'b
+  val try_reduce: 'a t -> f:('a -> 'a -> 'a) -> 'a option
+  val reduce: 'a t -> f:('a -> 'a -> 'a) -> 'a
+  (* val scan: *)
+
+  module O: sig
+    val (@): 'a t -> 'a t -> 'a t
+  end
+end
+
 (* Input/output *)
 
 module Format: sig
@@ -351,6 +383,7 @@ module Std: sig
   module Function: module type of Function
   module Int: module type of Int
   module Lazy: module type of Lazy
+  module List: module type of List
   module Option: module type of Option
   module Reference: module type of Reference
   module String: module type of String
@@ -363,6 +396,7 @@ module Std: sig
   with module Char := Char
   and module Format := Format
   and module Lazy := Lazy
+  and module List := List
   and module String := String
 end
 
@@ -376,6 +410,7 @@ module Abbr: sig
   module Fun: module type of Function
   module Int: module type of Int
   module Laz: module type of Lazy
+  module Li: module type of List
   module Opt: module type of Option
   module Ref: module type of Reference
   module Str: module type of String
