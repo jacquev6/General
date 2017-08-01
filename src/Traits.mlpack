@@ -1,5 +1,7 @@
 src/Traits/Comparable
 src/Traits/Displayable
 src/Traits/Equatable
+src/Traits/Parsable
+src/Traits/PredSucc
 src/Traits/Representable
 src/Traits/Ringoid

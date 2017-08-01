@@ -14,6 +14,7 @@ module Tests = struct
   exception TestException
 
   let test = "Exception" >:: [
+    (* @todo Test traits *)
     "raise" >: (lazy (expect_exception ~expected:TestException (lazy (raise TestException))));
     "raise_without_backtrace" >: (lazy (expect_exception ~expected:TestException (lazy (raise_without_backtrace TestException))));
     "failure" >: (lazy (expect_exception ~expected:(Failure "Foo bar 42") (lazy (failure "Foo %s %n" "bar" 42))));

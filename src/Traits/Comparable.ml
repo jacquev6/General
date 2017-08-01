@@ -10,6 +10,12 @@ module Basic = struct
 
     val compare: t -> t -> Compare.t
   end
+
+  module type S1 = sig
+    type 'a t
+
+    val compare: 'a t -> 'a t -> compare:('a -> 'a -> Compare.t) -> Compare.t
+  end
 end
 
 module Operators = struct
@@ -82,6 +88,19 @@ module type S0 = sig
   module O: Operators.S0 with type t := t
 end
 
+module type S1 = sig
+  include Basic.S1
+
+  val less_than: 'a t -> 'a t -> compare:('a -> 'a -> Compare.t) -> bool
+  val less_or_equal: 'a t -> 'a t -> compare:('a -> 'a -> Compare.t) -> bool
+  val greater_than: 'a t -> 'a t -> compare:('a -> 'a -> Compare.t) -> bool
+  val greater_or_equal: 'a t -> 'a t -> compare:('a -> 'a -> Compare.t) -> bool
+
+  val min: 'a t -> 'a t -> compare:('a -> 'a -> Compare.t) -> 'a t
+  val max: 'a t -> 'a t -> compare:('a -> 'a -> Compare.t) -> 'a t
+  val min_max: 'a t -> 'a t -> compare:('a -> 'a -> Compare.t) -> 'a t * 'a t
+end
+
 module GreaterLessThan = struct
   module Make0(M: sig
     type t
@@ -111,6 +130,35 @@ module GreaterLessThan = struct
         | LT -> false
         | _ -> true
   end
+
+  module Make1(M: sig
+    type 'a t
+
+    val compare: 'a t -> 'a t -> compare:('a -> 'a -> Compare.t) -> Compare.t
+  end) = struct
+    open M
+    open Compare
+
+    let less_than x y ~compare:cmp =
+      match compare x y ~compare:cmp with
+        | LT -> true
+        | _ -> false
+
+    let less_or_equal x y ~compare:cmp =
+      match compare x y ~compare:cmp with
+        | GT -> false
+        | _ -> true
+
+    let greater_than x y ~compare:cmp =
+      match compare x y ~compare:cmp with
+        | GT -> true
+        | _ -> false
+
+    let greater_or_equal x y ~compare:cmp =
+      match compare x y ~compare:cmp with
+        | LT -> false
+        | _ -> true
+  end
 end
 
 module MinMax = struct
@@ -131,6 +179,58 @@ module MinMax = struct
     let min_max x y =
       match compare x y with LT -> (x, y) | GT | EQ -> (y, x)
   end
+
+  module Make1(M: sig
+    type 'a t
+
+    val compare: 'a t -> 'a t -> compare:('a -> 'a -> Compare.t) -> Compare.t
+  end) = struct
+    open M
+    open Compare
+
+    let min x y ~compare:cmp =
+      match compare x y ~compare:cmp with LT -> x | GT | EQ -> y
+
+    let max x y ~compare:cmp =
+      match compare x y ~compare:cmp with GT -> x | LT | EQ -> y
+
+    let min_max x y ~compare:cmp =
+      match compare x y ~compare:cmp with LT -> (x, y) | GT | EQ -> (y, x)
+  end
+end
+
+module Specialize1(M: S1)(E: Basic.S0): S0 with type t = E.t M.t = struct
+  module Self = struct
+    type t = E.t M.t
+
+    let compare x y =
+      M.compare x y ~compare:E.compare
+
+    let less_than x y =
+      M.less_than x y ~compare:E.compare
+
+    let less_or_equal x y =
+      M.less_or_equal x y ~compare:E.compare
+
+    let greater_than x y =
+      M.greater_than x y ~compare:E.compare
+
+    let greater_or_equal x y =
+      M.greater_or_equal x y ~compare:E.compare
+
+    let min x y =
+      M.min x y ~compare:E.compare
+
+    let max x y =
+      M.max x y ~compare:E.compare
+
+    let min_max x y =
+      M.min_max x y ~compare:E.compare
+  end
+
+  module O = Operators.Make0(Self)
+
+  include Self
 end
 
 module Tests = struct
@@ -142,6 +242,19 @@ module Tests = struct
 
       val ordered: t list list
       val equal: t list list
+    end
+
+    module type S1 = sig
+      module Element: sig
+        include Basic.S0
+        include Equatable.Basic.S0 with type t := t
+        include Representable.Basic.S0 with type t := t
+      end
+
+      type 'a t
+
+      val ordered: Element.t t list list
+      val equal: Element.t t list list
     end
   end
 
@@ -243,5 +356,17 @@ module Tests = struct
         )
       )
     )
+  end
+
+  module Make1(M: sig
+    include S1
+    include Equatable.Basic.S1 with type 'a t := 'a t
+    include Representable.Basic.S1 with type 'a t := 'a t
+  end)(E: Examples.S1 with type 'a t := 'a M.t): sig val test: Test.t end = struct
+    include Make0(struct
+      include Specialize1(M)(E.Element)
+      include (Representable.Basic.Specialize1(M)(E.Element): module type of Representable.Basic.Specialize1(M)(E.Element) with type t := t)
+      include (Equatable.Basic.Specialize1(M)(E.Element): module type of Equatable.Basic.Specialize1(M)(E.Element) with type t := t)
+    end)(E)
   end
 end

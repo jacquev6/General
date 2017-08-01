@@ -32,6 +32,13 @@ module Examples = struct
 
   let to_string = repr
 
+  let of_string = [
+    ("0", 0);
+    ("1", 1);
+    ("-1", -1);
+    ("1_000", 1000);
+  ]
+
   let equal = [
     [0];
     [1];
@@ -76,6 +83,12 @@ module Examples = struct
     (3, 3, 27);
     (2, 7, 128);
   ]
+
+  let succ = [
+    (1, 2);
+    (42, 43);
+    (-121, -120);
+  ]
 end
 
 module Tests = struct
@@ -83,6 +96,7 @@ module Tests = struct
 
   let test = "Int" >:: [
     (let module T = Concepts.Integer.Tests.Make0(SelfB)(Examples) in T.test);
+    (let module T = Traits.Parsable.Tests.Make0(SelfB)(Examples) in T.test);
     "exponentiate 2 (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "Int.exponentiate: Negative exponent: -4") (lazy (exponentiate 2 (-4)))));
   ]
 end

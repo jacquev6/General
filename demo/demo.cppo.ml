@@ -61,7 +61,7 @@ module IntMod3 = struct
 
   module SelfC = struct
     include General.Traits.Ringoid.Exponentiate.Make0(SelfB)
-    include General.Concepts.Integer.PredSucc.Make0(SelfB)
+    include General.Traits.PredSucc.Make0(SelfB)
     include SelfB
   end
 
@@ -119,6 +119,12 @@ module IntMod3Examples = struct
     (2, 2, 1);
     (2, 3, 2);
     (2, 4, 1);
+  ]
+
+  let succ = [
+    (0, 1);
+    (1, 2);
+    (2, 0);
   ]
 end
 

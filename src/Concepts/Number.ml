@@ -1,6 +1,8 @@
 module Operators = struct
   module type S0 = sig
-    include Traits.Equatable.Operators.S0
+    type t
+
+    include Traits.Equatable.Operators.S0 with type t := t
     include Traits.Ringoid.Operators.S0 with type t := t
   end
 end
@@ -10,9 +12,9 @@ module type S0 = sig
 
   module O: Operators.S0 with type t := t
 
-  include Traits.Representable.S0 with type t := t
   include Traits.Displayable.S0 with type t := t
   include Traits.Equatable.S0 with type t := t and module O := O
+  include Traits.Representable.S0 with type t := t
   include Traits.Ringoid.S0 with type t := t and module O := O
 
   val of_int: int -> t
@@ -25,9 +27,11 @@ module Tests = struct
 
   module Examples = struct
     module type S0 = sig
-      include Traits.Representable.Tests.Examples.S0
+      type t
+
       include Traits.Displayable.Tests.Examples.S0 with type t := t
       include Traits.Equatable.Tests.Examples.S0 with type t := t
+      include Traits.Representable.Tests.Examples.S0 with type t := t
       include Traits.Ringoid.Tests.Examples.S0 with type t := t
     end
   end
@@ -49,9 +53,9 @@ module Tests = struct
     end
 
     let test = "Number" >:: [
-      (let module T = Traits.Representable.Tests.Make0(M)(E) in T.test);
       (let module T = Traits.Displayable.Tests.Make0(M)(E) in T.test);
       (let module T = Traits.Equatable.Tests.Make0(M)(E) in T.test);
+      (let module T = Traits.Representable.Tests.Make0(M)(E) in T.test);
       (let module T = Traits.Ringoid.Tests.Make0(M)(E) in T.test);
     ]
   end

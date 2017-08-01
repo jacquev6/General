@@ -14,6 +14,13 @@ module Basic = struct
 
     val repr: 'a t -> repr:('a -> string) -> string
   end
+
+  module Specialize1(M: S1)(E: S0): S0 with type t = E.t M.t = struct
+    type t = E.t M.t
+
+    let repr x =
+      M.repr x ~repr:E.repr
+  end
 end
 
 include Basic

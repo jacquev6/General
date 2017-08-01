@@ -32,6 +32,14 @@ module Examples = struct
 
   let to_string = repr
 
+  let of_string = [
+    ("0", 0.);
+    ("1", 1.);
+    ("1.0", 1.);
+    ("-1", -1.);
+    ("1_000", 1000.);
+  ]
+
   let equal = [
     [0.];
     [1.];
@@ -98,6 +106,8 @@ module ClassExamples = struct
     (NotANumber, "NotANumber");
   ]
 
+  let to_string = repr
+
   let equal = [
     [Normal];
     [SubNormal];
@@ -109,6 +119,10 @@ module ClassExamples = struct
   let different = [
     (Normal, SubNormal);
   ]
+
+  let ordered = [
+    [Normal; SubNormal; Zero; Infinite; NotANumber];
+  ]
 end
 
 module Tests = struct
@@ -116,9 +130,11 @@ module Tests = struct
 
   let test = "Float" >:: [
     (let module T = Concepts.RealNumber.Tests.Make0(SelfB)(Examples) in T.test);
+    (let module T = Traits.Parsable.Tests.Make0(SelfB)(Examples) in T.test);
     "Class" >:: [
-      (let module T = Traits.Representable.Tests.Make0(SelfB.Class)(ClassExamples) in T.test);
+      (let module T = Traits.Comparable.Tests.Make0(SelfB.Class)(ClassExamples) in T.test);
       (let module T = Traits.Equatable.Tests.Make0(SelfB.Class)(ClassExamples) in T.test);
+      (let module T = Traits.Representable.Tests.Make0(SelfB.Class)(ClassExamples) in T.test);
       "of_float" >:: SelfB.Class.(
         let check = check ~repr ~equal in
         [

@@ -83,6 +83,7 @@ build -I demo \
 # @todo Could we build with *one* module using bisect_ppx and measure coverage of this module by its own tests?
 # Currently, a few functions are measured as covered because they are used in the test framework.
 
+echo
 rm -f bisect????.out
 echo "Running unit tests in byte code"
 _build/src/unit_tests.byte
@@ -95,7 +96,6 @@ echo "See coverage report in $(pwd)/_build/bisect/index.html"
 echo
 rm -f bisect????.out
 
-echo
 echo "Running unit tests in node.js"
 node _build/src/unit_tests.js
 echo

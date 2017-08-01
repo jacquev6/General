@@ -2,7 +2,9 @@ open Foundations
 
 module Operators = struct
   module type S0 = sig
-    include Number.Operators.S0
+    type t
+
+    include Number.Operators.S0 with type t := t
     include Traits.Comparable.Operators.S0 with type t := t
 
     val (mod): t -> t -> t
@@ -29,7 +31,9 @@ module Tests = struct
 
   module Examples = struct
     module type S0 = sig
-      include Number.Tests.Examples.S0
+      type t
+
+      include Number.Tests.Examples.S0 with type t := t
       include Traits.Comparable.Tests.Examples.S0 with type t := t
     end
   end
