@@ -10,6 +10,7 @@ module Self = struct
   let assign = OCSP.(:=)
 
   module O = struct
+    let ref = OCSP.ref
     let (!) = OCSP.(!)
     let (:=) = OCSP.(:=)
   end

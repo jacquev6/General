@@ -222,6 +222,7 @@ module Reference: sig
   val assign: 'a t -> 'a -> unit
 
   module O: sig
+    val ref: 'a -> 'a t
     val (!): 'a t -> 'a
     val (:=): 'a t -> 'a -> unit
   end
@@ -234,6 +235,7 @@ module Reference: sig
     val assign: t -> E.t -> unit
 
     module O: sig
+      val ref: E.t -> t
       val (!): t -> E.t
       val (:=): t -> E.t -> unit
     end
