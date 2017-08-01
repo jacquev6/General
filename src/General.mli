@@ -62,8 +62,25 @@ module Equate: sig
 end
 
 module Traits: module type of Traits
+(* @todo Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
+(* @todo Traits for FilterMapable, ToStd (map_to_list, filter_to_array, filter_map_to_array_i) and ToSelf (map, filter_i, filter_map_i) *)
+(* @todo Traits for Foldable, Left and Right, with short-circuit
+Extensions include count[_i], iter[_i], for_all[_i], ther_exists[_i], [try_]find[_map][_i], [try_]reduce[_short][_right][_i] *)
+(* @todo Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
+(* @todo Traits for Scanable (Left and Right), ToStd and ToSelf, with short-circuit *)
+
+(* Typology of iterations other collection:
+- is there an accumulator (fold vs map)
+- is it short circuit (exists/fold_short/find vs fold/map)
+- does it produce a list (map) or a scalar (find/fold) or nothing (iter)
+- from a list (map) or from a scalar (unfold/until_none/until_fixed)? (until_none i: [f i; f f i; f f f i; ... until f returns None]; until_fixed: until f f f i = f f i)
+- other criteria?
+and we need a generic function in each category. *)
 
 module Concepts: module type of Concepts
+(* @todo Concepts.Identifiable with traits Representable, Equatable, Hashable *)
+(* @todo Concepts.Able with Identifiable plus trait Comparable *)
+(* @todo Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer *)
 
 (* Technical, utility modules *)
 
@@ -120,6 +137,8 @@ module Function: sig
 
   val apply: ('a, 'b) t -> 'a -> 'b
   val rev_apply: 'a -> ('a, 'b) t -> 'b
+
+  (* @todo [un]curry *)
 
   module O: sig
     val (@@): ('a, 'b) t -> 'a -> 'b
@@ -277,6 +296,8 @@ module String: sig
   val split: t -> sep:t -> t list
 end
 
+(* @todo Int32, Int64, NativeInt, BigInt, Rational, Complex, Quaternion, Matrix *)
+
 (* Fixed-size containers *)
 
 module Option: sig
@@ -289,6 +310,8 @@ module Option: sig
   (* @todo OptionPair.to_pair_option (Some a, Some b) -> Some (a, b) | _ -> None *)
   (* @todo OptionList.first_some *)
   (* @todo OptionList.filter_some *)
+
+  (* @todo coalesce[_def] (with an (|||) operator?) *)
 
   val some_if: bool -> 'a lazy_t -> 'a t
   val some_if': bool -> 'a -> 'a t
@@ -360,6 +383,9 @@ module Tuple2: sig
   val get_1: (_, 'b) t -> 'b
 end
 
+(* @todo More TupleN *)
+(* @todo Pair, Triplet, etc. (homogeneous tuples)? *)
+
 (* Specializations of fixed-size containers *)
 
 module IntReference: sig
@@ -427,10 +453,22 @@ end
 module Array: sig
   type 'a t = 'a array
 
+  (* @todo Implement *)
+
   val get: 'a t -> int -> 'a
 end
 
+(* @todo Range *)
+(* @todo SortedList, UniqueList? *)
+(* @todo Double-ended queue *)
+(* @todo SortedSet, SortedMap, HashSet, HashMap *)
+(* [Sorted|Hash]Index (a Map where the keys are computed from the values (think "vertex_by_name")) *)
+(* @todo Stream *)
+
 (* Specializations of collection containers *)
+
+(* @todo XxxList where Xxx is a Ringoid, with sum, product *)
+(* @todo OptionList (with values, roughly equivalent to filter_map is_some) *)
 
 module StringList: sig
   type t = string list
@@ -439,6 +477,8 @@ module StringList: sig
 end
 
 (* Input/output *)
+
+(* @todo StdIn, StdOut, InChannel, OutChannel *)
 
 module Format: sig
   type ('a, 'b, 'c, 'd, 'e, 'f) t = ('a, 'b, 'c, 'd, 'e, 'f) CamlinternalFormatBasics.format6
