@@ -8,7 +8,7 @@ src/Implementation/Exception
 src/Implementation/Exit
 src/Implementation/Float
 src/Implementation/Format_
-src/Implementation/Function
+src/Implementation/Functions
 src/Implementation/InChannel
 src/Implementation/Int
 src/Implementation/Int32_

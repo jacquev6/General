@@ -1,11 +1,11 @@
 type 'a t = 'a list
 
-open Function.O
+open Functions.Function1.O
 
 let empty = []
 let cons x xs = x::xs
-let of_list = Function.identity
-let to_list = Function.identity
+let of_list = Functions.Function1.identity
+let to_list = Functions.Function1.identity
 (* @todo Test everything for stack overflow. Including to/of_array. *)
 let of_array = OCamlStandard.Array.to_list
 let to_array = OCamlStandard.Array.of_list

@@ -3,8 +3,8 @@ type t = string
 let repr x =
   Format_.sprintf "%S" x
 
-let to_string = Function.identity
-let of_string = Function.identity
+let to_string = Functions.Function1.identity
+let of_string = Functions.Function1.identity
 
 let get = OCamlStandard.String.get
 

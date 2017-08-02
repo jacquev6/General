@@ -5,7 +5,7 @@ src/Foundations/Exception
 src/Foundations/Exit
 src/Foundations/Float
 src/Foundations/Format_
-src/Foundations/Function
+src/Foundations/Functions
 src/Foundations/Int
 src/Foundations/Lazy_
 src/Foundations/List_

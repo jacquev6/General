@@ -6,6 +6,7 @@ let test = "General" >:: [
   Bool.Tests.test;
   Exception.Tests.test;
   Float.Tests.test;
+  Functions.Tests.test;
   Int.Tests.test;
   Lazy_.Tests.test;
   List_.Tests.test;

@@ -19,6 +19,7 @@ module Pervasives: sig
 
   val (@@): ('a -> 'b) -> 'a -> 'b
   val (|>): 'a -> ('a -> 'b) -> 'b
+  val (%): ('a -> 'b) -> ('c -> 'a) -> ('c -> 'b)
 
   val (~-): int -> int
   val (~+): int -> int
@@ -131,21 +132,59 @@ end
 
 (* Functions *)
 
-module Function: sig
-  type ('a, 'b) t = 'a -> 'b
+module Function1: sig
+  type ('a, 'z) t = 'a -> 'z
 
-  val identity: 'a -> 'a
+  val identity: ('a, 'a) t
 
-  val apply: ('a, 'b) t -> 'a -> 'b
-  val rev_apply: 'a -> ('a, 'b) t -> 'b
-
-  (* @todo [un]curry *)
+  val apply: ('a, 'z) t -> 'a -> 'z
+  val rev_apply: 'a -> ('a, 'z) t -> 'z
+  val compose: ('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t
 
   module O: sig
-    val (@@): ('a, 'b) t -> 'a -> 'b
-    val (|>): 'a -> ('a, 'b) t -> 'b
+    val (@@): ('a, 'z) t -> 'a -> 'z
+    val (|>): 'a -> ('a, 'z) t -> 'z
+    val (%): ('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t
   end
 end
+
+module Function2: sig
+  type ('a, 'b, 'z) t = 'a -> 'b -> 'z
+
+  val flip: ('a, 'b, 'z) t -> ('b, 'a, 'z) t
+
+  val curry: ('a * 'b, 'z) Function1.t -> ('a, 'b, 'z) t
+  val uncurry: ('a, 'b, 'z) t -> ('a * 'b, 'z) Function1.t
+end
+
+module Function3: sig
+  type ('a, 'b, 'c, 'z) t = 'a -> 'b -> 'c -> 'z
+
+  val flip: ('a, 'b, 'c, 'z) t -> ('c, 'b, 'a, 'z) t
+
+  val curry: ('a * 'b * 'c, 'z) Function1.t -> ('a, 'b, 'c, 'z) t
+  val uncurry: ('a, 'b, 'c, 'z) t -> ('a * 'b * 'c, 'z) Function1.t
+end
+
+module Function4: sig
+  type ('a, 'b, 'c, 'd, 'z) t = 'a -> 'b -> 'c -> 'd -> 'z
+
+  val flip: ('a, 'b, 'c, 'd, 'z) t -> ('d, 'c, 'b, 'a, 'z) t
+
+  val curry: ('a * 'b * 'c * 'd, 'z) Function1.t -> ('a, 'b, 'c, 'd, 'z) t
+  val uncurry: ('a, 'b, 'c, 'd, 'z) t -> ('a * 'b * 'c * 'd, 'z) Function1.t
+end
+
+module Function5: sig
+  type ('a, 'b, 'c, 'd, 'e, 'z) t = 'a -> 'b -> 'c -> 'd -> 'e -> 'z
+
+  val flip: ('a, 'b, 'c, 'd, 'e, 'z) t -> ('e, 'd, 'c, 'b, 'a, 'z) t
+
+  val curry: ('a * 'b * 'c * 'd * 'e, 'z) Function1.t -> ('a, 'b, 'c, 'd, 'e, 'z) t
+  val uncurry: ('a, 'b, 'c, 'd, 'e, 'z) t -> ('a * 'b * 'c * 'd * 'e, 'z) Function1.t
+end
+
+(* @todo Predicate1,2,3,etc. (or BoolFunction1,2,3, more consistent with other specializations) with composition of predicates (not, and, or, xor) *)
 
 (* Atomic values *)
 
@@ -576,7 +615,11 @@ module Standard: sig
   module Exit: module type of Exit
   module Float: module type of Float
   module Format: module type of Format
-  module Function: module type of Function
+  module Function1: module type of Function1
+  module Function2: module type of Function2
+  module Function3: module type of Function3
+  module Function4: module type of Function4
+  module Function5: module type of Function5
   module Int: module type of Int
   module Lazy: module type of Lazy
   module List: module type of List
@@ -608,7 +651,11 @@ module Abbr: sig
   module Exn: module type of Exception
   module Fl: module type of Float
   module Frmt: module type of Format
-  module Fun: module type of Function
+  module Fun1: module type of Function1
+  module Fun2: module type of Function2
+  module Fun3: module type of Function3
+  module Fun4: module type of Function4
+  module Fun5: module type of Function5
   module Int: module type of Int
   module Laz: module type of Lazy
   module Li: module type of List
