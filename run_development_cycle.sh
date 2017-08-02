@@ -6,7 +6,6 @@ function build {
     ocamlbuild \
         -use-ocamlfind -no-links \
         -plugin-tag "package(cppo_ocamlbuild)" \
-        -plugin-tag "package(js_of_ocaml.ocamlbuild)" \
         $@
 }
 
@@ -16,7 +15,7 @@ do
     ls $directory/*.ml* | sed "s#\..*##" | sort -u >${directory}.mlpack
 done
 
-build -build-dir _build_native \
+build -build-dir _build_native -X _build_coverage -X demo \
     src/Foundations/ResetPervasives.inferred.mli \
     General.cmxa unit_tests.native
 
@@ -70,11 +69,11 @@ cd demo
 # This simulates the 'opam install' process, but is quicker
 rm -rf _build_with_lib
 mkdir _build_with_lib
-cp ../_build_native/src/General.cmi ../_build_native/src/General.a ../_build_native/src/General.cmxa _build_with_lib
-build -build-dir _build_with_lib -package num -lib General demo.native demo_pervasives.native
+cp ../_build_native/src/General.cmi ../_build_native/src/General.cmx ../_build_native/src/General.a ../_build_native/src/General.cmxa _build_with_lib
+build -build-dir _build_with_lib -X _build_with_package -package num -lib General demo.native demo_pervasives.native
 cd ..
 
-build -I demo \
+build -build-dir _build_coverage -X _build_native -X demo \
     -package bisect_ppx -tag debug \
     -tag-line 'true:+open(DependenciesForBisectPpx)' \
     -tag-line '<DependenciesForBisectPpx.*>:-open(DependenciesForBisectPpx)' \
@@ -85,26 +84,22 @@ build -I demo \
 
 echo
 echo "Running unit tests in byte code"
-_build/src/unit_tests.byte
+_build_coverage/src/unit_tests.byte
 rm -f bisect????.out
-_build/src/unit_tests.byte --verbose > _build/unit_tests_output.txt
+_build_coverage/src/unit_tests.byte --verbose > _build_coverage/unit_tests_output.txt
 echo
 bisect-summary bisect????.out | grep -v -e "^100.0% \[.*\] src/" -e "^100.0% .*ForBisectPpx.ml$" -e "^  0.0% \[.*0/0.*\] src/"
 echo
-bisect-ppx-report -I _build -html _build/bisect bisect????.out
-echo "See coverage report in $(pwd)/_build/bisect/index.html"
-echo
+bisect-ppx-report -I _build_coverage -html _build_coverage/bisect bisect????.out
+echo "See coverage report in $(pwd)/_build_coverage/bisect/index.html"
 rm -f bisect????.out
 
-build -I demo \
-    -package bisect_ppx -tag debug \
-    -tag-line 'true:+open(DependenciesForBisectPpx)' \
-    -tag-line '<DependenciesForBisectPpx.*>:-open(DependenciesForBisectPpx)' \
-    unit_tests.js
+js_of_ocaml +nat.js _build_coverage/src/unit_tests.byte
 
 echo
 echo "Running unit tests in node.js"
-node _build/src/unit_tests.js
+node _build_coverage/src/unit_tests.js
+rm -f bisect????.out
 echo
 
 echo "Running demo"
@@ -119,6 +114,6 @@ opam pin add --yes --no-action .
 opam reinstall --yes General
 
 cd demo
-rm -rf _build
-build -package General demo.native demo.js
+rm -rf _build_with_package
+build -build-dir _build_with_package -X _build_with_lib -package General demo.byte demo.native
 cd ..

@@ -1,4 +1,4 @@
-(* The position of these symbols is tested bellow. Moving them requires fixing the tests *)
+(* The position of these symbols is tested below. Moving them requires fixing the tests *)
 let match_failure = lazy (let 0 = 1 in 0) (*BISECT-IGNORE*)
 let assert_failure = lazy (assert false)
 (* End of symbols to not move *)

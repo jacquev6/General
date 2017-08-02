@@ -10,15 +10,16 @@
 module OCamlStandard = struct
   #define ALIAS(m) module m = m
 
-  (* https://caml.inria.fr/pub/docs/manual-ocaml/core.html *)
+  (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/core.html *)
   ALIAS(Pervasives)
 
-  (* https://caml.inria.fr/pub/docs/manual-ocaml/stdlib.html *)
+  (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/stdlib.html *)
   ALIAS(Arg)
   ALIAS(Array)
   ALIAS(ArrayLabels)
   ALIAS(Buffer)
   ALIAS(Bytes)
+  ALIAS(BytesLabels)
   ALIAS(Callback)
   ALIAS(Char)
   ALIAS(Complex)
@@ -49,6 +50,7 @@ module OCamlStandard = struct
   ALIAS(Random)
   ALIAS(Scanf)
   ALIAS(Set)
+  ALIAS(Sort)
   #ifdef HAS_Spacetime
   ALIAS(Spacetime)
   #endif
@@ -63,18 +65,20 @@ module OCamlStandard = struct
   #endif
   ALIAS(Weak)
 
-  (* https://caml.inria.fr/pub/docs/manual-ocaml/libunix.html *)
+  (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/parsing.html *)
 
-  (* https://caml.inria.fr/pub/docs/manual-ocaml/libnum.html *)
+  (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libunix.html *)
+
+  (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libnum.html *)
   ALIAS(Num)
   ALIAS(Big_int)
   ALIAS(Arith_status)
 
-  (* https://caml.inria.fr/pub/docs/manual-ocaml/libstr.html *)
-  (* https://caml.inria.fr/pub/docs/manual-ocaml/libthreads.html *)
-  (* https://caml.inria.fr/pub/docs/manual-ocaml/libgraph.html *)
-  (* https://caml.inria.fr/pub/docs/manual-ocaml/libdynlink.html *)
-  (* https://caml.inria.fr/pub/docs/manual-ocaml/libbigarray.html *)
+  (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libstr.html *)
+  (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libthreads.html *)
+  (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libgraph.html *)
+  (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libdynlink.html *)
+  (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libbigarray.html *)
 end
 
 #define EMPTY(m) module m = struct end
@@ -88,6 +92,7 @@ end
 EMPTY(ArrayLabels)
 EMPTY(Buffer)
 EMPTY(Bytes)
+EMPTY(BytesLabels)
 EMPTY(Callback)
 EMPTY(Char)
 EMPTY(Complex)
@@ -118,6 +123,7 @@ EMPTY(Queue)
 EMPTY(Random)
 EMPTY(Scanf)
 EMPTY(Set)
+EMPTY(Sort)
 #ifdef HAS_Spacetime
 EMPTY(Spacetime)
 #endif

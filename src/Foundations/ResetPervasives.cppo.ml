@@ -1,6 +1,5 @@
 (*
-All val, external, type and module from Pervasives, checked in OCaml:
-- 4.02 (https://caml.inria.fr/pub/docs/manual-ocaml-4.02/libref/Pervasives.html)
+https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libref/Pervasives.html
 
 Exceptions:
 I don't know how to reset exceptions. Thankfully, there is just one: Exit.
@@ -18,8 +17,16 @@ If we add them to the destructive substitution in 'include Pervasives', there is
 So: add types and modules in the body *before* in 'include Pervasives'.
 *)
 
-#if OCAML_VERSION >= (4, 2, 0)
-  #define HAS_raise_notrace
+#if OCAML_VERSION >= (4, 3, 0)
+  #define HAS_result
+#endif
+
+#if OCAML_VERSION >= (4, 5, 0)
+  #define HAS_bool_of_string_opt
+  #define HAS_int_of_string_opt
+  #define HAS_float_of_string_opt
+  #define HAS_read_int_opt
+  #define HAS_read_float_opt
 #endif
 
 (* To detect values not reset, in ResetPervasives.inferred.mli *)
@@ -30,6 +37,9 @@ include (Pervasives:
   and type out_channel := Pervasives.out_channel
   and type open_flag := Pervasives.open_flag
   and type 'a ref := 'a Pervasives.ref
+  #ifdef HAS_result
+  and type ('a, 'b) result := ('a, 'b) Pervasives.result
+  #endif
   and type ('a, 'b, 'c, 'd, 'e, 'f) format6 := ('a, 'b, 'c, 'd, 'e, 'f) Pervasives.format6
   and type ('a, 'b, 'c, 'd) format4 := ('a, 'b, 'c, 'd) Pervasives.format4
   and type ('a, 'b, 'c) format := ('a, 'b, 'c) Pervasives.format
@@ -45,9 +55,7 @@ include (Pervasives:
 
 (* Exceptions *)
 PLEASE_USE(raise, Exception__raise)
-#ifdef HAS_raise_notrace
 PLEASE_USE(raise_notrace, Exception__raise_without_backtrace)
-#endif
 PLEASE_USE(invalid_arg, Exception__invalid_argument)
 PLEASE_USE(failwith, Exception__failure)
 (* exception Exit *)
@@ -161,10 +169,19 @@ PLEASE_USE(ignore, Unit__ignore)
 (* String conversion functions *)
 PLEASE_USE(string_of_bool, Bool__to_string)
 PLEASE_USE(bool_of_string, Bool__of_string)
+#ifdef HAS_bool_of_string_opt
+PLEASE_USE(bool_of_string_opt, Bool__try_of_string__todo)
+#endif
 PLEASE_USE(string_of_int, Int__to_string)
 PLEASE_USE(int_of_string, Int__of_string)
+#ifdef HAS_int_of_string_opt
+PLEASE_USE(int_of_string_opt, Int__try_of_string__todo)
+#endif
 PLEASE_USE(string_of_float, Float__of_string)
 PLEASE_USE(float_of_string, Float__to_string)
+#ifdef HAS_float_of_string_opt
+PLEASE_USE(float_of_string_opt, Float__try_of_string__todo)
+#endif
 
 (* Pair operations *)
 PLEASE_USE(fst, Tuple2__get_0)
@@ -201,7 +218,13 @@ PLEASE_USE(prerr_newline, todo)
 (* Input functions on standard input *)
 PLEASE_USE(read_line, todo)
 PLEASE_USE(read_int, todo)
+#ifdef HAS_read_int_opt
+PLEASE_USE(read_int_opt, todo)
+#endif
 PLEASE_USE(read_float, todo)
+#ifdef HAS_read_float_opt
+PLEASE_USE(read_float_opt, todo)
+#endif
 
 (* General output functions *)
 PLEASE_USE_TYPE(open_flag, todo)
@@ -263,6 +286,9 @@ PLEASE_USE((!), Reference__contents)
 PLEASE_USE((:=), Reference__assign)
 PLEASE_USE(incr, IntReference__increment)
 PLEASE_USE(decr, IntReference__decrement)
+
+(* Result type *)
+PLEASE_USE_TYPE(('a, 'b) result, todo)
 
 (* Operations on format strings *)
 PLEASE_USE_TYPE(('a, 'b, 'c, 'd, 'e, 'f) format6, Format__t)

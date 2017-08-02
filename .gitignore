@@ -1,4 +1,1 @@
-/_build/
-/_build_native/
-/demo/_build/
-/demo/_build_with_lib/
+_build_*/

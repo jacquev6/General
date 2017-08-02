@@ -5,9 +5,12 @@ maintainer: "Vincent Jacques <vincent@vincent-jacques.net>"
 authors: "Vincent Jacques <vincent@vincent-jacques.net>"
 dev-repo: "https://github.com/jacquev6/General.git"
 bug-reports: "http://github.com/jacquev6/General/issues/"
-available: [ ocaml-version = "4.02.3" ]
+available: [
+  ocaml-version >= "4.02.2"  # We need "type nonrec"
+  & ocaml-version < "5"
+]
 build: [
-  ["ocamlbuild" "-use-ocamlfind" "-plugin-tag" "package(cppo_ocamlbuild)" "-plugin-tag" "package(js_of_ocaml.ocamlbuild)" "General.cma" "General.cmxa"]
+  ["ocamlbuild" "-use-ocamlfind" "-plugin-tag" "package(cppo_ocamlbuild)" "General.cma" "General.cmxa"]
 ]
 install: [
   ["mkdir" "-p" "%{prefix}%/lib/General"]
@@ -17,7 +20,11 @@ remove: [
   ["ocamlfind" "remove" "General"]
 ]
 depends: [
+  "ocamlbuild" {build}
   "ocamlfind" {build}
-  "cppo" {build}
-  "js_of_ocaml" {build}
+  "cppo" {
+    build
+    & >= "1.3"  # We need https://github.com/mjambon/cppo/commit/4881370
+    & < "2"
+  }
 ]
