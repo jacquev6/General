@@ -199,8 +199,8 @@ let command_line_main ~argv test =
   |> List_.iter ~f:(Format_.printf "%s\n");
   match result with
     | `Single (_, Result.Status.Success) | `Group (_, _, {Result.Counts.failures=0; errors=0; _}) ->
-      0
-    | _ -> 1
+      Exit.Success
+    | _ -> Exit.Failure 1
 (*BISECT-IGNORE-END*)
 
 (* Test factories *)

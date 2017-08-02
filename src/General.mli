@@ -118,7 +118,13 @@ module Exception: sig
 end
 
 module Exit: sig
-  val exit: int -> unit
+  type t =
+    | Success
+    | Failure of int
+
+  val of_int: int -> t
+
+  val exit: t -> unit
 
   val at_exit: (unit -> unit) -> unit
 end
@@ -509,7 +515,7 @@ module Testing: sig
     val run: ?record_backtrace:bool -> t -> Result.t
   end
 
-  val command_line_main: argv:string list -> Test.t -> int (* @todo Should we have a type for exit codes? (In the module containing exit) *)
+  val command_line_main: argv:string list -> Test.t -> Exit.t
 
   val (>::): string -> Test.t list -> Test.t
 
