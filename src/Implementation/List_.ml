@@ -6,7 +6,7 @@ end
 include Self
 
 module Examples = struct
-  module Element = Foundations.Int
+  module A = Foundations.Int
 
   let repr = [
     ([], "[]");
@@ -39,8 +39,8 @@ module Tests = struct
     "cons" >: (lazy (check_int_list ~expected:[1; 2; 3] (cons 1 [2; 3])));
     "try_head" >: (lazy (check_some_int ~expected:1 (try_head [1; 2; 3])));
     "try_head []" >: (lazy (check_none_int (try_head [])));
-    "try_tail" >: (lazy (check_some ~repr:(repr ~repr:Int.repr) ~equal:(equal ~equal:Int.equal) ~expected:[2; 3] (try_tail [1; 2; 3])));
-    "try_tail []" >: (lazy (check_none ~repr:(repr ~repr:Float.repr) ~equal:(equal ~equal:Float.equal) (try_tail [])));
+    "try_tail" >: (lazy (check_some ~repr:(repr ~repr_a:Int.repr) ~equal:(equal ~equal_a:Int.equal) ~expected:[2; 3] (try_tail [1; 2; 3])));
+    "try_tail []" >: (lazy (check_none ~repr:(repr ~repr_a:Float.repr) ~equal:(equal ~equal_a:Float.equal) (try_tail [])));
     "head" >: (lazy (check_int ~expected:1 (head [1; 2; 3])));
     "head []" >: (lazy (expect_exception ~expected:(Exception.Failure "List.head") (lazy (head []))));
     "tail" >: (lazy (check_int_list ~expected:[2; 3] (tail [1; 2; 3])));

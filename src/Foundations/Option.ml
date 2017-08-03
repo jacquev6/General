@@ -1,22 +1,22 @@
 type 'a t = 'a option
 
-let equal x y ~equal =
+let equal x y ~equal_a =
   match (x, y) with
     | (None, None) -> true
     | (None, Some _) | (Some _, None) -> false
-    | (Some x, Some y) -> equal x y
+    | (Some x, Some y) -> equal_a x y
 
-let compare x y ~compare =
+let compare x y ~compare_a =
   match (x, y) with
     | (None, None) -> Compare.EQ
     | (None, Some _) -> Compare.LT
     | (Some _, None) -> Compare.GT
-    | (Some x, Some y) -> compare x y
+    | (Some x, Some y) -> compare_a x y
 
-let repr x ~repr =
+let repr x ~repr_a =
   match x with
     | None -> "None"
-    | Some x -> Format_.sprintf "Some %s" (repr x)
+    | Some x -> Format_.sprintf "Some %s" (repr_a x)
 
 let some_if condition value =
   if condition then Some (Lazy_.value value) else None

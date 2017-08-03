@@ -11,7 +11,7 @@ module Tests = struct
   open Testing
 
   module Examples = struct
-    module Element = Int
+    module A = Int
 
     let repr = [
       (None, "None");
@@ -50,7 +50,7 @@ module Tests = struct
     "value Some" >: (lazy (check_string ~expected:"val" (value (Some "val"))));
     "value None" >: (lazy (expect_exception ~expected:(Exception.Failure "Option.value") (lazy (value None))));
     "value ~exc None" >: (lazy (expect_exception ~expected:(Exception.Failure "Nope") (lazy (value ~exc:(Exception.Failure "Nope") None))));
-    "repr None" >: (lazy (check_string ~expected:"None" (repr ~repr:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*) (*BISECT-IGNORE*)
+    "repr None" >: (lazy (check_string ~expected:"None" (repr ~repr_a:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*) (*BISECT-IGNORE*)
     "map None" >: (lazy (check_none_int (map ~f:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*)
     "map Some" >: (lazy (check_some_42 (map ~f:(( * ) 2) (Some 21))));
     "value_map None" >: (lazy (check_42 (value_map ~def:42 ~f:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*)

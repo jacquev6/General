@@ -2,47 +2,127 @@ open Foundations
 
 module Basic = struct
   module type SP = sig
-    val equal: 'a -> 'a -> bool
+    val equal: 'a -> 'a
+      -> bool
   end
 
   module type S0 = sig
     type t
 
-    val equal: t -> t -> bool
+    val equal: t -> t
+      -> bool
   end
 
   module type S1 = sig
     type 'a t
 
-    val equal: 'a t -> 'a t -> equal:('a -> 'a -> bool) -> bool
+    val equal: 'a t -> 'a t
+      -> equal_a:('a -> 'a -> bool)
+      -> bool
   end
 
-  module Specialize1(M: S1)(E: S0): S0 with type t = E.t M.t = struct
-    type t = E.t M.t
+  module type S2 = sig
+    type ('a, 'b) t
+
+    val equal: ('a, 'b) t -> ('a, 'b) t
+      -> equal_a:('a -> 'a -> bool)
+      -> equal_b:('b -> 'b -> bool)
+      -> bool
+  end
+
+  module type S3 = sig
+    type ('a, 'b, 'c) t
+
+    val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
+      -> equal_a:('a -> 'a -> bool)
+      -> equal_b:('b -> 'b -> bool)
+      -> equal_c:('c -> 'c -> bool)
+      -> bool
+  end
+
+  module type S4 = sig
+    type ('a, 'b, 'c, 'd) t
+
+    val equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
+      -> equal_a:('a -> 'a -> bool)
+      -> equal_b:('b -> 'b -> bool)
+      -> equal_c:('c -> 'c -> bool)
+      -> equal_d:('d -> 'd -> bool)
+      -> bool
+  end
+
+  module type S5 = sig
+    type ('a, 'b, 'c, 'd, 'e) t
+
+    val equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
+      -> equal_a:('a -> 'a -> bool)
+      -> equal_b:('b -> 'b -> bool)
+      -> equal_c:('c -> 'c -> bool)
+      -> equal_d:('d -> 'd -> bool)
+      -> equal_e:('e -> 'e -> bool)
+      -> bool
+  end
+
+  module Specialize1(M: S1)(A: S0): S0 with type t = A.t M.t = struct
+    type t = A.t M.t
 
     let equal x y =
-      M.equal x y ~equal:E.equal
+      M.equal x y ~equal_a:A.equal
+  end
+
+  module Specialize2(M: S2)(A: S0)(B: S0): S0 with type t = (A.t, B.t) M.t = struct
+    type t = (A.t, B.t) M.t
+
+    let equal x y =
+      M.equal x y ~equal_a:A.equal ~equal_b:B.equal
+  end
+
+  module Specialize3(M: S3)(A: S0)(B: S0)(C: S0): S0 with type t = (A.t, B.t, C.t) M.t = struct
+    type t = (A.t, B.t, C.t) M.t
+
+    let equal x y =
+      M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal
+  end
+
+  module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0): S0 with type t = (A.t, B.t, C.t, D.t) M.t = struct
+    type t = (A.t, B.t, C.t, D.t) M.t
+
+    let equal x y =
+      M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal
+  end
+
+  module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0): S0 with type t = (A.t, B.t, C.t, D.t, E.t) M.t = struct
+    type t = (A.t, B.t, C.t, D.t, E.t) M.t
+
+    let equal x y =
+      M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal ~equal_e:E.equal
   end
 end
 
 module Operators = struct
   module type SP = sig
-    val (=): 'a -> 'a -> bool
-    val (<>): 'a -> 'a -> bool
+    val (=): 'a -> 'a
+      -> bool
+    val (<>): 'a -> 'a
+      -> bool
   end
 
   module type S0 = sig
     type t
 
-    val (=): t -> t -> bool
-    val (<>): t -> t -> bool
+    val (=): t -> t
+      -> bool
+    val (<>): t -> t
+      -> bool
   end
 
   module Make0(M: sig
     type t
 
-    val equal: t -> t -> bool
-    val different: t -> t -> bool
+    val equal: t -> t
+      -> bool
+    val different: t -> t
+      -> bool
   end) = struct
     open M
 
@@ -57,7 +137,8 @@ end
 module type SP = sig
   include Basic.SP
 
-  val different: 'a -> 'a -> bool
+  val different: 'a -> 'a
+    -> bool
 
   module O: sig include Operators.SP end
 end
@@ -65,7 +146,8 @@ end
 module type S0 = sig
   include Basic.S0
 
-  val different: t -> t -> bool
+  val different: t -> t
+    -> bool
 
   module O: Operators.S0 with type t := t
 end
@@ -73,41 +155,200 @@ end
 module type S1 = sig
   include Basic.S1
 
-  val different: 'a t -> 'a t -> equal:('a -> 'a -> bool) -> bool
+  val different: 'a t -> 'a t
+    -> equal_a:('a -> 'a -> bool)
+    -> bool
+end
+
+module type S2 = sig
+  include Basic.S2
+
+  val different: ('a, 'b) t -> ('a, 'b) t
+    -> equal_a:('a -> 'a -> bool)
+    -> equal_b:('b -> 'b -> bool)
+    -> bool
+end
+
+module type S3 = sig
+  include Basic.S3
+
+  val different: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
+    -> equal_a:('a -> 'a -> bool)
+    -> equal_b:('b -> 'b -> bool)
+    -> equal_c:('c -> 'c -> bool)
+    -> bool
+end
+
+module type S4 = sig
+  include Basic.S4
+
+  val different: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
+    -> equal_a:('a -> 'a -> bool)
+    -> equal_b:('b -> 'b -> bool)
+    -> equal_c:('c -> 'c -> bool)
+    -> equal_d:('d -> 'd -> bool)
+    -> bool
+end
+
+module type S5 = sig
+  include Basic.S5
+
+  val different: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
+    -> equal_a:('a -> 'a -> bool)
+    -> equal_b:('b -> 'b -> bool)
+    -> equal_c:('c -> 'c -> bool)
+    -> equal_d:('d -> 'd -> bool)
+    -> equal_e:('e -> 'e -> bool)
+    -> bool
 end
 
 module Different = struct
   module Make0(M: sig
     type t
 
-    val equal: t -> t -> bool
+    val equal: t -> t
+      -> bool
   end) = struct
     open M
 
     let different x y =
-      OCamlStandard.Pervasives.not (equal x y)
+      not (equal x y)
   end
 
-  module type M1 = sig
+  module Make1(M: sig
     type 'a t
 
-    val equal: 'a t -> 'a t -> equal:('a -> 'a -> bool) -> bool
-  end
-
-  module Make1(M: M1) = struct
+    val equal: 'a t -> 'a t
+      -> equal_a:('a -> 'a -> bool)
+      -> bool
+  end) = struct
     open M
 
-    let different x y ~equal:eq =
-      OCamlStandard.Pervasives.not (equal x y ~equal:eq)
+    let different x y ~equal_a =
+      not (equal x y ~equal_a)
+  end
+
+  module Make2(M: sig
+    type ('a, 'b) t
+
+    val equal: ('a, 'b) t -> ('a, 'b) t
+      -> equal_a:('a -> 'a -> bool)
+      -> equal_b:('b -> 'b -> bool)
+      -> bool
+  end) = struct
+    open M
+
+    let different x y ~equal_a ~equal_b =
+      not (equal x y ~equal_a ~equal_b)
+  end
+
+  module Make3(M: sig
+    type ('a, 'b, 'c) t
+
+    val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
+      -> equal_a:('a -> 'a -> bool)
+      -> equal_b:('b -> 'b -> bool)
+      -> equal_c:('c -> 'c -> bool)
+      -> bool
+  end) = struct
+    open M
+
+    let different x y ~equal_a ~equal_b ~equal_c =
+      not (equal x y ~equal_a ~equal_b ~equal_c)
+  end
+
+  module Make4(M: sig
+    type ('a, 'b, 'c, 'd) t
+
+    val equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
+      -> equal_a:('a -> 'a -> bool)
+      -> equal_b:('b -> 'b -> bool)
+      -> equal_c:('c -> 'c -> bool)
+      -> equal_d:('d -> 'd -> bool)
+      -> bool
+  end) = struct
+    open M
+
+    let different x y ~equal_a ~equal_b ~equal_c ~equal_d =
+      not (equal x y ~equal_a ~equal_b ~equal_c ~equal_d)
+  end
+
+  module Make5(M: sig
+    type ('a, 'b, 'c, 'd, 'e) t
+
+    val equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
+      -> equal_a:('a -> 'a -> bool)
+      -> equal_b:('b -> 'b -> bool)
+      -> equal_c:('c -> 'c -> bool)
+      -> equal_d:('d -> 'd -> bool)
+      -> equal_e:('e -> 'e -> bool)
+      -> bool
+  end) = struct
+    open M
+
+    let different x y ~equal_a ~equal_b ~equal_c ~equal_d ~equal_e =
+      not (equal x y ~equal_a ~equal_b ~equal_c ~equal_d ~equal_e)
   end
 end
 
-module Specialize1(M: S1)(E: Basic.S0): S0 with type t = E.t M.t = struct
+module Specialize1(M: S1)(A: Basic.S0): S0 with type t = A.t M.t = struct
   module Self = struct
-    include Basic.Specialize1(M)(E)
+    include Basic.Specialize1(M)(A)
 
     let different x y =
-      M.different x y ~equal:E.equal
+      M.different x y ~equal_a:A.equal
+  end
+
+  module O = Operators.Make0(Self)
+
+  include Self
+end
+
+module Specialize2(M: S2)(A: Basic.S0)(B: Basic.S0): S0 with type t = (A.t, B.t) M.t = struct
+  module Self = struct
+    include Basic.Specialize2(M)(A)(B)
+
+    let different x y =
+      M.different x y ~equal_a:A.equal ~equal_b:B.equal
+  end
+
+  module O = Operators.Make0(Self)
+
+  include Self
+end
+
+module Specialize3(M: S3)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0): S0 with type t = (A.t, B.t, C.t) M.t = struct
+  module Self = struct
+    include Basic.Specialize3(M)(A)(B)(C)
+
+    let different x y =
+      M.different x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal
+  end
+
+  module O = Operators.Make0(Self)
+
+  include Self
+end
+
+module Specialize4(M: S4)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0): S0 with type t = (A.t, B.t, C.t, D.t) M.t = struct
+  module Self = struct
+    include Basic.Specialize4(M)(A)(B)(C)(D)
+
+    let different x y =
+      M.different x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal
+  end
+
+  module O = Operators.Make0(Self)
+
+  include Self
+end
+
+module Specialize5(M: S5)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0)(E: Basic.S0): S0 with type t = (A.t, B.t, C.t, D.t, E.t) M.t = struct
+  module Self = struct
+    include Basic.Specialize5(M)(A)(B)(C)(D)(E)
+
+    let different x y =
+      M.different x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal ~equal_e:E.equal
   end
 
   module O = Operators.Make0(Self)
@@ -126,16 +367,64 @@ module Tests = struct
       val different: (t * t) list
     end
 
+    module type Element = sig
+      include Basic.S0
+      include Representable.Basic.S0 with type t := t
+    end
+
     module type S1 = sig
-      module Element: sig
-        include Basic.S0
-        include Representable.Basic.S0 with type t := t
-      end
+      module A: Element
 
       type 'a t
 
-      val equal: Element.t t list list
-      val different: (Element.t t * Element.t t) list
+      val equal: A.t t list list
+      val different: (A.t t * A.t t) list
+    end
+
+    module type S2 = sig
+      module A: Element
+      module B: Element
+
+      type ('a, 'b) t
+
+      val equal: (A.t, B.t) t list list
+      val different: ((A.t, B.t) t * (A.t, B.t) t) list
+    end
+
+    module type S3 = sig
+      module A: Element
+      module B: Element
+      module C: Element
+
+      type ('a, 'b, 'c) t
+
+      val equal: (A.t, B.t, C.t) t list list
+      val different: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
+    end
+
+    module type S4 = sig
+      module A: Element
+      module B: Element
+      module C: Element
+      module D: Element
+
+      type ('a, 'b, 'c, 'd) t
+
+      val equal: (A.t, B.t, C.t, D.t) t list list
+      val different: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
+    end
+
+    module type S5 = sig
+      module A: Element
+      module B: Element
+      module C: Element
+      module D: Element
+      module E: Element
+
+      type ('a, 'b, 'c, 'd, 'e) t
+
+      val equal: (A.t, B.t, C.t, D.t, E.t) t list list
+      val different: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
     end
   end
 
@@ -187,10 +476,40 @@ module Tests = struct
   module Make1(M: sig
     include S1
     include Representable.Basic.S1 with type 'a t := 'a t
-  end)(E: Examples.S1 with type 'a t := 'a M.t) = struct
-    include Make0(struct
-      include Specialize1(M)(E.Element)
-      include (Representable.Specialize1(M)(E.Element): module type of Representable.Specialize1(M)(E.Element) with type t := t)
-    end)(E)
-  end
+  end)(E: Examples.S1 with type 'a t := 'a M.t) = Make0(struct
+    include Specialize1(M)(E.A)
+    include (Representable.Specialize1(M)(E.A): Representable.S0 with type t := t)
+  end)(E)
+
+  module Make2(M: sig
+    include S2
+    include Representable.Basic.S2 with type ('a, 'b) t := ('a, 'b) t
+  end)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t) = Make0(struct
+    include Specialize2(M)(E.A)(E.B)
+    include (Representable.Basic.Specialize2(M)(E.A)(E.B): Representable.Basic.S0 with type t := t)
+  end)(E)
+
+  module Make3(M: sig
+    include S3
+    include Representable.Basic.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+  end)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t) = Make0(struct
+    include Specialize3(M)(E.A)(E.B)(E.C)
+    include (Representable.Basic.Specialize3(M)(E.A)(E.B)(E.C): Representable.Basic.S0 with type t := t)
+  end)(E)
+
+  module Make4(M: sig
+    include S4
+    include Representable.Basic.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+  end)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t) = Make0(struct
+    include Specialize4(M)(E.A)(E.B)(E.C)(E.D)
+    include (Representable.Basic.Specialize4(M)(E.A)(E.B)(E.C)(E.D): Representable.Basic.S0 with type t := t)
+  end)(E)
+
+  module Make5(M: sig
+    include S5
+    include Representable.Basic.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+  end)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t) = Make0(struct
+    include Specialize5(M)(E.A)(E.B)(E.C)(E.D)(E.E)
+    include (Representable.Basic.Specialize5(M)(E.A)(E.B)(E.C)(E.D)(E.E): Representable.Basic.S0 with type t := t)
+  end)(E)
 end

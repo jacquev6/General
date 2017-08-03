@@ -12,6 +12,7 @@ let test = "General" >:: [
   List_.Tests.test;
   Option.Tests.test;
   String_.Tests.test;
+  Tuples.Tests.test;
   TestingTests.Tests.test;
 ]
 

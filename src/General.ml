@@ -14,14 +14,21 @@ module Exception = Implementation.Exception
 module Exit = Implementation.Exit
 module Float = Implementation.Float
 module Format = Implementation.Format_
-include Implementation.Functions
+module Function1 = Implementation.Functions.Function1
+module Function2 = Implementation.Functions.Function2
+module Function3 = Implementation.Functions.Function3
+module Function4 = Implementation.Functions.Function4
+module Function5 = Implementation.Functions.Function5
 module Int = Implementation.Int
 module Lazy = Implementation.Lazy_
 module List = Implementation.List_
 module Option = Implementation.Option
 module Reference = Implementation.Reference
 module String = Implementation.String_
-module Tuple2 = Implementation.Tuple2
+module Tuple2 = Implementation.Tuples.Tuple2
+module Tuple3 = Implementation.Tuples.Tuple3
+module Tuple4 = Implementation.Tuples.Tuple4
+module Tuple5 = Implementation.Tuples.Tuple5
 module Unit = Implementation.Unit
 
 module IntReference = Specializations.Reference.Int
@@ -49,6 +56,9 @@ module Standard = struct
   module Reference = Reference
   module String = String
   module Tuple2 = Tuple2
+  module Tuple3 = Tuple3
+  module Tuple4 = Tuple4
+  module Tuple5 = Tuple5
   module Unit = Unit
 
   module IntReference = IntReference
@@ -87,6 +97,9 @@ module Abbr = struct
   module Ref = Reference
   module Str = String
   module Tu2 = Tuple2
+  module Tu3 = Tuple3
+  module Tu4 = Tuple4
+  module Tu5 = Tuple5
   module Unit = Unit
 
   module IntRef = IntReference

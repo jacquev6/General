@@ -21,5 +21,5 @@ src/Implementation/OutChannel
 src/Implementation/Reference
 src/Implementation/String_
 src/Implementation/TestingTests
-src/Implementation/Tuple2
+src/Implementation/Tuples
 src/Implementation/Unit

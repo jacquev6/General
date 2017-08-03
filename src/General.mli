@@ -419,11 +419,69 @@ end
 module Tuple2: sig
   type ('a, 'b) t = 'a * 'b
 
+  include Traits.Comparable.S2 with type ('a, 'b) t := ('a, 'b) t
+  include Traits.Equatable.S2 with type ('a, 'b) t := ('a, 'b) t
+  include Traits.Representable.S2 with type ('a, 'b) t := ('a, 'b) t
+
+  val make: 'a -> 'b -> ('a, 'b) t
+
   val get_0: ('a, _) t -> 'a
   val get_1: (_, 'b) t -> 'b
+
+  val flip: ('a, 'b) t -> ('b, 'a) t
 end
 
-(* @todo More TupleN *)
+module Tuple3: sig
+  type ('a, 'b, 'c) t = 'a * 'b * 'c
+
+  include Traits.Comparable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+  include Traits.Equatable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+  include Traits.Representable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+
+  val make: 'a -> 'b -> 'c -> ('a, 'b, 'c) t
+
+  val get_0: ('a, _, _) t -> 'a
+  val get_1: (_, 'b, _) t -> 'b
+  val get_2: (_, _, 'c) t -> 'c
+
+  val flip: ('a, 'b, 'c) t -> ('c, 'b, 'a) t
+end
+
+module Tuple4: sig
+  type ('a, 'b, 'c, 'd) t = 'a * 'b * 'c * 'd
+
+  include Traits.Comparable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+  include Traits.Equatable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+  include Traits.Representable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+
+  val make: 'a -> 'b -> 'c -> 'd -> ('a, 'b, 'c, 'd) t
+
+  val get_0: ('a, _, _, _) t -> 'a
+  val get_1: (_, 'b, _, _) t -> 'b
+  val get_2: (_, _, 'c, _) t -> 'c
+  val get_3: (_, _, _, 'd) t -> 'd
+
+  val flip: ('a, 'b, 'c, 'd) t -> ('d, 'c, 'b, 'a) t
+end
+
+module Tuple5: sig
+  type ('a, 'b, 'c, 'd, 'e) t = 'a * 'b * 'c * 'd * 'e
+
+  include Traits.Comparable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+  include Traits.Equatable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+  include Traits.Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+
+  val make: 'a -> 'b -> 'c -> 'd -> 'e -> ('a, 'b, 'c, 'd, 'e) t
+
+  val get_0: ('a, _, _, _, _) t -> 'a
+  val get_1: (_, 'b, _, _, _) t -> 'b
+  val get_2: (_, _, 'c, _, _) t -> 'c
+  val get_3: (_, _, _, 'd, _) t -> 'd
+  val get_4: (_, _, _, _, 'e) t -> 'e
+
+  val flip: ('a, 'b, 'c, 'd, 'e) t -> ('e, 'd, 'c, 'b, 'a) t
+end
+
 (* @todo Pair, Triplet, etc. (homogeneous tuples)? *)
 
 (* Specializations of fixed-size containers *)
@@ -627,6 +685,9 @@ module Standard: sig
   module Reference: module type of Reference
   module String: module type of String
   module Tuple2: module type of Tuple2
+  module Tuple3: module type of Tuple3
+  module Tuple4: module type of Tuple4
+  module Tuple5: module type of Tuple5
   module Unit: module type of Unit
 
   module IntReference: module type of IntReference
@@ -663,6 +724,9 @@ module Abbr: sig
   module Ref: module type of Reference
   module Str: module type of String
   module Tu2: module type of Tuple2
+  module Tu3: module type of Tuple3
+  module Tu4: module type of Tuple4
+  module Tu5: module type of Tuple5
   module Unit: module type of Unit
 
   module IntRef: module type of IntReference

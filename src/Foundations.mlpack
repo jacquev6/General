@@ -16,5 +16,5 @@ src/Foundations/Reset
 src/Foundations/ResetPervasives
 src/Foundations/ResetStandardLibrary
 src/Foundations/String_
-src/Foundations/Tuple2
+src/Foundations/Tuples
 src/Foundations/Unit

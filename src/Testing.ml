@@ -16,7 +16,7 @@ module Result = struct
       | NoException exc ->
         Format_.sprintf "NoException %s" (OCSPex.to_string exc)
       | WrongException (expected, exc, bt) ->
-        Format_.sprintf "WrongException (%s, %s, %s)" (OCSPex.to_string expected) (OCSPex.to_string exc) (Option.repr ~repr:OCSPex.raw_backtrace_to_string bt)
+        Format_.sprintf "WrongException (%s, %s, %s)" (OCSPex.to_string expected) (OCSPex.to_string exc) (Option.repr ~repr_a:OCSPex.raw_backtrace_to_string bt)
       | Custom x ->
         Format_.sprintf "Custom %S" x
 
@@ -31,7 +31,7 @@ module Result = struct
       | Failure reason ->
         Format_.sprintf "Failure (%s)" (failure_repr reason)
       | Error (exc, bt) ->
-        Format_.sprintf "Error (%s, %s)" (OCSPex.to_string exc) (Option.repr ~repr:OCSPex.raw_backtrace_to_string bt)
+        Format_.sprintf "Error (%s, %s)" (OCSPex.to_string exc) (Option.repr ~repr_a:OCSPex.raw_backtrace_to_string bt)
 
     let to_string = function
         | Success ->
@@ -71,7 +71,7 @@ module Result = struct
     | Single {label; status} ->
       Format_.sprintf "Single {label=%S; status=%s}" label (Status.repr status)
     | Group {name; children} ->
-      Format_.sprintf "Group {name=%S; children=%s}" name (List_.repr ~repr children)
+      Format_.sprintf "Group {name=%S; children=%s}" name (List_.repr ~repr_a:repr children)
 
   let equal x y =
     Equate.Poly.equal x y
@@ -265,7 +265,7 @@ let check_float_exact ~expected actual =
   check ~repr:Float.repr ~equal:Float.equal ~expected actual
 
 let check_option ~repr ~equal ~expected actual =
-  check ~repr:(Option.repr ~repr) ~equal:(Option.equal ~equal) ~expected actual
+  check ~repr:(Option.repr ~repr_a:repr) ~equal:(Option.equal ~equal_a:equal) ~expected actual
 
 let check_some ~repr ~equal ~expected actual =
   check_option ~repr ~equal ~expected:(Some expected) actual
@@ -286,10 +286,58 @@ let check_none_int actual =
   check_int_option ~expected:None actual
 
 let check_list ~repr ~equal ~expected actual =
-  check ~repr:(List_.repr ~repr) ~equal:(List_.equal ~equal) ~expected actual
+  check ~repr:(List_.repr ~repr_a:repr) ~equal:(List_.equal ~equal_a:equal) ~expected actual
 
 let check_string_list ~expected actual =
   check_list ~repr:String_.repr ~equal:String_.equal ~expected actual
 
 let check_int_list ~expected actual =
   check_list ~repr:Int.repr ~equal:Int.equal ~expected actual
+
+let check_tuple2 ~repr_a ~repr_b ~equal_a ~equal_b ~expected actual =
+  check
+    ~repr:(Tuples.Tuple2.repr ~repr_a ~repr_b)
+    ~equal:(Tuples.Tuple2.equal ~equal_a ~equal_b)
+    ~expected actual
+
+let check_int_tuple2 ~expected actual =
+  check_tuple2
+    ~repr_a:Int.repr ~repr_b:Int.repr
+    ~equal_a:Int.equal ~equal_b:Int.equal
+    ~expected actual
+
+let check_tuple3 ~repr_a ~repr_b ~repr_c ~equal_a ~equal_b ~equal_c ~expected actual =
+  check
+    ~repr:(Tuples.Tuple3.repr ~repr_a ~repr_b ~repr_c)
+    ~equal:(Tuples.Tuple3.equal ~equal_a ~equal_b ~equal_c)
+    ~expected actual
+
+let check_int_tuple3 ~expected actual =
+  check_tuple3
+    ~repr_a:Int.repr ~repr_b:Int.repr ~repr_c:Int.repr
+    ~equal_a:Int.equal ~equal_b:Int.equal ~equal_c:Int.equal
+    ~expected actual
+
+let check_tuple4 ~repr_a ~repr_b ~repr_c ~repr_d ~equal_a ~equal_b ~equal_c ~equal_d ~expected actual =
+  check
+    ~repr:(Tuples.Tuple4.repr ~repr_a ~repr_b ~repr_c ~repr_d)
+    ~equal:(Tuples.Tuple4.equal ~equal_a ~equal_b ~equal_c ~equal_d)
+    ~expected actual
+
+let check_int_tuple4 ~expected actual =
+  check_tuple4
+    ~repr_a:Int.repr ~repr_b:Int.repr ~repr_c:Int.repr ~repr_d:Int.repr
+    ~equal_a:Int.equal ~equal_b:Int.equal ~equal_c:Int.equal ~equal_d:Int.equal
+    ~expected actual
+
+let check_tuple5 ~repr_a ~repr_b ~repr_c ~repr_d ~repr_e ~equal_a ~equal_b ~equal_c ~equal_d ~equal_e ~expected actual =
+  check
+    ~repr:(Tuples.Tuple5.repr ~repr_a ~repr_b ~repr_c ~repr_d ~repr_e)
+    ~equal:(Tuples.Tuple5.equal ~equal_a ~equal_b ~equal_c ~equal_d ~equal_e)
+    ~expected actual
+
+let check_int_tuple5 ~expected actual =
+  check_tuple5
+    ~repr_a:Int.repr ~repr_b:Int.repr ~repr_c:Int.repr ~repr_d:Int.repr ~repr_e:Int.repr
+    ~equal_a:Int.equal ~equal_b:Int.equal ~equal_c:Int.equal ~equal_d:Int.equal ~equal_e:Int.equal
+    ~expected actual

@@ -95,9 +95,9 @@ let iter_i xs ~f =
   in
   aux 0 xs
 
-let repr xs ~repr =
+let repr xs ~repr_a =
   xs
-  |> map ~f:repr
+  |> map ~f:repr_a
   |> OCamlStandard.StringLabels.concat ~sep:"; "
   |> Format_.sprintf "[%s]"
 
@@ -142,9 +142,9 @@ let size xs =
 (* @todo Remove *)
 module OCLL = OCamlStandard.ListLabels
 
-let equal xs ys ~equal =
+let equal xs ys ~equal_a =
   try
-    OCLL.for_all2 ~f:equal xs ys
+    OCLL.for_all2 ~f:equal_a xs ys
   with
     | Invalid_argument _ -> false
 
