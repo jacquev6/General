@@ -86,10 +86,13 @@ module Tests = struct
     let different = [
       ("foo", "bar");
     ]
+
+    let ordered = [
+      ["aaaa"; "aaaaa"; "aaaab"; "ab"; "b"];
+    ]
   end
 
   let test = "String" >:: [
-    (* @todo Able, not just Identifiable *)
-    (let module T = Concepts.Identifiable.Tests.Make0(Foundations.String_)(Examples) in T.test);
+    (let module T = Concepts.Able.Tests.Make0(Foundations.String_)(Examples) in T.test);
   ]
 end
