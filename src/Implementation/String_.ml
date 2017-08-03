@@ -89,7 +89,7 @@ module Tests = struct
   end
 
   let test = "String" >:: [
-    (let module T = Traits.Representable.Tests.Make0(Foundations.String_)(Examples) in T.test);
-    (let module T = Traits.Equatable.Tests.Make0(Foundations.String_)(Examples) in T.test);
+    (* @todo Able, not just Identifiable *)
+    (let module T = Concepts.Identifiable.Tests.Make0(Foundations.String_)(Examples) in T.test);
   ]
 end

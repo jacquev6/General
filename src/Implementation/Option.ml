@@ -34,9 +34,7 @@ module Tests = struct
   end
 
   let test = "Option" >:: [
-    (let module T = Traits.Comparable.Tests.Make1(Self)(Examples) in T.test);
-    (let module T = Traits.Equatable.Tests.Make1(Self)(Examples) in T.test);
-    (let module T = Traits.Representable.Tests.Make1(Self)(Examples) in T.test);
+    (let module T = Concepts.Able.Tests.Make1(Self)(Examples) in T.test);
     "some_if true" >: (lazy (check_some_42 (some_if true (lazy 42))));
     "some_if false" >: (lazy (check_none_int (some_if false (lazy (Exception.failure "Don't call me"))))); (*BISECT-IGNORE*)
     "some_if' true" >: (lazy (check_some_42 (some_if' true 42)));

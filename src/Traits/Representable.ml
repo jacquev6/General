@@ -109,8 +109,10 @@ module Tests = struct
       val repr: (t * string) list
     end
 
+    module type Element = Basic.S0
+
     module type S1 = sig
-      module A: Basic.S0
+      module A: Element
 
       type 'a t
 
@@ -118,8 +120,8 @@ module Tests = struct
     end
 
     module type S2 = sig
-      module A: Basic.S0
-      module B: Basic.S0
+      module A: Element
+      module B: Element
 
       type ('a, 'b) t
 
@@ -127,9 +129,9 @@ module Tests = struct
     end
 
     module type S3 = sig
-      module A: Basic.S0
-      module B: Basic.S0
-      module C: Basic.S0
+      module A: Element
+      module B: Element
+      module C: Element
 
       type ('a, 'b, 'c) t
 
@@ -137,10 +139,10 @@ module Tests = struct
     end
 
     module type S4 = sig
-      module A: Basic.S0
-      module B: Basic.S0
-      module C: Basic.S0
-      module D: Basic.S0
+      module A: Element
+      module B: Element
+      module C: Element
+      module D: Element
 
       type ('a, 'b, 'c, 'd) t
 
@@ -148,11 +150,11 @@ module Tests = struct
     end
 
     module type S5 = sig
-      module A: Basic.S0
-      module B: Basic.S0
-      module C: Basic.S0
-      module D: Basic.S0
-      module E: Basic.S0
+      module A: Element
+      module B: Element
+      module C: Element
+      module D: Element
+      module E: Element
 
       type ('a, 'b, 'c, 'd, 'e) t
 

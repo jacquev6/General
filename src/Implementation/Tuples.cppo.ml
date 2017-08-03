@@ -115,9 +115,7 @@ module Tests = struct
   end
 
   #define TEST_TRAITS(N) \
-    (let module T = Traits.Comparable.Tests.CONCAT(Make, N)(CONCAT(Tuple, N))(CONCAT(Examples, N)) in T.test); \
-    (let module T = Traits.Equatable.Tests.CONCAT(Make, N)(CONCAT(Tuple, N))(CONCAT(Examples, N)) in T.test); \
-    (let module T = Traits.Representable.Tests.CONCAT(Make, N)(CONCAT(Tuple, N))(CONCAT(Examples, N)) in T.test)
+    (let module T = Concepts.Able.Tests.CONCAT(Make, N)(CONCAT(Tuple, N))(CONCAT(Examples, N)) in T.test)
 
   let test = "Tuples" >:: [
     "Tuple2" >:: Tuple2.[

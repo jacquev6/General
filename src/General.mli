@@ -89,6 +89,7 @@ module Exception: sig
   type t = exn
 
   include Traits.Equatable.S0 with type t := t
+  (* @todo Identifiable *)
 
   (* Aliases for all predefined exceptions
   https://caml.inria.fr/pub/docs/manual-ocaml-4.05/core.html#sec527 *)
@@ -122,6 +123,8 @@ module Exit: sig
   type t =
     | Success
     | Failure of int
+
+  (* @todo Able *)
 
   val of_int: int -> t
 
@@ -191,6 +194,8 @@ end
 module Unit: sig
   type t = unit
 
+  (* @todo Able *)
+
   val ignore: 'a -> t
 end
 
@@ -198,8 +203,7 @@ module Bool: sig
   type t = bool
 
   module O: sig
-    include Traits.Comparable.Operators.S0 with type t := t
-    include Traits.Equatable.Operators.S0 with type t := t
+    include Concepts.Able.Operators.S0 with type t := t
 
     val not: t -> t
     val (&&): t -> t -> t (* Lazy *)
@@ -207,11 +211,9 @@ module Bool: sig
     val xor: t -> t -> t
   end
 
-  include Traits.Comparable.S0 with type t := t and module O := O
+  include Concepts.Able.S0 with type t := t and module O := O
   include Traits.Displayable.S0 with type t := t
-  include Traits.Equatable.S0 with type t := t and module O := O
   include Traits.Parsable.S0 with type t := t
-  include Traits.Representable.S0 with type t := t
 
   val not: t -> t
   val and_: t -> t -> t (* Not lazy *)
@@ -221,6 +223,8 @@ end
 
 module Char: sig
   type t = char
+
+  (* @todo Integer, smallest, greatest *)
 
   val of_int: int -> t
   val to_int: t -> int
@@ -307,23 +311,20 @@ module String: sig
   val get: t -> int -> char
 
   module O: sig
-    include Traits.Comparable.Operators.S0 with type t := t
-    include Traits.Equatable.Operators.S0 with type t := t
+    include Concepts.Able.Operators.S0 with type t := t
     val (^): t -> t -> t
   end
 
-  include Traits.Representable.S0 with type t := t
   include Traits.Displayable.S0 with type t := t
-  include Traits.Comparable.S0 with type t := t and module O := O
-  include Traits.Equatable.S0 with type t := t and module O := O
+  include Concepts.Able.S0 with type t := t and module O := O
 
   val concat: t -> t -> t
 
-  (* val try_substring: t -> pos:int -> len:int -> t option *)
+  (* @todo val try_substring: t -> pos:int -> len:int -> t option *)
   val substring: t -> pos:int -> len:int -> t
-  (* val try_prefix: t -> len:int -> t option *)
+  (* @todo val try_prefix: t -> len:int -> t option *)
   val prefix: t -> len:int -> t
-  (* val try_suffix: t -> len:int -> t option *)
+  (* @todo val try_suffix: t -> len:int -> t option *)
   val suffix: t -> len:int -> t
 
   val has_prefix: t -> pre:t -> bool
@@ -343,9 +344,7 @@ end
 module Option: sig
   type 'a t = 'a option
 
-  include Traits.Comparable.S1 with type 'a t := 'a t
-  include Traits.Equatable.S1 with type 'a t := 'a t
-  include Traits.Representable.S1 with type 'a t := 'a t
+  include Concepts.Able.S1 with type 'a t := 'a t
 
   (* @todo OptionPair.to_pair_option (Some a, Some b) -> Some (a, b) | _ -> None *)
   (* @todo OptionList.first_some *)
@@ -419,9 +418,7 @@ end
 module Tuple2: sig
   type ('a, 'b) t = 'a * 'b
 
-  include Traits.Comparable.S2 with type ('a, 'b) t := ('a, 'b) t
-  include Traits.Equatable.S2 with type ('a, 'b) t := ('a, 'b) t
-  include Traits.Representable.S2 with type ('a, 'b) t := ('a, 'b) t
+  include Concepts.Able.S2 with type ('a, 'b) t := ('a, 'b) t
 
   val make: 'a -> 'b -> ('a, 'b) t
 
@@ -434,9 +431,7 @@ end
 module Tuple3: sig
   type ('a, 'b, 'c) t = 'a * 'b * 'c
 
-  include Traits.Comparable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-  include Traits.Equatable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-  include Traits.Representable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+  include Concepts.Able.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
 
   val make: 'a -> 'b -> 'c -> ('a, 'b, 'c) t
 
@@ -450,9 +445,7 @@ end
 module Tuple4: sig
   type ('a, 'b, 'c, 'd) t = 'a * 'b * 'c * 'd
 
-  include Traits.Comparable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-  include Traits.Equatable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-  include Traits.Representable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+  include Concepts.Able.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
 
   val make: 'a -> 'b -> 'c -> 'd -> ('a, 'b, 'c, 'd) t
 
@@ -467,9 +460,7 @@ end
 module Tuple5: sig
   type ('a, 'b, 'c, 'd, 'e) t = 'a * 'b * 'c * 'd * 'e
 
-  include Traits.Comparable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-  include Traits.Equatable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-  include Traits.Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+  include Concepts.Able.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
 
   val make: 'a -> 'b -> 'c -> 'd -> 'e -> ('a, 'b, 'c, 'd, 'e) t
 
@@ -506,6 +497,8 @@ end
 
 module List: sig
   type 'a t = 'a list
+
+  (* @todo Traits *)
 
   val empty: 'a t
   val of_list: 'a list -> 'a t

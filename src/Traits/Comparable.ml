@@ -889,18 +889,18 @@ end
 module Tests = struct
   open Testing
 
-  module type Element = sig
-    include Basic.S0
-    include Equatable.Basic.S0 with type t := t
-    include Representable.Basic.S0 with type t := t
-  end
-
   module Examples = struct
     module type S0 = sig
       type t
 
       val ordered: t list list
       val equal: t list list
+    end
+
+    module type Element = sig
+      include Basic.S0
+      include Equatable.Basic.S0 with type t := t
+      include Representable.Basic.S0 with type t := t
     end
 
     module type S1 = sig
