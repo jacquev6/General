@@ -21,8 +21,11 @@ module Function3 = Implementation.Functions.Function3
 module Function4 = Implementation.Functions.Function4
 module Function5 = Implementation.Functions.Function5
 module Int = Implementation.Int
+module Int32 = Implementation.Int32_
+module Int64 = Implementation.Int64_
 module Lazy = Implementation.Lazy_
 module List = Implementation.List_
+module NativeInt = Implementation.NativeInt
 module Option = Implementation.Option
 module Reference = Implementation.Reference
 module String = Implementation.String_
@@ -52,8 +55,11 @@ module Standard = struct
   module Function4 = Function4
   module Function5 = Function5
   module Int = Int
+  module Int32 = Int32
+  module Int64 = Int64
   module Lazy = Lazy
   module List = List
+  module NativeInt = NativeInt
   module Option = Option
   module Reference = Reference
   module String = String
@@ -71,6 +77,8 @@ module Standard = struct
     with module Array := Array
     and module Char := Char
     and module Format := Format
+    and module Int32 := Int32
+    and module Int64 := Int64
     and module Lazy := Lazy
     and module List := List
     and module String := String
@@ -94,8 +102,11 @@ module Abbr = struct
   module Fun4 = Function4
   module Fun5 = Function5
   module Int = Int
+  module Int32 = Int32
+  module Int64 = Int64
   module Laz = Lazy
   module Li = List
+  module NativeInt = NativeInt
   module Opt = Option
   module Ref = Reference
   module Str = String
@@ -108,5 +119,9 @@ module Abbr = struct
   module IntRef = IntReference
   module StrLi = StringList
 
-  include Pervasives
+  include (
+    Pervasives: module type of Pervasives
+    with module Int32 := Int32
+    and module Int64 := Int64
+  )
 end

@@ -250,6 +250,33 @@ module Int: sig
   end
 end
 
+module Int32: sig
+  type t = int32
+
+  include Concepts.Integer.S0 with type t := t
+
+  val smallest: t
+  val greatest: t
+end
+
+module Int64: sig
+  type t = int64
+
+  include Concepts.Integer.S0 with type t := t
+
+  val smallest: t
+  val greatest: t
+end
+
+module NativeInt: sig
+  type t = nativeint
+
+  include Concepts.Integer.S0 with type t := t
+
+  val smallest: t
+  val greatest: t
+end
+
 module BigInt: sig
   type t = Pervasives.OCamlStandard.Big_int.big_int
 
@@ -677,9 +704,12 @@ module Standard: sig
   module Function3: module type of Function3
   module Function4: module type of Function4
   module Function5: module type of Function5
+  module Int32: module type of Int32
+  module Int64: module type of Int64
   module Int: module type of Int
   module Lazy: module type of Lazy
   module List: module type of List
+  module NativeInt: module type of NativeInt
   module Option: module type of Option
   module Reference: module type of Reference
   module String: module type of String
@@ -696,6 +726,8 @@ module Standard: sig
   with module Array := Array
   and module Char := Char
   and module Format := Format
+  and module Int32 := Int32
+  and module Int64 := Int64
   and module Lazy := Lazy
   and module List := List
   and module String := String
@@ -718,8 +750,11 @@ module Abbr: sig
   module Fun4: module type of Function4
   module Fun5: module type of Function5
   module Int: module type of Int
+  module Int32: module type of Int32
+  module Int64: module type of Int64
   module Laz: module type of Lazy
   module Li: module type of List
+  module NativeInt: module type of NativeInt
   module Opt: module type of Option
   module Ref: module type of Reference
   module Str: module type of String
@@ -733,4 +768,6 @@ module Abbr: sig
   module StrLi: module type of StringList
 
   include module type of Pervasives
+  with module Int32 := Int32
+  and module Int64 := Int64
 end

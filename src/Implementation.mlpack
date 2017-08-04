@@ -20,6 +20,7 @@ src/Implementation/NativeInt
 src/Implementation/Option
 src/Implementation/OutChannel
 src/Implementation/Reference
+src/Implementation/StandardInt
 src/Implementation/String_
 src/Implementation/TestingTests
 src/Implementation/Tuples

@@ -9,8 +9,11 @@ let test = "General" >:: [
   Float.Tests.test;
   Functions.Tests.test;
   Int.Tests.test;
+  Int32_.Tests.test;
+  Int64_.Tests.test;
   Lazy_.Tests.test;
   List_.Tests.test;
+  NativeInt.Tests.test;
   Option.Tests.test;
   String_.Tests.test;
   Tuples.Tests.test;
