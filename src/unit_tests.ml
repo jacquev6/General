@@ -1,5 +1,7 @@
 open Implementation
 
+module DummyForCoverage = Specializations
+
 open Testing
 
 let test = "General" >:: [
