@@ -1,5 +1,9 @@
 type t = exn
 
+module OCSPE = OCamlStandard.Printexc
+
+let register_printer = OCSPE.register_printer
+
 include Equate.Poly
 
 exception MatchFailure = Match_failure
@@ -29,3 +33,14 @@ let failure format =
   Format_.ksprintf
     ~f:(fun message -> raise (Failure message))
     format
+
+let to_string = OCSPE.to_string
+let repr = to_string
+
+let name = OCSPE.exn_slot_name
+
+let record_backtraces = OCSPE.record_backtrace
+let recording_backtraces = OCSPE.backtrace_status
+
+let most_recent_backtrace () =
+  Option.some_if (recording_backtraces ()) (lazy (OCSPE.get_raw_backtrace ()))

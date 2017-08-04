@@ -32,7 +32,7 @@ let value_def x ~def =
 let value ?(exc=Failure "Option.value") x =
   match x with
     | Some x -> x
-    | None -> Exception.raise exc
+    | None -> OCSP.raise exc
 
 let map x ~f =
   match x with

@@ -83,11 +83,54 @@ module Concepts: module type of Concepts
 
 (* Technical, utility modules *)
 
+module CallStack: sig
+  type t = Pervasives.OCamlStandard.Printexc.raw_backtrace
+
+  include Traits.Displayable.S0 with type t := t
+  include Traits.Representable.S0 with type t := t
+
+  val current: ?max_size:int -> unit -> t
+
+  module Location: sig
+    type t = Pervasives.OCamlStandard.Printexc.location = {
+      filename: string;
+      line_number: int;
+      start_char: int;
+      end_char: int;
+    }
+
+    include Concepts.Able.S0 with type t := t
+  end
+
+  module Frame: sig
+    type t = Pervasives.OCamlStandard.Printexc.backtrace_slot
+
+    val is_raise: t -> bool
+    (* @todo val is_inline: t -> bool *)
+
+    val location: t -> Location.t option
+
+    val format: int -> t -> string option
+  end
+
+  (* @todo? val size: t -> int *)
+  (* @todo? val frame: t -> int -> Frame.t *)
+  val frames: t -> Frame.t list
+end
+
 module Exception: sig
   type t = exn
 
-  include Traits.Equatable.S0 with type t := t
-  (* @todo Identifiable *)
+  include Concepts.Identifiable.S0 with type t := t
+  include Traits.Displayable.S0 with type t := t
+
+  val register_printer: (t -> string option) -> unit
+
+  val record_backtraces: bool -> unit
+  val recording_backtraces: unit -> bool
+  (* There is no way to get the call stack of a specific exception.
+  It's just possible to get the call stack of the most recent exception. *)
+  val most_recent_backtrace: unit -> CallStack.t option
 
   (* Aliases for all predefined exceptions
   https://caml.inria.fr/pub/docs/manual-ocaml-4.05/core.html#sec527 *)
@@ -115,6 +158,8 @@ module Exception: sig
   val invalid_argument: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
 
   val failure: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
+
+  val name: exn -> string
 end
 
 module Exit: sig
@@ -692,6 +737,7 @@ module Standard: sig
   module Array: module type of Array
   module BigInt: module type of BigInt
   module Bool: module type of Bool
+  module CallStack: module type of CallStack
   module Char: module type of Char
   module Exception: module type of Exception
   module Exit: module type of Exit
@@ -737,6 +783,7 @@ module Abbr: sig
   module Ar: module type of Array
   module BigInt: module type of BigInt
   module Bo: module type of Bool
+  module CallStack: module type of CallStack
   module Ch: module type of Char
   module Exit: module type of Exit
   module Exn: module type of Exception

@@ -1,5 +1,5 @@
 (* The position of these symbols is tested below. Moving them requires fixing the tests *)
-let callstack = OCamlStandard.Printexc.get_callstack 1
+let callstack = CallStack.current ()
 (* End of symbols to not move *)
 
 module Tests = struct
@@ -58,7 +58,7 @@ module Tests = struct
                 "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(bad) not raised, but exception TestingTests.Tests.TestException1(too bad) raised\n"
               else
                 "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
-                 Raised by primitive operation at file \"src/Implementation/TestingTests.ml\", line 2, characters 16-54\n"
+                 Raised by primitive operation at file \"src/Implementation/TestingTests.ml\", line 2, characters 16-36\n"
             ]
             (Single {label="bar 4"; status=Failure (WrongException (TestException1 "bad", TestException1 "too bad", Some callstack))});
           make
@@ -73,7 +73,7 @@ module Tests = struct
                 "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(bad) raised\n"
               else
                 "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
-                 Raised by primitive operation at file \"src/Implementation/TestingTests.ml\", line 2, characters 16-54\n"
+                 Raised by primitive operation at file \"src/Implementation/TestingTests.ml\", line 2, characters 16-36\n"
             ]
             (Single {label="bar 7"; status=Error (TestException1 "bad", Some callstack)});
           make ~verbose:true

@@ -13,8 +13,26 @@ module Tests = struct
 
   exception TestException
 
+  module Examples = struct
+    let equal = [
+      [Failure "foo"];
+    ]
+
+    let different = [
+      (Failure "foo", Failure "bar");
+      (Failure "foo", InvalidArgument "foo");
+    ]
+
+    let repr = [
+      (DivisionByZero, "Division_by_zero");
+    ]
+
+    let to_string = repr
+  end
+
   let test = "Exception" >:: [
-    (* @todo Test traits *)
+    (let module T = Concepts.Identifiable.Tests.Make0(Foundations.Exception)(Examples) in T.test);
+    (let module T = Traits.Displayable.Tests.Make0(Foundations.Exception)(Examples) in T.test);
     "raise" >: (lazy (expect_exception ~expected:TestException (lazy (raise TestException))));
     "raise_without_backtrace" >: (lazy (expect_exception ~expected:TestException (lazy (raise_without_backtrace TestException))));
     "failure" >: (lazy (expect_exception ~expected:(Failure "Foo bar 42") (lazy (failure "Foo %s %n" "bar" 42))));

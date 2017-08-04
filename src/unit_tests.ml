@@ -5,6 +5,7 @@ open Testing
 let test = "General" >:: [
   BigInt.Tests.test;
   Bool.Tests.test;
+  CallStack.Tests.test;
   Exception.Tests.test;
   Float.Tests.test;
   Functions.Tests.test;

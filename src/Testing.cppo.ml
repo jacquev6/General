@@ -7,23 +7,23 @@ module Result = struct
     type failure =
       | NotEqual of (string * string)
       | NoException of exn
-      | WrongException of exn * exn * OCSPex.raw_backtrace option
+      | WrongException of exn * exn * CallStack.t option
       | Custom of string
 
     let failure_repr = function
       | NotEqual (x, y) ->
         Format_.sprintf "NotEqual (%S, %S)" x y
       | NoException exc ->
-        Format_.sprintf "NoException %s" (OCSPex.to_string exc)
+        Format_.sprintf "NoException %s" (Exception.repr exc)
       | WrongException (expected, exc, bt) ->
-        Format_.sprintf "WrongException (%s, %s, %s)" (OCSPex.to_string expected) (OCSPex.to_string exc) (Option.repr ~repr_a:OCSPex.raw_backtrace_to_string bt)
+        Format_.sprintf "WrongException (%s, %s, %s)" (Exception.repr expected) (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
       | Custom x ->
         Format_.sprintf "Custom %S" x
 
     type t =
       | Success
       | Failure of failure
-      | Error of exn * OCSPex.raw_backtrace option
+      | Error of exn * CallStack.t option
 
     let repr = function
       | Success ->
@@ -31,7 +31,7 @@ module Result = struct
       | Failure reason ->
         Format_.sprintf "Failure (%s)" (failure_repr reason)
       | Error (exc, bt) ->
-        Format_.sprintf "Error (%s, %s)" (OCSPex.to_string exc) (Option.repr ~repr_a:OCSPex.raw_backtrace_to_string bt)
+        Format_.sprintf "Error (%s, %s)" (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
 
     let to_string = function
         | Success ->
@@ -40,17 +40,17 @@ module Result = struct
           (* @todo split lines, quote each line, display very explicitly. Unless both values are single line. Quote anyway *)
           Format_.sprintf "FAILED: expected %s, but got %s" expected actual
         | Failure (NoException expected) ->
-          Format_.sprintf "FAILED: expected exception %s not raised" (OCSPex.to_string expected)
+          Format_.sprintf "FAILED: expected exception %s not raised" (Exception.to_string expected)
         | Failure (WrongException (expected, exc, None)) ->
-          Format_.sprintf "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" (OCSPex.to_string expected) (OCSPex.to_string exc)
+          Format_.sprintf "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" (Exception.to_string expected) (Exception.to_string exc)
         | Failure (WrongException (expected, exc, Some bt)) ->
-          Format_.sprintf "FAILED: expected exception %s not raised, but exception %s raised\n%s"(OCSPex.to_string expected) (OCSPex.to_string exc) (OCSPex.raw_backtrace_to_string bt)
+          Format_.sprintf "FAILED: expected exception %s not raised, but exception %s raised\n%s" (Exception.to_string expected) (Exception.to_string exc) (CallStack.to_string bt)
         | Failure (Custom message) ->
           Format_.sprintf "FAILED: %s" message
         | Error (exc, None) ->
-          Format_.sprintf "ERROR: exception %s raised (no backtrace)" (OCSPex.to_string exc)
+          Format_.sprintf "ERROR: exception %s raised (no backtrace)" (Exception.to_string exc)
         | Error (exc, Some bt) ->
-          Format_.sprintf "ERROR: exception %s raised\n%s" (OCSPex.to_string exc) (OCSPex.raw_backtrace_to_string bt)
+          Format_.sprintf "ERROR: exception %s raised\n%s" (Exception.to_string exc) (CallStack.to_string bt)
   end
 
   type single = {
@@ -162,7 +162,7 @@ module Test = struct
 
 
   let run ?(record_backtrace=true) test =
-    OCSPex.record_backtrace record_backtrace;
+    Exception.record_backtraces record_backtrace;
     let rec aux = function
       | Group {name; tests} ->
         let children = List_.map ~f:aux tests in
@@ -175,7 +175,7 @@ module Test = struct
           | TestFailure reason ->
             Result.Single {Result.label; status=Result.Status.Failure reason}
           | exc ->
-            Result.Single {Result.label; status=Result.Status.Error (exc, Option.some_if (OCSPex.backtrace_status ()) (lazy (OCSPex.get_raw_backtrace ())))}
+            Result.Single {Result.label; status=Result.Status.Error (exc, Exception.most_recent_backtrace ())}
     in
     aux test
 end
@@ -240,7 +240,7 @@ let expect_exception ~expected x =
   with
     | NoExceptionRaised -> Exception.raise (TestFailure (Result.Status.NoException expected))
     | actual when Exception.equal actual expected -> ()
-    | exc -> Exception.raise (TestFailure (Result.Status.WrongException (expected, exc, Option.some_if (OCSPex.backtrace_status ()) (lazy (OCSPex.get_raw_backtrace ())))))
+    | exc -> Exception.raise (TestFailure (Result.Status.WrongException (expected, exc, Exception.most_recent_backtrace ())))
 
 let check ~repr ~equal ~expected actual =
   if not (equal expected actual) then
@@ -290,6 +290,15 @@ let check_some_42 actual =
 
 let check_none_int actual =
   check_int_option ~expected:None actual
+
+let check_string_option ~expected actual =
+  check_option ~repr:String_.repr ~equal:String_.equal ~expected actual
+
+let check_some_string ~expected actual =
+  check_string_option ~expected:(Some expected) actual
+
+let check_none_string actual =
+  check_string_option ~expected:None actual
 
 let check_list ~repr ~equal ~expected actual =
   check ~repr:(List_.repr ~repr_a:repr) ~equal:(List_.equal ~equal_a:equal) ~expected actual
