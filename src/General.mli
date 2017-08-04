@@ -235,9 +235,11 @@ module Int: sig
 
   include Concepts.Integer.S0 with type t := t
 
+  (* @todo Traits.Bounded? *)
   val smallest: t
   val greatest: t
 
+  (* @todo Put Bitwise in Concepts.Integer? *)
   module Bitwise: sig
     val logical_and: t -> t -> t
     val logical_or: t -> t -> t
@@ -247,6 +249,12 @@ module Int: sig
     val logical_shift_right: t -> shift:t -> t
     val arithmetic_shift_right: t -> shift:t -> t
   end
+end
+
+module BigInt: sig
+  type t = Pervasives.OCamlStandard.Big_int.big_int
+
+  include Concepts.Integer.S0 with type t := t
 end
 
 module Float: sig
@@ -473,8 +481,6 @@ module Tuple5: sig
   val flip: ('a, 'b, 'c, 'd, 'e) t -> ('e, 'd, 'c, 'b, 'a) t
 end
 
-(* @todo Pair, Triplet, etc. (homogeneous tuples)? *)
-
 (* Specializations of fixed-size containers *)
 
 module IntReference: sig
@@ -660,6 +666,7 @@ module Standard: sig
   module Testing: module type of Testing
 
   module Array: module type of Array
+  module BigInt: module type of BigInt
   module Bool: module type of Bool
   module Char: module type of Char
   module Exception: module type of Exception
@@ -699,6 +706,7 @@ module Abbr: sig
   module Tst: module type of Testing
 
   module Ar: module type of Array
+  module BigInt: module type of BigInt
   module Bo: module type of Bool
   module Ch: module type of Char
   module Exit: module type of Exit

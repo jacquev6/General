@@ -8,6 +8,7 @@ module Concepts = Concepts
 module Testing = Testing
 
 module Array = Implementation.Array_
+module BigInt = Implementation.BigInt
 module Bool = Implementation.Bool
 module Char = Implementation.Char_
 module Exception = Implementation.Exception
@@ -38,6 +39,7 @@ module Standard = struct
   module Testing = Testing
 
   module Array = Array
+  module BigInt = BigInt
   module Bool = Bool
   module Char = Char
   module Exception = Exception
@@ -79,6 +81,7 @@ module Abbr = struct
   module Tst = Testing
 
   module Ar = Array
+  module BigInt = BigInt
   module Bo = Bool
   module Ch = Char
   module Exit = Exit

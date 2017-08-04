@@ -3,6 +3,7 @@ open Implementation
 open Testing
 
 let test = "General" >:: [
+  BigInt.Tests.test;
   Bool.Tests.test;
   Exception.Tests.test;
   Float.Tests.test;
@@ -13,6 +14,7 @@ let test = "General" >:: [
   Option.Tests.test;
   String_.Tests.test;
   Tuples.Tests.test;
+
   TestingTests.Tests.test;
 ]
 
