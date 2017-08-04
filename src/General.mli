@@ -79,8 +79,6 @@ Extensions include count[_i], iter[_i], for_all[_i], ther_exists[_i], [try_]find
 and we need a generic function in each category. *)
 
 module Concepts: module type of Concepts
-(* @todo Concepts.Identifiable with traits Representable, Equatable, Hashable *)
-(* @todo Concepts.Able with Identifiable plus trait Comparable *)
 (* @todo Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer *)
 
 (* Technical, utility modules *)
