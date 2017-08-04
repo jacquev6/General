@@ -2,35 +2,13 @@
 let callstack = OCamlStandard.Printexc.get_callstack 1
 (* End of symbols to not move *)
 
-open Foundations
-
-include Testing
-
 module Tests = struct
+  open Foundations
+  open Testing
+
   exception TestException0
   exception TestException0'
   exception TestException1 of string
-
-  type many = {
-    byte: string;
-    js: string;
-  }
-
-  type expected =
-    | One of string
-    | Many of many
-
-  (*BISECT-IGNORE-BEGIN*) (* Test code *)
-  let homogenize =
-    if OCamlStandard.(Int.O.(StringLabels.sub ~pos:((StringLabels.length Sys.argv.(0)) - 3) ~len:3 (Sys.argv.(0))) = ".js") then
-      function
-        | One x -> x
-        | Many {js; _} -> js
-    else
-      function
-        | One x -> x
-        | Many {byte; _} -> byte
-  (*BISECT-IGNORE-END*)
 
   module ResultExamples = struct
     open Result
@@ -51,83 +29,82 @@ module Tests = struct
     "Result" >:: [
       (let module T = Traits.Representable.Tests.Make0(Result)(ResultExamples) in T.test);
       "to_indented_strings" >:: (
-        let make expected result =
-          let expected =
-            expected
-            |> List_.map ~f:homogenize
-          in
+        let make ?(verbose=false) expected result =
           (expected |> OCamlStandard.StringLabels.concat ~sep:"\n") >: (lazy (
             let actual =
               result
               |> Result.decorate_with_counts
-              |> Result.to_indented_strings ~verbose:true
+              |> Result.to_indented_strings ~verbose
             in
             check_string_list ~expected actual
           ))
         in
         Result.(Status.[
-          make
-            [One "\"foo\": OK"]
+          make ~verbose:true
+            ["\"foo\": OK"]
             (Single {label="foo"; status=Success});
           make
-            [One "\"bar 1\": FAILED: expected a, but got b"]
+            ["\"bar 1\": FAILED: expected a, but got b"]
             (Single {label="bar 1"; status=Failure (NotEqual ("a", "b"))});
           make
-            [One "\"bar 2\": FAILED: expected exception TestingTests.Tests.TestException0 not raised"]
-            (Single {label="bar 2"; status=Failure (NoException (TestException0))});
+            ["\"bar 2\": FAILED: expected exception TestingTests.Tests.TestException0 not raised"]
+            (Single {label="bar 2"; status=Failure (NoException TestException0)});
           make
-            [One "\"bar 3\": FAILED: expected exception TestingTests.Tests.TestException0 not raised, but exception TestingTests.Tests.TestException0' raised (no backtrace)"]
+            ["\"bar 3\": FAILED: expected exception TestingTests.Tests.TestException0 not raised, but exception TestingTests.Tests.TestException0' raised (no backtrace)"]
             (Single {label="bar 3"; status=Failure (WrongException (TestException0, TestException0', None))});
           make
             [
-              Many {
-                #if OCAML_VERSION >= (4, 4, 0)
-                js = "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n";
-                #else
-                js = "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(bad) not raised, but exception TestingTests.Tests.TestException1(too bad) raised\n";
-                #endif
-                byte = "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
-                        Raised by primitive operation at file \"src/Implementation/TestingTests.cppo.ml\", line 2, characters 16-54\n";
-              }
+              if old_javascript then
+                "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(bad) not raised, but exception TestingTests.Tests.TestException1(too bad) raised\n"
+              else
+                "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                 Raised by primitive operation at file \"src/Implementation/TestingTests.ml\", line 2, characters 16-54\n"
             ]
             (Single {label="bar 4"; status=Failure (WrongException (TestException1 "bad", TestException1 "too bad", Some callstack))});
           make
-            [One "\"bar 5\": FAILED: too bad"]
+            ["\"bar 5\": FAILED: too bad"]
             (Single {label="bar 5"; status=Failure (Custom "too bad")});
           make
-            [One "\"bar 6\": ERROR: exception TestingTests.Tests.TestException0 raised (no backtrace)"]
+            ["\"bar 6\": ERROR: exception TestingTests.Tests.TestException0 raised (no backtrace)"]
             (Single {label="bar 6"; status=Error (TestException0, None)});
           make
             [
-              Many {
-                #if OCAML_VERSION >= (4, 4, 0)
-                js = "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n";
-                #else
-                js = "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(bad) raised\n";
-                #endif
-                byte = "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
-                        Raised by primitive operation at file \"src/Implementation/TestingTests.cppo.ml\", line 2, characters 16-54\n";
-              }
+              if old_javascript then
+                "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(bad) raised\n"
+              else
+                "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
+                 Raised by primitive operation at file \"src/Implementation/TestingTests.ml\", line 2, characters 16-54\n"
             ]
             (Single {label="bar 7"; status=Error (TestException1 "bad", Some callstack)});
-          make
+          make ~verbose:true
             [
-              One "\"foo\" (Successes: 2)";
-              One "  \"bar\": OK";
-              One "  \"baz\": OK";
+              "\"foo\" (Successes: 2)";
+              "  \"bar\": OK";
+              "  \"baz\": OK";
             ]
             (Group {name="foo"; children=[Single {label="bar"; status=Success}; Single {label="baz"; status=Success}]});
-          make
+          make ~verbose:false
             [
-              One "\"foo\" (Successes: 1, failures: 1, errors: 0)";
-              One "  \"bar\": FAILED: nope";
-              One "  \"baz\": OK";
+              "\"foo\" (Successes: 2)";
+            ]
+            (Group {name="foo"; children=[Single {label="bar"; status=Success}; Single {label="baz"; status=Success}]});
+          make ~verbose:true
+            [
+              "\"foo\" (Successes: 1, failures: 1, errors: 0)";
+              "  \"bar\": FAILED: nope";
+              "  \"baz\": OK";
+            ]
+            (Group {name="foo"; children=[Single {label="bar"; status=Failure (Custom "nope")}; Single {label="baz"; status=Success}]});
+          make ~verbose:false
+            [
+              "\"foo\" (Successes: 1, failures: 1, errors: 0)";
+              "  \"bar\": FAILED: nope";
             ]
             (Group {name="foo"; children=[Single {label="bar"; status=Failure (Custom "nope")}; Single {label="baz"; status=Success}]});
           make
             [
-              One "\"foo\" (Successes: 0, failures: 0, errors: 1)";
-              One "  \"bar\": ERROR: exception TestingTests.Tests.TestException0 raised (no backtrace)";
+              "\"foo\" (Successes: 0, failures: 0, errors: 1)";
+              "  \"bar\": ERROR: exception TestingTests.Tests.TestException0 raised (no backtrace)";
             ]
             (Group {name="foo"; children=[Single {label="bar"; status=Error (TestException0, None)}]});
         ])

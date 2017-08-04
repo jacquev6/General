@@ -219,6 +219,12 @@ let (~:) format =
 
 (* Checks *)
 
+#if OCAML_VERSION < (4, 4, 0)
+let old_javascript = String_.has_suffix OCamlStandard.Sys.argv.(0) ~suf:".js"
+#else
+let old_javascript = false
+#endif
+
 let fail format =
   Format_.ksprintf
     ~f:(fun message ->
