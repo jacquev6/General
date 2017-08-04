@@ -18,7 +18,9 @@ module Tests = struct
       (Single {label="foo"; status=Success}, "Single {label=\"foo\"; status=Success}");
       (Single {label="foo"; status=Failure (NotEqual ("a", "b"))}, "Single {label=\"foo\"; status=Failure (NotEqual (\"a\", \"b\"))}");
       (Single {label="foo"; status=Failure (NoException TestException0)}, "Single {label=\"foo\"; status=Failure (NoException TestingTests.Tests.TestException0)}");
+      (Single {label="foo"; status=Failure (NoExceptionNamed "Foo")}, "Single {label=\"foo\"; status=Failure (NoExceptionNamed \"Foo\")}");
       (Single {label="foo"; status=Failure (WrongException (TestException0, TestException0', None))}, "Single {label=\"foo\"; status=Failure (WrongException (TestingTests.Tests.TestException0, TestingTests.Tests.TestException0', None))}");
+      (Single {label="foo"; status=Failure (WrongExceptionNamed ("Foo", TestException0', None))}, "Single {label=\"foo\"; status=Failure (WrongExceptionNamed (\"Foo\", TestingTests.Tests.TestException0', None))}");
       (Single {label="foo"; status=Failure (Custom "bad")}, "Single {label=\"foo\"; status=Failure (Custom \"bad\")}");
       (Single {label="foo"; status=Error (TestException0, None)}, "Single {label=\"foo\"; status=Error (TestingTests.Tests.TestException0, None)}");
       (Group {name="bar"; children=[Single {label="foo"; status=Success}]}, "Group {name=\"bar\"; children=[Single {label=\"foo\"; status=Success}]}");
@@ -50,8 +52,14 @@ module Tests = struct
             ["\"bar 2\": FAILED: expected exception TestingTests.Tests.TestException0 not raised"]
             (Single {label="bar 2"; status=Failure (NoException TestException0)});
           make
+            ["\"bar 2'\": FAILED: expected exception Foo not raised"]
+            (Single {label="bar 2'"; status=Failure (NoExceptionNamed "Foo")});
+          make
             ["\"bar 3\": FAILED: expected exception TestingTests.Tests.TestException0 not raised, but exception TestingTests.Tests.TestException0' raised (no backtrace)"]
             (Single {label="bar 3"; status=Failure (WrongException (TestException0, TestException0', None))});
+          make
+            ["\"bar 3'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException0' raised (no backtrace)"]
+            (Single {label="bar 3'"; status=Failure (WrongExceptionNamed ("Foo", TestException0', None))});
           make
             [
               if old_javascript then
@@ -61,6 +69,15 @@ module Tests = struct
                  Raised by primitive operation at file \"src/Implementation/TestingTests.ml\", line 2, characters 16-36\n"
             ]
             (Single {label="bar 4"; status=Failure (WrongException (TestException1 "bad", TestException1 "too bad", Some callstack))});
+          make
+            [
+              if old_javascript then
+                "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(too bad) raised\n"
+              else
+                "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                 Raised by primitive operation at file \"src/Implementation/TestingTests.ml\", line 2, characters 16-36\n"
+            ]
+            (Single {label="bar 4'"; status=Failure (WrongExceptionNamed ("Foo", TestException1 "too bad", Some callstack))});
           make
             ["\"bar 5\": FAILED: too bad"]
             (Single {label="bar 5"; status=Failure (Custom "too bad")});

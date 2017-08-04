@@ -1,13 +1,13 @@
 open Foundations
 
-module OCSPex = OCamlStandard.Printexc
-
 module Result = struct
   module Status = struct
     type failure =
       | NotEqual of (string * string)
       | NoException of exn
+      | NoExceptionNamed of string
       | WrongException of exn * exn * CallStack.t option
+      | WrongExceptionNamed of string * exn * CallStack.t option
       | Custom of string
 
     let failure_repr = function
@@ -15,8 +15,12 @@ module Result = struct
         Format_.sprintf "NotEqual (%S, %S)" x y
       | NoException exc ->
         Format_.sprintf "NoException %s" (Exception.repr exc)
+      | NoExceptionNamed exc ->
+        Format_.sprintf "NoExceptionNamed %S" exc
       | WrongException (expected, exc, bt) ->
         Format_.sprintf "WrongException (%s, %s, %s)" (Exception.repr expected) (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
+      | WrongExceptionNamed (expected, exc, bt) ->
+        Format_.sprintf "WrongExceptionNamed (%S, %s, %s)" expected (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
       | Custom x ->
         Format_.sprintf "Custom %S" x
 
@@ -41,10 +45,16 @@ module Result = struct
           Format_.sprintf "FAILED: expected %s, but got %s" expected actual
         | Failure (NoException expected) ->
           Format_.sprintf "FAILED: expected exception %s not raised" (Exception.to_string expected)
+        | Failure (NoExceptionNamed expected) ->
+          Format_.sprintf "FAILED: expected exception %s not raised" expected
         | Failure (WrongException (expected, exc, None)) ->
           Format_.sprintf "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" (Exception.to_string expected) (Exception.to_string exc)
         | Failure (WrongException (expected, exc, Some bt)) ->
           Format_.sprintf "FAILED: expected exception %s not raised, but exception %s raised\n%s" (Exception.to_string expected) (Exception.to_string exc) (CallStack.to_string bt)
+        | Failure (WrongExceptionNamed (expected, exc, None)) ->
+          Format_.sprintf "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" expected (Exception.to_string exc)
+        | Failure (WrongExceptionNamed (expected, exc, Some bt)) ->
+          Format_.sprintf "FAILED: expected exception %s not raised, but exception %s raised\n%s" expected (Exception.to_string exc) (CallStack.to_string bt)
         | Failure (Custom message) ->
           Format_.sprintf "FAILED: %s" message
         | Error (exc, None) ->
@@ -241,6 +251,15 @@ let expect_exception ~expected x =
     | NoExceptionRaised -> Exception.raise (TestFailure (Result.Status.NoException expected))
     | actual when Exception.equal actual expected -> ()
     | exc -> Exception.raise (TestFailure (Result.Status.WrongException (expected, exc, Exception.most_recent_backtrace ())))
+
+let expect_exception_named ~expected x =
+  try
+    ignore (Lazy_.value x);
+    Exception.raise NoExceptionRaised
+  with
+    | NoExceptionRaised -> Exception.raise (TestFailure (Result.Status.NoExceptionNamed expected))
+    | actual when String_.equal (Exception.name actual) expected -> ()
+    | exc -> Exception.raise (TestFailure (Result.Status.WrongExceptionNamed (expected, exc, Exception.most_recent_backtrace ())))
 
 let check ~repr ~equal ~expected actual =
   if not (equal expected actual) then
