@@ -235,11 +235,10 @@ module Int: sig
 
   include Concepts.Integer.S0 with type t := t
 
-  (* @todo Traits.Bounded? *)
+  (* @todo Traits.Bounded? Concept.FixedWidthInteger? *)
   val smallest: t
   val greatest: t
 
-  (* @todo Put Bitwise in Concepts.Integer? *)
   module Bitwise: sig
     val logical_and: t -> t -> t
     val logical_or: t -> t -> t
