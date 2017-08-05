@@ -65,6 +65,6 @@ module Tests = struct
     "try_reduce" >: (lazy (check_some_int ~expected:4096 (try_reduce ~f:Int.exponentiate [2; 3; 4])));
     "try_reduce []" >: (lazy (check_none_int (try_reduce ~f:Int.exponentiate [])));
     "map" >: (lazy (check_string_list ~expected:["1"; "2"; "3"] (map ~f:(Format_.sprintf "%d") [1; 2; 3])));
-    "iter" >: (lazy (check_int ~expected:4096 Reference.O.(* @todo include Ref.O in PervasivesWhitelist *)(let p = ref 2 in iter ~f:(fun n -> p := Int.exponentiate !p n) [3; 4]; !p)));
+    "iter" >: (lazy (check_int ~expected:4096 (let p = ref 2 in iter ~f:(fun n -> p := Int.exponentiate !p n) [3; 4]; !p)));
   ]
 end

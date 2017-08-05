@@ -34,7 +34,6 @@ module Tests = struct
     (let module T = Concepts.Able.Tests.Make0(Foundations.Bool)(Examples) in T.test);
     (let module T = Traits.Displayable.Tests.Make0(Foundations.Bool)(Examples) in T.test);
     (let module T = Traits.Parsable.Tests.Make0(Foundations.Bool)(Examples) in T.test);
-    (* @todo Should Bool be a Ringoid? *)
     "not true" >: (lazy (check_false (not true)));
     "not false" >: (lazy (check_true (not false)));
 

@@ -1,5 +1,3 @@
-(* @todo Rename? Should this be something like DicreteOrdered? *)
-
 open Foundations
 
 module type S0 = sig

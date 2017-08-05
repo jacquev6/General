@@ -80,6 +80,7 @@ and we need a generic function in each category. *)
 
 module Concepts: module type of Concepts
 (* @todo Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer *)
+(* @todo Concepts.Stringable including Parsable and Displayable *)
 
 (* Technical, utility modules *)
 
@@ -259,6 +260,7 @@ module Bool: sig
   include Concepts.Able.S0 with type t := t and module O := O
   include Traits.Displayable.S0 with type t := t
   include Traits.Parsable.S0 with type t := t
+  (* @todo Should Bool be a Ringoid? *)
 
   val not: t -> t
   val and_: t -> t -> t (* Not lazy *)
@@ -424,10 +426,6 @@ module Option: sig
   type 'a t = 'a option
 
   include Concepts.Able.S1 with type 'a t := 'a t
-
-  (* @todo OptionPair.to_pair_option (Some a, Some b) -> Some (a, b) | _ -> None *)
-  (* @todo OptionList.first_some *)
-  (* @todo OptionList.filter_some *)
 
   (* @todo coalesce[_def] (with an (|||) operator?) *)
 
@@ -656,6 +654,7 @@ end
 
 (* @todo BoolReference with set and reset *)
 (* @todo OptionReference with := s setting to Some x and reset setting to None *)
+(* @todo OptionPair.to_pair_option (Some a, Some b) -> Some (a, b) | _ -> None *)
 
 (* Collection containers *)
 
@@ -785,7 +784,7 @@ end
 
 (* @todo XxxList when Xxx is a Ringoid: add sum, product *)
 (* @todo BoolList (with all, exists, etc.) *)
-(* @todo OptionList (with values (or filter_some), roughly equivalent to filter_map ~f:identity) *)
+(* @todo OptionList (with first_some, values (ie filter_some)) *)
 
 (* Input/output *)
 
