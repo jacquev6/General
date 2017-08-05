@@ -1,5 +1,7 @@
+module OCSI = OCamlStandard.Nativeint
+
 module Self = StandardInt.Make(struct
-  include OCamlStandard.Nativeint
+  include OCSI
 
   let name = "NativeInt"
   let repr_suffix = "n"

@@ -17,4 +17,4 @@ true: cppo_V_OCAML
 
 <src/**>: nopervasives
 <src/Foundations/**> and not <src/Foundations/Reset*.*>: open(Reset)
-<src/**> and not <src/Reset/**> and not <src/Foundations/**> and not <src/Pervasives_.*>: open(Pervasives_)
+<src/**> and not <src/Reset/**> and not <src/Foundations/**> and not <src/Pervasives_.*> and not <src/General.mli>: open(Pervasives_)

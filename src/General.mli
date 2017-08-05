@@ -798,7 +798,7 @@ module Format: sig
 
   val sprintf : ('a, unit, string, string, string, string) t -> 'a
 
-  val printf : ('a, OCamlStandard.Pervasives.out_channel, unit, unit, unit, unit) t -> 'a
+  val printf : ('a, Pervasives.OCamlStandard.Pervasives.out_channel, unit, unit, unit, unit) t -> 'a
 
   val to_string: ('a, 'b, 'c, 'd, 'e, 'f) t -> string
 

@@ -1,6 +1,7 @@
 open Implementation
 
 module DummyForCoverage = Specializations
+module OCSS = OCamlStandard.Sys
 
 open Testing
 
@@ -24,6 +25,7 @@ let test = "General" >:: [
   TestingTests.Tests.test;
 ]
 
+
 let () =
-  let argv = OCamlStandard.(Array.to_list Sys.argv) in
+  let argv = List_.of_array OCSS.argv in
   Exit.exit (command_line_main ~argv test)

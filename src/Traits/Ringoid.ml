@@ -115,7 +115,7 @@ module Exponentiate = struct
     open M
 
     let exponentiate =
-      let rec aux y x n = OCamlStandard.Pervasives.(
+      let rec aux y x n = Int.O.(
         if n < 0 then
           exponentiate_negative_exponent ~exponentiate:(aux one) x n
         else if n = 0 then

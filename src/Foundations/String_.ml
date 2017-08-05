@@ -11,7 +11,7 @@ let repr x =
 let to_string = Functions.Function1.identity
 let of_string = Functions.Function1.identity
 
-let get = OCamlStandard.String.get
+let get = OCSS.get
 
 let concat = OCSP.(^)
 

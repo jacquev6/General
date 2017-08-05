@@ -1,5 +1,7 @@
+module OCSI = OCamlStandard.Int64
+
 module Self = StandardInt.Make(struct
-  include OCamlStandard.Int64
+  include OCSI
 
   let name = "Int64"
   let repr_suffix = "L"

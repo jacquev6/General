@@ -1,3 +1,5 @@
+module OCSA = OCamlStandard.Array
+
 type 'a t = 'a list
 
 open Functions.Function1.O
@@ -7,8 +9,8 @@ let cons x xs = x::xs
 let of_list = Functions.Function1.identity
 let to_list = Functions.Function1.identity
 (* @todo Test everything for stack overflow. Including to/of_array. *)
-let of_array = OCamlStandard.Array.to_list
-let to_array = OCamlStandard.Array.of_list
+let of_array = OCSA.to_list
+let to_array = OCSA.of_list
 
 let try_head = function
   | [] -> None
@@ -95,10 +97,15 @@ let iter_i xs ~f =
   in
   aux 0 xs
 
+let concat_string_list ?(sep="") xs =
+  xs
+  |> try_reduce ~f:(fun a b -> Format_.sprintf "%s%s%s" a sep b)
+  |> Option.value_def ~def:""
+
 let repr xs ~repr_a =
   xs
   |> map ~f:repr_a
-  |> OCamlStandard.StringLabels.concat ~sep:"; "
+  |> concat_string_list ~sep:"; "
   |> Format_.sprintf "[%s]"
 
 let filter xs ~f =

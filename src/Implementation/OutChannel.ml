@@ -1,1 +1,3 @@
-type t = OCamlStandard.Pervasives.out_channel
+module OCSP = OCamlStandard.Pervasives
+
+type t = OCSP.out_channel

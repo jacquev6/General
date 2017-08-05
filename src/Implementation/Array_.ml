@@ -1,3 +1,5 @@
 type 'a t = 'a array
 
-let get = OCamlStandard.Array.get
+module OCSA = OCamlStandard.Array
+
+let get = OCSA.get

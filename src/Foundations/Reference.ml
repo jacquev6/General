@@ -1,4 +1,4 @@
-type 'a t = 'a OCamlStandard.Pervasives.ref = {
+type 'a t = 'a OCSP.ref = {
   mutable contents: 'a;
 }
 

@@ -1,5 +1,3 @@
-module OCSP = OCamlStandard.Pervasives
-
 type t =
   | Success
   | Failure of int

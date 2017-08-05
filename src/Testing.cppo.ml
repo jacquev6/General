@@ -1,5 +1,7 @@
 open Foundations
 
+module OCSS = OCamlStandard.Sys
+
 module Result = struct
   module Status = struct
     type failure =
@@ -230,7 +232,7 @@ let (~:) format =
 (* Checks *)
 
 #if OCAML_VERSION < (4, 4, 0)
-let old_javascript = String_.has_suffix OCamlStandard.Sys.argv.(0) ~suf:".js"
+let old_javascript = String_.has_suffix OCSS.argv.(0) ~suf:".js"
 #else
 let old_javascript = false
 #endif
