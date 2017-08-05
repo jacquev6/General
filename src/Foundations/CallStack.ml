@@ -17,7 +17,7 @@ module Location = struct
   }
 
   let repr {filename; line_number; start_char; end_char} =
-    Format_.sprintf "{filename=%S; line_number=%n; start_char=%n; end_char=%n}" filename line_number start_char end_char
+    Format_.apply "{filename=%S; line_number=%n; start_char=%n; end_char=%n}" filename line_number start_char end_char
 
   module O = struct
     include Equate.Poly.O

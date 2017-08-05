@@ -25,12 +25,12 @@ let raise = OCSP.raise
 let raise_without_backtrace = OCSP.raise_notrace
 
 let invalid_argument format =
-  Format_.ksprintf
+  Format_.with_result
     ~f:(fun message -> raise (InvalidArgument message))
     format
 
 let failure format =
-  Format_.ksprintf
+  Format_.with_result
     ~f:(fun message -> raise (Failure message))
     format
 

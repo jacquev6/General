@@ -60,7 +60,7 @@ end = struct
       Exception.or_none (lazy (of_string s))
     let to_string = to_string
     let repr n =
-      Format_.sprintf "%s%s" (to_string n) repr_suffix
+      Format_.apply "%s%s" (to_string n) repr_suffix
 
     let abs = abs
 

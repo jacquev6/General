@@ -92,14 +92,14 @@ let iter_i xs ~f =
 
 let concat_string_list ?(sep="") xs =
   xs
-  |> try_reduce ~f:(fun a b -> Format_.sprintf "%s%s%s" a sep b)
+  |> try_reduce ~f:(fun a b -> Format_.apply "%s%s%s" a sep b)
   |> Option.value_def ~def:""
 
 let repr xs ~repr_a =
   xs
   |> map ~f:repr_a
   |> concat_string_list ~sep:"; "
-  |> Format_.sprintf "[%s]"
+  |> Format_.apply "[%s]"
 
 let filter xs ~f =
   let rec aux ys = function

@@ -793,11 +793,9 @@ module Format: sig
   type ('a, 'b, 'c, 'd) format4 = ('a, 'b, 'c, 'c, 'c, 'd) format6
   type ('a, 'b, 'c) format = ('a, 'b, 'c, 'c, 'c, 'c) format6 *)
 
-  (* @todo Rename? To what? To "apply"? To something starting with "with_"? *)
-  val ksprintf: ('b, unit, string, string, string, 'a) t -> f:(string -> 'a) -> 'b
+  val with_result: ('b, unit, string, string, string, 'a) t -> f:(string -> 'a) -> 'b
 
-  (* @todo Rename? To "apply"? To "format"? *)
-  val sprintf: ('a, unit, string, string, string, string) t -> 'a
+  val apply: ('a, unit, string, string, string, string) t -> 'a
 
   val to_string: ('a, 'b, 'c, 'd, 'e, 'f) t -> string
 

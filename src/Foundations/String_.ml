@@ -6,7 +6,7 @@ open Bool.O
 open Functions.Function1.O
 
 let repr x =
-  Format_.sprintf "%S" x
+  Format_.apply "%S" x
 
 let to_string = Functions.Function1.identity
 let of_string = Functions.Function1.identity

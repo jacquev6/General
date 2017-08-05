@@ -1,6 +1,7 @@
 open Foundations
 
 module OCSS = OCamlStandard.Sys
+module OCSPf = OCamlStandard.Printf (* @todo Put StdOut in Foundations *)
 
 module Result = struct
   module Status = struct
@@ -14,17 +15,17 @@ module Result = struct
 
     let failure_repr = function
       | NotEqual (x, y) ->
-        Format_.sprintf "NotEqual (%S, %S)" x y
+        Format_.apply "NotEqual (%S, %S)" x y
       | NoException exc ->
-        Format_.sprintf "NoException %s" (Exception.repr exc)
+        Format_.apply "NoException %s" (Exception.repr exc)
       | NoExceptionNamed exc ->
-        Format_.sprintf "NoExceptionNamed %S" exc
+        Format_.apply "NoExceptionNamed %S" exc
       | WrongException (expected, exc, bt) ->
-        Format_.sprintf "WrongException (%s, %s, %s)" (Exception.repr expected) (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
+        Format_.apply "WrongException (%s, %s, %s)" (Exception.repr expected) (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
       | WrongExceptionNamed (expected, exc, bt) ->
-        Format_.sprintf "WrongExceptionNamed (%S, %s, %s)" expected (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
+        Format_.apply "WrongExceptionNamed (%S, %s, %s)" expected (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
       | Custom x ->
-        Format_.sprintf "Custom %S" x
+        Format_.apply "Custom %S" x
 
     type t =
       | Success
@@ -35,34 +36,34 @@ module Result = struct
       | Success ->
         "Success"
       | Failure reason ->
-        Format_.sprintf "Failure (%s)" (failure_repr reason)
+        Format_.apply "Failure (%s)" (failure_repr reason)
       | Error (exc, bt) ->
-        Format_.sprintf "Error (%s, %s)" (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
+        Format_.apply "Error (%s, %s)" (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
 
     let to_string = function
         | Success ->
           "OK"
         | Failure (NotEqual (expected, actual)) ->
           (* @todo split lines, quote each line, display very explicitly. Unless both values are single line. Quote anyway *)
-          Format_.sprintf "FAILED: expected %s, but got %s" expected actual
+          Format_.apply "FAILED: expected %s, but got %s" expected actual
         | Failure (NoException expected) ->
-          Format_.sprintf "FAILED: expected exception %s not raised" (Exception.to_string expected)
+          Format_.apply "FAILED: expected exception %s not raised" (Exception.to_string expected)
         | Failure (NoExceptionNamed expected) ->
-          Format_.sprintf "FAILED: expected exception %s not raised" expected
+          Format_.apply "FAILED: expected exception %s not raised" expected
         | Failure (WrongException (expected, exc, None)) ->
-          Format_.sprintf "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" (Exception.to_string expected) (Exception.to_string exc)
+          Format_.apply "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" (Exception.to_string expected) (Exception.to_string exc)
         | Failure (WrongException (expected, exc, Some bt)) ->
-          Format_.sprintf "FAILED: expected exception %s not raised, but exception %s raised\n%s" (Exception.to_string expected) (Exception.to_string exc) (CallStack.to_string bt)
+          Format_.apply "FAILED: expected exception %s not raised, but exception %s raised\n%s" (Exception.to_string expected) (Exception.to_string exc) (CallStack.to_string bt)
         | Failure (WrongExceptionNamed (expected, exc, None)) ->
-          Format_.sprintf "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" expected (Exception.to_string exc)
+          Format_.apply "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" expected (Exception.to_string exc)
         | Failure (WrongExceptionNamed (expected, exc, Some bt)) ->
-          Format_.sprintf "FAILED: expected exception %s not raised, but exception %s raised\n%s" expected (Exception.to_string exc) (CallStack.to_string bt)
+          Format_.apply "FAILED: expected exception %s not raised, but exception %s raised\n%s" expected (Exception.to_string exc) (CallStack.to_string bt)
         | Failure (Custom message) ->
-          Format_.sprintf "FAILED: %s" message
+          Format_.apply "FAILED: %s" message
         | Error (exc, None) ->
-          Format_.sprintf "ERROR: exception %s raised (no backtrace)" (Exception.to_string exc)
+          Format_.apply "ERROR: exception %s raised (no backtrace)" (Exception.to_string exc)
         | Error (exc, Some bt) ->
-          Format_.sprintf "ERROR: exception %s raised\n%s" (Exception.to_string exc) (CallStack.to_string bt)
+          Format_.apply "ERROR: exception %s raised\n%s" (Exception.to_string exc) (CallStack.to_string bt)
   end
 
   type single = {
@@ -81,9 +82,9 @@ module Result = struct
 
   let rec repr = function
     | Single {label; status} ->
-      Format_.sprintf "Single {label=%S; status=%s}" label (Status.repr status)
+      Format_.apply "Single {label=%S; status=%s}" label (Status.repr status)
     | Group {name; children} ->
-      Format_.sprintf "Group {name=%S; children=%s}" name (List_.repr ~repr_a:repr children)
+      Format_.apply "Group {name=%S; children=%s}" name (List_.repr ~repr_a:repr children)
 
   let equal x y =
     Equate.Poly.equal x y
@@ -132,7 +133,7 @@ module Result = struct
       | `Single (label, status) ->
         if verbose || status <> Status.Success then
           (* @todo Indent potential backtrace or anything else that could span several lines *)
-          [Format_.sprintf "%s%S: %s" indent label (Status.to_string status)]
+          [Format_.apply "%s%S: %s" indent label (Status.to_string status)]
         else
           []
       | `Group (name, children, {Counts.successes; failures; errors}) ->
@@ -141,9 +142,9 @@ module Result = struct
           |> List_.concat_map ~f:(aux (indent ^ "  "))
         and line =
           if Int.O.(failures + errors = 0) then
-            Format_.sprintf "%s%S (Successes: %i)" indent name successes
+            Format_.apply "%s%S (Successes: %i)" indent name successes
           else
-            Format_.sprintf "%s%S (Successes: %i, failures: %i, errors: %i)" indent name successes failures errors
+            Format_.apply "%s%S (Successes: %i, failures: %i, errors: %i)" indent name successes failures errors
         in
         if verbose || Int.O.(failures + errors <> 0) then
           line::children
@@ -208,7 +209,7 @@ let command_line_main ~argv test =
   in
   result
   |> Result.to_indented_strings ~verbose
-  |> List_.iter ~f:(Format_.printf "%s\n");
+  |> List_.iter ~f:(OCSPf.printf "%s\n");
   match result with
     | `Single (_, Result.Status.Success) | `Group (_, _, {Result.Counts.failures=0; errors=0; _}) ->
       Exit.Success
@@ -224,10 +225,10 @@ let (>:) label check =
   Test.(Single {label; check})
 
 let (~::) format =
-  Format_.ksprintf ~f:(>::) format
+  Format_.with_result ~f:(>::) format
 
 let (~:) format =
-  Format_.ksprintf ~f:(>:) format
+  Format_.with_result ~f:(>:) format
 
 (* Checks *)
 
@@ -239,7 +240,7 @@ let old_javascript = false
 #endif
 
 let fail format =
-  Format_.ksprintf
+  Format_.with_result
     ~f:(fun message ->
       Exception.raise (TestFailure (Result.Status.Custom message))
     )
