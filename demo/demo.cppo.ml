@@ -153,9 +153,8 @@ module IntMod3Examples = struct
   ]
 end
 
-
-let () =
-  let test = General.Testing.(
+let () = Tst.(
+  let test =
     ~:: "de%s" "mo" [
       (let module T = General.Traits.Comparable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
       (let module T = General.Traits.Equatable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
@@ -167,5 +166,6 @@ let () =
       (let module T = General.Concepts.Integer.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
       ~: "some %s" "test" (lazy ());
     ]
-  ) in
-  General.Exit.exit (General.Testing.command_line_main ~argv:OCamlStandard.(Array.to_list Sys.argv) test)
+  in
+  Exit.exit (command_line_main ~argv:(Li.of_array OCamlStandard.Sys.argv) test)
+)

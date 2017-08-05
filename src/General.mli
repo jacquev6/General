@@ -881,7 +881,7 @@ module Standard: sig
   module CallStack: module type of CallStack
   module Char: module type of Char
   module Exception: module type of Exception
-  module Exit: module type of Exit
+  module Exit: module type of Exit with type t = Exit.t
   module Float: module type of Float
   module Format: module type of Format
   module Function1: module type of Function1
@@ -933,7 +933,7 @@ module Abbr: sig
   module Bo: module type of Bool
   module CallStack: module type of CallStack
   module Ch: module type of Char
-  module Exit: module type of Exit
+  module Exit: module type of Exit with type t = Exit.t
   module Exn: module type of Exception
   module Fl: module type of Float
   module Frmt: module type of Format
