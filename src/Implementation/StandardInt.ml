@@ -94,6 +94,7 @@ end = struct
       let exponentiate_negative_exponent ~exponentiate:_ _ n =
         Exception.invalid_argument "%s.exponentiate: Negative exponent: %i" M.name n
     end)
+    include Traits.Comparable.Between.Make0(SelfB)
 
     include SelfB
   end

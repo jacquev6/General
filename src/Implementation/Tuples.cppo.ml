@@ -1,9 +1,13 @@
 #define TUPLE(N) \
-module CONCAT(Tuple, N) = struct \
+module CONCAT(TupleA, N) = struct \
   include Foundations.Tuples.CONCAT(Tuple, N) \
   include Traits.Comparable.GreaterLessThan.CONCAT(Make, N)(Foundations.Tuples.CONCAT(Tuple, N)) \
   include Traits.Comparable.MinMax.CONCAT(Make, N)(Foundations.Tuples.CONCAT(Tuple, N)) \
   include Traits.Equatable.Different.CONCAT(Make, N)(Foundations.Tuples.CONCAT(Tuple, N)) \
+end \
+module CONCAT(Tuple, N) = struct \
+  include CONCAT(TupleA, N) \
+  include Traits.Comparable.Between.CONCAT(Make, N)(CONCAT(TupleA, N)) \
 end
 
 TUPLE(2)

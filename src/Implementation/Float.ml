@@ -7,6 +7,8 @@ module SelfA = struct
     let exponentiate_negative_exponent ~exponentiate x n =
       exponentiate (divide 1. x) (-n)
   end)
+
+  include Traits.Comparable.Between.Make0(Foundations.Float)
 end
 
 module SelfB = struct

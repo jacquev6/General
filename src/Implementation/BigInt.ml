@@ -63,6 +63,7 @@ end
 module SelfB = struct
   include SelfA
 
+  include Traits.Comparable.Between.Make0(SelfA)
   include Traits.Comparable.MinMax.Make0(SelfA)
   include Traits.Equatable.Different.Make0(SelfA)
 end

@@ -13,6 +13,13 @@ module Poly = struct
   let less_or_equal = OCSP.(<=)
   let greater_or_equal = OCSP.(>=)
   let greater_than = OCSP.(>)
+
+  let between x ~low ~high =
+    OCSP.(&&) (less_than low x) (greater_than high x)
+
+  let between_or_equal x ~low ~high =
+    OCSP.(&&) (less_or_equal low x) (greater_or_equal high x)
+
   let min = OCSP.min
   let max = OCSP.max
 

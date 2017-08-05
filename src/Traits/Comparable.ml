@@ -1,7 +1,6 @@
 open Foundations
 
 (* @todo Descending, ascending *)
-(* @todo val between[_or_equal]: t -> low:t -> high:t -> bool *)
 
 module Basic = struct
   module type SP = sig
@@ -166,6 +165,11 @@ module type SP = sig
   val greater_or_equal: 'a -> 'a
     -> bool
 
+  val between: 'a -> low:'a -> high:'a
+    -> bool
+  val between_or_equal: 'a -> low:'a -> high:'a
+    -> bool
+
   val min: 'a -> 'a
     -> 'a
   val max: 'a -> 'a
@@ -186,6 +190,11 @@ module type S0 = sig
   val greater_than: t -> t
     -> bool
   val greater_or_equal: t -> t
+    -> bool
+
+  val between: t -> low:t -> high:t
+    -> bool
+  val between_or_equal: t -> low:t -> high:t
     -> bool
 
   val min: t -> t
@@ -211,6 +220,13 @@ module type S1 = sig
     -> compare_a:('a -> 'a -> Compare.t)
     -> bool
   val greater_or_equal: 'a t -> 'a t
+    -> compare_a:('a -> 'a -> Compare.t)
+    -> bool
+
+  val between: 'a t -> low:'a t -> high:'a t
+    -> compare_a:('a -> 'a -> Compare.t)
+    -> bool
+  val between_or_equal: 'a t -> low:'a t -> high:'a t
     -> compare_a:('a -> 'a -> Compare.t)
     -> bool
 
@@ -241,6 +257,15 @@ module type S2 = sig
     -> compare_b:('b -> 'b -> Compare.t)
     -> bool
   val greater_or_equal: ('a, 'b) t -> ('a, 'b) t
+    -> compare_a:('a -> 'a -> Compare.t)
+    -> compare_b:('b -> 'b -> Compare.t)
+    -> bool
+
+  val between: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t
+    -> compare_a:('a -> 'a -> Compare.t)
+    -> compare_b:('b -> 'b -> Compare.t)
+    -> bool
+  val between_or_equal: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t
     -> compare_a:('a -> 'a -> Compare.t)
     -> compare_b:('b -> 'b -> Compare.t)
     -> bool
@@ -278,6 +303,17 @@ module type S3 = sig
     -> compare_c:('c -> 'c -> Compare.t)
     -> bool
   val greater_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
+    -> compare_a:('a -> 'a -> Compare.t)
+    -> compare_b:('b -> 'b -> Compare.t)
+    -> compare_c:('c -> 'c -> Compare.t)
+    -> bool
+
+  val between: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t
+    -> compare_a:('a -> 'a -> Compare.t)
+    -> compare_b:('b -> 'b -> Compare.t)
+    -> compare_c:('c -> 'c -> Compare.t)
+    -> bool
+  val between_or_equal: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t
     -> compare_a:('a -> 'a -> Compare.t)
     -> compare_b:('b -> 'b -> Compare.t)
     -> compare_c:('c -> 'c -> Compare.t)
@@ -322,6 +358,19 @@ module type S4 = sig
     -> compare_d:('d -> 'd -> Compare.t)
     -> bool
   val greater_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
+    -> compare_a:('a -> 'a -> Compare.t)
+    -> compare_b:('b -> 'b -> Compare.t)
+    -> compare_c:('c -> 'c -> Compare.t)
+    -> compare_d:('d -> 'd -> Compare.t)
+    -> bool
+
+  val between: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t
+    -> compare_a:('a -> 'a -> Compare.t)
+    -> compare_b:('b -> 'b -> Compare.t)
+    -> compare_c:('c -> 'c -> Compare.t)
+    -> compare_d:('d -> 'd -> Compare.t)
+    -> bool
+  val between_or_equal: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t
     -> compare_a:('a -> 'a -> Compare.t)
     -> compare_b:('b -> 'b -> Compare.t)
     -> compare_c:('c -> 'c -> Compare.t)
@@ -373,6 +422,21 @@ module type S5 = sig
     -> compare_e:('e -> 'e -> Compare.t)
     -> bool
   val greater_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
+    -> compare_a:('a -> 'a -> Compare.t)
+    -> compare_b:('b -> 'b -> Compare.t)
+    -> compare_c:('c -> 'c -> Compare.t)
+    -> compare_d:('d -> 'd -> Compare.t)
+    -> compare_e:('e -> 'e -> Compare.t)
+    -> bool
+
+  val between: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t
+    -> compare_a:('a -> 'a -> Compare.t)
+    -> compare_b:('b -> 'b -> Compare.t)
+    -> compare_c:('c -> 'c -> Compare.t)
+    -> compare_d:('d -> 'd -> Compare.t)
+    -> compare_e:('e -> 'e -> Compare.t)
+    -> bool
+  val between_or_equal: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t
     -> compare_a:('a -> 'a -> Compare.t)
     -> compare_b:('b -> 'b -> Compare.t)
     -> compare_c:('c -> 'c -> Compare.t)
@@ -600,6 +664,207 @@ module GreaterLessThan = struct
   end
 end
 
+module Between = struct
+  module Make0(M: sig
+    type t
+
+    val less_than: t -> t
+      -> bool
+    val less_or_equal: t -> t
+      -> bool
+    val greater_than: t -> t
+      -> bool
+    val greater_or_equal: t -> t
+      -> bool
+  end) = struct
+    open M
+
+    let between x ~low ~high =
+      less_than low x
+      && greater_than high x
+
+    let between_or_equal x ~low ~high =
+      less_or_equal low x
+      && greater_or_equal high x
+  end
+
+  module Make1(M: sig
+    type 'a t
+
+    val less_than: 'a t -> 'a t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> bool
+    val less_or_equal: 'a t -> 'a t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> bool
+    val greater_than: 'a t -> 'a t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> bool
+    val greater_or_equal: 'a t -> 'a t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> bool
+  end) = struct
+    open M
+    open Compare
+
+    let between x ~low ~high ~compare_a =
+      less_than low x ~compare_a
+      && greater_than high x ~compare_a
+
+    let between_or_equal x ~low ~high ~compare_a =
+      less_or_equal low x ~compare_a
+      && greater_or_equal high x ~compare_a
+  end
+
+  module Make2(M: sig
+    type ('a, 'b) t
+
+    val less_than: ('a, 'b) t -> ('a, 'b) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> bool
+    val less_or_equal: ('a, 'b) t -> ('a, 'b) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> bool
+    val greater_than: ('a, 'b) t -> ('a, 'b) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> bool
+    val greater_or_equal: ('a, 'b) t -> ('a, 'b) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> bool
+  end) = struct
+    open M
+
+    let between x ~low ~high ~compare_a ~compare_b =
+      less_than low x ~compare_a ~compare_b
+      && greater_than high x ~compare_a ~compare_b
+
+    let between_or_equal x ~low ~high ~compare_a ~compare_b =
+      less_or_equal low x ~compare_a ~compare_b
+      && greater_or_equal high x ~compare_a ~compare_b
+  end
+
+  module Make3(M: sig
+    type ('a, 'b, 'c) t
+
+    val less_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> compare_c:('c -> 'c -> Compare.t)
+      -> bool
+    val less_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> compare_c:('c -> 'c -> Compare.t)
+      -> bool
+    val greater_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> compare_c:('c -> 'c -> Compare.t)
+      -> bool
+    val greater_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> compare_c:('c -> 'c -> Compare.t)
+      -> bool
+  end) = struct
+    open M
+
+    let between x ~low ~high ~compare_a ~compare_b ~compare_c =
+      less_than low x ~compare_a ~compare_b ~compare_c
+      && greater_than high x ~compare_a ~compare_b ~compare_c
+
+    let between_or_equal x ~low ~high ~compare_a ~compare_b ~compare_c =
+      less_or_equal low x ~compare_a ~compare_b ~compare_c
+      && greater_or_equal high x ~compare_a ~compare_b ~compare_c
+  end
+
+  module Make4(M: sig
+    type ('a, 'b, 'c, 'd) t
+
+    val less_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> compare_c:('c -> 'c -> Compare.t)
+      -> compare_d:('d -> 'd -> Compare.t)
+      -> bool
+    val less_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> compare_c:('c -> 'c -> Compare.t)
+      -> compare_d:('d -> 'd -> Compare.t)
+      -> bool
+    val greater_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> compare_c:('c -> 'c -> Compare.t)
+      -> compare_d:('d -> 'd -> Compare.t)
+      -> bool
+    val greater_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> compare_c:('c -> 'c -> Compare.t)
+      -> compare_d:('d -> 'd -> Compare.t)
+      -> bool
+  end) = struct
+    open M
+
+    let between x ~low ~high ~compare_a ~compare_b ~compare_c ~compare_d =
+      less_than low x ~compare_a ~compare_b ~compare_c ~compare_d
+      && greater_than high x ~compare_a ~compare_b ~compare_c ~compare_d
+
+    let between_or_equal x ~low ~high ~compare_a ~compare_b ~compare_c ~compare_d =
+      less_or_equal low x ~compare_a ~compare_b ~compare_c ~compare_d
+      && greater_or_equal high x ~compare_a ~compare_b ~compare_c ~compare_d
+  end
+
+  module Make5(M: sig
+    type ('a, 'b, 'c, 'd, 'e) t
+
+    val less_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> compare_c:('c -> 'c -> Compare.t)
+      -> compare_d:('d -> 'd -> Compare.t)
+      -> compare_e:('e -> 'e -> Compare.t)
+      -> bool
+    val less_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> compare_c:('c -> 'c -> Compare.t)
+      -> compare_d:('d -> 'd -> Compare.t)
+      -> compare_e:('e -> 'e -> Compare.t)
+      -> bool
+    val greater_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> compare_c:('c -> 'c -> Compare.t)
+      -> compare_d:('d -> 'd -> Compare.t)
+      -> compare_e:('e -> 'e -> Compare.t)
+      -> bool
+    val greater_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
+      -> compare_a:('a -> 'a -> Compare.t)
+      -> compare_b:('b -> 'b -> Compare.t)
+      -> compare_c:('c -> 'c -> Compare.t)
+      -> compare_d:('d -> 'd -> Compare.t)
+      -> compare_e:('e -> 'e -> Compare.t)
+      -> bool
+  end) = struct
+    open M
+
+    let between x ~low ~high ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e =
+      less_than low x ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e
+      && greater_than high x ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e
+
+    let between_or_equal x ~low ~high ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e =
+      less_or_equal low x ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e
+      && greater_or_equal high x ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e
+  end
+end
+
 module MinMax = struct
   module Make0(M: sig
     type t
@@ -747,6 +1012,12 @@ module Specialize1(M: S1)(A: Basic.S0): S0 with type t = A.t M.t = struct
     let greater_or_equal x y =
       M.greater_or_equal x y ~compare_a:A.compare
 
+    let between x ~low ~high =
+      M.between x ~low ~high ~compare_a:A.compare
+
+    let between_or_equal x ~low ~high =
+      M.between_or_equal x ~low ~high ~compare_a:A.compare
+
     let min x y =
       M.min x y ~compare_a:A.compare
 
@@ -777,6 +1048,12 @@ module Specialize2(M: S2)(A: Basic.S0)(B: Basic.S0): S0 with type t = (A.t, B.t)
 
     let greater_or_equal x y =
       M.greater_or_equal x y ~compare_a:A.compare ~compare_b:B.compare
+
+    let between x ~low ~high =
+      M.between x ~low ~high ~compare_a:A.compare ~compare_b:B.compare
+
+    let between_or_equal x ~low ~high =
+      M.between_or_equal x ~low ~high ~compare_a:A.compare ~compare_b:B.compare
 
     let min x y =
       M.min x y ~compare_a:A.compare ~compare_b:B.compare
@@ -809,6 +1086,12 @@ module Specialize3(M: S3)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0): S0 with type t
     let greater_or_equal x y =
       M.greater_or_equal x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare
 
+    let between x ~low ~high =
+      M.between x ~low ~high ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare
+
+    let between_or_equal x ~low ~high =
+      M.between_or_equal x ~low ~high ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare
+
     let min x y =
       M.min x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare
 
@@ -840,6 +1123,12 @@ module Specialize4(M: S4)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0): S
     let greater_or_equal x y =
       M.greater_or_equal x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare
 
+    let between x ~low ~high =
+      M.between x ~low ~high ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare
+
+    let between_or_equal x ~low ~high =
+      M.between_or_equal x ~low ~high ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare
+
     let min x y =
       M.min x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare
 
@@ -870,6 +1159,12 @@ module Specialize5(M: S5)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0)(E:
 
     let greater_or_equal x y =
       M.greater_or_equal x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare ~compare_e:E.compare
+
+    let between x ~low ~high =
+      M.between x ~low ~high ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare ~compare_e:E.compare
+
+    let between_or_equal x ~low ~high =
+      M.between_or_equal x ~low ~high ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare ~compare_e:E.compare
 
     let min x y =
       M.min x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare ~compare_e:E.compare
