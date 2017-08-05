@@ -36,7 +36,14 @@ module Tuple4 = Implementation.Tuples.Tuple4
 module Tuple5 = Implementation.Tuples.Tuple5
 module Unit = Implementation.Unit
 
+module IntOption = Specializations.Option.Int
+module FloatOption = Specializations.Option.Float
+module StringOption = Specializations.Option.String_
 module IntReference = Specializations.Reference.Int
+module FloatReference = Specializations.Reference.Float
+module StringReference = Specializations.Reference.String_
+module IntList = Specializations.List_.Int
+module FloatList = Specializations.List_.Float
 module StringList = Specializations.List_.String_
 
 module Standard = struct
@@ -71,7 +78,14 @@ module Standard = struct
   module Tuple5 = Tuple5
   module Unit = Unit
 
+  module IntOption = IntOption
+  module FloatOption = FloatOption
+  module StringOption = StringOption
   module IntReference = IntReference
+  module FloatReference = FloatReference
+  module StringReference = StringReference
+  module IntList = IntList
+  module FloatList = FloatList
   module StringList = StringList
 
   include (
@@ -119,7 +133,14 @@ module Abbr = struct
   module Tu5 = Tuple5
   module Unit = Unit
 
+  module IntOpt = IntOption
+  module FlOpt = FloatOption
+  module StrOpt = StringOption
   module IntRef = IntReference
+  module FlRef = FloatReference
+  module StrRef = StringReference
+  module IntLi = IntList
+  module FlLi = FloatList
   module StrLi = StringList
 
   include (

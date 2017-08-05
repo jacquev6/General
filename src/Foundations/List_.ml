@@ -108,6 +108,17 @@ let filter xs ~f =
   in
   aux [] xs
 
+let there_exists xs ~f =
+  let rec aux = function
+    | [] -> false
+    | x::_ when f x -> true
+    | _::xs -> aux xs
+  in
+  aux xs
+
+let contains xs x ~equal_a =
+  there_exists xs ~f:(equal_a x)
+
 let filter_map xs ~f =
   let rec aux ys = function
     | [] -> reverse ys

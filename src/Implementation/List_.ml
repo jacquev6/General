@@ -5,6 +5,19 @@ end
 
 include Self
 
+module Specialize(A: sig type t end) = struct
+  type t = A.t list
+
+  include (Self: module type of Self with type 'a t := 'a Self.t)
+end
+
+module SpecializeEquatable(A: Traits.Equatable.Basic.S0) = struct
+  type t = A.t list
+
+  let contains xs x =
+    Self.contains xs x ~equal_a:A.equal
+end
+
 module Examples = struct
   module A = Foundations.Int
 

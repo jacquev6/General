@@ -414,7 +414,7 @@ module String: sig
   val split: t -> sep:t -> t list
 end
 
-(* @todo Int32, Int64, NativeInt, BigInt, Rational, Complex, Quaternion, Matrix *)
+(* @todo Rational, Complex, Quaternion, Matrix *)
 
 (* Fixed-size containers *)
 
@@ -444,6 +444,26 @@ module Option: sig
   val filter_map: 'a t -> f:('a -> 'b option) -> 'b t
 
   val value_map: 'a t -> def:'b -> f:('a -> 'b) -> 'b
+
+  module Specialize(A: sig type t end): sig
+    type t = A.t option
+
+    val some_if: bool -> A.t lazy_t -> t
+    val some_if': bool -> A.t -> t
+
+    val is_some: t -> bool
+    val is_none: t -> bool
+
+    val value_def: t -> def:A.t -> A.t
+    val value: ?exc:exn -> t -> A.t
+
+    val map: t -> f:(A.t -> 'a) -> 'a option
+    val iter: t -> f:(A.t -> unit) -> unit
+    val filter: t -> f:(A.t -> bool) -> t
+    val filter_map: t -> f:(A.t -> 'a option) -> 'a option
+
+    val value_map: t -> def:'a -> f:(A.t -> 'a) -> 'a
+  end
 end
 
 module Lazy: sig
@@ -462,6 +482,8 @@ end
 module Reference: sig
   type 'a t = 'a Pervasives.OCamlStandard.Pervasives.ref = {mutable contents: 'a}
 
+  (* @todo Concept.Able *)
+
   val of_contents: 'a -> 'a t
   val contents: 'a t -> 'a
   val assign: 'a t -> 'a -> unit
@@ -472,23 +494,49 @@ module Reference: sig
     val (:=): 'a t -> 'a -> unit
   end
 
-  module Specialize(E: sig type t end): sig
-    type nonrec t = E.t t
+  module SpecializeOperators(A: sig type t end): sig
+    type nonrec t = A.t t
 
-    val of_contents: E.t -> t
-    val contents: t -> E.t
-    val assign: t -> E.t -> unit
-
-    module O: sig
-      val ref: E.t -> t
-      val (!): t -> E.t
-      val (:=): t -> E.t -> unit
-    end
+    val ref: A.t -> t
+    val (!): t -> A.t
+    val (:=): t -> A.t -> unit
   end
 
-  module SpecializePredSucc(E: Traits.PredSucc.S0): sig
-    val increment: E.t t -> unit
-    val decrement: E.t t -> unit
+  module Specialize(A: sig type t end): sig
+    type nonrec t = A.t t
+
+    val of_contents: A.t -> t
+    val contents: t -> A.t
+    val assign: t -> A.t -> unit
+
+    module O: module type of SpecializeOperators(A) with type t := t
+  end
+
+  (* @todo SpecializeComparable *)
+  (* @todo SpecializeEquatable *)
+  (* @todo SpecializeRepresentable *)
+  (* @todo SpecializeAble (merge of three previous) *)
+
+  module SpecializePredSucc(A: Traits.PredSucc.S0): sig
+    type nonrec t = A.t t
+
+    val increment: t -> unit
+    val decrement: t -> unit
+  end
+
+  module SpecializeRingoidOperators(A: Traits.Ringoid.Basic.S0): sig
+    type nonrec t = A.t t
+
+    val (=+): t -> A.t -> unit
+    val (=-): t -> A.t -> unit
+    val (=*): t -> A.t -> unit
+    val (=/): t -> A.t -> unit
+  end
+
+  module SpecializeRingoid(A: Traits.Ringoid.Basic.S0): sig
+    type nonrec t = A.t t
+
+    module O: module type of SpecializeRingoidOperators(A) with type t := t
   end
 end
 
@@ -552,21 +600,58 @@ end
 
 (* Specializations of fixed-size containers *)
 
+module IntOption: sig
+  include module type of Option.Specialize(Int)
+end
+
+module FloatOption: sig
+  include module type of Option.Specialize(Float)
+end
+
+module StringOption: sig
+  include module type of Option.Specialize(String)
+end
+
+(* @todo BoolOption, with tri-bool operations (None == "unknown") as functions and as operators *)
+
 module IntReference: sig
   type t = int Reference.t
 
-  val of_contents: int -> t
-  val contents: t -> int
-  val assign: t -> int -> unit
+  module O: sig
+    include module type of Reference.SpecializeOperators(Int) with type t := t
+    include module type of Reference.SpecializeRingoidOperators(Int) with type t := t
+  end
 
-  val increment: t -> unit
-  val decrement: t -> unit
+  include module type of Reference.Specialize(Int) with type t := t and module O := O
+  include module type of Reference.SpecializePredSucc(Int) with type t := t
+  include module type of Reference.SpecializeRingoid(Int) with type t := t and module O := O
+end
+
+module FloatReference: sig
+  type t = float Reference.t
 
   module O: sig
-    val (!): t -> int
-    val (:=): t -> int -> unit
+    include module type of Reference.SpecializeOperators(Float) with type t := t
+    include module type of Reference.SpecializeRingoidOperators(Float) with type t := t
   end
+
+  include module type of Reference.Specialize(Float) with type t := t and module O := O
+  include module type of Reference.SpecializeRingoid(Float) with type t := t and module O := O
 end
+
+module StringReference: sig
+  type t = string Reference.t
+
+  module O: sig
+    include module type of Reference.SpecializeOperators(String) with type t := t
+    val (=^): t -> string -> unit
+  end
+
+  include module type of Reference.Specialize(String) with type t := t and module O := O
+end
+
+(* @todo BoolReference with set and reset *)
+(* @todo OptionReference with := s setting to Some x and reset setting to None *)
 
 (* Collection containers *)
 
@@ -582,6 +667,7 @@ module List: sig
   val to_array: 'a t -> 'a array
 
   val size: 'a t -> int
+  val contains: 'a t -> 'a -> equal_a:('a -> 'a -> bool) -> bool
 
   val cons: 'a -> 'a t -> 'a t
   val head: 'a t -> 'a
@@ -614,6 +700,52 @@ module List: sig
   module Poly: sig
     val contains: 'a t -> 'a -> bool
   end
+
+  module Specialize(A: sig type t end): sig
+    type t = A.t list
+
+    val empty: t
+    val of_list: A.t list -> t
+    val to_list: t -> A.t list
+    val of_array: A.t array -> t
+    val to_array: t -> A.t array
+
+    val size: t -> int
+
+    val cons: A.t -> t -> t
+    val head: t -> A.t
+    val tail: t -> t
+    val try_head: t -> A.t option
+    val try_tail: t -> t option
+
+    val reverse: t -> t
+    val append: t -> t -> t
+
+    val map: t -> f:(A.t -> 'a) -> 'a list
+    val iter: t -> f:(A.t -> unit) -> unit
+    val fold: t -> init:'a -> f:('a -> A.t -> 'a) -> 'a
+    val try_reduce: t -> f:(A.t -> A.t -> A.t) -> A.t option
+    val reduce: t -> f:(A.t -> A.t -> A.t) -> A.t
+    (* val scan: *)
+
+    val concat_map: t -> f:(A.t -> 'a list) -> 'a list
+
+    val filter: t -> f:(A.t -> bool) -> t
+    val filter_map: t -> f:(A.t -> 'a option) -> 'a list
+
+    val iter_i: t -> f:(int -> A.t -> unit) -> unit
+    val fold_i: t -> init:'a -> f:(int -> 'a -> A.t -> 'a) -> 'a
+
+    module O: sig
+      val (@): t -> t -> t
+    end
+  end
+
+  module SpecializeEquatable(A: Traits.Equatable.Basic.S0): sig
+    type t = A.t list
+
+    val contains: t -> A.t -> bool
+  end
 end
 
 module Array: sig
@@ -633,14 +765,23 @@ end
 
 (* Specializations of collection containers *)
 
-(* @todo XxxList where Xxx is a Ringoid, with sum, product *)
-(* @todo OptionList (with values, roughly equivalent to filter_map is_some) *)
+module IntList: sig
+  include module type of List.Specialize(Int)
+end
+
+module FloatList: sig
+  include module type of List.Specialize(Float)
+end
 
 module StringList: sig
-  type t = string list
+  include module type of List.Specialize(String)
 
   val concat: ?sep:string -> t -> string
 end
+
+(* @todo XxxList when Xxx is a Ringoid: add sum, product *)
+(* @todo BoolList (with all, exists, etc.) *)
+(* @todo OptionList (with values (or filter_some), roughly equivalent to filter_map ~f:identity) *)
 
 (* Input/output *)
 
@@ -763,7 +904,14 @@ module Standard: sig
   module Tuple5: module type of Tuple5
   module Unit: module type of Unit
 
+  module IntOption: module type of IntOption
+  module FloatOption: module type of FloatOption
+  module StringOption: module type of StringOption
   module IntReference: module type of IntReference
+  module FloatReference: module type of FloatReference
+  module StringReference: module type of StringReference
+  module IntList: module type of IntList
+  module FloatList: module type of FloatList
   module StringList: module type of StringList
 
   include module type of Pervasives
@@ -809,7 +957,14 @@ module Abbr: sig
   module Tu5: module type of Tuple5
   module Unit: module type of Unit
 
+  module IntOpt: module type of IntOption
+  module FlOpt: module type of FloatOption
+  module StrOpt: module type of StringOption
   module IntRef: module type of IntReference
+  module FlRef: module type of FloatReference
+  module StrRef: module type of StringReference
+  module IntLi: module type of IntList
+  module FlLi: module type of FloatList
   module StrLi: module type of StringList
 
   include module type of Pervasives

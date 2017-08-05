@@ -5,6 +5,12 @@ module Self = struct
   include Traits.Comparable.MinMax.Make1(Foundations.Option)
 end
 
+module Specialize(A: sig type t end) = struct
+  type t = A.t option
+
+  include (Self: module type of Self with type 'a t := 'a Self.t)
+end
+
 include Self
 
 module Tests = struct
