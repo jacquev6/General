@@ -12,6 +12,7 @@ src/Implementation/Float
 src/Implementation/Format_
 src/Implementation/Functions
 src/Implementation/InChannel
+src/Implementation/InFile
 src/Implementation/Int
 src/Implementation/Int32_
 src/Implementation/Int64_
@@ -20,8 +21,13 @@ src/Implementation/List_
 src/Implementation/NativeInt
 src/Implementation/Option
 src/Implementation/OutChannel
+src/Implementation/OutFile
 src/Implementation/Reference
 src/Implementation/StandardInt
+src/Implementation/StandardOutChannel
+src/Implementation/StdErr
+src/Implementation/StdIn
+src/Implementation/StdOut
 src/Implementation/String_
 src/Implementation/TestingTests
 src/Implementation/Tuples

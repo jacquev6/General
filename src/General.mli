@@ -787,8 +787,6 @@ end
 
 (* Input/output *)
 
-(* @todo StdIn, StdOut, InChannel, OutChannel *)
-
 module Format: sig
   type ('a, 'b, 'c, 'd, 'e, 'f) t = ('a, 'b, 'c, 'd, 'e, 'f) CamlinternalFormatBasics.format6
 
@@ -796,17 +794,75 @@ module Format: sig
   type ('a, 'b, 'c, 'd) format4 = ('a, 'b, 'c, 'c, 'c, 'd) format6
   type ('a, 'b, 'c) format = ('a, 'b, 'c, 'c, 'c, 'c) format6 *)
 
+  (* @todo Rename? To what? To "apply"? To something starting with "with_"? *)
   val ksprintf: ('b, unit, string, string, string, 'a) t -> f:(string -> 'a) -> 'b
 
-  val sprintf : ('a, unit, string, string, string, string) t -> 'a
-
-  val printf : ('a, Pervasives.OCamlStandard.Pervasives.out_channel, unit, unit, unit, unit) t -> 'a
+  (* @todo Rename? To "apply"? To "format"? *)
+  val sprintf: ('a, unit, string, string, string, string) t -> 'a
 
   val to_string: ('a, 'b, 'c, 'd, 'e, 'f) t -> string
 
   val of_string: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('a, 'b, 'c, 'd, 'e, 'f) t
 
   val concat: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('f, 'b, 'c, 'e, 'g, 'h) t -> ('a, 'b, 'c, 'd, 'g, 'h) t
+end
+
+module InChannel: sig
+  type t = Pervasives.OCamlStandard.Pervasives.in_channel
+end
+
+module InFile: sig
+  type t
+
+  (* @todo Open modes *)
+  val with_file: string -> f:(t -> 'a) -> 'a
+  val with_channel: string -> f:(InChannel.t -> 'a) -> 'a
+
+  val channel: t -> InChannel.t
+
+  val seek: t -> pos:int64 -> unit
+  val pos: t -> int64
+  val size: t -> int64
+end
+
+module OutChannel: sig
+  type t = Pervasives.OCamlStandard.Pervasives.out_channel
+
+  val print: t -> ('a, t, unit, unit, unit, unit) Format.t -> 'a
+  val output: t -> bytes -> unit
+  val flush: t -> unit
+end
+
+module OutFile: sig
+  type t
+
+  (* @todo Open modes *)
+  val with_file: string -> f:(t -> 'a) -> 'a
+  val with_channel: string -> f:(OutChannel.t -> 'a) -> 'a
+
+  val channel: t -> OutChannel.t
+
+  val seek: t -> pos:int64 -> unit
+  val pos: t -> int64
+  val size: t -> int64
+end
+
+module StdIn: sig
+  val channel: InChannel.t
+end
+
+module StdOut: sig
+  val channel: OutChannel.t
+  val print: ('a, OutChannel.t, unit, unit, unit, unit) Format.t -> 'a
+  val output: bytes -> unit
+  val flush: unit -> unit
+end
+
+module StdErr: sig
+  val channel: OutChannel.t
+  val print: ('a, OutChannel.t, unit, unit, unit, unit) Format.t -> 'a
+  val output: bytes -> unit
+  val flush: unit -> unit
 end
 
 (* Testing *)
@@ -891,6 +947,8 @@ module Standard: sig
   module Function3: module type of Function3
   module Function4: module type of Function4
   module Function5: module type of Function5
+  module InChannel: module type of InChannel
+  module InFile: module type of InFile
   module Int32: module type of Int32
   module Int64: module type of Int64
   module Int: module type of Int
@@ -898,7 +956,12 @@ module Standard: sig
   module List: module type of List
   module NativeInt: module type of NativeInt
   module Option: module type of Option
+  module OutChannel: module type of OutChannel
+  module OutFile: module type of OutFile
   module Reference: module type of Reference
+  module StdErr: module type of StdErr
+  module StdIn: module type of StdIn
+  module StdOut: module type of StdOut
   module String: module type of String
   module Tuple2: module type of Tuple2
   module Tuple3: module type of Tuple3
@@ -944,14 +1007,21 @@ module Abbr: sig
   module Fun3: module type of Function3
   module Fun4: module type of Function4
   module Fun5: module type of Function5
-  module Int: module type of Int
+  module InCh: module type of InChannel
+  module InFile: module type of InFile
   module Int32: module type of Int32
   module Int64: module type of Int64
+  module Int: module type of Int
   module Laz: module type of Lazy
   module Li: module type of List
   module NativeInt: module type of NativeInt
   module Opt: module type of Option
+  module OutCh: module type of OutChannel
+  module OutFile: module type of OutFile
   module Ref: module type of Reference
+  module StdErr: module type of StdErr
+  module StdIn: module type of StdIn
+  module StdOut: module type of StdOut
   module Str: module type of String
   module Tu2: module type of Tuple2
   module Tu3: module type of Tuple3

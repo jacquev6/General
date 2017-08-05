@@ -34,7 +34,7 @@ module DemoInteger(N: sig val name: string end)(I: General.Concepts.Integer.S0) 
   open I
 
   let print s v =
-    Frmt.printf "%s.(%s): %s\n" N.name s v
+    StdOut.print "%s.(%s): %s\n" N.name s v
 
   let print_int s v =
     print s (repr v)
@@ -52,7 +52,7 @@ module DemoInteger(N: sig val name: string end)(I: General.Concepts.Integer.S0) 
   TEST(bool, O.(zero = one))
 end
 
-let () = Frmt.printf "General.Int.succ 4: %n\n" (General.Int.succ 4)
+let () = StdOut.print "General.Int.succ 4: %n\n" (General.Int.succ 4)
 
 module DemoGeneralInt = DemoInteger(struct let name = "General.Int" end)(General.Int)
 
