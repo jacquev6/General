@@ -34,6 +34,17 @@ let value ?(exc=Failure "Option.value") x =
     | Some x -> x
     | None -> OCSP.raise exc
 
+let or_failure format =
+  Format_.ksprintf
+    ~f:(fun message ->
+      function
+      | None ->
+        Exception.(raise (Failure message))
+      | Some x ->
+        x
+    )
+    format
+
 let map x ~f =
   match x with
     | None -> None

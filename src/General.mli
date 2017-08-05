@@ -439,6 +439,7 @@ module Option: sig
 
   val value_def: 'a t -> def:'a -> 'a
   val value: ?exc:exn -> 'a t -> 'a
+  val or_failure: ('a, unit, string, string, string, 'b t -> 'b) CamlinternalFormatBasics.format6 -> 'a
 
   val map: 'a t -> f:('a -> 'b) -> 'b t
   val iter: 'a t -> f:('a -> unit) -> unit
@@ -458,6 +459,7 @@ module Option: sig
 
     val value_def: t -> def:A.t -> A.t
     val value: ?exc:exn -> t -> A.t
+    val or_failure: ('a, unit, string, string, string, t -> A.t) CamlinternalFormatBasics.format6 -> 'a
 
     val map: t -> f:(A.t -> 'a) -> 'a option
     val iter: t -> f:(A.t -> unit) -> unit

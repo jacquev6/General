@@ -25,13 +25,6 @@ end
 include (Compare.Poly: module type of Compare.Poly with module O := O)
 include (Equate.Poly: module type of Equate.Poly with module O := O)
 
-(* @todo Find a suitable module for 'or_failure'? (If yes, accept a Format.t) *)
-let or_failure message = function
-  | None ->
-    Exception.failure message
-  | Some x ->
-    x
-
 let size = OCSS.length
 
 let substring s ~pos ~len = OCSS.sub s pos len
@@ -68,11 +61,11 @@ let try_drop_prefix s ~pre =
 
 let drop_suffix s ~suf =
   try_drop_suffix ~suf s
-  |> or_failure "String.drop_suffix"
+  |> Option.or_failure "String.drop_suffix"
 
 let drop_prefix s ~pre =
   try_drop_prefix ~pre s
-  |> or_failure "String.drop_prefix"
+  |> Option.or_failure "String.drop_prefix"
 
 let split s ~sep =
   let len = size sep in

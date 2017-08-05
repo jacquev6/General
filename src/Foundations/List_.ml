@@ -20,20 +20,13 @@ let try_tail = function
   | [] -> None
   | _::xs -> Some xs
 
-(* @todo Find a suitable module for 'or_failure'? (If yes, accept a Format.t) *)
-let or_failure message = function
-  | None ->
-    Exception.failure message
-  | Some x ->
-    x
-
 let head xs =
   try_head xs
-  |> or_failure "List.head"
+  |> Option.or_failure "List.head"
 
 let tail xs =
   try_tail xs
-  |> or_failure "List.tail"
+  |> Option.or_failure "List.tail"
 
 let reverse xs =
   let rec aux ys = function
@@ -74,7 +67,7 @@ let try_reduce xs ~f =
 
 let reduce xs ~f =
   try_reduce xs ~f
-  |> or_failure "List.reduce"
+  |> Option.or_failure "List.reduce"
 
 let map xs ~f =
   let rec aux ys = function

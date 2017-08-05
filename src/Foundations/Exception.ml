@@ -43,7 +43,7 @@ let record_backtraces = OCSPE.record_backtrace
 let recording_backtraces = OCSPE.backtrace_status
 
 let most_recent_backtrace () =
-  Option.some_if (recording_backtraces ()) (lazy (OCSPE.get_raw_backtrace ()))
+  if recording_backtraces () then Some (OCSPE.get_raw_backtrace ()) else None
 
 let or_none x =
   try
