@@ -63,12 +63,12 @@ module Equate: sig
 end
 
 module Traits: module type of Traits
-(* @todo Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
-(* @todo Traits for FilterMapable, ToStd (map_to_list, filter_to_array, filter_map_to_array_i) and ToSelf (map, filter_i, filter_map_i) *)
-(* @todo Traits for Foldable, Left and Right, with short-circuit
+(* @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
+(* @feature Traits for FilterMapable, ToStd (map_to_list, filter_to_array, filter_map_to_array_i) and ToSelf (map, filter_i, filter_map_i) *)
+(* @feature Traits for Foldable, Left and Right, with short-circuit
 Extensions include count[_i], iter[_i], for_all[_i], ther_exists[_i], [try_]find[_map][_i], [try_]reduce[_short][_right][_i] *)
-(* @todo Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
-(* @todo Traits for Scanable (Left and Right), ToStd and ToSelf, with short-circuit *)
+(* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
+(* @feature Traits for Scanable (Left and Right), ToStd and ToSelf, with short-circuit *)
 
 (* Typology of iterations other collection:
 - is there an accumulator (fold vs map)
@@ -79,8 +79,8 @@ Extensions include count[_i], iter[_i], for_all[_i], ther_exists[_i], [try_]find
 and we need a generic function in each category. *)
 
 module Concepts: module type of Concepts
-(* @todo Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer *)
-(* @todo Concepts.Stringable including Parsable and Displayable *)
+(* @feature Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer *)
+(* @feature Concepts.Stringable including Parsable and Displayable *)
 
 (* Technical, utility modules *)
 
@@ -107,15 +107,15 @@ module CallStack: sig
     type t = Pervasives.OCamlStandard.Printexc.backtrace_slot
 
     val is_raise: t -> bool
-    (* @todo val is_inline: t -> bool *)
+    (* @feature val is_inline: t -> bool *)
 
     val location: t -> Location.t option
 
     val format: int -> t -> string option
   end
 
-  (* @todo? val size: t -> int *)
-  (* @todo? val frame: t -> int -> Frame.t *)
+  (* @feature? val size: t -> int *)
+  (* @feature? val frame: t -> int -> Frame.t *)
   val frames: t -> Frame.t list
 end
 
@@ -233,7 +233,7 @@ module Function5: sig
   val uncurry: ('a, 'b, 'c, 'd, 'e, 'z) t -> ('a * 'b * 'c * 'd * 'e, 'z) Function1.t
 end
 
-(* @todo Predicate1,2,3,etc. (or BoolFunction1,2,3, more consistent with other specializations) with composition of predicates (not, and, or, xor) *)
+(* @feature Predicate1,2,3,etc. (or BoolFunction1,2,3, more consistent with other specializations) with composition of predicates (not, and, or, xor) *)
 
 (* Atomic values *)
 
@@ -260,7 +260,6 @@ module Bool: sig
   include Concepts.Able.S0 with type t := t and module O := O
   include Traits.Displayable.S0 with type t := t
   include Traits.Parsable.S0 with type t := t
-  (* @todo Should Bool be a Ringoid? *)
 
   val not: t -> t
   val and_: t -> t -> t (* Not lazy *)
@@ -282,7 +281,7 @@ module Int: sig
 
   include Concepts.Integer.S0 with type t := t
 
-  (* @todo Traits.Bounded? Concept.FixedWidthInteger? *)
+  (* @feature Traits.Bounded? Concept.FixedWidthInteger? *)
   val smallest: t
   val greatest: t
 
@@ -401,11 +400,11 @@ module String: sig
 
   val concat: t -> t -> t
 
-  (* @todo val try_substring: t -> pos:int -> len:int -> t option *)
+  (* @feature val try_substring: t -> pos:int -> len:int -> t option *)
   val substring: t -> pos:int -> len:int -> t
-  (* @todo val try_prefix: t -> len:int -> t option *)
+  (* @feature val try_prefix: t -> len:int -> t option *)
   val prefix: t -> len:int -> t
-  (* @todo val try_suffix: t -> len:int -> t option *)
+  (* @feature val try_suffix: t -> len:int -> t option *)
   val suffix: t -> len:int -> t
 
   val has_prefix: t -> pre:t -> bool
@@ -418,7 +417,7 @@ module String: sig
   val split: t -> sep:t -> t list
 end
 
-(* @todo Rational, Complex, Quaternion, Matrix *)
+(* @feature Rational, Complex, Quaternion, Matrix *)
 
 (* Fixed-size containers *)
 
@@ -427,7 +426,7 @@ module Option: sig
 
   include Concepts.Able.S1 with type 'a t := 'a t
 
-  (* @todo coalesce[_def] (with an (|||) operator?) *)
+  (* @feature coalesce[_def] (with an (|||) operator?) *)
 
   val some_if: bool -> 'a lazy_t -> 'a t
   val some_if': bool -> 'a -> 'a t
@@ -470,9 +469,6 @@ end
 
 module Lazy: sig
   type 'a t = 'a lazy_t
-
-  (* @todo LazyPair.to_pair_lazy *)
-  (* @todo LazyList.to_list_lazy *)
 
   val is_value: 'a t -> bool
 
@@ -614,7 +610,7 @@ module StringOption: sig
   include module type of Option.Specialize(String)
 end
 
-(* @todo BoolOption, with tri-bool operations (None == "unknown") as functions and as operators *)
+(* @feature BoolOption, with tri-bool operations (None == "unknown") as functions and as operators *)
 
 module IntReference: sig
   type t = int Reference.t
@@ -652,9 +648,11 @@ module StringReference: sig
   include module type of Reference.Specialize(String) with type t := t and module O := O
 end
 
-(* @todo BoolReference with set and reset *)
-(* @todo OptionReference with := s setting to Some x and reset setting to None *)
-(* @todo OptionPair.to_pair_option (Some a, Some b) -> Some (a, b) | _ -> None *)
+(* @feature BoolReference with set and reset *)
+(* @feature OptionReference with := s setting to Some x and reset setting to None *)
+(* @feature OptionPair.to_pair_option (Some a, Some b) -> Some (a, b) | _ -> None *)
+(* @feature LazyPair.to_pair_lazy *)
+(* @feature LazyList.to_list_lazy *)
 
 (* Collection containers *)
 
@@ -759,12 +757,12 @@ module Array: sig
   val get: 'a t -> int -> 'a
 end
 
-(* @todo Range *)
-(* @todo SortedList, UniqueList? *)
-(* @todo Double-ended queue *)
-(* @todo SortedSet, SortedMap, HashSet, HashMap *)
+(* @feature Range *)
+(* @feature SortedList, UniqueList? *)
+(* @feature Double-ended queue *)
+(* @feature SortedSet, SortedMap, HashSet, HashMap *)
 (* [Sorted|Hash]Index (a Map where the keys are computed from the values (think "vertex_by_name")) *)
-(* @todo Stream *)
+(* @feature Stream *)
 
 (* Specializations of collection containers *)
 
@@ -782,9 +780,9 @@ module StringList: sig
   val concat: ?sep:string -> t -> string
 end
 
-(* @todo XxxList when Xxx is a Ringoid: add sum, product *)
-(* @todo BoolList (with all, exists, etc.) *)
-(* @todo OptionList (with first_some, values (ie filter_some)) *)
+(* @feature XxxList when Xxx is a Ringoid: add sum, product *)
+(* @feature BoolList (with all, exists, etc.) *)
+(* @feature OptionList (with first_some, values (ie filter_some)) *)
 
 (* Input/output *)
 

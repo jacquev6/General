@@ -1,6 +1,6 @@
 open Foundations
 
-(* @todo Descending, ascending *)
+(* @feature Descending, ascending *)
 
 module Basic = struct
   module type SP = sig

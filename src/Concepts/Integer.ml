@@ -4,8 +4,8 @@ module type S0 = sig
   include RealNumber.S0 with type t := t
   include Traits.PredSucc.S0 with type t := t
 
-  (* @todo Bitwise? *)
-  (* @todo gcd, lcm, quomod *)
+  (* @feature Bitwise? *)
+  (* @feature gcd, lcm, quomod *)
 end
 
 module Tests = struct

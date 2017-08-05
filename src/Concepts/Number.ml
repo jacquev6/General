@@ -18,8 +18,8 @@ module type S0 = sig
   include Traits.Representable.S0 with type t := t
   include Traits.Ringoid.S0 with type t := t and module O := O
 
-  (* @todo Traits.OfStandardNumbers? *)
-  (* @todo of_int32, of_int64, of_nativeint *)
+  (* @feature Traits.OfStandardNumbers? *)
+  (* @feature of_int32, of_int64, of_nativeint *)
   val of_int: int -> t
   val of_float: float -> t
 end

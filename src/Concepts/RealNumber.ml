@@ -22,11 +22,11 @@ module type S0 = sig
   val abs: t -> t
   val modulo: t -> t -> t
 
-  (* @todo Traits.ToStandardNumbers? *)
+  (* @feature Traits.ToStandardNumbers? *)
   val to_int: t -> int
   val to_float: t -> float
 
-  (* @todo sign *)
+  (* @feature sign *)
 end
 
 module Tests = struct
