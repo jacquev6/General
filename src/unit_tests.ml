@@ -17,7 +17,7 @@ let test = "General" >:: [
   Int64_.Tests.test;
   Lazy_.Tests.test;
   List_.Tests.test;
-  NativeInt.Tests.test;
+  NativeInt_.Tests.test;
   Option.Tests.test;
   String_.Tests.test;
   Tuples.Tests.test;
