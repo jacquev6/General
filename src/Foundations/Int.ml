@@ -10,6 +10,8 @@ let to_int = Functions.Function1.identity
 let of_float = OCSP.int_of_float
 let to_float = OCSP.float_of_int
 let of_string = OCSP.int_of_string
+let try_of_string s =
+  Exception.or_none (lazy (of_string s))
 let to_string = OCSP.string_of_int
 
 let repr = OCSP.string_of_int

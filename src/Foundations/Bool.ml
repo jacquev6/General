@@ -1,6 +1,8 @@
 type t = bool
 
 let of_string = OCSP.bool_of_string
+let try_of_string s =
+  Exception.or_none (lazy (of_string s))
 let to_string = OCSP.string_of_bool
 
 let repr = OCSP.string_of_bool

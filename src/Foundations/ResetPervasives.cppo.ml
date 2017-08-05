@@ -170,17 +170,17 @@ PLEASE_USE(ignore, Unit__ignore)
 PLEASE_USE(string_of_bool, Bool__to_string)
 PLEASE_USE(bool_of_string, Bool__of_string)
 #ifdef HAS_bool_of_string_opt
-PLEASE_USE(bool_of_string_opt, Bool__try_of_string__todo)
+PLEASE_USE(bool_of_string_opt, Bool__try_of_string)
 #endif
 PLEASE_USE(string_of_int, Int__to_string)
 PLEASE_USE(int_of_string, Int__of_string)
 #ifdef HAS_int_of_string_opt
-PLEASE_USE(int_of_string_opt, Int__try_of_string__todo)
+PLEASE_USE(int_of_string_opt, Int__try_of_string)
 #endif
 PLEASE_USE(string_of_float, Float__of_string)
 PLEASE_USE(float_of_string, Float__to_string)
 #ifdef HAS_float_of_string_opt
-PLEASE_USE(float_of_string_opt, Float__try_of_string__todo)
+PLEASE_USE(float_of_string_opt, Float__try_of_string)
 #endif
 
 (* Pair operations *)
@@ -188,7 +188,7 @@ PLEASE_USE(fst, Tuple2__get_0)
 PLEASE_USE(snd, Tuple2__get_1)
 
 (* List operations *)
-PLEASE_USE((@), List__append__todo)
+PLEASE_USE((@), List__append)
 
 (* Input/output *)
 PLEASE_USE_TYPE(in_channel, InChannel__t__todo)

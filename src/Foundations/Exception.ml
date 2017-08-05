@@ -44,3 +44,9 @@ let recording_backtraces = OCSPE.backtrace_status
 
 let most_recent_backtrace () =
   Option.some_if (recording_backtraces ()) (lazy (OCSPE.get_raw_backtrace ()))
+
+let or_none x =
+  try
+    Some (Lazy_.value x)
+  with
+    | _ -> None

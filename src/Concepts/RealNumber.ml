@@ -18,7 +18,6 @@ module type S0 = sig
 
   include Number.S0 with type t := t and module O := O
   include Traits.Comparable.S0 with type t := t and module O := O
-  (* @todo Parsable *)
 
   val abs: t -> t
   val modulo: t -> t -> t

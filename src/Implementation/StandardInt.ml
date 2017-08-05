@@ -56,6 +56,8 @@ end = struct
     let of_int = of_int
     let to_int = to_int
     let of_string = of_string
+    let try_of_string s =
+      Exception.or_none (lazy (of_string s))
     let to_string = to_string
     let repr n =
       Format_.sprintf "%s%s" (to_string n) repr_suffix

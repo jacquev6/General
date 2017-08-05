@@ -160,6 +160,8 @@ module Exception: sig
   val failure: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
 
   val name: exn -> string
+
+  val or_none: 'a lazy_t -> 'a option
 end
 
 module Exit: sig

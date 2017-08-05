@@ -67,6 +67,8 @@ module IntMod3 = struct
     let of_float x = (Int.of_float x) mod 3
     let to_float = Int.to_float
     let of_string x = (Int.of_string x) mod 3
+    let try_of_string s =
+      Exn.or_none (lazy (of_string s))
     let to_string = Int.to_string
     let abs x = x
     let add x y = (x + y) mod 3
@@ -119,6 +121,8 @@ module IntMod3Examples = struct
   let repr = []
 
   let to_string = []
+
+  let of_string = []
 
   let add_substract = [
     (1, 2, 0);

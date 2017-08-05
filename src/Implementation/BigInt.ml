@@ -27,6 +27,8 @@ module SelfA = struct
 
   let to_float = OCSB.float_of_big_int
   let of_string = OCSB.big_int_of_string
+  let try_of_string s =
+    Exception.or_none (lazy (of_string s))
   let to_string = OCSB.string_of_big_int
 
   let repr = to_string

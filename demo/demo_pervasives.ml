@@ -94,6 +94,7 @@ let _ = General.Int.succ
 let _ = General.Int.to_string
 let _ = General.IntReference.decrement
 let _ = General.IntReference.increment
+let _ = General.List.append
 let _ = General.Reference.assign
 let _ = General.Reference.contents
 let _ = General.Reference.of_contents
