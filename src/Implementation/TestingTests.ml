@@ -64,6 +64,8 @@ module Tests = struct
             [
               if old_javascript then
                 "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(bad) not raised, but exception TestingTests.Tests.TestException1(too bad) raised\n"
+              else if javascript then
+                "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n"
               else
                 "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
                  Raised by primitive operation at file \"src/Implementation/TestingTests.ml\", line 2, characters 16-36\n"
@@ -73,6 +75,8 @@ module Tests = struct
             [
               if old_javascript then
                 "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(too bad) raised\n"
+              else if javascript then
+                "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n"
               else
                 "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
                  Raised by primitive operation at file \"src/Implementation/TestingTests.ml\", line 2, characters 16-36\n"
@@ -88,6 +92,8 @@ module Tests = struct
             [
               if old_javascript then
                 "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(bad) raised\n"
+              else if javascript then
+                "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n"
               else
                 "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
                  Raised by primitive operation at file \"src/Implementation/TestingTests.ml\", line 2, characters 16-36\n"

@@ -18,7 +18,7 @@ module Tests = struct
     let to_string = [
       (
         stack,
-        if old_javascript then
+        if javascript then
           "" (*BISECT-IGNORE*)
         else
           "Raised by primitive operation at file \"src/Implementation/CallStack.ml\", line 3, characters 15-49\n\
@@ -43,7 +43,7 @@ module Tests = struct
   let test = "CallStack" >:: [
     (let module T = Traits.Displayable.Tests.Make0(Foundations.CallStack)(Examples) in T.test);
     (let module T = Traits.Representable.Tests.Make0(Foundations.CallStack)(Examples) in T.test);
-    "frames" >: (lazy (check_int ~expected:(if old_javascript then 0 else 4) (stack |> frames |> List_.size))); (*BISECT-IGNORE*)
+    "frames" >: (lazy (check_int ~expected:(if javascript then 0 else 4) (stack |> frames |> List_.size))); (*BISECT-IGNORE*)
     "Location" >:: [
       (* (let module T = Traits.Comparable.Tests.Make0(Foundations.CallStack.Location)(LocationExamples) in T.test); *)
       (* (let module T = Traits.Equatable.Tests.Make0(Foundations.CallStack.Location)(LocationExamples) in T.test); *)

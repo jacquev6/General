@@ -231,8 +231,9 @@ let (~:) format =
 
 (* Checks *)
 
+let javascript = String_.has_suffix OCSS.argv.(0) ~suf:".js"
 #if OCAML_VERSION < (4, 4, 0)
-let old_javascript = String_.has_suffix OCSS.argv.(0) ~suf:".js"
+let old_javascript = javascript
 #else
 let old_javascript = false
 #endif
