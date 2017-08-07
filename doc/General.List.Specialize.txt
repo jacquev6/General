@@ -1,0 +1,31 @@
+module Specialize(A: sig
+  type t
+end): sig
+  type t = A.t list
+  val empty: t
+  val of_list: A.t list -> t
+  val to_list: t -> A.t list
+  val of_array: A.t array -> t
+  val to_array: t -> A.t array
+  val size: t -> int
+  val cons: A.t -> t -> t
+  val head: t -> A.t
+  val tail: t -> t
+  val try_head: t -> A.t option
+  val try_tail: t -> t option
+  val reverse: t -> t
+  val append: t -> t -> t
+  val map: t -> f:(A.t -> 'a) -> 'a list
+  val iter: t -> f:(A.t -> unit) -> unit
+  val fold: t -> init:'a -> f:('a -> A.t -> 'a) -> 'a
+  val try_reduce: t -> f:(A.t -> A.t -> A.t) -> A.t option
+  val reduce: t -> f:(A.t -> A.t -> A.t) -> A.t
+  val concat_map: t -> f:(A.t -> 'a list) -> 'a list
+  val filter: t -> f:(A.t -> bool) -> t
+  val filter_map: t -> f:(A.t -> 'a option) -> 'a list
+  val iter_i: t -> f:(int -> A.t -> unit) -> unit
+  val fold_i: t -> init:'a -> f:(int -> 'a -> A.t -> 'a) -> 'a
+  module O: sig
+    val (@): t -> t -> t
+  end
+end

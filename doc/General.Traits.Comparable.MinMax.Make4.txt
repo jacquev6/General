@@ -1,0 +1,8 @@
+module Make4(M: sig
+  type ('a, 'b, 'c, 'd) t
+  val compare: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> Foundations.Compare.t
+end): sig
+  val min: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) M.t
+  val max: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) M.t
+  val min_max: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) M.t * ('a, 'b, 'c, 'd) M.t
+end

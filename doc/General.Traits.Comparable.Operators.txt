@@ -1,0 +1,16 @@
+module Operators: sig
+  module type SP = sig
+    val (<): 'a -> 'a -> bool
+    val (<=): 'a -> 'a -> bool
+    val (>): 'a -> 'a -> bool
+    val (>=): 'a -> 'a -> bool
+  end
+  module type S0 = sig
+    type t
+    val (<): t -> t -> bool
+    val (<=): t -> t -> bool
+    val (>): t -> t -> bool
+    val (>=): t -> t -> bool
+  end
+  module Make0
+end

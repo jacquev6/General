@@ -1,0 +1,27 @@
+module FloatList: sig
+  type t = float list
+  val empty: t
+  val of_list: float list -> t
+  val to_list: t -> float list
+  val of_array: float array -> t
+  val to_array: t -> float array
+  val size: t -> int
+  val cons: float -> t -> t
+  val head: t -> float
+  val tail: t -> t
+  val try_head: t -> float option
+  val try_tail: t -> t option
+  val reverse: t -> t
+  val append: t -> t -> t
+  val map: t -> f:(float -> 'a) -> 'a list
+  val iter: t -> f:(float -> unit) -> unit
+  val fold: t -> init:'a -> f:('a -> float -> 'a) -> 'a
+  val try_reduce: t -> f:(float -> float -> float) -> float option
+  val reduce: t -> f:(float -> float -> float) -> float
+  val concat_map: t -> f:(float -> 'a list) -> 'a list
+  val filter: t -> f:(float -> bool) -> t
+  val filter_map: t -> f:(float -> 'a option) -> 'a list
+  val iter_i: t -> f:(int -> float -> unit) -> unit
+  val fold_i: t -> init:'a -> f:(int -> 'a -> float -> 'a) -> 'a
+  module O
+end

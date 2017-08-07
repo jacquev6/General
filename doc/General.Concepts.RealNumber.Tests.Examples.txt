@@ -1,0 +1,16 @@
+module Examples: sig
+  module type S0 = sig
+    type t
+    val to_string: (t * bytes) list
+    val different: (t * t) list
+    val of_string: (bytes * t) list
+    val repr: (t * bytes) list
+    val add_substract: (t * t * t) list
+    val negate: (t * t) list
+    val multiply: (t * t * t) list
+    val divide: (t * t * t) list
+    val exponentiate: (t * int * t) list
+    val ordered: t list list
+    val equal: t list list
+  end
+end

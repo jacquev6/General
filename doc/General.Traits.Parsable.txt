@@ -1,0 +1,9 @@
+module Parsable: sig
+  module Basic
+  module type S0 = sig
+    type t
+    val try_of_string: bytes -> t option
+    val of_string: bytes -> t
+  end
+  module Tests
+end

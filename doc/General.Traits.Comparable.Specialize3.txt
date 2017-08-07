@@ -1,0 +1,19 @@
+module Specialize3(M: General.Traits.Comparable.S3)(A: General.Traits.Comparable.Basic.S0)(B: General.Traits.Comparable.Basic.S0)(C: General.Traits.Comparable.Basic.S0): sig
+  type t = (A.t, B.t, C.t) M.t
+  val compare: t -> t -> Foundations.Compare.t
+  val less_than: t -> t -> bool
+  val less_or_equal: t -> t -> bool
+  val greater_than: t -> t -> bool
+  val greater_or_equal: t -> t -> bool
+  val between: t -> low:t -> high:t -> bool
+  val between_or_equal: t -> low:t -> high:t -> bool
+  val min: t -> t -> t
+  val max: t -> t -> t
+  val min_max: t -> t -> t * t
+  module O: sig
+    val (<): t -> t -> bool
+    val (<=): t -> t -> bool
+    val (>): t -> t -> bool
+    val (>=): t -> t -> bool
+  end
+end

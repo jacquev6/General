@@ -1,0 +1,3 @@
+module Array: sig
+  val get: 'a array -> int -> 'a
+end

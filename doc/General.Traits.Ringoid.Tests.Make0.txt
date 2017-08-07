@@ -1,0 +1,31 @@
+module Make0(M: sig
+  type t
+  val zero: t
+  val one: t
+  val negate: t -> t
+  val add: t -> t -> t
+  val substract: t -> t -> t
+  val multiply: t -> t -> t
+  val divide: t -> t -> t
+  val square: t -> t
+  val exponentiate: t -> int -> t
+  module O: sig
+    val (~+): t -> t
+    val (~-): t -> t
+    val (+): t -> t -> t
+    val (-): t -> t -> t
+    val (*): t -> t -> t
+    val (/): t -> t -> t
+    val (**): t -> int -> t
+  end
+  val repr: t -> bytes
+  val equal: t -> t -> bool
+end)(E: sig
+  val add_substract: (M.t * M.t * M.t) list
+  val negate: (M.t * M.t) list
+  val multiply: (M.t * M.t * M.t) list
+  val divide: (M.t * M.t * M.t) list
+  val exponentiate: (M.t * int * M.t) list
+end): sig
+  val test: General.Testing.Test.t
+end

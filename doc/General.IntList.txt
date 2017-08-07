@@ -1,0 +1,27 @@
+module IntList: sig
+  type t = int list
+  val empty: t
+  val of_list: int list -> t
+  val to_list: t -> int list
+  val of_array: int array -> t
+  val to_array: t -> int array
+  val size: t -> int
+  val cons: int -> t -> t
+  val head: t -> int
+  val tail: t -> t
+  val try_head: t -> int option
+  val try_tail: t -> t option
+  val reverse: t -> t
+  val append: t -> t -> t
+  val map: t -> f:(int -> 'a) -> 'a list
+  val iter: t -> f:(int -> unit) -> unit
+  val fold: t -> init:'a -> f:('a -> int -> 'a) -> 'a
+  val try_reduce: t -> f:(int -> int -> int) -> int option
+  val reduce: t -> f:(int -> int -> int) -> int
+  val concat_map: t -> f:(int -> 'a list) -> 'a list
+  val filter: t -> f:(int -> bool) -> t
+  val filter_map: t -> f:(int -> 'a option) -> 'a list
+  val iter_i: t -> f:(int -> int -> unit) -> unit
+  val fold_i: t -> init:'a -> f:(int -> 'a -> int -> 'a) -> 'a
+  module O
+end

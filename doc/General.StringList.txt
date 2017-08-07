@@ -1,0 +1,28 @@
+module StringList: sig
+  type t = bytes list
+  val empty: t
+  val of_list: bytes list -> t
+  val to_list: t -> bytes list
+  val of_array: bytes array -> t
+  val to_array: t -> bytes array
+  val size: t -> int
+  val cons: bytes -> t -> t
+  val head: t -> bytes
+  val tail: t -> t
+  val try_head: t -> bytes option
+  val try_tail: t -> t option
+  val reverse: t -> t
+  val append: t -> t -> t
+  val map: t -> f:(bytes -> 'a) -> 'a list
+  val iter: t -> f:(bytes -> unit) -> unit
+  val fold: t -> init:'a -> f:('a -> bytes -> 'a) -> 'a
+  val try_reduce: t -> f:(bytes -> bytes -> bytes) -> bytes option
+  val reduce: t -> f:(bytes -> bytes -> bytes) -> bytes
+  val concat_map: t -> f:(bytes -> 'a list) -> 'a list
+  val filter: t -> f:(bytes -> bool) -> t
+  val filter_map: t -> f:(bytes -> 'a option) -> 'a list
+  val iter_i: t -> f:(int -> bytes -> unit) -> unit
+  val fold_i: t -> init:'a -> f:(int -> 'a -> bytes -> 'a) -> 'a
+  module O
+  val concat: ?sep:bytes -> t -> bytes
+end

@@ -1,0 +1,4 @@
+module Test: sig
+  type t = General.Testing.Test.t
+  val run: ?record_backtrace:bool -> t -> General.Testing.Result.t
+end

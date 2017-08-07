@@ -1,0 +1,11 @@
+module Make0(M: sig
+  type t
+  val try_of_string: bytes -> t option
+  val of_string: bytes -> t
+  val equal: t -> t -> bool
+  val repr: t -> bytes
+end)(E: sig
+  val of_string: (bytes * M.t) list
+end): sig
+  val test: General.Testing.Test.t
+end

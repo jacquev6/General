@@ -1,0 +1,8 @@
+module Displayable: sig
+  module Basic
+  module type S0 = sig
+    type t
+    val to_string: t -> bytes
+  end
+  module Tests
+end

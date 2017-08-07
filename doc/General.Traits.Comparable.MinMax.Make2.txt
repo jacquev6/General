@@ -1,0 +1,8 @@
+module Make2(M: sig
+  type ('a, 'b) t
+  val compare: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> Foundations.Compare.t
+end): sig
+  val min: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) M.t
+  val max: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) M.t
+  val min_max: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) M.t * ('a, 'b) M.t
+end

@@ -1,0 +1,12 @@
+module Make0(M: sig
+  type t
+  val less_than: t -> t -> bool
+  val less_or_equal: t -> t -> bool
+  val greater_than: t -> t -> bool
+  val greater_or_equal: t -> t -> bool
+end): sig
+  val (<): M.t -> M.t -> bool
+  val (<=): M.t -> M.t -> bool
+  val (>): M.t -> M.t -> bool
+  val (>=): M.t -> M.t -> bool
+end

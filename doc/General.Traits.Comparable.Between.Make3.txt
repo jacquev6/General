@@ -1,0 +1,10 @@
+module Make3(M: sig
+  type ('a, 'b, 'c) t
+  val less_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+  val less_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+  val greater_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+  val greater_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+end): sig
+  val between: ('a, 'b, 'c) M.t -> low:('a, 'b, 'c) M.t -> high:('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+  val between_or_equal: ('a, 'b, 'c) M.t -> low:('a, 'b, 'c) M.t -> high:('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+end

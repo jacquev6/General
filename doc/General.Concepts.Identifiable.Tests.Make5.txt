@@ -1,0 +1,12 @@
+module Make5(M: General.Concepts.Identifiable.S5)(E: sig
+  module A: General.Concepts.Identifiable.Tests.Examples.Element
+  module B: General.Concepts.Identifiable.Tests.Examples.Element
+  module C: General.Concepts.Identifiable.Tests.Examples.Element
+  module D: General.Concepts.Identifiable.Tests.Examples.Element
+  module E: General.Concepts.Identifiable.Tests.Examples.Element
+  val equal: (A.t, B.t, C.t, D.t, E.t) M.t list list
+  val different: ((A.t, B.t, C.t, D.t, E.t) M.t * (A.t, B.t, C.t, D.t, E.t) M.t) list
+  val repr: ((A.t, B.t, C.t, D.t, E.t) M.t * bytes) list
+end): sig
+  val test: General.Testing.Test.t
+end

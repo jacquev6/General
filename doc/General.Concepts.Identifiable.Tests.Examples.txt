@@ -1,0 +1,58 @@
+module Examples: sig
+  module type S0 = sig
+    type t
+    val equal: t list list
+    val different: (t * t) list
+    val repr: (t * bytes) list
+  end
+  module type Element = sig
+    type t
+    val equal: t -> t -> bool
+    val repr: t -> bytes
+  end
+  module type S1 = sig
+    type 'a t
+    module A: Element
+    val equal: A.t t list list
+    val different: (A.t t * A.t t) list
+    val repr: (A.t t * bytes) list
+  end
+  module type S2 = sig
+    type ('a, 'b) t
+    module A: Element
+    module B: Element
+    val equal: (A.t, B.t) t list list
+    val different: ((A.t, B.t) t * (A.t, B.t) t) list
+    val repr: ((A.t, B.t) t * bytes) list
+  end
+  module type S3 = sig
+    type ('a, 'b, 'c) t
+    module A: Element
+    module B: Element
+    module C: Element
+    val equal: (A.t, B.t, C.t) t list list
+    val different: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
+    val repr: ((A.t, B.t, C.t) t * bytes) list
+  end
+  module type S4 = sig
+    type ('a, 'b, 'c, 'd) t
+    module A: Element
+    module B: Element
+    module C: Element
+    module D: Element
+    val equal: (A.t, B.t, C.t, D.t) t list list
+    val different: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
+    val repr: ((A.t, B.t, C.t, D.t) t * bytes) list
+  end
+  module type S5 = sig
+    type ('a, 'b, 'c, 'd, 'e) t
+    module A: Element
+    module B: Element
+    module C: Element
+    module D: Element
+    module E: Element
+    val equal: (A.t, B.t, C.t, D.t, E.t) t list list
+    val different: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
+    val repr: ((A.t, B.t, C.t, D.t, E.t) t * bytes) list
+  end
+end
