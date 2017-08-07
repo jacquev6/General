@@ -1,5 +1,5 @@
 module Poly: sig
-  val compare: 'a -> 'a -> Foundations.Compare.t
+  val compare: 'a -> 'a -> General.Compare.t
   val less_than: 'a -> 'a -> bool
   val less_or_equal: 'a -> 'a -> bool
   val greater_than: 'a -> 'a -> bool

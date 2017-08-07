@@ -34,7 +34,7 @@ module Integer: sig
     val exponentiate: t -> int -> t
     val of_int: int -> t
     val of_float: float -> t
-    val compare: t -> t -> Foundations.Compare.t
+    val compare: t -> t -> General.Compare.t
     val less_than: t -> t -> bool
     val less_or_equal: t -> t -> bool
     val greater_than: t -> t -> bool

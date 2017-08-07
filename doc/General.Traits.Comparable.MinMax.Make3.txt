@@ -1,8 +1,8 @@
 module Make3(M: sig
   type ('a, 'b, 'c) t
-  val compare: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> Foundations.Compare.t
+  val compare: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> General.Compare.t
 end): sig
-  val min: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) M.t
-  val max: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) M.t
-  val min_max: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) M.t * ('a, 'b, 'c) M.t
+  val min: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> ('a, 'b, 'c) M.t
+  val max: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> ('a, 'b, 'c) M.t
+  val min_max: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> ('a, 'b, 'c) M.t * ('a, 'b, 'c) M.t
 end

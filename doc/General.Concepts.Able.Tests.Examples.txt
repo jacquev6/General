@@ -8,7 +8,7 @@ module Examples: sig
   end
   module type Element = sig
     type t
-    val compare: t -> t -> Foundations.Compare.t
+    val compare: t -> t -> General.Compare.t
     val equal: t -> t -> bool
     val repr: t -> bytes
   end

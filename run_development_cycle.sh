@@ -299,6 +299,13 @@ with utop("-I", "demo/_build_with_lib") as utop:
     show("General")
 END
 
+for m in src/*.mlpack
+do
+    m=${m%.mlpack}
+    m=${m#src/}
+    grep --color -e "[^\.]$m\." doc/*.txt && exit 1
+done
+
 if [ "x$1" == "x--quick" ]
 then
     exit

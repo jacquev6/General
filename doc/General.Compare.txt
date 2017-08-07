@@ -1,4 +1,4 @@
 module Compare: sig
-  type t = LT | EQ | GT
+  type t = General.Compare.t = LT | EQ | GT
   module Poly
 end

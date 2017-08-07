@@ -3,16 +3,16 @@ module Option: sig
   val equal: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
   val different: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
   val repr: 'a t -> repr_a:('a -> bytes) -> bytes
-  val compare: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> Foundations.Compare.t
-  val less_than: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
-  val less_or_equal: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
-  val greater_than: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
-  val greater_or_equal: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
-  val between: 'a t -> low:'a t -> high:'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
-  val between_or_equal: 'a t -> low:'a t -> high:'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
-  val min: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t
-  val max: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t
-  val min_max: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t * 'a t
+  val compare: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> General.Compare.t
+  val less_than: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+  val less_or_equal: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+  val greater_than: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+  val greater_or_equal: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+  val between: 'a t -> low:'a t -> high:'a t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+  val between_or_equal: 'a t -> low:'a t -> high:'a t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+  val min: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> 'a t
+  val max: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> 'a t
+  val min_max: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> 'a t * 'a t
   val some_if: bool -> 'a lazy_t -> 'a t
   val some_if': bool -> 'a -> 'a t
   val is_some: 'a t -> bool

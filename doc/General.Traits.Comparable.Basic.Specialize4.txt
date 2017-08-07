@@ -1,4 +1,4 @@
 module Specialize4(M: General.Traits.Comparable.Basic.S4)(A: General.Traits.Comparable.Basic.S0)(B: General.Traits.Comparable.Basic.S0)(C: General.Traits.Comparable.Basic.S0)(D: General.Traits.Comparable.Basic.S0): sig
   type t = (A.t, B.t, C.t, D.t) M.t
-  val compare: t -> t -> Foundations.Compare.t
+  val compare: t -> t -> General.Compare.t
 end

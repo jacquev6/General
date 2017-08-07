@@ -51,7 +51,7 @@ module Pervasives: sig
 end
 
 module Compare: sig
-  type t = LT | EQ | GT
+  type t = Foundations.Compare.t = LT | EQ | GT
 
   (* @todo Make sure Poly publishes Compare.t as results (currently if publishes Foundations.Compare.t) *)
   module Poly: sig include Traits.Comparable.SP end

@@ -1,10 +1,10 @@
 module Make1(M: sig
   type 'a t
-  val less_than: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
-  val less_or_equal: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
-  val greater_than: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
-  val greater_or_equal: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+  val less_than: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+  val less_or_equal: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+  val greater_than: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+  val greater_or_equal: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
 end): sig
-  val between: 'a M.t -> low:'a M.t -> high:'a M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
-  val between_or_equal: 'a M.t -> low:'a M.t -> high:'a M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+  val between: 'a M.t -> low:'a M.t -> high:'a M.t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+  val between_or_equal: 'a M.t -> low:'a M.t -> high:'a M.t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
 end
