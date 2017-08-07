@@ -8,7 +8,7 @@ function investigate_version {
   echo "============"
   opam switch --yes ForGeneral.$OCAML_VERSION --alias-of $OCAML_VERSION
   eval `opam config env`
-  opam install --yes cppo js_of_ocaml bisect_ppx bisect-summary
+  opam install --yes cppo js_of_ocaml bisect_ppx bisect-summary utop
   git clean -fXd
   ./run_development_cycle.sh --quick
   echo

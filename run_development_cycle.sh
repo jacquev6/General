@@ -190,6 +190,7 @@ class UTop:
     def __refill_tokens(self, n):
         if len(self.__tokens) <= n:
             self.__tokens = re.split(r"\s+", self.__process.stdout.readline().strip().replace("(", "( ").replace(")", " )"))
+            # print("Tokens:", self.__tokens)
 
     def __next_token(self):
         self.__refill_tokens(0)
@@ -237,7 +238,11 @@ class UTop:
     def __parse_signature(self):
         if self.__peek_token() == "sig":
             self.__assert_token("sig")
-            elements = self.__parse_elements()
+            if self.__peek_token() == "...":
+                self.__assert_token("...")
+                elements = []
+            else:
+                elements = self.__parse_elements()
             self.__assert_token("end")
             return Signature(elements)
         else:
