@@ -1,0 +1,22 @@
+module Make1(M: sig
+  type 'a t
+  val of_list: 'a list -> 'a t
+end)(ToContainer: sig
+  val map: 'a M.t -> f:('a -> 'b) -> 'b list
+  val map_i: 'a M.t -> f:(i:int -> 'a -> 'b) -> 'b list
+  val map_acc: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * 'b) -> 'b list
+  val filter: 'a M.t -> f:('a -> bool) -> 'a list
+  val filter_i: 'a M.t -> f:(i:int -> 'a -> bool) -> 'a list
+  val filter_acc: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a list
+  val filter_map: 'a M.t -> f:('a -> 'b option) -> 'b list
+  val filter_map_i: 'a M.t -> f:(i:int -> 'a -> 'b option) -> 'b list
+  val filter_map_acc: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b list
+  val flat_map: 'a M.t -> f:('a -> 'b list) -> 'b list
+  val flat_map_i: 'a M.t -> f:(i:int -> 'a -> 'b list) -> 'b list
+  val flat_map_acc: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * 'b list) -> 'b list
+end)(Container: sig
+  val of_list: 'a list -> 'a list
+  val to_list: 'a list -> 'a list
+end): sig
+  val test: General.Testing.Test.t
+end

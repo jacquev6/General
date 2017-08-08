@@ -30,4 +30,5 @@ module ToList: sig
     val flat_map_i: 'a t -> f:(i:int -> 'a -> 'b list) -> 'b list
     val flat_map_acc: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b list) -> 'b list
   end
+  module Tests
 end

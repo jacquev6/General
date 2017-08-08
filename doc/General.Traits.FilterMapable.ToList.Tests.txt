@@ -1,0 +1,3 @@
+module Tests: sig
+  module Make1
+end

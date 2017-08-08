@@ -769,7 +769,11 @@ module Stream: sig
 
   include Traits.FilterMapable.S1 with type 'a t := 'a t
   (* @feature Other iteration traits: Foldable and Scanable *)
-  (* @feature module ToList *)
+
+  module ToList: sig
+    include Traits.FilterMapable.ToList.S1 with type 'a t := 'a t
+  end
+
   (* @feature module Specialize (with ToList and ToStream) *)
 end
 

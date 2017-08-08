@@ -30,4 +30,5 @@ module ToArray: sig
     val flat_map_i: 'a t -> f:(i:int -> 'a -> 'b array) -> 'b array
     val flat_map_acc: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b array) -> 'b array
   end
+  module Tests
 end
