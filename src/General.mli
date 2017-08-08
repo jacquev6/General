@@ -755,7 +755,6 @@ module Array: sig
   val get: 'a t -> int -> 'a
 end
 
-(* @feature Range *)
 (* @feature SortedList, UniqueList? *)
 (* @feature Double-ended queue *)
 (* @feature SortedSet, SortedMap, HashSet, HashMap *)
@@ -764,6 +763,29 @@ end
 (* @feature Stream *)
 
 (* Specializations of collection containers *)
+
+module IntRange: sig
+  type t
+
+  include Concepts.Identifiable.S0 with type t := t
+  (* @feature Add Comparable to make it Able
+  Warning: compare r1 r2 should always be equal to List.compare (to_list r1) (to_list r2), so Compare.Poly will not work. *)
+
+  val empty: t
+  val create: ?start:int -> ?step:int -> int -> t
+
+  val to_list: t -> int list
+  val to_array: t -> int array
+
+  include Traits.Foldable.S0 with type elt := int and type t := t
+  include Traits.Foldable.Short.S0 with type elt := int and type t := t
+
+  module ToList: sig
+    include Traits.FilterMapable.ToList.S0 with type elt := int and type t := t
+    include Traits.Scanable.ToList.S0 with type elt := int and type t := t
+    include Traits.Scanable.Short.ToList.S0 with type elt := int and type t := t
+  end
+end
 
 module IntList: sig
   include module type of List.Specialize(Int)
@@ -967,6 +989,8 @@ module Standard: sig
   module Tuple5: module type of Tuple5
   module Unit: module type of Unit
 
+  module IntRange: module type of IntRange
+
   module IntOption: module type of IntOption
   module FloatOption: module type of FloatOption
   module StringOption: module type of StringOption
@@ -1026,6 +1050,8 @@ module Abbr: sig
   module Tu4: module type of Tuple4
   module Tu5: module type of Tuple5
   module Unit: module type of Unit
+
+  module IntRa: module type of IntRange
 
   module IntOpt: module type of IntOption
   module FlOpt: module type of FloatOption

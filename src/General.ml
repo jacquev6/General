@@ -44,6 +44,8 @@ module Tuple4 = Implementation.Tuples.Tuple4
 module Tuple5 = Implementation.Tuples.Tuple5
 module Unit = Implementation.Unit
 
+module IntRange = Implementation.IntRange
+
 module IntOption = Specializations.Option.Int
 module FloatOption = Specializations.Option.Float
 module StringOption = Specializations.Option.String_
@@ -92,6 +94,8 @@ module Standard = struct
   module Tuple4 = Tuple4
   module Tuple5 = Tuple5
   module Unit = Unit
+
+  module IntRange = IntRange
 
   module IntOption = IntOption
   module FloatOption = FloatOption
@@ -154,6 +158,8 @@ module Abbr = struct
   module Tu4 = Tuple4
   module Tu5 = Tuple5
   module Unit = Unit
+
+  module IntRa = IntRange
 
   module IntOpt = IntOption
   module FlOpt = FloatOption

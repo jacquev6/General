@@ -35,6 +35,7 @@ module Standard: sig
   module Tuple4
   module Tuple5
   module Unit
+  module IntRange
   module IntOption
   module FloatOption
   module StringOption

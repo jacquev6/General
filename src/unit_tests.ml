@@ -22,6 +22,8 @@ let test = "General" >:: [
   String_.Tests.test;
   Tuples.Tests.test;
 
+  IntRange.Tests.test;
+
   TestingTests.Tests.test;
 ]
 

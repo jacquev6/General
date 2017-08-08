@@ -35,6 +35,7 @@ module Abbr: sig
   module Tu4
   module Tu5
   module Unit
+  module IntRa
   module IntOpt
   module FlOpt
   module StrOpt

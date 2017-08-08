@@ -16,6 +16,7 @@ src/Implementation/InFile
 src/Implementation/Int
 src/Implementation/Int32_
 src/Implementation/Int64_
+src/Implementation/IntRange
 src/Implementation/Lazy_
 src/Implementation/List_
 src/Implementation/NativeInt_
