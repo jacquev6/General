@@ -113,9 +113,10 @@ module Exponentiate = struct
     val exponentiate_negative_exponent: exponentiate:(t -> int -> t) -> t -> int -> t
   end) = struct
     open M
+    open Int.O
 
-    let exponentiate =
-      let rec aux y x n = Int.O.(
+    let exponentiate x n =
+      let rec aux y x n =
         if n < 0 then
           exponentiate_negative_exponent ~exponentiate:(aux one) x n
         else if n = 0 then
@@ -126,8 +127,7 @@ module Exponentiate = struct
           aux y (square x) (n / 2)
         else
           aux (multiply x y) (square x) ((n - 1) / 2)
-      ) in
-      fun x n ->
+      in
       aux one x n
   end
 end
