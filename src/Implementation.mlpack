@@ -30,6 +30,7 @@ src/Implementation/StandardOutChannel
 src/Implementation/StdErr
 src/Implementation/StdIn
 src/Implementation/StdOut
+src/Implementation/Stream_
 src/Implementation/String_
 src/Implementation/TestingTests
 src/Implementation/Tuples

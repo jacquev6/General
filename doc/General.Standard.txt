@@ -29,6 +29,7 @@ module Standard: sig
   module StdErr
   module StdIn
   module StdOut
+  module Stream
   module String
   module Tuple2
   module Tuple3
@@ -222,7 +223,6 @@ module Standard: sig
   module Sort
   module Stack
   module StdLabels
-  module Stream
   module StringLabels
   module Sys
   module Weak

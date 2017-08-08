@@ -30,6 +30,7 @@ module Abbr: sig
   module StdIn
   module StdOut
   module Str
+  module Strm
   module Tu2
   module Tu3
   module Tu4

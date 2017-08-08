@@ -19,6 +19,7 @@ let test = "General" >:: [
   List_.Tests.test;
   NativeInt_.Tests.test;
   Option.Tests.test;
+  Stream_.Tests.test;
   String_.Tests.test;
   Tuples.Tests.test;
 

@@ -426,7 +426,7 @@ module Option: sig
 
   include Concepts.Able.S1 with type 'a t := 'a t
 
-  (* @feature coalesce[_def] (with an (|||) operator?) *)
+  (* @feature coalesce[_def] (with an (|||) operator? The operator *has* to be lazy like (&&) and (||)) *)
 
   val some_if: bool -> 'a lazy_t -> 'a t
   val some_if': bool -> 'a -> 'a t
@@ -755,6 +755,24 @@ module Array: sig
   val get: 'a t -> int -> 'a
 end
 
+module Stream: sig
+  type 'a t = 'a Pervasives.OCamlStandard.Stream.t
+
+  val empty: 'a t
+  val singleton: 'a -> 'a t
+
+  val to_list: 'a t -> 'a list
+  val of_list: 'a list -> 'a t
+
+  val prepend: 'a -> 'a t -> 'a t
+  val concat: 'a t -> 'a t -> 'a t
+
+  include Traits.FilterMapable.S1 with type 'a t := 'a t
+  (* @feature Other iteration traits: Foldable and Scanable *)
+  (* @feature module ToList *)
+  (* @feature module Specialize (with ToList and ToStream) *)
+end
+
 (* @feature SortedList, UniqueList? *)
 (* @feature Double-ended queue *)
 (* @feature SortedSet, SortedMap, HashSet, HashMap *)
@@ -804,7 +822,7 @@ end
 (* @feature XxxList when Xxx is a Ringoid: add sum, product *)
 (* @feature BoolList (with all, exists, etc.) *)
 (* @feature OptionList (with first_some, values (ie filter_some)) *)
-(* @todo ListList with val flatten: 'a t t -> 'a t *)
+(* @todo ListList, ArrayArray, StreamStream with val flatten: 'a t t -> 'a t *)
 (* @feature LazyList.to_list_lazy *)
 
 (* Input/output *)
@@ -982,6 +1000,7 @@ module Standard: sig
   module StdErr: module type of StdErr
   module StdIn: module type of StdIn
   module StdOut: module type of StdOut
+  module Stream: module type of Stream
   module String: module type of String
   module Tuple2: module type of Tuple2
   module Tuple3: module type of Tuple3
@@ -1009,6 +1028,7 @@ module Standard: sig
   and module Int64 := Int64
   and module Lazy := Lazy
   and module List := List
+  and module Stream := Stream
   and module String := String
 end
 
@@ -1045,6 +1065,7 @@ module Abbr: sig
   module StdIn: module type of StdIn
   module StdOut: module type of StdOut
   module Str: module type of String
+  module Strm: module type of Stream
   module Tu2: module type of Tuple2
   module Tu3: module type of Tuple3
   module Tu4: module type of Tuple4

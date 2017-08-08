@@ -38,6 +38,7 @@ module General: sig
   module StringReference
   module List
   module Array
+  module Stream
   module IntRange
   module IntList
   module FloatList
