@@ -23,6 +23,7 @@ src/Implementation/Option
 src/Implementation/OutChannel
 src/Implementation/OutFile
 src/Implementation/Reference
+src/Implementation/Shorten
 src/Implementation/StandardInt
 src/Implementation/StandardOutChannel
 src/Implementation/StdErr

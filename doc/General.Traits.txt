@@ -3,7 +3,10 @@ module Traits: sig
   module Equatable
   module Comparable
   module Displayable
+  module FilterMapable
+  module Foldable
   module Parsable
   module PredSucc
   module Ringoid
+  module Scanable
 end

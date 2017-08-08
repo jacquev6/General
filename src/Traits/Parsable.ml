@@ -31,7 +31,7 @@ module Tests = struct
 
     let test = "Parsable" >:: (
       E.of_string
-      |> List_.concat_map ~f:(fun (s, expected) ->
+      |> List_.flat_map ~f:(fun (s, expected) ->
         [
           ~: "of_string %S" s (lazy (check ~repr ~equal ~expected (of_string s)));
           ~: "try_of_string %S" s (lazy (check_some ~repr ~equal ~expected (try_of_string s)));

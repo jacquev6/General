@@ -53,7 +53,6 @@ end
 module Compare: sig
   type t = Foundations.Compare.t = LT | EQ | GT
 
-  (* @todo Make sure Poly publishes Compare.t as results (currently if publishes Foundations.Compare.t) *)
   module Poly: sig include Traits.Comparable.SP end
 end
 
@@ -63,13 +62,13 @@ module Equate: sig
   module Physical: Traits.Equatable.SP with module O := Poly.O (* SP without module O. Should we create a sig in the trait for that? *)
 end
 
+module Shorten: sig
+  type t = Foundations.Shorten.t = GoOn | ShortCircuit
+end
+
 module Traits: module type of Traits
 (* @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
-(* @feature Traits for FilterMapable, ToStd (map_to_list, filter_to_array, filter_map_to_array_i) and ToSelf (map, filter_i, filter_map_i) *)
-(* @feature Traits for Foldable, Left and Right, with short-circuit
-Extensions include count[_i], iter[_i], for_all[_i], ther_exists[_i], [try_]find[_map][_i], [try_]reduce[_short][_right][_i] *)
 (* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
-(* @feature Traits for Scanable (Left and Right), ToStd and ToSelf, with short-circuit *)
 
 (* Typology of iterations other collection:
 - is there an accumulator (fold vs map)
@@ -650,96 +649,94 @@ module StringReference: sig
 end
 
 (* @feature BoolReference with set and reset *)
-(* @feature OptionReference with := s setting to Some x and reset setting to None *)
+(* @feature OptionReference with := x setting to Some x and reset setting to None *)
 (* @feature OptionPair.to_pair_option (Some a, Some b) -> Some (a, b) | _ -> None *)
 (* @feature LazyPair.to_pair_lazy *)
-(* @feature LazyList.to_list_lazy *)
 
 (* Collection containers *)
 
 module List: sig
   type 'a t = 'a list
 
-  (* @todo Traits *)
+  module O: sig
+    val (@): 'a t -> 'a t -> 'a t
+  end
 
   val empty: 'a t
+  val singleton: 'a -> 'a t
   val of_list: 'a list -> 'a t
   val to_list: 'a t -> 'a list
   val of_array: 'a array -> 'a t
   val to_array: 'a t -> 'a array
 
   val size: 'a t -> int
-  val contains: 'a t -> 'a -> equal_a:('a -> 'a -> bool) -> bool
-
-  val cons: 'a -> 'a t -> 'a t
+  val is_empty: 'a t -> bool
   val head: 'a t -> 'a
   val tail: 'a t -> 'a t
   val try_head: 'a t -> 'a option
   val try_tail: 'a t -> 'a t option
 
-  val reverse: 'a t -> 'a t
-  val append: 'a t -> 'a t -> 'a t
-
-  val map: 'a t -> f:('a -> 'b) -> 'b t
-  val iter: 'a t -> f:('a -> unit) -> unit
-  val fold: 'a t -> init:'b -> f:('b -> 'a -> 'b) -> 'b
-  val try_reduce: 'a t -> f:('a -> 'a -> 'a) -> 'a option
-  val reduce: 'a t -> f:('a -> 'a -> 'a) -> 'a
-  (* val scan: *)
-
-  val concat_map: 'a t -> f:('a -> 'b t) -> 'b t
-
-  val filter: 'a t -> f:('a -> bool) -> 'a t
-  val filter_map: 'a t -> f:('a -> 'b option) -> 'b t
-
-  val iter_i: 'a t -> f:(int -> 'a -> unit) -> unit
-  val fold_i: 'a t -> init:'b -> f:(int -> 'b -> 'a -> 'b) -> 'b
-
-  module O: sig
-    val (@): 'a t -> 'a t -> 'a t
-  end
+  val contains: 'a t -> 'a -> equal_a:('a -> 'a -> bool) -> bool
 
   module Poly: sig
     val contains: 'a t -> 'a -> bool
   end
 
+  val prepend: 'a -> 'a t -> 'a t
+  val reverse: 'a t -> 'a t
+  val concat: 'a t -> 'a t -> 'a t
+
+  include Traits.FilterMapable.S1 with type 'a t := 'a t
+  include Traits.Foldable.S1 with type 'a t := 'a t
+  include Traits.Foldable.Short.S1 with type 'a t := 'a t
+  (* include Traits.Foldable.Right.S1 with type 'a t := 'a t *)
+  (* include Traits.Foldable.Short.Right.S1 with type 'a t := 'a t *)
+  include Traits.Scanable.S1 with type 'a t := 'a t
+  include Traits.Scanable.Short.S1 with type 'a t := 'a t
+  (* include Traits.Scanable.Right.S1 with type 'a t := 'a t *)
+  (* include Traits.Scanable.Short.Right.S1 with type 'a t := 'a t *)
+
   module Specialize(A: sig type t end): sig
     type t = A.t list
 
+    module O: sig
+      val (@): t -> t -> t
+    end
+
     val empty: t
+    val singleton: A.t -> t
     val of_list: A.t list -> t
     val to_list: t -> A.t list
     val of_array: A.t array -> t
     val to_array: t -> A.t array
 
     val size: t -> int
-
-    val cons: A.t -> t -> t
+    val is_empty: t -> bool
     val head: t -> A.t
     val tail: t -> t
     val try_head: t -> A.t option
     val try_tail: t -> t option
 
+    val prepend: A.t -> t -> t
     val reverse: t -> t
-    val append: t -> t -> t
+    val concat: t -> t -> t
 
-    val map: t -> f:(A.t -> 'a) -> 'a list
-    val iter: t -> f:(A.t -> unit) -> unit
-    val fold: t -> init:'a -> f:('a -> A.t -> 'a) -> 'a
-    val try_reduce: t -> f:(A.t -> A.t -> A.t) -> A.t option
-    val reduce: t -> f:(A.t -> A.t -> A.t) -> A.t
-    (* val scan: *)
+    include Traits.FilterMapable.S0 with type elt := A.t and type t := t
+    include Traits.Foldable.S0 with type elt := A.t and type t := t
+    include Traits.Foldable.Short.S0 with type elt := A.t and type t := t
+    (* include Traits.Foldable.Right.S0 with type elt := A.t and type t := t *)
+    (* include Traits.Foldable.Short.Right.S0 with type elt := A.t and type t := t *)
+    include Traits.Scanable.S0 with type elt := A.t and type t := t
+    include Traits.Scanable.Short.S0 with type elt := A.t and type t := t
+    (* include Traits.Scanable.Right.S0 with type elt := A.t and type t := t *)
+    (* include Traits.Scanable.Short.Right.S0 with type elt := A.t and type t := t *)
 
-    val concat_map: t -> f:(A.t -> 'a list) -> 'a list
-
-    val filter: t -> f:(A.t -> bool) -> t
-    val filter_map: t -> f:(A.t -> 'a option) -> 'a list
-
-    val iter_i: t -> f:(int -> A.t -> unit) -> unit
-    val fold_i: t -> init:'a -> f:(int -> 'a -> A.t -> 'a) -> 'a
-
-    module O: sig
-      val (@): t -> t -> t
+    module ToList: sig
+      include Traits.FilterMapable.ToList.S0 with type elt := A.t and type t := t
+      include Traits.Scanable.ToList.S0 with type elt := A.t and type t := t
+      include Traits.Scanable.Short.ToList.S0 with type elt := A.t and type t := t
+      (* include Traits.Scanable.Right.ToList.S0 with type elt := A.t and type t := t *)
+      (* include Traits.Scanable.Short.Right.ToList.S0 with type elt := A.t and type t := t *)
     end
   end
 
@@ -762,6 +759,7 @@ end
 (* @feature SortedList, UniqueList? *)
 (* @feature Double-ended queue *)
 (* @feature SortedSet, SortedMap, HashSet, HashMap *)
+(* @feature SortedMultiSet, SortedMultiMap, HashMultiSet, HashMultiMap *)
 (* [Sorted|Hash]Index (a Map where the keys are computed from the values (think "vertex_by_name")) *)
 (* @feature Stream *)
 
@@ -784,6 +782,8 @@ end
 (* @feature XxxList when Xxx is a Ringoid: add sum, product *)
 (* @feature BoolList (with all, exists, etc.) *)
 (* @feature OptionList (with first_some, values (ie filter_some)) *)
+(* @todo ListList with val flatten: 'a t t -> 'a t *)
+(* @feature LazyList.to_list_lazy *)
 
 (* Input/output *)
 

@@ -1,7 +1,10 @@
 src/Traits/Comparable
 src/Traits/Displayable
 src/Traits/Equatable
+src/Traits/FilterMapable
+src/Traits/Foldable
 src/Traits/Parsable
 src/Traits/PredSucc
 src/Traits/Representable
 src/Traits/Ringoid
+src/Traits/Scanable

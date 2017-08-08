@@ -9,6 +9,27 @@ module Specialize(A: sig type t end) = struct
   type t = A.t list
 
   include (Self: module type of Self with type 'a t := 'a Self.t)
+
+  module ToList = struct
+    let map = map
+    let map_acc = map_acc
+    let map_i = map_i
+    let filter = filter
+    let filter_acc = filter_acc
+    let filter_i = filter_i
+    let filter_map = filter_map
+    let filter_map_acc = filter_map_acc
+    let filter_map_i = filter_map_i
+    let flat_map = flat_map
+    let flat_map_acc = flat_map_acc
+    let flat_map_i = flat_map_i
+    let scan = scan
+    let scan_acc = scan_acc
+    let scan_i = scan_i
+    let scan_short = scan_short
+    let scan_short_acc = scan_short_acc
+    let scan_short_i = scan_short_i
+  end
 end
 
 module SpecializeEquatable(A: Traits.Equatable.Basic.S0) = struct
@@ -48,8 +69,18 @@ module Tests = struct
     (let module T = Traits.Representable.Tests.Make1(Self)(Examples) in T.test);
     (let module T = Traits.Equatable.Tests.Make1(Self)(Examples) in T.test);
     "reverse" >: (lazy (check_string_list ~expected:["3"; "2"; "1"] (reverse ["1"; "2"; "3"])));
-    "append" >: (lazy (check_int_list ~expected:[1; 2; 3; 4; 5; 6] (append [1; 2; 3] [4; 5; 6])));
-    "cons" >: (lazy (check_int_list ~expected:[1; 2; 3] (cons 1 [2; 3])));
+    "concat" >: (lazy (check_int_list ~expected:[1; 2; 3; 4; 5; 6] (concat [1; 2; 3] [4; 5; 6])));
+    "flat_map" >: (lazy (check_int_list
+      ~expected:[1; 2; 4; 3; 9; 27; 4; 16; 64; 256]
+      (flat_map [1; 2; 3; 4] ~f:(function
+        | 1 -> [1]
+        | 2 -> [2; 4]
+        | 3 -> [3; 9; 27]
+        | 4 -> [4; 16; 64; 256]
+        | _ -> [42]
+      ))
+    ));
+    "prepend" >: (lazy (check_int_list ~expected:[1; 2; 3] (prepend 1 [2; 3])));
     "try_head" >: (lazy (check_some_int ~expected:1 (try_head [1; 2; 3])));
     "try_head []" >: (lazy (check_none_int (try_head [])));
     "try_tail" >: (lazy (check_some ~repr:(repr ~repr_a:Int.repr) ~equal:(equal ~equal_a:Int.equal) ~expected:[2; 3] (try_tail [1; 2; 3])));

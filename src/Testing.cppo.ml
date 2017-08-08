@@ -139,7 +139,7 @@ module Result = struct
       | `Group (name, children, {Counts.successes; failures; errors}) ->
         let children =
           children
-          |> List_.concat_map ~f:(aux (indent ^ "  "))
+          |> List_.flat_map ~f:(aux (indent ^ "  "))
         and line =
           if Int.O.(failures + errors = 0) then
             Format_.apply "%s%S (Successes: %i)" indent name successes

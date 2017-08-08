@@ -188,7 +188,7 @@ PLEASE_USE(fst, Tuple2__get_0)
 PLEASE_USE(snd, Tuple2__get_1)
 
 (* List operations *)
-PLEASE_USE((@), List__append)
+PLEASE_USE((@), List__concat)
 
 (* Input/output *)
 PLEASE_USE_TYPE(in_channel, InChannel__t)

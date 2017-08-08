@@ -1271,7 +1271,7 @@ module Tests = struct
 
     let test = "Comparable" >:: (
       E.ordered
-      |> List_.concat_map ~f:(fun xs ->
+      |> List_.flat_map ~f:(fun xs ->
         List_.fold ~init:(List_.head xs, []) (List_.tail xs) ~f:(fun (x, tests) y ->
           let rx = repr x and ry = repr y in
           let new_tests = [
@@ -1305,9 +1305,9 @@ module Tests = struct
       )
     ) @ (
       E.equal
-      |> List_.concat_map ~f:(fun xs ->
+      |> List_.flat_map ~f:(fun xs ->
         List_.cartesian_product xs xs
-        |> List_.concat_map ~f:(fun (x, y) ->
+        |> List_.flat_map ~f:(fun (x, y) ->
           let rx = repr x and ry = repr y in
           [
             ~: "less_than %s %s" rx ry (lazy (check_false (less_than x y)));

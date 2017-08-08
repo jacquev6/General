@@ -44,7 +44,7 @@ module Tests = struct
 
     let test = "PredSucc" >:: (
       E.succ
-      |> List_.concat_map ~f:(fun (p, s) ->
+      |> List_.flat_map ~f:(fun (p, s) ->
         let rp = repr p and rs = repr s in
         [
           ~: "succ %s" rp (lazy (check ~repr ~equal ~expected:s (succ p)));

@@ -16,6 +16,7 @@ src/Foundations/Reference
 src/Foundations/Reset
 src/Foundations/ResetPervasives
 src/Foundations/ResetStandardLibrary
+src/Foundations/Shorten
 src/Foundations/String_
 src/Foundations/Tuples
 src/Foundations/Unit

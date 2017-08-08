@@ -1,5 +1,6 @@
 module Pervasives = Pervasives_
 
+module Shorten = Implementation.Shorten
 module Compare = Implementation.Compare
 module Equate = Implementation.Equate
 
