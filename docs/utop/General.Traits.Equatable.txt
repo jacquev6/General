@@ -9,6 +9,10 @@ module Equatable: sig
       val (<>): 'a -> 'a -> bool
     end
   end
+  module type SP' = sig
+    val equal: 'a -> 'a -> bool
+    val different: 'a -> 'a -> bool
+  end
   module type S0 = sig
     type t
     val equal: t -> t -> bool

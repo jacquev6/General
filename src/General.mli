@@ -50,18 +50,6 @@ module Pervasives: sig
   val identity: 'a -> 'a
 end
 
-module Compare: sig
-  type t = Foundations.Compare.t = LT | EQ | GT
-
-  module Poly: sig include Traits.Comparable.SP end
-end
-
-module Equate: sig
-  module Poly: sig include Traits.Equatable.SP end
-
-  module Physical: Traits.Equatable.SP with module O := Poly.O (* SP without module O. Should we create a sig in the trait for that? *)
-end
-
 module Shorten: sig
   type t = Foundations.Shorten.t = GoOn | ShortCircuit
 end
@@ -83,6 +71,17 @@ module Concepts: module type of Concepts
 (* @feature Concepts.Stringable including Parsable and Displayable *)
 
 (* Technical, utility modules *)
+
+module Compare: sig
+  type t = Foundations.Compare.t = LT | EQ | GT
+
+  module Poly: Traits.Comparable.SP
+end
+
+module Equate: sig
+  module Poly: Traits.Equatable.SP
+  module Physical: Traits.Equatable.SP'
+end
 
 module CallStack: sig
   type t = Pervasives.OCamlStandard.Printexc.raw_backtrace

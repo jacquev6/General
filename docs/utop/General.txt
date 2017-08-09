@@ -1,10 +1,10 @@
 module General: sig
   module Pervasives
-  module Compare
-  module Equate
   module Shorten
   module Traits
   module Concepts
+  module Compare
+  module Equate
   module CallStack
   module Exception
   module Exit

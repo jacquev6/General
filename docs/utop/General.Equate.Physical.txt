@@ -1,4 +1,0 @@
-module Physical: sig
-  val equal: 'a -> 'a -> bool
-  val different: 'a -> 'a -> bool
-end

@@ -143,6 +143,13 @@ module type SP = sig
   module O: sig include Operators.SP end
 end
 
+module type SP' = sig
+  include Basic.SP
+
+  val different: 'a -> 'a
+    -> bool
+end
+
 module type S0 = sig
   include Basic.S0
 
