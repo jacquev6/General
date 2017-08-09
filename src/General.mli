@@ -851,6 +851,8 @@ end
 
 module InChannel: sig
   type t = Pervasives.OCamlStandard.Pervasives.in_channel
+
+  (* @feature val lines: string Stream.t *)
 end
 
 module InFile: sig
