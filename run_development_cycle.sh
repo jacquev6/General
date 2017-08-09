@@ -107,8 +107,8 @@ demo/_build_with_lib/demo.native
 
 echo
 echo "Exporting interface as seen in utop"
-rm -rf doc
-mkdir doc
+rm -rf docs/utop
+mkdir docs/utop
 
 python3 <<END
 import contextlib
@@ -289,7 +289,7 @@ with utop("-I", "demo/_build_with_lib") as utop:
     def show(module_name):
         # print(module_name)
         module = utop.show_module(module_name)
-        with open("doc/{}.txt".format(module_name), "w") as f:
+        with open("docs/utop/{}.txt".format(module_name), "w") as f:
             f.write(module.text().replace("( ", "(").replace(" )", ")").replace(" :", ":"))
 
         if module_name not in [
@@ -308,7 +308,7 @@ for m in src/*.mlpack
 do
     m=${m%.mlpack}
     m=${m#src/}
-    grep --color -e "[^\.]$m\." doc/*.txt && exit 1
+    grep --color -e "[^\.]$m\." docs/utop/*.txt && exit 1
 done
 
 if [ "x$1" == "x--quick" ]
