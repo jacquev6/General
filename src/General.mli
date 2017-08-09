@@ -1,10 +1,19 @@
 (* Basics *)
 
+(** Some doc for Pervasives *)
 module Pervasives: sig
-  include module type of Foundations.ResetPervasives
-  include module type of Foundations.ResetStandardLibrary
+  include module type of Foundations.ResetPervasives [@@autodoc.hide]
+  include module type of Foundations.ResetStandardLibrary [@@autodoc.hide]
 
+  (** The module resets all elements from the standard pervasives, and them brings back the following. *)
+
+  (** Boolean negation *)
   val not: bool -> bool
+  (**
+  # not true;;
+  - : bool = false
+  *)
+
   val (&&): bool -> bool -> bool
   val (||): bool -> bool -> bool
   val xor: bool -> bool -> bool
@@ -139,7 +148,10 @@ module Exception: sig
   exception InvalidArgument of string
   exception Failure of string
   exception NotFound
+
+  (** Raised when the system could not allocate memory *)
   exception OutOfMemory
+
   exception StackOverflow
   exception SysError of string
   exception EndOfFile
