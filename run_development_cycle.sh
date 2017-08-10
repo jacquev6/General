@@ -107,8 +107,8 @@ demo/_build_with_lib/demo.native
 
 echo
 echo "Exporting interface as seen in utop"
-rm -rf docs/utop
-mkdir docs/utop
+rm -rf doc/utop
+mkdir doc/utop
 
 python3 <<END
 import contextlib
@@ -289,7 +289,7 @@ with utop("-I", "demo/_build_with_lib") as utop:
     def show(module_name):
         # print(module_name)
         module = utop.show_module(module_name)
-        with open("docs/utop/{}.txt".format(module_name), "w") as f:
+        with open("doc/utop/{}.txt".format(module_name), "w") as f:
             f.write(module.text().replace("( ", "(").replace(" )", ")").replace(" :", ":"))
 
         if module_name not in [
@@ -308,7 +308,7 @@ for m in src/*.mlpack
 do
     m=${m%.mlpack}
     m=${m#src/}
-    grep --color -e "[^\.]$m\." docs/utop/*.txt && exit 1
+    grep --color -e "[^\.]$m\." doc/utop/*.txt && exit 1
 done
 
 if [ "x$1" == "x--quick" ]
@@ -348,16 +348,12 @@ cd ../..
 rm -rf docs/autodoc
 mkdir docs/autodoc
 cd _build_native/src
-../../doc/autoocamldoc/_build/autoocamldoc.byte General.mli > ../../docs/autodoc/General.json
+../../doc/autoocamldoc/_build/autoocamldoc.byte General.mli > ../../doc/reference.json
 cd ../..
 
 sphinx-build doc _build_native/sphinx/html -d _build_native/sphinx/doctrees
-# @todo When we can remove utop and autoocamldoc from docs, do it and replace the complex cleanning below by just "rm -rf docs"
-rm -rf docs/_*
-rm -rf docs/*.html
-rm -rf docs/*.js
-rm -rf docs/objects.inv
-cp -r _build_native/sphinx/html/* docs
+rm -rf docs
+cp -r _build_native/sphinx/html docs
 touch docs/.nojekyll
 rm -f docs/.buildinfo
 echo
