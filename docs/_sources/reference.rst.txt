@@ -15,6 +15,9 @@ Reference
     The module overrides all elements from the standard
     `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_ with unusable but guiding values:
 
+    .. val:: raise
+        type: [ `Please_use_General__Exception__raise ]
+
     It then brings back a small set of ubiquitous values:
 
     .. val:: not
@@ -22,97 +25,97 @@ Reference
 
       Boolean negation. Alias of :val:`General.Bool.not`.
 
-    .. val:: &&
+    .. val:: (&&)
         type: bool -> bool -> bool
 
-    .. val:: ||
+    .. val:: (||)
         type: bool -> bool -> bool
 
     .. val:: xor
         type: bool -> bool -> bool
 
-    .. val:: ~-.
+    .. val:: (~-.)
         type: float -> float
 
-    .. val:: ~+.
+    .. val:: (~+.)
         type: float -> float
 
-    .. val:: +.
+    .. val:: (+.)
         type: float -> float -> float
 
-    .. val:: -.
+    .. val:: (-.)
         type: float -> float -> float
 
-    .. val:: *.
+    .. val:: (*.)
         type: float -> float -> float
 
-    .. val:: /.
+    .. val:: (/.)
         type: float -> float -> float
 
-    .. val:: **
+    .. val:: (**)
         type: float -> float -> float
 
-    .. val:: @@
+    .. val:: (@@)
         type: ('a -> 'b) -> 'a -> 'b
 
-    .. val:: |>
+    .. val:: (|>)
         type: 'a -> ('a -> 'b) -> 'b
 
-    .. val:: %
+    .. val:: (%)
         type: ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
 
-    .. val:: ~-
+    .. val:: (~-)
         type: int -> int
 
-    .. val:: ~+
+    .. val:: (~+)
         type: int -> int
 
-    .. val:: +
+    .. val:: (+)
         type: int -> int -> int
 
-    .. val:: -
+    .. val:: (-)
         type: int -> int -> int
 
-    .. val:: *
+    .. val:: (*)
         type: int -> int -> int
 
-    .. val:: /
+    .. val:: (/)
         type: int -> int -> int
 
-    .. val:: mod
+    .. val:: (mod)
         type: int -> int -> int
 
-    .. val:: @
+    .. val:: (@)
         type: 'a list -> 'a list -> 'a list
 
-    .. val:: ^
+    .. val:: (^)
         type: string -> string -> string
 
     .. val:: ref
         type: 'a -> 'a OCamlStandard.Pervasives.ref
 
-    .. val:: :=
+    .. val:: (:=)
         type: 'a OCamlStandard.Pervasives.ref -> 'a -> unit
 
-    .. val:: !
+    .. val:: (!)
         type: 'a OCamlStandard.Pervasives.ref -> 'a
 
-    .. val:: =
+    .. val:: (=)
         type: 'a -> 'a -> bool
 
-    .. val:: <>
+    .. val:: (<>)
         type: 'a -> 'a -> bool
 
-    .. val:: <
+    .. val:: (<)
         type: 'a -> 'a -> bool
 
-    .. val:: <=
+    .. val:: (<=)
         type: 'a -> 'a -> bool
 
-    .. val:: >=
+    .. val:: (>=)
         type: 'a -> 'a -> bool
 
-    .. val:: >
+    .. val:: (>)
         type: 'a -> 'a -> bool
 
     .. val:: ignore
@@ -233,13 +236,13 @@ Reference
 
     .. module:: O
 
-      .. val:: @@
+      .. val:: (@@)
           type: ('a, 'z) t -> 'a -> 'z
 
-      .. val:: |>
+      .. val:: (|>)
           type: 'a -> ('a, 'z) t -> 'z
 
-      .. val:: %
+      .. val:: (%)
           type: ('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t
 
   .. module:: Function2
@@ -310,10 +313,10 @@ Reference
       .. val:: not
           type: t -> t
 
-      .. val:: &&
+      .. val:: (&&)
           type: t -> t -> t
 
-      .. val:: ||
+      .. val:: (||)
           type: t -> t -> t
 
       .. val:: xor
@@ -521,7 +524,7 @@ Reference
 
     .. module:: O
 
-      .. val:: ^
+      .. val:: (^)
           type: t -> t -> t
 
     .. val:: concat
@@ -630,10 +633,10 @@ Reference
       .. val:: ref
           type: 'a -> 'a t
 
-      .. val:: !
+      .. val:: (!)
           type: 'a t -> 'a
 
-      .. val:: :=
+      .. val:: (:=)
           type: 'a t -> 'a -> unit
 
     .. module:: SpecializeOperators
@@ -752,7 +755,7 @@ Reference
 
     .. module:: O
 
-      .. val:: =^
+      .. val:: (=^)
           type: t -> string -> unit
 
   .. module:: List
@@ -761,7 +764,7 @@ Reference
 
     .. module:: O
 
-      .. val:: @
+      .. val:: (@)
           type: 'a t -> 'a t -> 'a t
 
     .. val:: empty
@@ -1008,16 +1011,16 @@ Reference
     .. val:: command_line_main
         type: argv:string list -> Test.t -> Exit.t
 
-    .. val:: >::
+    .. val:: (>::)
         type: string -> Test.t list -> Test.t
 
-    .. val:: >:
+    .. val:: (>:)
         type: string -> unit lazy_t -> Test.t
 
-    .. val:: ~:
+    .. val:: (~:)
         type: ('a, unit, string, string, string, unit lazy_t -> Test.t) CamlinternalFormatBasics.format6 -> 'a
 
-    .. val:: ~::
+    .. val:: (~::)
         type: ('a, unit, string, string, string, Test.t list -> Test.t) CamlinternalFormatBasics.format6 -> 'a
 
     .. val:: fail

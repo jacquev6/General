@@ -10,7 +10,7 @@ module Pervasives: sig
   (** The module overrides all elements from the standard
   `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_ with unusable but guiding values: *)
 
-  (* @todoc val raise: [`Please_use_General__Exception__raise] *)
+  val raise: [`Please_use_General__Exception__raise]
 
   (** It then brings back a small set of ubiquitous values: *)
 

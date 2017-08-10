@@ -41,6 +41,13 @@
             " The module overrides all elements from the standard\n  `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_ with unusable but guiding values: "
         },
         {
+          "__class__": "signature_item:value",
+          "doc": [],
+          "hidden": false,
+          "name": "raise",
+          "type": "[ `Please_use_General__Exception__raise ]"
+        },
+        {
           "__class__": "signature_item:floating_documentation",
           "text": " It then brings back a small set of ubiquitous values: "
         },
@@ -55,14 +62,14 @@
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "&&",
+          "name": "(&&)",
           "type": "bool -> bool -> bool"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "||",
+          "name": "(||)",
           "type": "bool -> bool -> bool"
         },
         {
@@ -76,133 +83,133 @@
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "~-.",
+          "name": "(~-.)",
           "type": "float -> float"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "~+.",
+          "name": "(~+.)",
           "type": "float -> float"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "+.",
+          "name": "(+.)",
           "type": "float -> float -> float"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "-.",
+          "name": "(-.)",
           "type": "float -> float -> float"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "*.",
+          "name": "(*.)",
           "type": "float -> float -> float"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "/.",
+          "name": "(/.)",
           "type": "float -> float -> float"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "**",
+          "name": "(**)",
           "type": "float -> float -> float"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "@@",
+          "name": "(@@)",
           "type": "('a -> 'b) -> 'a -> 'b"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "|>",
+          "name": "(|>)",
           "type": "'a -> ('a -> 'b) -> 'b"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "%",
+          "name": "(%)",
           "type": "('a -> 'b) -> ('c -> 'a) -> 'c -> 'b"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "~-",
+          "name": "(~-)",
           "type": "int -> int"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "~+",
+          "name": "(~+)",
           "type": "int -> int"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "+",
+          "name": "(+)",
           "type": "int -> int -> int"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "-",
+          "name": "(-)",
           "type": "int -> int -> int"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "*",
+          "name": "(*)",
           "type": "int -> int -> int"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "/",
+          "name": "(/)",
           "type": "int -> int -> int"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "mod",
+          "name": "(mod)",
           "type": "int -> int -> int"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "@",
+          "name": "(@)",
           "type": "'a list -> 'a list -> 'a list"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "^",
+          "name": "(^)",
           "type": "string -> string -> string"
         },
         {
@@ -216,56 +223,56 @@
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": ":=",
+          "name": "(:=)",
           "type": "'a OCamlStandard.Pervasives.ref -> 'a -> unit"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "!",
+          "name": "(!)",
           "type": "'a OCamlStandard.Pervasives.ref -> 'a"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "=",
+          "name": "(=)",
           "type": "'a -> 'a -> bool"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "<>",
+          "name": "(<>)",
           "type": "'a -> 'a -> bool"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "<",
+          "name": "(<)",
           "type": "'a -> 'a -> bool"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "<=",
+          "name": "(<=)",
           "type": "'a -> 'a -> bool"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": ">=",
+          "name": "(>=)",
           "type": "'a -> 'a -> bool"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": ">",
+          "name": "(>)",
           "type": "'a -> 'a -> bool"
         },
         {
@@ -952,21 +959,21 @@
                 "__class__": "signature_item:value",
                 "doc": [],
                 "hidden": false,
-                "name": "@@",
+                "name": "(@@)",
                 "type": "('a, 'z) t -> 'a -> 'z"
               },
               {
                 "__class__": "signature_item:value",
                 "doc": [],
                 "hidden": false,
-                "name": "|>",
+                "name": "(|>)",
                 "type": "'a -> ('a, 'z) t -> 'z"
               },
               {
                 "__class__": "signature_item:value",
                 "doc": [],
                 "hidden": false,
-                "name": "%",
+                "name": "(%)",
                 "type": "('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t"
               }
             ]
@@ -1248,14 +1255,14 @@
                 "__class__": "signature_item:value",
                 "doc": [],
                 "hidden": false,
-                "name": "&&",
+                "name": "(&&)",
                 "type": "t -> t -> t"
               },
               {
                 "__class__": "signature_item:value",
                 "doc": [],
                 "hidden": false,
-                "name": "||",
+                "name": "(||)",
                 "type": "t -> t -> t"
               },
               {
@@ -2108,7 +2115,7 @@
                 "__class__": "signature_item:value",
                 "doc": [],
                 "hidden": false,
-                "name": "^",
+                "name": "(^)",
                 "type": "t -> t -> t"
               }
             ]
@@ -2613,14 +2620,14 @@
                 "__class__": "signature_item:value",
                 "doc": [],
                 "hidden": false,
-                "name": "!",
+                "name": "(!)",
                 "type": "'a t -> 'a"
               },
               {
                 "__class__": "signature_item:value",
                 "doc": [],
                 "hidden": false,
-                "name": ":=",
+                "name": "(:=)",
                 "type": "'a t -> 'a -> unit"
               }
             ]
@@ -2676,14 +2683,14 @@
                   "__class__": "signature_item:value",
                   "doc": [],
                   "hidden": false,
-                  "name": "!",
+                  "name": "(!)",
                   "type": "t -> A.t"
                 },
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
                   "hidden": false,
-                  "name": ":=",
+                  "name": "(:=)",
                   "type": "t -> A.t -> unit"
                 }
               ]
@@ -2867,28 +2874,28 @@
                   "__class__": "signature_item:value",
                   "doc": [],
                   "hidden": false,
-                  "name": "=+",
+                  "name": "(=+)",
                   "type": "t -> A.t -> unit"
                 },
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
                   "hidden": false,
-                  "name": "=-",
+                  "name": "(=-)",
                   "type": "t -> A.t -> unit"
                 },
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
                   "hidden": false,
-                  "name": "=*",
+                  "name": "(=*)",
                   "type": "t -> A.t -> unit"
                 },
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
                   "hidden": false,
-                  "name": "=/",
+                  "name": "(=/)",
                   "type": "t -> A.t -> unit"
                 }
               ]
@@ -3873,7 +3880,7 @@
                 "__class__": "signature_item:value",
                 "doc": [],
                 "hidden": false,
-                "name": "=^",
+                "name": "(=^)",
                 "type": "t -> string -> unit"
               }
             ]
@@ -3947,7 +3954,7 @@
                 "__class__": "signature_item:value",
                 "doc": [],
                 "hidden": false,
-                "name": "@",
+                "name": "(@)",
                 "type": "'a t -> 'a t -> 'a t"
               }
             ]
@@ -4264,7 +4271,7 @@
                         "__class__": "signature_item:value",
                         "doc": [],
                         "hidden": false,
-                        "name": "@",
+                        "name": "(@)",
                         "type": "t -> t -> t"
                       }
                     ]
@@ -5512,21 +5519,21 @@
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": ">::",
+          "name": "(>::)",
           "type": "string -> Test.t list -> Test.t"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": ">:",
+          "name": "(>:)",
           "type": "string -> unit lazy_t -> Test.t"
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "~:",
+          "name": "(~:)",
           "type":
             "('a, unit, string, string, string, unit lazy_t -> Test.t)\nCamlinternalFormatBasics.format6 -> 'a"
         },
@@ -5534,7 +5541,7 @@
           "__class__": "signature_item:value",
           "doc": [],
           "hidden": false,
-          "name": "~::",
+          "name": "(~::)",
           "type":
             "('a, unit, string, string, string, Test.t list -> Test.t)\nCamlinternalFormatBasics.format6 -> 'a"
         },

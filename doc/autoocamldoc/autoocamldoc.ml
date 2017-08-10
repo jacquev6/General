@@ -76,15 +76,19 @@ end = struct
   (* let longident_loc {Asttypes.txt=longident; loc=_} =
     J.str (Longident.flatten longident |> StrLi.concat ~sep:".") *)
 
-  let string_loc {Asttypes.txt; loc=_} =
-    J.str txt
+  let string_loc ?(format=Frmt.of_string "%s") {Asttypes.txt; loc=_} =
+    J.str (Frmt.apply format txt)
 
-  let value_description {val_id=_; val_name; val_desc; val_val=_; val_prim=_; val_loc; val_attributes} =
+  let value_description {val_id; val_name; val_desc; val_val=_; val_prim=_; val_loc; val_attributes} =
+    let format =
+      Opt.some_if'
+        (Oprint.parenthesized_ident (Ident.name val_id))
+        (Frmt.of_string "(%s)") (* This is not strictly correct for ( * ) but it's prettier for everything else. *)
+    in
     (
       "signature_item:value",
       [
-        (* @todo Put parentheses around infix values *)
-        ("name", string_loc val_name);
+        ("name", string_loc ?format val_name);
         ("type", type_expr val_loc val_desc.ctyp_type);
       ],
       val_attributes
