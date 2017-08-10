@@ -91,7 +91,7 @@ echo
 bisect-summary bisect????.out | grep -v -e "^100.0% \[.*\] src/" -e "^100.0% .*ForBisectPpx.ml$" -e "^  0.0% \[.*0/0.*\] src/"
 echo
 bisect-ppx-report -I _build_coverage -html _build_coverage/bisect bisect????.out
-echo "See coverage report in $(pwd)/_build_coverage/bisect/index.html"
+echo "See coverage report (for General's unit tests) in $(pwd)/_build_coverage/bisect/index.html"
 rm -f bisect????.out
 
 js_of_ocaml +nat.js _build_coverage/src/unit_tests.byte
@@ -326,13 +326,27 @@ cd ..
 
 echo
 echo "Building doc"
+echo
 
 cd doc/autoocamldoc
-ocamlbuild -use-ocamlfind -no-links autoocamldoc.native
+ocamlbuild -use-ocamlfind -no-links -package bisect_ppx autoocamldoc.byte
+
+echo
+
+rm -f bisect????.out
+for f in tests/*.mli
+do
+    _build/autoocamldoc.byte $f >${f%.mli}.json
+done
+bisect-summary bisect????.out
+echo
+bisect-ppx-report -html _build/bisect bisect????.out
+echo "See coverage report (for autoocamldoc) in $(pwd)/_build/bisect/index.html"
+rm -f bisect????.out
 cd ../..
 
 rm -rf docs/autodoc
 mkdir docs/autodoc
 cd _build_native/src
-../../doc/autoocamldoc/_build/autoocamldoc.native General.mli > ../../docs/autodoc/General.json
+../../doc/autoocamldoc/_build/autoocamldoc.byte General.mli > ../../docs/autodoc/General.json
 cd ../..

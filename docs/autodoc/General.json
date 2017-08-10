@@ -2,10 +2,35 @@
   {
     "__class__": "signature_item:module",
     "doc": [ " Some doc for Pervasives " ],
+    "hidden": false,
     "name": "Pervasives",
     "type": {
       "__class__": "module_type:signature",
       "elements": [
+        {
+          "__class__": "signature_item:include",
+          "doc": [],
+          "hidden": true,
+          "contents": {
+            "__class__": "module_type:of",
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "Foundations.ResetPervasives"
+            }
+          }
+        },
+        {
+          "__class__": "signature_item:include",
+          "doc": [],
+          "hidden": true,
+          "contents": {
+            "__class__": "module_type:of",
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "Foundations.ResetStandardLibrary"
+            }
+          }
+        },
         {
           "__class__": "signature_item:floating_documentation",
           "text":
@@ -16,6 +41,7 @@
           "doc": [
             " Boolean negation ", "\n  # not true;;\n  - : bool = false\n  "
           ],
+          "hidden": false,
           "name": "not",
           "type": {
             "__class__": "value_type:function",
@@ -35,6 +61,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "&&",
           "type": {
             "__class__": "value_type:function",
@@ -63,6 +90,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "||",
           "type": {
             "__class__": "value_type:function",
@@ -91,6 +119,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "xor",
           "type": {
             "__class__": "value_type:function",
@@ -119,6 +148,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "~-.",
           "type": {
             "__class__": "value_type:function",
@@ -138,6 +168,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "~+.",
           "type": {
             "__class__": "value_type:function",
@@ -157,6 +188,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "+.",
           "type": {
             "__class__": "value_type:function",
@@ -185,6 +217,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "-.",
           "type": {
             "__class__": "value_type:function",
@@ -213,6 +246,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "*.",
           "type": {
             "__class__": "value_type:function",
@@ -241,6 +275,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "/.",
           "type": {
             "__class__": "value_type:function",
@@ -269,6 +304,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "**",
           "type": {
             "__class__": "value_type:function",
@@ -297,6 +333,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "@@",
           "type": {
             "__class__": "value_type:function",
@@ -318,6 +355,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "|>",
           "type": {
             "__class__": "value_type:function",
@@ -339,6 +377,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "%",
           "type": {
             "__class__": "value_type:function",
@@ -370,6 +409,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "~-",
           "type": {
             "__class__": "value_type:function",
@@ -389,6 +429,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "~+",
           "type": {
             "__class__": "value_type:function",
@@ -408,6 +449,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "+",
           "type": {
             "__class__": "value_type:function",
@@ -436,6 +478,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "-",
           "type": {
             "__class__": "value_type:function",
@@ -464,6 +507,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "*",
           "type": {
             "__class__": "value_type:function",
@@ -492,6 +536,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "/",
           "type": {
             "__class__": "value_type:function",
@@ -520,6 +565,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "mod",
           "type": {
             "__class__": "value_type:function",
@@ -548,6 +594,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "@",
           "type": {
             "__class__": "value_type:function",
@@ -582,6 +629,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "^",
           "type": {
             "__class__": "value_type:function",
@@ -610,6 +658,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "ref",
           "type": {
             "__class__": "value_type:function",
@@ -627,6 +676,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": ":=",
           "type": {
             "__class__": "value_type:function",
@@ -653,6 +703,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "!",
           "type": {
             "__class__": "value_type:function",
@@ -670,6 +721,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "=",
           "type": {
             "__class__": "value_type:function",
@@ -690,6 +742,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "<>",
           "type": {
             "__class__": "value_type:function",
@@ -710,6 +763,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "<",
           "type": {
             "__class__": "value_type:function",
@@ -730,6 +784,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "<=",
           "type": {
             "__class__": "value_type:function",
@@ -750,6 +805,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": ">=",
           "type": {
             "__class__": "value_type:function",
@@ -770,6 +826,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": ">",
           "type": {
             "__class__": "value_type:function",
@@ -790,6 +847,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "ignore",
           "type": {
             "__class__": "value_type:function",
@@ -805,6 +863,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "identity",
           "type": {
             "__class__": "value_type:function",
@@ -819,6 +878,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Shorten",
     "type": {
       "__class__": "module_type:signature",
@@ -826,6 +886,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -857,24 +918,27 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Traits",
     "type": {
       "__class__": "module_type:of",
-      "base": { "__class__": "module_expr:identifier", "name": "Traits" }
+      "module": { "__class__": "module_expr:identifier", "name": "Traits" }
     }
   },
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Concepts",
     "type": {
       "__class__": "module_type:of",
-      "base": { "__class__": "module_expr:identifier", "name": "Concepts" }
+      "module": { "__class__": "module_expr:identifier", "name": "Concepts" }
     }
   },
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Compare",
     "type": {
       "__class__": "module_type:signature",
@@ -882,6 +946,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -916,6 +981,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Poly",
           "type": {
             "__class__": "module_type:identifier",
@@ -928,6 +994,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Equate",
     "type": {
       "__class__": "module_type:signature",
@@ -935,6 +1002,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Poly",
           "type": {
             "__class__": "module_type:identifier",
@@ -944,6 +1012,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Physical",
           "type": {
             "__class__": "module_type:identifier",
@@ -956,6 +1025,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "CallStack",
     "type": {
       "__class__": "module_type:signature",
@@ -963,6 +1033,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -975,9 +1046,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.Displayable.S0"
             },
@@ -998,9 +1070,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.Representable.S0"
             },
@@ -1021,6 +1094,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "current",
           "type": {
             "__class__": "value_type:function",
@@ -1055,6 +1129,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Location",
           "type": {
             "__class__": "module_type:signature",
@@ -1062,6 +1137,7 @@
               {
                 "__class__": "signature_item:type",
                 "doc": [],
+                "hidden": false,
                 "name": "t",
                 "parameters": [],
                 "manifest": {
@@ -1122,9 +1198,10 @@
               {
                 "__class__": "signature_item:include",
                 "doc": [],
+                "hidden": false,
                 "contents": {
                   "__class__": "module_type:with",
-                  "base": {
+                  "module": {
                     "__class__": "module_type:identifier",
                     "name": "Concepts.Able.S0"
                   },
@@ -1148,6 +1225,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Frame",
           "type": {
             "__class__": "module_type:signature",
@@ -1155,6 +1233,7 @@
               {
                 "__class__": "signature_item:type",
                 "doc": [],
+                "hidden": false,
                 "name": "t",
                 "parameters": [],
                 "manifest": {
@@ -1167,6 +1246,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "is_raise",
                 "type": {
                   "__class__": "value_type:function",
@@ -1186,6 +1266,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "location",
                 "type": {
                   "__class__": "value_type:function",
@@ -1211,6 +1292,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "format",
                 "type": {
                   "__class__": "value_type:function",
@@ -1248,6 +1330,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "frames",
           "type": {
             "__class__": "value_type:function",
@@ -1276,6 +1359,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Exception",
     "type": {
       "__class__": "module_type:signature",
@@ -1283,6 +1367,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -1295,9 +1380,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Identifiable.S0"
             },
@@ -1318,9 +1404,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.Displayable.S0"
             },
@@ -1341,6 +1428,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "register_printer",
           "type": {
             "__class__": "value_type:function",
@@ -1375,6 +1463,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "record_backtraces",
           "type": {
             "__class__": "value_type:function",
@@ -1394,6 +1483,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "recording_backtraces",
           "type": {
             "__class__": "value_type:function",
@@ -1413,6 +1503,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "most_recent_backtrace",
           "type": {
             "__class__": "value_type:function",
@@ -1438,6 +1529,7 @@
         {
           "__class__": "signature_item:exception",
           "doc": [],
+          "hidden": false,
           "name": "MatchFailure",
           "arguments": [
             {
@@ -1465,6 +1557,7 @@
         {
           "__class__": "signature_item:exception",
           "doc": [],
+          "hidden": false,
           "name": "AssertFailure",
           "arguments": [
             {
@@ -1492,6 +1585,7 @@
         {
           "__class__": "signature_item:exception",
           "doc": [],
+          "hidden": false,
           "name": "InvalidArgument",
           "arguments": [
             {
@@ -1504,6 +1598,7 @@
         {
           "__class__": "signature_item:exception",
           "doc": [],
+          "hidden": false,
           "name": "Failure",
           "arguments": [
             {
@@ -1516,24 +1611,28 @@
         {
           "__class__": "signature_item:exception",
           "doc": [],
+          "hidden": false,
           "name": "NotFound",
           "arguments": []
         },
         {
           "__class__": "signature_item:exception",
           "doc": [ " Raised when the system could not allocate memory " ],
+          "hidden": false,
           "name": "OutOfMemory",
           "arguments": []
         },
         {
           "__class__": "signature_item:exception",
           "doc": [],
+          "hidden": false,
           "name": "StackOverflow",
           "arguments": []
         },
         {
           "__class__": "signature_item:exception",
           "doc": [],
+          "hidden": false,
           "name": "SysError",
           "arguments": [
             {
@@ -1546,24 +1645,28 @@
         {
           "__class__": "signature_item:exception",
           "doc": [],
+          "hidden": false,
           "name": "EndOfFile",
           "arguments": []
         },
         {
           "__class__": "signature_item:exception",
           "doc": [],
+          "hidden": false,
           "name": "DivisionByZero",
           "arguments": []
         },
         {
           "__class__": "signature_item:exception",
           "doc": [],
+          "hidden": false,
           "name": "SysBlockedIO",
           "arguments": []
         },
         {
           "__class__": "signature_item:exception",
           "doc": [],
+          "hidden": false,
           "name": "UndefinedRecursiveModule",
           "arguments": [
             {
@@ -1591,12 +1694,14 @@
         {
           "__class__": "signature_item:exception",
           "doc": [],
+          "hidden": false,
           "name": "Exit",
           "arguments": []
         },
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "raise",
           "type": {
             "__class__": "value_type:function",
@@ -1612,6 +1717,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "raise_without_backtrace",
           "type": {
             "__class__": "value_type:function",
@@ -1627,6 +1733,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "invalid_argument",
           "type": {
             "__class__": "value_type:function",
@@ -1665,6 +1772,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "failure",
           "type": {
             "__class__": "value_type:function",
@@ -1703,6 +1811,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "name",
           "type": {
             "__class__": "value_type:function",
@@ -1722,6 +1831,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "or_none",
           "type": {
             "__class__": "value_type:function",
@@ -1748,6 +1858,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Exit",
     "type": {
       "__class__": "module_type:signature",
@@ -1755,6 +1866,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": null,
@@ -1785,6 +1897,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "of_int",
           "type": {
             "__class__": "value_type:function",
@@ -1804,6 +1917,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "exit",
           "type": {
             "__class__": "value_type:function",
@@ -1823,6 +1937,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "at_exit",
           "type": {
             "__class__": "value_type:function",
@@ -1854,6 +1969,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Function1",
     "type": {
       "__class__": "module_type:signature",
@@ -1861,6 +1977,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -1885,6 +2002,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "identity",
           "type": {
             "__class__": "value_type:constructor",
@@ -1898,6 +2016,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "apply",
           "type": {
             "__class__": "value_type:function",
@@ -1921,6 +2040,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "rev_apply",
           "type": {
             "__class__": "value_type:function",
@@ -1944,6 +2064,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "compose",
           "type": {
             "__class__": "value_type:function",
@@ -1981,6 +2102,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "O",
           "type": {
             "__class__": "module_type:signature",
@@ -1988,6 +2110,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "@@",
                 "type": {
                   "__class__": "value_type:function",
@@ -2017,6 +2140,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "|>",
                 "type": {
                   "__class__": "value_type:function",
@@ -2043,6 +2167,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "%",
                 "type": {
                   "__class__": "value_type:function",
@@ -2086,6 +2211,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Function2",
     "type": {
       "__class__": "module_type:signature",
@@ -2093,6 +2219,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -2127,6 +2254,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "flip",
           "type": {
             "__class__": "value_type:function",
@@ -2154,6 +2282,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "curry",
           "type": {
             "__class__": "value_type:function",
@@ -2186,6 +2315,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "uncurry",
           "type": {
             "__class__": "value_type:function",
@@ -2221,6 +2351,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Function3",
     "type": {
       "__class__": "module_type:signature",
@@ -2228,6 +2359,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -2272,6 +2404,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "flip",
           "type": {
             "__class__": "value_type:function",
@@ -2301,6 +2434,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "curry",
           "type": {
             "__class__": "value_type:function",
@@ -2335,6 +2469,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "uncurry",
           "type": {
             "__class__": "value_type:function",
@@ -2372,6 +2507,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Function4",
     "type": {
       "__class__": "module_type:signature",
@@ -2379,6 +2515,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -2436,6 +2573,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "flip",
           "type": {
             "__class__": "value_type:function",
@@ -2467,6 +2605,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "curry",
           "type": {
             "__class__": "value_type:function",
@@ -2503,6 +2642,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "uncurry",
           "type": {
             "__class__": "value_type:function",
@@ -2542,6 +2682,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Function5",
     "type": {
       "__class__": "module_type:signature",
@@ -2549,6 +2690,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -2619,6 +2761,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "flip",
           "type": {
             "__class__": "value_type:function",
@@ -2652,6 +2795,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "curry",
           "type": {
             "__class__": "value_type:function",
@@ -2690,6 +2834,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "uncurry",
           "type": {
             "__class__": "value_type:function",
@@ -2731,6 +2876,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Unit",
     "type": {
       "__class__": "module_type:signature",
@@ -2738,6 +2884,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -2750,6 +2897,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "ignore",
           "type": {
             "__class__": "value_type:function",
@@ -2768,6 +2916,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Bool",
     "type": {
       "__class__": "module_type:signature",
@@ -2775,6 +2924,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -2787,6 +2937,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "O",
           "type": {
             "__class__": "module_type:signature",
@@ -2794,9 +2945,10 @@
               {
                 "__class__": "signature_item:include",
                 "doc": [],
+                "hidden": false,
                 "contents": {
                   "__class__": "module_type:with",
-                  "base": {
+                  "module": {
                     "__class__": "module_type:identifier",
                     "name": "Concepts.Able.Operators.S0"
                   },
@@ -2817,6 +2969,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "not",
                 "type": {
                   "__class__": "value_type:function",
@@ -2836,6 +2989,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "&&",
                 "type": {
                   "__class__": "value_type:function",
@@ -2864,6 +3018,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "||",
                 "type": {
                   "__class__": "value_type:function",
@@ -2892,6 +3047,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "xor",
                 "type": {
                   "__class__": "value_type:function",
@@ -2923,9 +3079,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Able.S0"
             },
@@ -2951,9 +3108,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.Displayable.S0"
             },
@@ -2974,9 +3132,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.Parsable.S0"
             },
@@ -2997,6 +3156,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "not",
           "type": {
             "__class__": "value_type:function",
@@ -3016,6 +3176,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "and_",
           "type": {
             "__class__": "value_type:function",
@@ -3044,6 +3205,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "or_",
           "type": {
             "__class__": "value_type:function",
@@ -3072,6 +3234,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "xor",
           "type": {
             "__class__": "value_type:function",
@@ -3103,6 +3266,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Char",
     "type": {
       "__class__": "module_type:signature",
@@ -3110,6 +3274,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -3122,6 +3287,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "of_int",
           "type": {
             "__class__": "value_type:function",
@@ -3141,6 +3307,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "to_int",
           "type": {
             "__class__": "value_type:function",
@@ -3163,6 +3330,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Int",
     "type": {
       "__class__": "module_type:signature",
@@ -3170,6 +3338,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -3182,9 +3351,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Integer.S0"
             },
@@ -3205,6 +3375,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "smallest",
           "type": {
             "__class__": "value_type:constructor",
@@ -3215,6 +3386,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "greatest",
           "type": {
             "__class__": "value_type:constructor",
@@ -3225,6 +3397,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Bitwise",
           "type": {
             "__class__": "module_type:signature",
@@ -3232,6 +3405,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "logical_and",
                 "type": {
                   "__class__": "value_type:function",
@@ -3260,6 +3434,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "logical_or",
                 "type": {
                   "__class__": "value_type:function",
@@ -3288,6 +3463,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "logical_xor",
                 "type": {
                   "__class__": "value_type:function",
@@ -3316,6 +3492,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "logical_not",
                 "type": {
                   "__class__": "value_type:function",
@@ -3335,6 +3512,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "logical_shift_left",
                 "type": {
                   "__class__": "value_type:function",
@@ -3363,6 +3541,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "logical_shift_right",
                 "type": {
                   "__class__": "value_type:function",
@@ -3391,6 +3570,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "arithmetic_shift_right",
                 "type": {
                   "__class__": "value_type:function",
@@ -3425,6 +3605,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Int32",
     "type": {
       "__class__": "module_type:signature",
@@ -3432,6 +3613,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -3444,9 +3626,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Integer.S0"
             },
@@ -3467,6 +3650,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "smallest",
           "type": {
             "__class__": "value_type:constructor",
@@ -3477,6 +3661,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "greatest",
           "type": {
             "__class__": "value_type:constructor",
@@ -3490,6 +3675,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Int64",
     "type": {
       "__class__": "module_type:signature",
@@ -3497,6 +3683,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -3509,9 +3696,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Integer.S0"
             },
@@ -3532,6 +3720,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "smallest",
           "type": {
             "__class__": "value_type:constructor",
@@ -3542,6 +3731,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "greatest",
           "type": {
             "__class__": "value_type:constructor",
@@ -3555,6 +3745,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "NativeInt",
     "type": {
       "__class__": "module_type:signature",
@@ -3562,6 +3753,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -3574,9 +3766,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Integer.S0"
             },
@@ -3597,6 +3790,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "smallest",
           "type": {
             "__class__": "value_type:constructor",
@@ -3607,6 +3801,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "greatest",
           "type": {
             "__class__": "value_type:constructor",
@@ -3620,6 +3815,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "BigInt",
     "type": {
       "__class__": "module_type:signature",
@@ -3627,6 +3823,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -3639,9 +3836,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Integer.S0"
             },
@@ -3665,6 +3863,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Float",
     "type": {
       "__class__": "module_type:signature",
@@ -3672,6 +3871,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -3684,9 +3884,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.RealNumber.S0"
             },
@@ -3707,6 +3908,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "epsilon",
           "type": {
             "__class__": "value_type:constructor",
@@ -3717,6 +3919,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "smallest",
           "type": {
             "__class__": "value_type:constructor",
@@ -3727,6 +3930,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "greatest",
           "type": {
             "__class__": "value_type:constructor",
@@ -3737,6 +3941,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "infinity",
           "type": {
             "__class__": "value_type:constructor",
@@ -3747,6 +3952,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "negative_infinity",
           "type": {
             "__class__": "value_type:constructor",
@@ -3757,6 +3963,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "not_a_number",
           "type": {
             "__class__": "value_type:constructor",
@@ -3767,6 +3974,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "pi",
           "type": {
             "__class__": "value_type:constructor",
@@ -3777,6 +3985,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "e",
           "type": {
             "__class__": "value_type:constructor",
@@ -3787,6 +3996,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "of_parts",
           "type": {
             "__class__": "value_type:function",
@@ -3815,6 +4025,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "to_parts",
           "type": {
             "__class__": "value_type:function",
@@ -3844,6 +4055,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "to_fractional_and_integral",
           "type": {
             "__class__": "value_type:function",
@@ -3873,6 +4085,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "sqrt",
           "type": {
             "__class__": "value_type:function",
@@ -3892,6 +4105,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "exp",
           "type": {
             "__class__": "value_type:function",
@@ -3911,6 +4125,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "log",
           "type": {
             "__class__": "value_type:function",
@@ -3930,6 +4145,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "log10",
           "type": {
             "__class__": "value_type:function",
@@ -3949,6 +4165,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "expm1",
           "type": {
             "__class__": "value_type:function",
@@ -3968,6 +4185,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "log1p",
           "type": {
             "__class__": "value_type:function",
@@ -3987,6 +4205,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "cos",
           "type": {
             "__class__": "value_type:function",
@@ -4006,6 +4225,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "sin",
           "type": {
             "__class__": "value_type:function",
@@ -4025,6 +4245,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "tan",
           "type": {
             "__class__": "value_type:function",
@@ -4044,6 +4265,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "acos",
           "type": {
             "__class__": "value_type:function",
@@ -4063,6 +4285,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "asin",
           "type": {
             "__class__": "value_type:function",
@@ -4082,6 +4305,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "atan",
           "type": {
             "__class__": "value_type:function",
@@ -4101,6 +4325,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "atan2",
           "type": {
             "__class__": "value_type:function",
@@ -4129,6 +4354,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "hypot",
           "type": {
             "__class__": "value_type:function",
@@ -4157,6 +4383,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "cosh",
           "type": {
             "__class__": "value_type:function",
@@ -4176,6 +4403,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "sinh",
           "type": {
             "__class__": "value_type:function",
@@ -4195,6 +4423,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "tanh",
           "type": {
             "__class__": "value_type:function",
@@ -4214,6 +4443,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "ceil",
           "type": {
             "__class__": "value_type:function",
@@ -4233,6 +4463,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "floor",
           "type": {
             "__class__": "value_type:function",
@@ -4252,6 +4483,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "copy_sign",
           "type": {
             "__class__": "value_type:function",
@@ -4280,6 +4512,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Class",
           "type": {
             "__class__": "module_type:signature",
@@ -4287,6 +4520,7 @@
               {
                 "__class__": "signature_item:type",
                 "doc": [],
+                "hidden": false,
                 "name": "t",
                 "parameters": [],
                 "manifest": null,
@@ -4329,9 +4563,10 @@
               {
                 "__class__": "signature_item:include",
                 "doc": [],
+                "hidden": false,
                 "contents": {
                   "__class__": "module_type:with",
-                  "base": {
+                  "module": {
                     "__class__": "module_type:identifier",
                     "name": "Traits.Representable.S0"
                   },
@@ -4352,6 +4587,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "of_float",
                 "type": {
                   "__class__": "value_type:function",
@@ -4377,6 +4613,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "String",
     "type": {
       "__class__": "module_type:signature",
@@ -4384,6 +4621,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -4396,6 +4634,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get",
           "type": {
             "__class__": "value_type:function",
@@ -4424,6 +4663,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "O",
           "type": {
             "__class__": "module_type:signature",
@@ -4431,9 +4671,10 @@
               {
                 "__class__": "signature_item:include",
                 "doc": [],
+                "hidden": false,
                 "contents": {
                   "__class__": "module_type:with",
-                  "base": {
+                  "module": {
                     "__class__": "module_type:identifier",
                     "name": "Concepts.Able.Operators.S0"
                   },
@@ -4454,6 +4695,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "^",
                 "type": {
                   "__class__": "value_type:function",
@@ -4485,9 +4727,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.Displayable.S0"
             },
@@ -4508,9 +4751,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Able.S0"
             },
@@ -4536,6 +4780,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "concat",
           "type": {
             "__class__": "value_type:function",
@@ -4564,6 +4809,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "substring",
           "type": {
             "__class__": "value_type:function",
@@ -4601,6 +4847,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "prefix",
           "type": {
             "__class__": "value_type:function",
@@ -4629,6 +4876,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "suffix",
           "type": {
             "__class__": "value_type:function",
@@ -4657,6 +4905,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "has_prefix",
           "type": {
             "__class__": "value_type:function",
@@ -4685,6 +4934,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "try_drop_prefix",
           "type": {
             "__class__": "value_type:function",
@@ -4719,6 +4969,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "drop_prefix",
           "type": {
             "__class__": "value_type:function",
@@ -4747,6 +4998,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "has_suffix",
           "type": {
             "__class__": "value_type:function",
@@ -4775,6 +5027,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "try_drop_suffix",
           "type": {
             "__class__": "value_type:function",
@@ -4809,6 +5062,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "drop_suffix",
           "type": {
             "__class__": "value_type:function",
@@ -4837,6 +5091,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "split",
           "type": {
             "__class__": "value_type:function",
@@ -4874,6 +5129,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Option",
     "type": {
       "__class__": "module_type:signature",
@@ -4881,6 +5137,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -4901,9 +5158,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Able.S1"
             },
@@ -4935,6 +5193,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "some_if",
           "type": {
             "__class__": "value_type:function",
@@ -4967,6 +5226,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "some_if'",
           "type": {
             "__class__": "value_type:function",
@@ -4993,6 +5253,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "is_some",
           "type": {
             "__class__": "value_type:function",
@@ -5014,6 +5275,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "is_none",
           "type": {
             "__class__": "value_type:function",
@@ -5035,6 +5297,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "value_def",
           "type": {
             "__class__": "value_type:function",
@@ -5057,6 +5320,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "value",
           "type": {
             "__class__": "value_type:function",
@@ -5089,6 +5353,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "or_failure",
           "type": {
             "__class__": "value_type:function",
@@ -5141,6 +5406,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "map",
           "type": {
             "__class__": "value_type:function",
@@ -5174,6 +5440,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "iter",
           "type": {
             "__class__": "value_type:function",
@@ -5209,6 +5476,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "filter",
           "type": {
             "__class__": "value_type:function",
@@ -5246,6 +5514,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "filter_map",
           "type": {
             "__class__": "value_type:function",
@@ -5285,6 +5554,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "value_map",
           "type": {
             "__class__": "value_type:function",
@@ -5320,6 +5590,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Specialize",
           "type": {
             "__class__": "module_type:functor",
@@ -5333,6 +5604,7 @@
                     {
                       "__class__": "signature_item:type",
                       "doc": [],
+                      "hidden": false,
                       "name": "t",
                       "parameters": [],
                       "manifest": null,
@@ -5348,6 +5620,7 @@
                 {
                   "__class__": "signature_item:type",
                   "doc": [],
+                  "hidden": false,
                   "name": "t",
                   "parameters": [],
                   "manifest": {
@@ -5366,6 +5639,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "some_if",
                   "type": {
                     "__class__": "value_type:function",
@@ -5400,6 +5674,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "some_if'",
                   "type": {
                     "__class__": "value_type:function",
@@ -5428,6 +5703,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "is_some",
                   "type": {
                     "__class__": "value_type:function",
@@ -5447,6 +5723,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "is_none",
                   "type": {
                     "__class__": "value_type:function",
@@ -5466,6 +5743,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "value_def",
                   "type": {
                     "__class__": "value_type:function",
@@ -5494,6 +5772,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "value",
                   "type": {
                     "__class__": "value_type:function",
@@ -5528,6 +5807,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "or_failure",
                   "type": {
                     "__class__": "value_type:function",
@@ -5582,6 +5862,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "map",
                   "type": {
                     "__class__": "value_type:function",
@@ -5620,6 +5901,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "iter",
                   "type": {
                     "__class__": "value_type:function",
@@ -5657,6 +5939,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "filter",
                   "type": {
                     "__class__": "value_type:function",
@@ -5694,6 +5977,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "filter_map",
                   "type": {
                     "__class__": "value_type:function",
@@ -5738,6 +6022,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "value_map",
                   "type": {
                     "__class__": "value_type:function",
@@ -5788,6 +6073,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Lazy",
     "type": {
       "__class__": "module_type:signature",
@@ -5795,6 +6081,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -5815,6 +6102,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "is_value",
           "type": {
             "__class__": "value_type:function",
@@ -5836,6 +6124,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "value",
           "type": {
             "__class__": "value_type:function",
@@ -5853,6 +6142,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "map",
           "type": {
             "__class__": "value_type:function",
@@ -5889,6 +6179,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Reference",
     "type": {
       "__class__": "module_type:signature",
@@ -5896,6 +6187,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -5927,6 +6219,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "of_contents",
           "type": {
             "__class__": "value_type:function",
@@ -5944,6 +6237,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "contents",
           "type": {
             "__class__": "value_type:function",
@@ -5961,6 +6255,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "assign",
           "type": {
             "__class__": "value_type:function",
@@ -5987,6 +6282,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "O",
           "type": {
             "__class__": "module_type:signature",
@@ -5994,6 +6290,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "ref",
                 "type": {
                   "__class__": "value_type:function",
@@ -6011,6 +6308,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "!",
                 "type": {
                   "__class__": "value_type:function",
@@ -6031,6 +6329,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": ":=",
                 "type": {
                   "__class__": "value_type:function",
@@ -6063,6 +6362,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "SpecializeOperators",
           "type": {
             "__class__": "module_type:functor",
@@ -6076,6 +6376,7 @@
                     {
                       "__class__": "signature_item:type",
                       "doc": [],
+                      "hidden": false,
                       "name": "t",
                       "parameters": [],
                       "manifest": null,
@@ -6091,6 +6392,7 @@
                 {
                   "__class__": "signature_item:type",
                   "doc": [],
+                  "hidden": false,
                   "name": "t",
                   "parameters": [],
                   "manifest": {
@@ -6109,6 +6411,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "ref",
                   "type": {
                     "__class__": "value_type:function",
@@ -6128,6 +6431,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "!",
                   "type": {
                     "__class__": "value_type:function",
@@ -6147,6 +6451,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": ":=",
                   "type": {
                     "__class__": "value_type:function",
@@ -6179,6 +6484,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Specialize",
           "type": {
             "__class__": "module_type:functor",
@@ -6192,6 +6498,7 @@
                     {
                       "__class__": "signature_item:type",
                       "doc": [],
+                      "hidden": false,
                       "name": "t",
                       "parameters": [],
                       "manifest": null,
@@ -6207,6 +6514,7 @@
                 {
                   "__class__": "signature_item:type",
                   "doc": [],
+                  "hidden": false,
                   "name": "t",
                   "parameters": [],
                   "manifest": {
@@ -6225,6 +6533,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "of_contents",
                   "type": {
                     "__class__": "value_type:function",
@@ -6244,6 +6553,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "contents",
                   "type": {
                     "__class__": "value_type:function",
@@ -6263,6 +6573,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "assign",
                   "type": {
                     "__class__": "value_type:function",
@@ -6291,12 +6602,13 @@
                 {
                   "__class__": "signature_item:module",
                   "doc": [],
+                  "hidden": false,
                   "name": "O",
                   "type": {
                     "__class__": "module_type:with",
-                    "base": {
+                    "module": {
                       "__class__": "module_type:of",
-                      "base": {
+                      "module": {
                         "__class__": "module_expr:apply",
                         "functor": {
                           "__class__": "module_expr:identifier",
@@ -6331,6 +6643,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "SpecializePredSucc",
           "type": {
             "__class__": "module_type:functor",
@@ -6350,6 +6663,7 @@
                 {
                   "__class__": "signature_item:type",
                   "doc": [],
+                  "hidden": false,
                   "name": "t",
                   "parameters": [],
                   "manifest": {
@@ -6368,6 +6682,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "increment",
                   "type": {
                     "__class__": "value_type:function",
@@ -6387,6 +6702,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "decrement",
                   "type": {
                     "__class__": "value_type:function",
@@ -6410,6 +6726,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "SpecializeRingoidOperators",
           "type": {
             "__class__": "module_type:functor",
@@ -6429,6 +6746,7 @@
                 {
                   "__class__": "signature_item:type",
                   "doc": [],
+                  "hidden": false,
                   "name": "t",
                   "parameters": [],
                   "manifest": {
@@ -6447,6 +6765,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "=+",
                   "type": {
                     "__class__": "value_type:function",
@@ -6475,6 +6794,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "=-",
                   "type": {
                     "__class__": "value_type:function",
@@ -6503,6 +6823,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "=*",
                   "type": {
                     "__class__": "value_type:function",
@@ -6531,6 +6852,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "=/",
                   "type": {
                     "__class__": "value_type:function",
@@ -6563,6 +6885,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "SpecializeRingoid",
           "type": {
             "__class__": "module_type:functor",
@@ -6582,6 +6905,7 @@
                 {
                   "__class__": "signature_item:type",
                   "doc": [],
+                  "hidden": false,
                   "name": "t",
                   "parameters": [],
                   "manifest": {
@@ -6600,12 +6924,13 @@
                 {
                   "__class__": "signature_item:module",
                   "doc": [],
+                  "hidden": false,
                   "name": "O",
                   "type": {
                     "__class__": "module_type:with",
-                    "base": {
+                    "module": {
                       "__class__": "module_type:of",
-                      "base": {
+                      "module": {
                         "__class__": "module_expr:apply",
                         "functor": {
                           "__class__": "module_expr:identifier",
@@ -6643,6 +6968,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Tuple2",
     "type": {
       "__class__": "module_type:signature",
@@ -6650,6 +6976,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -6675,9 +7002,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Able.S2"
             },
@@ -6718,6 +7046,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "make",
           "type": {
             "__class__": "value_type:function",
@@ -6741,6 +7070,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_0",
           "type": {
             "__class__": "value_type:function",
@@ -6759,6 +7089,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_1",
           "type": {
             "__class__": "value_type:function",
@@ -6777,6 +7108,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "flip",
           "type": {
             "__class__": "value_type:function",
@@ -6805,6 +7137,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Tuple3",
     "type": {
       "__class__": "module_type:signature",
@@ -6812,6 +7145,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -6843,9 +7177,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Able.S3"
             },
@@ -6895,6 +7230,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "make",
           "type": {
             "__class__": "value_type:function",
@@ -6924,6 +7260,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_0",
           "type": {
             "__class__": "value_type:function",
@@ -6943,6 +7280,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_1",
           "type": {
             "__class__": "value_type:function",
@@ -6962,6 +7300,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_2",
           "type": {
             "__class__": "value_type:function",
@@ -6981,6 +7320,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "flip",
           "type": {
             "__class__": "value_type:function",
@@ -7011,6 +7351,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Tuple4",
     "type": {
       "__class__": "module_type:signature",
@@ -7018,6 +7359,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -7055,9 +7397,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Able.S4"
             },
@@ -7116,6 +7459,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "make",
           "type": {
             "__class__": "value_type:function",
@@ -7151,6 +7495,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_0",
           "type": {
             "__class__": "value_type:function",
@@ -7171,6 +7516,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_1",
           "type": {
             "__class__": "value_type:function",
@@ -7191,6 +7537,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_2",
           "type": {
             "__class__": "value_type:function",
@@ -7211,6 +7558,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_3",
           "type": {
             "__class__": "value_type:function",
@@ -7231,6 +7579,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "flip",
           "type": {
             "__class__": "value_type:function",
@@ -7263,6 +7612,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Tuple5",
     "type": {
       "__class__": "module_type:signature",
@@ -7270,6 +7620,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -7313,9 +7664,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Able.S5"
             },
@@ -7383,6 +7735,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "make",
           "type": {
             "__class__": "value_type:function",
@@ -7427,6 +7780,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_0",
           "type": {
             "__class__": "value_type:function",
@@ -7448,6 +7802,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_1",
           "type": {
             "__class__": "value_type:function",
@@ -7469,6 +7824,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_2",
           "type": {
             "__class__": "value_type:function",
@@ -7490,6 +7846,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_3",
           "type": {
             "__class__": "value_type:function",
@@ -7511,6 +7868,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get_4",
           "type": {
             "__class__": "value_type:function",
@@ -7532,6 +7890,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "flip",
           "type": {
             "__class__": "value_type:function",
@@ -7566,6 +7925,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "IntOption",
     "type": {
       "__class__": "module_type:signature",
@@ -7573,9 +7933,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:apply",
               "functor": {
                 "__class__": "module_expr:identifier",
@@ -7593,6 +7954,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "FloatOption",
     "type": {
       "__class__": "module_type:signature",
@@ -7600,9 +7962,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:apply",
               "functor": {
                 "__class__": "module_expr:identifier",
@@ -7620,6 +7983,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "StringOption",
     "type": {
       "__class__": "module_type:signature",
@@ -7627,9 +7991,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:apply",
               "functor": {
                 "__class__": "module_expr:identifier",
@@ -7647,6 +8012,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "IntReference",
     "type": {
       "__class__": "module_type:signature",
@@ -7654,6 +8020,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -7672,6 +8039,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "O",
           "type": {
             "__class__": "module_type:signature",
@@ -7679,11 +8047,12 @@
               {
                 "__class__": "signature_item:include",
                 "doc": [],
+                "hidden": false,
                 "contents": {
                   "__class__": "module_type:with",
-                  "base": {
+                  "module": {
                     "__class__": "module_type:of",
-                    "base": {
+                    "module": {
                       "__class__": "module_expr:apply",
                       "functor": {
                         "__class__": "module_expr:identifier",
@@ -7714,11 +8083,12 @@
               {
                 "__class__": "signature_item:include",
                 "doc": [],
+                "hidden": false,
                 "contents": {
                   "__class__": "module_type:with",
-                  "base": {
+                  "module": {
                     "__class__": "module_type:of",
-                    "base": {
+                    "module": {
                       "__class__": "module_expr:apply",
                       "functor": {
                         "__class__": "module_expr:identifier",
@@ -7752,11 +8122,12 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:of",
-              "base": {
+              "module": {
                 "__class__": "module_expr:apply",
                 "functor": {
                   "__class__": "module_expr:identifier",
@@ -7789,11 +8160,12 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:of",
-              "base": {
+              "module": {
                 "__class__": "module_expr:apply",
                 "functor": {
                   "__class__": "module_expr:identifier",
@@ -7821,11 +8193,12 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:of",
-              "base": {
+              "module": {
                 "__class__": "module_expr:apply",
                 "functor": {
                   "__class__": "module_expr:identifier",
@@ -7861,6 +8234,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "FloatReference",
     "type": {
       "__class__": "module_type:signature",
@@ -7868,6 +8242,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -7886,6 +8261,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "O",
           "type": {
             "__class__": "module_type:signature",
@@ -7893,11 +8269,12 @@
               {
                 "__class__": "signature_item:include",
                 "doc": [],
+                "hidden": false,
                 "contents": {
                   "__class__": "module_type:with",
-                  "base": {
+                  "module": {
                     "__class__": "module_type:of",
-                    "base": {
+                    "module": {
                       "__class__": "module_expr:apply",
                       "functor": {
                         "__class__": "module_expr:identifier",
@@ -7928,11 +8305,12 @@
               {
                 "__class__": "signature_item:include",
                 "doc": [],
+                "hidden": false,
                 "contents": {
                   "__class__": "module_type:with",
-                  "base": {
+                  "module": {
                     "__class__": "module_type:of",
-                    "base": {
+                    "module": {
                       "__class__": "module_expr:apply",
                       "functor": {
                         "__class__": "module_expr:identifier",
@@ -7966,11 +8344,12 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:of",
-              "base": {
+              "module": {
                 "__class__": "module_expr:apply",
                 "functor": {
                   "__class__": "module_expr:identifier",
@@ -8003,11 +8382,12 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:of",
-              "base": {
+              "module": {
                 "__class__": "module_expr:apply",
                 "functor": {
                   "__class__": "module_expr:identifier",
@@ -8043,6 +8423,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "StringReference",
     "type": {
       "__class__": "module_type:signature",
@@ -8050,6 +8431,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -8068,6 +8450,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "O",
           "type": {
             "__class__": "module_type:signature",
@@ -8075,11 +8458,12 @@
               {
                 "__class__": "signature_item:include",
                 "doc": [],
+                "hidden": false,
                 "contents": {
                   "__class__": "module_type:with",
-                  "base": {
+                  "module": {
                     "__class__": "module_type:of",
-                    "base": {
+                    "module": {
                       "__class__": "module_expr:apply",
                       "functor": {
                         "__class__": "module_expr:identifier",
@@ -8110,6 +8494,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "=^",
                 "type": {
                   "__class__": "value_type:function",
@@ -8141,11 +8526,12 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:of",
-              "base": {
+              "module": {
                 "__class__": "module_expr:apply",
                 "functor": {
                   "__class__": "module_expr:identifier",
@@ -8181,6 +8567,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "List",
     "type": {
       "__class__": "module_type:signature",
@@ -8188,6 +8575,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -8208,6 +8596,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "O",
           "type": {
             "__class__": "module_type:signature",
@@ -8215,6 +8604,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "@",
                 "type": {
                   "__class__": "value_type:function",
@@ -8252,6 +8642,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "empty",
           "type": {
             "__class__": "value_type:constructor",
@@ -8264,6 +8655,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "singleton",
           "type": {
             "__class__": "value_type:function",
@@ -8281,6 +8673,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "of_list",
           "type": {
             "__class__": "value_type:function",
@@ -8304,6 +8697,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "to_list",
           "type": {
             "__class__": "value_type:function",
@@ -8327,6 +8721,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "of_array",
           "type": {
             "__class__": "value_type:function",
@@ -8350,6 +8745,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "to_array",
           "type": {
             "__class__": "value_type:function",
@@ -8373,6 +8769,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "size",
           "type": {
             "__class__": "value_type:function",
@@ -8394,6 +8791,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "is_empty",
           "type": {
             "__class__": "value_type:function",
@@ -8415,6 +8813,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "head",
           "type": {
             "__class__": "value_type:function",
@@ -8432,6 +8831,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "tail",
           "type": {
             "__class__": "value_type:function",
@@ -8455,6 +8855,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "try_head",
           "type": {
             "__class__": "value_type:function",
@@ -8478,6 +8879,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "try_tail",
           "type": {
             "__class__": "value_type:function",
@@ -8507,6 +8909,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "contains",
           "type": {
             "__class__": "value_type:function",
@@ -8555,6 +8958,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Poly",
           "type": {
             "__class__": "module_type:signature",
@@ -8562,6 +8966,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "contains",
                 "type": {
                   "__class__": "value_type:function",
@@ -8594,6 +8999,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "prepend",
           "type": {
             "__class__": "value_type:function",
@@ -8622,6 +9028,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "reverse",
           "type": {
             "__class__": "value_type:function",
@@ -8645,6 +9052,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "concat",
           "type": {
             "__class__": "value_type:function",
@@ -8679,9 +9087,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.FilterMapable.S1"
             },
@@ -8713,9 +9122,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.Foldable.S1"
             },
@@ -8747,9 +9157,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.Foldable.Short.S1"
             },
@@ -8781,9 +9192,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.Scanable.S1"
             },
@@ -8815,9 +9227,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.Scanable.Short.S1"
             },
@@ -8849,6 +9262,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Specialize",
           "type": {
             "__class__": "module_type:functor",
@@ -8862,6 +9276,7 @@
                     {
                       "__class__": "signature_item:type",
                       "doc": [],
+                      "hidden": false,
                       "name": "t",
                       "parameters": [],
                       "manifest": null,
@@ -8877,6 +9292,7 @@
                 {
                   "__class__": "signature_item:type",
                   "doc": [],
+                  "hidden": false,
                   "name": "t",
                   "parameters": [],
                   "manifest": {
@@ -8895,6 +9311,7 @@
                 {
                   "__class__": "signature_item:module",
                   "doc": [],
+                  "hidden": false,
                   "name": "O",
                   "type": {
                     "__class__": "module_type:signature",
@@ -8902,6 +9319,7 @@
                       {
                         "__class__": "signature_item:value",
                         "doc": [],
+                        "hidden": false,
                         "name": "@",
                         "type": {
                           "__class__": "value_type:function",
@@ -8933,6 +9351,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "empty",
                   "type": {
                     "__class__": "value_type:constructor",
@@ -8943,6 +9362,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "singleton",
                   "type": {
                     "__class__": "value_type:function",
@@ -8962,6 +9382,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "of_list",
                   "type": {
                     "__class__": "value_type:function",
@@ -8987,6 +9408,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "to_list",
                   "type": {
                     "__class__": "value_type:function",
@@ -9012,6 +9434,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "of_array",
                   "type": {
                     "__class__": "value_type:function",
@@ -9037,6 +9460,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "to_array",
                   "type": {
                     "__class__": "value_type:function",
@@ -9062,6 +9486,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "size",
                   "type": {
                     "__class__": "value_type:function",
@@ -9081,6 +9506,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "is_empty",
                   "type": {
                     "__class__": "value_type:function",
@@ -9100,6 +9526,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "head",
                   "type": {
                     "__class__": "value_type:function",
@@ -9119,6 +9546,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "tail",
                   "type": {
                     "__class__": "value_type:function",
@@ -9138,6 +9566,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "try_head",
                   "type": {
                     "__class__": "value_type:function",
@@ -9163,6 +9592,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "try_tail",
                   "type": {
                     "__class__": "value_type:function",
@@ -9188,6 +9618,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "prepend",
                   "type": {
                     "__class__": "value_type:function",
@@ -9216,6 +9647,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "reverse",
                   "type": {
                     "__class__": "value_type:function",
@@ -9235,6 +9667,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "concat",
                   "type": {
                     "__class__": "value_type:function",
@@ -9263,9 +9696,10 @@
                 {
                   "__class__": "signature_item:include",
                   "doc": [],
+                  "hidden": false,
                   "contents": {
                     "__class__": "module_type:with",
-                    "base": {
+                    "module": {
                       "__class__": "module_type:identifier",
                       "name": "Traits.FilterMapable.S0"
                     },
@@ -9296,9 +9730,10 @@
                 {
                   "__class__": "signature_item:include",
                   "doc": [],
+                  "hidden": false,
                   "contents": {
                     "__class__": "module_type:with",
-                    "base": {
+                    "module": {
                       "__class__": "module_type:identifier",
                       "name": "Traits.Foldable.S0"
                     },
@@ -9329,9 +9764,10 @@
                 {
                   "__class__": "signature_item:include",
                   "doc": [],
+                  "hidden": false,
                   "contents": {
                     "__class__": "module_type:with",
-                    "base": {
+                    "module": {
                       "__class__": "module_type:identifier",
                       "name": "Traits.Foldable.Short.S0"
                     },
@@ -9362,9 +9798,10 @@
                 {
                   "__class__": "signature_item:include",
                   "doc": [],
+                  "hidden": false,
                   "contents": {
                     "__class__": "module_type:with",
-                    "base": {
+                    "module": {
                       "__class__": "module_type:identifier",
                       "name": "Traits.Scanable.S0"
                     },
@@ -9395,9 +9832,10 @@
                 {
                   "__class__": "signature_item:include",
                   "doc": [],
+                  "hidden": false,
                   "contents": {
                     "__class__": "module_type:with",
-                    "base": {
+                    "module": {
                       "__class__": "module_type:identifier",
                       "name": "Traits.Scanable.Short.S0"
                     },
@@ -9428,6 +9866,7 @@
                 {
                   "__class__": "signature_item:module",
                   "doc": [],
+                  "hidden": false,
                   "name": "ToList",
                   "type": {
                     "__class__": "module_type:signature",
@@ -9435,9 +9874,10 @@
                       {
                         "__class__": "signature_item:include",
                         "doc": [],
+                        "hidden": false,
                         "contents": {
                           "__class__": "module_type:with",
-                          "base": {
+                          "module": {
                             "__class__": "module_type:identifier",
                             "name": "Traits.FilterMapable.ToList.S0"
                           },
@@ -9468,9 +9908,10 @@
                       {
                         "__class__": "signature_item:include",
                         "doc": [],
+                        "hidden": false,
                         "contents": {
                           "__class__": "module_type:with",
-                          "base": {
+                          "module": {
                             "__class__": "module_type:identifier",
                             "name": "Traits.Scanable.ToList.S0"
                           },
@@ -9501,9 +9942,10 @@
                       {
                         "__class__": "signature_item:include",
                         "doc": [],
+                        "hidden": false,
                         "contents": {
                           "__class__": "module_type:with",
-                          "base": {
+                          "module": {
                             "__class__": "module_type:identifier",
                             "name": "Traits.Scanable.Short.ToList.S0"
                           },
@@ -9541,6 +9983,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "SpecializeEquatable",
           "type": {
             "__class__": "module_type:functor",
@@ -9560,6 +10003,7 @@
                 {
                   "__class__": "signature_item:type",
                   "doc": [],
+                  "hidden": false,
                   "name": "t",
                   "parameters": [],
                   "manifest": {
@@ -9578,6 +10022,7 @@
                 {
                   "__class__": "signature_item:value",
                   "doc": [],
+                  "hidden": false,
                   "name": "contains",
                   "type": {
                     "__class__": "value_type:function",
@@ -9613,6 +10058,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Array",
     "type": {
       "__class__": "module_type:signature",
@@ -9620,6 +10066,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -9640,6 +10087,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "get",
           "type": {
             "__class__": "value_type:function",
@@ -9669,6 +10117,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Stream",
     "type": {
       "__class__": "module_type:signature",
@@ -9676,6 +10125,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -9696,6 +10146,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "empty",
           "type": {
             "__class__": "value_type:constructor",
@@ -9708,6 +10159,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "singleton",
           "type": {
             "__class__": "value_type:function",
@@ -9725,6 +10177,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "to_list",
           "type": {
             "__class__": "value_type:function",
@@ -9748,6 +10201,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "of_list",
           "type": {
             "__class__": "value_type:function",
@@ -9771,6 +10225,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "prepend",
           "type": {
             "__class__": "value_type:function",
@@ -9799,6 +10254,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "concat",
           "type": {
             "__class__": "value_type:function",
@@ -9833,9 +10289,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.FilterMapable.S1"
             },
@@ -9867,6 +10324,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "ToList",
           "type": {
             "__class__": "module_type:signature",
@@ -9874,9 +10332,10 @@
               {
                 "__class__": "signature_item:include",
                 "doc": [],
+                "hidden": false,
                 "contents": {
                   "__class__": "module_type:with",
-                  "base": {
+                  "module": {
                     "__class__": "module_type:identifier",
                     "name": "Traits.FilterMapable.ToList.S1"
                   },
@@ -9914,6 +10373,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "IntRange",
     "type": {
       "__class__": "module_type:signature",
@@ -9921,6 +10381,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": null,
@@ -9929,9 +10390,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Concepts.Identifiable.S0"
             },
@@ -9952,6 +10414,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "empty",
           "type": {
             "__class__": "value_type:constructor",
@@ -9962,6 +10425,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "create",
           "type": {
             "__class__": "value_type:function",
@@ -10011,6 +10475,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "to_list",
           "type": {
             "__class__": "value_type:function",
@@ -10036,6 +10501,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "to_array",
           "type": {
             "__class__": "value_type:function",
@@ -10061,9 +10527,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.Foldable.S0"
             },
@@ -10094,9 +10561,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:identifier",
               "name": "Traits.Foldable.Short.S0"
             },
@@ -10127,6 +10595,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "ToList",
           "type": {
             "__class__": "module_type:signature",
@@ -10134,9 +10603,10 @@
               {
                 "__class__": "signature_item:include",
                 "doc": [],
+                "hidden": false,
                 "contents": {
                   "__class__": "module_type:with",
-                  "base": {
+                  "module": {
                     "__class__": "module_type:identifier",
                     "name": "Traits.FilterMapable.ToList.S0"
                   },
@@ -10167,9 +10637,10 @@
               {
                 "__class__": "signature_item:include",
                 "doc": [],
+                "hidden": false,
                 "contents": {
                   "__class__": "module_type:with",
-                  "base": {
+                  "module": {
                     "__class__": "module_type:identifier",
                     "name": "Traits.Scanable.ToList.S0"
                   },
@@ -10200,9 +10671,10 @@
               {
                 "__class__": "signature_item:include",
                 "doc": [],
+                "hidden": false,
                 "contents": {
                   "__class__": "module_type:with",
-                  "base": {
+                  "module": {
                     "__class__": "module_type:identifier",
                     "name": "Traits.Scanable.Short.ToList.S0"
                   },
@@ -10239,6 +10711,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "IntList",
     "type": {
       "__class__": "module_type:signature",
@@ -10246,9 +10719,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:apply",
               "functor": {
                 "__class__": "module_expr:identifier",
@@ -10266,6 +10740,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "FloatList",
     "type": {
       "__class__": "module_type:signature",
@@ -10273,9 +10748,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:apply",
               "functor": {
                 "__class__": "module_expr:identifier",
@@ -10293,6 +10769,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "StringList",
     "type": {
       "__class__": "module_type:signature",
@@ -10300,9 +10777,10 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:apply",
               "functor": {
                 "__class__": "module_expr:identifier",
@@ -10317,6 +10795,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "concat",
           "type": {
             "__class__": "value_type:function",
@@ -10354,6 +10833,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Format",
     "type": {
       "__class__": "module_type:signature",
@@ -10361,6 +10841,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [
             {
@@ -10411,6 +10892,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "with_result",
           "type": {
             "__class__": "value_type:function",
@@ -10463,6 +10945,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "apply",
           "type": {
             "__class__": "value_type:function",
@@ -10505,6 +10988,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "to_string",
           "type": {
             "__class__": "value_type:function",
@@ -10531,6 +11015,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "of_string",
           "type": {
             "__class__": "value_type:function",
@@ -10564,6 +11049,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "concat",
           "type": {
             "__class__": "value_type:function",
@@ -10616,6 +11102,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "InChannel",
     "type": {
       "__class__": "module_type:signature",
@@ -10623,6 +11110,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -10638,6 +11126,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "InFile",
     "type": {
       "__class__": "module_type:signature",
@@ -10645,6 +11134,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": null,
@@ -10653,6 +11143,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "with_file",
           "type": {
             "__class__": "value_type:function",
@@ -10682,6 +11173,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "with_channel",
           "type": {
             "__class__": "value_type:function",
@@ -10711,6 +11203,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "channel",
           "type": {
             "__class__": "value_type:function",
@@ -10730,6 +11223,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "seek",
           "type": {
             "__class__": "value_type:function",
@@ -10758,6 +11252,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "pos",
           "type": {
             "__class__": "value_type:function",
@@ -10777,6 +11272,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "size",
           "type": {
             "__class__": "value_type:function",
@@ -10799,6 +11295,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "OutChannel",
     "type": {
       "__class__": "module_type:signature",
@@ -10806,6 +11303,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": {
@@ -10818,6 +11316,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "print",
           "type": {
             "__class__": "value_type:function",
@@ -10869,6 +11368,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "output",
           "type": {
             "__class__": "value_type:function",
@@ -10897,6 +11397,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "flush",
           "type": {
             "__class__": "value_type:function",
@@ -10919,6 +11420,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "OutFile",
     "type": {
       "__class__": "module_type:signature",
@@ -10926,6 +11428,7 @@
         {
           "__class__": "signature_item:type",
           "doc": [],
+          "hidden": false,
           "name": "t",
           "parameters": [],
           "manifest": null,
@@ -10934,6 +11437,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "with_file",
           "type": {
             "__class__": "value_type:function",
@@ -10963,6 +11467,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "with_channel",
           "type": {
             "__class__": "value_type:function",
@@ -10992,6 +11497,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "channel",
           "type": {
             "__class__": "value_type:function",
@@ -11011,6 +11517,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "seek",
           "type": {
             "__class__": "value_type:function",
@@ -11039,6 +11546,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "pos",
           "type": {
             "__class__": "value_type:function",
@@ -11058,6 +11566,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "size",
           "type": {
             "__class__": "value_type:function",
@@ -11080,6 +11589,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "StdIn",
     "type": {
       "__class__": "module_type:signature",
@@ -11087,6 +11597,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "channel",
           "type": {
             "__class__": "value_type:constructor",
@@ -11100,6 +11611,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "StdOut",
     "type": {
       "__class__": "module_type:signature",
@@ -11107,6 +11619,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "channel",
           "type": {
             "__class__": "value_type:constructor",
@@ -11117,6 +11630,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "print",
           "type": {
             "__class__": "value_type:function",
@@ -11159,6 +11673,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "output",
           "type": {
             "__class__": "value_type:function",
@@ -11178,6 +11693,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "flush",
           "type": {
             "__class__": "value_type:function",
@@ -11200,6 +11716,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "StdErr",
     "type": {
       "__class__": "module_type:signature",
@@ -11207,6 +11724,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "channel",
           "type": {
             "__class__": "value_type:constructor",
@@ -11217,6 +11735,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "print",
           "type": {
             "__class__": "value_type:function",
@@ -11259,6 +11778,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "output",
           "type": {
             "__class__": "value_type:function",
@@ -11278,6 +11798,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "flush",
           "type": {
             "__class__": "value_type:function",
@@ -11300,6 +11821,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Testing",
     "type": {
       "__class__": "module_type:signature",
@@ -11307,6 +11829,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Result",
           "type": {
             "__class__": "module_type:signature",
@@ -11314,6 +11837,7 @@
               {
                 "__class__": "signature_item:type",
                 "doc": [],
+                "hidden": false,
                 "name": "t",
                 "parameters": [],
                 "manifest": null,
@@ -11325,6 +11849,7 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Test",
           "type": {
             "__class__": "module_type:signature",
@@ -11332,6 +11857,7 @@
               {
                 "__class__": "signature_item:type",
                 "doc": [],
+                "hidden": false,
                 "name": "t",
                 "parameters": [],
                 "manifest": {
@@ -11344,6 +11870,7 @@
               {
                 "__class__": "signature_item:value",
                 "doc": [],
+                "hidden": false,
                 "name": "run",
                 "type": {
                   "__class__": "value_type:function",
@@ -11381,6 +11908,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "command_line_main",
           "type": {
             "__class__": "value_type:function",
@@ -11415,6 +11943,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": ">::",
           "type": {
             "__class__": "value_type:function",
@@ -11449,6 +11978,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": ">:",
           "type": {
             "__class__": "value_type:function",
@@ -11483,6 +12013,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "~:",
           "type": {
             "__class__": "value_type:function",
@@ -11540,6 +12071,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "~::",
           "type": {
             "__class__": "value_type:function",
@@ -11597,6 +12129,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "fail",
           "type": {
             "__class__": "value_type:function",
@@ -11635,6 +12168,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "expect_exception",
           "type": {
             "__class__": "value_type:function",
@@ -11665,6 +12199,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check",
           "type": {
             "__class__": "value_type:function",
@@ -11718,6 +12253,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_poly",
           "type": {
             "__class__": "value_type:function",
@@ -11752,6 +12288,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_string",
           "type": {
             "__class__": "value_type:function",
@@ -11780,6 +12317,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_bool",
           "type": {
             "__class__": "value_type:function",
@@ -11808,6 +12346,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_true",
           "type": {
             "__class__": "value_type:function",
@@ -11827,6 +12366,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_false",
           "type": {
             "__class__": "value_type:function",
@@ -11846,6 +12386,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_int",
           "type": {
             "__class__": "value_type:function",
@@ -11874,6 +12415,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_float_exact",
           "type": {
             "__class__": "value_type:function",
@@ -11902,6 +12444,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_option",
           "type": {
             "__class__": "value_type:function",
@@ -11967,6 +12510,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_some",
           "type": {
             "__class__": "value_type:function",
@@ -12026,6 +12570,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_none",
           "type": {
             "__class__": "value_type:function",
@@ -12080,6 +12625,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_int_option",
           "type": {
             "__class__": "value_type:function",
@@ -12120,6 +12666,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_some_int",
           "type": {
             "__class__": "value_type:function",
@@ -12154,6 +12701,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_none_int",
           "type": {
             "__class__": "value_type:function",
@@ -12179,6 +12727,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_list",
           "type": {
             "__class__": "value_type:function",
@@ -12244,6 +12793,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_string_list",
           "type": {
             "__class__": "value_type:function",
@@ -12284,6 +12834,7 @@
         {
           "__class__": "signature_item:value",
           "doc": [],
+          "hidden": false,
           "name": "check_int_list",
           "type": {
             "__class__": "value_type:function",
@@ -12327,6 +12878,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Standard",
     "type": {
       "__class__": "module_type:signature",
@@ -12334,10 +12886,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Testing",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Testing"
             }
@@ -12346,10 +12899,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Array",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Array"
             }
@@ -12358,10 +12912,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "BigInt",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "BigInt"
             }
@@ -12370,19 +12925,24 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Bool",
           "type": {
             "__class__": "module_type:of",
-            "base": { "__class__": "module_expr:identifier", "name": "Bool" }
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "Bool"
+            }
           }
         },
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "CallStack",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "CallStack"
             }
@@ -12391,19 +12951,24 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Char",
           "type": {
             "__class__": "module_type:of",
-            "base": { "__class__": "module_expr:identifier", "name": "Char" }
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "Char"
+            }
           }
         },
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Exception",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Exception"
             }
@@ -12412,12 +12977,13 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Exit",
           "type": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:of",
-              "base": {
+              "module": {
                 "__class__": "module_expr:identifier",
                 "name": "Exit"
               }
@@ -12439,10 +13005,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Float",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Float"
             }
@@ -12451,10 +13018,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Format",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Format"
             }
@@ -12463,10 +13031,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Function1",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Function1"
             }
@@ -12475,10 +13044,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Function2",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Function2"
             }
@@ -12487,10 +13057,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Function3",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Function3"
             }
@@ -12499,10 +13070,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Function4",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Function4"
             }
@@ -12511,10 +13083,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Function5",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Function5"
             }
@@ -12523,10 +13096,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "InChannel",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "InChannel"
             }
@@ -12535,10 +13109,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "InFile",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "InFile"
             }
@@ -12547,10 +13122,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Int32",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Int32"
             }
@@ -12559,10 +13135,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Int64",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Int64"
             }
@@ -12571,37 +13148,50 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Int",
           "type": {
             "__class__": "module_type:of",
-            "base": { "__class__": "module_expr:identifier", "name": "Int" }
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "Int"
+            }
           }
         },
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Lazy",
           "type": {
             "__class__": "module_type:of",
-            "base": { "__class__": "module_expr:identifier", "name": "Lazy" }
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "Lazy"
+            }
           }
         },
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "List",
           "type": {
             "__class__": "module_type:of",
-            "base": { "__class__": "module_expr:identifier", "name": "List" }
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "List"
+            }
           }
         },
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "NativeInt",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "NativeInt"
             }
@@ -12610,10 +13200,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Option",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Option"
             }
@@ -12622,10 +13213,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "OutChannel",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "OutChannel"
             }
@@ -12634,10 +13226,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "OutFile",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "OutFile"
             }
@@ -12646,10 +13239,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Reference",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Reference"
             }
@@ -12658,10 +13252,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "StdErr",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "StdErr"
             }
@@ -12670,10 +13265,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "StdIn",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "StdIn"
             }
@@ -12682,10 +13278,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "StdOut",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "StdOut"
             }
@@ -12694,10 +13291,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Stream",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Stream"
             }
@@ -12706,10 +13304,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "String",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "String"
             }
@@ -12718,10 +13317,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Tuple2",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Tuple2"
             }
@@ -12730,10 +13330,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Tuple3",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Tuple3"
             }
@@ -12742,10 +13343,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Tuple4",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Tuple4"
             }
@@ -12754,10 +13356,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Tuple5",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Tuple5"
             }
@@ -12766,19 +13369,24 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Unit",
           "type": {
             "__class__": "module_type:of",
-            "base": { "__class__": "module_expr:identifier", "name": "Unit" }
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "Unit"
+            }
           }
         },
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "IntRange",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "IntRange"
             }
@@ -12787,10 +13395,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "IntOption",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "IntOption"
             }
@@ -12799,10 +13408,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "FloatOption",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "FloatOption"
             }
@@ -12811,10 +13421,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "StringOption",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "StringOption"
             }
@@ -12823,10 +13434,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "IntReference",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "IntReference"
             }
@@ -12835,10 +13447,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "FloatReference",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "FloatReference"
             }
@@ -12847,10 +13460,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "StringReference",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "StringReference"
             }
@@ -12859,10 +13473,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "IntList",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "IntList"
             }
@@ -12871,10 +13486,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "FloatList",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "FloatList"
             }
@@ -12883,10 +13499,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "StringList",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "StringList"
             }
@@ -12895,11 +13512,12 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:of",
-              "base": {
+              "module": {
                 "__class__": "module_expr:identifier",
                 "name": "Pervasives"
               }
@@ -12959,6 +13577,7 @@
   {
     "__class__": "signature_item:module",
     "doc": [],
+    "hidden": false,
     "name": "Abbr",
     "type": {
       "__class__": "module_type:signature",
@@ -12966,10 +13585,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Tst",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Testing"
             }
@@ -12978,10 +13598,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Ar",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Array"
             }
@@ -12990,10 +13611,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "BigInt",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "BigInt"
             }
@@ -13002,19 +13624,24 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Bo",
           "type": {
             "__class__": "module_type:of",
-            "base": { "__class__": "module_expr:identifier", "name": "Bool" }
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "Bool"
+            }
           }
         },
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "CallStack",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "CallStack"
             }
@@ -13023,21 +13650,26 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Ch",
           "type": {
             "__class__": "module_type:of",
-            "base": { "__class__": "module_expr:identifier", "name": "Char" }
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "Char"
+            }
           }
         },
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Exit",
           "type": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:of",
-              "base": {
+              "module": {
                 "__class__": "module_expr:identifier",
                 "name": "Exit"
               }
@@ -13059,10 +13691,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Exn",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Exception"
             }
@@ -13071,10 +13704,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Fl",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Float"
             }
@@ -13083,10 +13717,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Frmt",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Format"
             }
@@ -13095,10 +13730,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Fun1",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Function1"
             }
@@ -13107,10 +13743,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Fun2",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Function2"
             }
@@ -13119,10 +13756,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Fun3",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Function3"
             }
@@ -13131,10 +13769,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Fun4",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Function4"
             }
@@ -13143,10 +13782,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Fun5",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Function5"
             }
@@ -13155,10 +13795,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "InCh",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "InChannel"
             }
@@ -13167,10 +13808,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "InFile",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "InFile"
             }
@@ -13179,10 +13821,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Int32",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Int32"
             }
@@ -13191,10 +13834,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Int64",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Int64"
             }
@@ -13203,37 +13847,50 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Int",
           "type": {
             "__class__": "module_type:of",
-            "base": { "__class__": "module_expr:identifier", "name": "Int" }
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "Int"
+            }
           }
         },
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Laz",
           "type": {
             "__class__": "module_type:of",
-            "base": { "__class__": "module_expr:identifier", "name": "Lazy" }
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "Lazy"
+            }
           }
         },
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Li",
           "type": {
             "__class__": "module_type:of",
-            "base": { "__class__": "module_expr:identifier", "name": "List" }
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "List"
+            }
           }
         },
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "NativeInt",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "NativeInt"
             }
@@ -13242,10 +13899,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Opt",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Option"
             }
@@ -13254,10 +13912,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "OutCh",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "OutChannel"
             }
@@ -13266,10 +13925,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "OutFile",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "OutFile"
             }
@@ -13278,10 +13938,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Ref",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Reference"
             }
@@ -13290,10 +13951,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "StdErr",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "StdErr"
             }
@@ -13302,10 +13964,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "StdIn",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "StdIn"
             }
@@ -13314,10 +13977,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "StdOut",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "StdOut"
             }
@@ -13326,10 +13990,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Str",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "String"
             }
@@ -13338,10 +14003,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Strm",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Stream"
             }
@@ -13350,10 +14016,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Tu2",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Tuple2"
             }
@@ -13362,10 +14029,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Tu3",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Tuple3"
             }
@@ -13374,10 +14042,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Tu4",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Tuple4"
             }
@@ -13386,10 +14055,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Tu5",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "Tuple5"
             }
@@ -13398,19 +14068,24 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "Unit",
           "type": {
             "__class__": "module_type:of",
-            "base": { "__class__": "module_expr:identifier", "name": "Unit" }
+            "module": {
+              "__class__": "module_expr:identifier",
+              "name": "Unit"
+            }
           }
         },
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "IntRa",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "IntRange"
             }
@@ -13419,10 +14094,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "IntOpt",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "IntOption"
             }
@@ -13431,10 +14107,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "FlOpt",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "FloatOption"
             }
@@ -13443,10 +14120,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "StrOpt",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "StringOption"
             }
@@ -13455,10 +14133,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "IntRef",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "IntReference"
             }
@@ -13467,10 +14146,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "FlRef",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "FloatReference"
             }
@@ -13479,10 +14159,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "StrRef",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "StringReference"
             }
@@ -13491,10 +14172,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "IntLi",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "IntList"
             }
@@ -13503,10 +14185,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "FlLi",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "FloatList"
             }
@@ -13515,10 +14198,11 @@
         {
           "__class__": "signature_item:module",
           "doc": [],
+          "hidden": false,
           "name": "StrLi",
           "type": {
             "__class__": "module_type:of",
-            "base": {
+            "module": {
               "__class__": "module_expr:identifier",
               "name": "StringList"
             }
@@ -13527,11 +14211,12 @@
         {
           "__class__": "signature_item:include",
           "doc": [],
+          "hidden": false,
           "contents": {
             "__class__": "module_type:with",
-            "base": {
+            "module": {
               "__class__": "module_type:of",
-              "base": {
+              "module": {
                 "__class__": "module_expr:identifier",
                 "name": "Pervasives"
               }

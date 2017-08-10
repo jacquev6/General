@@ -27,6 +27,7 @@ end
 module TypedtreeToJson: sig
   val signature: Typedtree.signature -> J.t
 end = struct
+  (*BISECT-IGNORE-BEGIN*)
   let not_handled =
     let count = ref 0 in
     fun s {Location.loc_start; _} ->
@@ -39,6 +40,7 @@ end = struct
         StdErr.print "autodoc (OCaml): [WARNING] more items not handled\n"
       end;
       J.str (Frmt.apply "NOT HANDLED: %s" s)
+  (*BISECT-IGNORE-END*)
 
   let hidden attributes =
     attributes
@@ -53,7 +55,7 @@ end = struct
         match payload with
           | PStr [{pstr_desc=Pstr_eval ({pexp_desc=Pexp_constant (Asttypes.Const_string (s, _)); _}, _); _}] ->
             J.str s
-          | _ ->
+          | _ -> (*BISECT-IGNORE*)
             not_handled "attribute" loc
       ))
     )
@@ -86,23 +88,23 @@ end = struct
             J.obj "value_type:tuple" [
               ("elements", elements |> Li.map ~f:aux |> J.li);
             ]
-          | Tobject _ ->
+          | Tobject _ -> (*BISECT-IGNORE*)
             not_handled "type_expr: Tobject" loc
-          | Tfield _ ->
+          | Tfield _ -> (*BISECT-IGNORE*)
             not_handled "type_expr: Tfield" loc
-          | Tnil ->
+          | Tnil -> (*BISECT-IGNORE*)
             not_handled "type_expr: Tnil" loc
-          | Tsubst _ ->
+          | Tsubst _ -> (*BISECT-IGNORE*)
             not_handled "type_expr: Tsubst" loc
-          | Tvariant _ ->
+          | Tvariant _ -> (*BISECT-IGNORE*)
             not_handled "type_expr: Tvariant" loc
-          | Tunivar _ ->
+          | Tunivar _ -> (*BISECT-IGNORE*)
             not_handled "type_expr: Tunivar" loc
           | Tpoly (x, []) ->
               aux x
-          | Tpoly _ ->
+          | Tpoly _ -> (*BISECT-IGNORE*)
             not_handled "type_expr: Tpoly" loc
-          | Tpackage _ ->
+          | Tpackage _ -> (*BISECT-IGNORE*)
             not_handled "type_expr: Tpackage" loc
       )
     in
@@ -113,18 +115,21 @@ end = struct
   let path path =
     J.str (Path.name path)
 
-  let longident_loc {Asttypes.txt=longident; loc=_} =
-    J.str (Longident.flatten longident |> StrLi.concat ~sep:".")
+  (* let longident_loc {Asttypes.txt=longident; loc=_} =
+    J.str (Longident.flatten longident |> StrLi.concat ~sep:".") *)
 
   let string_loc {Asttypes.txt; loc=_} =
     J.str txt
 
   let value_description {val_id=_; val_name; val_desc; val_val=_; val_prim=_; val_loc; val_attributes} =
-    J.obj "signature_item:value" [
-      ("doc", filter_ocaml_doc_attributes val_attributes);
-      ("name", string_loc val_name);
-      ("type", type_expr val_loc val_desc.ctyp_type);
-    ]
+    (
+      "signature_item:value",
+      [
+        ("name", string_loc val_name);
+        ("type", type_expr val_loc val_desc.ctyp_type);
+      ],
+      val_attributes
+    )
 
   let attribute attr =
     filter_attributes ~key:"ocaml.text" [attr]
@@ -136,34 +141,6 @@ end = struct
     |> Li.head
 
   let type_parameters ~typ_loc typ_params =
-    (* let rec aux = Types.(function
-      | {desc=Tvar name; _} ->
-        name |> Opt.map ~f:J.str |> J.opt
-      | {desc=Tlink t; _} ->
-        aux t
-      | {desc=Tarrow (_, _, _, _); _} ->
-        not_handled "type_parameter: desc=Tarrow" typ_loc
-      | {desc=Ttuple _; _} ->
-        not_handled "type_parameter: desc=Ttuple" typ_loc
-      | {desc=Tconstr (_, _, _); _} ->
-        not_handled "type_parameter: desc=Tconstr" typ_loc
-      | {desc=Tobject (_, _); _} ->
-        not_handled "type_parameter: desc=Tobject" typ_loc
-      | {desc=Tfield (_, _, _, _); _} ->
-        not_handled "type_parameter: desc=Tfield" typ_loc
-      | {desc=Tnil; _} ->
-        not_handled "type_parameter: desc=Tnil" typ_loc
-      | {desc=Tsubst _; _} ->
-        not_handled "type_parameter: desc=Tsubst" typ_loc
-      | {desc=Tvariant _; _} ->
-        not_handled "type_parameter: desc=Tvariant" typ_loc
-      | {desc=Tunivar _; _} ->
-        not_handled "type_parameter: desc=Tunivar" typ_loc
-      | {desc=Tpoly (_, _); _} ->
-        not_handled "type_parameter: desc=Tpoly" typ_loc
-      | {desc=Tpackage (_, _, _); _} ->
-        not_handled "type_parameter: desc=Tpackage" typ_loc
-    ) in *)
     typ_params
     |> Li.map ~f:(fun ({ctyp_type; _}, variance) ->
       let variance = match variance with
@@ -218,153 +195,198 @@ end = struct
           |> J.li
         )
       ]
-    | Ttype_open ->
+    | Ttype_open -> (*BISECT-IGNORE*)
       not_handled "type_kind: Ttype_open" typ_loc
 
-  let with_constraint =
+  let with_constraint (p, _, constraint_) =
     let type_ {typ_name; typ_params; typ_manifest; typ_loc; _} =
       [
         ("name", string_loc typ_name);
         ("parameters", type_parameters ~typ_loc typ_params);
         ("manifest", type_manifest ~typ_loc typ_manifest);
       ]
-    and module_ p ident =
+    and module_ p' =
       [
         ("name", path p);
-        ("manifest", longident_loc ident);
+        ("manifest", path p');
       ]
     in
-    function
+    match constraint_ with
       | Twith_type typ ->
         J.obj "with:type" (type_ typ)
-      | Twith_module (p, ident) ->
-        J.obj "with:module" (module_ p ident)
+      | Twith_module (p', _) ->
+        J.obj "with:module" (module_ p')
       | Twith_typesubst typ ->
         J.obj "with:type_subst" (type_ typ)
-      | Twith_modsubst (p, ident) ->
-        J.obj "with:module_subst" (module_ p ident)
+      | Twith_modsubst (p', _) ->
+        J.obj "with:module_subst" (module_ p')
 
   let type_declaration {typ_id=_; typ_name; typ_params; typ_type=_; typ_cstrs=_; typ_kind; typ_private=_; typ_manifest; typ_loc; typ_attributes} =
-    J.obj "signature_item:type" [
-      ("doc", filter_ocaml_doc_attributes typ_attributes);
-      ("name", string_loc typ_name);
-      ("parameters", type_parameters ~typ_loc typ_params);
-      ("manifest", type_manifest ~typ_loc typ_manifest);
-      ("kind", type_kind ~typ_loc typ_kind);
-    ]
+    (
+      "signature_item:type",
+      [
+        ("name", string_loc typ_name);
+        ("parameters", type_parameters ~typ_loc typ_params);
+        ("manifest", type_manifest ~typ_loc typ_manifest);
+        ("kind", type_kind ~typ_loc typ_kind);
+      ],
+      typ_attributes
+    )
 
   let exception_ {ext_id=_; ext_name; ext_type={Types.ext_args; _}; ext_kind=_; ext_loc; ext_attributes} =
-    J.obj "signature_item:exception" [
-      ("doc", filter_ocaml_doc_attributes ext_attributes);
-      ("name", string_loc ext_name);
-      ("arguments", ext_args |> Li.map ~f:(type_expr ext_loc) |> J.li);
-    ]
+    (
+      "signature_item:exception",
+      [
+        ("name", string_loc ext_name);
+        ("arguments", ext_args |> Li.map ~f:(type_expr ext_loc) |> J.li);
+      ],
+      ext_attributes
+    )
 
   let rec signature {sig_items; sig_type=_; sig_final_env=_} =
-    J.li (Li.filter_map ~f:signature_item sig_items)
+    J.li (Li.map ~f:signature_item sig_items)
 
   and signature_item {sig_desc; sig_env=_; sig_loc} =
+    let foo (kind, json_attributes, ocaml_attributes) =
+      (
+        J.obj kind (
+          ("doc", filter_ocaml_doc_attributes ocaml_attributes)::
+          ("hidden", J.bo (hidden ocaml_attributes))::
+          json_attributes
+        )
+      )
+    in
     match sig_desc with
       | Tsig_attribute attr ->
-        Some (attribute attr)
-      | Tsig_modtype _ ->
-        Some (not_handled "signature_item: sig_desc=Tsig_modtype" sig_loc)
+        attribute attr
+      | Tsig_modtype decl ->
+        foo (module_type_declaration decl)
       | Tsig_value desc ->
-        Some (value_description desc)
+        foo (value_description desc)
       | Tsig_module decl ->
-        Some (module_declaration decl)
+        foo (module_declaration decl)
       | Tsig_include desc ->
-        include_description desc
+        foo (include_description desc)
       | Tsig_type [decl] ->
-        Some (type_declaration decl)
+        foo (type_declaration decl)
       | Tsig_type decls ->
-        Some (J.obj "signature_item:recursive_types" [
-          ("types", decls |> Li.map ~f:type_declaration |> J.li)
-        ])
-      | Tsig_typext _ ->
-        Some (not_handled "signature_item: sig_desc=Tsig_typext" sig_loc)
+        foo (
+          "signature_item:recursive_types",
+          [
+            ("types", decls |> Li.map ~f:type_declaration |> Li.map ~f:foo |> J.li)
+          ],
+          []
+        )
+      | Tsig_typext _ -> (*BISECT-IGNORE*)
+        not_handled "signature_item: sig_desc=Tsig_typext" sig_loc
       | Tsig_exception desc ->
-        Some (exception_ desc)
-      | Tsig_recmodule _ ->
-        Some (not_handled "signature_item: sig_desc=Tsig_recmodule" sig_loc)
-      | Tsig_open _ ->
-        Some (not_handled "signature_item: sig_desc=Tsig_open" sig_loc)
-      | Tsig_class _ ->
-        Some (not_handled "signature_item: sig_desc=Tsig_class" sig_loc)
-      | Tsig_class_type _ ->
-        Some (not_handled "signature_item: sig_desc=Tsig_class_type" sig_loc)
+        foo (exception_ desc)
+      | Tsig_recmodule _ -> (*BISECT-IGNORE*)
+        not_handled "signature_item: sig_desc=Tsig_recmodule" sig_loc
+      | Tsig_open _ -> (*BISECT-IGNORE*)
+        not_handled "signature_item: sig_desc=Tsig_open" sig_loc
+      | Tsig_class _ -> (*BISECT-IGNORE*)
+        not_handled "signature_item: sig_desc=Tsig_class" sig_loc
+      | Tsig_class_type _ -> (*BISECT-IGNORE*)
+        not_handled "signature_item: sig_desc=Tsig_class_type" sig_loc
+
+  and module_type_declaration {mtd_id=_; mtd_name; mtd_type; mtd_attributes; mtd_loc=_} =
+    (
+      "signature_item:module_type",
+      [
+        ("name", string_loc mtd_name);
+        ("type", mtd_type |> Opt.map ~f:module_type |> J.opt);
+      ],
+      mtd_attributes
+    )
 
   and module_declaration {md_id=_; md_name; md_type; md_attributes; md_loc=_} =
-    J.obj "signature_item:module" [
-      ("doc", filter_ocaml_doc_attributes md_attributes);
-      ("name", string_loc md_name);
-      ("type", module_type md_type);
-    ]
+    (
+      "signature_item:module",
+      [
+        ("name", string_loc md_name);
+        ("type", module_type md_type);
+      ],
+      md_attributes
+    )
 
   and include_description {incl_mod; incl_type=_; incl_loc=_; incl_attributes} =
-    (* @todo Factorize the logic of hidding and extracting the doc for all signature items, by making them return their attributes *)
-    Opt.some_if
-      (not (hidden incl_attributes))
-      (lazy (
-        J.obj "signature_item:include" [
-          ("doc", filter_ocaml_doc_attributes incl_attributes);
-          ("contents", module_type incl_mod);
-        ]
-      ))
+    (
+      "signature_item:include",
+      [
+        ("contents", module_type incl_mod);
+      ],
+      incl_attributes
+    )
 
   and module_type {mty_desc; mty_type=_; mty_env=_; mty_loc; mty_attributes=_} =
     match mty_desc with
-      | Tmty_signature signat ->
+      | Tmty_signature signature_ ->
         J.obj "module_type:signature" [
-          ("elements", signature signat);
+          ("elements", signature signature_);
         ]
       | Tmty_ident (p, _) ->
         J.obj "module_type:identifier" [
           ("name", path p);
+          (* @todo List elements *)
         ]
       | Tmty_functor (_, parameter_name, parameter_type, contents) ->
-        (* @todo Flatten functors with several parameters *)
+        let rec aux parameters parameter_name parameter_type contents =
+          let parameter = J.obj "functor_parameter" [
+            ("name", string_loc parameter_name);
+            ("type", parameter_type |> Opt.map ~f:module_type |> J.opt);
+          ] in
+          let parameters = parameter::parameters in
+          match contents with
+            | {mty_desc=Tmty_functor (_, parameter_name, parameter_type, contents); _} ->
+              aux parameters parameter_name parameter_type contents
+            | _ ->
+              (Li.reverse parameters, module_type contents)
+        in
+        let (parameters, contents) = aux [] parameter_name parameter_type contents in
         J.obj "module_type:functor" [
-          (
-            "parameters",
-            J.li [
-              J.obj "functor_parameter" [
-                ("name", string_loc parameter_name);
-                ("type", parameter_type |> Opt.map ~f:module_type |> J.opt);
-              ];
-            ]
-          );
-          ("contents", module_type contents);
+          ("parameters", J.li parameters);
+          ("contents", contents);
         ]
-      | Tmty_with (base, constaints) ->
+      | Tmty_with (module_, constaints) ->
         J.obj "module_type:with" [
-          ("base", module_type base);
-          ("constaints", constaints |> Li.map ~f:(fun (_, _, c) -> with_constraint c) |> J.li);
+          ("module", module_type module_);
+          ("constaints", constaints |> Li.map ~f:with_constraint |> J.li);
+          (* @todo List elements *)
         ]
-      | Tmty_typeof base ->
+      | Tmty_typeof module_ ->
         J.obj "module_type:of" [
-          ("base", module_expr base);
+          ("module", module_expr module_);
+          (* @todo List elements *)
         ]
-      | Tmty_alias (_, _) ->
+      | Tmty_alias (_, _) -> (*BISECT-IGNORE*)
         not_handled "module_type: mty_desc=Tmty_alias" mty_loc
 
   and module_expr {mod_desc; mod_loc; mod_type=_; mod_env=_; mod_attributes=_} =
     match mod_desc with
       | Tmod_ident (p, _) ->
         J.obj "module_expr:identifier" [("name", path p)]
-      | Tmod_structure _ ->
+      | Tmod_structure _ -> (*BISECT-IGNORE*)
         not_handled "module_expr: mod_desc=Tmod_structure" mod_loc
-      | Tmod_functor (_, _, _, _) ->
+      | Tmod_functor (_, _, _, _) -> (*BISECT-IGNORE*)
         not_handled "module_expr: mod_desc=Tmod_functor" mod_loc
       | Tmod_apply (functor_, argument, _) ->
-        (* @todo Flatten application of multi-parameter functors (argument -> argumentS) *)
+        let rec aux arguments functor_ argument =
+          let arguments = (module_expr argument)::arguments in
+          match functor_ with
+            | {mod_desc=Tmod_apply (functor_, argument, _); _} ->
+              aux arguments functor_ argument
+            | _ ->
+              (module_expr functor_, arguments)
+        in
+        let (functor_, arguments) = aux [] functor_ argument in
         J.obj "module_expr:apply" [
-          ("functor", module_expr functor_);
-          ("arguments", J.li [module_expr argument]);
+          ("functor", functor_);
+          ("arguments", J.li arguments);
         ]
-      | Tmod_constraint (_, _, _, _) ->
+      | Tmod_constraint (_, _, _, _) -> (*BISECT-IGNORE*)
         not_handled "module_expr: mod_desc=Tmod_constraint" mod_loc
-      | Tmod_unpack (_, _) ->
+      | Tmod_unpack (_, _) -> (*BISECT-IGNORE*)
         not_handled "module_expr: mod_desc=Tmod_unpack" mod_loc
 end
 
@@ -380,4 +402,7 @@ let () =
     |> J.to_string
     |> StdOut.print "%s\n"
   with
-    exc -> Location.report_exception OCamlStandard.Format.err_formatter exc
+    exc -> begin (*BISECT-IGNORE*)
+      Location.report_exception OCamlStandard.Format.err_formatter exc;
+      Exit.(exit (Failure 1)) (*BISECT-IGNORE*)
+    end

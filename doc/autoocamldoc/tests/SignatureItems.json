@@ -1,0 +1,307 @@
+[
+  {
+    "__class__": "signature_item:type",
+    "doc": [ " Doc for typ ", " Doc' for typ " ],
+    "hidden": false,
+    "name": "typ",
+    "parameters": [],
+    "manifest": null,
+    "kind": { "__class__": "type_kind:abstract" }
+  },
+  {
+    "__class__": "signature_item:type",
+    "doc": [ " Doc for hidden_type ", " Doc' for hidden_type " ],
+    "hidden": true,
+    "name": "hidden_type",
+    "parameters": [],
+    "manifest": null,
+    "kind": { "__class__": "type_kind:abstract" }
+  },
+  {
+    "__class__": "signature_item:value",
+    "doc": [ " Doc for v ", " Doc' for v " ],
+    "hidden": false,
+    "name": "v",
+    "type": {
+      "__class__": "value_type:constructor",
+      "name": "typ",
+      "arguments": []
+    }
+  },
+  {
+    "__class__": "signature_item:value",
+    "doc": [ " Doc for hidden_v ", " Doc' for hidden_v " ],
+    "hidden": true,
+    "name": "hidden_v",
+    "type": {
+      "__class__": "value_type:constructor",
+      "name": "typ",
+      "arguments": []
+    }
+  },
+  {
+    "__class__": "signature_item:exception",
+    "doc": [ " Doc for Exception0 ", " Doc' for Exception0 " ],
+    "hidden": false,
+    "name": "Exception0",
+    "arguments": []
+  },
+  {
+    "__class__": "signature_item:exception",
+    "doc": [ " Doc for Exception1 ", " Doc' for Exception1 " ],
+    "hidden": false,
+    "name": "Exception1",
+    "arguments": [
+      {
+        "__class__": "value_type:constructor",
+        "name": "typ",
+        "arguments": []
+      }
+    ]
+  },
+  {
+    "__class__": "signature_item:exception",
+    "doc": [ " Doc for Exception2 ", " Doc' for Exception2 " ],
+    "hidden": false,
+    "name": "Exception2",
+    "arguments": [
+      {
+        "__class__": "value_type:constructor",
+        "name": "typ",
+        "arguments": []
+      },
+      {
+        "__class__": "value_type:constructor",
+        "name": "int",
+        "arguments": []
+      }
+    ]
+  },
+  {
+    "__class__": "signature_item:exception",
+    "doc": [ " Doc for HiddenException0 ", " Doc' for HiddenException0 " ],
+    "hidden": true,
+    "name": "HiddenException0",
+    "arguments": []
+  },
+  {
+    "__class__": "signature_item:exception",
+    "doc": [ " Doc for HiddenException1 ", " Doc' for HiddenException1 " ],
+    "hidden": true,
+    "name": "HiddenException1",
+    "arguments": [
+      {
+        "__class__": "value_type:constructor",
+        "name": "typ",
+        "arguments": []
+      }
+    ]
+  },
+  {
+    "__class__": "signature_item:exception",
+    "doc": [ " Doc for HiddenException2 ", " Doc' for HiddenException2 " ],
+    "hidden": true,
+    "name": "HiddenException2",
+    "arguments": [
+      {
+        "__class__": "value_type:constructor",
+        "name": "typ",
+        "arguments": []
+      },
+      {
+        "__class__": "value_type:constructor",
+        "name": "int",
+        "arguments": []
+      }
+    ]
+  },
+  {
+    "__class__": "signature_item:floating_documentation",
+    "text": " Floating documentation "
+  },
+  {
+    "__class__": "signature_item:module",
+    "doc": [ " Doc for Module ", " Doc' for Module " ],
+    "hidden": false,
+    "name": "Module",
+    "type": { "__class__": "module_type:signature", "elements": [] }
+  },
+  {
+    "__class__": "signature_item:module",
+    "doc": [ " Doc for HiddenModule ", " Doc' for HiddenModule " ],
+    "hidden": true,
+    "name": "HiddenModule",
+    "type": { "__class__": "module_type:signature", "elements": [] }
+  },
+  {
+    "__class__": "signature_item:module_type",
+    "doc": [ " Doc for ModuleType ", " Doc' for ModuleType " ],
+    "hidden": false,
+    "name": "ModuleType",
+    "type": { "__class__": "module_type:signature", "elements": [] }
+  },
+  {
+    "__class__": "signature_item:module_type",
+    "doc": [ " Doc for HiddenModuleType ", " Doc' for HiddenModuleType " ],
+    "hidden": true,
+    "name": "HiddenModuleType",
+    "type": { "__class__": "module_type:signature", "elements": [] }
+  },
+  {
+    "__class__": "signature_item:include",
+    "doc": [ " Doc for include ", " Doc' for include " ],
+    "hidden": false,
+    "contents": {
+      "__class__": "module_type:identifier",
+      "name": "Set.OrderedType"
+    }
+  },
+  {
+    "__class__": "signature_item:module",
+    "doc": [],
+    "hidden": false,
+    "name": "A",
+    "type": {
+      "__class__": "module_type:signature",
+      "elements": [
+        {
+          "__class__": "signature_item:include",
+          "doc": [],
+          "hidden": true,
+          "contents": {
+            "__class__": "module_type:identifier",
+            "name": "Set.OrderedType"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "__class__": "signature_item:recursive_types",
+    "doc": [],
+    "hidden": false,
+    "types": [
+      {
+        "__class__": "signature_item:type",
+        "doc": [ " Doc for recursive_type1 ", " Doc' for recursive_type1 " ],
+        "hidden": false,
+        "name": "recursive_type1",
+        "parameters": [],
+        "manifest": null,
+        "kind": {
+          "__class__": "type_kind:variant",
+          "constructors": [
+            {
+              "__class__": "type_constructor",
+              "doc": [ " Doc for A " ],
+              "name": "A",
+              "arguments": [
+                {
+                  "__class__": "value_type:constructor",
+                  "name": "recursive_type2",
+                  "arguments": []
+                }
+              ]
+            },
+            {
+              "__class__": "type_constructor",
+              "doc": [ " Doc for B " ],
+              "name": "B",
+              "arguments": []
+            }
+          ]
+        }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [ " Doc for recursive_type2 ", " Doc' for recursive_type2 " ],
+        "hidden": false,
+        "name": "recursive_type2",
+        "parameters": [],
+        "manifest": {
+          "__class__": "value_type:tuple",
+          "elements": [
+            {
+              "__class__": "value_type:constructor",
+              "name": "recursive_type1",
+              "arguments": []
+            },
+            {
+              "__class__": "value_type:constructor",
+              "name": "recursive_type1",
+              "arguments": []
+            }
+          ]
+        },
+        "kind": { "__class__": "type_kind:abstract" }
+      }
+    ]
+  },
+  {
+    "__class__": "signature_item:recursive_types",
+    "doc": [],
+    "hidden": false,
+    "types": [
+      {
+        "__class__": "signature_item:type",
+        "doc": [
+          " Doc for hidden_recursive_type1 ",
+          " Doc' for hidden_recursive_type1 "
+        ],
+        "hidden": true,
+        "name": "hidden_recursive_type1",
+        "parameters": [],
+        "manifest": null,
+        "kind": {
+          "__class__": "type_kind:variant",
+          "constructors": [
+            {
+              "__class__": "type_constructor",
+              "doc": [ " Doc for A " ],
+              "name": "A",
+              "arguments": [
+                {
+                  "__class__": "value_type:constructor",
+                  "name": "hidden_recursive_type2",
+                  "arguments": []
+                }
+              ]
+            },
+            {
+              "__class__": "type_constructor",
+              "doc": [ " Doc for B " ],
+              "name": "B",
+              "arguments": []
+            }
+          ]
+        }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [
+          " Doc for hidden_recursive_type2 ",
+          " Doc' for hidden_recursive_type2 "
+        ],
+        "hidden": true,
+        "name": "hidden_recursive_type2",
+        "parameters": [],
+        "manifest": {
+          "__class__": "value_type:tuple",
+          "elements": [
+            {
+              "__class__": "value_type:constructor",
+              "name": "hidden_recursive_type1",
+              "arguments": []
+            },
+            {
+              "__class__": "value_type:constructor",
+              "name": "hidden_recursive_type1",
+              "arguments": []
+            }
+          ]
+        },
+        "kind": { "__class__": "type_kind:abstract" }
+      }
+    ]
+  }
+]
