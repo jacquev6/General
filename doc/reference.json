@@ -1,5 +1,9 @@
 [
   {
+    "__class__": "signature_item:floating_documentation",
+    "text": " Some doc for General "
+  },
+  {
     "__class__": "signature_item:module",
     "doc": [ " Some doc for Pervasives " ],
     "hidden": false,
@@ -34,13 +38,15 @@
         {
           "__class__": "signature_item:floating_documentation",
           "text":
-            " The module resets all elements from the standard pervasives, and them brings back the following. "
+            " The module overrides all elements from the standard\n  `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_ with unusable but guiding values: "
+        },
+        {
+          "__class__": "signature_item:floating_documentation",
+          "text": " It then brings back a small set of ubiquitous values: "
         },
         {
           "__class__": "signature_item:value",
-          "doc": [
-            " Boolean negation ", "\n  # not true;;\n  - : bool = false\n  "
-          ],
+          "doc": [ " Boolean negation. Alias of :val:`General.Bool.not`. " ],
           "hidden": false,
           "name": "not",
           "type": {

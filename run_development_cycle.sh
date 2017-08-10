@@ -351,6 +351,7 @@ cd _build_native/src
 ../../doc/autoocamldoc/_build/autoocamldoc.byte General.mli > ../../doc/reference.json
 cd ../..
 
+rm -rf _build_native/sphinx  # Keep while we're developing the Sphinx extension
 sphinx-build doc _build_native/sphinx/html -d _build_native/sphinx/doctrees
 rm -rf docs
 cp -r _build_native/sphinx/html docs

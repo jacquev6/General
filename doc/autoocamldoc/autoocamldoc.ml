@@ -97,6 +97,7 @@ end = struct
           | Tsubst _ -> (*BISECT-IGNORE*)
             not_handled "type_expr: Tsubst" loc
           | Tvariant _ -> (*BISECT-IGNORE*)
+            (* @todo Handle Tvariant: we now use one in the doc of General.Pervasives *)
             not_handled "type_expr: Tvariant" loc
           | Tunivar _ -> (*BISECT-IGNORE*)
             not_handled "type_expr: Tunivar" loc
@@ -125,6 +126,7 @@ end = struct
     (
       "signature_item:value",
       [
+        (* @todo Put parentheses around infix values *)
         ("name", string_loc val_name);
         ("type", type_expr val_loc val_desc.ctyp_type);
       ],

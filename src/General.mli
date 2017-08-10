@@ -1,18 +1,21 @@
 (* Basics *)
 
+(** Some doc for General *)
+
 (** Some doc for Pervasives *)
 module Pervasives: sig
   include module type of Foundations.ResetPervasives [@@autodoc.hide]
   include module type of Foundations.ResetStandardLibrary [@@autodoc.hide]
 
-  (** The module resets all elements from the standard pervasives, and them brings back the following. *)
+  (** The module overrides all elements from the standard
+  `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_ with unusable but guiding values: *)
 
-  (** Boolean negation *)
+  (* @todoc val raise: [`Please_use_General__Exception__raise] *)
+
+  (** It then brings back a small set of ubiquitous values: *)
+
+  (** Boolean negation. Alias of :val:`General.Bool.not`. *)
   val not: bool -> bool
-  (**
-  # not true;;
-  - : bool = false
-  *)
 
   val (&&): bool -> bool -> bool
   val (||): bool -> bool -> bool
