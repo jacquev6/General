@@ -70,7 +70,7 @@ with open("reference.rst", "w") as f:
                 write_text(indent, element["text"])
             elif element["__class__"] == "signature_item:value":
                 f.write("{}.. val:: {}\n".format(indent, element["name"]))
-                f.write("{}    type.json: {}\n\n".format(indent, json.dumps(element["type"], sort_keys=True, separators=(',', ':'))))
+                f.write("{}    type: {}\n\n".format(indent, " ".join(x.strip() for x in element["type"].splitlines())))
                 for doc in element["doc"]:
                     write_text("  " + indent, doc)
             elif element["__class__"] == "signature_item:type":

@@ -53,32 +53,6 @@ def chain_value_types(types, sep=[], before_one=[], after_one=[], before_more=[]
     else:
         return []
 
-def token(s):
-    return sphinx.addnodes.desc_annotation(s, s)
-
-def value_type_to_signodes(value_type):
-    if value_type["__class__"] == "value_type:constructor":
-        return (
-            chain_value_types(value_type["arguments"], sep=token(", "), after_one=token(" "), before_more=token("("), after_more=token(") "))
-            + token(value_type["name"])
-        )
-    elif value_type["__class__"] == "value_type:function":
-        # @todo Add parentheses exactly when needed
-        return (
-            token("(")
-            + value_type_to_signodes(value_type["left"])
-            + token(") -> (")
-            + value_type_to_signodes(value_type["right"])
-            + token(")")
-        )
-    elif value_type["__class__"] == "value_type:variable":
-        return token("'{}".format(value_type["name"]))
-    elif value_type["__class__"] == "value_type:tuple":
-        return chain_value_types(value_type["elements"], sep=token(" * "))
-    else:
-        assert False, value_type["__class__"]
-
-
 class Value(sphinx.directives.ObjectDescription):
     optional_arguments = 1
 
@@ -87,9 +61,9 @@ class Value(sphinx.directives.ObjectDescription):
         self.__full_name = ".".join(self.env.domaindata[OCamlDomain.name]["module_stack"] + [self.__short_name])
         signode += sphinx.addnodes.desc_annotation("val ", "val ")
         signode += sphinx.addnodes.desc_name(self.__short_name, self.__short_name)
-        if len(self.arguments) > 1 and self.arguments[1].startswith("type.json: "):
+        if len(self.arguments) > 1 and self.arguments[1].startswith("type: "):
             signode += sphinx.addnodes.desc_annotation(": ", ": ")
-            signode += value_type_to_signodes(json.loads(self.arguments[1][11:]))
+            signode += sphinx.addnodes.desc_annotation(self.arguments[1][6:], self.arguments[1][6:])
         return "val {}".format(self.__full_name)
 
     def add_target_and_index(self, name, sig, signode):

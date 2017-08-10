@@ -18,108 +18,108 @@ Reference
     It then brings back a small set of ubiquitous values:
 
     .. val:: not
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}
+        type: bool -> bool
 
       Boolean negation. Alias of :val:`General.Bool.not`.
 
     .. val:: &&
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}}
+        type: bool -> bool -> bool
 
     .. val:: ||
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}}
+        type: bool -> bool -> bool
 
     .. val:: xor
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}}
+        type: bool -> bool -> bool
 
     .. val:: ~-.
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: ~+.
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: +.
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}}
+        type: float -> float -> float
 
     .. val:: -.
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}}
+        type: float -> float -> float
 
     .. val:: *.
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}}
+        type: float -> float -> float
 
     .. val:: /.
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}}
+        type: float -> float -> float
 
     .. val:: **
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}}
+        type: float -> float -> float
 
     .. val:: @@
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:variable","name":"b"}},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:variable","name":"b"}}}
+        type: ('a -> 'b) -> 'a -> 'b
 
     .. val:: |>
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:variable","name":"b"}},"right":{"__class__":"value_type:variable","name":"b"}}}
+        type: 'a -> ('a -> 'b) -> 'b
 
     .. val:: %
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:variable","name":"b"}},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"c"},"right":{"__class__":"value_type:variable","name":"a"}},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"c"},"right":{"__class__":"value_type:variable","name":"b"}}}}
+        type: ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
 
     .. val:: ~-
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"int"}}
+        type: int -> int
 
     .. val:: ~+
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"int"}}
+        type: int -> int
 
     .. val:: +
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"int"}}}
+        type: int -> int -> int
 
     .. val:: -
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"int"}}}
+        type: int -> int -> int
 
     .. val:: *
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"int"}}}
+        type: int -> int -> int
 
     .. val:: /
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"int"}}}
+        type: int -> int -> int
 
     .. val:: mod
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"int"}}}
+        type: int -> int -> int
 
     .. val:: @
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"list"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"list"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"list"}}}
+        type: 'a list -> 'a list -> 'a list
 
     .. val:: ^
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"string"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"string"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"string"}}}
+        type: string -> string -> string
 
     .. val:: ref
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"OCamlStandard.Pervasives.ref"}}
+        type: 'a -> 'a OCamlStandard.Pervasives.ref
 
     .. val:: :=
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"OCamlStandard.Pervasives.ref"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: 'a OCamlStandard.Pervasives.ref -> 'a -> unit
 
     .. val:: !
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"OCamlStandard.Pervasives.ref"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: 'a OCamlStandard.Pervasives.ref -> 'a
 
     .. val:: =
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}}
+        type: 'a -> 'a -> bool
 
     .. val:: <>
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}}
+        type: 'a -> 'a -> bool
 
     .. val:: <
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}}
+        type: 'a -> 'a -> bool
 
     .. val:: <=
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}}
+        type: 'a -> 'a -> bool
 
     .. val:: >=
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}}
+        type: 'a -> 'a -> bool
 
     .. val:: >
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}}
+        type: 'a -> 'a -> bool
 
     .. val:: ignore
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}
+        type: 'a -> unit
 
     .. val:: identity
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: 'a -> 'a
 
   .. module:: Shorten
 
@@ -146,7 +146,7 @@ Reference
     .. type:: t
 
     .. val:: current
-        type.json: {"__class__":"value_type:function","label":"?max_size","left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"int"}],"name":"option"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"unit"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+        type: ?max_size:int -> unit -> t
 
     .. module:: Location
 
@@ -157,149 +157,149 @@ Reference
       .. type:: t
 
       .. val:: is_raise
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}
+          type: t -> bool
 
       .. val:: location
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"Location.t"}],"name":"option"}}
+          type: t -> Location.t option
 
       .. val:: format
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"string"}],"name":"option"}}}
+          type: int -> t -> string option
 
     .. val:: frames
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"Frame.t"}],"name":"list"}}
+        type: t -> Frame.t list
 
   .. module:: Exception
 
     .. type:: t
 
     .. val:: register_printer
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"string"}],"name":"option"}},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}
+        type: (t -> string option) -> unit
 
     .. val:: record_backtraces
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}
+        type: bool -> unit
 
     .. val:: recording_backtraces
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"unit"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}
+        type: unit -> bool
 
     .. val:: most_recent_backtrace
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"unit"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"CallStack.t"}],"name":"option"}}
+        type: unit -> CallStack.t option
 
     .. val:: raise
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: t -> 'a
 
     .. val:: raise_without_backtrace
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: t -> 'a
 
     .. val:: invalid_argument
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:variable","name":"b"}],"name":"CamlinternalFormatBasics.format6"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
 
     .. val:: failure
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:variable","name":"b"}],"name":"CamlinternalFormatBasics.format6"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
 
     .. val:: name
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"exn"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"string"}}
+        type: exn -> string
 
     .. val:: or_none
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"lazy_t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"option"}}
+        type: 'a lazy_t -> 'a option
 
   .. module:: Exit
 
     .. type:: t
 
     .. val:: of_int
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}
+        type: int -> t
 
     .. val:: exit
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}
+        type: t -> unit
 
     .. val:: at_exit
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"unit"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}
+        type: (unit -> unit) -> unit
 
   .. module:: Function1
 
     .. type:: t
 
     .. val:: identity
-        type.json: {"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"a"}],"name":"t"}
+        type: ('a, 'a) t
 
     .. val:: apply
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"z"}],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:variable","name":"z"}}}
+        type: ('a, 'z) t -> 'a -> 'z
 
     .. val:: rev_apply
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"z"}],"name":"t"},"right":{"__class__":"value_type:variable","name":"z"}}}
+        type: 'a -> ('a, 'z) t -> 'z
 
     .. val:: compose
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"}],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"b"}],"name":"t"}}}
+        type: ('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t
 
     .. module:: O
 
       .. val:: @@
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"z"}],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:variable","name":"z"}}}
+          type: ('a, 'z) t -> 'a -> 'z
 
       .. val:: |>
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"z"}],"name":"t"},"right":{"__class__":"value_type:variable","name":"z"}}}
+          type: 'a -> ('a, 'z) t -> 'z
 
       .. val:: %
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"}],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"b"}],"name":"t"}}}
+          type: ('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t
 
   .. module:: Function2
 
     .. type:: t
 
     .. val:: flip
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"z"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"z"}],"name":"t"}}
+        type: ('a, 'b, 'z) t -> ('b, 'a, 'z) t
 
     .. val:: curry
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:tuple","elements":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"}]},{"__class__":"value_type:variable","name":"z"}],"name":"Function1.t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"z"}],"name":"t"}}
+        type: ('a * 'b, 'z) Function1.t -> ('a, 'b, 'z) t
 
     .. val:: uncurry
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"z"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:tuple","elements":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"}]},{"__class__":"value_type:variable","name":"z"}],"name":"Function1.t"}}
+        type: ('a, 'b, 'z) t -> ('a * 'b, 'z) Function1.t
 
   .. module:: Function3
 
     .. type:: t
 
     .. val:: flip
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"z"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"z"}],"name":"t"}}
+        type: ('a, 'b, 'c, 'z) t -> ('c, 'b, 'a, 'z) t
 
     .. val:: curry
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:tuple","elements":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"}]},{"__class__":"value_type:variable","name":"z"}],"name":"Function1.t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"z"}],"name":"t"}}
+        type: ('a * 'b * 'c, 'z) Function1.t -> ('a, 'b, 'c, 'z) t
 
     .. val:: uncurry
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"z"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:tuple","elements":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"}]},{"__class__":"value_type:variable","name":"z"}],"name":"Function1.t"}}
+        type: ('a, 'b, 'c, 'z) t -> ('a * 'b * 'c, 'z) Function1.t
 
   .. module:: Function4
 
     .. type:: t
 
     .. val:: flip
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"z"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"z"}],"name":"t"}}
+        type: ('a, 'b, 'c, 'd, 'z) t -> ('d, 'c, 'b, 'a, 'z) t
 
     .. val:: curry
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:tuple","elements":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"}]},{"__class__":"value_type:variable","name":"z"}],"name":"Function1.t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"z"}],"name":"t"}}
+        type: ('a * 'b * 'c * 'd, 'z) Function1.t -> ('a, 'b, 'c, 'd, 'z) t
 
     .. val:: uncurry
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"z"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:tuple","elements":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"}]},{"__class__":"value_type:variable","name":"z"}],"name":"Function1.t"}}
+        type: ('a, 'b, 'c, 'd, 'z) t -> ('a * 'b * 'c * 'd, 'z) Function1.t
 
   .. module:: Function5
 
     .. type:: t
 
     .. val:: flip
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"e"},{"__class__":"value_type:variable","name":"z"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"e"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"z"}],"name":"t"}}
+        type: ('a, 'b, 'c, 'd, 'e, 'z) t -> ('e, 'd, 'c, 'b, 'a, 'z) t
 
     .. val:: curry
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:tuple","elements":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"e"}]},{"__class__":"value_type:variable","name":"z"}],"name":"Function1.t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"e"},{"__class__":"value_type:variable","name":"z"}],"name":"t"}}
+        type: ('a * 'b * 'c * 'd * 'e, 'z) Function1.t -> ('a, 'b, 'c, 'd, 'e, 'z) t
 
     .. val:: uncurry
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"e"},{"__class__":"value_type:variable","name":"z"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:tuple","elements":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"e"}]},{"__class__":"value_type:variable","name":"z"}],"name":"Function1.t"}}
+        type: ('a, 'b, 'c, 'd, 'e, 'z) t -> ('a * 'b * 'c * 'd * 'e, 'z) Function1.t
 
   .. module:: Unit
 
     .. type:: t
 
     .. val:: ignore
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}
+        type: 'a -> t
 
   .. module:: Bool
 
@@ -308,101 +308,101 @@ Reference
     .. module:: O
 
       .. val:: not
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}
+          type: t -> t
 
       .. val:: &&
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+          type: t -> t -> t
 
       .. val:: ||
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+          type: t -> t -> t
 
       .. val:: xor
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+          type: t -> t -> t
 
     .. val:: not
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}
+        type: t -> t
 
     .. val:: and_
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+        type: t -> t -> t
 
     .. val:: or_
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+        type: t -> t -> t
 
     .. val:: xor
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+        type: t -> t -> t
 
   .. module:: Char
 
     .. type:: t
 
     .. val:: of_int
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}
+        type: int -> t
 
     .. val:: to_int
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"int"}}
+        type: t -> int
 
   .. module:: Int
 
     .. type:: t
 
     .. val:: smallest
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
     .. val:: greatest
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
     .. module:: Bitwise
 
       .. val:: logical_and
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+          type: t -> t -> t
 
       .. val:: logical_or
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+          type: t -> t -> t
 
       .. val:: logical_xor
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+          type: t -> t -> t
 
       .. val:: logical_not
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}
+          type: t -> t
 
       .. val:: logical_shift_left
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"shift","left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+          type: t -> shift:t -> t
 
       .. val:: logical_shift_right
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"shift","left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+          type: t -> shift:t -> t
 
       .. val:: arithmetic_shift_right
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"shift","left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+          type: t -> shift:t -> t
 
   .. module:: Int32
 
     .. type:: t
 
     .. val:: smallest
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
     .. val:: greatest
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
   .. module:: Int64
 
     .. type:: t
 
     .. val:: smallest
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
     .. val:: greatest
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
   .. module:: NativeInt
 
     .. type:: t
 
     .. val:: smallest
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
     .. val:: greatest
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
   .. module:: BigInt
 
@@ -413,189 +413,189 @@ Reference
     .. type:: t
 
     .. val:: epsilon
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
     .. val:: smallest
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
     .. val:: greatest
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
     .. val:: infinity
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
     .. val:: negative_infinity
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
     .. val:: not_a_number
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
     .. val:: pi
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"float"}
+        type: float
 
     .. val:: e
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"float"}
+        type: float
 
     .. val:: of_parts
-        type.json: {"__class__":"value_type:function","label":"significand","left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:function","label":"exponent","left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+        type: significand:float -> exponent:int -> t
 
     .. val:: to_parts
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:tuple","elements":[{"__class__":"value_type:constructor","arguments":[],"name":"float"},{"__class__":"value_type:constructor","arguments":[],"name":"int"}]}}
+        type: t -> float * int
 
     .. val:: to_fractional_and_integral
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:tuple","elements":[{"__class__":"value_type:constructor","arguments":[],"name":"float"},{"__class__":"value_type:constructor","arguments":[],"name":"float"}]}}
+        type: t -> float * float
 
     .. val:: sqrt
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: exp
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: log
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: log10
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: expm1
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: log1p
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: cos
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: sin
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: tan
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: acos
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: asin
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: atan
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: atan2
-        type.json: {"__class__":"value_type:function","label":"y","left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:function","label":"x","left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}}
+        type: y:float -> x:float -> float
 
     .. val:: hypot
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}}
+        type: float -> float -> float
 
     .. val:: cosh
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: sinh
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: tanh
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: ceil
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: floor
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"float"}}
+        type: float -> float
 
     .. val:: copy_sign
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"sign","left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+        type: t -> sign:t -> t
 
     .. module:: Class
 
       .. type:: t
 
       .. val:: of_float
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}
+          type: float -> t
 
   .. module:: String
 
     .. type:: t
 
     .. val:: get
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"char"}}}
+        type: t -> int -> char
 
     .. module:: O
 
       .. val:: ^
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+          type: t -> t -> t
 
     .. val:: concat
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+        type: t -> t -> t
 
     .. val:: substring
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"pos","left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:function","label":"len","left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}}
+        type: t -> pos:int -> len:int -> t
 
     .. val:: prefix
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"len","left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+        type: t -> len:int -> t
 
     .. val:: suffix
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"len","left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+        type: t -> len:int -> t
 
     .. val:: has_prefix
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"pre","left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}}
+        type: t -> pre:t -> bool
 
     .. val:: try_drop_prefix
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"pre","left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"t"}],"name":"option"}}}
+        type: t -> pre:t -> t option
 
     .. val:: drop_prefix
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"pre","left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+        type: t -> pre:t -> t
 
     .. val:: has_suffix
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"suf","left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}}
+        type: t -> suf:t -> bool
 
     .. val:: try_drop_suffix
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"suf","left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"t"}],"name":"option"}}}
+        type: t -> suf:t -> t option
 
     .. val:: drop_suffix
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"suf","left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}
+        type: t -> suf:t -> t
 
     .. val:: split
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"sep","left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"t"}],"name":"list"}}}
+        type: t -> sep:t -> t list
 
   .. module:: Option
 
     .. type:: t
 
     .. val:: some_if
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"lazy_t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}}
+        type: bool -> 'a lazy_t -> 'a t
 
     .. val:: some_if'
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}}
+        type: bool -> 'a -> 'a t
 
     .. val:: is_some
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}
+        type: 'a t -> bool
 
     .. val:: is_none
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}
+        type: 'a t -> bool
 
     .. val:: value_def
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":"def","left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:variable","name":"a"}}}
+        type: 'a t -> def:'a -> 'a
 
     .. val:: value
-        type.json: {"__class__":"value_type:function","label":"?exc","left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"exn"}],"name":"option"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}}}
+        type: ?exc:exn -> 'a t -> 'a
 
     .. val:: or_failure
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"b"}],"name":"t"},"right":{"__class__":"value_type:variable","name":"b"}}],"name":"CamlinternalFormatBasics.format6"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: ('a, unit, string, string, string, 'b t -> 'b) CamlinternalFormatBasics.format6 -> 'a
 
     .. val:: map
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":"f","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:variable","name":"b"}},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"b"}],"name":"t"}}}
+        type: 'a t -> f:('a -> 'b) -> 'b t
 
     .. val:: iter
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":"f","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: 'a t -> f:('a -> unit) -> unit
 
     .. val:: filter
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":"f","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}}
+        type: 'a t -> f:('a -> bool) -> 'a t
 
     .. val:: filter_map
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":"f","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"b"}],"name":"option"}},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"b"}],"name":"t"}}}
+        type: 'a t -> f:('a -> 'b option) -> 'b t
 
     .. val:: value_map
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":"def","left":{"__class__":"value_type:variable","name":"b"},"right":{"__class__":"value_type:function","label":"f","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:variable","name":"b"}},"right":{"__class__":"value_type:variable","name":"b"}}}}
+        type: 'a t -> def:'b -> f:('a -> 'b) -> 'b
 
     .. module:: Specialize
 
@@ -604,37 +604,37 @@ Reference
     .. type:: t
 
     .. val:: is_value
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}
+        type: 'a t -> bool
 
     .. val:: value
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: 'a t -> 'a
 
     .. val:: map
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":"f","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:variable","name":"b"}},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"b"}],"name":"t"}}}
+        type: 'a t -> f:('a -> 'b) -> 'b t
 
   .. module:: Reference
 
     .. type:: t
 
     .. val:: of_contents
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}
+        type: 'a -> 'a t
 
     .. val:: contents
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: 'a t -> 'a
 
     .. val:: assign
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: 'a t -> 'a -> unit
 
     .. module:: O
 
       .. val:: ref
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}
+          type: 'a -> 'a t
 
       .. val:: !
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}}
+          type: 'a t -> 'a
 
       .. val:: :=
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+          type: 'a t -> 'a -> unit
 
     .. module:: SpecializeOperators
 
@@ -651,82 +651,82 @@ Reference
     .. type:: t
 
     .. val:: make
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"b"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"}],"name":"t"}}}
+        type: 'a -> 'b -> ('a, 'b) t
 
     .. val:: get_0
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":null}],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: ('a, 'b) t -> 'a
 
     .. val:: get_1
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":"b"}],"name":"t"},"right":{"__class__":"value_type:variable","name":"b"}}
+        type: ('a, 'b) t -> 'b
 
     .. val:: flip
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"a"}],"name":"t"}}
+        type: ('a, 'b) t -> ('b, 'a) t
 
   .. module:: Tuple3
 
     .. type:: t
 
     .. val:: make
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"b"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"c"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"}],"name":"t"}}}}
+        type: 'a -> 'b -> 'c -> ('a, 'b, 'c) t
 
     .. val:: get_0
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null}],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: ('a, 'b, 'c) t -> 'a
 
     .. val:: get_1
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":null}],"name":"t"},"right":{"__class__":"value_type:variable","name":"b"}}
+        type: ('a, 'b, 'c) t -> 'b
 
     .. val:: get_2
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":"c"}],"name":"t"},"right":{"__class__":"value_type:variable","name":"c"}}
+        type: ('a, 'b, 'c) t -> 'c
 
     .. val:: flip
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"a"}],"name":"t"}}
+        type: ('a, 'b, 'c) t -> ('c, 'b, 'a) t
 
   .. module:: Tuple4
 
     .. type:: t
 
     .. val:: make
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"b"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"c"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"d"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"}],"name":"t"}}}}}
+        type: 'a -> 'b -> 'c -> 'd -> ('a, 'b, 'c, 'd) t
 
     .. val:: get_0
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null}],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: ('a, 'b, 'c, 'd) t -> 'a
 
     .. val:: get_1
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null}],"name":"t"},"right":{"__class__":"value_type:variable","name":"b"}}
+        type: ('a, 'b, 'c, 'd) t -> 'b
 
     .. val:: get_2
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":null}],"name":"t"},"right":{"__class__":"value_type:variable","name":"c"}}
+        type: ('a, 'b, 'c, 'd) t -> 'c
 
     .. val:: get_3
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":"d"}],"name":"t"},"right":{"__class__":"value_type:variable","name":"d"}}
+        type: ('a, 'b, 'c, 'd) t -> 'd
 
     .. val:: flip
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"a"}],"name":"t"}}
+        type: ('a, 'b, 'c, 'd) t -> ('d, 'c, 'b, 'a) t
 
   .. module:: Tuple5
 
     .. type:: t
 
     .. val:: make
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"b"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"c"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"d"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"e"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"e"}],"name":"t"}}}}}}
+        type: 'a -> 'b -> 'c -> 'd -> 'e -> ('a, 'b, 'c, 'd, 'e) t
 
     .. val:: get_0
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null}],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: ('a, 'b, 'c, 'd, 'e) t -> 'a
 
     .. val:: get_1
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null}],"name":"t"},"right":{"__class__":"value_type:variable","name":"b"}}
+        type: ('a, 'b, 'c, 'd, 'e) t -> 'b
 
     .. val:: get_2
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null}],"name":"t"},"right":{"__class__":"value_type:variable","name":"c"}}
+        type: ('a, 'b, 'c, 'd, 'e) t -> 'c
 
     .. val:: get_3
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":null}],"name":"t"},"right":{"__class__":"value_type:variable","name":"d"}}
+        type: ('a, 'b, 'c, 'd, 'e) t -> 'd
 
     .. val:: get_4
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":null},{"__class__":"value_type:variable","name":"e"}],"name":"t"},"right":{"__class__":"value_type:variable","name":"e"}}
+        type: ('a, 'b, 'c, 'd, 'e) t -> 'e
 
     .. val:: flip
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"e"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"e"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"a"}],"name":"t"}}
+        type: ('a, 'b, 'c, 'd, 'e) t -> ('e, 'd, 'c, 'b, 'a) t
 
   .. module:: IntOption
 
@@ -753,7 +753,7 @@ Reference
     .. module:: O
 
       .. val:: =^
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"string"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+          type: t -> string -> unit
 
   .. module:: List
 
@@ -762,60 +762,60 @@ Reference
     .. module:: O
 
       .. val:: @
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}}
+          type: 'a t -> 'a t -> 'a t
 
     .. val:: empty
-        type.json: {"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}
+        type: 'a t
 
     .. val:: singleton
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}
+        type: 'a -> 'a t
 
     .. val:: of_list
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"list"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}
+        type: 'a list -> 'a t
 
     .. val:: to_list
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"list"}}
+        type: 'a t -> 'a list
 
     .. val:: of_array
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"array"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}
+        type: 'a array -> 'a t
 
     .. val:: to_array
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"array"}}
+        type: 'a t -> 'a array
 
     .. val:: size
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"int"}}
+        type: 'a t -> int
 
     .. val:: is_empty
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}
+        type: 'a t -> bool
 
     .. val:: head
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: 'a t -> 'a
 
     .. val:: tail
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}
+        type: 'a t -> 'a t
 
     .. val:: try_head
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"option"}}
+        type: 'a t -> 'a option
 
     .. val:: try_tail
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}],"name":"option"}}
+        type: 'a t -> 'a t option
 
     .. val:: contains
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":"equal_a","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}}}
+        type: 'a t -> 'a -> equal_a:('a -> 'a -> bool) -> bool
 
     .. module:: Poly
 
       .. val:: contains
-          type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}}
+          type: 'a t -> 'a -> bool
 
     .. val:: prepend
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}}
+        type: 'a -> 'a t -> 'a t
 
     .. val:: reverse
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}
+        type: 'a t -> 'a t
 
     .. val:: concat
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}}
+        type: 'a t -> 'a t -> 'a t
 
     .. module:: Specialize
 
@@ -826,29 +826,29 @@ Reference
     .. type:: t
 
     .. val:: get
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:variable","name":"a"}}}
+        type: 'a t -> int -> 'a
 
   .. module:: Stream
 
     .. type:: t
 
     .. val:: empty
-        type.json: {"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}
+        type: 'a t
 
     .. val:: singleton
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}
+        type: 'a -> 'a t
 
     .. val:: to_list
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"list"}}
+        type: 'a t -> 'a list
 
     .. val:: of_list
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"list"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}
+        type: 'a list -> 'a t
 
     .. val:: prepend
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}}
+        type: 'a -> 'a t -> 'a t
 
     .. val:: concat
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"t"}}}
+        type: 'a t -> 'a t -> 'a t
 
     .. module:: ToList
 
@@ -857,16 +857,16 @@ Reference
     .. type:: t
 
     .. val:: empty
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"t"}
+        type: t
 
     .. val:: create
-        type.json: {"__class__":"value_type:function","label":"?start","left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"int"}],"name":"option"},"right":{"__class__":"value_type:function","label":"?step","left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"int"}],"name":"option"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"t"}}}}
+        type: ?start:int -> ?step:int -> int -> t
 
     .. val:: to_list
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"int"}],"name":"list"}}
+        type: t -> int list
 
     .. val:: to_array
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"int"}],"name":"array"}}
+        type: t -> int array
 
     .. module:: ToList
 
@@ -877,26 +877,26 @@ Reference
   .. module:: StringList
 
     .. val:: concat
-        type.json: {"__class__":"value_type:function","label":"?sep","left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"string"}],"name":"option"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"string"}}}
+        type: ?sep:string -> t -> string
 
   .. module:: Format
 
     .. type:: t
 
     .. val:: with_result
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:variable","name":"a"}],"name":"t"},"right":{"__class__":"value_type:function","label":"f","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"string"},"right":{"__class__":"value_type:variable","name":"a"}},"right":{"__class__":"value_type:variable","name":"b"}}}
+        type: ('b, unit, string, string, string, 'a) t -> f:(string -> 'a) -> 'b
 
     .. val:: apply
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"}],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: ('a, unit, string, string, string, string) t -> 'a
 
     .. val:: to_string
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"e"},{"__class__":"value_type:variable","name":"f"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"string"}}
+        type: ('a, 'b, 'c, 'd, 'e, 'f) t -> string
 
     .. val:: of_string
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"e"},{"__class__":"value_type:variable","name":"f"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"e"},{"__class__":"value_type:variable","name":"f"}],"name":"t"}}
+        type: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('a, 'b, 'c, 'd, 'e, 'f) t
 
     .. val:: concat
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"e"},{"__class__":"value_type:variable","name":"f"}],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"f"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"e"},{"__class__":"value_type:variable","name":"g"},{"__class__":"value_type:variable","name":"h"}],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:variable","name":"b"},{"__class__":"value_type:variable","name":"c"},{"__class__":"value_type:variable","name":"d"},{"__class__":"value_type:variable","name":"g"},{"__class__":"value_type:variable","name":"h"}],"name":"t"}}}
+        type: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('f, 'b, 'c, 'e, 'g, 'h) t -> ('a, 'b, 'c, 'd, 'g, 'h) t
 
   .. module:: InChannel
 
@@ -907,90 +907,90 @@ Reference
     .. type:: t
 
     .. val:: with_file
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"string"},"right":{"__class__":"value_type:function","label":"f","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}},"right":{"__class__":"value_type:variable","name":"a"}}}
+        type: string -> f:(t -> 'a) -> 'a
 
     .. val:: with_channel
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"string"},"right":{"__class__":"value_type:function","label":"f","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"InChannel.t"},"right":{"__class__":"value_type:variable","name":"a"}},"right":{"__class__":"value_type:variable","name":"a"}}}
+        type: string -> f:(InChannel.t -> 'a) -> 'a
 
     .. val:: channel
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"InChannel.t"}}
+        type: t -> InChannel.t
 
     .. val:: seek
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"pos","left":{"__class__":"value_type:constructor","arguments":[],"name":"int64"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: t -> pos:int64 -> unit
 
     .. val:: pos
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"int64"}}
+        type: t -> int64
 
     .. val:: size
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"int64"}}
+        type: t -> int64
 
   .. module:: OutChannel
 
     .. type:: t
 
     .. val:: print
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:constructor","arguments":[],"name":"t"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"}],"name":"Format.t"},"right":{"__class__":"value_type:variable","name":"a"}}}
+        type: t -> ('a, t, unit, unit, unit, unit) Format.t -> 'a
 
     .. val:: output
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bytes"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: t -> bytes -> unit
 
     .. val:: flush
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}
+        type: t -> unit
 
   .. module:: OutFile
 
     .. type:: t
 
     .. val:: with_file
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"string"},"right":{"__class__":"value_type:function","label":"f","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:variable","name":"a"}},"right":{"__class__":"value_type:variable","name":"a"}}}
+        type: string -> f:(t -> 'a) -> 'a
 
     .. val:: with_channel
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"string"},"right":{"__class__":"value_type:function","label":"f","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"OutChannel.t"},"right":{"__class__":"value_type:variable","name":"a"}},"right":{"__class__":"value_type:variable","name":"a"}}}
+        type: string -> f:(OutChannel.t -> 'a) -> 'a
 
     .. val:: channel
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"OutChannel.t"}}
+        type: t -> OutChannel.t
 
     .. val:: seek
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:function","label":"pos","left":{"__class__":"value_type:constructor","arguments":[],"name":"int64"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: t -> pos:int64 -> unit
 
     .. val:: pos
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"int64"}}
+        type: t -> int64
 
     .. val:: size
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"int64"}}
+        type: t -> int64
 
   .. module:: StdIn
 
     .. val:: channel
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"InChannel.t"}
+        type: InChannel.t
 
   .. module:: StdOut
 
     .. val:: channel
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"OutChannel.t"}
+        type: OutChannel.t
 
     .. val:: print
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:constructor","arguments":[],"name":"OutChannel.t"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"}],"name":"Format.t"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: ('a, OutChannel.t, unit, unit, unit, unit) Format.t -> 'a
 
     .. val:: output
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bytes"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}
+        type: bytes -> unit
 
     .. val:: flush
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"unit"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}
+        type: unit -> unit
 
   .. module:: StdErr
 
     .. val:: channel
-        type.json: {"__class__":"value_type:constructor","arguments":[],"name":"OutChannel.t"}
+        type: OutChannel.t
 
     .. val:: print
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:constructor","arguments":[],"name":"OutChannel.t"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"}],"name":"Format.t"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: ('a, OutChannel.t, unit, unit, unit, unit) Format.t -> 'a
 
     .. val:: output
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bytes"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}
+        type: bytes -> unit
 
     .. val:: flush
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"unit"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}
+        type: unit -> unit
 
   .. module:: Testing
 
@@ -1003,79 +1003,79 @@ Reference
       .. type:: t
 
       .. val:: run
-          type.json: {"__class__":"value_type:function","label":"?record_backtrace","left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"bool"}],"name":"option"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"Result.t"}}}
+          type: ?record_backtrace:bool -> t -> Result.t
 
     .. val:: command_line_main
-        type.json: {"__class__":"value_type:function","label":"argv","left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"string"}],"name":"list"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"Test.t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"Exit.t"}}}
+        type: argv:string list -> Test.t -> Exit.t
 
     .. val:: >::
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"string"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"Test.t"}],"name":"list"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"Test.t"}}}
+        type: string -> Test.t list -> Test.t
 
     .. val:: >:
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"string"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"unit"}],"name":"lazy_t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"Test.t"}}}
+        type: string -> unit lazy_t -> Test.t
 
     .. val:: ~:
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"unit"}],"name":"lazy_t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"Test.t"}}],"name":"CamlinternalFormatBasics.format6"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: ('a, unit, string, string, string, unit lazy_t -> Test.t) CamlinternalFormatBasics.format6 -> 'a
 
     .. val:: ~::
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"Test.t"}],"name":"list"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"Test.t"}}],"name":"CamlinternalFormatBasics.format6"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: ('a, unit, string, string, string, Test.t list -> Test.t) CamlinternalFormatBasics.format6 -> 'a
 
     .. val:: fail
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"},{"__class__":"value_type:constructor","arguments":[],"name":"unit"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:constructor","arguments":[],"name":"string"},{"__class__":"value_type:variable","name":"b"}],"name":"CamlinternalFormatBasics.format6"},"right":{"__class__":"value_type:variable","name":"a"}}
+        type: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
 
     .. val:: expect_exception
-        type.json: {"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:constructor","arguments":[],"name":"exn"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"lazy_t"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: expected:exn -> 'a lazy_t -> unit
 
     .. val:: check
-        type.json: {"__class__":"value_type:function","label":"repr","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"string"}},"right":{"__class__":"value_type:function","label":"equal","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}},"right":{"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}}}
+        type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
 
     .. val:: check_poly
-        type.json: {"__class__":"value_type:function","label":"repr","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"string"}},"right":{"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}}
+        type: repr:('a -> string) -> expected:'a -> 'a -> unit
 
     .. val:: check_string
-        type.json: {"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:constructor","arguments":[],"name":"string"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"string"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: expected:string -> string -> unit
 
     .. val:: check_bool
-        type.json: {"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: expected:bool -> bool -> unit
 
     .. val:: check_true
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}
+        type: bool -> unit
 
     .. val:: check_false
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"bool"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}
+        type: bool -> unit
 
     .. val:: check_int
-        type.json: {"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: expected:int -> int -> unit
 
     .. val:: check_float_exact
-        type.json: {"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[],"name":"float"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: expected:float -> float -> unit
 
     .. val:: check_option
-        type.json: {"__class__":"value_type:function","label":"repr","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"string"}},"right":{"__class__":"value_type:function","label":"equal","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}},"right":{"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"option"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"option"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}}}
+        type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a option -> 'a option -> unit
 
     .. val:: check_some
-        type.json: {"__class__":"value_type:function","label":"repr","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"string"}},"right":{"__class__":"value_type:function","label":"equal","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}},"right":{"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"option"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}}}
+        type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a option -> unit
 
     .. val:: check_none
-        type.json: {"__class__":"value_type:function","label":"repr","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"string"}},"right":{"__class__":"value_type:function","label":"equal","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"option"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}}
+        type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> 'a option -> unit
 
     .. val:: check_int_option
-        type.json: {"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"int"}],"name":"option"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"int"}],"name":"option"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: expected:int option -> int option -> unit
 
     .. val:: check_some_int
-        type.json: {"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:constructor","arguments":[],"name":"int"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"int"}],"name":"option"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: expected:int -> int option -> unit
 
     .. val:: check_none_int
-        type.json: {"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"int"}],"name":"option"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}
+        type: int option -> unit
 
     .. val:: check_list
-        type.json: {"__class__":"value_type:function","label":"repr","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"string"}},"right":{"__class__":"value_type:function","label":"equal","left":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:variable","name":"a"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"bool"}}},"right":{"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"list"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:variable","name":"a"}],"name":"list"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}}}
+        type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a list -> 'a list -> unit
 
     .. val:: check_string_list
-        type.json: {"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"string"}],"name":"list"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"string"}],"name":"list"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: expected:string list -> string list -> unit
 
     .. val:: check_int_list
-        type.json: {"__class__":"value_type:function","label":"expected","left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"int"}],"name":"list"},"right":{"__class__":"value_type:function","label":null,"left":{"__class__":"value_type:constructor","arguments":[{"__class__":"value_type:constructor","arguments":[],"name":"int"}],"name":"list"},"right":{"__class__":"value_type:constructor","arguments":[],"name":"unit"}}}
+        type: expected:int list -> int list -> unit
 
   .. module:: Standard
 

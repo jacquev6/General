@@ -167,11 +167,7 @@
           "__class__": "with:type",
           "name": "t",
           "parameters": [],
-          "manifest": {
-            "__class__": "value_type:constructor",
-            "name": "int",
-            "arguments": []
-          }
+          "manifest": "int"
         }
       ]
     }
@@ -192,11 +188,7 @@
           "__class__": "with:type_subst",
           "name": "t",
           "parameters": [],
-          "manifest": {
-            "__class__": "value_type:constructor",
-            "name": "int",
-            "arguments": []
-          }
+          "manifest": "int"
         }
       ]
     }

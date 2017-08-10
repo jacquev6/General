@@ -14,11 +14,7 @@
     "hidden": false,
     "name": "one_parameter",
     "parameters": [
-      {
-        "__class__": "type_parameter",
-        "type": { "__class__": "value_type:variable", "name": "a" },
-        "variance": null
-      }
+      { "__class__": "type_parameter", "type": "'a", "variance": null }
     ],
     "manifest": null,
     "kind": { "__class__": "type_kind:abstract" }
@@ -29,26 +25,10 @@
     "hidden": false,
     "name": "several_parameter",
     "parameters": [
-      {
-        "__class__": "type_parameter",
-        "type": { "__class__": "value_type:variable", "name": "a" },
-        "variance": null
-      },
-      {
-        "__class__": "type_parameter",
-        "type": { "__class__": "value_type:variable", "name": "b" },
-        "variance": null
-      },
-      {
-        "__class__": "type_parameter",
-        "type": { "__class__": "value_type:variable", "name": "c" },
-        "variance": null
-      },
-      {
-        "__class__": "type_parameter",
-        "type": { "__class__": "value_type:variable", "name": "d" },
-        "variance": null
-      }
+      { "__class__": "type_parameter", "type": "'a", "variance": null },
+      { "__class__": "type_parameter", "type": "'b", "variance": null },
+      { "__class__": "type_parameter", "type": "'c", "variance": null },
+      { "__class__": "type_parameter", "type": "'d", "variance": null }
     ],
     "manifest": null,
     "kind": { "__class__": "type_kind:abstract" }
@@ -59,16 +39,8 @@
     "hidden": false,
     "name": "variance",
     "parameters": [
-      {
-        "__class__": "type_parameter",
-        "type": { "__class__": "value_type:variable", "name": "a" },
-        "variance": "+"
-      },
-      {
-        "__class__": "type_parameter",
-        "type": { "__class__": "value_type:variable", "name": "b" },
-        "variance": "-"
-      }
+      { "__class__": "type_parameter", "type": "'a", "variance": "+" },
+      { "__class__": "type_parameter", "type": "'b", "variance": "-" }
     ],
     "manifest": null,
     "kind": { "__class__": "type_kind:abstract" }
@@ -79,11 +51,7 @@
     "hidden": false,
     "name": "manifest",
     "parameters": [],
-    "manifest": {
-      "__class__": "value_type:constructor",
-      "name": "int",
-      "arguments": []
-    },
+    "manifest": "int",
     "kind": { "__class__": "type_kind:abstract" }
   },
   {
@@ -92,36 +60,10 @@
     "hidden": false,
     "name": "manifest_and_parameters",
     "parameters": [
-      {
-        "__class__": "type_parameter",
-        "type": { "__class__": "value_type:variable", "name": "a" },
-        "variance": null
-      },
-      {
-        "__class__": "type_parameter",
-        "type": { "__class__": "value_type:variable", "name": "b" },
-        "variance": null
-      }
+      { "__class__": "type_parameter", "type": "'a", "variance": null },
+      { "__class__": "type_parameter", "type": "'b", "variance": null }
     ],
-    "manifest": {
-      "__class__": "value_type:tuple",
-      "elements": [
-        {
-          "__class__": "value_type:constructor",
-          "name": "list",
-          "arguments": [
-            { "__class__": "value_type:variable", "name": "a" }
-          ]
-        },
-        {
-          "__class__": "value_type:constructor",
-          "name": "array",
-          "arguments": [
-            { "__class__": "value_type:variable", "name": "b" }
-          ]
-        }
-      ]
-    },
+    "manifest": "'a list * 'b array",
     "kind": { "__class__": "type_kind:abstract" }
   },
   {
@@ -144,52 +86,19 @@
           "__class__": "type_constructor",
           "doc": [ " Doc for B " ],
           "name": "B",
-          "arguments": [
-            {
-              "__class__": "value_type:constructor",
-              "name": "int",
-              "arguments": []
-            }
-          ]
+          "arguments": [ "int" ]
         },
         {
           "__class__": "type_constructor",
           "doc": [ " Doc for C " ],
           "name": "C",
-          "arguments": [
-            {
-              "__class__": "value_type:constructor",
-              "name": "int",
-              "arguments": []
-            },
-            {
-              "__class__": "value_type:constructor",
-              "name": "string",
-              "arguments": []
-            }
-          ]
+          "arguments": [ "int", "string" ]
         },
         {
           "__class__": "type_constructor",
           "doc": [ " Doc for D " ],
           "name": "D",
-          "arguments": [
-            {
-              "__class__": "value_type:tuple",
-              "elements": [
-                {
-                  "__class__": "value_type:constructor",
-                  "name": "int",
-                  "arguments": []
-                },
-                {
-                  "__class__": "value_type:constructor",
-                  "name": "string",
-                  "arguments": []
-                }
-              ]
-            }
-          ]
+          "arguments": [ "int * string" ]
         }
       ]
     }
@@ -200,17 +109,9 @@
     "hidden": false,
     "name": "variant_with_manifest_and_parameter",
     "parameters": [
-      {
-        "__class__": "type_parameter",
-        "type": { "__class__": "value_type:variable", "name": "a" },
-        "variance": null
-      }
+      { "__class__": "type_parameter", "type": "'a", "variance": null }
     ],
-    "manifest": {
-      "__class__": "value_type:constructor",
-      "name": "option",
-      "arguments": [ { "__class__": "value_type:variable", "name": "a" } ]
-    },
+    "manifest": "'a option",
     "kind": {
       "__class__": "type_kind:variant",
       "constructors": [
@@ -224,9 +125,7 @@
           "__class__": "type_constructor",
           "doc": [],
           "name": "Some",
-          "arguments": [
-            { "__class__": "value_type:variable", "name": "a" }
-          ]
+          "arguments": [ "'a" ]
         }
       ]
     }
@@ -246,28 +145,14 @@
           "doc": [ " Doc for field " ],
           "name": "field",
           "mutable": false,
-          "type": {
-            "__class__": "value_type:constructor",
-            "name": "int",
-            "arguments": []
-          }
+          "type": "int"
         },
         {
           "__class__": "type_label",
           "doc": [ " Doc for bar " ],
           "name": "bar",
           "mutable": false,
-          "type": {
-            "__class__": "value_type:constructor",
-            "name": "list",
-            "arguments": [
-              {
-                "__class__": "value_type:constructor",
-                "name": "float",
-                "arguments": []
-              }
-            ]
-          }
+          "type": "float list"
         }
       ]
     }
@@ -278,17 +163,9 @@
     "hidden": false,
     "name": "record_with_manifest_and_parameter",
     "parameters": [
-      {
-        "__class__": "type_parameter",
-        "type": { "__class__": "value_type:variable", "name": "a" },
-        "variance": null
-      }
+      { "__class__": "type_parameter", "type": "'a", "variance": null }
     ],
-    "manifest": {
-      "__class__": "value_type:constructor",
-      "name": "Pervasives.ref",
-      "arguments": [ { "__class__": "value_type:variable", "name": "a" } ]
-    },
+    "manifest": "'a ref",
     "kind": {
       "__class__": "type_kind:record",
       "labels": [
@@ -297,7 +174,7 @@
           "doc": [],
           "name": "contents",
           "mutable": true,
-          "type": { "__class__": "value_type:variable", "name": "a" }
+          "type": "'a"
         }
       ]
     }
@@ -321,13 +198,7 @@
               "__class__": "type_constructor",
               "doc": [],
               "name": "Node",
-              "arguments": [
-                {
-                  "__class__": "value_type:constructor",
-                  "name": "node",
-                  "arguments": []
-                }
-              ]
+              "arguments": [ "node" ]
             },
             {
               "__class__": "type_constructor",
@@ -344,21 +215,7 @@
         "hidden": false,
         "name": "node",
         "parameters": [],
-        "manifest": {
-          "__class__": "value_type:tuple",
-          "elements": [
-            {
-              "__class__": "value_type:constructor",
-              "name": "int",
-              "arguments": []
-            },
-            {
-              "__class__": "value_type:constructor",
-              "name": "tree",
-              "arguments": []
-            }
-          ]
-        },
+        "manifest": "int * tree",
         "kind": { "__class__": "type_kind:abstract" }
       }
     ]
@@ -369,17 +226,7 @@
     "hidden": false,
     "name": "constrained_to_list",
     "parameters": [
-      {
-        "__class__": "type_parameter",
-        "type": {
-          "__class__": "value_type:constructor",
-          "name": "list",
-          "arguments": [
-            { "__class__": "value_type:variable", "name": null }
-          ]
-        },
-        "variance": null
-      }
+      { "__class__": "type_parameter", "type": "'a list", "variance": null }
     ],
     "manifest": null,
     "kind": { "__class__": "type_kind:abstract" }
@@ -390,17 +237,7 @@
     "hidden": false,
     "name": "constrained_to_tuple",
     "parameters": [
-      {
-        "__class__": "type_parameter",
-        "type": {
-          "__class__": "value_type:tuple",
-          "elements": [
-            { "__class__": "value_type:variable", "name": null },
-            { "__class__": "value_type:variable", "name": null }
-          ]
-        },
-        "variance": null
-      }
+      { "__class__": "type_parameter", "type": "'a * 'b", "variance": null }
     ],
     "manifest": null,
     "kind": { "__class__": "type_kind:abstract" }
@@ -411,23 +248,10 @@
     "hidden": false,
     "name": "function_",
     "parameters": [
-      {
-        "__class__": "type_parameter",
-        "type": { "__class__": "value_type:variable", "name": "a" },
-        "variance": null
-      },
-      {
-        "__class__": "type_parameter",
-        "type": { "__class__": "value_type:variable", "name": "b" },
-        "variance": null
-      }
+      { "__class__": "type_parameter", "type": "'a", "variance": null },
+      { "__class__": "type_parameter", "type": "'b", "variance": null }
     ],
-    "manifest": {
-      "__class__": "value_type:function",
-      "label": null,
-      "left": { "__class__": "value_type:variable", "name": "a" },
-      "right": { "__class__": "value_type:variable", "name": "b" }
-    },
+    "manifest": "'a -> 'b",
     "kind": { "__class__": "type_kind:abstract" }
   },
   {
@@ -436,20 +260,7 @@
     "hidden": false,
     "name": "function_with_label",
     "parameters": [],
-    "manifest": {
-      "__class__": "value_type:function",
-      "label": "a",
-      "left": {
-        "__class__": "value_type:constructor",
-        "name": "int",
-        "arguments": []
-      },
-      "right": {
-        "__class__": "value_type:constructor",
-        "name": "unit",
-        "arguments": []
-      }
-    },
+    "manifest": "a:int -> unit",
     "kind": { "__class__": "type_kind:abstract" }
   },
   {
@@ -458,26 +269,7 @@
     "hidden": false,
     "name": "function_with_optional_label",
     "parameters": [],
-    "manifest": {
-      "__class__": "value_type:function",
-      "label": "?a",
-      "left": {
-        "__class__": "value_type:constructor",
-        "name": "option",
-        "arguments": [
-          {
-            "__class__": "value_type:constructor",
-            "name": "int",
-            "arguments": []
-          }
-        ]
-      },
-      "right": {
-        "__class__": "value_type:constructor",
-        "name": "unit",
-        "arguments": []
-      }
-    },
+    "manifest": "?a:int -> unit",
     "kind": { "__class__": "type_kind:abstract" }
   }
 ]

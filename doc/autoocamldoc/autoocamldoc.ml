@@ -63,53 +63,10 @@ end = struct
   let filter_ocaml_doc_attributes attributes =
     J.li (filter_attributes ~key:"ocaml.doc" attributes)
 
-  let type_expr loc =
-    let rec aux {Types.desc; level=_; id=_} =
-      Types.(
-        match desc with
-          | Tvar name ->
-            J.obj "value_type:variable" [
-              ("name", name |> Opt.map ~f:J.str |> J.opt);
-            ]
-          | Tarrow (label, left, right, _) ->
-            J.obj "value_type:function" [
-              ("label", Opt.some_if' (label <> "") (J.str label) |> J.opt);
-              ("left", aux left);
-              ("right", aux right);
-            ]
-          | Tconstr (name, arguments, _) ->
-            J.obj "value_type:constructor" [
-              ("name", J.str (Path.name name));
-              ("arguments", arguments |> Li.map ~f:aux |> J.li);
-            ]
-          | Tlink expr ->
-            aux expr
-          | Ttuple elements ->
-            J.obj "value_type:tuple" [
-              ("elements", elements |> Li.map ~f:aux |> J.li);
-            ]
-          | Tobject _ -> (*BISECT-IGNORE*)
-            not_handled "type_expr: Tobject" loc
-          | Tfield _ -> (*BISECT-IGNORE*)
-            not_handled "type_expr: Tfield" loc
-          | Tnil -> (*BISECT-IGNORE*)
-            not_handled "type_expr: Tnil" loc
-          | Tsubst _ -> (*BISECT-IGNORE*)
-            not_handled "type_expr: Tsubst" loc
-          | Tvariant _ -> (*BISECT-IGNORE*)
-            (* @todo Handle Tvariant: we now use one in the doc of General.Pervasives *)
-            not_handled "type_expr: Tvariant" loc
-          | Tunivar _ -> (*BISECT-IGNORE*)
-            not_handled "type_expr: Tunivar" loc
-          | Tpoly (x, []) ->
-              aux x
-          | Tpoly _ -> (*BISECT-IGNORE*)
-            not_handled "type_expr: Tpoly" loc
-          | Tpackage _ -> (*BISECT-IGNORE*)
-            not_handled "type_expr: Tpackage" loc
-      )
-    in
-    aux
+  let type_expr _ t =
+    Printtyp.reset ();
+    Printtyp.type_expr OCamlStandard.Format.str_formatter t;
+    J.str (OCamlStandard.Format.flush_str_formatter ());
 
   open Typedtree
 

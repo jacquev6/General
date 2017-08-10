@@ -22,22 +22,14 @@
     "doc": [ " Doc for v ", " Doc' for v " ],
     "hidden": false,
     "name": "v",
-    "type": {
-      "__class__": "value_type:constructor",
-      "name": "typ",
-      "arguments": []
-    }
+    "type": "typ"
   },
   {
     "__class__": "signature_item:value",
     "doc": [ " Doc for hidden_v ", " Doc' for hidden_v " ],
     "hidden": true,
     "name": "hidden_v",
-    "type": {
-      "__class__": "value_type:constructor",
-      "name": "typ",
-      "arguments": []
-    }
+    "type": "typ"
   },
   {
     "__class__": "signature_item:exception",
@@ -51,31 +43,14 @@
     "doc": [ " Doc for Exception1 ", " Doc' for Exception1 " ],
     "hidden": false,
     "name": "Exception1",
-    "arguments": [
-      {
-        "__class__": "value_type:constructor",
-        "name": "typ",
-        "arguments": []
-      }
-    ]
+    "arguments": [ "typ" ]
   },
   {
     "__class__": "signature_item:exception",
     "doc": [ " Doc for Exception2 ", " Doc' for Exception2 " ],
     "hidden": false,
     "name": "Exception2",
-    "arguments": [
-      {
-        "__class__": "value_type:constructor",
-        "name": "typ",
-        "arguments": []
-      },
-      {
-        "__class__": "value_type:constructor",
-        "name": "int",
-        "arguments": []
-      }
-    ]
+    "arguments": [ "typ", "int" ]
   },
   {
     "__class__": "signature_item:exception",
@@ -89,31 +64,14 @@
     "doc": [ " Doc for HiddenException1 ", " Doc' for HiddenException1 " ],
     "hidden": true,
     "name": "HiddenException1",
-    "arguments": [
-      {
-        "__class__": "value_type:constructor",
-        "name": "typ",
-        "arguments": []
-      }
-    ]
+    "arguments": [ "typ" ]
   },
   {
     "__class__": "signature_item:exception",
     "doc": [ " Doc for HiddenException2 ", " Doc' for HiddenException2 " ],
     "hidden": true,
     "name": "HiddenException2",
-    "arguments": [
-      {
-        "__class__": "value_type:constructor",
-        "name": "typ",
-        "arguments": []
-      },
-      {
-        "__class__": "value_type:constructor",
-        "name": "int",
-        "arguments": []
-      }
-    ]
+    "arguments": [ "typ", "int" ]
   },
   {
     "__class__": "signature_item:floating_documentation",
@@ -195,13 +153,7 @@
               "__class__": "type_constructor",
               "doc": [ " Doc for A " ],
               "name": "A",
-              "arguments": [
-                {
-                  "__class__": "value_type:constructor",
-                  "name": "recursive_type2",
-                  "arguments": []
-                }
-              ]
+              "arguments": [ "recursive_type2" ]
             },
             {
               "__class__": "type_constructor",
@@ -218,21 +170,7 @@
         "hidden": false,
         "name": "recursive_type2",
         "parameters": [],
-        "manifest": {
-          "__class__": "value_type:tuple",
-          "elements": [
-            {
-              "__class__": "value_type:constructor",
-              "name": "recursive_type1",
-              "arguments": []
-            },
-            {
-              "__class__": "value_type:constructor",
-              "name": "recursive_type1",
-              "arguments": []
-            }
-          ]
-        },
+        "manifest": "recursive_type1 * recursive_type1",
         "kind": { "__class__": "type_kind:abstract" }
       }
     ]
@@ -259,13 +197,7 @@
               "__class__": "type_constructor",
               "doc": [ " Doc for A " ],
               "name": "A",
-              "arguments": [
-                {
-                  "__class__": "value_type:constructor",
-                  "name": "hidden_recursive_type2",
-                  "arguments": []
-                }
-              ]
+              "arguments": [ "hidden_recursive_type2" ]
             },
             {
               "__class__": "type_constructor",
@@ -285,21 +217,7 @@
         "hidden": true,
         "name": "hidden_recursive_type2",
         "parameters": [],
-        "manifest": {
-          "__class__": "value_type:tuple",
-          "elements": [
-            {
-              "__class__": "value_type:constructor",
-              "name": "hidden_recursive_type1",
-              "arguments": []
-            },
-            {
-              "__class__": "value_type:constructor",
-              "name": "hidden_recursive_type1",
-              "arguments": []
-            }
-          ]
-        },
+        "manifest": "hidden_recursive_type1 * hidden_recursive_type1",
         "kind": { "__class__": "type_kind:abstract" }
       }
     ]
