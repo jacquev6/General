@@ -350,3 +350,15 @@ mkdir docs/autodoc
 cd _build_native/src
 ../../doc/autoocamldoc/_build/autoocamldoc.byte General.mli > ../../docs/autodoc/General.json
 cd ../..
+
+sphinx-build doc _build_native/sphinx/html -d _build_native/sphinx/doctrees
+# @todo When we can remove utop and autoocamldoc from docs, do it and replace the complex cleanning below by just "rm -rf docs"
+rm -rf docs/_*
+rm -rf docs/*.html
+rm -rf docs/*.js
+rm -rf docs/objects.inv
+cp -r _build_native/sphinx/html/* docs
+touch docs/.nojekyll
+rm -f docs/.buildinfo
+echo
+echo "See documentation in $(pwd)/docs/index.html"
