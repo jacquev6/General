@@ -15,7 +15,7 @@ do
     ls $directory/*.ml* | sed "s#\..*##" | sort -u >${directory}.mlpack
 done
 
-build -build-dir _build_native -X _build_coverage -X demo \
+build -build-dir _build_native -X _build_coverage -X demo -X doc -X _build_for_autodoc -X _build_copy_for_autodoc \
     src/Foundations/ResetPervasives.inferred.mli \
     General.cmxa unit_tests.native
 
@@ -73,7 +73,7 @@ cp ../_build_native/src/General.cmi ../_build_native/src/General.cmx ../_build_n
 build -build-dir _build_with_lib -X _build_with_package -package num -lib General demo.native demo_pervasives.native
 cd ..
 
-build -build-dir _build_coverage -X _build_native -X demo \
+build -build-dir _build_coverage -X _build_native -X demo -X doc -X _build_for_autodoc -X _build_copy_for_autodoc \
     -package bisect_ppx -tag debug \
     -tag-line 'true:+open(DependenciesForBisectPpx)' \
     -tag-line '<DependenciesForBisectPpx.*>:-open(DependenciesForBisectPpx)' \
@@ -324,40 +324,54 @@ rm -rf _build_with_package
 build -build-dir _build_with_package -X _build_with_lib -package General demo.byte demo.native
 cd ..
 
-exit
+if [ $(opam switch show) = "4.05.0" ]
+then
+    echo
+    echo "Building doc"
+    echo
+
+    cd doc/autoocamldoc
+    ocamlbuild -use-ocamlfind -no-links -package bisect_ppx autoocamldoc.byte
+
+    echo
+
+    rm -f bisect????.out
+    for f in tests/*.mli
+    do
+        _build/autoocamldoc.byte $f >${f%.mli}.json
+    done
+    bisect-summary bisect????.out
+    echo
+    bisect-ppx-report -html _build/bisect bisect????.out
+    echo "See coverage report (for autoocamldoc) in $(pwd)/_build/bisect/index.html"
+    rm -f bisect????.out
+    cd ../..
+
+    # This is a workaround for a bug of ocamlbuild. (We'll open a bug or submit a patch when we're sure we're able to use the "right" behavior)
+    # When packing, ocamlbuild doesn't pass -keep-docs or -keep-locs to ocamlc -pack so locs and docs are lost.
+    # We use -classic-display to know what ocamlbuild does, and we replicate that in another directory, fixing the calls to ocamlc -pack
+    build -build-dir _build_for_autodoc -X doc -X _build_copy_for_autodoc -X _build_coverage -X demo -X _build_native -tag keep_locs -tag keep_docs General.cmi
+    rm -rf _build_copy_for_autodoc
+    mv _build_for_autodoc _build_copy_for_autodoc
+    build -build-dir _build_for_autodoc -X doc -X _build_copy_for_autodoc -X _build_coverage -X demo -X _build_native -classic-display -tag keep_locs -tag keep_docs General.cmi \
+    | sed "s/ -pack / -pack -keep-docs -keep-locs /" \
+    | (cd _build_copy_for_autodoc; sh)
+    # End of workaround
+
+    cd _build_copy_for_autodoc/src
+    # strace -t -e trace=open \
+    ../../doc/autoocamldoc/_build/autoocamldoc.byte General.mli > ../../doc/reference.json
+    cd ../..
+
+    rm -rf _build/sphinx  # Keep while we're developing the Sphinx extension
+    sphinx-build doc _build/sphinx/html -d _build/sphinx/doctrees
+    rm -rf docs
+    cp -r _build/sphinx/html docs
+    touch docs/.nojekyll
+    rm -f docs/.buildinfo
+    echo
+    echo "See documentation in $(pwd)/docs/index.html"
+fi
 
 echo
-echo "Building doc"
-echo
-
-cd doc/autoocamldoc
-ocamlbuild -use-ocamlfind -no-links -package bisect_ppx autoocamldoc.byte
-
-echo
-
-rm -f bisect????.out
-for f in tests/*.mli
-do
-    _build/autoocamldoc.byte $f >${f%.mli}.json
-done
-bisect-summary bisect????.out
-echo
-bisect-ppx-report -html _build/bisect bisect????.out
-echo "See coverage report (for autoocamldoc) in $(pwd)/_build/bisect/index.html"
-rm -f bisect????.out
-cd ../..
-
-rm -rf docs/autodoc
-mkdir docs/autodoc
-cd _build_native/src
-../../doc/autoocamldoc/_build/autoocamldoc.byte General.mli > ../../doc/reference.json
-cd ../..
-
-rm -rf _build_native/sphinx  # Keep while we're developing the Sphinx extension
-sphinx-build doc _build_native/sphinx/html -d _build_native/sphinx/doctrees
-rm -rf docs
-cp -r _build_native/sphinx/html docs
-touch docs/.nojekyll
-rm -f docs/.buildinfo
-echo
-echo "See documentation in $(pwd)/docs/index.html"
+echo "Development cycle OK"

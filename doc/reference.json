@@ -441,7 +441,7 @@
               "name": "Poly",
               "type": {
                 "__class__": "module_type:identifier",
-                "name": "Traits.Comparable.SP"
+                "name": "Traits.Comparable.SPoly"
               }
             }
           ]
@@ -462,17 +462,17 @@
               "name": "Poly",
               "type": {
                 "__class__": "module_type:identifier",
-                "name": "Traits.Equatable.SP"
+                "name": "Traits.Equatable.SPoly"
               }
             },
             {
               "__class__": "signature_item:module",
               "doc": [],
               "hidden": false,
-              "name": "Physical",
+              "name": "Phys",
               "type": {
                 "__class__": "module_type:identifier",
-                "name": "Traits.Equatable.SP'"
+                "name": "Traits.Equatable.SPhys"
               }
             }
           ]

@@ -39,7 +39,10 @@ end = struct
         IntRef.increment count;
         StdErr.print "autodoc (OCaml): [WARNING] more items not handled\n"
       end;
-      J.str (Frmt.apply "NOT HANDLED: %s" s)
+      J.obj "not_handled" [
+        ("hidden", J.bo false);
+        ("reason", J.str s)
+      ]
   (*BISECT-IGNORE-END*)
 
   let hidden attributes =
@@ -48,12 +51,18 @@ end = struct
       txt = "autodoc.hide" && payload = Parsetree.PStr []
     )
 
+  (* let inlined attributes =
+    attributes
+    |> Li.there_exists ~f:(fun ({Asttypes.txt; loc=_}, payload) ->
+      txt = "autodoc.inline" && payload = Parsetree.PStr []
+    ) *)
+
   let filter_attributes ~key attributes =
     attributes
     |> Li.filter_map ~f:(fun ({Asttypes.txt; loc}, payload) ->
       Opt.some_if (txt = key) (lazy Parsetree.(
         match payload with
-          | PStr [{pstr_desc=Pstr_eval ({pexp_desc=Pexp_constant (Asttypes.Const_string (s, _)); _}, _); _}] ->
+          | PStr [{pstr_desc=Pstr_eval ({pexp_desc=Pexp_constant (Parsetree.Pconst_string (s, _)); _}, _); _}] ->
             J.str s
           | _ -> (*BISECT-IGNORE*)
             not_handled "attribute" loc
@@ -136,10 +145,17 @@ end = struct
           "constructors",
           constructors
           |> Li.map ~f:(fun {cd_id=_; cd_name; cd_args; cd_res=_; cd_loc=_; cd_attributes} ->
+            let arguments =
+              match cd_args with
+                | Cstr_tuple arguments ->
+                  arguments
+                | Cstr_record _ ->
+                  [] (* @todo Implement Cstr_record *)
+            in
             J.obj "type_constructor" [
               ("doc", filter_ocaml_doc_attributes cd_attributes);
               ("name", string_loc cd_name);
-              ("arguments", cd_args |> Li.map ~f:(fun {ctyp_type; _} -> type_expr ctyp_type) |> J.li);
+              ("arguments", arguments |> Li.map ~f:(fun {ctyp_type; _} -> type_expr ctyp_type) |> J.li);
             ]
           )
           |> J.li
@@ -200,11 +216,18 @@ end = struct
     )
 
   let exception_ {ext_id=_; ext_name; ext_type={Types.ext_args; _}; ext_kind=_; ext_loc=_; ext_attributes} =
+    let payload =
+      match ext_args with
+        | Types.Cstr_tuple payload ->
+          payload
+        | Types.Cstr_record _ ->
+          [] (* @todo Implement Cstr_record *)
+    in
     (
       "signature_item:exception",
       [
         ("name", string_loc ext_name);
-        ("payload", ext_args |> Li.map ~f:type_expr |> J.li);
+        ("payload", payload |> Li.map ~f:type_expr |> J.li);
       ],
       ext_attributes
     )
@@ -233,9 +256,9 @@ end = struct
         foo (module_declaration decl)
       | Tsig_include desc ->
         foo (include_description desc)
-      | Tsig_type [decl] ->
+      | Tsig_type (_, [decl]) ->
         foo (type_declaration decl)
-      | Tsig_type decls ->
+      | Tsig_type (_, decls) ->
         foo (
           "signature_item:recursive_types",
           [
@@ -292,10 +315,66 @@ end = struct
           ("elements", signature signature_);
         ]
       | Tmty_ident (p, _) ->
-        J.obj "module_type:identifier" [
-          ("name", path p);
-          (* @todo List elements *)
-        ]
+        (* let elements =
+          let {Types.mtd_type; mtd_attributes=_; mtd_loc={Location.loc_start; _}} = Env.find_modtype p mty_env in
+
+          let (file, line, char) = Location.get_pos_info loc_start in
+          StdErr.print "%s %s:%i:%i\n" (Path.name p) file line char;
+
+          match mtd_type with
+            | None ->
+              not_handled "Inlining: None" mty_loc
+            | Some (Types.Mty_ident _) ->
+              not_handled "Inlining: Some Mty_ident" mty_loc
+            | Some (Types.Mty_signature signature) ->
+              signature
+              |> Li.map ~f:(function
+                | Types.Sig_value ({Ident.name; _}, {Types.val_type; val_kind=Types.Val_reg; val_loc=_; val_attributes}) ->
+                  J.obj "signature_item:value" [
+                    (* .cmi must have been compiled with -keep-docs, which in achieved by tag keep_docs, BUT NOT IN MLPACKS (bug of ocamlbuild: ocaml -pack is called without -keep-docs) *)
+                    ("doc", filter_ocaml_doc_attributes val_attributes);
+                    ("hidden", J.bo false);
+                    ("name", J.str name);
+                    ("type", type_expr val_type);
+                  ]
+                | Types.Sig_value (_, _) ->
+                  not_handled "Inlining: Sig_value" mty_loc
+                | Types.Sig_type ({Ident.name; _}, {Types.type_params=_; type_arity=_; type_kind=_; type_private=_; type_manifest=_; type_variance=_; type_newtype_level=_; type_loc=_; type_attributes=_; _}, _) ->
+                  J.obj "signature_item:type" [
+                    ("doc", J.li []);
+                    ("hidden", J.bo false);
+                    ("name", J.str name);
+                    ("parameters", J.li []);
+                    ("manifest", J.null);
+                    ("kind", J.obj "type_kind:abstract" []);
+                  ]
+                | Types.Sig_typext (_, _, _) ->
+                  not_handled "Inlining: Sig_typext" mty_loc
+                | Types.Sig_module (_, _, _) ->
+                  not_handled "Inlining: Sig_module" mty_loc
+                | Types.Sig_modtype (_, _) ->
+                  not_handled "Inlining: Sig_modtype" mty_loc
+                | Types.Sig_class (_, _, _) ->
+                  not_handled "Inlining: Sig_class" mty_loc
+                | Types.Sig_class_type (_, _, _) ->
+                  not_handled "Inlining: Sig_class_type" mty_loc
+              )
+              |> J.li
+            | Some (Types.Mty_functor (_, _, _)) ->
+              not_handled "Inlining: Some Mty_functor" mty_loc
+            | Some (Types.Mty_alias _) ->
+              not_handled "Inlining: Some Mty_alias" mty_loc
+        in
+        if inlined mty_attributes
+        then
+          J.obj "module_type:signature" [
+            ("elements", elements);
+          ]
+        else *)
+          J.obj "module_type:identifier" [
+            ("name", path p);
+            (* ("elements", elements); *)
+          ]
       | Tmty_functor (_, parameter_name, parameter_type, contents) ->
         let rec aux parameters parameter_name parameter_type contents =
           let parameter = J.obj "functor_parameter" [
@@ -364,7 +443,7 @@ let () =
     let signature =
       OCamlStandard.Sys.argv.(1)
       |> Pparse.parse_interface ~tool_name:"autoocamldoc" OCamlStandard.Format.err_formatter
-      |> Typemod.type_interface (Compmisc.initial_env ())
+      |> Typemod.type_interface "Foo?" (Compmisc.initial_env ())
       |> TypedtreeToJson.signature
     in
     J.obj "signature_item:module" [

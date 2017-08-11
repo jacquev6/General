@@ -179,7 +179,7 @@ Reference
 
       Not yet documented: module_type:identifier
 
-    .. module:: Physical
+    .. module:: Phys
 
       Not yet documented: module_type:identifier
 

@@ -11,7 +11,7 @@ available: [
 ]
 build: [
   # Clean-up needed when path-pinning with recent OCaml versions
-  ["rm" "-rf" "_build_coverage" "_build_native" "demo/_build_with_lib" "demo/_build_with_package"]
+  ["rm" "-rf" "_build_coverage" "_build_native" "_build_copy_for_autodoc" "_build_for_autodoc" "demo/_build_with_lib" "demo/_build_with_package"]
   ["ocamlbuild" "-use-ocamlfind" "-plugin-tag" "package(cppo_ocamlbuild)" "General.cma" "General.cmxa"]
 ]
 install: [
