@@ -1,8 +1,8 @@
 module O: sig
-  val (=): Printexc.location -> Printexc.location -> bool
-  val (<>): Printexc.location -> Printexc.location -> bool
-  val (<): Printexc.location -> Printexc.location -> bool
-  val (<=): Printexc.location -> Printexc.location -> bool
-  val (>): Printexc.location -> Printexc.location -> bool
-  val (>=): Printexc.location -> Printexc.location -> bool
+  val (=): General.CallStack.Location.t -> General.CallStack.Location.t -> bool
+  val (<>): General.CallStack.Location.t -> General.CallStack.Location.t -> bool
+  val (<): General.CallStack.Location.t -> General.CallStack.Location.t -> bool
+  val (<=): General.CallStack.Location.t -> General.CallStack.Location.t -> bool
+  val (>): General.CallStack.Location.t -> General.CallStack.Location.t -> bool
+  val (>=): General.CallStack.Location.t -> General.CallStack.Location.t -> bool
 end

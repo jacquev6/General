@@ -18,7 +18,7 @@ module Make0(M: sig
     val (/): t -> t -> t
     val (**): t -> int -> t
   end
-  val repr: t -> bytes
+  val repr: t -> string
   val equal: t -> t -> bool
 end)(E: sig
   val add_substract: (M.t * M.t * M.t) list

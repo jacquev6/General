@@ -3,7 +3,7 @@ module IntRange: sig
   val equal: t -> t -> bool
   val different: t -> t -> bool
   module O
-  val repr: t -> bytes
+  val repr: t -> string
   val empty: t
   val create: ?start:int -> ?step:int -> int -> t
   val to_list: t -> int list

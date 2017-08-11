@@ -2,7 +2,7 @@ module Displayable: sig
   module Basic
   module type S0 = sig
     type t
-    val to_string: t -> bytes
+    val to_string: t -> string
   end
   module Tests
 end

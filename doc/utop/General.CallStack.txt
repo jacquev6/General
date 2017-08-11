@@ -1,7 +1,7 @@
 module CallStack: sig
-  type t = Printexc.raw_backtrace
-  val to_string: t -> bytes
-  val repr: t -> bytes
+  type t = General.CallStack.t
+  val to_string: t -> string
+  val repr: t -> string
   val current: ?max_size:int -> unit -> t
   module Location
   module Frame

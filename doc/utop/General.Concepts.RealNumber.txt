@@ -18,12 +18,12 @@ module RealNumber: sig
       val (>=): t -> t -> bool
       val (mod): t -> t -> t
     end
-    val to_string: t -> bytes
+    val to_string: t -> string
     val equal: t -> t -> bool
     val different: t -> t -> bool
-    val try_of_string: bytes -> t option
-    val of_string: bytes -> t
-    val repr: t -> bytes
+    val try_of_string: string -> t option
+    val of_string: string -> t
+    val repr: t -> string
     val zero: t
     val one: t
     val negate: t -> t

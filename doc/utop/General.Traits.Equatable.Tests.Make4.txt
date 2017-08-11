@@ -2,7 +2,7 @@ module Make4(M: sig
   type ('a, 'b, 'c, 'd) t
   val equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
   val different: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
-  val repr: ('a, 'b, 'c, 'd) t -> repr_a:('a -> bytes) -> repr_b:('b -> bytes) -> repr_c:('c -> bytes) -> repr_d:('d -> bytes) -> bytes
+  val repr: ('a, 'b, 'c, 'd) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> string
 end)(E: sig
   module A: General.Traits.Equatable.Tests.Examples.Element
   module B: General.Traits.Equatable.Tests.Examples.Element

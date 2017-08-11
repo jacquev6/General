@@ -1,3 +1,3 @@
 module String: sig
-  val get: bytes -> int -> char
+  val get: string -> int -> char
 end

@@ -11,7 +11,7 @@ module Make2(M: sig
   val max: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> ('a, 'b) t
   val min_max: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> ('a, 'b) t * ('a, 'b) t
   val equal: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
-  val repr: ('a, 'b) t -> repr_a:('a -> bytes) -> repr_b:('b -> bytes) -> bytes
+  val repr: ('a, 'b) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> string
 end)(E: sig
   module A: General.Traits.Comparable.Tests.Examples.Element
   module B: General.Traits.Comparable.Tests.Examples.Element

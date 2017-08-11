@@ -1,5 +1,5 @@
 module Stream: sig
-  type 'a t = 'a Stream.t
+  type 'a t = 'a General.Stream.t
   val empty: 'a t
   val singleton: 'a -> 'a t
   val to_list: 'a t -> 'a list

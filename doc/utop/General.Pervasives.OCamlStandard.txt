@@ -10,6 +10,7 @@ module OCamlStandard: sig
   module Char
   module Complex
   module Digest
+  module Ephemeron
   module Filename
   module Format
   module Gc
@@ -34,12 +35,14 @@ module OCamlStandard: sig
   module Scanf
   module Set
   module Sort
+  module Spacetime
   module Stack
   module StdLabels
   module Stream
   module String
   module StringLabels
   module Sys
+  module Uchar
   module Weak
   module Num
   module Big_int

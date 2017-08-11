@@ -5,7 +5,7 @@ module Make5(M: General.Concepts.Able.S5)(E: sig
   module D: General.Concepts.Able.Tests.Examples.Element
   module E: General.Concepts.Able.Tests.Examples.Element
   val different: ((A.t, B.t, C.t, D.t, E.t) M.t * (A.t, B.t, C.t, D.t, E.t) M.t) list
-  val repr: ((A.t, B.t, C.t, D.t, E.t) M.t * bytes) list
+  val repr: ((A.t, B.t, C.t, D.t, E.t) M.t * string) list
   val ordered: (A.t, B.t, C.t, D.t, E.t) M.t list list
   val equal: (A.t, B.t, C.t, D.t, E.t) M.t list list
 end): sig

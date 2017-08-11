@@ -1,16 +1,16 @@
 module O: sig
-  val (=): Big_int.big_int -> Big_int.big_int -> bool
-  val (<>): Big_int.big_int -> Big_int.big_int -> bool
-  val (~+): Big_int.big_int -> Big_int.big_int
-  val (~-): Big_int.big_int -> Big_int.big_int
-  val (+): Big_int.big_int -> Big_int.big_int -> Big_int.big_int
-  val (-): Big_int.big_int -> Big_int.big_int -> Big_int.big_int
-  val (*): Big_int.big_int -> Big_int.big_int -> Big_int.big_int
-  val (/): Big_int.big_int -> Big_int.big_int -> Big_int.big_int
-  val (**): Big_int.big_int -> int -> Big_int.big_int
-  val (<): Big_int.big_int -> Big_int.big_int -> bool
-  val (<=): Big_int.big_int -> Big_int.big_int -> bool
-  val (>): Big_int.big_int -> Big_int.big_int -> bool
-  val (>=): Big_int.big_int -> Big_int.big_int -> bool
-  val (mod): Big_int.big_int -> Big_int.big_int -> Big_int.big_int
+  val (=): General.BigInt.t -> General.BigInt.t -> bool
+  val (<>): General.BigInt.t -> General.BigInt.t -> bool
+  val (~+): General.BigInt.t -> General.BigInt.t
+  val (~-): General.BigInt.t -> General.BigInt.t
+  val (+): General.BigInt.t -> General.BigInt.t -> General.BigInt.t
+  val (-): General.BigInt.t -> General.BigInt.t -> General.BigInt.t
+  val (*): General.BigInt.t -> General.BigInt.t -> General.BigInt.t
+  val (/): General.BigInt.t -> General.BigInt.t -> General.BigInt.t
+  val (**): General.BigInt.t -> int -> General.BigInt.t
+  val (<): General.BigInt.t -> General.BigInt.t -> bool
+  val (<=): General.BigInt.t -> General.BigInt.t -> bool
+  val (>): General.BigInt.t -> General.BigInt.t -> bool
+  val (>=): General.BigInt.t -> General.BigInt.t -> bool
+  val (mod): General.BigInt.t -> General.BigInt.t -> General.BigInt.t
 end

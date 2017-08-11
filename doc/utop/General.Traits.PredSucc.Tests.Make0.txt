@@ -3,7 +3,7 @@ module Make0(M: sig
   val succ: t -> t
   val pred: t -> t
   val equal: t -> t -> bool
-  val repr: t -> bytes
+  val repr: t -> string
 end)(E: sig
   val succ: (M.t * M.t) list
 end): sig

@@ -4,7 +4,7 @@ module Make3(M: General.Concepts.Identifiable.S3)(E: sig
   module C: General.Concepts.Identifiable.Tests.Examples.Element
   val equal: (A.t, B.t, C.t) M.t list list
   val different: ((A.t, B.t, C.t) M.t * (A.t, B.t, C.t) M.t) list
-  val repr: ((A.t, B.t, C.t) M.t * bytes) list
+  val repr: ((A.t, B.t, C.t) M.t * string) list
 end): sig
   val test: General.Testing.Test.t
 end

@@ -7,7 +7,7 @@ module Examples: sig
   module type Element = sig
     type t
     val equal: t -> t -> bool
-    val repr: t -> bytes
+    val repr: t -> string
   end
   module type S1 = sig
     module A: Element

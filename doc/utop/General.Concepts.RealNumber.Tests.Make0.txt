@@ -1,8 +1,8 @@
 module Make0(M: General.Concepts.RealNumber.S0)(E: sig
-  val to_string: (M.t * bytes) list
+  val to_string: (M.t * string) list
   val different: (M.t * M.t) list
-  val of_string: (bytes * M.t) list
-  val repr: (M.t * bytes) list
+  val of_string: (string * M.t) list
+  val repr: (M.t * string) list
   val add_substract: (M.t * M.t * M.t) list
   val negate: (M.t * M.t) list
   val multiply: (M.t * M.t * M.t) list

@@ -10,11 +10,13 @@ available: [
   & ocaml-version < "5"
 ]
 build: [
+  # Clean-up needed when path-pinning with recent OCaml versions
+  ["rm" "-rf" "_build_coverage" "_build_native" "demo/_build_with_lib" "demo/_build_with_package"]
   ["ocamlbuild" "-use-ocamlfind" "-plugin-tag" "package(cppo_ocamlbuild)" "General.cma" "General.cmxa"]
 ]
 install: [
   ["mkdir" "-p" "%{prefix}%/lib/General"]
-  ["cp" "META" "_build/src/General.cmi" "_build/src/General.cma" "_build/src/General.a" "_build/src/General.cmxa" "%{prefix}%/lib/General"]
+  ["cp" "META" "_build/src/General.cmi" "_build/src/General.cma" "_build/src/General.a" "_build/src/General.cmx" "_build/src/General.cmxa" "%{prefix}%/lib/General"]
 ]
 remove: [
   ["ocamlfind" "remove" "General"]

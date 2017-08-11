@@ -6,7 +6,7 @@ module Make0(M: sig
     val (=): t -> t -> bool
     val (<>): t -> t -> bool
   end
-  val repr: t -> bytes
+  val repr: t -> string
 end)(E: sig
   val equal: M.t list list
   val different: (M.t * M.t) list

@@ -324,6 +324,8 @@ rm -rf _build_with_package
 build -build-dir _build_with_package -X _build_with_lib -package General demo.byte demo.native
 cd ..
 
+exit
+
 echo
 echo "Building doc"
 echo

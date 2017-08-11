@@ -2,7 +2,7 @@ module Examples: sig
   module type S0 = sig
     type t
     val different: (t * t) list
-    val repr: (t * bytes) list
+    val repr: (t * string) list
     val ordered: t list list
     val equal: t list list
   end
@@ -10,13 +10,13 @@ module Examples: sig
     type t
     val compare: t -> t -> General.Compare.t
     val equal: t -> t -> bool
-    val repr: t -> bytes
+    val repr: t -> string
   end
   module type S1 = sig
     type 'a t
     module A: Element
     val different: (A.t t * A.t t) list
-    val repr: (A.t t * bytes) list
+    val repr: (A.t t * string) list
     val ordered: A.t t list list
     val equal: A.t t list list
   end
@@ -25,7 +25,7 @@ module Examples: sig
     module A: Element
     module B: Element
     val different: ((A.t, B.t) t * (A.t, B.t) t) list
-    val repr: ((A.t, B.t) t * bytes) list
+    val repr: ((A.t, B.t) t * string) list
     val ordered: (A.t, B.t) t list list
     val equal: (A.t, B.t) t list list
   end
@@ -35,7 +35,7 @@ module Examples: sig
     module B: Element
     module C: Element
     val different: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
-    val repr: ((A.t, B.t, C.t) t * bytes) list
+    val repr: ((A.t, B.t, C.t) t * string) list
     val ordered: (A.t, B.t, C.t) t list list
     val equal: (A.t, B.t, C.t) t list list
   end
@@ -46,7 +46,7 @@ module Examples: sig
     module C: Element
     module D: Element
     val different: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
-    val repr: ((A.t, B.t, C.t, D.t) t * bytes) list
+    val repr: ((A.t, B.t, C.t, D.t) t * string) list
     val ordered: (A.t, B.t, C.t, D.t) t list list
     val equal: (A.t, B.t, C.t, D.t) t list list
   end
@@ -58,7 +58,7 @@ module Examples: sig
     module D: Element
     module E: Element
     val different: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
-    val repr: ((A.t, B.t, C.t, D.t, E.t) t * bytes) list
+    val repr: ((A.t, B.t, C.t, D.t, E.t) t * string) list
     val ordered: (A.t, B.t, C.t, D.t, E.t) t list list
     val equal: (A.t, B.t, C.t, D.t, E.t) t list list
   end

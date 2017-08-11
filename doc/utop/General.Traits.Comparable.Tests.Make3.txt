@@ -11,7 +11,7 @@ module Make3(M: sig
   val max: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> ('a, 'b, 'c) t
   val min_max: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> ('a, 'b, 'c) t * ('a, 'b, 'c) t
   val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
-  val repr: ('a, 'b, 'c) t -> repr_a:('a -> bytes) -> repr_b:('b -> bytes) -> repr_c:('c -> bytes) -> bytes
+  val repr: ('a, 'b, 'c) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> string
 end)(E: sig
   module A: General.Traits.Comparable.Tests.Examples.Element
   module B: General.Traits.Comparable.Tests.Examples.Element

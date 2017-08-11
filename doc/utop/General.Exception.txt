@@ -3,29 +3,29 @@ module Exception: sig
   val equal: t -> t -> bool
   val different: t -> t -> bool
   module O
-  val repr: t -> bytes
-  val to_string: t -> bytes
-  val register_printer: (t -> bytes option) -> unit
+  val repr: t -> string
+  val to_string: t -> string
+  val register_printer: (t -> string option) -> unit
   val record_backtraces: bool -> unit
   val recording_backtraces: unit -> bool
-  val most_recent_backtrace: unit -> Printexc.raw_backtrace option
-  exception MatchFailure of (bytes * int * int)
-  exception AssertFailure of (bytes * int * int)
-  exception InvalidArgument of bytes
-  exception Failure of bytes
+  val most_recent_backtrace: unit -> General.CallStack.t option
+  exception MatchFailure of (string * int * int)
+  exception AssertFailure of (string * int * int)
+  exception InvalidArgument of string
+  exception Failure of string
   exception NotFound
   exception OutOfMemory
   exception StackOverflow
-  exception SysError of bytes
+  exception SysError of string
   exception EndOfFile
   exception DivisionByZero
   exception SysBlockedIO
-  exception UndefinedRecursiveModule of (bytes * int * int)
+  exception UndefinedRecursiveModule of (string * int * int)
   exception Exit
   val raise: t -> 'a
   val raise_without_backtrace: t -> 'a
-  val invalid_argument: ('a, unit, bytes, bytes, bytes, 'b) format6 -> 'a
-  val failure: ('a, unit, bytes, bytes, bytes, 'b) format6 -> 'a
-  val name: t -> bytes
+  val invalid_argument: ('a, unit, string, string, string, 'b) format6 -> 'a
+  val failure: ('a, unit, string, string, string, 'b) format6 -> 'a
+  val name: t -> string
   val or_none: 'a lazy_t -> 'a option
 end

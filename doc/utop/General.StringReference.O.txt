@@ -1,6 +1,6 @@
 module O: sig
-  val ref: bytes -> General.StringReference.t
-  val (!): General.StringReference.t -> bytes
-  val (:=): General.StringReference.t -> bytes -> unit
-  val (=^): General.StringReference.t -> bytes -> unit
+  val ref: string -> General.StringReference.t
+  val (!): General.StringReference.t -> string
+  val (:=): General.StringReference.t -> string -> unit
+  val (=^): General.StringReference.t -> string -> unit
 end

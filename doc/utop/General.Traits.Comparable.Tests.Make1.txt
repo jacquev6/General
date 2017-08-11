@@ -11,7 +11,7 @@ module Make1(M: sig
   val max: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> 'a t
   val min_max: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> 'a t * 'a t
   val equal: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
-  val repr: 'a t -> repr_a:('a -> bytes) -> bytes
+  val repr: 'a t -> repr_a:('a -> string) -> string
 end)(E: sig
   module A: General.Traits.Comparable.Tests.Examples.Element
   val ordered: A.t M.t list list

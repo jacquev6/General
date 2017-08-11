@@ -2,7 +2,7 @@ module Make1(M: sig
   type 'a t
   val equal: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
   val different: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
-  val repr: 'a t -> repr_a:('a -> bytes) -> bytes
+  val repr: 'a t -> repr_a:('a -> string) -> string
 end)(E: sig
   module A: General.Traits.Equatable.Tests.Examples.Element
   val equal: A.t M.t list list

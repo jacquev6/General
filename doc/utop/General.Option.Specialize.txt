@@ -8,7 +8,7 @@ end): sig
   val is_none: t -> bool
   val value_def: t -> def:A.t -> A.t
   val value: ?exc:exn -> t -> A.t
-  val or_failure: ('a, unit, bytes, bytes, bytes, t -> A.t) format6 -> 'a
+  val or_failure: ('a, unit, string, string, string, t -> A.t) format6 -> 'a
   val map: t -> f:(A.t -> 'a) -> 'a option
   val iter: t -> f:(A.t -> unit) -> unit
   val filter: t -> f:(A.t -> bool) -> t

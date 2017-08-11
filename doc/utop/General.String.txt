@@ -1,5 +1,5 @@
 module String: sig
-  type t = bytes
+  type t = string
   val get: t -> int -> char
   module O
   val to_string: t -> t

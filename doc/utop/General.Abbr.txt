@@ -111,10 +111,13 @@ module Abbr: sig
   val char_of_int: [> `Please_use_General__Char__to_int ]
   val string_of_bool: [> `Please_use_General__Bool__to_string ]
   val bool_of_string: [> `Please_use_General__Bool__of_string ]
+  val bool_of_string_opt: [> `Please_use_General__Bool__try_of_string ]
   val string_of_int: [> `Please_use_General__Int__to_string ]
   val int_of_string: [> `Please_use_General__Int__of_string ]
+  val int_of_string_opt: [> `Please_use_General__Int__try_of_string ]
   val string_of_float: [> `Please_use_General__Float__of_string ]
   val float_of_string: [> `Please_use_General__Float__to_string ]
+  val float_of_string_opt: [> `Please_use_General__Float__try_of_string ]
   val fst: [> `Please_use_General__Tuple2__get_0 ]
   val snd: [> `Please_use_General__Tuple2__get_1 ]
   type in_channel = [ `Please_use_General__InChannel__t ]
@@ -138,7 +141,9 @@ module Abbr: sig
   val prerr_newline: [> `Please_use_General__StdErr__print ]
   val read_line: [> `Please_use_General__todo ]
   val read_int: [> `Please_use_General__todo ]
+  val read_int_opt: [> `Please_use_General__todo ]
   val read_float: [> `Please_use_General__todo ]
+  val read_float_opt: [> `Please_use_General__todo ]
   type open_flag = [ `Please_use_General__todo ]
   val open_out: [> `Please_use_General__OutFile__with_file ]
   val open_out_bin: [> `Please_use_General__OutFile__with_file ]
@@ -204,6 +209,7 @@ module Abbr: sig
   module Char
   module Complex
   module Digest
+  module Ephemeron
   module Filename
   module Format
   module Gc
@@ -226,12 +232,14 @@ module Abbr: sig
   module Scanf
   module Set
   module Sort
+  module Spacetime
   module Stack
   module StdLabels
   module Stream
   module String
   module StringLabels
   module Sys
+  module Uchar
   module Weak
   module Num
   module Big_int
@@ -239,7 +247,13 @@ module Abbr: sig
   val not: bool -> bool
   val (&&): bool -> bool -> bool
   val (||): bool -> bool -> bool
-  val xor: bool -> bool -> bool
+  val (~-): int -> int
+  val (~+): int -> int
+  val (+): int -> int -> int
+  val (-): int -> int -> int
+  val (*): int -> int -> int
+  val (/): int -> int -> int
+  val (mod): int -> int -> int
   val (~-.): float -> float
   val (~+.): float -> float
   val (+.): float -> float -> float
@@ -250,18 +264,9 @@ module Abbr: sig
   val (@@): ('a -> 'b) -> 'a -> 'b
   val (|>): 'a -> ('a -> 'b) -> 'b
   val (%): ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
-  val (~-): int -> int
-  val (~+): int -> int
-  val (+): int -> int -> int
-  val (-): int -> int -> int
-  val (*): int -> int -> int
-  val (/): int -> int -> int
-  val (mod): int -> int -> int
-  val (@): 'a list -> 'a list -> 'a list
-  val (^): bytes -> bytes -> bytes
-  val ref: 'a -> 'a OCamlStandard.Pervasives.ref
-  val (:=): 'a OCamlStandard.Pervasives.ref -> 'a -> unit
-  val (!): 'a OCamlStandard.Pervasives.ref -> 'a
+  val ref: 'a -> 'a Ref.t
+  val (:=): 'a Ref.t -> 'a -> unit
+  val (!): 'a Ref.t -> 'a
   val (=): 'a -> 'a -> bool
   val (<>): 'a -> 'a -> bool
   val (<): 'a -> 'a -> bool
@@ -270,4 +275,6 @@ module Abbr: sig
   val (>): 'a -> 'a -> bool
   val ignore: 'a -> unit
   val identity: 'a -> 'a
+  val (@): 'a list -> 'a list -> 'a list
+  val (^): string -> string -> string
 end

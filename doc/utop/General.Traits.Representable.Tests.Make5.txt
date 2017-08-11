@@ -4,7 +4,7 @@ module Make5(M: General.Traits.Representable.S5)(E: sig
   module C: General.Traits.Representable.Tests.Examples.Element
   module D: General.Traits.Representable.Tests.Examples.Element
   module E: General.Traits.Representable.Tests.Examples.Element
-  val repr: ((A.t, B.t, C.t, D.t, E.t) M.t * bytes) list
+  val repr: ((A.t, B.t, C.t, D.t, E.t) M.t * string) list
 end): sig
   val test: General.Testing.Test.t
 end
