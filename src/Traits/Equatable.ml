@@ -1,7 +1,13 @@
 open Foundations
 
 module Basic = struct
-  module type SP = sig
+  module type SPoly = sig
+    (** Polymorphic structural equality *)
+    val equal: 'a -> 'a
+      -> bool
+  end
+  module type SPhys = sig
+    (** Physical identity (address equality) *)
     val equal: 'a -> 'a
       -> bool
   end
@@ -100,7 +106,7 @@ module Basic = struct
 end
 
 module Operators = struct
-  module type SP = sig
+  module type SPoly = sig
     val (=): 'a -> 'a
       -> bool
     val (<>): 'a -> 'a
@@ -134,18 +140,20 @@ module Operators = struct
   end
 end
 
-module type SP = sig
-  include Basic.SP
+module type SPoly = sig
+  include Basic.SPoly
 
+  (** Polymorphic inequality *)
   val different: 'a -> 'a
     -> bool
 
-  module O: sig include Operators.SP end
+  module O: sig include Operators.SPoly end
 end
 
-module type SP' = sig
-  include Basic.SP
+module type SPhys = sig
+  include Basic.SPhys
 
+  (** Physical inequality *)
   val different: 'a -> 'a
     -> bool
 end

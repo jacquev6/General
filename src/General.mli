@@ -115,12 +115,12 @@ module Concepts: module type of Concepts
 module Compare: sig
   type t = Foundations.Compare.t = LT | EQ | GT
 
-  module Poly: Traits.Comparable.SP
+  module Poly: Traits.Comparable.SPoly
 end
 
 module Equate: sig
-  module Poly: Traits.Equatable.SP
-  module Physical: Traits.Equatable.SP'
+  module Poly: Traits.Equatable.SPoly
+  module Phys: Traits.Equatable.SPhys
 end
 
 module CallStack: sig

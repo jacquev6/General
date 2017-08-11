@@ -8,7 +8,7 @@ module Poly = struct
   end
 end
 
-module Physical = struct
+module Phys = struct
   let equal = OCSP.(==)
   let different = OCSP.(!=)
 end

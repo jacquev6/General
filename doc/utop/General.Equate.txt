@@ -1,4 +1,4 @@
 module Equate: sig
-  module Poly: General.Traits.Equatable.SP
-  module Physical: General.Traits.Equatable.SP'
+  module Poly: General.Traits.Equatable.SPoly
+  module Phys: General.Traits.Equatable.SPhys
 end

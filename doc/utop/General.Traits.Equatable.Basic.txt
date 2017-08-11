@@ -1,5 +1,8 @@
 module Basic: sig
-  module type SP = sig
+  module type SPoly = sig
+    val equal: 'a -> 'a -> bool
+  end
+  module type SPhys = sig
     val equal: 'a -> 'a -> bool
   end
   module type S0 = sig

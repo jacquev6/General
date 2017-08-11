@@ -1,7 +1,7 @@
 module Equatable: sig
   module Basic
   module Operators
-  module type SP = sig
+  module type SPoly = sig
     val equal: 'a -> 'a -> bool
     val different: 'a -> 'a -> bool
     module O: sig
@@ -9,7 +9,7 @@ module Equatable: sig
       val (<>): 'a -> 'a -> bool
     end
   end
-  module type SP' = sig
+  module type SPhys = sig
     val equal: 'a -> 'a -> bool
     val different: 'a -> 'a -> bool
   end

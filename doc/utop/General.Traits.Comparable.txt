@@ -1,7 +1,7 @@
 module Comparable: sig
   module Basic
   module Operators
-  module type SP = sig
+  module type SPoly = sig
     val compare: 'a -> 'a -> General.Compare.t
     val less_than: 'a -> 'a -> bool
     val less_or_equal: 'a -> 'a -> bool

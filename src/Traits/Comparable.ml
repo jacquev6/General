@@ -3,7 +3,7 @@ open Foundations
 (* @feature Descending, ascending *)
 
 module Basic = struct
-  module type SP = sig
+  module type SPoly = sig
     val compare: 'a -> 'a
       -> Compare.t
   end
@@ -102,7 +102,7 @@ module Basic = struct
 end
 
 module Operators = struct
-  module type SP = sig
+  module type SPoly = sig
     val (<): 'a -> 'a
       -> bool
     val (<=): 'a -> 'a
@@ -153,8 +153,8 @@ module Operators = struct
   end
 end
 
-module type SP = sig
-  include Basic.SP
+module type SPoly = sig
+  include Basic.SPoly
 
   val less_than: 'a -> 'a
     -> bool
@@ -177,7 +177,7 @@ module type SP = sig
   val min_max: 'a -> 'a
     -> 'a * 'a
 
-  module O: sig include Operators.SP end
+  module O: sig include Operators.SPoly end
 end
 
 module type S0 = sig

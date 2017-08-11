@@ -1,5 +1,5 @@
 module Basic: sig
-  module type SP = sig
+  module type SPoly = sig
     val compare: 'a -> 'a -> General.Compare.t
   end
   module type S0 = sig

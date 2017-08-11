@@ -1,5 +1,5 @@
 module Operators: sig
-  module type SP = sig
+  module type SPoly = sig
     val (<): 'a -> 'a -> bool
     val (<=): 'a -> 'a -> bool
     val (>): 'a -> 'a -> bool
