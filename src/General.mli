@@ -5,33 +5,33 @@
 (** Some doc for Pervasives *)
 module Pervasives: sig
   include module type of Foundations.ResetPervasives [@@autodoc.hide]
-  include module type of Foundations.ResetStandardLibrary [@@autodoc.hide]
+  include module type of Foundations.ResetStandardLibrary
 
   (** The module overrides all elements from the standard
-  `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_ with unusable but guiding values: *)
+  `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_
+  with unusable but guiding values like:
 
-  val raise: [`Please_use_General__Exception__raise]
+  .. val:: raise
+    :noindex:
+    :type: [ `Please_use_General__Exception__raise ]
 
-  (** It then brings back a small set of ubiquitous values: *)
+    The types of these values point at what replaces them in :mod:`General`.
+    (In that case, :val:`General.Exception.raise`).
 
-  (** Boolean negation. Alias of :val:`General.Bool.not`. *)
+  It then brings back a small set of ubiquitous values: *)
+
+  (** **Boolean operators** *)(* @todoc Make this a title? (Same for the next ones) *)
+
+  (** Negation. Alias of :val:`General.Bool.O.not`. *)
   val not: bool -> bool
 
+  (** Conjunction. Lazy. Alias of :val:`General.Bool.O.(&&)` *)
   val (&&): bool -> bool -> bool
+
+  (** Disjunction. Lazy. Alias of :val:`General.Bool.O.(||)` *)
   val (||): bool -> bool -> bool
-  val xor: bool -> bool -> bool
 
-  val (~-.): float -> float
-  val (~+.): float -> float
-  val (+.): float -> float -> float
-  val (-.): float -> float -> float
-  val ( *. ): float -> float -> float
-  val (/.): float -> float -> float
-  val ( ** ): float -> float -> float
-
-  val (@@): ('a -> 'b) -> 'a -> 'b
-  val (|>): 'a -> ('a -> 'b) -> 'b
-  val (%): ('a -> 'b) -> ('c -> 'a) -> ('c -> 'b)
+  (** **Integer operators** *)
 
   val (~-): int -> int
   val (~+): int -> int
@@ -41,13 +41,29 @@ module Pervasives: sig
   val (/): int -> int -> int
   val (mod): int -> int -> int
 
-  val (@): 'a list -> 'a list -> 'a list
+  (** **Floating point operators** *)
 
-  val (^): string -> string -> string
+  val (~-.): float -> float
+  val (~+.): float -> float
+  val (+.): float -> float -> float
+  val (-.): float -> float -> float
+  val ( *. ): float -> float -> float
+  val (/.): float -> float -> float
+  val ( ** ): float -> float -> float
+
+  (** **Function composition and application** *)
+
+  val (@@): ('a -> 'b) -> 'a -> 'b
+  val (|>): 'a -> ('a -> 'b) -> 'b
+  val (%): ('a -> 'b) -> ('c -> 'a) -> ('c -> 'b)
+
+  (** **References** *)
 
   val ref: 'a -> 'a OCamlStandard.Pervasives.ref
   val (:=): 'a OCamlStandard.Pervasives.ref -> 'a -> unit
   val (!): 'a OCamlStandard.Pervasives.ref -> 'a
+
+  (** **Polymorphic comparison** *)
 
   val (=): 'a -> 'a -> bool
   val (<>): 'a -> 'a -> bool
@@ -57,13 +73,25 @@ module Pervasives: sig
   val (>=): 'a -> 'a -> bool
   val (>): 'a -> 'a -> bool
 
+  (** **Ubiquitous functions** *)
+
   val ignore: 'a -> unit
 
   val identity: 'a -> 'a
+
+  (** **Miscelaneous operators** *)
+
+  val (@): 'a list -> 'a list -> 'a list
+
+  val (^): string -> string -> string
 end
 
 module Shorten: sig
-  type t = Foundations.Shorten.t = GoOn | ShortCircuit
+  (** Return type for functions used in short-circuit iterations over collections.
+  (i.e: :val:`General.Traits.Foldable.Short.S0.fold_short`) *)
+  type t = Foundations.Shorten.t =
+    | GoOn (** Used to indicate iteration should proceed to next item *)
+    | ShortCircuit (** Used to indicate iteration should stop after this item *)
 end
 
 module Traits: module type of Traits
@@ -268,7 +296,6 @@ module Bool: sig
     val not: t -> t
     val (&&): t -> t -> t (* Lazy *)
     val (||): t -> t -> t (* Lazy *)
-    val xor: t -> t -> t
   end
 
   include Concepts.Able.S0 with type t := t and module O := O

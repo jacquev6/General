@@ -9,6 +9,7 @@ A `Sphinx <http://www.sphinx-doc.org>`_ extension providing an `OCaml` `domain <
 import itertools
 import json
 
+import docutils
 import sphinx
 
 
@@ -39,31 +40,21 @@ class Module(sphinx.directives.ObjectDescription):
         self.env.domaindata[OCamlDomain.name]["module_stack"].pop()
 
 
-def chain_value_types(types, sep=[], before_one=[], after_one=[], before_more=[], after_more=[]):
-    if len(types) > 0:
-        types = [value_type_to_signodes(x) for x in types]
-        if len(types) > 1:
-            nodes = [None] * (len(types) * 2 - 1)
-            nodes[0::2] = types
-            for i in range(0, len(types) - 1):
-                nodes[2 * i + 1] = sep
-            return before_more + list(itertools.chain.from_iterable(nodes)) + after_more
-        else:
-            return before_one + types[0] + after_one
-    else:
-        return []
-
 class Value(sphinx.directives.ObjectDescription):
-    optional_arguments = 1
+    option_spec = {
+        "noindex": docutils.parsers.rst.directives.flag,
+        "type": docutils.parsers.rst.directives.unchanged,
+    }
 
     def handle_signature(self, sig, signode):
         self.__short_name = sig
         self.__full_name = ".".join(self.env.domaindata[OCamlDomain.name]["module_stack"] + [self.__short_name])
         signode += sphinx.addnodes.desc_annotation("val ", "val ")
         signode += sphinx.addnodes.desc_name(self.__short_name, self.__short_name)
-        if len(self.arguments) > 1 and self.arguments[1].startswith("type: "):
+        type_ = self.options.get("type")
+        if type_:
             signode += sphinx.addnodes.desc_annotation(": ", ": ")
-            signode += sphinx.addnodes.desc_annotation(self.arguments[1][6:], self.arguments[1][6:])
+            signode += sphinx.addnodes.desc_annotation(type_, type_)
         return "val {}".format(self.__full_name)
 
     def add_target_and_index(self, name, sig, signode):
@@ -81,16 +72,30 @@ class Value(sphinx.directives.ObjectDescription):
 
 
 class Type(sphinx.directives.ObjectDescription):
+    option_spec = {
+        "noindex": docutils.parsers.rst.directives.flag,
+        "parameters": docutils.parsers.rst.directives.unchanged,
+        "manifest": docutils.parsers.rst.directives.unchanged,
+    }
+
     def handle_signature(self, sig, signode):
         self.__short_name = sig
         self.__full_name = ".".join(self.env.domaindata[OCamlDomain.name]["module_stack"] + [self.__short_name])
         signode += sphinx.addnodes.desc_annotation("type ", "type ")
+        parameters = self.options.get("parameters")
+        if parameters:
+            signode += sphinx.addnodes.desc_annotation(parameters, parameters)
+            signode += sphinx.addnodes.desc_annotation(" ", " ")
         signode += sphinx.addnodes.desc_name(self.__short_name, self.__short_name)
-        return "typ {}".format(self.__full_name)
+        manifest = self.options.get("manifest")
+        if manifest:
+            signode += sphinx.addnodes.desc_annotation(" = ", " = ")
+            signode += sphinx.addnodes.desc_annotation(manifest, manifest)
+        return "type {}".format(self.__full_name)
 
     def add_target_and_index(self, name, sig, signode):
         assert sig == self.__short_name
-        assert name == "typ {}".format(self.__full_name)
+        assert name == "type {}".format(self.__full_name)
         assert name not in self.state.document.ids
         signode["names"].append(name)
         signode["ids"].append(name)
@@ -101,6 +106,36 @@ class Type(sphinx.directives.ObjectDescription):
         self.indexnode["entries"].append(("single", "{} (type in {})".format(sig, ".".join(self.env.domaindata[OCamlDomain.name]["module_stack"])), name, "", None))
 
 
+class Exception(sphinx.directives.ObjectDescription):
+    option_spec = {
+        "noindex": docutils.parsers.rst.directives.flag,
+        "payload": docutils.parsers.rst.directives.unchanged,
+    }
+
+    def handle_signature(self, sig, signode):
+        self.__short_name = sig
+        self.__full_name = ".".join(self.env.domaindata[OCamlDomain.name]["module_stack"] + [self.__short_name])
+        signode += sphinx.addnodes.desc_annotation("exception ", "exception ")
+        signode += sphinx.addnodes.desc_name(self.__short_name, self.__short_name)
+        payload = self.options.get("payload")
+        if payload:
+            signode += sphinx.addnodes.desc_annotation(" of ", " of ")
+            signode += sphinx.addnodes.desc_annotation(payload, payload)
+        return "exception {}".format(self.__full_name)
+
+    def add_target_and_index(self, name, sig, signode):
+        assert sig == self.__short_name
+        assert name == "exception {}".format(self.__full_name)
+        assert name not in self.state.document.ids
+        signode["names"].append(name)
+        signode["ids"].append(name)
+        self.state.document.note_explicit_target(signode)
+
+        self.env.domaindata[OCamlDomain.name]["exn"][sig] = self.env.docname
+
+        self.indexnode["entries"].append(("single", "{} (exception in {})".format(sig, ".".join(self.env.domaindata[OCamlDomain.name]["module_stack"])), name, "", None))
+
+
 class OCamlDomain(sphinx.domains.Domain):
     name = "ocaml"
     label = "OCaml"
@@ -108,22 +143,26 @@ class OCamlDomain(sphinx.domains.Domain):
         "module": sphinx.domains.ObjType("module", "mod"),
         "value": sphinx.domains.ObjType("value", "val"),
         "type": sphinx.domains.ObjType("type", "typ"),
+        "exception": sphinx.domains.ObjType("exception", "exn"),
     }
     directives = {
         "module": Module,
         "val": Value,
         "type": Type,
+        "exception": Exception,
     }
     roles = {
         "mod": sphinx.roles.XRefRole(),
         "val": sphinx.roles.XRefRole(),
         "typ": sphinx.roles.XRefRole(),
+        "exn": sphinx.roles.XRefRole(),
     }
     initial_data = {
         "module_stack": [],
         "mod": {},
         "val": {},
         "typ": {},
+        "exn": {},
     }
 
     def resolve_xref(self, env, fromdocname, builder, typ, target, node, contnode):

@@ -63,10 +63,13 @@ end = struct
   let filter_ocaml_doc_attributes attributes =
     J.li (filter_attributes ~key:"ocaml.doc" attributes)
 
-  let type_expr _ t =
+  let type_expr' t =
     Printtyp.reset ();
     Printtyp.type_expr OCamlStandard.Format.str_formatter t;
-    J.str (OCamlStandard.Format.flush_str_formatter ());
+    OCamlStandard.Format.flush_str_formatter ()
+
+  let type_expr t =
+    J.str (type_expr' t)
 
   open Typedtree
 
@@ -79,7 +82,7 @@ end = struct
   let string_loc ?(format=Frmt.of_string "%s") {Asttypes.txt; loc=_} =
     J.str (Frmt.apply format txt)
 
-  let value_description {val_id; val_name; val_desc; val_val=_; val_prim=_; val_loc; val_attributes} =
+  let value_description {val_id; val_name; val_desc; val_val=_; val_prim=_; val_loc=_; val_attributes} =
     let format =
       Opt.some_if'
         (Oprint.parenthesized_ident (Ident.name val_id))
@@ -89,7 +92,7 @@ end = struct
       "signature_item:value",
       [
         ("name", string_loc ?format val_name);
-        ("type", type_expr val_loc val_desc.ctyp_type);
+        ("type", type_expr val_desc.ctyp_type);
       ],
       val_attributes
     )
@@ -98,29 +101,29 @@ end = struct
     filter_attributes ~key:"ocaml.text" [attr]
     |> Li.map ~f:(fun s ->
       J.obj "signature_item:floating_documentation" [
+        ("hidden", J.bo false);
         ("text", s);
       ]
     )
     |> Li.head
 
-  let type_parameters ~typ_loc typ_params =
+  let type_parameters typ_params =
     typ_params
     |> Li.map ~f:(fun ({ctyp_type; _}, variance) ->
-      let variance = match variance with
-        | Asttypes.Covariant -> J.str "+"
-        | Asttypes.Contravariant -> J.str "-"
-        | Asttypes.Invariant -> J.null
+      let type_ = type_expr' ctyp_type
+      and variance =
+        match variance with
+          | Asttypes.Covariant -> "+"
+          | Asttypes.Contravariant -> "-"
+          | Asttypes.Invariant -> ""
       in
-      J.obj "type_parameter" [
-        ("type", type_expr typ_loc ctyp_type);
-        ("variance", variance);
-      ]
+      J.str (Frmt.apply "%s%s" variance type_)
     )
     |> J.li
 
-  let type_manifest ~typ_loc typ_manifest =
+  let type_manifest typ_manifest =
     typ_manifest
-    |> Opt.map ~f:(fun {ctyp_type; _} -> type_expr typ_loc ctyp_type)
+    |> Opt.map ~f:(fun {ctyp_type; _} -> type_expr ctyp_type)
     |> J.opt
 
   let type_kind ~typ_loc = function
@@ -132,11 +135,11 @@ end = struct
         (
           "constructors",
           constructors
-          |> Li.map ~f:(fun {cd_id=_; cd_name; cd_args; cd_res=_; cd_loc; cd_attributes} ->
+          |> Li.map ~f:(fun {cd_id=_; cd_name; cd_args; cd_res=_; cd_loc=_; cd_attributes} ->
             J.obj "type_constructor" [
               ("doc", filter_ocaml_doc_attributes cd_attributes);
               ("name", string_loc cd_name);
-              ("arguments", cd_args |> Li.map ~f:(fun {ctyp_type; _} -> type_expr cd_loc ctyp_type) |> J.li);
+              ("arguments", cd_args |> Li.map ~f:(fun {ctyp_type; _} -> type_expr ctyp_type) |> J.li);
             ]
           )
           |> J.li
@@ -147,12 +150,12 @@ end = struct
         (
           "labels",
           labels
-          |> Li.map ~f:(fun {ld_id=_; ld_name; ld_mutable; ld_type={ctyp_type; _}; ld_loc; ld_attributes} ->
+          |> Li.map ~f:(fun {ld_id=_; ld_name; ld_mutable; ld_type={ctyp_type; _}; ld_loc=_; ld_attributes} ->
             J.obj "type_label" [
               ("doc", filter_ocaml_doc_attributes ld_attributes);
               ("name", string_loc ld_name);
               ("mutable", J.bo (ld_mutable = Asttypes.Mutable));
-              ("type", type_expr ld_loc ctyp_type);
+              ("type", type_expr ctyp_type);
             ]
           )
           |> J.li
@@ -162,11 +165,11 @@ end = struct
       not_handled "type_kind: Ttype_open" typ_loc
 
   let with_constraint (p, _, constraint_) =
-    let type_ {typ_name; typ_params; typ_manifest; typ_loc; _} =
+    let type_ {typ_name; typ_params; typ_manifest; typ_loc=_; _} =
       [
         ("name", string_loc typ_name);
-        ("parameters", type_parameters ~typ_loc typ_params);
-        ("manifest", type_manifest ~typ_loc typ_manifest);
+        ("parameters", type_parameters typ_params);
+        ("manifest", type_manifest typ_manifest);
       ]
     and module_ p' =
       [
@@ -189,19 +192,19 @@ end = struct
       "signature_item:type",
       [
         ("name", string_loc typ_name);
-        ("parameters", type_parameters ~typ_loc typ_params);
-        ("manifest", type_manifest ~typ_loc typ_manifest);
+        ("parameters", type_parameters typ_params);
+        ("manifest", type_manifest typ_manifest);
         ("kind", type_kind ~typ_loc typ_kind);
       ],
       typ_attributes
     )
 
-  let exception_ {ext_id=_; ext_name; ext_type={Types.ext_args; _}; ext_kind=_; ext_loc; ext_attributes} =
+  let exception_ {ext_id=_; ext_name; ext_type={Types.ext_args; _}; ext_kind=_; ext_loc=_; ext_attributes} =
     (
       "signature_item:exception",
       [
         ("name", string_loc ext_name);
-        ("arguments", ext_args |> Li.map ~f:(type_expr ext_loc) |> J.li);
+        ("payload", ext_args |> Li.map ~f:type_expr |> J.li);
       ],
       ext_attributes
     )
@@ -358,10 +361,23 @@ let () =
   Clflags.dont_write_files := true;
   Compmisc.init_path false;
   try
-    OCamlStandard.Sys.argv.(1)
-    |> Pparse.parse_interface ~tool_name:"autoocamldoc" OCamlStandard.Format.err_formatter
-    |> Typemod.type_interface (Compmisc.initial_env ())
-    |> TypedtreeToJson.signature
+    let signature =
+      OCamlStandard.Sys.argv.(1)
+      |> Pparse.parse_interface ~tool_name:"autoocamldoc" OCamlStandard.Format.err_formatter
+      |> Typemod.type_interface (Compmisc.initial_env ())
+      |> TypedtreeToJson.signature
+    in
+    J.obj "signature_item:module" [
+      ("name", OCamlStandard.Sys.argv.(1) |> Str.drop_suffix ~suf:".mli" |> J.str);
+      ("doc", J.li []);
+      ("hidden", J.bo false);
+      (
+        "type",
+        J.obj "module_type:signature" [
+          ("elements", signature);
+        ]
+      )
+    ]
     |> J.to_string
     |> StdOut.print "%s\n"
   with

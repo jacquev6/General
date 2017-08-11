@@ -49,85 +49,38 @@
 <dt id="module General.Pervasives">
 <em class="property">module </em><code class="descname">Pervasives</code><a class="headerlink" href="#module General.Pervasives" title="Permalink to this definition">¶</a></dt>
 <dd><p>Some doc for Pervasives</p>
+<p>Not yet documented: signature_item:include</p>
 <p>The module overrides all elements from the standard
-<a class="reference external" href="https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html">pervasives</a> with unusable but guiding values:</p>
+<a class="reference external" href="https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html">pervasives</a>
+with unusable but guiding values like:</p>
 <dl class="val">
-<dt id="val General.Pervasives.raise">
-<em class="property">val </em><code class="descname">raise</code><em class="property">: </em><em class="property">[ `Please_use_General__Exception__raise ]</em><a class="headerlink" href="#val General.Pervasives.raise" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt>
+<em class="property">val </em><code class="descname">raise</code><em class="property">: </em><em class="property">[ `Please_use_General__Exception__raise ]</em></dt>
+<dd><p>The types of these values point at what replaces them in <a class="reference internal" href="#module General"><code class="xref ocaml ocaml-mod docutils literal"><span class="pre">General</span></code></a>.
+(In that case, <a class="reference internal" href="#val General.Exception.raise"><code class="xref ocaml ocaml-val docutils literal"><span class="pre">General.Exception.raise</span></code></a>).</p>
+</dd></dl>
 
 <p>It then brings back a small set of ubiquitous values:</p>
+<p><strong>Boolean operators</strong></p>
 <dl class="val">
 <dt id="val General.Pervasives.not">
 <em class="property">val </em><code class="descname">not</code><em class="property">: </em><em class="property">bool -&gt; bool</em><a class="headerlink" href="#val General.Pervasives.not" title="Permalink to this definition">¶</a></dt>
-<dd><p>Boolean negation. Alias of <a class="reference internal" href="#val General.Bool.not"><code class="xref ocaml ocaml-val docutils literal"><span class="pre">General.Bool.not</span></code></a>.</p>
+<dd><p>Negation. Alias of <a class="reference internal" href="#val General.Bool.O.not"><code class="xref ocaml ocaml-val docutils literal"><span class="pre">General.Bool.O.not</span></code></a>.</p>
 </dd></dl>
 
 <dl class="val">
 <dt id="val General.Pervasives.(&amp;&amp;)">
 <em class="property">val </em><code class="descname">(&amp;&amp;)</code><em class="property">: </em><em class="property">bool -&gt; bool -&gt; bool</em><a class="headerlink" href="#val General.Pervasives.(&&)" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Conjunction. Lazy. Alias of <a class="reference internal" href="#val General.Bool.O.(&amp;&amp;)"><code class="xref ocaml ocaml-val docutils literal"><span class="pre">General.Bool.O.(&amp;&amp;)</span></code></a></p>
+</dd></dl>
 
 <dl class="val">
 <dt id="val General.Pervasives.(||)">
 <em class="property">val </em><code class="descname">(||)</code><em class="property">: </em><em class="property">bool -&gt; bool -&gt; bool</em><a class="headerlink" href="#val General.Pervasives.(||)" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Disjunction. Lazy. Alias of <a class="reference internal" href="#val General.Bool.O.(||)"><code class="xref ocaml ocaml-val docutils literal"><span class="pre">General.Bool.O.(||)</span></code></a></p>
+</dd></dl>
 
-<dl class="val">
-<dt id="val General.Pervasives.xor">
-<em class="property">val </em><code class="descname">xor</code><em class="property">: </em><em class="property">bool -&gt; bool -&gt; bool</em><a class="headerlink" href="#val General.Pervasives.xor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="val">
-<dt id="val General.Pervasives.(~-.)">
-<em class="property">val </em><code class="descname">(~-.)</code><em class="property">: </em><em class="property">float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(~-.)" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="val">
-<dt id="val General.Pervasives.(~+.)">
-<em class="property">val </em><code class="descname">(~+.)</code><em class="property">: </em><em class="property">float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(~+.)" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="val">
-<dt id="val General.Pervasives.(+.)">
-<em class="property">val </em><code class="descname">(+.)</code><em class="property">: </em><em class="property">float -&gt; float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(+.)" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="val">
-<dt id="val General.Pervasives.(-.)">
-<em class="property">val </em><code class="descname">(-.)</code><em class="property">: </em><em class="property">float -&gt; float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(-.)" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="val">
-<dt id="val General.Pervasives.(*.)">
-<em class="property">val </em><code class="descname">(*.)</code><em class="property">: </em><em class="property">float -&gt; float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(*.)" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="val">
-<dt id="val General.Pervasives.(/.)">
-<em class="property">val </em><code class="descname">(/.)</code><em class="property">: </em><em class="property">float -&gt; float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(/.)" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="val">
-<dt id="val General.Pervasives.(**)">
-<em class="property">val </em><code class="descname">(**)</code><em class="property">: </em><em class="property">float -&gt; float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(**)" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="val">
-<dt id="val General.Pervasives.(&#64;&#64;)">
-<em class="property">val </em><code class="descname">(&#64;&#64;)</code><em class="property">: </em><em class="property">('a -&gt; 'b) -&gt; 'a -&gt; 'b</em><a class="headerlink" href="#val General.Pervasives.(@@)" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="val">
-<dt id="val General.Pervasives.(|&gt;)">
-<em class="property">val </em><code class="descname">(|&gt;)</code><em class="property">: </em><em class="property">'a -&gt; ('a -&gt; 'b) -&gt; 'b</em><a class="headerlink" href="#val General.Pervasives.(|>)" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="val">
-<dt id="val General.Pervasives.(%)">
-<em class="property">val </em><code class="descname">(%)</code><em class="property">: </em><em class="property">('a -&gt; 'b) -&gt; ('c -&gt; 'a) -&gt; 'c -&gt; 'b</em><a class="headerlink" href="#val General.Pervasives.(%)" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<p><strong>Integer operators</strong></p>
 <dl class="val">
 <dt id="val General.Pervasives.(~-)">
 <em class="property">val </em><code class="descname">(~-)</code><em class="property">: </em><em class="property">int -&gt; int</em><a class="headerlink" href="#val General.Pervasives.(~-)" title="Permalink to this definition">¶</a></dt>
@@ -163,16 +116,59 @@
 <em class="property">val </em><code class="descname">(mod)</code><em class="property">: </em><em class="property">int -&gt; int -&gt; int</em><a class="headerlink" href="#val General.Pervasives.(mod)" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p><strong>Floating point operators</strong></p>
 <dl class="val">
-<dt id="val General.Pervasives.(&#64;)">
-<em class="property">val </em><code class="descname">(&#64;)</code><em class="property">: </em><em class="property">'a list -&gt; 'a list -&gt; 'a list</em><a class="headerlink" href="#val General.Pervasives.(@)" title="Permalink to this definition">¶</a></dt>
+<dt id="val General.Pervasives.(~-.)">
+<em class="property">val </em><code class="descname">(~-.)</code><em class="property">: </em><em class="property">float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(~-.)" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
-<dt id="val General.Pervasives.(^)">
-<em class="property">val </em><code class="descname">(^)</code><em class="property">: </em><em class="property">string -&gt; string -&gt; string</em><a class="headerlink" href="#val General.Pervasives.(^)" title="Permalink to this definition">¶</a></dt>
+<dt id="val General.Pervasives.(~+.)">
+<em class="property">val </em><code class="descname">(~+.)</code><em class="property">: </em><em class="property">float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(~+.)" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="val">
+<dt id="val General.Pervasives.(+.)">
+<em class="property">val </em><code class="descname">(+.)</code><em class="property">: </em><em class="property">float -&gt; float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(+.)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Pervasives.(-.)">
+<em class="property">val </em><code class="descname">(-.)</code><em class="property">: </em><em class="property">float -&gt; float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(-.)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Pervasives.(*.)">
+<em class="property">val </em><code class="descname">(*.)</code><em class="property">: </em><em class="property">float -&gt; float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(*.)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Pervasives.(/.)">
+<em class="property">val </em><code class="descname">(/.)</code><em class="property">: </em><em class="property">float -&gt; float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(/.)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Pervasives.(**)">
+<em class="property">val </em><code class="descname">(**)</code><em class="property">: </em><em class="property">float -&gt; float -&gt; float</em><a class="headerlink" href="#val General.Pervasives.(**)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>Function composition and application</strong></p>
+<dl class="val">
+<dt id="val General.Pervasives.(&#64;&#64;)">
+<em class="property">val </em><code class="descname">(&#64;&#64;)</code><em class="property">: </em><em class="property">('a -&gt; 'b) -&gt; 'a -&gt; 'b</em><a class="headerlink" href="#val General.Pervasives.(@@)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Pervasives.(|&gt;)">
+<em class="property">val </em><code class="descname">(|&gt;)</code><em class="property">: </em><em class="property">'a -&gt; ('a -&gt; 'b) -&gt; 'b</em><a class="headerlink" href="#val General.Pervasives.(|>)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Pervasives.(%)">
+<em class="property">val </em><code class="descname">(%)</code><em class="property">: </em><em class="property">('a -&gt; 'b) -&gt; ('c -&gt; 'a) -&gt; 'c -&gt; 'b</em><a class="headerlink" href="#val General.Pervasives.(%)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><strong>References</strong></p>
 <dl class="val">
 <dt id="val General.Pervasives.ref">
 <em class="property">val </em><code class="descname">ref</code><em class="property">: </em><em class="property">'a -&gt; 'a OCamlStandard.Pervasives.ref</em><a class="headerlink" href="#val General.Pervasives.ref" title="Permalink to this definition">¶</a></dt>
@@ -188,6 +184,7 @@
 <em class="property">val </em><code class="descname">(!)</code><em class="property">: </em><em class="property">'a OCamlStandard.Pervasives.ref -&gt; 'a</em><a class="headerlink" href="#val General.Pervasives.(!)" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p><strong>Polymorphic comparison</strong></p>
 <dl class="val">
 <dt id="val General.Pervasives.(=)">
 <em class="property">val </em><code class="descname">(=)</code><em class="property">: </em><em class="property">'a -&gt; 'a -&gt; bool</em><a class="headerlink" href="#val General.Pervasives.(=)" title="Permalink to this definition">¶</a></dt>
@@ -218,6 +215,7 @@
 <em class="property">val </em><code class="descname">(&gt;)</code><em class="property">: </em><em class="property">'a -&gt; 'a -&gt; bool</em><a class="headerlink" href="#val General.Pervasives.(>)" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p><strong>Ubiquitous functions</strong></p>
 <dl class="val">
 <dt id="val General.Pervasives.ignore">
 <em class="property">val </em><code class="descname">ignore</code><em class="property">: </em><em class="property">'a -&gt; unit</em><a class="headerlink" href="#val General.Pervasives.ignore" title="Permalink to this definition">¶</a></dt>
@@ -228,40 +226,56 @@
 <em class="property">val </em><code class="descname">identity</code><em class="property">: </em><em class="property">'a -&gt; 'a</em><a class="headerlink" href="#val General.Pervasives.identity" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p><strong>Miscelaneous operators</strong></p>
+<dl class="val">
+<dt id="val General.Pervasives.(&#64;)">
+<em class="property">val </em><code class="descname">(&#64;)</code><em class="property">: </em><em class="property">'a list -&gt; 'a list -&gt; 'a list</em><a class="headerlink" href="#val General.Pervasives.(@)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Pervasives.(^)">
+<em class="property">val </em><code class="descname">(^)</code><em class="property">: </em><em class="property">string -&gt; string -&gt; string</em><a class="headerlink" href="#val General.Pervasives.(^)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="module">
 <dt id="module General.Shorten">
 <em class="property">module </em><code class="descname">Shorten</code><a class="headerlink" href="#module General.Shorten" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Shorten.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Shorten.t" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="type General.Shorten.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">Foundations.Shorten.t</em><a class="headerlink" href="#type General.Shorten.t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return type for functions used in short-circuit iterations over collections.
+(i.e: <code class="xref ocaml ocaml-val docutils literal"><span class="pre">General.Traits.Foldable.Short.S0.fold_short</span></code>)</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="module">
 <dt id="module General.Traits">
 <em class="property">module </em><code class="descname">Traits</code><a class="headerlink" href="#module General.Traits" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Concepts">
 <em class="property">module </em><code class="descname">Concepts</code><a class="headerlink" href="#module General.Concepts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Compare">
 <em class="property">module </em><code class="descname">Compare</code><a class="headerlink" href="#module General.Compare" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Compare.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Compare.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Compare.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">Foundations.Compare.t</em><a class="headerlink" href="#type General.Compare.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
 <dt id="module General.Compare.Poly">
 <em class="property">module </em><code class="descname">Poly</code><a class="headerlink" href="#module General.Compare.Poly" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:identifier</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -271,12 +285,14 @@
 <dd><dl class="module">
 <dt id="module General.Equate.Poly">
 <em class="property">module </em><code class="descname">Poly</code><a class="headerlink" href="#module General.Equate.Poly" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:identifier</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Equate.Physical">
 <em class="property">module </em><code class="descname">Physical</code><a class="headerlink" href="#module General.Equate.Physical" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:identifier</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -284,10 +300,12 @@
 <dt id="module General.CallStack">
 <em class="property">module </em><code class="descname">CallStack</code><a class="headerlink" href="#module General.CallStack" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.CallStack.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.CallStack.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.CallStack.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">Pervasives.OCamlStandard.Printexc.raw_backtrace</em><a class="headerlink" href="#type General.CallStack.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.CallStack.current">
 <em class="property">val </em><code class="descname">current</code><em class="property">: </em><em class="property">?max_size:int -&gt; unit -&gt; t</em><a class="headerlink" href="#val General.CallStack.current" title="Permalink to this definition">¶</a></dt>
@@ -297,18 +315,19 @@
 <dt id="module General.CallStack.Location">
 <em class="property">module </em><code class="descname">Location</code><a class="headerlink" href="#module General.CallStack.Location" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.CallStack.Location.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.CallStack.Location.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.CallStack.Location.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">Pervasives.OCamlStandard.Printexc.location</em><a class="headerlink" href="#type General.CallStack.Location.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 </dd></dl>
 
 <dl class="module">
 <dt id="module General.CallStack.Frame">
 <em class="property">module </em><code class="descname">Frame</code><a class="headerlink" href="#module General.CallStack.Frame" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.CallStack.Frame.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.CallStack.Frame.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.CallStack.Frame.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">Pervasives.OCamlStandard.Printexc.backtrace_slot</em><a class="headerlink" href="#type General.CallStack.Frame.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -339,10 +358,12 @@
 <dt id="module General.Exception">
 <em class="property">module </em><code class="descname">Exception</code><a class="headerlink" href="#module General.Exception" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Exception.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Exception.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Exception.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">exn</em><a class="headerlink" href="#type General.Exception.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.Exception.register_printer">
 <em class="property">val </em><code class="descname">register_printer</code><em class="property">: </em><em class="property">(t -&gt; string option) -&gt; unit</em><a class="headerlink" href="#val General.Exception.register_printer" title="Permalink to this definition">¶</a></dt>
@@ -361,6 +382,72 @@
 <dl class="val">
 <dt id="val General.Exception.most_recent_backtrace">
 <em class="property">val </em><code class="descname">most_recent_backtrace</code><em class="property">: </em><em class="property">unit -&gt; CallStack.t option</em><a class="headerlink" href="#val General.Exception.most_recent_backtrace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="exception General.Exception.MatchFailure">
+<em class="property">exception </em><code class="descname">MatchFailure</code><em class="property"> of </em><em class="property">(string * int * int)</em><a class="headerlink" href="#exception General.Exception.MatchFailure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="exception General.Exception.AssertFailure">
+<em class="property">exception </em><code class="descname">AssertFailure</code><em class="property"> of </em><em class="property">(string * int * int)</em><a class="headerlink" href="#exception General.Exception.AssertFailure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="exception General.Exception.InvalidArgument">
+<em class="property">exception </em><code class="descname">InvalidArgument</code><em class="property"> of </em><em class="property">string</em><a class="headerlink" href="#exception General.Exception.InvalidArgument" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="exception General.Exception.Failure">
+<em class="property">exception </em><code class="descname">Failure</code><em class="property"> of </em><em class="property">string</em><a class="headerlink" href="#exception General.Exception.Failure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="exception General.Exception.NotFound">
+<em class="property">exception </em><code class="descname">NotFound</code><a class="headerlink" href="#exception General.Exception.NotFound" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="exception General.Exception.OutOfMemory">
+<em class="property">exception </em><code class="descname">OutOfMemory</code><a class="headerlink" href="#exception General.Exception.OutOfMemory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised when the system could not allocate memory</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="exception General.Exception.StackOverflow">
+<em class="property">exception </em><code class="descname">StackOverflow</code><a class="headerlink" href="#exception General.Exception.StackOverflow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="exception General.Exception.SysError">
+<em class="property">exception </em><code class="descname">SysError</code><em class="property"> of </em><em class="property">string</em><a class="headerlink" href="#exception General.Exception.SysError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="exception General.Exception.EndOfFile">
+<em class="property">exception </em><code class="descname">EndOfFile</code><a class="headerlink" href="#exception General.Exception.EndOfFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="exception General.Exception.DivisionByZero">
+<em class="property">exception </em><code class="descname">DivisionByZero</code><a class="headerlink" href="#exception General.Exception.DivisionByZero" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="exception General.Exception.SysBlockedIO">
+<em class="property">exception </em><code class="descname">SysBlockedIO</code><a class="headerlink" href="#exception General.Exception.SysBlockedIO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="exception General.Exception.UndefinedRecursiveModule">
+<em class="property">exception </em><code class="descname">UndefinedRecursiveModule</code><em class="property"> of </em><em class="property">(string * int * int)</em><a class="headerlink" href="#exception General.Exception.UndefinedRecursiveModule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="exception General.Exception.Exit">
+<em class="property">exception </em><code class="descname">Exit</code><a class="headerlink" href="#exception General.Exception.Exit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -399,8 +486,8 @@
 <dt id="module General.Exit">
 <em class="property">module </em><code class="descname">Exit</code><a class="headerlink" href="#module General.Exit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Exit.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Exit.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Exit.t">
+<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#type General.Exit.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -424,8 +511,8 @@
 <dt id="module General.Function1">
 <em class="property">module </em><code class="descname">Function1</code><a class="headerlink" href="#module General.Function1" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Function1.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Function1.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Function1.t">
+<em class="property">type </em><em class="property">('a, 'z)</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a -&gt; 'z</em><a class="headerlink" href="#type General.Function1.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -474,8 +561,8 @@
 <dt id="module General.Function2">
 <em class="property">module </em><code class="descname">Function2</code><a class="headerlink" href="#module General.Function2" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Function2.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Function2.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Function2.t">
+<em class="property">type </em><em class="property">('a, 'b, 'z)</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a -&gt; 'b -&gt; 'z</em><a class="headerlink" href="#type General.Function2.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -499,8 +586,8 @@
 <dt id="module General.Function3">
 <em class="property">module </em><code class="descname">Function3</code><a class="headerlink" href="#module General.Function3" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Function3.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Function3.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Function3.t">
+<em class="property">type </em><em class="property">('a, 'b, 'c, 'z)</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a -&gt; 'b -&gt; 'c -&gt; 'z</em><a class="headerlink" href="#type General.Function3.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -524,8 +611,8 @@
 <dt id="module General.Function4">
 <em class="property">module </em><code class="descname">Function4</code><a class="headerlink" href="#module General.Function4" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Function4.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Function4.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Function4.t">
+<em class="property">type </em><em class="property">('a, 'b, 'c, 'd, 'z)</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a -&gt; 'b -&gt; 'c -&gt; 'd -&gt; 'z</em><a class="headerlink" href="#type General.Function4.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -549,8 +636,8 @@
 <dt id="module General.Function5">
 <em class="property">module </em><code class="descname">Function5</code><a class="headerlink" href="#module General.Function5" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Function5.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Function5.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Function5.t">
+<em class="property">type </em><em class="property">('a, 'b, 'c, 'd, 'e, 'z)</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a -&gt; 'b -&gt; 'c -&gt; 'd -&gt; 'e -&gt; 'z</em><a class="headerlink" href="#type General.Function5.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -574,8 +661,8 @@
 <dt id="module General.Unit">
 <em class="property">module </em><code class="descname">Unit</code><a class="headerlink" href="#module General.Unit" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Unit.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Unit.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Unit.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">unit</em><a class="headerlink" href="#type General.Unit.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -589,14 +676,15 @@
 <dt id="module General.Bool">
 <em class="property">module </em><code class="descname">Bool</code><a class="headerlink" href="#module General.Bool" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Bool.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Bool.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Bool.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">bool</em><a class="headerlink" href="#type General.Bool.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
 <dt id="module General.Bool.O">
 <em class="property">module </em><code class="descname">O</code><a class="headerlink" href="#module General.Bool.O" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="val">
+<dd><p>Not yet documented: signature_item:include</p>
+<dl class="val">
 <dt id="val General.Bool.O.not">
 <em class="property">val </em><code class="descname">not</code><em class="property">: </em><em class="property">t -&gt; t</em><a class="headerlink" href="#val General.Bool.O.not" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -611,13 +699,11 @@
 <em class="property">val </em><code class="descname">(||)</code><em class="property">: </em><em class="property">t -&gt; t -&gt; t</em><a class="headerlink" href="#val General.Bool.O.(||)" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="val">
-<dt id="val General.Bool.O.xor">
-<em class="property">val </em><code class="descname">xor</code><em class="property">: </em><em class="property">t -&gt; t -&gt; t</em><a class="headerlink" href="#val General.Bool.O.xor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.Bool.not">
 <em class="property">val </em><code class="descname">not</code><em class="property">: </em><em class="property">t -&gt; t</em><a class="headerlink" href="#val General.Bool.not" title="Permalink to this definition">¶</a></dt>
@@ -644,8 +730,8 @@
 <dt id="module General.Char">
 <em class="property">module </em><code class="descname">Char</code><a class="headerlink" href="#module General.Char" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Char.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Char.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Char.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">char</em><a class="headerlink" href="#type General.Char.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -664,10 +750,11 @@
 <dt id="module General.Int">
 <em class="property">module </em><code class="descname">Int</code><a class="headerlink" href="#module General.Int" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Int.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Int.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Int.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">int</em><a class="headerlink" href="#type General.Int.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.Int.smallest">
 <em class="property">val </em><code class="descname">smallest</code><em class="property">: </em><em class="property">t</em><a class="headerlink" href="#val General.Int.smallest" title="Permalink to this definition">¶</a></dt>
@@ -724,10 +811,11 @@
 <dt id="module General.Int32">
 <em class="property">module </em><code class="descname">Int32</code><a class="headerlink" href="#module General.Int32" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Int32.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Int32.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Int32.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">int32</em><a class="headerlink" href="#type General.Int32.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.Int32.smallest">
 <em class="property">val </em><code class="descname">smallest</code><em class="property">: </em><em class="property">t</em><a class="headerlink" href="#val General.Int32.smallest" title="Permalink to this definition">¶</a></dt>
@@ -744,10 +832,11 @@
 <dt id="module General.Int64">
 <em class="property">module </em><code class="descname">Int64</code><a class="headerlink" href="#module General.Int64" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Int64.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Int64.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Int64.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">int64</em><a class="headerlink" href="#type General.Int64.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.Int64.smallest">
 <em class="property">val </em><code class="descname">smallest</code><em class="property">: </em><em class="property">t</em><a class="headerlink" href="#val General.Int64.smallest" title="Permalink to this definition">¶</a></dt>
@@ -764,10 +853,11 @@
 <dt id="module General.NativeInt">
 <em class="property">module </em><code class="descname">NativeInt</code><a class="headerlink" href="#module General.NativeInt" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.NativeInt.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.NativeInt.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.NativeInt.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">nativeint</em><a class="headerlink" href="#type General.NativeInt.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.NativeInt.smallest">
 <em class="property">val </em><code class="descname">smallest</code><em class="property">: </em><em class="property">t</em><a class="headerlink" href="#val General.NativeInt.smallest" title="Permalink to this definition">¶</a></dt>
@@ -784,20 +874,22 @@
 <dt id="module General.BigInt">
 <em class="property">module </em><code class="descname">BigInt</code><a class="headerlink" href="#module General.BigInt" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.BigInt.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.BigInt.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.BigInt.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">Pervasives.OCamlStandard.Big_int.big_int</em><a class="headerlink" href="#type General.BigInt.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 </dd></dl>
 
 <dl class="module">
 <dt id="module General.Float">
 <em class="property">module </em><code class="descname">Float</code><a class="headerlink" href="#module General.Float" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Float.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Float.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Float.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">float</em><a class="headerlink" href="#type General.Float.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.Float.epsilon">
 <em class="property">val </em><code class="descname">epsilon</code><em class="property">: </em><em class="property">t</em><a class="headerlink" href="#val General.Float.epsilon" title="Permalink to this definition">¶</a></dt>
@@ -957,10 +1049,11 @@
 <dt id="module General.Float.Class">
 <em class="property">module </em><code class="descname">Class</code><a class="headerlink" href="#module General.Float.Class" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Float.Class.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Float.Class.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Float.Class.t">
+<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#type General.Float.Class.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.Float.Class.of_float">
 <em class="property">val </em><code class="descname">of_float</code><em class="property">: </em><em class="property">float -&gt; t</em><a class="headerlink" href="#val General.Float.Class.of_float" title="Permalink to this definition">¶</a></dt>
@@ -974,8 +1067,8 @@
 <dt id="module General.String">
 <em class="property">module </em><code class="descname">String</code><a class="headerlink" href="#module General.String" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.String.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.String.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.String.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">string</em><a class="headerlink" href="#type General.String.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -986,13 +1079,16 @@
 <dl class="module">
 <dt id="module General.String.O">
 <em class="property">module </em><code class="descname">O</code><a class="headerlink" href="#module General.String.O" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="val">
+<dd><p>Not yet documented: signature_item:include</p>
+<dl class="val">
 <dt id="val General.String.O.(^)">
 <em class="property">val </em><code class="descname">(^)</code><em class="property">: </em><em class="property">t -&gt; t -&gt; t</em><a class="headerlink" href="#val General.String.O.(^)" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.String.concat">
 <em class="property">val </em><code class="descname">concat</code><em class="property">: </em><em class="property">t -&gt; t -&gt; t</em><a class="headerlink" href="#val General.String.concat" title="Permalink to this definition">¶</a></dt>
@@ -1054,10 +1150,11 @@
 <dt id="module General.Option">
 <em class="property">module </em><code class="descname">Option</code><a class="headerlink" href="#module General.Option" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Option.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Option.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Option.t">
+<em class="property">type </em><em class="property">'a</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a option</em><a class="headerlink" href="#type General.Option.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.Option.some_if">
 <em class="property">val </em><code class="descname">some_if</code><em class="property">: </em><em class="property">bool -&gt; 'a lazy_t -&gt; 'a t</em><a class="headerlink" href="#val General.Option.some_if" title="Permalink to this definition">¶</a></dt>
@@ -1121,7 +1218,8 @@
 <dl class="module">
 <dt id="module General.Option.Specialize">
 <em class="property">module </em><code class="descname">Specialize</code><a class="headerlink" href="#module General.Option.Specialize" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:functor</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -1129,8 +1227,8 @@
 <dt id="module General.Lazy">
 <em class="property">module </em><code class="descname">Lazy</code><a class="headerlink" href="#module General.Lazy" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Lazy.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Lazy.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Lazy.t">
+<em class="property">type </em><em class="property">'a</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a lazy_t</em><a class="headerlink" href="#type General.Lazy.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -1154,8 +1252,8 @@
 <dt id="module General.Reference">
 <em class="property">module </em><code class="descname">Reference</code><a class="headerlink" href="#module General.Reference" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Reference.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Reference.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Reference.t">
+<em class="property">type </em><em class="property">'a</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a Pervasives.OCamlStandard.Pervasives.ref</em><a class="headerlink" href="#type General.Reference.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -1196,27 +1294,32 @@
 <dl class="module">
 <dt id="module General.Reference.SpecializeOperators">
 <em class="property">module </em><code class="descname">SpecializeOperators</code><a class="headerlink" href="#module General.Reference.SpecializeOperators" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:functor</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Reference.Specialize">
 <em class="property">module </em><code class="descname">Specialize</code><a class="headerlink" href="#module General.Reference.Specialize" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:functor</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Reference.SpecializePredSucc">
 <em class="property">module </em><code class="descname">SpecializePredSucc</code><a class="headerlink" href="#module General.Reference.SpecializePredSucc" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:functor</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Reference.SpecializeRingoidOperators">
 <em class="property">module </em><code class="descname">SpecializeRingoidOperators</code><a class="headerlink" href="#module General.Reference.SpecializeRingoidOperators" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:functor</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Reference.SpecializeRingoid">
 <em class="property">module </em><code class="descname">SpecializeRingoid</code><a class="headerlink" href="#module General.Reference.SpecializeRingoid" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:functor</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -1224,10 +1327,11 @@
 <dt id="module General.Tuple2">
 <em class="property">module </em><code class="descname">Tuple2</code><a class="headerlink" href="#module General.Tuple2" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Tuple2.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Tuple2.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Tuple2.t">
+<em class="property">type </em><em class="property">('a, 'b)</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a * 'b</em><a class="headerlink" href="#type General.Tuple2.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.Tuple2.make">
 <em class="property">val </em><code class="descname">make</code><em class="property">: </em><em class="property">'a -&gt; 'b -&gt; ('a, 'b) t</em><a class="headerlink" href="#val General.Tuple2.make" title="Permalink to this definition">¶</a></dt>
@@ -1254,10 +1358,11 @@
 <dt id="module General.Tuple3">
 <em class="property">module </em><code class="descname">Tuple3</code><a class="headerlink" href="#module General.Tuple3" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Tuple3.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Tuple3.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Tuple3.t">
+<em class="property">type </em><em class="property">('a, 'b, 'c)</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a * 'b * 'c</em><a class="headerlink" href="#type General.Tuple3.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.Tuple3.make">
 <em class="property">val </em><code class="descname">make</code><em class="property">: </em><em class="property">'a -&gt; 'b -&gt; 'c -&gt; ('a, 'b, 'c) t</em><a class="headerlink" href="#val General.Tuple3.make" title="Permalink to this definition">¶</a></dt>
@@ -1289,10 +1394,11 @@
 <dt id="module General.Tuple4">
 <em class="property">module </em><code class="descname">Tuple4</code><a class="headerlink" href="#module General.Tuple4" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Tuple4.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Tuple4.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Tuple4.t">
+<em class="property">type </em><em class="property">('a, 'b, 'c, 'd)</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a * 'b * 'c * 'd</em><a class="headerlink" href="#type General.Tuple4.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.Tuple4.make">
 <em class="property">val </em><code class="descname">make</code><em class="property">: </em><em class="property">'a -&gt; 'b -&gt; 'c -&gt; 'd -&gt; ('a, 'b, 'c, 'd) t</em><a class="headerlink" href="#val General.Tuple4.make" title="Permalink to this definition">¶</a></dt>
@@ -1329,10 +1435,11 @@
 <dt id="module General.Tuple5">
 <em class="property">module </em><code class="descname">Tuple5</code><a class="headerlink" href="#module General.Tuple5" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Tuple5.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Tuple5.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Tuple5.t">
+<em class="property">type </em><em class="property">('a, 'b, 'c, 'd, 'e)</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a * 'b * 'c * 'd * 'e</em><a class="headerlink" href="#type General.Tuple5.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.Tuple5.make">
 <em class="property">val </em><code class="descname">make</code><em class="property">: </em><em class="property">'a -&gt; 'b -&gt; 'c -&gt; 'd -&gt; 'e -&gt; ('a, 'b, 'c, 'd, 'e) t</em><a class="headerlink" href="#val General.Tuple5.make" title="Permalink to this definition">¶</a></dt>
@@ -1373,74 +1480,88 @@
 <dl class="module">
 <dt id="module General.IntOption">
 <em class="property">module </em><code class="descname">IntOption</code><a class="headerlink" href="#module General.IntOption" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: signature_item:include</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.FloatOption">
 <em class="property">module </em><code class="descname">FloatOption</code><a class="headerlink" href="#module General.FloatOption" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: signature_item:include</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.StringOption">
 <em class="property">module </em><code class="descname">StringOption</code><a class="headerlink" href="#module General.StringOption" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: signature_item:include</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.IntReference">
 <em class="property">module </em><code class="descname">IntReference</code><a class="headerlink" href="#module General.IntReference" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.IntReference.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.IntReference.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.IntReference.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">int Reference.t</em><a class="headerlink" href="#type General.IntReference.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
 <dt id="module General.IntReference.O">
 <em class="property">module </em><code class="descname">O</code><a class="headerlink" href="#module General.IntReference.O" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
+</dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
 </dd></dl>
 
 <dl class="module">
 <dt id="module General.FloatReference">
 <em class="property">module </em><code class="descname">FloatReference</code><a class="headerlink" href="#module General.FloatReference" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.FloatReference.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.FloatReference.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.FloatReference.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">float Reference.t</em><a class="headerlink" href="#type General.FloatReference.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
 <dt id="module General.FloatReference.O">
 <em class="property">module </em><code class="descname">O</code><a class="headerlink" href="#module General.FloatReference.O" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
+</dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
 </dd></dl>
 
 <dl class="module">
 <dt id="module General.StringReference">
 <em class="property">module </em><code class="descname">StringReference</code><a class="headerlink" href="#module General.StringReference" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.StringReference.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.StringReference.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.StringReference.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">string Reference.t</em><a class="headerlink" href="#type General.StringReference.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
 <dt id="module General.StringReference.O">
 <em class="property">module </em><code class="descname">O</code><a class="headerlink" href="#module General.StringReference.O" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="val">
+<dd><p>Not yet documented: signature_item:include</p>
+<dl class="val">
 <dt id="val General.StringReference.O.(=^)">
 <em class="property">val </em><code class="descname">(=^)</code><em class="property">: </em><em class="property">t -&gt; string -&gt; unit</em><a class="headerlink" href="#val General.StringReference.O.(=^)" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 </dd></dl>
 
 <dl class="module">
 <dt id="module General.List">
 <em class="property">module </em><code class="descname">List</code><a class="headerlink" href="#module General.List" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.List.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.List.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.List.t">
+<em class="property">type </em><em class="property">'a</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a list</em><a class="headerlink" href="#type General.List.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
@@ -1543,15 +1664,22 @@
 <em class="property">val </em><code class="descname">concat</code><em class="property">: </em><em class="property">'a t -&gt; 'a t -&gt; 'a t</em><a class="headerlink" href="#val General.List.concat" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
 <dl class="module">
 <dt id="module General.List.Specialize">
 <em class="property">module </em><code class="descname">Specialize</code><a class="headerlink" href="#module General.List.Specialize" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:functor</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.List.SpecializeEquatable">
 <em class="property">module </em><code class="descname">SpecializeEquatable</code><a class="headerlink" href="#module General.List.SpecializeEquatable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:functor</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -1559,8 +1687,8 @@
 <dt id="module General.Array">
 <em class="property">module </em><code class="descname">Array</code><a class="headerlink" href="#module General.Array" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Array.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Array.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Array.t">
+<em class="property">type </em><em class="property">'a</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a array</em><a class="headerlink" href="#type General.Array.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -1574,8 +1702,8 @@
 <dt id="module General.Stream">
 <em class="property">module </em><code class="descname">Stream</code><a class="headerlink" href="#module General.Stream" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Stream.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Stream.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Stream.t">
+<em class="property">type </em><em class="property">'a</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">'a Pervasives.OCamlStandard.Stream.t</em><a class="headerlink" href="#type General.Stream.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -1608,10 +1736,12 @@
 <em class="property">val </em><code class="descname">concat</code><em class="property">: </em><em class="property">'a t -&gt; 'a t -&gt; 'a t</em><a class="headerlink" href="#val General.Stream.concat" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 <dl class="module">
 <dt id="module General.Stream.ToList">
 <em class="property">module </em><code class="descname">ToList</code><a class="headerlink" href="#module General.Stream.ToList" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: signature_item:include</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -1619,10 +1749,11 @@
 <dt id="module General.IntRange">
 <em class="property">module </em><code class="descname">IntRange</code><a class="headerlink" href="#module General.IntRange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.IntRange.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.IntRange.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.IntRange.t">
+<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#type General.IntRange.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 <dl class="val">
 <dt id="val General.IntRange.empty">
 <em class="property">val </em><code class="descname">empty</code><em class="property">: </em><em class="property">t</em><a class="headerlink" href="#val General.IntRange.empty" title="Permalink to this definition">¶</a></dt>
@@ -1643,27 +1774,35 @@
 <em class="property">val </em><code class="descname">to_array</code><em class="property">: </em><em class="property">t -&gt; int array</em><a class="headerlink" href="#val General.IntRange.to_array" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
 <dl class="module">
 <dt id="module General.IntRange.ToList">
 <em class="property">module </em><code class="descname">ToList</code><a class="headerlink" href="#module General.IntRange.ToList" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
+<p>Not yet documented: signature_item:include</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="module">
 <dt id="module General.IntList">
 <em class="property">module </em><code class="descname">IntList</code><a class="headerlink" href="#module General.IntList" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: signature_item:include</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.FloatList">
 <em class="property">module </em><code class="descname">FloatList</code><a class="headerlink" href="#module General.FloatList" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: signature_item:include</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.StringList">
 <em class="property">module </em><code class="descname">StringList</code><a class="headerlink" href="#module General.StringList" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="val">
+<dd><p>Not yet documented: signature_item:include</p>
+<dl class="val">
 <dt id="val General.StringList.concat">
 <em class="property">val </em><code class="descname">concat</code><em class="property">: </em><em class="property">?sep:string -&gt; t -&gt; string</em><a class="headerlink" href="#val General.StringList.concat" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1674,8 +1813,8 @@
 <dt id="module General.Format">
 <em class="property">module </em><code class="descname">Format</code><a class="headerlink" href="#module General.Format" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Format.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Format.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Format.t">
+<em class="property">type </em><em class="property">('a, 'b, 'c, 'd, 'e, 'f)</em><em class="property"> </em><code class="descname">t</code><em class="property"> = </em><em class="property">('a, 'b, 'c, 'd, 'e, 'f) CamlinternalFormatBasics.format6</em><a class="headerlink" href="#type General.Format.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -1709,8 +1848,8 @@
 <dt id="module General.InChannel">
 <em class="property">module </em><code class="descname">InChannel</code><a class="headerlink" href="#module General.InChannel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.InChannel.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.InChannel.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.InChannel.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">Pervasives.OCamlStandard.Pervasives.in_channel</em><a class="headerlink" href="#type General.InChannel.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1719,8 +1858,8 @@
 <dt id="module General.InFile">
 <em class="property">module </em><code class="descname">InFile</code><a class="headerlink" href="#module General.InFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.InFile.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.InFile.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.InFile.t">
+<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#type General.InFile.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -1759,8 +1898,8 @@
 <dt id="module General.OutChannel">
 <em class="property">module </em><code class="descname">OutChannel</code><a class="headerlink" href="#module General.OutChannel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.OutChannel.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.OutChannel.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.OutChannel.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">Pervasives.OCamlStandard.Pervasives.out_channel</em><a class="headerlink" href="#type General.OutChannel.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -1784,8 +1923,8 @@
 <dt id="module General.OutFile">
 <em class="property">module </em><code class="descname">OutFile</code><a class="headerlink" href="#module General.OutFile" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.OutFile.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.OutFile.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.OutFile.t">
+<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#type General.OutFile.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -1887,8 +2026,8 @@
 <dt id="module General.Testing.Result">
 <em class="property">module </em><code class="descname">Result</code><a class="headerlink" href="#module General.Testing.Result" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Testing.Result.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Testing.Result.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Testing.Result.t">
+<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#type General.Testing.Result.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1897,8 +2036,8 @@
 <dt id="module General.Testing.Test">
 <em class="property">module </em><code class="descname">Test</code><a class="headerlink" href="#module General.Testing.Test" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
-<dt id="typ General.Testing.Test.t">
-<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.Testing.Test.t" title="Permalink to this definition">¶</a></dt>
+<dt id="type General.Testing.Test.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = </em><em class="property">Testing.Test.t</em><a class="headerlink" href="#type General.Testing.Test.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -2036,238 +2175,286 @@
 <dd><dl class="module">
 <dt id="module General.Standard.Testing">
 <em class="property">module </em><code class="descname">Testing</code><a class="headerlink" href="#module General.Standard.Testing" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Array">
 <em class="property">module </em><code class="descname">Array</code><a class="headerlink" href="#module General.Standard.Array" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.BigInt">
 <em class="property">module </em><code class="descname">BigInt</code><a class="headerlink" href="#module General.Standard.BigInt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Bool">
 <em class="property">module </em><code class="descname">Bool</code><a class="headerlink" href="#module General.Standard.Bool" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.CallStack">
 <em class="property">module </em><code class="descname">CallStack</code><a class="headerlink" href="#module General.Standard.CallStack" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Char">
 <em class="property">module </em><code class="descname">Char</code><a class="headerlink" href="#module General.Standard.Char" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Exception">
 <em class="property">module </em><code class="descname">Exception</code><a class="headerlink" href="#module General.Standard.Exception" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Exit">
 <em class="property">module </em><code class="descname">Exit</code><a class="headerlink" href="#module General.Standard.Exit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:with</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Float">
 <em class="property">module </em><code class="descname">Float</code><a class="headerlink" href="#module General.Standard.Float" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Format">
 <em class="property">module </em><code class="descname">Format</code><a class="headerlink" href="#module General.Standard.Format" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Function1">
 <em class="property">module </em><code class="descname">Function1</code><a class="headerlink" href="#module General.Standard.Function1" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Function2">
 <em class="property">module </em><code class="descname">Function2</code><a class="headerlink" href="#module General.Standard.Function2" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Function3">
 <em class="property">module </em><code class="descname">Function3</code><a class="headerlink" href="#module General.Standard.Function3" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Function4">
 <em class="property">module </em><code class="descname">Function4</code><a class="headerlink" href="#module General.Standard.Function4" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Function5">
 <em class="property">module </em><code class="descname">Function5</code><a class="headerlink" href="#module General.Standard.Function5" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.InChannel">
 <em class="property">module </em><code class="descname">InChannel</code><a class="headerlink" href="#module General.Standard.InChannel" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.InFile">
 <em class="property">module </em><code class="descname">InFile</code><a class="headerlink" href="#module General.Standard.InFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Int32">
 <em class="property">module </em><code class="descname">Int32</code><a class="headerlink" href="#module General.Standard.Int32" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Int64">
 <em class="property">module </em><code class="descname">Int64</code><a class="headerlink" href="#module General.Standard.Int64" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Int">
 <em class="property">module </em><code class="descname">Int</code><a class="headerlink" href="#module General.Standard.Int" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Lazy">
 <em class="property">module </em><code class="descname">Lazy</code><a class="headerlink" href="#module General.Standard.Lazy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.List">
 <em class="property">module </em><code class="descname">List</code><a class="headerlink" href="#module General.Standard.List" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.NativeInt">
 <em class="property">module </em><code class="descname">NativeInt</code><a class="headerlink" href="#module General.Standard.NativeInt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Option">
 <em class="property">module </em><code class="descname">Option</code><a class="headerlink" href="#module General.Standard.Option" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.OutChannel">
 <em class="property">module </em><code class="descname">OutChannel</code><a class="headerlink" href="#module General.Standard.OutChannel" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.OutFile">
 <em class="property">module </em><code class="descname">OutFile</code><a class="headerlink" href="#module General.Standard.OutFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Reference">
 <em class="property">module </em><code class="descname">Reference</code><a class="headerlink" href="#module General.Standard.Reference" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.StdErr">
 <em class="property">module </em><code class="descname">StdErr</code><a class="headerlink" href="#module General.Standard.StdErr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.StdIn">
 <em class="property">module </em><code class="descname">StdIn</code><a class="headerlink" href="#module General.Standard.StdIn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.StdOut">
 <em class="property">module </em><code class="descname">StdOut</code><a class="headerlink" href="#module General.Standard.StdOut" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Stream">
 <em class="property">module </em><code class="descname">Stream</code><a class="headerlink" href="#module General.Standard.Stream" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.String">
 <em class="property">module </em><code class="descname">String</code><a class="headerlink" href="#module General.Standard.String" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Tuple2">
 <em class="property">module </em><code class="descname">Tuple2</code><a class="headerlink" href="#module General.Standard.Tuple2" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Tuple3">
 <em class="property">module </em><code class="descname">Tuple3</code><a class="headerlink" href="#module General.Standard.Tuple3" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Tuple4">
 <em class="property">module </em><code class="descname">Tuple4</code><a class="headerlink" href="#module General.Standard.Tuple4" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Tuple5">
 <em class="property">module </em><code class="descname">Tuple5</code><a class="headerlink" href="#module General.Standard.Tuple5" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.Unit">
 <em class="property">module </em><code class="descname">Unit</code><a class="headerlink" href="#module General.Standard.Unit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.IntRange">
 <em class="property">module </em><code class="descname">IntRange</code><a class="headerlink" href="#module General.Standard.IntRange" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.IntOption">
 <em class="property">module </em><code class="descname">IntOption</code><a class="headerlink" href="#module General.Standard.IntOption" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.FloatOption">
 <em class="property">module </em><code class="descname">FloatOption</code><a class="headerlink" href="#module General.Standard.FloatOption" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.StringOption">
 <em class="property">module </em><code class="descname">StringOption</code><a class="headerlink" href="#module General.Standard.StringOption" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.IntReference">
 <em class="property">module </em><code class="descname">IntReference</code><a class="headerlink" href="#module General.Standard.IntReference" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.FloatReference">
 <em class="property">module </em><code class="descname">FloatReference</code><a class="headerlink" href="#module General.Standard.FloatReference" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.StringReference">
 <em class="property">module </em><code class="descname">StringReference</code><a class="headerlink" href="#module General.Standard.StringReference" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.IntList">
 <em class="property">module </em><code class="descname">IntList</code><a class="headerlink" href="#module General.Standard.IntList" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.FloatList">
 <em class="property">module </em><code class="descname">FloatList</code><a class="headerlink" href="#module General.Standard.FloatList" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Standard.StringList">
 <em class="property">module </em><code class="descname">StringList</code><a class="headerlink" href="#module General.Standard.StringList" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 </dd></dl>
 
 <dl class="module">
@@ -2276,238 +2463,286 @@
 <dd><dl class="module">
 <dt id="module General.Abbr.Tst">
 <em class="property">module </em><code class="descname">Tst</code><a class="headerlink" href="#module General.Abbr.Tst" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Ar">
 <em class="property">module </em><code class="descname">Ar</code><a class="headerlink" href="#module General.Abbr.Ar" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.BigInt">
 <em class="property">module </em><code class="descname">BigInt</code><a class="headerlink" href="#module General.Abbr.BigInt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Bo">
 <em class="property">module </em><code class="descname">Bo</code><a class="headerlink" href="#module General.Abbr.Bo" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.CallStack">
 <em class="property">module </em><code class="descname">CallStack</code><a class="headerlink" href="#module General.Abbr.CallStack" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Ch">
 <em class="property">module </em><code class="descname">Ch</code><a class="headerlink" href="#module General.Abbr.Ch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Exit">
 <em class="property">module </em><code class="descname">Exit</code><a class="headerlink" href="#module General.Abbr.Exit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:with</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Exn">
 <em class="property">module </em><code class="descname">Exn</code><a class="headerlink" href="#module General.Abbr.Exn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Fl">
 <em class="property">module </em><code class="descname">Fl</code><a class="headerlink" href="#module General.Abbr.Fl" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Frmt">
 <em class="property">module </em><code class="descname">Frmt</code><a class="headerlink" href="#module General.Abbr.Frmt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Fun1">
 <em class="property">module </em><code class="descname">Fun1</code><a class="headerlink" href="#module General.Abbr.Fun1" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Fun2">
 <em class="property">module </em><code class="descname">Fun2</code><a class="headerlink" href="#module General.Abbr.Fun2" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Fun3">
 <em class="property">module </em><code class="descname">Fun3</code><a class="headerlink" href="#module General.Abbr.Fun3" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Fun4">
 <em class="property">module </em><code class="descname">Fun4</code><a class="headerlink" href="#module General.Abbr.Fun4" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Fun5">
 <em class="property">module </em><code class="descname">Fun5</code><a class="headerlink" href="#module General.Abbr.Fun5" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.InCh">
 <em class="property">module </em><code class="descname">InCh</code><a class="headerlink" href="#module General.Abbr.InCh" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.InFile">
 <em class="property">module </em><code class="descname">InFile</code><a class="headerlink" href="#module General.Abbr.InFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Int32">
 <em class="property">module </em><code class="descname">Int32</code><a class="headerlink" href="#module General.Abbr.Int32" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Int64">
 <em class="property">module </em><code class="descname">Int64</code><a class="headerlink" href="#module General.Abbr.Int64" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Int">
 <em class="property">module </em><code class="descname">Int</code><a class="headerlink" href="#module General.Abbr.Int" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Laz">
 <em class="property">module </em><code class="descname">Laz</code><a class="headerlink" href="#module General.Abbr.Laz" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Li">
 <em class="property">module </em><code class="descname">Li</code><a class="headerlink" href="#module General.Abbr.Li" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.NativeInt">
 <em class="property">module </em><code class="descname">NativeInt</code><a class="headerlink" href="#module General.Abbr.NativeInt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Opt">
 <em class="property">module </em><code class="descname">Opt</code><a class="headerlink" href="#module General.Abbr.Opt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.OutCh">
 <em class="property">module </em><code class="descname">OutCh</code><a class="headerlink" href="#module General.Abbr.OutCh" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.OutFile">
 <em class="property">module </em><code class="descname">OutFile</code><a class="headerlink" href="#module General.Abbr.OutFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Ref">
 <em class="property">module </em><code class="descname">Ref</code><a class="headerlink" href="#module General.Abbr.Ref" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.StdErr">
 <em class="property">module </em><code class="descname">StdErr</code><a class="headerlink" href="#module General.Abbr.StdErr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.StdIn">
 <em class="property">module </em><code class="descname">StdIn</code><a class="headerlink" href="#module General.Abbr.StdIn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.StdOut">
 <em class="property">module </em><code class="descname">StdOut</code><a class="headerlink" href="#module General.Abbr.StdOut" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Str">
 <em class="property">module </em><code class="descname">Str</code><a class="headerlink" href="#module General.Abbr.Str" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Strm">
 <em class="property">module </em><code class="descname">Strm</code><a class="headerlink" href="#module General.Abbr.Strm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Tu2">
 <em class="property">module </em><code class="descname">Tu2</code><a class="headerlink" href="#module General.Abbr.Tu2" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Tu3">
 <em class="property">module </em><code class="descname">Tu3</code><a class="headerlink" href="#module General.Abbr.Tu3" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Tu4">
 <em class="property">module </em><code class="descname">Tu4</code><a class="headerlink" href="#module General.Abbr.Tu4" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Tu5">
 <em class="property">module </em><code class="descname">Tu5</code><a class="headerlink" href="#module General.Abbr.Tu5" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.Unit">
 <em class="property">module </em><code class="descname">Unit</code><a class="headerlink" href="#module General.Abbr.Unit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.IntRa">
 <em class="property">module </em><code class="descname">IntRa</code><a class="headerlink" href="#module General.Abbr.IntRa" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.IntOpt">
 <em class="property">module </em><code class="descname">IntOpt</code><a class="headerlink" href="#module General.Abbr.IntOpt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.FlOpt">
 <em class="property">module </em><code class="descname">FlOpt</code><a class="headerlink" href="#module General.Abbr.FlOpt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.StrOpt">
 <em class="property">module </em><code class="descname">StrOpt</code><a class="headerlink" href="#module General.Abbr.StrOpt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.IntRef">
 <em class="property">module </em><code class="descname">IntRef</code><a class="headerlink" href="#module General.Abbr.IntRef" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.FlRef">
 <em class="property">module </em><code class="descname">FlRef</code><a class="headerlink" href="#module General.Abbr.FlRef" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.StrRef">
 <em class="property">module </em><code class="descname">StrRef</code><a class="headerlink" href="#module General.Abbr.StrRef" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.IntLi">
 <em class="property">module </em><code class="descname">IntLi</code><a class="headerlink" href="#module General.Abbr.IntLi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.FlLi">
 <em class="property">module </em><code class="descname">FlLi</code><a class="headerlink" href="#module General.Abbr.FlLi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
 <dl class="module">
 <dt id="module General.Abbr.StrLi">
 <em class="property">module </em><code class="descname">StrLi</code><a class="headerlink" href="#module General.Abbr.StrLi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Not yet documented: module_type:of</p>
+</dd></dl>
 
+<p>Not yet documented: signature_item:include</p>
 </dd></dl>
 
 </dd></dl>

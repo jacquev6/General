@@ -12,988 +12,1233 @@ Reference
 
     Some doc for Pervasives
 
+    Not yet documented: signature_item:include
+
     The module overrides all elements from the standard
-    `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_ with unusable but guiding values:
+    `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_
+    with unusable but guiding values like:
 
     .. val:: raise
-        type: [ `Please_use_General__Exception__raise ]
+      :noindex:
+      :type: [ `Please_use_General__Exception__raise ]
+
+      The types of these values point at what replaces them in :mod:`General`.
+      (In that case, :val:`General.Exception.raise`).
 
     It then brings back a small set of ubiquitous values:
 
-    .. val:: not
-        type: bool -> bool
+    **Boolean operators**
 
-      Boolean negation. Alias of :val:`General.Bool.not`.
+    .. val:: not
+      :type: bool -> bool
+
+      Negation. Alias of :val:`General.Bool.O.not`.
 
     .. val:: (&&)
-        type: bool -> bool -> bool
+      :type: bool -> bool -> bool
+
+      Conjunction. Lazy. Alias of :val:`General.Bool.O.(&&)`
 
     .. val:: (||)
-        type: bool -> bool -> bool
+      :type: bool -> bool -> bool
 
-    .. val:: xor
-        type: bool -> bool -> bool
+      Disjunction. Lazy. Alias of :val:`General.Bool.O.(||)`
 
-    .. val:: (~-.)
-        type: float -> float
-
-    .. val:: (~+.)
-        type: float -> float
-
-    .. val:: (+.)
-        type: float -> float -> float
-
-    .. val:: (-.)
-        type: float -> float -> float
-
-    .. val:: (*.)
-        type: float -> float -> float
-
-    .. val:: (/.)
-        type: float -> float -> float
-
-    .. val:: (**)
-        type: float -> float -> float
-
-    .. val:: (@@)
-        type: ('a -> 'b) -> 'a -> 'b
-
-    .. val:: (|>)
-        type: 'a -> ('a -> 'b) -> 'b
-
-    .. val:: (%)
-        type: ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
+    **Integer operators**
 
     .. val:: (~-)
-        type: int -> int
+      :type: int -> int
 
     .. val:: (~+)
-        type: int -> int
+      :type: int -> int
 
     .. val:: (+)
-        type: int -> int -> int
+      :type: int -> int -> int
 
     .. val:: (-)
-        type: int -> int -> int
+      :type: int -> int -> int
 
     .. val:: (*)
-        type: int -> int -> int
+      :type: int -> int -> int
 
     .. val:: (/)
-        type: int -> int -> int
+      :type: int -> int -> int
 
     .. val:: (mod)
-        type: int -> int -> int
+      :type: int -> int -> int
 
-    .. val:: (@)
-        type: 'a list -> 'a list -> 'a list
+    **Floating point operators**
 
-    .. val:: (^)
-        type: string -> string -> string
+    .. val:: (~-.)
+      :type: float -> float
+
+    .. val:: (~+.)
+      :type: float -> float
+
+    .. val:: (+.)
+      :type: float -> float -> float
+
+    .. val:: (-.)
+      :type: float -> float -> float
+
+    .. val:: (*.)
+      :type: float -> float -> float
+
+    .. val:: (/.)
+      :type: float -> float -> float
+
+    .. val:: (**)
+      :type: float -> float -> float
+
+    **Function composition and application**
+
+    .. val:: (@@)
+      :type: ('a -> 'b) -> 'a -> 'b
+
+    .. val:: (|>)
+      :type: 'a -> ('a -> 'b) -> 'b
+
+    .. val:: (%)
+      :type: ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
+
+    **References**
 
     .. val:: ref
-        type: 'a -> 'a OCamlStandard.Pervasives.ref
+      :type: 'a -> 'a OCamlStandard.Pervasives.ref
 
     .. val:: (:=)
-        type: 'a OCamlStandard.Pervasives.ref -> 'a -> unit
+      :type: 'a OCamlStandard.Pervasives.ref -> 'a -> unit
 
     .. val:: (!)
-        type: 'a OCamlStandard.Pervasives.ref -> 'a
+      :type: 'a OCamlStandard.Pervasives.ref -> 'a
+
+    **Polymorphic comparison**
 
     .. val:: (=)
-        type: 'a -> 'a -> bool
+      :type: 'a -> 'a -> bool
 
     .. val:: (<>)
-        type: 'a -> 'a -> bool
+      :type: 'a -> 'a -> bool
 
     .. val:: (<)
-        type: 'a -> 'a -> bool
+      :type: 'a -> 'a -> bool
 
     .. val:: (<=)
-        type: 'a -> 'a -> bool
+      :type: 'a -> 'a -> bool
 
     .. val:: (>=)
-        type: 'a -> 'a -> bool
+      :type: 'a -> 'a -> bool
 
     .. val:: (>)
-        type: 'a -> 'a -> bool
+      :type: 'a -> 'a -> bool
+
+    **Ubiquitous functions**
 
     .. val:: ignore
-        type: 'a -> unit
+      :type: 'a -> unit
 
     .. val:: identity
-        type: 'a -> 'a
+      :type: 'a -> 'a
+
+    **Miscelaneous operators**
+
+    .. val:: (@)
+      :type: 'a list -> 'a list -> 'a list
+
+    .. val:: (^)
+      :type: string -> string -> string
 
   .. module:: Shorten
 
     .. type:: t
+      :manifest: Foundations.Shorten.t
+
+      Return type for functions used in short-circuit iterations over collections.
+      (i.e: :val:`General.Traits.Foldable.Short.S0.fold_short`)
 
   .. module:: Traits
 
+    Not yet documented: module_type:of
+
   .. module:: Concepts
+
+    Not yet documented: module_type:of
 
   .. module:: Compare
 
     .. type:: t
+      :manifest: Foundations.Compare.t
 
     .. module:: Poly
+
+      Not yet documented: module_type:identifier
 
   .. module:: Equate
 
     .. module:: Poly
 
+      Not yet documented: module_type:identifier
+
     .. module:: Physical
+
+      Not yet documented: module_type:identifier
 
   .. module:: CallStack
 
     .. type:: t
+      :manifest: Pervasives.OCamlStandard.Printexc.raw_backtrace
+
+    Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
 
     .. val:: current
-        type: ?max_size:int -> unit -> t
+      :type: ?max_size:int -> unit -> t
 
     .. module:: Location
 
       .. type:: t
+        :manifest: Pervasives.OCamlStandard.Printexc.location
+
+      Not yet documented: signature_item:include
 
     .. module:: Frame
 
       .. type:: t
+        :manifest: Pervasives.OCamlStandard.Printexc.backtrace_slot
 
       .. val:: is_raise
-          type: t -> bool
+        :type: t -> bool
 
       .. val:: location
-          type: t -> Location.t option
+        :type: t -> Location.t option
 
       .. val:: format
-          type: int -> t -> string option
+        :type: int -> t -> string option
 
     .. val:: frames
-        type: t -> Frame.t list
+      :type: t -> Frame.t list
 
   .. module:: Exception
 
     .. type:: t
+      :manifest: exn
+
+    Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
 
     .. val:: register_printer
-        type: (t -> string option) -> unit
+      :type: (t -> string option) -> unit
 
     .. val:: record_backtraces
-        type: bool -> unit
+      :type: bool -> unit
 
     .. val:: recording_backtraces
-        type: unit -> bool
+      :type: unit -> bool
 
     .. val:: most_recent_backtrace
-        type: unit -> CallStack.t option
+      :type: unit -> CallStack.t option
+
+    .. exception:: MatchFailure
+      :payload: (string * int * int)
+
+    .. exception:: AssertFailure
+      :payload: (string * int * int)
+
+    .. exception:: InvalidArgument
+      :payload: string
+
+    .. exception:: Failure
+      :payload: string
+
+    .. exception:: NotFound
+
+    .. exception:: OutOfMemory
+
+      Raised when the system could not allocate memory
+
+    .. exception:: StackOverflow
+
+    .. exception:: SysError
+      :payload: string
+
+    .. exception:: EndOfFile
+
+    .. exception:: DivisionByZero
+
+    .. exception:: SysBlockedIO
+
+    .. exception:: UndefinedRecursiveModule
+      :payload: (string * int * int)
+
+    .. exception:: Exit
 
     .. val:: raise
-        type: t -> 'a
+      :type: t -> 'a
 
     .. val:: raise_without_backtrace
-        type: t -> 'a
+      :type: t -> 'a
 
     .. val:: invalid_argument
-        type: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
+      :type: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
 
     .. val:: failure
-        type: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
+      :type: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
 
     .. val:: name
-        type: exn -> string
+      :type: exn -> string
 
     .. val:: or_none
-        type: 'a lazy_t -> 'a option
+      :type: 'a lazy_t -> 'a option
 
   .. module:: Exit
 
     .. type:: t
 
     .. val:: of_int
-        type: int -> t
+      :type: int -> t
 
     .. val:: exit
-        type: t -> unit
+      :type: t -> unit
 
     .. val:: at_exit
-        type: (unit -> unit) -> unit
+      :type: (unit -> unit) -> unit
 
   .. module:: Function1
 
     .. type:: t
+      :parameters: ('a, 'z)
+      :manifest: 'a -> 'z
 
     .. val:: identity
-        type: ('a, 'a) t
+      :type: ('a, 'a) t
 
     .. val:: apply
-        type: ('a, 'z) t -> 'a -> 'z
+      :type: ('a, 'z) t -> 'a -> 'z
 
     .. val:: rev_apply
-        type: 'a -> ('a, 'z) t -> 'z
+      :type: 'a -> ('a, 'z) t -> 'z
 
     .. val:: compose
-        type: ('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t
+      :type: ('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t
 
     .. module:: O
 
       .. val:: (@@)
-          type: ('a, 'z) t -> 'a -> 'z
+        :type: ('a, 'z) t -> 'a -> 'z
 
       .. val:: (|>)
-          type: 'a -> ('a, 'z) t -> 'z
+        :type: 'a -> ('a, 'z) t -> 'z
 
       .. val:: (%)
-          type: ('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t
+        :type: ('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t
 
   .. module:: Function2
 
     .. type:: t
+      :parameters: ('a, 'b, 'z)
+      :manifest: 'a -> 'b -> 'z
 
     .. val:: flip
-        type: ('a, 'b, 'z) t -> ('b, 'a, 'z) t
+      :type: ('a, 'b, 'z) t -> ('b, 'a, 'z) t
 
     .. val:: curry
-        type: ('a * 'b, 'z) Function1.t -> ('a, 'b, 'z) t
+      :type: ('a * 'b, 'z) Function1.t -> ('a, 'b, 'z) t
 
     .. val:: uncurry
-        type: ('a, 'b, 'z) t -> ('a * 'b, 'z) Function1.t
+      :type: ('a, 'b, 'z) t -> ('a * 'b, 'z) Function1.t
 
   .. module:: Function3
 
     .. type:: t
+      :parameters: ('a, 'b, 'c, 'z)
+      :manifest: 'a -> 'b -> 'c -> 'z
 
     .. val:: flip
-        type: ('a, 'b, 'c, 'z) t -> ('c, 'b, 'a, 'z) t
+      :type: ('a, 'b, 'c, 'z) t -> ('c, 'b, 'a, 'z) t
 
     .. val:: curry
-        type: ('a * 'b * 'c, 'z) Function1.t -> ('a, 'b, 'c, 'z) t
+      :type: ('a * 'b * 'c, 'z) Function1.t -> ('a, 'b, 'c, 'z) t
 
     .. val:: uncurry
-        type: ('a, 'b, 'c, 'z) t -> ('a * 'b * 'c, 'z) Function1.t
+      :type: ('a, 'b, 'c, 'z) t -> ('a * 'b * 'c, 'z) Function1.t
 
   .. module:: Function4
 
     .. type:: t
+      :parameters: ('a, 'b, 'c, 'd, 'z)
+      :manifest: 'a -> 'b -> 'c -> 'd -> 'z
 
     .. val:: flip
-        type: ('a, 'b, 'c, 'd, 'z) t -> ('d, 'c, 'b, 'a, 'z) t
+      :type: ('a, 'b, 'c, 'd, 'z) t -> ('d, 'c, 'b, 'a, 'z) t
 
     .. val:: curry
-        type: ('a * 'b * 'c * 'd, 'z) Function1.t -> ('a, 'b, 'c, 'd, 'z) t
+      :type: ('a * 'b * 'c * 'd, 'z) Function1.t -> ('a, 'b, 'c, 'd, 'z) t
 
     .. val:: uncurry
-        type: ('a, 'b, 'c, 'd, 'z) t -> ('a * 'b * 'c * 'd, 'z) Function1.t
+      :type: ('a, 'b, 'c, 'd, 'z) t -> ('a * 'b * 'c * 'd, 'z) Function1.t
 
   .. module:: Function5
 
     .. type:: t
+      :parameters: ('a, 'b, 'c, 'd, 'e, 'z)
+      :manifest: 'a -> 'b -> 'c -> 'd -> 'e -> 'z
 
     .. val:: flip
-        type: ('a, 'b, 'c, 'd, 'e, 'z) t -> ('e, 'd, 'c, 'b, 'a, 'z) t
+      :type: ('a, 'b, 'c, 'd, 'e, 'z) t -> ('e, 'd, 'c, 'b, 'a, 'z) t
 
     .. val:: curry
-        type: ('a * 'b * 'c * 'd * 'e, 'z) Function1.t -> ('a, 'b, 'c, 'd, 'e, 'z) t
+      :type: ('a * 'b * 'c * 'd * 'e, 'z) Function1.t -> ('a, 'b, 'c, 'd, 'e, 'z) t
 
     .. val:: uncurry
-        type: ('a, 'b, 'c, 'd, 'e, 'z) t -> ('a * 'b * 'c * 'd * 'e, 'z) Function1.t
+      :type: ('a, 'b, 'c, 'd, 'e, 'z) t -> ('a * 'b * 'c * 'd * 'e, 'z) Function1.t
 
   .. module:: Unit
 
     .. type:: t
+      :manifest: unit
 
     .. val:: ignore
-        type: 'a -> t
+      :type: 'a -> t
 
   .. module:: Bool
 
     .. type:: t
+      :manifest: bool
 
     .. module:: O
 
+      Not yet documented: signature_item:include
+
       .. val:: not
-          type: t -> t
+        :type: t -> t
 
       .. val:: (&&)
-          type: t -> t -> t
+        :type: t -> t -> t
 
       .. val:: (||)
-          type: t -> t -> t
+        :type: t -> t -> t
 
-      .. val:: xor
-          type: t -> t -> t
+    Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
 
     .. val:: not
-        type: t -> t
+      :type: t -> t
 
     .. val:: and_
-        type: t -> t -> t
+      :type: t -> t -> t
 
     .. val:: or_
-        type: t -> t -> t
+      :type: t -> t -> t
 
     .. val:: xor
-        type: t -> t -> t
+      :type: t -> t -> t
 
   .. module:: Char
 
     .. type:: t
+      :manifest: char
 
     .. val:: of_int
-        type: int -> t
+      :type: int -> t
 
     .. val:: to_int
-        type: t -> int
+      :type: t -> int
 
   .. module:: Int
 
     .. type:: t
+      :manifest: int
+
+    Not yet documented: signature_item:include
 
     .. val:: smallest
-        type: t
+      :type: t
 
     .. val:: greatest
-        type: t
+      :type: t
 
     .. module:: Bitwise
 
       .. val:: logical_and
-          type: t -> t -> t
+        :type: t -> t -> t
 
       .. val:: logical_or
-          type: t -> t -> t
+        :type: t -> t -> t
 
       .. val:: logical_xor
-          type: t -> t -> t
+        :type: t -> t -> t
 
       .. val:: logical_not
-          type: t -> t
+        :type: t -> t
 
       .. val:: logical_shift_left
-          type: t -> shift:t -> t
+        :type: t -> shift:t -> t
 
       .. val:: logical_shift_right
-          type: t -> shift:t -> t
+        :type: t -> shift:t -> t
 
       .. val:: arithmetic_shift_right
-          type: t -> shift:t -> t
+        :type: t -> shift:t -> t
 
   .. module:: Int32
 
     .. type:: t
+      :manifest: int32
+
+    Not yet documented: signature_item:include
 
     .. val:: smallest
-        type: t
+      :type: t
 
     .. val:: greatest
-        type: t
+      :type: t
 
   .. module:: Int64
 
     .. type:: t
+      :manifest: int64
+
+    Not yet documented: signature_item:include
 
     .. val:: smallest
-        type: t
+      :type: t
 
     .. val:: greatest
-        type: t
+      :type: t
 
   .. module:: NativeInt
 
     .. type:: t
+      :manifest: nativeint
+
+    Not yet documented: signature_item:include
 
     .. val:: smallest
-        type: t
+      :type: t
 
     .. val:: greatest
-        type: t
+      :type: t
 
   .. module:: BigInt
 
     .. type:: t
+      :manifest: Pervasives.OCamlStandard.Big_int.big_int
+
+    Not yet documented: signature_item:include
 
   .. module:: Float
 
     .. type:: t
+      :manifest: float
+
+    Not yet documented: signature_item:include
 
     .. val:: epsilon
-        type: t
+      :type: t
 
     .. val:: smallest
-        type: t
+      :type: t
 
     .. val:: greatest
-        type: t
+      :type: t
 
     .. val:: infinity
-        type: t
+      :type: t
 
     .. val:: negative_infinity
-        type: t
+      :type: t
 
     .. val:: not_a_number
-        type: t
+      :type: t
 
     .. val:: pi
-        type: float
+      :type: float
 
     .. val:: e
-        type: float
+      :type: float
 
     .. val:: of_parts
-        type: significand:float -> exponent:int -> t
+      :type: significand:float -> exponent:int -> t
 
     .. val:: to_parts
-        type: t -> float * int
+      :type: t -> float * int
 
     .. val:: to_fractional_and_integral
-        type: t -> float * float
+      :type: t -> float * float
 
     .. val:: sqrt
-        type: float -> float
+      :type: float -> float
 
     .. val:: exp
-        type: float -> float
+      :type: float -> float
 
     .. val:: log
-        type: float -> float
+      :type: float -> float
 
     .. val:: log10
-        type: float -> float
+      :type: float -> float
 
     .. val:: expm1
-        type: float -> float
+      :type: float -> float
 
     .. val:: log1p
-        type: float -> float
+      :type: float -> float
 
     .. val:: cos
-        type: float -> float
+      :type: float -> float
 
     .. val:: sin
-        type: float -> float
+      :type: float -> float
 
     .. val:: tan
-        type: float -> float
+      :type: float -> float
 
     .. val:: acos
-        type: float -> float
+      :type: float -> float
 
     .. val:: asin
-        type: float -> float
+      :type: float -> float
 
     .. val:: atan
-        type: float -> float
+      :type: float -> float
 
     .. val:: atan2
-        type: y:float -> x:float -> float
+      :type: y:float -> x:float -> float
 
     .. val:: hypot
-        type: float -> float -> float
+      :type: float -> float -> float
 
     .. val:: cosh
-        type: float -> float
+      :type: float -> float
 
     .. val:: sinh
-        type: float -> float
+      :type: float -> float
 
     .. val:: tanh
-        type: float -> float
+      :type: float -> float
 
     .. val:: ceil
-        type: float -> float
+      :type: float -> float
 
     .. val:: floor
-        type: float -> float
+      :type: float -> float
 
     .. val:: copy_sign
-        type: t -> sign:t -> t
+      :type: t -> sign:t -> t
 
     .. module:: Class
 
       .. type:: t
 
+      Not yet documented: signature_item:include
+
       .. val:: of_float
-          type: float -> t
+        :type: float -> t
 
   .. module:: String
 
     .. type:: t
+      :manifest: string
 
     .. val:: get
-        type: t -> int -> char
+      :type: t -> int -> char
 
     .. module:: O
 
+      Not yet documented: signature_item:include
+
       .. val:: (^)
-          type: t -> t -> t
+        :type: t -> t -> t
+
+    Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
 
     .. val:: concat
-        type: t -> t -> t
+      :type: t -> t -> t
 
     .. val:: substring
-        type: t -> pos:int -> len:int -> t
+      :type: t -> pos:int -> len:int -> t
 
     .. val:: prefix
-        type: t -> len:int -> t
+      :type: t -> len:int -> t
 
     .. val:: suffix
-        type: t -> len:int -> t
+      :type: t -> len:int -> t
 
     .. val:: has_prefix
-        type: t -> pre:t -> bool
+      :type: t -> pre:t -> bool
 
     .. val:: try_drop_prefix
-        type: t -> pre:t -> t option
+      :type: t -> pre:t -> t option
 
     .. val:: drop_prefix
-        type: t -> pre:t -> t
+      :type: t -> pre:t -> t
 
     .. val:: has_suffix
-        type: t -> suf:t -> bool
+      :type: t -> suf:t -> bool
 
     .. val:: try_drop_suffix
-        type: t -> suf:t -> t option
+      :type: t -> suf:t -> t option
 
     .. val:: drop_suffix
-        type: t -> suf:t -> t
+      :type: t -> suf:t -> t
 
     .. val:: split
-        type: t -> sep:t -> t list
+      :type: t -> sep:t -> t list
 
   .. module:: Option
 
     .. type:: t
+      :parameters: 'a
+      :manifest: 'a option
+
+    Not yet documented: signature_item:include
 
     .. val:: some_if
-        type: bool -> 'a lazy_t -> 'a t
+      :type: bool -> 'a lazy_t -> 'a t
 
     .. val:: some_if'
-        type: bool -> 'a -> 'a t
+      :type: bool -> 'a -> 'a t
 
     .. val:: is_some
-        type: 'a t -> bool
+      :type: 'a t -> bool
 
     .. val:: is_none
-        type: 'a t -> bool
+      :type: 'a t -> bool
 
     .. val:: value_def
-        type: 'a t -> def:'a -> 'a
+      :type: 'a t -> def:'a -> 'a
 
     .. val:: value
-        type: ?exc:exn -> 'a t -> 'a
+      :type: ?exc:exn -> 'a t -> 'a
 
     .. val:: or_failure
-        type: ('a, unit, string, string, string, 'b t -> 'b) CamlinternalFormatBasics.format6 -> 'a
+      :type: ('a, unit, string, string, string, 'b t -> 'b) CamlinternalFormatBasics.format6 -> 'a
 
     .. val:: map
-        type: 'a t -> f:('a -> 'b) -> 'b t
+      :type: 'a t -> f:('a -> 'b) -> 'b t
 
     .. val:: iter
-        type: 'a t -> f:('a -> unit) -> unit
+      :type: 'a t -> f:('a -> unit) -> unit
 
     .. val:: filter
-        type: 'a t -> f:('a -> bool) -> 'a t
+      :type: 'a t -> f:('a -> bool) -> 'a t
 
     .. val:: filter_map
-        type: 'a t -> f:('a -> 'b option) -> 'b t
+      :type: 'a t -> f:('a -> 'b option) -> 'b t
 
     .. val:: value_map
-        type: 'a t -> def:'b -> f:('a -> 'b) -> 'b
+      :type: 'a t -> def:'b -> f:('a -> 'b) -> 'b
 
     .. module:: Specialize
+
+      Not yet documented: module_type:functor
 
   .. module:: Lazy
 
     .. type:: t
+      :parameters: 'a
+      :manifest: 'a lazy_t
 
     .. val:: is_value
-        type: 'a t -> bool
+      :type: 'a t -> bool
 
     .. val:: value
-        type: 'a t -> 'a
+      :type: 'a t -> 'a
 
     .. val:: map
-        type: 'a t -> f:('a -> 'b) -> 'b t
+      :type: 'a t -> f:('a -> 'b) -> 'b t
 
   .. module:: Reference
 
     .. type:: t
+      :parameters: 'a
+      :manifest: 'a Pervasives.OCamlStandard.Pervasives.ref
 
     .. val:: of_contents
-        type: 'a -> 'a t
+      :type: 'a -> 'a t
 
     .. val:: contents
-        type: 'a t -> 'a
+      :type: 'a t -> 'a
 
     .. val:: assign
-        type: 'a t -> 'a -> unit
+      :type: 'a t -> 'a -> unit
 
     .. module:: O
 
       .. val:: ref
-          type: 'a -> 'a t
+        :type: 'a -> 'a t
 
       .. val:: (!)
-          type: 'a t -> 'a
+        :type: 'a t -> 'a
 
       .. val:: (:=)
-          type: 'a t -> 'a -> unit
+        :type: 'a t -> 'a -> unit
 
     .. module:: SpecializeOperators
 
+      Not yet documented: module_type:functor
+
     .. module:: Specialize
+
+      Not yet documented: module_type:functor
 
     .. module:: SpecializePredSucc
 
+      Not yet documented: module_type:functor
+
     .. module:: SpecializeRingoidOperators
 
+      Not yet documented: module_type:functor
+
     .. module:: SpecializeRingoid
+
+      Not yet documented: module_type:functor
 
   .. module:: Tuple2
 
     .. type:: t
+      :parameters: ('a, 'b)
+      :manifest: 'a * 'b
+
+    Not yet documented: signature_item:include
 
     .. val:: make
-        type: 'a -> 'b -> ('a, 'b) t
+      :type: 'a -> 'b -> ('a, 'b) t
 
     .. val:: get_0
-        type: ('a, 'b) t -> 'a
+      :type: ('a, 'b) t -> 'a
 
     .. val:: get_1
-        type: ('a, 'b) t -> 'b
+      :type: ('a, 'b) t -> 'b
 
     .. val:: flip
-        type: ('a, 'b) t -> ('b, 'a) t
+      :type: ('a, 'b) t -> ('b, 'a) t
 
   .. module:: Tuple3
 
     .. type:: t
+      :parameters: ('a, 'b, 'c)
+      :manifest: 'a * 'b * 'c
+
+    Not yet documented: signature_item:include
 
     .. val:: make
-        type: 'a -> 'b -> 'c -> ('a, 'b, 'c) t
+      :type: 'a -> 'b -> 'c -> ('a, 'b, 'c) t
 
     .. val:: get_0
-        type: ('a, 'b, 'c) t -> 'a
+      :type: ('a, 'b, 'c) t -> 'a
 
     .. val:: get_1
-        type: ('a, 'b, 'c) t -> 'b
+      :type: ('a, 'b, 'c) t -> 'b
 
     .. val:: get_2
-        type: ('a, 'b, 'c) t -> 'c
+      :type: ('a, 'b, 'c) t -> 'c
 
     .. val:: flip
-        type: ('a, 'b, 'c) t -> ('c, 'b, 'a) t
+      :type: ('a, 'b, 'c) t -> ('c, 'b, 'a) t
 
   .. module:: Tuple4
 
     .. type:: t
+      :parameters: ('a, 'b, 'c, 'd)
+      :manifest: 'a * 'b * 'c * 'd
+
+    Not yet documented: signature_item:include
 
     .. val:: make
-        type: 'a -> 'b -> 'c -> 'd -> ('a, 'b, 'c, 'd) t
+      :type: 'a -> 'b -> 'c -> 'd -> ('a, 'b, 'c, 'd) t
 
     .. val:: get_0
-        type: ('a, 'b, 'c, 'd) t -> 'a
+      :type: ('a, 'b, 'c, 'd) t -> 'a
 
     .. val:: get_1
-        type: ('a, 'b, 'c, 'd) t -> 'b
+      :type: ('a, 'b, 'c, 'd) t -> 'b
 
     .. val:: get_2
-        type: ('a, 'b, 'c, 'd) t -> 'c
+      :type: ('a, 'b, 'c, 'd) t -> 'c
 
     .. val:: get_3
-        type: ('a, 'b, 'c, 'd) t -> 'd
+      :type: ('a, 'b, 'c, 'd) t -> 'd
 
     .. val:: flip
-        type: ('a, 'b, 'c, 'd) t -> ('d, 'c, 'b, 'a) t
+      :type: ('a, 'b, 'c, 'd) t -> ('d, 'c, 'b, 'a) t
 
   .. module:: Tuple5
 
     .. type:: t
+      :parameters: ('a, 'b, 'c, 'd, 'e)
+      :manifest: 'a * 'b * 'c * 'd * 'e
+
+    Not yet documented: signature_item:include
 
     .. val:: make
-        type: 'a -> 'b -> 'c -> 'd -> 'e -> ('a, 'b, 'c, 'd, 'e) t
+      :type: 'a -> 'b -> 'c -> 'd -> 'e -> ('a, 'b, 'c, 'd, 'e) t
 
     .. val:: get_0
-        type: ('a, 'b, 'c, 'd, 'e) t -> 'a
+      :type: ('a, 'b, 'c, 'd, 'e) t -> 'a
 
     .. val:: get_1
-        type: ('a, 'b, 'c, 'd, 'e) t -> 'b
+      :type: ('a, 'b, 'c, 'd, 'e) t -> 'b
 
     .. val:: get_2
-        type: ('a, 'b, 'c, 'd, 'e) t -> 'c
+      :type: ('a, 'b, 'c, 'd, 'e) t -> 'c
 
     .. val:: get_3
-        type: ('a, 'b, 'c, 'd, 'e) t -> 'd
+      :type: ('a, 'b, 'c, 'd, 'e) t -> 'd
 
     .. val:: get_4
-        type: ('a, 'b, 'c, 'd, 'e) t -> 'e
+      :type: ('a, 'b, 'c, 'd, 'e) t -> 'e
 
     .. val:: flip
-        type: ('a, 'b, 'c, 'd, 'e) t -> ('e, 'd, 'c, 'b, 'a) t
+      :type: ('a, 'b, 'c, 'd, 'e) t -> ('e, 'd, 'c, 'b, 'a) t
 
   .. module:: IntOption
 
+    Not yet documented: signature_item:include
+
   .. module:: FloatOption
 
+    Not yet documented: signature_item:include
+
   .. module:: StringOption
+
+    Not yet documented: signature_item:include
 
   .. module:: IntReference
 
     .. type:: t
+      :manifest: int Reference.t
 
     .. module:: O
+
+      Not yet documented: signature_item:include
+
+      Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
 
   .. module:: FloatReference
 
     .. type:: t
+      :manifest: float Reference.t
 
     .. module:: O
+
+      Not yet documented: signature_item:include
+
+      Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
 
   .. module:: StringReference
 
     .. type:: t
+      :manifest: string Reference.t
 
     .. module:: O
 
+      Not yet documented: signature_item:include
+
       .. val:: (=^)
-          type: t -> string -> unit
+        :type: t -> string -> unit
+
+    Not yet documented: signature_item:include
 
   .. module:: List
 
     .. type:: t
+      :parameters: 'a
+      :manifest: 'a list
 
     .. module:: O
 
       .. val:: (@)
-          type: 'a t -> 'a t -> 'a t
+        :type: 'a t -> 'a t -> 'a t
 
     .. val:: empty
-        type: 'a t
+      :type: 'a t
 
     .. val:: singleton
-        type: 'a -> 'a t
+      :type: 'a -> 'a t
 
     .. val:: of_list
-        type: 'a list -> 'a t
+      :type: 'a list -> 'a t
 
     .. val:: to_list
-        type: 'a t -> 'a list
+      :type: 'a t -> 'a list
 
     .. val:: of_array
-        type: 'a array -> 'a t
+      :type: 'a array -> 'a t
 
     .. val:: to_array
-        type: 'a t -> 'a array
+      :type: 'a t -> 'a array
 
     .. val:: size
-        type: 'a t -> int
+      :type: 'a t -> int
 
     .. val:: is_empty
-        type: 'a t -> bool
+      :type: 'a t -> bool
 
     .. val:: head
-        type: 'a t -> 'a
+      :type: 'a t -> 'a
 
     .. val:: tail
-        type: 'a t -> 'a t
+      :type: 'a t -> 'a t
 
     .. val:: try_head
-        type: 'a t -> 'a option
+      :type: 'a t -> 'a option
 
     .. val:: try_tail
-        type: 'a t -> 'a t option
+      :type: 'a t -> 'a t option
 
     .. val:: contains
-        type: 'a t -> 'a -> equal_a:('a -> 'a -> bool) -> bool
+      :type: 'a t -> 'a -> equal_a:('a -> 'a -> bool) -> bool
 
     .. module:: Poly
 
       .. val:: contains
-          type: 'a t -> 'a -> bool
+        :type: 'a t -> 'a -> bool
 
     .. val:: prepend
-        type: 'a -> 'a t -> 'a t
+      :type: 'a -> 'a t -> 'a t
 
     .. val:: reverse
-        type: 'a t -> 'a t
+      :type: 'a t -> 'a t
 
     .. val:: concat
-        type: 'a t -> 'a t -> 'a t
+      :type: 'a t -> 'a t -> 'a t
+
+    Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
 
     .. module:: Specialize
 
+      Not yet documented: module_type:functor
+
     .. module:: SpecializeEquatable
+
+      Not yet documented: module_type:functor
 
   .. module:: Array
 
     .. type:: t
+      :parameters: 'a
+      :manifest: 'a array
 
     .. val:: get
-        type: 'a t -> int -> 'a
+      :type: 'a t -> int -> 'a
 
   .. module:: Stream
 
     .. type:: t
+      :parameters: 'a
+      :manifest: 'a Pervasives.OCamlStandard.Stream.t
 
     .. val:: empty
-        type: 'a t
+      :type: 'a t
 
     .. val:: singleton
-        type: 'a -> 'a t
+      :type: 'a -> 'a t
 
     .. val:: to_list
-        type: 'a t -> 'a list
+      :type: 'a t -> 'a list
 
     .. val:: of_list
-        type: 'a list -> 'a t
+      :type: 'a list -> 'a t
 
     .. val:: prepend
-        type: 'a -> 'a t -> 'a t
+      :type: 'a -> 'a t -> 'a t
 
     .. val:: concat
-        type: 'a t -> 'a t -> 'a t
+      :type: 'a t -> 'a t -> 'a t
+
+    Not yet documented: signature_item:include
 
     .. module:: ToList
+
+      Not yet documented: signature_item:include
 
   .. module:: IntRange
 
     .. type:: t
 
+    Not yet documented: signature_item:include
+
     .. val:: empty
-        type: t
+      :type: t
 
     .. val:: create
-        type: ?start:int -> ?step:int -> int -> t
+      :type: ?start:int -> ?step:int -> int -> t
 
     .. val:: to_list
-        type: t -> int list
+      :type: t -> int list
 
     .. val:: to_array
-        type: t -> int array
+      :type: t -> int array
+
+    Not yet documented: signature_item:include
+
+    Not yet documented: signature_item:include
 
     .. module:: ToList
 
+      Not yet documented: signature_item:include
+
+      Not yet documented: signature_item:include
+
+      Not yet documented: signature_item:include
+
   .. module:: IntList
+
+    Not yet documented: signature_item:include
 
   .. module:: FloatList
 
+    Not yet documented: signature_item:include
+
   .. module:: StringList
 
+    Not yet documented: signature_item:include
+
     .. val:: concat
-        type: ?sep:string -> t -> string
+      :type: ?sep:string -> t -> string
 
   .. module:: Format
 
     .. type:: t
+      :parameters: ('a, 'b, 'c, 'd, 'e, 'f)
+      :manifest: ('a, 'b, 'c, 'd, 'e, 'f) CamlinternalFormatBasics.format6
 
     .. val:: with_result
-        type: ('b, unit, string, string, string, 'a) t -> f:(string -> 'a) -> 'b
+      :type: ('b, unit, string, string, string, 'a) t -> f:(string -> 'a) -> 'b
 
     .. val:: apply
-        type: ('a, unit, string, string, string, string) t -> 'a
+      :type: ('a, unit, string, string, string, string) t -> 'a
 
     .. val:: to_string
-        type: ('a, 'b, 'c, 'd, 'e, 'f) t -> string
+      :type: ('a, 'b, 'c, 'd, 'e, 'f) t -> string
 
     .. val:: of_string
-        type: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('a, 'b, 'c, 'd, 'e, 'f) t
+      :type: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('a, 'b, 'c, 'd, 'e, 'f) t
 
     .. val:: concat
-        type: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('f, 'b, 'c, 'e, 'g, 'h) t -> ('a, 'b, 'c, 'd, 'g, 'h) t
+      :type: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('f, 'b, 'c, 'e, 'g, 'h) t -> ('a, 'b, 'c, 'd, 'g, 'h) t
 
   .. module:: InChannel
 
     .. type:: t
+      :manifest: Pervasives.OCamlStandard.Pervasives.in_channel
 
   .. module:: InFile
 
     .. type:: t
 
     .. val:: with_file
-        type: string -> f:(t -> 'a) -> 'a
+      :type: string -> f:(t -> 'a) -> 'a
 
     .. val:: with_channel
-        type: string -> f:(InChannel.t -> 'a) -> 'a
+      :type: string -> f:(InChannel.t -> 'a) -> 'a
 
     .. val:: channel
-        type: t -> InChannel.t
+      :type: t -> InChannel.t
 
     .. val:: seek
-        type: t -> pos:int64 -> unit
+      :type: t -> pos:int64 -> unit
 
     .. val:: pos
-        type: t -> int64
+      :type: t -> int64
 
     .. val:: size
-        type: t -> int64
+      :type: t -> int64
 
   .. module:: OutChannel
 
     .. type:: t
+      :manifest: Pervasives.OCamlStandard.Pervasives.out_channel
 
     .. val:: print
-        type: t -> ('a, t, unit, unit, unit, unit) Format.t -> 'a
+      :type: t -> ('a, t, unit, unit, unit, unit) Format.t -> 'a
 
     .. val:: output
-        type: t -> bytes -> unit
+      :type: t -> bytes -> unit
 
     .. val:: flush
-        type: t -> unit
+      :type: t -> unit
 
   .. module:: OutFile
 
     .. type:: t
 
     .. val:: with_file
-        type: string -> f:(t -> 'a) -> 'a
+      :type: string -> f:(t -> 'a) -> 'a
 
     .. val:: with_channel
-        type: string -> f:(OutChannel.t -> 'a) -> 'a
+      :type: string -> f:(OutChannel.t -> 'a) -> 'a
 
     .. val:: channel
-        type: t -> OutChannel.t
+      :type: t -> OutChannel.t
 
     .. val:: seek
-        type: t -> pos:int64 -> unit
+      :type: t -> pos:int64 -> unit
 
     .. val:: pos
-        type: t -> int64
+      :type: t -> int64
 
     .. val:: size
-        type: t -> int64
+      :type: t -> int64
 
   .. module:: StdIn
 
     .. val:: channel
-        type: InChannel.t
+      :type: InChannel.t
 
   .. module:: StdOut
 
     .. val:: channel
-        type: OutChannel.t
+      :type: OutChannel.t
 
     .. val:: print
-        type: ('a, OutChannel.t, unit, unit, unit, unit) Format.t -> 'a
+      :type: ('a, OutChannel.t, unit, unit, unit, unit) Format.t -> 'a
 
     .. val:: output
-        type: bytes -> unit
+      :type: bytes -> unit
 
     .. val:: flush
-        type: unit -> unit
+      :type: unit -> unit
 
   .. module:: StdErr
 
     .. val:: channel
-        type: OutChannel.t
+      :type: OutChannel.t
 
     .. val:: print
-        type: ('a, OutChannel.t, unit, unit, unit, unit) Format.t -> 'a
+      :type: ('a, OutChannel.t, unit, unit, unit, unit) Format.t -> 'a
 
     .. val:: output
-        type: bytes -> unit
+      :type: bytes -> unit
 
     .. val:: flush
-        type: unit -> unit
+      :type: unit -> unit
 
   .. module:: Testing
 
@@ -1004,271 +1249,464 @@ Reference
     .. module:: Test
 
       .. type:: t
+        :manifest: Testing.Test.t
 
       .. val:: run
-          type: ?record_backtrace:bool -> t -> Result.t
+        :type: ?record_backtrace:bool -> t -> Result.t
 
     .. val:: command_line_main
-        type: argv:string list -> Test.t -> Exit.t
+      :type: argv:string list -> Test.t -> Exit.t
 
     .. val:: (>::)
-        type: string -> Test.t list -> Test.t
+      :type: string -> Test.t list -> Test.t
 
     .. val:: (>:)
-        type: string -> unit lazy_t -> Test.t
+      :type: string -> unit lazy_t -> Test.t
 
     .. val:: (~:)
-        type: ('a, unit, string, string, string, unit lazy_t -> Test.t) CamlinternalFormatBasics.format6 -> 'a
+      :type: ('a, unit, string, string, string, unit lazy_t -> Test.t) CamlinternalFormatBasics.format6 -> 'a
 
     .. val:: (~::)
-        type: ('a, unit, string, string, string, Test.t list -> Test.t) CamlinternalFormatBasics.format6 -> 'a
+      :type: ('a, unit, string, string, string, Test.t list -> Test.t) CamlinternalFormatBasics.format6 -> 'a
 
     .. val:: fail
-        type: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
+      :type: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
 
     .. val:: expect_exception
-        type: expected:exn -> 'a lazy_t -> unit
+      :type: expected:exn -> 'a lazy_t -> unit
 
     .. val:: check
-        type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
+      :type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
 
     .. val:: check_poly
-        type: repr:('a -> string) -> expected:'a -> 'a -> unit
+      :type: repr:('a -> string) -> expected:'a -> 'a -> unit
 
     .. val:: check_string
-        type: expected:string -> string -> unit
+      :type: expected:string -> string -> unit
 
     .. val:: check_bool
-        type: expected:bool -> bool -> unit
+      :type: expected:bool -> bool -> unit
 
     .. val:: check_true
-        type: bool -> unit
+      :type: bool -> unit
 
     .. val:: check_false
-        type: bool -> unit
+      :type: bool -> unit
 
     .. val:: check_int
-        type: expected:int -> int -> unit
+      :type: expected:int -> int -> unit
 
     .. val:: check_float_exact
-        type: expected:float -> float -> unit
+      :type: expected:float -> float -> unit
 
     .. val:: check_option
-        type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a option -> 'a option -> unit
+      :type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a option -> 'a option -> unit
 
     .. val:: check_some
-        type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a option -> unit
+      :type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a option -> unit
 
     .. val:: check_none
-        type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> 'a option -> unit
+      :type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> 'a option -> unit
 
     .. val:: check_int_option
-        type: expected:int option -> int option -> unit
+      :type: expected:int option -> int option -> unit
 
     .. val:: check_some_int
-        type: expected:int -> int option -> unit
+      :type: expected:int -> int option -> unit
 
     .. val:: check_none_int
-        type: int option -> unit
+      :type: int option -> unit
 
     .. val:: check_list
-        type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a list -> 'a list -> unit
+      :type: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a list -> 'a list -> unit
 
     .. val:: check_string_list
-        type: expected:string list -> string list -> unit
+      :type: expected:string list -> string list -> unit
 
     .. val:: check_int_list
-        type: expected:int list -> int list -> unit
+      :type: expected:int list -> int list -> unit
 
   .. module:: Standard
 
     .. module:: Testing
 
+      Not yet documented: module_type:of
+
     .. module:: Array
+
+      Not yet documented: module_type:of
 
     .. module:: BigInt
 
+      Not yet documented: module_type:of
+
     .. module:: Bool
+
+      Not yet documented: module_type:of
 
     .. module:: CallStack
 
+      Not yet documented: module_type:of
+
     .. module:: Char
+
+      Not yet documented: module_type:of
 
     .. module:: Exception
 
+      Not yet documented: module_type:of
+
     .. module:: Exit
+
+      Not yet documented: module_type:with
 
     .. module:: Float
 
+      Not yet documented: module_type:of
+
     .. module:: Format
+
+      Not yet documented: module_type:of
 
     .. module:: Function1
 
+      Not yet documented: module_type:of
+
     .. module:: Function2
+
+      Not yet documented: module_type:of
 
     .. module:: Function3
 
+      Not yet documented: module_type:of
+
     .. module:: Function4
+
+      Not yet documented: module_type:of
 
     .. module:: Function5
 
+      Not yet documented: module_type:of
+
     .. module:: InChannel
+
+      Not yet documented: module_type:of
 
     .. module:: InFile
 
+      Not yet documented: module_type:of
+
     .. module:: Int32
+
+      Not yet documented: module_type:of
 
     .. module:: Int64
 
+      Not yet documented: module_type:of
+
     .. module:: Int
+
+      Not yet documented: module_type:of
 
     .. module:: Lazy
 
+      Not yet documented: module_type:of
+
     .. module:: List
+
+      Not yet documented: module_type:of
 
     .. module:: NativeInt
 
+      Not yet documented: module_type:of
+
     .. module:: Option
+
+      Not yet documented: module_type:of
 
     .. module:: OutChannel
 
+      Not yet documented: module_type:of
+
     .. module:: OutFile
+
+      Not yet documented: module_type:of
 
     .. module:: Reference
 
+      Not yet documented: module_type:of
+
     .. module:: StdErr
+
+      Not yet documented: module_type:of
 
     .. module:: StdIn
 
+      Not yet documented: module_type:of
+
     .. module:: StdOut
+
+      Not yet documented: module_type:of
 
     .. module:: Stream
 
+      Not yet documented: module_type:of
+
     .. module:: String
+
+      Not yet documented: module_type:of
 
     .. module:: Tuple2
 
+      Not yet documented: module_type:of
+
     .. module:: Tuple3
+
+      Not yet documented: module_type:of
 
     .. module:: Tuple4
 
+      Not yet documented: module_type:of
+
     .. module:: Tuple5
+
+      Not yet documented: module_type:of
 
     .. module:: Unit
 
+      Not yet documented: module_type:of
+
     .. module:: IntRange
+
+      Not yet documented: module_type:of
 
     .. module:: IntOption
 
+      Not yet documented: module_type:of
+
     .. module:: FloatOption
+
+      Not yet documented: module_type:of
 
     .. module:: StringOption
 
+      Not yet documented: module_type:of
+
     .. module:: IntReference
+
+      Not yet documented: module_type:of
 
     .. module:: FloatReference
 
+      Not yet documented: module_type:of
+
     .. module:: StringReference
+
+      Not yet documented: module_type:of
 
     .. module:: IntList
 
+      Not yet documented: module_type:of
+
     .. module:: FloatList
 
+      Not yet documented: module_type:of
+
     .. module:: StringList
+
+      Not yet documented: module_type:of
+
+    Not yet documented: signature_item:include
 
   .. module:: Abbr
 
     .. module:: Tst
 
+      Not yet documented: module_type:of
+
     .. module:: Ar
+
+      Not yet documented: module_type:of
 
     .. module:: BigInt
 
+      Not yet documented: module_type:of
+
     .. module:: Bo
+
+      Not yet documented: module_type:of
 
     .. module:: CallStack
 
+      Not yet documented: module_type:of
+
     .. module:: Ch
+
+      Not yet documented: module_type:of
 
     .. module:: Exit
 
+      Not yet documented: module_type:with
+
     .. module:: Exn
+
+      Not yet documented: module_type:of
 
     .. module:: Fl
 
+      Not yet documented: module_type:of
+
     .. module:: Frmt
+
+      Not yet documented: module_type:of
 
     .. module:: Fun1
 
+      Not yet documented: module_type:of
+
     .. module:: Fun2
+
+      Not yet documented: module_type:of
 
     .. module:: Fun3
 
+      Not yet documented: module_type:of
+
     .. module:: Fun4
+
+      Not yet documented: module_type:of
 
     .. module:: Fun5
 
+      Not yet documented: module_type:of
+
     .. module:: InCh
+
+      Not yet documented: module_type:of
 
     .. module:: InFile
 
+      Not yet documented: module_type:of
+
     .. module:: Int32
+
+      Not yet documented: module_type:of
 
     .. module:: Int64
 
+      Not yet documented: module_type:of
+
     .. module:: Int
+
+      Not yet documented: module_type:of
 
     .. module:: Laz
 
+      Not yet documented: module_type:of
+
     .. module:: Li
+
+      Not yet documented: module_type:of
 
     .. module:: NativeInt
 
+      Not yet documented: module_type:of
+
     .. module:: Opt
+
+      Not yet documented: module_type:of
 
     .. module:: OutCh
 
+      Not yet documented: module_type:of
+
     .. module:: OutFile
+
+      Not yet documented: module_type:of
 
     .. module:: Ref
 
+      Not yet documented: module_type:of
+
     .. module:: StdErr
+
+      Not yet documented: module_type:of
 
     .. module:: StdIn
 
+      Not yet documented: module_type:of
+
     .. module:: StdOut
+
+      Not yet documented: module_type:of
 
     .. module:: Str
 
+      Not yet documented: module_type:of
+
     .. module:: Strm
+
+      Not yet documented: module_type:of
 
     .. module:: Tu2
 
+      Not yet documented: module_type:of
+
     .. module:: Tu3
+
+      Not yet documented: module_type:of
 
     .. module:: Tu4
 
+      Not yet documented: module_type:of
+
     .. module:: Tu5
+
+      Not yet documented: module_type:of
 
     .. module:: Unit
 
+      Not yet documented: module_type:of
+
     .. module:: IntRa
+
+      Not yet documented: module_type:of
 
     .. module:: IntOpt
 
+      Not yet documented: module_type:of
+
     .. module:: FlOpt
+
+      Not yet documented: module_type:of
 
     .. module:: StrOpt
 
+      Not yet documented: module_type:of
+
     .. module:: IntRef
+
+      Not yet documented: module_type:of
 
     .. module:: FlRef
 
+      Not yet documented: module_type:of
+
     .. module:: StrRef
+
+      Not yet documented: module_type:of
 
     .. module:: IntLi
 
+      Not yet documented: module_type:of
+
     .. module:: FlLi
 
+      Not yet documented: module_type:of
+
     .. module:: StrLi
+
+      Not yet documented: module_type:of
+
+    Not yet documented: signature_item:include
 

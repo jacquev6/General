@@ -1,194 +1,70 @@
-[
-  {
-    "__class__": "signature_item:type",
-    "doc": [],
-    "hidden": false,
-    "name": "simple",
-    "parameters": [],
-    "manifest": null,
-    "kind": { "__class__": "type_kind:abstract" }
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [],
-    "hidden": false,
-    "name": "one_parameter",
-    "parameters": [
-      { "__class__": "type_parameter", "type": "'a", "variance": null }
-    ],
-    "manifest": null,
-    "kind": { "__class__": "type_kind:abstract" }
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [],
-    "hidden": false,
-    "name": "several_parameter",
-    "parameters": [
-      { "__class__": "type_parameter", "type": "'a", "variance": null },
-      { "__class__": "type_parameter", "type": "'b", "variance": null },
-      { "__class__": "type_parameter", "type": "'c", "variance": null },
-      { "__class__": "type_parameter", "type": "'d", "variance": null }
-    ],
-    "manifest": null,
-    "kind": { "__class__": "type_kind:abstract" }
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [],
-    "hidden": false,
-    "name": "variance",
-    "parameters": [
-      { "__class__": "type_parameter", "type": "'a", "variance": "+" },
-      { "__class__": "type_parameter", "type": "'b", "variance": "-" }
-    ],
-    "manifest": null,
-    "kind": { "__class__": "type_kind:abstract" }
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [],
-    "hidden": false,
-    "name": "manifest",
-    "parameters": [],
-    "manifest": "int",
-    "kind": { "__class__": "type_kind:abstract" }
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [],
-    "hidden": false,
-    "name": "manifest_and_parameters",
-    "parameters": [
-      { "__class__": "type_parameter", "type": "'a", "variance": null },
-      { "__class__": "type_parameter", "type": "'b", "variance": null }
-    ],
-    "manifest": "'a list * 'b array",
-    "kind": { "__class__": "type_kind:abstract" }
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [ " Doc for variant ", " Doc' for variant " ],
-    "hidden": false,
-    "name": "variant",
-    "parameters": [],
-    "manifest": null,
-    "kind": {
-      "__class__": "type_kind:variant",
-      "constructors": [
-        {
-          "__class__": "type_constructor",
-          "doc": [ " Doc for A " ],
-          "name": "A",
-          "arguments": []
-        },
-        {
-          "__class__": "type_constructor",
-          "doc": [ " Doc for B " ],
-          "name": "B",
-          "arguments": [ "int" ]
-        },
-        {
-          "__class__": "type_constructor",
-          "doc": [ " Doc for C " ],
-          "name": "C",
-          "arguments": [ "int", "string" ]
-        },
-        {
-          "__class__": "type_constructor",
-          "doc": [ " Doc for D " ],
-          "name": "D",
-          "arguments": [ "int * string" ]
-        }
-      ]
-    }
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [],
-    "hidden": false,
-    "name": "variant_with_manifest_and_parameter",
-    "parameters": [
-      { "__class__": "type_parameter", "type": "'a", "variance": null }
-    ],
-    "manifest": "'a option",
-    "kind": {
-      "__class__": "type_kind:variant",
-      "constructors": [
-        {
-          "__class__": "type_constructor",
-          "doc": [],
-          "name": "None",
-          "arguments": []
-        },
-        {
-          "__class__": "type_constructor",
-          "doc": [],
-          "name": "Some",
-          "arguments": [ "'a" ]
-        }
-      ]
-    }
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [ " Doc for record ", " Doc' for record " ],
-    "hidden": false,
-    "name": "record",
-    "parameters": [],
-    "manifest": null,
-    "kind": {
-      "__class__": "type_kind:record",
-      "labels": [
-        {
-          "__class__": "type_label",
-          "doc": [ " Doc for field " ],
-          "name": "field",
-          "mutable": false,
-          "type": "int"
-        },
-        {
-          "__class__": "type_label",
-          "doc": [ " Doc for bar " ],
-          "name": "bar",
-          "mutable": false,
-          "type": "float list"
-        }
-      ]
-    }
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [],
-    "hidden": false,
-    "name": "record_with_manifest_and_parameter",
-    "parameters": [
-      { "__class__": "type_parameter", "type": "'a", "variance": null }
-    ],
-    "manifest": "'a ref",
-    "kind": {
-      "__class__": "type_kind:record",
-      "labels": [
-        {
-          "__class__": "type_label",
-          "doc": [],
-          "name": "contents",
-          "mutable": true,
-          "type": "'a"
-        }
-      ]
-    }
-  },
-  {
-    "__class__": "signature_item:recursive_types",
-    "doc": [],
-    "hidden": false,
-    "types": [
+{
+  "__class__": "signature_item:module",
+  "name": "tests/ValueTypes",
+  "doc": [],
+  "hidden": false,
+  "type": {
+    "__class__": "module_type:signature",
+    "elements": [
       {
         "__class__": "signature_item:type",
-        "doc": [ " Two mutually recursive types " ],
+        "doc": [],
         "hidden": false,
-        "name": "tree",
+        "name": "simple",
+        "parameters": [],
+        "manifest": null,
+        "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [],
+        "hidden": false,
+        "name": "one_parameter",
+        "parameters": [ "'a" ],
+        "manifest": null,
+        "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [],
+        "hidden": false,
+        "name": "several_parameter",
+        "parameters": [ "'a", "'b", "'c", "'d" ],
+        "manifest": null,
+        "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [],
+        "hidden": false,
+        "name": "variance",
+        "parameters": [ "+'a", "-'b" ],
+        "manifest": null,
+        "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [],
+        "hidden": false,
+        "name": "manifest",
+        "parameters": [],
+        "manifest": "int",
+        "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [],
+        "hidden": false,
+        "name": "manifest_and_parameters",
+        "parameters": [ "'a", "'b" ],
+        "manifest": "'a list * 'b array",
+        "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [ " Doc for variant ", " Doc' for variant " ],
+        "hidden": false,
+        "name": "variant",
         "parameters": [],
         "manifest": null,
         "kind": {
@@ -196,15 +72,27 @@
           "constructors": [
             {
               "__class__": "type_constructor",
-              "doc": [],
-              "name": "Node",
-              "arguments": [ "node" ]
+              "doc": [ " Doc for A " ],
+              "name": "A",
+              "arguments": []
             },
             {
               "__class__": "type_constructor",
-              "doc": [],
-              "name": "Leaf",
-              "arguments": []
+              "doc": [ " Doc for B " ],
+              "name": "B",
+              "arguments": [ "int" ]
+            },
+            {
+              "__class__": "type_constructor",
+              "doc": [ " Doc for C " ],
+              "name": "C",
+              "arguments": [ "int", "string" ]
+            },
+            {
+              "__class__": "type_constructor",
+              "doc": [ " Doc for D " ],
+              "name": "D",
+              "arguments": [ "int * string" ]
             }
           ]
         }
@@ -213,63 +101,160 @@
         "__class__": "signature_item:type",
         "doc": [],
         "hidden": false,
-        "name": "node",
+        "name": "variant_with_manifest_and_parameter",
+        "parameters": [ "'a" ],
+        "manifest": "'a option",
+        "kind": {
+          "__class__": "type_kind:variant",
+          "constructors": [
+            {
+              "__class__": "type_constructor",
+              "doc": [],
+              "name": "None",
+              "arguments": []
+            },
+            {
+              "__class__": "type_constructor",
+              "doc": [],
+              "name": "Some",
+              "arguments": [ "'a" ]
+            }
+          ]
+        }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [ " Doc for record ", " Doc' for record " ],
+        "hidden": false,
+        "name": "record",
         "parameters": [],
-        "manifest": "int * tree",
+        "manifest": null,
+        "kind": {
+          "__class__": "type_kind:record",
+          "labels": [
+            {
+              "__class__": "type_label",
+              "doc": [ " Doc for field " ],
+              "name": "field",
+              "mutable": false,
+              "type": "int"
+            },
+            {
+              "__class__": "type_label",
+              "doc": [ " Doc for bar " ],
+              "name": "bar",
+              "mutable": false,
+              "type": "float list"
+            }
+          ]
+        }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [],
+        "hidden": false,
+        "name": "record_with_manifest_and_parameter",
+        "parameters": [ "'a" ],
+        "manifest": "'a ref",
+        "kind": {
+          "__class__": "type_kind:record",
+          "labels": [
+            {
+              "__class__": "type_label",
+              "doc": [],
+              "name": "contents",
+              "mutable": true,
+              "type": "'a"
+            }
+          ]
+        }
+      },
+      {
+        "__class__": "signature_item:recursive_types",
+        "doc": [],
+        "hidden": false,
+        "types": [
+          {
+            "__class__": "signature_item:type",
+            "doc": [ " Two mutually recursive types " ],
+            "hidden": false,
+            "name": "tree",
+            "parameters": [],
+            "manifest": null,
+            "kind": {
+              "__class__": "type_kind:variant",
+              "constructors": [
+                {
+                  "__class__": "type_constructor",
+                  "doc": [],
+                  "name": "Node",
+                  "arguments": [ "node" ]
+                },
+                {
+                  "__class__": "type_constructor",
+                  "doc": [],
+                  "name": "Leaf",
+                  "arguments": []
+                }
+              ]
+            }
+          },
+          {
+            "__class__": "signature_item:type",
+            "doc": [],
+            "hidden": false,
+            "name": "node",
+            "parameters": [],
+            "manifest": "int * tree",
+            "kind": { "__class__": "type_kind:abstract" }
+          }
+        ]
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [],
+        "hidden": false,
+        "name": "constrained_to_list",
+        "parameters": [ "'a list" ],
+        "manifest": null,
+        "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [],
+        "hidden": false,
+        "name": "constrained_to_tuple",
+        "parameters": [ "'a * 'b" ],
+        "manifest": null,
+        "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [],
+        "hidden": false,
+        "name": "function_",
+        "parameters": [ "'a", "'b" ],
+        "manifest": "'a -> 'b",
+        "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [],
+        "hidden": false,
+        "name": "function_with_label",
+        "parameters": [],
+        "manifest": "a:int -> unit",
+        "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [],
+        "hidden": false,
+        "name": "function_with_optional_label",
+        "parameters": [],
+        "manifest": "?a:int -> unit",
         "kind": { "__class__": "type_kind:abstract" }
       }
     ]
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [],
-    "hidden": false,
-    "name": "constrained_to_list",
-    "parameters": [
-      { "__class__": "type_parameter", "type": "'a list", "variance": null }
-    ],
-    "manifest": null,
-    "kind": { "__class__": "type_kind:abstract" }
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [],
-    "hidden": false,
-    "name": "constrained_to_tuple",
-    "parameters": [
-      { "__class__": "type_parameter", "type": "'a * 'b", "variance": null }
-    ],
-    "manifest": null,
-    "kind": { "__class__": "type_kind:abstract" }
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [],
-    "hidden": false,
-    "name": "function_",
-    "parameters": [
-      { "__class__": "type_parameter", "type": "'a", "variance": null },
-      { "__class__": "type_parameter", "type": "'b", "variance": null }
-    ],
-    "manifest": "'a -> 'b",
-    "kind": { "__class__": "type_kind:abstract" }
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [],
-    "hidden": false,
-    "name": "function_with_label",
-    "parameters": [],
-    "manifest": "a:int -> unit",
-    "kind": { "__class__": "type_kind:abstract" }
-  },
-  {
-    "__class__": "signature_item:type",
-    "doc": [],
-    "hidden": false,
-    "name": "function_with_optional_label",
-    "parameters": [],
-    "manifest": "?a:int -> unit",
-    "kind": { "__class__": "type_kind:abstract" }
   }
-]
+}

@@ -1,40 +1,63 @@
-[
-  {
-    "__class__": "signature_item:module",
-    "doc": [],
-    "hidden": false,
-    "name": "Signature",
-    "type": { "__class__": "module_type:signature", "elements": [] }
-  },
-  {
-    "__class__": "signature_item:module",
-    "doc": [],
-    "hidden": false,
-    "name": "Identifier",
-    "type": {
-      "__class__": "module_type:identifier",
-      "name": "Set.OrderedType"
-    }
-  },
-  {
-    "__class__": "signature_item:module",
-    "doc": [],
-    "hidden": false,
-    "name": "Functor",
-    "type": {
-      "__class__": "module_type:functor",
-      "parameters": [
-        {
-          "__class__": "functor_parameter",
-          "name": "A",
-          "type": {
+{
+  "__class__": "signature_item:module",
+  "name": "tests/ModuleTypes",
+  "doc": [],
+  "hidden": false,
+  "type": {
+    "__class__": "module_type:signature",
+    "elements": [
+      {
+        "__class__": "signature_item:module",
+        "doc": [],
+        "hidden": false,
+        "name": "Signature",
+        "type": { "__class__": "module_type:signature", "elements": [] }
+      },
+      {
+        "__class__": "signature_item:module",
+        "doc": [],
+        "hidden": false,
+        "name": "Identifier",
+        "type": {
+          "__class__": "module_type:identifier",
+          "name": "Set.OrderedType"
+        }
+      },
+      {
+        "__class__": "signature_item:module",
+        "doc": [],
+        "hidden": false,
+        "name": "Functor",
+        "type": {
+          "__class__": "module_type:functor",
+          "parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "A",
+              "type": {
+                "__class__": "module_type:signature",
+                "elements": [
+                  {
+                    "__class__": "signature_item:type",
+                    "doc": [],
+                    "hidden": false,
+                    "name": "a",
+                    "parameters": [],
+                    "manifest": null,
+                    "kind": { "__class__": "type_kind:abstract" }
+                  }
+                ]
+              }
+            }
+          ],
+          "contents": {
             "__class__": "module_type:signature",
             "elements": [
               {
                 "__class__": "signature_item:type",
                 "doc": [],
                 "hidden": false,
-                "name": "a",
+                "name": "z",
                 "parameters": [],
                 "manifest": null,
                 "kind": { "__class__": "type_kind:abstract" }
@@ -42,223 +65,216 @@
             ]
           }
         }
-      ],
-      "contents": {
-        "__class__": "module_type:signature",
-        "elements": [
-          {
-            "__class__": "signature_item:type",
-            "doc": [],
-            "hidden": false,
-            "name": "z",
-            "parameters": [],
-            "manifest": null,
-            "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:module",
+        "doc": [],
+        "hidden": false,
+        "name": "FunctorMulti",
+        "type": {
+          "__class__": "module_type:functor",
+          "parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "A",
+              "type": {
+                "__class__": "module_type:signature",
+                "elements": [
+                  {
+                    "__class__": "signature_item:type",
+                    "doc": [],
+                    "hidden": false,
+                    "name": "a",
+                    "parameters": [],
+                    "manifest": null,
+                    "kind": { "__class__": "type_kind:abstract" }
+                  }
+                ]
+              }
+            },
+            {
+              "__class__": "functor_parameter",
+              "name": "B",
+              "type": {
+                "__class__": "module_type:signature",
+                "elements": [
+                  {
+                    "__class__": "signature_item:type",
+                    "doc": [],
+                    "hidden": false,
+                    "name": "b",
+                    "parameters": [],
+                    "manifest": null,
+                    "kind": { "__class__": "type_kind:abstract" }
+                  }
+                ]
+              }
+            },
+            {
+              "__class__": "functor_parameter",
+              "name": "C",
+              "type": {
+                "__class__": "module_type:signature",
+                "elements": [
+                  {
+                    "__class__": "signature_item:type",
+                    "doc": [],
+                    "hidden": false,
+                    "name": "c",
+                    "parameters": [],
+                    "manifest": null,
+                    "kind": { "__class__": "type_kind:abstract" }
+                  }
+                ]
+              }
+            }
+          ],
+          "contents": {
+            "__class__": "module_type:signature",
+            "elements": [
+              {
+                "__class__": "signature_item:type",
+                "doc": [],
+                "hidden": false,
+                "name": "z",
+                "parameters": [],
+                "manifest": null,
+                "kind": { "__class__": "type_kind:abstract" }
+              }
+            ]
           }
-        ]
+        }
+      },
+      {
+        "__class__": "signature_item:module",
+        "doc": [],
+        "hidden": false,
+        "name": "TypeOf",
+        "type": {
+          "__class__": "module_type:of",
+          "module": {
+            "__class__": "module_expr:identifier",
+            "name": "Identifier"
+          }
+        }
+      },
+      {
+        "__class__": "signature_item:module",
+        "doc": [],
+        "hidden": false,
+        "name": "WithType",
+        "type": {
+          "__class__": "module_type:with",
+          "module": {
+            "__class__": "module_type:identifier",
+            "name": "Set.OrderedType"
+          },
+          "constaints": [
+            {
+              "__class__": "with:type",
+              "name": "t",
+              "parameters": [],
+              "manifest": "int"
+            }
+          ]
+        }
+      },
+      {
+        "__class__": "signature_item:module",
+        "doc": [],
+        "hidden": false,
+        "name": "WithTypeSubst",
+        "type": {
+          "__class__": "module_type:with",
+          "module": {
+            "__class__": "module_type:identifier",
+            "name": "Set.OrderedType"
+          },
+          "constaints": [
+            {
+              "__class__": "with:type_subst",
+              "name": "t",
+              "parameters": [],
+              "manifest": "int"
+            }
+          ]
+        }
+      },
+      {
+        "__class__": "signature_item:module_type",
+        "doc": [],
+        "hidden": false,
+        "name": "Null",
+        "type": null
+      },
+      {
+        "__class__": "signature_item:module_type",
+        "doc": [],
+        "hidden": false,
+        "name": "Replacable",
+        "type": {
+          "__class__": "module_type:signature",
+          "elements": [
+            {
+              "__class__": "signature_item:module",
+              "doc": [],
+              "hidden": false,
+              "name": "M",
+              "type": {
+                "__class__": "module_type:identifier",
+                "name": "Null"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "__class__": "signature_item:module",
+        "doc": [],
+        "hidden": false,
+        "name": "ReplaceM",
+        "type": { "__class__": "module_type:identifier", "name": "Null" }
+      },
+      {
+        "__class__": "signature_item:module",
+        "doc": [],
+        "hidden": false,
+        "name": "Replaced",
+        "type": {
+          "__class__": "module_type:with",
+          "module": {
+            "__class__": "module_type:identifier",
+            "name": "Replacable"
+          },
+          "constaints": [
+            {
+              "__class__": "with:module",
+              "name": "M",
+              "manifest": "ReplaceM"
+            }
+          ]
+        }
+      },
+      {
+        "__class__": "signature_item:module",
+        "doc": [],
+        "hidden": false,
+        "name": "Substituted",
+        "type": {
+          "__class__": "module_type:with",
+          "module": {
+            "__class__": "module_type:identifier",
+            "name": "Replacable"
+          },
+          "constaints": [
+            {
+              "__class__": "with:module_subst",
+              "name": "M",
+              "manifest": "ReplaceM"
+            }
+          ]
+        }
       }
-    }
-  },
-  {
-    "__class__": "signature_item:module",
-    "doc": [],
-    "hidden": false,
-    "name": "FunctorMulti",
-    "type": {
-      "__class__": "module_type:functor",
-      "parameters": [
-        {
-          "__class__": "functor_parameter",
-          "name": "A",
-          "type": {
-            "__class__": "module_type:signature",
-            "elements": [
-              {
-                "__class__": "signature_item:type",
-                "doc": [],
-                "hidden": false,
-                "name": "a",
-                "parameters": [],
-                "manifest": null,
-                "kind": { "__class__": "type_kind:abstract" }
-              }
-            ]
-          }
-        },
-        {
-          "__class__": "functor_parameter",
-          "name": "B",
-          "type": {
-            "__class__": "module_type:signature",
-            "elements": [
-              {
-                "__class__": "signature_item:type",
-                "doc": [],
-                "hidden": false,
-                "name": "b",
-                "parameters": [],
-                "manifest": null,
-                "kind": { "__class__": "type_kind:abstract" }
-              }
-            ]
-          }
-        },
-        {
-          "__class__": "functor_parameter",
-          "name": "C",
-          "type": {
-            "__class__": "module_type:signature",
-            "elements": [
-              {
-                "__class__": "signature_item:type",
-                "doc": [],
-                "hidden": false,
-                "name": "c",
-                "parameters": [],
-                "manifest": null,
-                "kind": { "__class__": "type_kind:abstract" }
-              }
-            ]
-          }
-        }
-      ],
-      "contents": {
-        "__class__": "module_type:signature",
-        "elements": [
-          {
-            "__class__": "signature_item:type",
-            "doc": [],
-            "hidden": false,
-            "name": "z",
-            "parameters": [],
-            "manifest": null,
-            "kind": { "__class__": "type_kind:abstract" }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "__class__": "signature_item:module",
-    "doc": [],
-    "hidden": false,
-    "name": "TypeOf",
-    "type": {
-      "__class__": "module_type:of",
-      "module": {
-        "__class__": "module_expr:identifier",
-        "name": "Identifier"
-      }
-    }
-  },
-  {
-    "__class__": "signature_item:module",
-    "doc": [],
-    "hidden": false,
-    "name": "WithType",
-    "type": {
-      "__class__": "module_type:with",
-      "module": {
-        "__class__": "module_type:identifier",
-        "name": "Set.OrderedType"
-      },
-      "constaints": [
-        {
-          "__class__": "with:type",
-          "name": "t",
-          "parameters": [],
-          "manifest": "int"
-        }
-      ]
-    }
-  },
-  {
-    "__class__": "signature_item:module",
-    "doc": [],
-    "hidden": false,
-    "name": "WithTypeSubst",
-    "type": {
-      "__class__": "module_type:with",
-      "module": {
-        "__class__": "module_type:identifier",
-        "name": "Set.OrderedType"
-      },
-      "constaints": [
-        {
-          "__class__": "with:type_subst",
-          "name": "t",
-          "parameters": [],
-          "manifest": "int"
-        }
-      ]
-    }
-  },
-  {
-    "__class__": "signature_item:module_type",
-    "doc": [],
-    "hidden": false,
-    "name": "Null",
-    "type": null
-  },
-  {
-    "__class__": "signature_item:module_type",
-    "doc": [],
-    "hidden": false,
-    "name": "Replacable",
-    "type": {
-      "__class__": "module_type:signature",
-      "elements": [
-        {
-          "__class__": "signature_item:module",
-          "doc": [],
-          "hidden": false,
-          "name": "M",
-          "type": { "__class__": "module_type:identifier", "name": "Null" }
-        }
-      ]
-    }
-  },
-  {
-    "__class__": "signature_item:module",
-    "doc": [],
-    "hidden": false,
-    "name": "ReplaceM",
-    "type": { "__class__": "module_type:identifier", "name": "Null" }
-  },
-  {
-    "__class__": "signature_item:module",
-    "doc": [],
-    "hidden": false,
-    "name": "Replaced",
-    "type": {
-      "__class__": "module_type:with",
-      "module": {
-        "__class__": "module_type:identifier",
-        "name": "Replacable"
-      },
-      "constaints": [
-        { "__class__": "with:module", "name": "M", "manifest": "ReplaceM" }
-      ]
-    }
-  },
-  {
-    "__class__": "signature_item:module",
-    "doc": [],
-    "hidden": false,
-    "name": "Substituted",
-    "type": {
-      "__class__": "module_type:with",
-      "module": {
-        "__class__": "module_type:identifier",
-        "name": "Replacable"
-      },
-      "constaints": [
-        {
-          "__class__": "with:module_subst",
-          "name": "M",
-          "manifest": "ReplaceM"
-        }
-      ]
-    }
+    ]
   }
-]
+}
