@@ -3,6 +3,7 @@ name: "General"
 version: "0.1.0"
 maintainer: "Vincent Jacques <vincent@vincent-jacques.net>"
 authors: "Vincent Jacques <vincent@vincent-jacques.net>"
+homepage: "https://jacquev6.github.io/General/"
 dev-repo: "https://github.com/jacquev6/General.git"
 bug-reports: "http://github.com/jacquev6/General/issues/"
 available: [
