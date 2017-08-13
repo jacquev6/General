@@ -14,10 +14,21 @@ type ('a, 'b) parameters
 type (-'a, +'b) variances
 (** Doc' for variances *)
 
-(* @todo type record = {a: int; b: float} *)
+(** Doc for record *)
+type record = {
+  a: int; (** Doc for record.a *)
+  b: float; (** Doc for record.b *)
+}
+(** Doc' for record *)
 
-(* @todo type variant =
-  | Single of int
-  | Several of int * float
-  | Tuple of (int * float)
-  | None *)
+(** Doc for variant *)
+type variant =
+  | None (** Doc for None *)
+  | Single of int (** Doc for Single *)
+  | Several of int * float (** Doc for Several *)
+  | Tuple of (int * float) (** Doc for Tuple *)
+  | Record of {
+    a: int; (** Doc for Record.a *)
+    b: float; (** Doc for Record.b *)
+  } (** Doc for Record *)
+(** Doc' for variant *)

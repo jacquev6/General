@@ -82,21 +82,57 @@ class Generator:
         manifest = type_.pop("manifest")
         if manifest:
             yield "  :manifest: {}".format(manifest)
+        kind = type_.pop("kind")
+        c = kind["__class__"]
+        if c == "type_kind:variant":
+            for constructor in kind["constructors"]:
+                arguments = constructor["arguments"]
+                c = arguments["__class__"]
+                if c == "arguments:tuple":
+                    payload = " * ".join(
+                        "({})".format(x) if "*" in x else x
+                        for x in arguments["payload"]
+                    )
+                else:
+                    assert c == "arguments:record"
+                    payload = "{{{}}}".format("; ".join("{}: {}".format(label["name"], label["type"]) for label in arguments["labels"]))
+                if payload:
+                    payload = " of {}".format(payload)
+                yield ""
+                yield "  :constructor {}{}: {}".format(constructor["name"], payload, " ".join(x.strip() for x in constructor["doc"]))
+                if c == "arguments:record":
+                    for label in arguments["labels"]:
+                        yield ""
+                        yield "  :label {}: {}".format(label["name"], " ".join(x.strip() for x in label["doc"]))
+        elif c == "type_kind:record":
+            yield "  :kind: {{{}}}".format("; ".join("{}: {}".format(label["name"], label["type"]) for label in kind["labels"]))
+            for label in kind["labels"]:
+                yield ""
+                yield "  :label {}: {}".format(label["name"], " ".join(x.strip() for x in label["doc"]))
+        else:
+            assert c == "type_kind:abstract"
         yield ""
         for doc in type_.pop("doc"):
             yield from self.__indent(self.__gen_doc(doc))
             yield ""
-        # @todo Use the following attributes
-        type_.pop("kind")
 
     def __gen__signature_item__exception(self, exception_):
         yield ".. exception:: {}".format(exception_.pop("name"))
-        payload = exception_.pop("payload")
-        if payload:
-            yield "  :payload: {}".format(" * ".join(
+        arguments = exception_.pop("arguments")
+        c = arguments["__class__"]
+        if c == "arguments:tuple":
+            payload = " * ".join(
                 "({})".format(x) if "*" in x else x
-                for x in payload
-            ))
+                for x in arguments["payload"]
+            )
+            if payload:
+                yield "  :payload: {}".format(payload)
+        else:
+            assert c == "arguments:record"
+            yield "  :payload: {{{}}}".format("; ".join("{}: {}".format(label["name"], label["type"]) for label in arguments["labels"]))
+            for label in arguments["labels"]:
+                yield ""
+                yield "  :label {}: {}".format(label["name"], " ".join(x.strip() for x in label["doc"]))
         yield ""
         for doc in exception_.pop("doc"):
             yield from self.__indent(self.__gen_doc(doc))

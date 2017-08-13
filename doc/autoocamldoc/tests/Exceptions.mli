@@ -14,4 +14,9 @@ exception SeveralPayload of int * float * string
 exception TuplePayload of (int * float * string)
 (** Doc' for TuplePayload *)
 
-(* @todo exception RecordPayload of {a: int; b: float} *)
+(** Doc for RecordPayload *)
+exception RecordPayload of {
+  a: int; (** Doc for RecordPayload.a *)
+  b: float; (** Doc for RecordPayload.b *)
+}
+(** Doc' for RecordPayload *)

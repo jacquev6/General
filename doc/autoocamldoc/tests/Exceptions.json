@@ -11,28 +11,59 @@
         "doc": [ " Doc for Single ", " Doc' for Single " ],
         "hidden": false,
         "name": "Simple",
-        "payload": []
+        "arguments": { "__class__": "arguments:tuple", "payload": [] }
       },
       {
         "__class__": "signature_item:exception",
         "doc": [ " Doc for SinglePayload ", " Doc' for SinglePayload " ],
         "hidden": false,
         "name": "SinglePayload",
-        "payload": [ "int" ]
+        "arguments": { "__class__": "arguments:tuple", "payload": [ "int" ] }
       },
       {
         "__class__": "signature_item:exception",
         "doc": [ " Doc for SeveralPayload ", " Doc' for SeveralPayload " ],
         "hidden": false,
         "name": "SeveralPayload",
-        "payload": [ "int", "float", "string" ]
+        "arguments": {
+          "__class__": "arguments:tuple",
+          "payload": [ "int", "float", "string" ]
+        }
       },
       {
         "__class__": "signature_item:exception",
         "doc": [ " Doc for TuplePayload ", " Doc' for TuplePayload " ],
         "hidden": false,
         "name": "TuplePayload",
-        "payload": [ "int * float * string" ]
+        "arguments": {
+          "__class__": "arguments:tuple",
+          "payload": [ "int * float * string" ]
+        }
+      },
+      {
+        "__class__": "signature_item:exception",
+        "doc": [ " Doc for RecordPayload ", " Doc' for RecordPayload " ],
+        "hidden": false,
+        "name": "RecordPayload",
+        "arguments": {
+          "__class__": "arguments:record",
+          "labels": [
+            {
+              "__class__": "record_label",
+              "doc": [ " Doc for RecordPayload.a " ],
+              "name": "a",
+              "mutable": false,
+              "type": "int"
+            },
+            {
+              "__class__": "record_label",
+              "doc": [ " Doc for RecordPayload.b " ],
+              "name": "b",
+              "mutable": false,
+              "type": "float"
+            }
+          ]
+        }
       }
     ]
   }

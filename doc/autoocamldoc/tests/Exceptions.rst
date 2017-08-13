@@ -33,3 +33,14 @@ Reference
 
     Doc' for TuplePayload
 
+  .. exception:: RecordPayload
+    :payload: {a: int; b: float}
+
+    :label a: Doc for RecordPayload.a
+
+    :label b: Doc for RecordPayload.b
+
+    Doc for RecordPayload
+
+    Doc' for RecordPayload
+

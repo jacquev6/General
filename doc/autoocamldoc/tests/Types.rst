@@ -34,3 +34,34 @@ Reference
 
     Doc' for variances
 
+  .. type:: record
+    :kind: {a: int; b: float}
+
+    :label a: Doc for record.a
+
+    :label b: Doc for record.b
+
+    Doc for record
+
+    Doc' for record
+
+  .. type:: variant
+
+    :constructor None: Doc for None
+
+    :constructor Single of int: Doc for Single
+
+    :constructor Several of int * float: Doc for Several
+
+    :constructor Tuple of (int * float): Doc for Tuple
+
+    :constructor Record of {a: int; b: float}: Doc for Record
+
+    :label a: Doc for Record.a
+
+    :label b: Doc for Record.b
+
+    Doc for variant
+
+    Doc' for variant
+

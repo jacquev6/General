@@ -9,7 +9,7 @@ module Signature: sig
   (**       Floating doc with many leading spaces (which should be removed),
   several lines::
 
-      and a quoted, indented part (that should keep it indentation)
+      and a quoted, indented part (that should keep its indentation)
       with another line with trailing spaces (that should be removed)                 
 
   And a conclusion with many trailing spaces (which should be removed as well).       *)

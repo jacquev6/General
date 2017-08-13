@@ -187,6 +187,24 @@ end = struct
     |> Opt.map ~f:(fun {ctyp_type; _} -> type_expr ctyp_type)
     |> J.opt
 
+  let label_declaration {ld_id=_; ld_name; ld_mutable; ld_type={ctyp_type; _}; ld_loc=_; ld_attributes} =
+    J.obj "record_label" [
+      ("doc", filter_ocaml_doc_attributes ld_attributes);
+      ("name", string_loc ld_name);
+      ("mutable", J.bo (ld_mutable = Asttypes.Mutable));
+      ("type", type_expr ctyp_type);
+    ]
+
+  let constructor_arguments = function
+    | Cstr_tuple payload ->
+      J.obj "arguments:tuple" [
+        ("payload", payload |> Li.map ~f:(fun {ctyp_type; _} -> type_expr ctyp_type) |> J.li);
+      ]
+    | Cstr_record labels ->
+      J.obj "arguments:record" [
+        ("labels", labels |> Li.map ~f:label_declaration |> J.li);
+      ]
+
   let type_kind ~typ_loc = function
     | Ttype_abstract ->
       J.obj "type_kind:abstract" [
@@ -197,17 +215,10 @@ end = struct
           "constructors",
           constructors
           |> Li.map ~f:(fun {cd_id=_; cd_name; cd_args; cd_res=_; cd_loc=_; cd_attributes} ->
-            let arguments =
-              match cd_args with
-                | Cstr_tuple arguments ->
-                  arguments
-                | Cstr_record _ ->
-                  [] (* @todo Implement Cstr_record *)
-            in
             J.obj "type_constructor" [
               ("doc", filter_ocaml_doc_attributes cd_attributes);
               ("name", string_loc cd_name);
-              ("arguments", arguments |> Li.map ~f:(fun {ctyp_type; _} -> type_expr ctyp_type) |> J.li);
+              ("arguments", constructor_arguments cd_args);
             ]
           )
           |> J.li
@@ -215,19 +226,7 @@ end = struct
       ]
     | Ttype_record labels ->
       J.obj "type_kind:record" [
-        (
-          "labels",
-          labels
-          |> Li.map ~f:(fun {ld_id=_; ld_name; ld_mutable; ld_type={ctyp_type; _}; ld_loc=_; ld_attributes} ->
-            J.obj "type_label" [
-              ("doc", filter_ocaml_doc_attributes ld_attributes);
-              ("name", string_loc ld_name);
-              ("mutable", J.bo (ld_mutable = Asttypes.Mutable));
-              ("type", type_expr ctyp_type);
-            ]
-          )
-          |> J.li
-        )
+        ("labels", labels |> Li.map ~f:label_declaration |> J.li)
       ]
     | Ttype_open -> (*BISECT-IGNORE*)
       not_handled "type_kind: Ttype_open" typ_loc
@@ -267,19 +266,17 @@ end = struct
       typ_attributes
     )
 
-  let exception_ {ext_id=_; ext_name; ext_type={Types.ext_args; _}; ext_kind=_; ext_loc=_; ext_attributes} =
-    let payload =
-      match ext_args with
-        | Types.Cstr_tuple payload ->
-          payload
-        | Types.Cstr_record _ ->
-          [] (* @todo Implement Cstr_record *)
+  let exception_ {ext_id=_; ext_name; ext_type=_; ext_kind; ext_loc=_; ext_attributes} =
+    let arguments =
+      match ext_kind with
+        | Text_decl (arguments, _) -> arguments
+        | Text_rebind (_, _) -> Cstr_tuple []
     in
     (
       "signature_item:exception",
       [
         ("name", string_loc ext_name);
-        ("payload", payload |> Li.map ~f:type_expr |> J.li);
+        ("arguments", constructor_arguments arguments);
       ],
       ext_attributes
     )

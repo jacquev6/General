@@ -41,6 +41,103 @@
         "parameters": [ "-'a", "+'b" ],
         "manifest": null,
         "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [ " Doc for record ", " Doc' for record " ],
+        "hidden": false,
+        "name": "record",
+        "parameters": [],
+        "manifest": null,
+        "kind": {
+          "__class__": "type_kind:record",
+          "labels": [
+            {
+              "__class__": "record_label",
+              "doc": [ " Doc for record.a " ],
+              "name": "a",
+              "mutable": false,
+              "type": "int"
+            },
+            {
+              "__class__": "record_label",
+              "doc": [ " Doc for record.b " ],
+              "name": "b",
+              "mutable": false,
+              "type": "float"
+            }
+          ]
+        }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [ " Doc for variant ", " Doc' for variant " ],
+        "hidden": false,
+        "name": "variant",
+        "parameters": [],
+        "manifest": null,
+        "kind": {
+          "__class__": "type_kind:variant",
+          "constructors": [
+            {
+              "__class__": "type_constructor",
+              "doc": [ " Doc for None " ],
+              "name": "None",
+              "arguments": { "__class__": "arguments:tuple", "payload": [] }
+            },
+            {
+              "__class__": "type_constructor",
+              "doc": [ " Doc for Single " ],
+              "name": "Single",
+              "arguments": {
+                "__class__": "arguments:tuple",
+                "payload": [ "int" ]
+              }
+            },
+            {
+              "__class__": "type_constructor",
+              "doc": [ " Doc for Several " ],
+              "name": "Several",
+              "arguments": {
+                "__class__": "arguments:tuple",
+                "payload": [ "int", "float" ]
+              }
+            },
+            {
+              "__class__": "type_constructor",
+              "doc": [ " Doc for Tuple " ],
+              "name": "Tuple",
+              "arguments": {
+                "__class__": "arguments:tuple",
+                "payload": [ "int * float" ]
+              }
+            },
+            {
+              "__class__": "type_constructor",
+              "doc": [ " Doc for Record " ],
+              "name": "Record",
+              "arguments": {
+                "__class__": "arguments:record",
+                "labels": [
+                  {
+                    "__class__": "record_label",
+                    "doc": [ " Doc for Record.a " ],
+                    "name": "a",
+                    "mutable": false,
+                    "type": "int"
+                  },
+                  {
+                    "__class__": "record_label",
+                    "doc": [ " Doc for Record.b " ],
+                    "name": "b",
+                    "mutable": false,
+                    "type": "float"
+                  }
+                ]
+              }
+            }
+          ]
+        }
       }
     ]
   }

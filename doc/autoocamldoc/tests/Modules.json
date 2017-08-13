@@ -41,7 +41,7 @@
               "__class__": "signature_item:floating_documentation",
               "hidden": false,
               "text":
-                "       Floating doc with many leading spaces (which should be removed),\n  several lines::\n\n      and a quoted, indented part (that should keep it indentation)\n      with another line with trailing spaces (that should be removed)                 \n\n  And a conclusion with many trailing spaces (which should be removed as well).       "
+                "       Floating doc with many leading spaces (which should be removed),\n  several lines::\n\n      and a quoted, indented part (that should keep its indentation)\n      with another line with trailing spaces (that should be removed)                 \n\n  And a conclusion with many trailing spaces (which should be removed as well).       "
             }
           ]
         }
