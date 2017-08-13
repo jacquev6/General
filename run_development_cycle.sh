@@ -336,15 +336,23 @@ then
     echo
 
     rm -f bisect????.out
+    coverage3 erase
     for f in tests/*.mli
     do
         _build/autoocamldoc.byte $f >${f%.mli}.json
+        coverage3 run --branch --append ./autoocamldoc.py <${f%.mli}.json >${f%.mli}.rst
     done
     bisect-summary bisect????.out
     echo
     bisect-ppx-report -html _build/bisect bisect????.out
-    echo "See coverage report (for autoocamldoc) in $(pwd)/_build/bisect/index.html"
+    echo "See coverage report (for autoocamldoc.ml) in $(pwd)/_build/bisect/index.html"
+    echo
+    coverage3 report
+    echo
+    coverage3 html --directory _build/coverage
+    echo "See coverage report (for autoocamldoc.py) in $(pwd)/_build/coverage/index.html"
     rm -f bisect????.out
+    coverage3 erase
     cd ../..
 
     # This is a workaround for a bug of ocamlbuild. (We'll open a bug or submit a patch when we're sure we're able to use the "right" behavior)
@@ -362,6 +370,7 @@ then
     # strace -t -e trace=open \
     ../../doc/autoocamldoc/_build/autoocamldoc.byte General.mli > ../../doc/reference.json
     cd ../..
+    doc/autoocamldoc/autoocamldoc.py <doc/reference.json >doc/reference.rst
 
     rm -rf _build/sphinx  # Keep while we're developing the Sphinx extension
     sphinx-build doc _build/sphinx/html -d _build/sphinx/doctrees

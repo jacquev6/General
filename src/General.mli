@@ -88,7 +88,7 @@ end
 
 module Shorten: sig
   (** Return type for functions used in short-circuit iterations over collections.
-  (i.e: :val:`General.Traits.Foldable.Short.S0.fold_short`) *)
+  (i.e: @todoc reference val:`General.Traits.Foldable.Short.S0.fold_short`) *)
   type t = Foundations.Shorten.t =
     | GoOn (** Used to indicate iteration should proceed to next item *)
     | ShortCircuit (** Used to indicate iteration should stop after this item *)

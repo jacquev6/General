@@ -1,0 +1,47 @@
+{
+  "__class__": "signature_item:module",
+  "name": "tests/Types",
+  "doc": [],
+  "hidden": false,
+  "type": {
+    "__class__": "module_type:signature",
+    "elements": [
+      {
+        "__class__": "signature_item:type",
+        "doc": [ " Doc for manifest ", " Doc' for manifest " ],
+        "hidden": false,
+        "name": "manifest",
+        "parameters": [],
+        "manifest": "int",
+        "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [ " Doc for parameter ", " Doc' for parameter " ],
+        "hidden": false,
+        "name": "parameter",
+        "parameters": [ "'a" ],
+        "manifest": null,
+        "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [ " Doc for parameters ", " Doc' for parameters " ],
+        "hidden": false,
+        "name": "parameters",
+        "parameters": [ "'a", "'b" ],
+        "manifest": null,
+        "kind": { "__class__": "type_kind:abstract" }
+      },
+      {
+        "__class__": "signature_item:type",
+        "doc": [ " Doc for variances ", " Doc' for variances " ],
+        "hidden": false,
+        "name": "variances",
+        "parameters": [ "-'a", "+'b" ],
+        "manifest": null,
+        "kind": { "__class__": "type_kind:abstract" }
+      }
+    ]
+  }
+}

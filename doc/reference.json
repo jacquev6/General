@@ -338,7 +338,7 @@
             {
               "__class__": "signature_item:type",
               "doc": [
-                " Return type for functions used in short-circuit iterations over collections.\n  (i.e: :val:`General.Traits.Foldable.Short.S0.fold_short`) "
+                " Return type for functions used in short-circuit iterations over collections.\n  (i.e: @todoc reference val:`General.Traits.Foldable.Short.S0.fold_short`) "
               ],
               "hidden": false,
               "name": "t",

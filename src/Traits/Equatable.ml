@@ -140,6 +140,7 @@ module Operators = struct
   end
 end
 
+(** Doc for General.Traits.Equatable.SPoly *)
 module type SPoly = sig
   include Basic.SPoly
 
@@ -150,6 +151,7 @@ module type SPoly = sig
   module O: sig include Operators.SPoly end
 end
 
+(** Doc for General.Traits.Equatable.SPhys *)
 module type SPhys = sig
   include Basic.SPhys
 

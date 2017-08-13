@@ -1,16 +1,15 @@
 {
   "__class__": "signature_item:module",
-  "name": "tests/ModuleTypes",
+  "name": "tests/Includes",
   "doc": [],
   "hidden": false,
   "type": {
     "__class__": "module_type:signature",
     "elements": [
       {
-        "__class__": "signature_item:module_type",
-        "doc": [ " Doc for Signature ", " Doc' for Signature " ],
+        "__class__": "signature_item:include",
+        "doc": [ " Doc for include ", " Doc' for include " ],
         "hidden": false,
-        "name": "Signature",
         "type": {
           "__class__": "module_type:signature",
           "elements": [

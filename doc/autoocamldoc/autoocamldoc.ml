@@ -24,6 +24,79 @@ module J = struct
     `Assoc (("__class__", str kind)::attributes)
 end
 
+let filter_attributes ~key attributes =
+  attributes
+  |> Li.filter_map ~f:(fun ({Asttypes.txt; loc=_}, payload) ->
+    Opt.some_if (txt = key) (lazy Parsetree.(
+      match payload with
+        | PStr [{pstr_desc=Pstr_eval ({pexp_desc=Pexp_constant (Parsetree.Pconst_string (s, _)); _}, _); _}] ->
+          J.str s
+        | _ -> Exn.failure "filter_attributes" (*BISECT-IGNORE*)
+    ))
+  )
+
+let filter_ocaml_doc_attributes attributes =
+  J.li (filter_attributes ~key:"ocaml.doc" attributes)
+
+(* module TypesToJson = struct
+  open Types
+
+  let type_expr t =
+    Printtyp.reset ();
+    Printtyp.type_expr OCamlStandard.Format.str_formatter t;
+    J.str (OCamlStandard.Format.flush_str_formatter ())
+
+  let ident {Ident.name; stamp=_; flags=_} =
+    J.str name
+
+  let rec signature_item = function
+    | Sig_value (id, {val_type; val_kind=_; val_loc=_; val_attributes}) ->
+      J.obj "signature_item:value" [
+        ("doc", filter_ocaml_doc_attributes val_attributes);
+        ("hidden", J.bo false);
+        ("name", ident id);
+        ("type", type_expr val_type);
+      ]
+    | Sig_type (id, {type_params=_; type_arity=_; type_kind=_; type_private=_; type_manifest; type_variance=_; type_newtype_level=_; type_loc=_; type_attributes; type_immediate=_; type_unboxed=_}, _) ->
+      J.obj "signature_item:value" [
+        ("doc", filter_ocaml_doc_attributes type_attributes);
+        ("hidden", J.bo false);
+        ("name", ident id);
+        ("manifest", type_manifest |> Opt.map ~f:type_expr |> J.opt);
+      ]      
+    | Sig_typext (_, _, _) ->
+      J.str "TypesToJson.signature_item: Sig_typext"
+    | Sig_module (id, {md_type; md_attributes; md_loc=_}, _) ->
+      J.obj "signature_item:module" [
+        ("doc", filter_ocaml_doc_attributes md_attributes);
+        ("hidden", J.bo false);
+        ("name", ident id);
+        ("type", module_type [] md_type);
+      ]
+    | Sig_modtype (_, _) ->
+      J.str "TypesToJson.signature_item: Sig_modtype"
+    | Sig_class (_, _, _) ->
+      J.str "TypesToJson.signature_item: Sig_class"
+    | Sig_class_type (_, _, _) ->
+      J.str "TypesToJson.signature_item: Sig_class_type"
+
+  and module_type attributes = function
+    | Mty_ident _ ->
+      J.str "TypesToJson.module_type: Mty_ident"
+    | Mty_signature elements ->
+      J.obj "module_type:signature" [
+        ("doc", filter_ocaml_doc_attributes attributes);
+        ("elements", elements |> Li.map ~f:signature_item |> J.li)
+      ]
+    | Mty_functor (_, _, _) ->
+      J.str "TypesToJson.module_type: Mty_functor"
+    | Mty_alias (_, _) ->
+      J.str "TypesToJson.module_type: Mty_alias"
+
+  let modtype_declaration {Types.mtd_type; mtd_attributes; mtd_loc=_} =
+    mtd_type |> Opt.map ~f:(module_type mtd_attributes) |> J.opt
+end *)
+
 module TypedtreeToJson: sig
   val signature: Typedtree.signature -> J.t
 end = struct
@@ -50,27 +123,6 @@ end = struct
     |> Li.there_exists ~f:(fun ({Asttypes.txt; loc=_}, payload) ->
       txt = "autodoc.hide" && payload = Parsetree.PStr []
     )
-
-  (* let inlined attributes =
-    attributes
-    |> Li.there_exists ~f:(fun ({Asttypes.txt; loc=_}, payload) ->
-      txt = "autodoc.inline" && payload = Parsetree.PStr []
-    ) *)
-
-  let filter_attributes ~key attributes =
-    attributes
-    |> Li.filter_map ~f:(fun ({Asttypes.txt; loc}, payload) ->
-      Opt.some_if (txt = key) (lazy Parsetree.(
-        match payload with
-          | PStr [{pstr_desc=Pstr_eval ({pexp_desc=Pexp_constant (Parsetree.Pconst_string (s, _)); _}, _); _}] ->
-            J.str s
-          | _ -> (*BISECT-IGNORE*)
-            not_handled "attribute" loc
-      ))
-    )
-
-  let filter_ocaml_doc_attributes attributes =
-    J.li (filter_attributes ~key:"ocaml.doc" attributes)
 
   let type_expr' t =
     Printtyp.reset ();
@@ -303,7 +355,7 @@ end = struct
     (
       "signature_item:include",
       [
-        ("contents", module_type incl_mod);
+        ("type", module_type incl_mod);
       ],
       incl_attributes
     )
@@ -315,66 +367,10 @@ end = struct
           ("elements", signature signature_);
         ]
       | Tmty_ident (p, _) ->
-        (* let elements =
-          let {Types.mtd_type; mtd_attributes=_; mtd_loc={Location.loc_start; _}} = Env.find_modtype p mty_env in
-
-          let (file, line, char) = Location.get_pos_info loc_start in
-          StdErr.print "%s %s:%i:%i\n" (Path.name p) file line char;
-
-          match mtd_type with
-            | None ->
-              not_handled "Inlining: None" mty_loc
-            | Some (Types.Mty_ident _) ->
-              not_handled "Inlining: Some Mty_ident" mty_loc
-            | Some (Types.Mty_signature signature) ->
-              signature
-              |> Li.map ~f:(function
-                | Types.Sig_value ({Ident.name; _}, {Types.val_type; val_kind=Types.Val_reg; val_loc=_; val_attributes}) ->
-                  J.obj "signature_item:value" [
-                    (* .cmi must have been compiled with -keep-docs, which in achieved by tag keep_docs, BUT NOT IN MLPACKS (bug of ocamlbuild: ocaml -pack is called without -keep-docs) *)
-                    ("doc", filter_ocaml_doc_attributes val_attributes);
-                    ("hidden", J.bo false);
-                    ("name", J.str name);
-                    ("type", type_expr val_type);
-                  ]
-                | Types.Sig_value (_, _) ->
-                  not_handled "Inlining: Sig_value" mty_loc
-                | Types.Sig_type ({Ident.name; _}, {Types.type_params=_; type_arity=_; type_kind=_; type_private=_; type_manifest=_; type_variance=_; type_newtype_level=_; type_loc=_; type_attributes=_; _}, _) ->
-                  J.obj "signature_item:type" [
-                    ("doc", J.li []);
-                    ("hidden", J.bo false);
-                    ("name", J.str name);
-                    ("parameters", J.li []);
-                    ("manifest", J.null);
-                    ("kind", J.obj "type_kind:abstract" []);
-                  ]
-                | Types.Sig_typext (_, _, _) ->
-                  not_handled "Inlining: Sig_typext" mty_loc
-                | Types.Sig_module (_, _, _) ->
-                  not_handled "Inlining: Sig_module" mty_loc
-                | Types.Sig_modtype (_, _) ->
-                  not_handled "Inlining: Sig_modtype" mty_loc
-                | Types.Sig_class (_, _, _) ->
-                  not_handled "Inlining: Sig_class" mty_loc
-                | Types.Sig_class_type (_, _, _) ->
-                  not_handled "Inlining: Sig_class_type" mty_loc
-              )
-              |> J.li
-            | Some (Types.Mty_functor (_, _, _)) ->
-              not_handled "Inlining: Some Mty_functor" mty_loc
-            | Some (Types.Mty_alias _) ->
-              not_handled "Inlining: Some Mty_alias" mty_loc
-        in
-        if inlined mty_attributes
-        then
-          J.obj "module_type:signature" [
-            ("elements", elements);
-          ]
-        else *)
-          J.obj "module_type:identifier" [
-            ("name", path p);
-            (* ("elements", elements); *)
-          ]
+        J.obj "module_type:identifier" [
+          ("name", path p);
+          (* ("resolved_type", TypesToJson.modtype_declaration (Env.find_modtype p mty_env)); *)
+        ]
       | Tmty_functor (_, parameter_name, parameter_type, contents) ->
         let rec aux parameters parameter_name parameter_type contents =
           let parameter = J.obj "functor_parameter" [
