@@ -1,7 +1,9 @@
 open General.Abbr
 
+
 module J = struct
   type t = Yojson.Basic.json
+  type a = string * t
 
   let to_string = Yojson.Basic.pretty_to_string
 
@@ -20,9 +22,10 @@ module J = struct
     | None -> null
     | Some x -> x
 
-  let (obj: string -> (string * t) list -> t) = fun kind attributes ->
+  let (obj: string -> a list -> t) = fun kind attributes ->
     `Assoc (("__class__", str kind)::attributes)
 end
+
 
 let filter_attributes ~key attributes =
   attributes
@@ -35,77 +38,12 @@ let filter_attributes ~key attributes =
     ))
   )
 
+
 let filter_ocaml_doc_attributes attributes =
   J.li (filter_attributes ~key:"ocaml.doc" attributes)
 
-(* module TypesToJson = struct
-  open Types
 
-  let type_expr t =
-    Printtyp.reset ();
-    Printtyp.type_expr OCamlStandard.Format.str_formatter t;
-    J.str (OCamlStandard.Format.flush_str_formatter ())
-
-  let ident {Ident.name; stamp=_; flags=_} =
-    J.str name
-
-  let rec signature_item = function
-    | Sig_value (id, {val_type; val_kind=_; val_loc=_; val_attributes}) ->
-      J.obj "signature_item:value" [
-        ("doc", filter_ocaml_doc_attributes val_attributes);
-        ("hidden", J.bo false);
-        ("name", ident id);
-        ("type", type_expr val_type);
-      ]
-    | Sig_type (id, {type_params=_; type_arity=_; type_kind=_; type_private=_; type_manifest; type_variance=_; type_newtype_level=_; type_loc=_; type_attributes; type_immediate=_; type_unboxed=_}, _) ->
-      J.obj "signature_item:value" [
-        ("doc", filter_ocaml_doc_attributes type_attributes);
-        ("hidden", J.bo false);
-        ("name", ident id);
-        ("manifest", type_manifest |> Opt.map ~f:type_expr |> J.opt);
-      ]      
-    | Sig_typext (_, _, _) ->
-      J.str "TypesToJson.signature_item: Sig_typext"
-    | Sig_module (id, {md_type; md_attributes; md_loc=_}, _) ->
-      J.obj "signature_item:module" [
-        ("doc", filter_ocaml_doc_attributes md_attributes);
-        ("hidden", J.bo false);
-        ("name", ident id);
-        ("type", module_type [] md_type);
-      ]
-    | Sig_modtype (_, _) ->
-      J.str "TypesToJson.signature_item: Sig_modtype"
-    | Sig_class (_, _, _) ->
-      J.str "TypesToJson.signature_item: Sig_class"
-    | Sig_class_type (_, _, _) ->
-      J.str "TypesToJson.signature_item: Sig_class_type"
-
-  and module_type attributes = function
-    | Mty_ident _ ->
-      J.str "TypesToJson.module_type: Mty_ident"
-    | Mty_signature elements ->
-      J.obj "module_type:signature" [
-        ("doc", filter_ocaml_doc_attributes attributes);
-        ("elements", elements |> Li.map ~f:signature_item |> J.li)
-      ]
-    | Mty_functor (_, _, _) ->
-      J.str "TypesToJson.module_type: Mty_functor"
-    | Mty_alias (_, _) ->
-      J.str "TypesToJson.module_type: Mty_alias"
-
-  let modtype_declaration {Types.mtd_type; mtd_attributes; mtd_loc=_} =
-    mtd_type |> Opt.map ~f:(module_type mtd_attributes) |> J.opt
-end *)
-
-module TypedtreeToJson: sig
-  val signature: Typedtree.signature -> J.t
-end = struct
-  let hidden attributes =
-    attributes
-    |> Li.there_exists ~f:(fun ({Asttypes.txt; loc=_}, payload) ->
-      txt = "autodoc.hide" && payload = Parsetree.PStr []
-    )
-
+module TypedtreeToJson = struct
   let type_expr' t =
     Printtyp.reset ();
     Printtyp.type_expr OCamlStandard.Format.str_formatter t;
@@ -116,39 +54,8 @@ end = struct
 
   open Typedtree
 
-  let path path =
-    J.str (Path.name path)
-
-  (* let longident_loc {Asttypes.txt=longident; loc=_} =
-    J.str (Longident.flatten longident |> StrLi.concat ~sep:".") *)
-
   let string_loc ?(format=Frmt.of_string "%s") {Asttypes.txt; loc=_} =
     J.str (Frmt.apply format txt)
-
-  let value_description {val_id; val_name; val_desc; val_val=_; val_prim=_; val_loc=_; val_attributes} =
-    let format =
-      Opt.some_if'
-        (Oprint.parenthesized_ident (Ident.name val_id))
-        (Frmt.of_string "(%s)") (* This is not strictly correct for ( * ) but it's prettier for everything else. *)
-    in
-    (
-      "signature_item:value",
-      [
-        ("name", string_loc ?format val_name);
-        ("type", type_expr val_desc.ctyp_type);
-      ],
-      val_attributes
-    )
-
-  let attribute attr =
-    filter_attributes ~key:"ocaml.text" [attr]
-    |> Li.map ~f:(fun s ->
-      J.obj "signature_item:floating_documentation" [
-        ("hidden", J.bo false);
-        ("text", s);
-      ]
-    )
-    |> Li.head
 
   let type_parameters typ_params =
     typ_params
@@ -212,202 +119,283 @@ end = struct
       ]
     | Ttype_open -> (*BISECT-IGNORE*)
       Exn.failure "type_kind: Ttype_open"
+end
 
-  let with_constraint (p, _, constraint_) =
-    let type_ {typ_name; typ_params; typ_manifest; typ_loc=_; _} =
-      [
-        ("name", string_loc typ_name);
-        ("parameters", type_parameters typ_params);
-        ("manifest", type_manifest typ_manifest);
-      ]
-    and module_ p' =
-      [
-        ("name", path p);
-        ("manifest", path p');
-      ]
-    in
-    match constraint_ with
-      | Twith_type typ ->
-        J.obj "with:type" (type_ typ)
-      | Twith_module (p', _) ->
-        J.obj "with:module" (module_ p')
-      | Twith_typesubst typ ->
-        J.obj "with:type_subst" (type_ typ)
-      | Twith_modsubst (p', _) ->
-        J.obj "with:module_subst" (module_ p')
 
-  let type_declaration {typ_id=_; typ_name; typ_params; typ_type=_; typ_cstrs=_; typ_kind; typ_private=_; typ_manifest; typ_loc=_; typ_attributes} =
-    (
-      "signature_item:type",
-      [
-        ("name", string_loc typ_name);
-        ("parameters", type_parameters typ_params);
-        ("manifest", type_manifest typ_manifest);
-        ("kind", type_kind typ_kind);
-      ],
-      typ_attributes
+(*BISECT-IGNORE-BEGIN*)
+let warn s v =
+  StdErr.print "WARNING: %s\n" s;
+  v
+(*BISECT-IGNORE-END*)
+
+
+module Name: sig
+  val of_string: string -> J.a
+  val of_string_loc: string Asttypes.loc -> J.a
+end = struct
+  let of_string s =
+    ("name", J.str s)
+
+  let of_string_loc {Asttypes.txt; loc=_} =
+    of_string txt
+end
+
+
+module Hidden: sig
+  val default: J.a
+
+  val of_attributes: Typedtree.attributes -> J.a
+end = struct
+  let of_bool hidden =
+    ("hidden", J.bo hidden)
+
+  let default = of_bool false
+
+  let of_attributes attributes =
+    attributes
+    |> Li.there_exists ~f:(fun ({Asttypes.txt; loc=_}, payload) ->
+      txt = "autodoc.hide" && payload = Parsetree.PStr []
     )
+    |> of_bool
+end
 
-  let exception_ {ext_id=_; ext_name; ext_type=_; ext_kind; ext_loc=_; ext_attributes} =
+
+module Doc: sig
+  val empty: J.a
+  val of_attributes: Typedtree.attributes -> J.a
+end = struct
+  let of_list xs =
+    ("doc", J.li xs)
+
+  let empty = of_list []
+
+  let of_attributes attributes =
+    attributes
+    |> Li.filter_map ~f:(fun ({Asttypes.txt; loc=_}, payload) ->
+      Opt.some_if (txt = "ocaml.doc") (lazy Parsetree.(
+        match payload with
+          | PStr [{pstr_desc=Pstr_eval ({pexp_desc=Pexp_constant (Parsetree.Pconst_string (s, _)); _}, _); _}] ->
+            J.str s
+          | _ -> (*BISECT-IGNORE*)
+            Exn.failure "Doc.of_attribute"
+      ))
+    )
+    |> of_list
+end
+
+
+module FloatingDoc: sig
+  val of_attribute_payload: Parsetree.payload -> J.t
+end = struct
+  let of_attribute_payload = Parsetree.(function
+    | PStr [{pstr_desc=Pstr_eval ({pexp_desc=Pexp_constant (Parsetree.Pconst_string (s, _)); _}, _); _}] ->
+      J.obj "signature_item:floating_documentation" [
+        Hidden.default;
+        ("text", J.str s);
+      ]
+    | _ -> (*BISECT-IGNORE*)
+      Exn.failure "FloatingDoc.of_attribute_payload"
+  )
+end
+
+
+module Type: sig
+  val of_type_declaration: Typedtree.type_declaration -> J.t
+end = struct
+  let of_type_declaration {Typedtree.typ_id=_; typ_name; typ_params; typ_type=_; typ_cstrs=_; typ_kind; typ_private=_; typ_manifest; typ_loc=_; typ_attributes} =
+    J.obj "signature_item:type" [
+      Name.of_string_loc typ_name;
+      Hidden.of_attributes typ_attributes;
+      Doc.of_attributes typ_attributes;
+      ("parameters", TypedtreeToJson.type_parameters typ_params);
+      ("manifest",TypedtreeToJson. type_manifest typ_manifest);
+      ("kind", TypedtreeToJson.type_kind typ_kind);
+    ]
+end
+
+
+module Exception: sig
+  val of_extension_constructor: Typedtree.extension_constructor -> J.t
+end = struct
+  let of_extension_constructor {Typedtree.ext_id=_; ext_name; ext_type=_; ext_kind; ext_loc=_; ext_attributes} =
     let arguments =
       match ext_kind with
-        | Text_decl (arguments, _) -> arguments
-        | Text_rebind (_, _) -> Cstr_tuple []
+        | Typedtree.Text_decl (arguments, _) ->
+          arguments
+        | Typedtree.Text_rebind (_, _) -> (*BISECT-IGNORE*)
+          Exn.failure "exception_: ext_kind=Text_rebind"
     in
-    (
-      "signature_item:exception",
-      [
-        ("name", string_loc ext_name);
-        ("arguments", constructor_arguments arguments);
-      ],
-      ext_attributes
-    )
+    J.obj "signature_item:exception" [
+      Name.of_string_loc ext_name;
+      Hidden.of_attributes ext_attributes;
+      Doc.of_attributes ext_attributes;
+      ("arguments", TypedtreeToJson.constructor_arguments arguments);
+    ]
+end
 
-  let rec signature {sig_items; sig_type=_; sig_final_env=_} =
-    J.li (Li.map ~f:signature_item sig_items)
 
-  and signature_item {sig_desc; sig_env=_; sig_loc=_} =
-    let foo (kind, json_attributes, ocaml_attributes) =
-      (
-        J.obj kind (
-          ("doc", filter_ocaml_doc_attributes ocaml_attributes)::
-          ("hidden", J.bo (hidden ocaml_attributes))::
-          json_attributes
-        )
-      )
-    in
-    match sig_desc with
-      | Tsig_attribute attr ->
-        attribute attr
-      | Tsig_modtype decl ->
-        foo (module_type_declaration decl)
-      | Tsig_value desc ->
-        foo (value_description desc)
-      | Tsig_module decl ->
-        foo (module_declaration decl)
-      | Tsig_include desc ->
-        foo (include_description desc)
-      | Tsig_type (_, [decl]) ->
-        foo (type_declaration decl)
-      | Tsig_type (_, decls) ->
-        foo (
-          "signature_item:recursive_types",
-          [
-            ("types", decls |> Li.map ~f:type_declaration |> Li.map ~f:foo |> J.li)
-          ],
-          []
-        )
-      | Tsig_typext _ -> (*BISECT-IGNORE*)
-        Exn.failure "signature_item: sig_desc=Tsig_typext"
-      | Tsig_exception desc ->
-        foo (exception_ desc)
-      | Tsig_recmodule _ -> (*BISECT-IGNORE*)
-        Exn.failure "signature_item: sig_desc=Tsig_recmodule"
-      | Tsig_open _ -> (*BISECT-IGNORE*)
-        Exn.failure "signature_item: sig_desc=Tsig_open"
-      | Tsig_class _ -> (*BISECT-IGNORE*)
-        Exn.failure "signature_item: sig_desc=Tsig_class"
-      | Tsig_class_type _ -> (*BISECT-IGNORE*)
-        Exn.failure "signature_item: sig_desc=Tsig_class_type"
+module Value: sig
+  val of_value_description: Typedtree.value_description -> J.t
+end = struct
+  let of_value_description {Typedtree.val_id=_; val_name; val_desc={Typedtree.ctyp_type; _}; val_val=_; val_prim=_; val_loc=_; val_attributes} =
+    (* @todo let format =
+      Opt.some_if'
+        (Oprint.parenthesized_ident (Ident.name val_id))
+        (Frmt.of_string "(%s)") (* This is not strictly correct for ( * ) but it's prettier for everything else. *)
+    in *)
+    J.obj "signature_item:value" [
+      Name.of_string_loc val_name;
+      Hidden.of_attributes val_attributes;
+      Doc.of_attributes val_attributes;
+      ("type", TypedtreeToJson.type_expr ctyp_type);
+    ]
+end
 
-  and module_type_declaration {mtd_id=_; mtd_name; mtd_type; mtd_attributes; mtd_loc=_} =
-    (
-      "signature_item:module_type",
-      [
-        ("name", string_loc mtd_name);
-        ("type", mtd_type |> Opt.map ~f:module_type |> J.opt);
-      ],
-      mtd_attributes
-    )
 
-  and module_declaration {md_id=_; md_name; md_type; md_attributes; md_loc=_} =
-    (
-      "signature_item:module",
-      [
-        ("name", string_loc md_name);
-        ("type", module_type md_type);
-      ],
-      md_attributes
-    )
+module rec FunctorParameters: sig
+  val empty: J.a
+  val of_module_type: Typedtree.module_type -> J.a
+  val of_module_type_option: Typedtree.module_type option -> J.a
+end = struct
+  let of_list contents =
+    ("functor_parameters", J.li contents)
 
-  and include_description {incl_mod; incl_type=_; incl_loc=_; incl_attributes} =
-    (
-      "signature_item:include",
-      [
-        ("type", module_type incl_mod);
-      ],
-      incl_attributes
-    )
+  let empty = of_list []
 
-  and module_type {mty_desc; mty_type=_; mty_env=_; mty_loc=_; mty_attributes=_} =
-    match mty_desc with
-      | Tmty_signature signature_ ->
-        J.obj "module_type:signature" [
-          ("elements", signature signature_);
-        ]
-      | Tmty_ident (p, _) ->
-        J.obj "module_type:identifier" [
-          ("name", path p);
-          (* ("resolved_type", TypesToJson.modtype_declaration (Env.find_modtype p mty_env)); *)
-        ]
-      | Tmty_functor (_, parameter_name, parameter_type, contents) ->
-        let rec aux parameters parameter_name parameter_type contents =
+  let rec of_module_type t =
+    let rec aux {Typedtree.mty_desc; mty_type=_; mty_env=_; mty_loc=_; mty_attributes=_} =
+      match mty_desc with
+        | Typedtree.Tmty_signature _ ->
+          [] (* Empty on purpose *)
+        | Typedtree.Tmty_ident (_, _) -> (*BISECT-IGNORE*)
+          warn "FunctorParameters.of_module_type: Tmty_ident" []
+        | Typedtree.Tmty_functor (_, parameter_name, parameter_type, contents) ->
           let parameter = J.obj "functor_parameter" [
-            ("name", string_loc parameter_name);
-            ("type", parameter_type |> Opt.map ~f:module_type |> J.opt);
+            Name.of_string_loc parameter_name;
+            of_module_type_option parameter_type;
+            Contents.of_module_type_option parameter_type;
           ] in
-          let parameters = parameter::parameters in
-          match contents with
-            | {mty_desc=Tmty_functor (_, parameter_name, parameter_type, contents); _} ->
-              aux parameters parameter_name parameter_type contents
-            | _ ->
-              (Li.reverse parameters, module_type contents)
-        in
-        let (parameters, contents) = aux [] parameter_name parameter_type contents in
-        J.obj "module_type:functor" [
-          ("parameters", J.li parameters);
-          ("contents", contents);
-        ]
-      | Tmty_with (module_, constaints) ->
-        J.obj "module_type:with" [
-          ("module", module_type module_);
-          ("constaints", constaints |> Li.map ~f:with_constraint |> J.li);
-          (* @todo List elements *)
-        ]
-      | Tmty_typeof module_ ->
-        J.obj "module_type:of" [
-          ("module", module_expr module_);
-          (* @todo List elements *)
-        ]
-      | Tmty_alias (_, _) -> (*BISECT-IGNORE*)
-        Exn.failure "module_type: mty_desc=Tmty_alias"
+          parameter::(aux contents)
+        | Typedtree.Tmty_with (_, _) -> (*BISECT-IGNORE*)
+          warn "FunctorParameters.of_module_type: Tmty_with" []
+        | Typedtree.Tmty_typeof _ -> (*BISECT-IGNORE*)
+          warn "FunctorParameters.of_module_type: Tmty_typeof" []
+        | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*)
+          warn "FunctorParameters.of_module_type: Tmty_alias" []
+    in
+    aux t
+    |> of_list
 
-  and module_expr {mod_desc; mod_loc=_; mod_type=_; mod_env=_; mod_attributes=_} =
-    match mod_desc with
-      | Tmod_ident (p, _) ->
-        J.obj "module_expr:identifier" [("name", path p)]
-      | Tmod_structure _ -> (*BISECT-IGNORE*)
-        Exn.failure "module_expr: mod_desc=Tmod_structure"
-      | Tmod_functor (_, _, _, _) -> (*BISECT-IGNORE*)
-        Exn.failure "module_expr: mod_desc=Tmod_functor"
-      | Tmod_apply (functor_, argument, _) ->
-        let rec aux arguments functor_ argument =
-          let arguments = (module_expr argument)::arguments in
-          match functor_ with
-            | {mod_desc=Tmod_apply (functor_, argument, _); _} ->
-              aux arguments functor_ argument
-            | _ ->
-              (module_expr functor_, arguments)
-        in
-        let (functor_, arguments) = aux [] functor_ argument in
-        J.obj "module_expr:apply" [
-          ("functor", functor_);
-          ("arguments", J.li arguments);
-        ]
-      | Tmod_constraint (_, _, _, _) -> (*BISECT-IGNORE*)
-        Exn.failure "module_expr: mod_desc=Tmod_constraint"
-      | Tmod_unpack (_, _) -> (*BISECT-IGNORE*)
-        Exn.failure "module_expr: mod_desc=Tmod_unpack"
+  and of_module_type_option = Opt.value_map ~f:of_module_type ~def:empty
+end
+
+and Contents: sig
+  val of_signature: Typedtree.signature -> J.a
+  val of_module_type: Typedtree.module_type -> J.a
+  val of_module_type_option: Typedtree.module_type option -> J.a
+end = struct
+  let of_list contents =
+    ("contents", J.li contents)
+
+  let empty = of_list []
+
+  let of_signature {Typedtree.sig_items; sig_type=_; sig_final_env=_} =
+    sig_items
+    |> Li.flat_map ~f:(fun {Typedtree.sig_desc; sig_env=_; sig_loc=_} ->
+      match sig_desc with
+        | Typedtree.Tsig_attribute ({Asttypes.txt="ocaml.text"; loc=_}, payload) ->
+          [FloatingDoc.of_attribute_payload payload]
+        | Typedtree.Tsig_attribute _ ->
+          [] (* Empty on purpose *)
+        | Typedtree.Tsig_modtype declaration ->
+          [ModuleType.of_module_type_declaration declaration]
+        | Typedtree.Tsig_value description ->
+          [Value.of_value_description description]
+        | Typedtree.Tsig_module declaration ->
+          [Module.of_declaration declaration]
+        | Typedtree.Tsig_include description ->
+          [Include.of_include_description description]
+        | Typedtree.Tsig_type (_, declarations) ->
+          declarations
+          |> Li.map ~f:Type.of_type_declaration
+        | Typedtree.Tsig_typext _ -> (*BISECT-IGNORE*)
+          warn "Contents.of_signature: Typedtree.Tsig_typext" []
+        | Typedtree.Tsig_exception description ->
+          [Exception.of_extension_constructor description]
+        | Typedtree.Tsig_recmodule _ -> (*BISECT-IGNORE*)
+          warn "Contents.of_signature: Typedtree.Tsig_recmodule" []
+        | Typedtree.Tsig_open _ -> (*BISECT-IGNORE*)
+          warn "Contents.of_signature: Typedtree.Tsig_open" []
+        | Typedtree.Tsig_class _ -> (*BISECT-IGNORE*)
+          warn "Contents.of_signature: Typedtree.Tsig_class" []
+        | Typedtree.Tsig_class_type _ -> (*BISECT-IGNORE*)
+          warn "Contents.of_signature: Typedtree.Tsig_class_type" []
+    )
+    |> of_list
+
+  let rec of_module_type {Typedtree.mty_desc; mty_type=_; mty_env=_; mty_loc=_; mty_attributes=_} =
+    match mty_desc with
+      | Typedtree.Tmty_signature signature ->
+        of_signature signature
+      | Typedtree.Tmty_ident (_, _) -> (*BISECT-IGNORE*)
+        warn "Contents.of_module_type: Tmty_ident" empty
+      | Typedtree.Tmty_functor (_, _, _, contents) ->
+        of_module_type contents
+      | Typedtree.Tmty_with (_, _) -> (*BISECT-IGNORE*)
+        warn "Contents.of_module_type: Tmty_with" empty
+      | Typedtree.Tmty_typeof _ -> (*BISECT-IGNORE*)
+        warn "Contents.of_module_type: Tmty_typeof" empty
+      | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*)
+        warn "Contents.of_module_type: Tmty_alias" empty
+
+  let of_module_type_option = Opt.value_map ~f:of_module_type ~def:empty
+end
+
+and ModuleType: sig
+  val of_module_type_declaration: Typedtree.module_type_declaration -> J.t
+end = struct
+  let of_module_type_declaration {Typedtree.mtd_id=_; mtd_name; mtd_type; mtd_attributes; mtd_loc=_} =
+    J.obj "signature_item:module_type" [
+      Name.of_string_loc mtd_name;
+      Hidden.of_attributes mtd_attributes;
+      Doc.of_attributes mtd_attributes;
+      Contents.of_module_type_option mtd_type;
+    ]
+end
+
+and Include: sig
+  val of_include_description: Typedtree.include_description -> J.t
+end = struct
+  let of_include_description {Typedtree.incl_mod; incl_type=_; incl_loc=_; incl_attributes} =
+    J.obj "signature_item:include" [
+      Hidden.of_attributes incl_attributes;
+      Doc.of_attributes incl_attributes;
+      Contents.of_module_type incl_mod;
+    ]
+end
+
+and Module: sig
+  val of_signature: name:string -> signature:Typedtree.signature -> J.t
+
+  val of_declaration: Typedtree.module_declaration -> J.t
+end = struct
+  let of_signature ~name ~signature =
+    J.obj "signature_item:module" [
+      Name.of_string name;
+      Hidden.default;
+      Doc.empty;
+      FunctorParameters.empty;
+      Contents.of_signature signature;
+    ]
+
+  let of_declaration {Typedtree.md_id=_; md_name; md_type; md_attributes; md_loc=_} =
+    J.obj "signature_item:module" [
+      Name.of_string_loc md_name;
+      Hidden.of_attributes md_attributes;
+      Doc.of_attributes md_attributes;
+      FunctorParameters.of_module_type md_type;
+      Contents.of_module_type md_type;
+    ]
 end
 
 
@@ -415,23 +403,14 @@ let () =
   Clflags.dont_write_files := true;
   Compmisc.init_path false;
   try
-    let signature =
+    let name =
+      Str.drop_suffix ~suf:".mli" OCamlStandard.Sys.argv.(1)
+    and signature =
       OCamlStandard.Sys.argv.(1)
       |> Pparse.parse_interface ~tool_name:"autoocamldoc" OCamlStandard.Format.err_formatter
       |> Typemod.type_interface "Foo?" (Compmisc.initial_env ())
-      |> TypedtreeToJson.signature
     in
-    J.obj "signature_item:module" [
-      ("name", OCamlStandard.Sys.argv.(1) |> Str.drop_suffix ~suf:".mli" |> J.str);
-      ("doc", J.li []);
-      ("hidden", J.bo false);
-      (
-        "type",
-        J.obj "module_type:signature" [
-          ("elements", signature);
-        ]
-      )
-    ]
+    Module.of_signature ~name ~signature
     |> J.to_string
     |> StdOut.print "%s\n"
   with

@@ -1,70 +1,68 @@
 {
   "__class__": "signature_item:module",
   "name": "tests/Exceptions",
-  "doc": [],
   "hidden": false,
-  "type": {
-    "__class__": "module_type:signature",
-    "elements": [
-      {
-        "__class__": "signature_item:exception",
-        "doc": [ " Doc for Single ", " Doc' for Single " ],
-        "hidden": false,
-        "name": "Simple",
-        "arguments": { "__class__": "arguments:tuple", "payload": [] }
-      },
-      {
-        "__class__": "signature_item:exception",
-        "doc": [ " Doc for SinglePayload ", " Doc' for SinglePayload " ],
-        "hidden": false,
-        "name": "SinglePayload",
-        "arguments": { "__class__": "arguments:tuple", "payload": [ "int" ] }
-      },
-      {
-        "__class__": "signature_item:exception",
-        "doc": [ " Doc for SeveralPayload ", " Doc' for SeveralPayload " ],
-        "hidden": false,
-        "name": "SeveralPayload",
-        "arguments": {
-          "__class__": "arguments:tuple",
-          "payload": [ "int", "float", "string" ]
-        }
-      },
-      {
-        "__class__": "signature_item:exception",
-        "doc": [ " Doc for TuplePayload ", " Doc' for TuplePayload " ],
-        "hidden": false,
-        "name": "TuplePayload",
-        "arguments": {
-          "__class__": "arguments:tuple",
-          "payload": [ "int * float * string" ]
-        }
-      },
-      {
-        "__class__": "signature_item:exception",
-        "doc": [ " Doc for RecordPayload ", " Doc' for RecordPayload " ],
-        "hidden": false,
-        "name": "RecordPayload",
-        "arguments": {
-          "__class__": "arguments:record",
-          "labels": [
-            {
-              "__class__": "record_label",
-              "doc": [ " Doc for RecordPayload.a " ],
-              "name": "a",
-              "mutable": false,
-              "type": "int"
-            },
-            {
-              "__class__": "record_label",
-              "doc": [ " Doc for RecordPayload.b " ],
-              "name": "b",
-              "mutable": false,
-              "type": "float"
-            }
-          ]
-        }
+  "doc": [],
+  "functor_parameters": [],
+  "contents": [
+    {
+      "__class__": "signature_item:exception",
+      "name": "Simple",
+      "hidden": false,
+      "doc": [ " Doc for Single ", " Doc' for Single " ],
+      "arguments": { "__class__": "arguments:tuple", "payload": [] }
+    },
+    {
+      "__class__": "signature_item:exception",
+      "name": "SinglePayload",
+      "hidden": false,
+      "doc": [ " Doc for SinglePayload ", " Doc' for SinglePayload " ],
+      "arguments": { "__class__": "arguments:tuple", "payload": [ "int" ] }
+    },
+    {
+      "__class__": "signature_item:exception",
+      "name": "SeveralPayload",
+      "hidden": false,
+      "doc": [ " Doc for SeveralPayload ", " Doc' for SeveralPayload " ],
+      "arguments": {
+        "__class__": "arguments:tuple",
+        "payload": [ "int", "float", "string" ]
       }
-    ]
-  }
+    },
+    {
+      "__class__": "signature_item:exception",
+      "name": "TuplePayload",
+      "hidden": false,
+      "doc": [ " Doc for TuplePayload ", " Doc' for TuplePayload " ],
+      "arguments": {
+        "__class__": "arguments:tuple",
+        "payload": [ "int * float * string" ]
+      }
+    },
+    {
+      "__class__": "signature_item:exception",
+      "name": "RecordPayload",
+      "hidden": false,
+      "doc": [ " Doc for RecordPayload ", " Doc' for RecordPayload " ],
+      "arguments": {
+        "__class__": "arguments:record",
+        "labels": [
+          {
+            "__class__": "record_label",
+            "doc": [ " Doc for RecordPayload.a " ],
+            "name": "a",
+            "mutable": false,
+            "type": "int"
+          },
+          {
+            "__class__": "record_label",
+            "doc": [ " Doc for RecordPayload.b " ],
+            "name": "b",
+            "mutable": false,
+            "type": "float"
+          }
+        ]
+      }
+    }
+  ]
 }

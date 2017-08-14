@@ -4,6 +4,8 @@ module Signature: sig
 
   (** Floating doc *)
 
+  [@@@something.else "A floating attribute that has nothing to do with documentation"]
+
   type t2
 
   (**       Floating doc with many leading spaces (which should be removed),

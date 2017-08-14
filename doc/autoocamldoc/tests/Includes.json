@@ -1,30 +1,25 @@
 {
   "__class__": "signature_item:module",
   "name": "tests/Includes",
-  "doc": [],
   "hidden": false,
-  "type": {
-    "__class__": "module_type:signature",
-    "elements": [
-      {
-        "__class__": "signature_item:include",
-        "doc": [ " Doc for include ", " Doc' for include " ],
-        "hidden": false,
-        "type": {
-          "__class__": "module_type:signature",
-          "elements": [
-            {
-              "__class__": "signature_item:type",
-              "doc": [],
-              "hidden": false,
-              "name": "t",
-              "parameters": [],
-              "manifest": null,
-              "kind": { "__class__": "type_kind:abstract" }
-            }
-          ]
+  "doc": [],
+  "functor_parameters": [],
+  "contents": [
+    {
+      "__class__": "signature_item:include",
+      "hidden": false,
+      "doc": [ " Doc for include ", " Doc' for include " ],
+      "contents": [
+        {
+          "__class__": "signature_item:type",
+          "name": "t",
+          "hidden": false,
+          "doc": [],
+          "parameters": [],
+          "manifest": null,
+          "kind": { "__class__": "type_kind:abstract" }
         }
-      }
-    ]
-  }
+      ]
+    }
+  ]
 }

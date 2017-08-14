@@ -32,3 +32,13 @@ type variant =
     b: float; (** Doc for Record.b *)
   } (** Doc for Record *)
 (** Doc' for variant *)
+
+(** Doc for recursive1 *)
+type recursive1 =
+  | A1 (** Doc for A1 *)
+  | B1 of recursive2 (** Doc for B1 *)
+
+(** Doc for recursive2 *)
+and recursive2 =
+  | A2 (** Doc for A2 *)
+  | B2 of recursive1 (** Doc for B2 *)

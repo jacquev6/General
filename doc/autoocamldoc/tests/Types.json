@@ -1,144 +1,198 @@
 {
   "__class__": "signature_item:module",
   "name": "tests/Types",
-  "doc": [],
   "hidden": false,
-  "type": {
-    "__class__": "module_type:signature",
-    "elements": [
-      {
-        "__class__": "signature_item:type",
-        "doc": [ " Doc for manifest ", " Doc' for manifest " ],
-        "hidden": false,
-        "name": "manifest",
-        "parameters": [],
-        "manifest": "int",
-        "kind": { "__class__": "type_kind:abstract" }
-      },
-      {
-        "__class__": "signature_item:type",
-        "doc": [ " Doc for parameter ", " Doc' for parameter " ],
-        "hidden": false,
-        "name": "parameter",
-        "parameters": [ "'a" ],
-        "manifest": null,
-        "kind": { "__class__": "type_kind:abstract" }
-      },
-      {
-        "__class__": "signature_item:type",
-        "doc": [ " Doc for parameters ", " Doc' for parameters " ],
-        "hidden": false,
-        "name": "parameters",
-        "parameters": [ "'a", "'b" ],
-        "manifest": null,
-        "kind": { "__class__": "type_kind:abstract" }
-      },
-      {
-        "__class__": "signature_item:type",
-        "doc": [ " Doc for variances ", " Doc' for variances " ],
-        "hidden": false,
-        "name": "variances",
-        "parameters": [ "-'a", "+'b" ],
-        "manifest": null,
-        "kind": { "__class__": "type_kind:abstract" }
-      },
-      {
-        "__class__": "signature_item:type",
-        "doc": [ " Doc for record ", " Doc' for record " ],
-        "hidden": false,
-        "name": "record",
-        "parameters": [],
-        "manifest": null,
-        "kind": {
-          "__class__": "type_kind:record",
-          "labels": [
-            {
-              "__class__": "record_label",
-              "doc": [ " Doc for record.a " ],
-              "name": "a",
-              "mutable": false,
-              "type": "int"
-            },
-            {
-              "__class__": "record_label",
-              "doc": [ " Doc for record.b " ],
-              "name": "b",
-              "mutable": false,
-              "type": "float"
-            }
-          ]
-        }
-      },
-      {
-        "__class__": "signature_item:type",
-        "doc": [ " Doc for variant ", " Doc' for variant " ],
-        "hidden": false,
-        "name": "variant",
-        "parameters": [],
-        "manifest": null,
-        "kind": {
-          "__class__": "type_kind:variant",
-          "constructors": [
-            {
-              "__class__": "type_constructor",
-              "doc": [ " Doc for None " ],
-              "name": "None",
-              "arguments": { "__class__": "arguments:tuple", "payload": [] }
-            },
-            {
-              "__class__": "type_constructor",
-              "doc": [ " Doc for Single " ],
-              "name": "Single",
-              "arguments": {
-                "__class__": "arguments:tuple",
-                "payload": [ "int" ]
-              }
-            },
-            {
-              "__class__": "type_constructor",
-              "doc": [ " Doc for Several " ],
-              "name": "Several",
-              "arguments": {
-                "__class__": "arguments:tuple",
-                "payload": [ "int", "float" ]
-              }
-            },
-            {
-              "__class__": "type_constructor",
-              "doc": [ " Doc for Tuple " ],
-              "name": "Tuple",
-              "arguments": {
-                "__class__": "arguments:tuple",
-                "payload": [ "int * float" ]
-              }
-            },
-            {
-              "__class__": "type_constructor",
-              "doc": [ " Doc for Record " ],
-              "name": "Record",
-              "arguments": {
-                "__class__": "arguments:record",
-                "labels": [
-                  {
-                    "__class__": "record_label",
-                    "doc": [ " Doc for Record.a " ],
-                    "name": "a",
-                    "mutable": false,
-                    "type": "int"
-                  },
-                  {
-                    "__class__": "record_label",
-                    "doc": [ " Doc for Record.b " ],
-                    "name": "b",
-                    "mutable": false,
-                    "type": "float"
-                  }
-                ]
-              }
-            }
-          ]
-        }
+  "doc": [],
+  "functor_parameters": [],
+  "contents": [
+    {
+      "__class__": "signature_item:type",
+      "name": "manifest",
+      "hidden": false,
+      "doc": [ " Doc for manifest ", " Doc' for manifest " ],
+      "parameters": [],
+      "manifest": "int",
+      "kind": { "__class__": "type_kind:abstract" }
+    },
+    {
+      "__class__": "signature_item:type",
+      "name": "parameter",
+      "hidden": false,
+      "doc": [ " Doc for parameter ", " Doc' for parameter " ],
+      "parameters": [ "'a" ],
+      "manifest": null,
+      "kind": { "__class__": "type_kind:abstract" }
+    },
+    {
+      "__class__": "signature_item:type",
+      "name": "parameters",
+      "hidden": false,
+      "doc": [ " Doc for parameters ", " Doc' for parameters " ],
+      "parameters": [ "'a", "'b" ],
+      "manifest": null,
+      "kind": { "__class__": "type_kind:abstract" }
+    },
+    {
+      "__class__": "signature_item:type",
+      "name": "variances",
+      "hidden": false,
+      "doc": [ " Doc for variances ", " Doc' for variances " ],
+      "parameters": [ "-'a", "+'b" ],
+      "manifest": null,
+      "kind": { "__class__": "type_kind:abstract" }
+    },
+    {
+      "__class__": "signature_item:type",
+      "name": "record",
+      "hidden": false,
+      "doc": [ " Doc for record ", " Doc' for record " ],
+      "parameters": [],
+      "manifest": null,
+      "kind": {
+        "__class__": "type_kind:record",
+        "labels": [
+          {
+            "__class__": "record_label",
+            "doc": [ " Doc for record.a " ],
+            "name": "a",
+            "mutable": false,
+            "type": "int"
+          },
+          {
+            "__class__": "record_label",
+            "doc": [ " Doc for record.b " ],
+            "name": "b",
+            "mutable": false,
+            "type": "float"
+          }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "__class__": "signature_item:type",
+      "name": "variant",
+      "hidden": false,
+      "doc": [ " Doc for variant ", " Doc' for variant " ],
+      "parameters": [],
+      "manifest": null,
+      "kind": {
+        "__class__": "type_kind:variant",
+        "constructors": [
+          {
+            "__class__": "type_constructor",
+            "doc": [ " Doc for None " ],
+            "name": "None",
+            "arguments": { "__class__": "arguments:tuple", "payload": [] }
+          },
+          {
+            "__class__": "type_constructor",
+            "doc": [ " Doc for Single " ],
+            "name": "Single",
+            "arguments": {
+              "__class__": "arguments:tuple",
+              "payload": [ "int" ]
+            }
+          },
+          {
+            "__class__": "type_constructor",
+            "doc": [ " Doc for Several " ],
+            "name": "Several",
+            "arguments": {
+              "__class__": "arguments:tuple",
+              "payload": [ "int", "float" ]
+            }
+          },
+          {
+            "__class__": "type_constructor",
+            "doc": [ " Doc for Tuple " ],
+            "name": "Tuple",
+            "arguments": {
+              "__class__": "arguments:tuple",
+              "payload": [ "int * float" ]
+            }
+          },
+          {
+            "__class__": "type_constructor",
+            "doc": [ " Doc for Record " ],
+            "name": "Record",
+            "arguments": {
+              "__class__": "arguments:record",
+              "labels": [
+                {
+                  "__class__": "record_label",
+                  "doc": [ " Doc for Record.a " ],
+                  "name": "a",
+                  "mutable": false,
+                  "type": "int"
+                },
+                {
+                  "__class__": "record_label",
+                  "doc": [ " Doc for Record.b " ],
+                  "name": "b",
+                  "mutable": false,
+                  "type": "float"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "__class__": "signature_item:type",
+      "name": "recursive1",
+      "hidden": false,
+      "doc": [ " Doc for recursive1 " ],
+      "parameters": [],
+      "manifest": null,
+      "kind": {
+        "__class__": "type_kind:variant",
+        "constructors": [
+          {
+            "__class__": "type_constructor",
+            "doc": [ " Doc for A1 " ],
+            "name": "A1",
+            "arguments": { "__class__": "arguments:tuple", "payload": [] }
+          },
+          {
+            "__class__": "type_constructor",
+            "doc": [ " Doc for B1 " ],
+            "name": "B1",
+            "arguments": {
+              "__class__": "arguments:tuple",
+              "payload": [ "recursive2" ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "__class__": "signature_item:type",
+      "name": "recursive2",
+      "hidden": false,
+      "doc": [ " Doc for recursive2 " ],
+      "parameters": [],
+      "manifest": null,
+      "kind": {
+        "__class__": "type_kind:variant",
+        "constructors": [
+          {
+            "__class__": "type_constructor",
+            "doc": [ " Doc for A2 " ],
+            "name": "A2",
+            "arguments": { "__class__": "arguments:tuple", "payload": [] }
+          },
+          {
+            "__class__": "type_constructor",
+            "doc": [ " Doc for B2 " ],
+            "name": "B2",
+            "arguments": {
+              "__class__": "arguments:tuple",
+              "payload": [ "recursive1" ]
+            }
+          }
+        ]
+      }
+    }
+  ]
 }

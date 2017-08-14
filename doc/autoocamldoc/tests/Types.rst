@@ -65,3 +65,19 @@ Reference
 
     Doc' for variant
 
+  .. type:: recursive1
+
+    :constructor A1: Doc for A1
+
+    :constructor B1 of recursive2: Doc for B1
+
+    Doc for recursive1
+
+  .. type:: recursive2
+
+    :constructor A2: Doc for A2
+
+    :constructor B2 of recursive1: Doc for B2
+
+    Doc for recursive2
+
