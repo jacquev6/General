@@ -17,9 +17,12 @@
           "name": "t1",
           "hidden": false,
           "doc": [],
-          "parameters": [],
+          "parameters": null,
+          "private": false,
           "manifest": null,
-          "kind": { "__class__": "type_kind:abstract" }
+          "kind": null,
+          "constructors": [],
+          "labels": []
         },
         {
           "__class__": "signature_item:floating_documentation",
@@ -31,9 +34,12 @@
           "name": "t2",
           "hidden": false,
           "doc": [],
-          "parameters": [],
+          "parameters": null,
+          "private": false,
           "manifest": null,
-          "kind": { "__class__": "type_kind:abstract" }
+          "kind": null,
+          "constructors": [],
+          "labels": []
         },
         {
           "__class__": "signature_item:floating_documentation",
@@ -88,9 +94,12 @@
           "doc": [
             " Doc for SimpleFunctor.t ", " Doc' for SimpleFunctor.t "
           ],
-          "parameters": [],
+          "parameters": null,
+          "private": false,
           "manifest": null,
-          "kind": { "__class__": "type_kind:abstract" }
+          "kind": null,
+          "constructors": [],
+          "labels": []
         }
       ]
     },
@@ -110,9 +119,12 @@
               "name": "a",
               "hidden": false,
               "doc": [ " Doc for MultiFunctor.A.a " ],
-              "parameters": [],
+              "parameters": null,
+              "private": false,
               "manifest": null,
-              "kind": { "__class__": "type_kind:abstract" }
+              "kind": null,
+              "constructors": [],
+              "labels": []
             }
           ]
         },
@@ -126,9 +138,12 @@
               "name": "b",
               "hidden": false,
               "doc": [ " Doc for MultiFunctor.B.b " ],
-              "parameters": [],
+              "parameters": null,
+              "private": false,
               "manifest": null,
-              "kind": { "__class__": "type_kind:abstract" }
+              "kind": null,
+              "constructors": [],
+              "labels": []
             }
           ]
         },
@@ -142,9 +157,12 @@
               "name": "c",
               "hidden": false,
               "doc": [ " Doc for MultiFunctor.C.c " ],
-              "parameters": [],
+              "parameters": null,
+              "private": false,
               "manifest": null,
-              "kind": { "__class__": "type_kind:abstract" }
+              "kind": null,
+              "constructors": [],
+              "labels": []
             }
           ]
         }
@@ -155,9 +173,12 @@
           "name": "t",
           "hidden": false,
           "doc": [],
-          "parameters": [],
+          "parameters": null,
+          "private": false,
           "manifest": null,
-          "kind": { "__class__": "type_kind:abstract" }
+          "kind": null,
+          "constructors": [],
+          "labels": []
         }
       ]
     },
@@ -181,9 +202,12 @@
                   "name": "a",
                   "hidden": false,
                   "doc": [],
-                  "parameters": [],
+                  "parameters": null,
+                  "private": false,
                   "manifest": null,
-                  "kind": { "__class__": "type_kind:abstract" }
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
                 }
               ]
             }
@@ -194,9 +218,12 @@
               "name": "f",
               "hidden": false,
               "doc": [],
-              "parameters": [],
+              "parameters": null,
+              "private": false,
               "manifest": null,
-              "kind": { "__class__": "type_kind:abstract" }
+              "kind": null,
+              "constructors": [],
+              "labels": []
             }
           ]
         }
@@ -207,9 +234,12 @@
           "name": "ff",
           "hidden": false,
           "doc": [],
-          "parameters": [],
+          "parameters": null,
+          "private": false,
           "manifest": null,
-          "kind": { "__class__": "type_kind:abstract" }
+          "kind": null,
+          "constructors": [],
+          "labels": []
         }
       ]
     }

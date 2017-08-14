@@ -10,59 +10,51 @@
       "name": "Simple",
       "hidden": false,
       "doc": [ " Doc for Single ", " Doc' for Single " ],
-      "arguments": { "__class__": "arguments:tuple", "payload": [] }
+      "payload": null,
+      "labels": []
     },
     {
       "__class__": "signature_item:exception",
       "name": "SinglePayload",
       "hidden": false,
       "doc": [ " Doc for SinglePayload ", " Doc' for SinglePayload " ],
-      "arguments": { "__class__": "arguments:tuple", "payload": [ "int" ] }
+      "payload": "int",
+      "labels": []
     },
     {
       "__class__": "signature_item:exception",
       "name": "SeveralPayload",
       "hidden": false,
       "doc": [ " Doc for SeveralPayload ", " Doc' for SeveralPayload " ],
-      "arguments": {
-        "__class__": "arguments:tuple",
-        "payload": [ "int", "float", "string" ]
-      }
+      "payload": "int * float * string",
+      "labels": []
     },
     {
       "__class__": "signature_item:exception",
       "name": "TuplePayload",
       "hidden": false,
       "doc": [ " Doc for TuplePayload ", " Doc' for TuplePayload " ],
-      "arguments": {
-        "__class__": "arguments:tuple",
-        "payload": [ "int * float * string" ]
-      }
+      "payload": "(int * float * string)",
+      "labels": []
     },
     {
       "__class__": "signature_item:exception",
       "name": "RecordPayload",
       "hidden": false,
       "doc": [ " Doc for RecordPayload ", " Doc' for RecordPayload " ],
-      "arguments": {
-        "__class__": "arguments:record",
-        "labels": [
-          {
-            "__class__": "record_label",
-            "doc": [ " Doc for RecordPayload.a " ],
-            "name": "a",
-            "mutable": false,
-            "type": "int"
-          },
-          {
-            "__class__": "record_label",
-            "doc": [ " Doc for RecordPayload.b " ],
-            "name": "b",
-            "mutable": false,
-            "type": "float"
-          }
-        ]
-      }
+      "payload": "{a: int; mutable b: float}",
+      "labels": [
+        {
+          "__class__": "record_label",
+          "name": "a",
+          "doc": [ " Doc for RecordPayload.a " ]
+        },
+        {
+          "__class__": "record_label",
+          "name": "b",
+          "doc": [ " Doc for RecordPayload.b " ]
+        }
+      ]
     }
   ]
 }

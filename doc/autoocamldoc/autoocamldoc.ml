@@ -27,101 +27,6 @@ module J = struct
 end
 
 
-let filter_attributes ~key attributes =
-  attributes
-  |> Li.filter_map ~f:(fun ({Asttypes.txt; loc=_}, payload) ->
-    Opt.some_if (txt = key) (lazy Parsetree.(
-      match payload with
-        | PStr [{pstr_desc=Pstr_eval ({pexp_desc=Pexp_constant (Parsetree.Pconst_string (s, _)); _}, _); _}] ->
-          J.str s
-        | _ -> Exn.failure "filter_attributes" (*BISECT-IGNORE*)
-    ))
-  )
-
-
-let filter_ocaml_doc_attributes attributes =
-  J.li (filter_attributes ~key:"ocaml.doc" attributes)
-
-
-module TypedtreeToJson = struct
-  let type_expr' t =
-    Printtyp.reset ();
-    Printtyp.type_expr OCamlStandard.Format.str_formatter t;
-    OCamlStandard.Format.flush_str_formatter ()
-
-  let type_expr t =
-    J.str (type_expr' t)
-
-  open Typedtree
-
-  let string_loc ?(format=Frmt.of_string "%s") {Asttypes.txt; loc=_} =
-    J.str (Frmt.apply format txt)
-
-  let type_parameters typ_params =
-    typ_params
-    |> Li.map ~f:(fun ({ctyp_type; _}, variance) ->
-      let type_ = type_expr' ctyp_type
-      and variance =
-        match variance with
-          | Asttypes.Covariant -> "+"
-          | Asttypes.Contravariant -> "-"
-          | Asttypes.Invariant -> ""
-      in
-      J.str (Frmt.apply "%s%s" variance type_)
-    )
-    |> J.li
-
-  let type_manifest typ_manifest =
-    typ_manifest
-    |> Opt.map ~f:(fun {ctyp_type; _} -> type_expr ctyp_type)
-    |> J.opt
-
-  let label_declaration {ld_id=_; ld_name; ld_mutable; ld_type={ctyp_type; _}; ld_loc=_; ld_attributes} =
-    J.obj "record_label" [
-      ("doc", filter_ocaml_doc_attributes ld_attributes);
-      ("name", string_loc ld_name);
-      ("mutable", J.bo (ld_mutable = Asttypes.Mutable));
-      ("type", type_expr ctyp_type);
-    ]
-
-  let constructor_arguments = function
-    | Cstr_tuple payload ->
-      J.obj "arguments:tuple" [
-        ("payload", payload |> Li.map ~f:(fun {ctyp_type; _} -> type_expr ctyp_type) |> J.li);
-      ]
-    | Cstr_record labels ->
-      J.obj "arguments:record" [
-        ("labels", labels |> Li.map ~f:label_declaration |> J.li);
-      ]
-
-  let type_kind = function
-    | Ttype_abstract ->
-      J.obj "type_kind:abstract" [
-      ]
-    | Ttype_variant constructors ->
-      J.obj "type_kind:variant" [
-        (
-          "constructors",
-          constructors
-          |> Li.map ~f:(fun {cd_id=_; cd_name; cd_args; cd_res=_; cd_loc=_; cd_attributes} ->
-            J.obj "type_constructor" [
-              ("doc", filter_ocaml_doc_attributes cd_attributes);
-              ("name", string_loc cd_name);
-              ("arguments", constructor_arguments cd_args);
-            ]
-          )
-          |> J.li
-        )
-      ]
-    | Ttype_record labels ->
-      J.obj "type_kind:record" [
-        ("labels", labels |> Li.map ~f:label_declaration |> J.li)
-      ]
-    | Ttype_open -> (*BISECT-IGNORE*)
-      Exn.failure "type_kind: Ttype_open"
-end
-
-
 (*BISECT-IGNORE-BEGIN*)
 let warn s v =
   StdErr.print "WARNING: %s\n" s;
@@ -199,17 +104,234 @@ end = struct
 end
 
 
+let string_of_core_type {Typedtree.ctyp_desc=_; ctyp_type; ctyp_env=_; ctyp_loc=_; ctyp_attributes=_} =
+  Printtyp.reset ();
+  Printtyp.type_expr OCamlStandard.Format.str_formatter ctyp_type;
+  OCamlStandard.Format.flush_str_formatter ()
+
+let string_of_record labels =
+  labels
+  |> Li.map ~f:(fun {Typedtree.ld_id=_; ld_name={Asttypes.txt; loc=_}; ld_mutable; ld_type; ld_loc=_; ld_attributes=_} ->
+    Frmt.apply "%s%s: %s" (if ld_mutable = Asttypes.Mutable then "mutable " else "") txt (string_of_core_type ld_type)
+  )
+  |> StrLi.concat ~sep:"; "
+  |> Frmt.apply "{%s}"
+
+let string_of_tuple elements =
+  let format =
+    match elements with
+      | [{Typedtree.ctyp_type={Types.desc=Types.Ttuple _; _}; _}] ->
+        Frmt.of_string "(%s)"
+      | _ ->
+        Frmt.of_string "%s"
+  in
+  elements
+  |> Li.map ~f:string_of_core_type
+  |> StrLi.concat ~sep:" * "
+  |> Frmt.apply format
+
+
+module Payload: sig
+  val of_constructor_arguments: Typedtree.constructor_arguments -> J.a
+end = struct
+  let of_string s =
+    ("payload", J.str s)
+
+  let empty = ("payload", J.null)
+
+  let of_constructor_arguments = function
+    | Typedtree.Cstr_tuple [] ->
+      empty
+    | Typedtree.Cstr_tuple elements ->
+      elements
+      |> string_of_tuple
+      |> of_string
+    | Typedtree.Cstr_record declarations ->
+      declarations
+      |> string_of_record
+      |> of_string
+end
+
+
+module RecordLabels: sig
+  val of_constructor_arguments: Typedtree.constructor_arguments -> J.a
+  val of_type_kind: Typedtree.type_kind -> J.a
+end = struct
+  let of_list xs =
+    ("labels", J.li xs)
+
+  let empty = of_list []
+
+  let of_label_declarations declarations =
+      declarations
+      |> Li.map ~f:(fun {Typedtree.ld_id=_; ld_name; ld_mutable=_; ld_type=_; ld_loc=_; ld_attributes} ->
+        J.obj "record_label" [
+          Name.of_string_loc ld_name;
+          Doc.of_attributes ld_attributes;
+        ]
+      )
+
+  let of_constructor_arguments = function
+    | Typedtree.Cstr_tuple _ ->
+      []
+    | Typedtree.Cstr_record declarations ->
+      of_label_declarations declarations
+
+  let of_type_kind = function
+    | Typedtree.Ttype_abstract ->
+      empty
+    | Typedtree.Ttype_variant declarations ->
+      declarations
+      |> Li.flat_map ~f:(fun {Typedtree.cd_id=_; cd_name=_; cd_args; cd_res=_; cd_loc=_; cd_attributes=_} ->
+        of_constructor_arguments cd_args
+      )
+      |> of_list
+    | Typedtree.Ttype_record declarations ->
+      of_label_declarations declarations
+      |> of_list
+    | Typedtree.Ttype_open ->
+      empty
+
+  let of_constructor_arguments = of_list % of_constructor_arguments
+end
+
+
+module TypeParameters: sig
+  val of_type_parameters: (Typedtree.core_type * Asttypes.variance) list -> J.a
+end = struct
+  let of_string s =
+    ("parameters", J.str s)
+
+  let empty = ("parameters", J.null)
+
+  let string_of_type_parameter (t, v) =
+    let variance = match v with
+      | Asttypes.Covariant ->
+        "+"
+      | Asttypes.Contravariant ->
+        "-"
+      | Asttypes.Invariant ->
+        ""
+    in
+    Frmt.apply "%s%s" variance (string_of_core_type t)
+
+  let of_type_parameters = function
+    | [] ->
+      empty
+    | [type_parameter] ->
+      type_parameter
+      |> string_of_type_parameter
+      |> of_string
+    | type_parameters ->
+      type_parameters
+      |> Li.map ~f:string_of_type_parameter
+      |> StrLi.concat ~sep:", "
+      |> Frmt.apply "(%s)"
+      |> of_string
+end
+
+
+module TypePrivate: sig
+  val of_private_flag: Asttypes.private_flag -> J.a
+end = struct
+  let bool_of_private_flag = function
+    | Asttypes.Private -> true
+    | Asttypes.Public -> false
+
+  let of_private_flag f =
+    ("private", f |> bool_of_private_flag |> J.bo)
+end
+
+module TypeManifest: sig
+  val of_core_type_option: Typedtree.core_type option -> J.a
+end = struct
+  let of_core_type_option t =
+    ("manifest", t |> Opt.map ~f:(J.str % string_of_core_type) |> J.opt)
+end
+
+
+module TypeConstructors: sig
+  val of_type_kind: Typedtree.type_kind -> J.a
+end = struct
+  let of_list xs =
+    ("constructors", J.li xs)
+
+  let empty = of_list []
+
+  let of_type_kind = function
+    | Typedtree.Ttype_abstract ->
+      empty
+    | Typedtree.Ttype_variant declarations ->
+      declarations
+      |> Li.map ~f:(fun {Typedtree.cd_id=_; cd_name; cd_args; cd_res=_; cd_loc=_; cd_attributes} ->
+        J.obj "type_constructor" [
+          Name.of_string_loc cd_name;
+          Doc.of_attributes cd_attributes;
+          Payload.of_constructor_arguments cd_args;
+        ]
+      )
+      |> of_list
+    | Typedtree.Ttype_record _ ->
+      empty
+    | Typedtree.Ttype_open ->
+      empty
+end
+
+
+module TypeKind: sig
+  val of_type_kind: Typedtree.type_kind -> J.a
+end = struct
+  let of_string s =
+    ("kind", J.str s)
+
+  let empty = ("kind", J.null)
+
+  let of_type_kind = function
+    | Typedtree.Ttype_abstract ->
+      empty
+    | Typedtree.Ttype_variant declarations ->
+      declarations
+      |> Li.map ~f:(fun {Typedtree.cd_id=_; cd_name={Asttypes.txt; loc=_}; cd_args; cd_res=_; cd_loc=_; cd_attributes=_} ->
+        let payload =
+          match cd_args with
+            | Typedtree.Cstr_tuple [] ->
+              ""
+            | Typedtree.Cstr_tuple elements ->
+              elements
+              |> string_of_tuple
+              |> Frmt.apply " of %s"
+            | Typedtree.Cstr_record declarations ->
+              declarations
+              |> string_of_record
+              |> Frmt.apply " of %s"
+        in
+        Frmt.apply "%s%s" txt payload
+      )
+      |> StrLi.concat ~sep:" | "
+      |> of_string
+    | Typedtree.Ttype_record declarations ->
+      declarations
+      |> string_of_record
+      |> of_string
+    | Typedtree.Ttype_open ->
+      of_string ".."
+end
+
+
 module Type: sig
   val of_type_declaration: Typedtree.type_declaration -> J.t
 end = struct
-  let of_type_declaration {Typedtree.typ_id=_; typ_name; typ_params; typ_type=_; typ_cstrs=_; typ_kind; typ_private=_; typ_manifest; typ_loc=_; typ_attributes} =
+  let of_type_declaration {Typedtree.typ_id=_; typ_name; typ_params; typ_type=_; typ_cstrs=_; typ_kind; typ_private; typ_manifest; typ_loc=_; typ_attributes} =
     J.obj "signature_item:type" [
       Name.of_string_loc typ_name;
       Hidden.of_attributes typ_attributes;
       Doc.of_attributes typ_attributes;
-      ("parameters", TypedtreeToJson.type_parameters typ_params);
-      ("manifest",TypedtreeToJson. type_manifest typ_manifest);
-      ("kind", TypedtreeToJson.type_kind typ_kind);
+      TypeParameters.of_type_parameters typ_params;
+      TypePrivate.of_private_flag typ_private;
+      TypeManifest.of_core_type_option typ_manifest;
+      TypeKind.of_type_kind typ_kind;
+      TypeConstructors.of_type_kind typ_kind;
+      RecordLabels.of_type_kind typ_kind;
     ]
 end
 
@@ -229,7 +351,8 @@ end = struct
       Name.of_string_loc ext_name;
       Hidden.of_attributes ext_attributes;
       Doc.of_attributes ext_attributes;
-      ("arguments", TypedtreeToJson.constructor_arguments arguments);
+      Payload.of_constructor_arguments arguments;
+      RecordLabels.of_constructor_arguments arguments;
     ]
 end
 
@@ -237,7 +360,7 @@ end
 module Value: sig
   val of_value_description: Typedtree.value_description -> J.t
 end = struct
-  let of_value_description {Typedtree.val_id=_; val_name; val_desc={Typedtree.ctyp_type; _}; val_val=_; val_prim=_; val_loc=_; val_attributes} =
+  let of_value_description {Typedtree.val_id=_; val_name; val_desc; val_val=_; val_prim=_; val_loc=_; val_attributes} =
     (* @todo let format =
       Opt.some_if'
         (Oprint.parenthesized_ident (Ident.name val_id))
@@ -247,7 +370,7 @@ end = struct
       Name.of_string_loc val_name;
       Hidden.of_attributes val_attributes;
       Doc.of_attributes val_attributes;
-      ("type", TypedtreeToJson.type_expr ctyp_type);
+      ("type", val_desc |> string_of_core_type |> J.str);
     ]
 end
 

@@ -17,6 +17,6 @@ exception TuplePayload of (int * float * string)
 (** Doc for RecordPayload *)
 exception RecordPayload of {
   a: int; (** Doc for RecordPayload.a *)
-  b: float; (** Doc for RecordPayload.b *)
+  mutable b: float; (** Doc for RecordPayload.b *)
 }
 (** Doc' for RecordPayload *)

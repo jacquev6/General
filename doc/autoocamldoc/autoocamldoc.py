@@ -28,7 +28,7 @@ class Generator:
 
     def __indent(self, lines):
         for line in lines:
-            if line:
+            if line != "":
                 yield "  " + line
             else:
                 yield ""
@@ -45,7 +45,7 @@ class Generator:
             lines = lines[1:]
             leading_spaces = min(self.__count_leading_spaces(line) for line in lines if line)
             for line in lines:
-                if line:
+                if line != "":
                     assert line.startswith(" " * leading_spaces), (line, leading_spaces)
                     yield line[leading_spaces:]
                 else:
@@ -92,75 +92,40 @@ class Generator:
         yield ".. val:: {}".format(value.pop("name"))
         yield "  :type: {}".format(value.pop("type"))
         yield ""
-        for doc in value.pop("doc"):
-            yield from self.__indent(self.__gen_doc(doc))
-            yield ""
+        yield from self.__indent(self.__doc(value))
 
     def __gen__signature_item__type(self, type_):
         yield ".. type:: {}".format(type_.pop("name"))
         parameters = type_.pop("parameters")
-        if len(parameters) == 1:
-            yield "  :parameters: {}".format(parameters[0])
-        elif len(parameters) > 1:
-            yield "  :parameters: ({})".format(", ".join(parameters))
+        if parameters is not None:
+            yield "  :parameters: {}".format(parameters)
+        if type_.pop("private"):
+            yield "  :private:"
         manifest = type_.pop("manifest")
-        if manifest:
+        if manifest is not None:
             yield "  :manifest: {}".format(manifest)
         kind = type_.pop("kind")
-        c = kind["__class__"]
-        if c == "type_kind:variant":
-            for constructor in kind["constructors"]:
-                arguments = constructor["arguments"]
-                c = arguments["__class__"]
-                if c == "arguments:tuple":
-                    payload = " * ".join(
-                        "({})".format(x) if "*" in x else x
-                        for x in arguments["payload"]
-                    )
-                else:
-                    assert c == "arguments:record"
-                    payload = "{{{}}}".format("; ".join("{}: {}".format(label["name"], label["type"]) for label in arguments["labels"]))
-                if payload:
-                    payload = " of {}".format(payload)
-                yield ""
-                yield "  :constructor {}{}: {}".format(constructor["name"], payload, " ".join(x.strip() for x in constructor["doc"]))
-                if c == "arguments:record":
-                    for label in arguments["labels"]:
-                        yield ""
-                        yield "  :label {}: {}".format(label["name"], " ".join(x.strip() for x in label["doc"]))
-        elif c == "type_kind:record":
-            yield "  :kind: {{{}}}".format("; ".join("{}: {}".format(label["name"], label["type"]) for label in kind["labels"]))
-            for label in kind["labels"]:
-                yield ""
-                yield "  :label {}: {}".format(label["name"], " ".join(x.strip() for x in label["doc"]))
-        else:
-            assert c == "type_kind:abstract"
-        yield ""
-        for doc in type_.pop("doc"):
-            yield from self.__indent(self.__gen_doc(doc))
+        if kind is not None:
+            yield "  :kind: {}".format(kind)
+        for constructor in type_.pop("constructors"):
             yield ""
+            yield "  :constructor {}: {}".format(constructor["name"], " ".join(x.strip() for x in constructor["doc"]))
+        for label in type_.pop("labels"):
+            yield ""
+            yield "  :label {}: {}".format(label["name"], " ".join(x.strip() for x in label["doc"]))
+        yield ""
+        yield from self.__indent(self.__doc(type_))
 
     def __gen__signature_item__exception(self, exception_):
         yield ".. exception:: {}".format(exception_.pop("name"))
-        arguments = exception_.pop("arguments")
-        c = arguments["__class__"]
-        if c == "arguments:tuple":
-            payload = " * ".join(
-                "({})".format(x) if "*" in x else x
-                for x in arguments["payload"]
-            )
-            if payload:
-                yield "  :payload: {}".format(payload)
-        else:
-            assert c == "arguments:record"
-            yield "  :payload: {{{}}}".format("; ".join("{}: {}".format(label["name"], label["type"]) for label in arguments["labels"]))
-            for label in arguments["labels"]:
-                yield ""
-                yield "  :label {}: {}".format(label["name"], " ".join(x.strip() for x in label["doc"]))
-        yield ""
-        for doc in exception_.pop("doc"):
-            yield from self.__indent(self.__gen_doc(doc))
+        payload = exception_.pop("payload")
+        if payload is not None:
+            yield "  :payload: {}".format(payload)
+        for label in exception_.pop("labels"):
             yield ""
+            yield "  :label {}: {}".format(label["name"], " ".join(x.strip() for x in label["doc"]))
+        yield ""
+        yield from self.__indent(self.__doc(exception_))
 
 
 def ensure_single_lines(lines):

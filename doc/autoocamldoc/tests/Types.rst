@@ -46,16 +46,17 @@ Reference
     Doc' for record
 
   .. type:: variant
+    :kind: None | Single of int | Several of int * float | Tuple of (int * float) | Record of {a: int; b: float}
 
     :constructor None: Doc for None
 
-    :constructor Single of int: Doc for Single
+    :constructor Single: Doc for Single
 
-    :constructor Several of int * float: Doc for Several
+    :constructor Several: Doc for Several
 
-    :constructor Tuple of (int * float): Doc for Tuple
+    :constructor Tuple: Doc for Tuple
 
-    :constructor Record of {a: int; b: float}: Doc for Record
+    :constructor Record: Doc for Record
 
     :label a: Doc for Record.a
 
@@ -66,18 +67,43 @@ Reference
     Doc' for variant
 
   .. type:: recursive1
+    :kind: A1 | B1 of recursive2
 
     :constructor A1: Doc for A1
 
-    :constructor B1 of recursive2: Doc for B1
+    :constructor B1: Doc for B1
 
     Doc for recursive1
 
   .. type:: recursive2
+    :kind: A2 | B2 of recursive1
 
     :constructor A2: Doc for A2
 
-    :constructor B2 of recursive1: Doc for B2
+    :constructor B2: Doc for B2
 
     Doc for recursive2
+
+  .. type:: open_
+    :kind: ..
+
+    Doc for open_
+
+    Doc' for open_
+
+  .. type:: private_int
+    :private:
+    :manifest: int
+
+  .. type:: private_variant
+    :private:
+    :kind: Private
+
+    :constructor Private:
+
+  .. type:: private_record
+    :private:
+    :kind: {c: int}
+
+    :label c:
 

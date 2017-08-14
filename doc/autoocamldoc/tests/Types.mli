@@ -42,3 +42,20 @@ type recursive1 =
 and recursive2 =
   | A2 (** Doc for A2 *)
   | B2 of recursive1 (** Doc for B2 *)
+
+(** Doc for open_ *)
+type open_ = ..
+(** Doc' for open_ *)
+
+(* @todo type open_ +=
+  | AO
+  | BO of int *)
+
+(* @todo type open_ += private
+  | PrivateO *)
+
+type private_int = private int
+
+type private_variant = private Private
+
+type private_record = private {c: int}

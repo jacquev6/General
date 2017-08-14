@@ -34,7 +34,7 @@ Reference
     Doc' for TuplePayload
 
   .. exception:: RecordPayload
-    :payload: {a: int; b: float}
+    :payload: {a: int; mutable b: float}
 
     :label a: Doc for RecordPayload.a
 

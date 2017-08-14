@@ -16,9 +16,12 @@
           "name": "t",
           "hidden": false,
           "doc": [],
-          "parameters": [],
+          "parameters": null,
+          "private": false,
           "manifest": null,
-          "kind": { "__class__": "type_kind:abstract" }
+          "kind": null,
+          "constructors": [],
+          "labels": []
         }
       ]
     }
