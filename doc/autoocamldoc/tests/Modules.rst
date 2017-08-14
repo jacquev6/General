@@ -26,3 +26,62 @@ Reference
 
     And a conclusion with many trailing spaces (which should be removed as well).
 
+  .. module:: SimpleFunctor
+
+    Doc for SimpleFunctor
+
+    Doc' for SimpleFunctor
+
+    .. functor_parameter:: N
+
+      Floating Doc in sig of SimpleFunctor.N (because I've not found a way to attach doc to a functor parameter)
+
+      .. val:: n
+        :type: int
+
+        Doc for SimpleFunctor.N.n
+
+        Doc' for SimpleFunctor.N.n
+
+    .. type:: t
+
+      Doc for SimpleFunctor.t
+
+      Doc' for SimpleFunctor.t
+
+  .. module:: MultiFunctor
+
+    Doc for MultiFunctor
+
+    .. functor_parameter:: A
+
+      .. type:: a
+
+        Doc for MultiFunctor.A.a
+
+    .. functor_parameter:: B
+
+      .. type:: b
+
+        Doc for MultiFunctor.B.b
+
+    .. functor_parameter:: C
+
+      .. type:: c
+
+        Doc for MultiFunctor.C.c
+
+    .. type:: t
+
+  .. module:: FunctorOfFunctor
+
+    .. functor_parameter:: F
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+      .. type:: f
+
+    .. type:: ff
+

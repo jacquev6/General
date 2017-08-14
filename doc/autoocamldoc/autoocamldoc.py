@@ -26,15 +26,8 @@ class Generator:
         if hasattr(self, a):
             yield from getattr(self, a)(element)
         else:  # pragma no cover
-            yield from self.__not_yet_documented(c, element)
+            assert False, c
         assert element == {}, (c, element)  # Asserts everything was used
-
-    def __not_yet_documented(self, c, x):  # pragma no cover
-        assert isinstance(x, dict)
-        yield "Not yet documented: {}".format(c)
-        for k in list(x.keys()):
-            del x[k]
-        yield ""
 
     def __gen__signature_item__module(self, module):
         yield ".. module:: {}".format(module.pop("name"))
@@ -145,6 +138,16 @@ class Generator:
         for element in signature.pop("elements"):
             if not element.pop("hidden"):
                 yield from self.__dispatch(element)
+
+    def __gen__module_type__functor(self, functor):
+        # for doc in functor.pop("doc", []):
+        #     yield from self.__gen_doc(doc)
+        #     yield ""
+        for parameter in functor.pop("parameters"):
+            yield ".. functor_parameter:: {}".format(parameter.pop("name"))
+            yield ""
+            yield from self.__indent(self.__dispatch(parameter.pop("type")))
+        yield from self.__dispatch(functor.pop("contents"))
 
     # def __gen__module_type__identifier(self, identifier):
     #     yield "Type: {}".format(identifier.pop("name"))  # @todo Display name properly

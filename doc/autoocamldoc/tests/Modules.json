@@ -52,6 +52,203 @@
         "hidden": true,
         "name": "Hidden",
         "type": { "__class__": "module_type:signature", "elements": [] }
+      },
+      {
+        "__class__": "signature_item:module",
+        "doc": [ " Doc for SimpleFunctor ", " Doc' for SimpleFunctor " ],
+        "hidden": false,
+        "name": "SimpleFunctor",
+        "type": {
+          "__class__": "module_type:functor",
+          "parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "N",
+              "type": {
+                "__class__": "module_type:signature",
+                "elements": [
+                  {
+                    "__class__": "signature_item:floating_documentation",
+                    "hidden": false,
+                    "text":
+                      " Floating Doc in sig of SimpleFunctor.N (because I've not found a way to attach doc to a functor parameter) "
+                  },
+                  {
+                    "__class__": "signature_item:value",
+                    "doc": [
+                      " Doc for SimpleFunctor.N.n ",
+                      " Doc' for SimpleFunctor.N.n "
+                    ],
+                    "hidden": false,
+                    "name": "n",
+                    "type": "int"
+                  }
+                ]
+              }
+            }
+          ],
+          "contents": {
+            "__class__": "module_type:signature",
+            "elements": [
+              {
+                "__class__": "signature_item:type",
+                "doc": [
+                  " Doc for SimpleFunctor.t ", " Doc' for SimpleFunctor.t "
+                ],
+                "hidden": false,
+                "name": "t",
+                "parameters": [],
+                "manifest": null,
+                "kind": { "__class__": "type_kind:abstract" }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "__class__": "signature_item:module",
+        "doc": [ " Doc for MultiFunctor " ],
+        "hidden": false,
+        "name": "MultiFunctor",
+        "type": {
+          "__class__": "module_type:functor",
+          "parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "A",
+              "type": {
+                "__class__": "module_type:signature",
+                "elements": [
+                  {
+                    "__class__": "signature_item:type",
+                    "doc": [ " Doc for MultiFunctor.A.a " ],
+                    "hidden": false,
+                    "name": "a",
+                    "parameters": [],
+                    "manifest": null,
+                    "kind": { "__class__": "type_kind:abstract" }
+                  }
+                ]
+              }
+            },
+            {
+              "__class__": "functor_parameter",
+              "name": "B",
+              "type": {
+                "__class__": "module_type:signature",
+                "elements": [
+                  {
+                    "__class__": "signature_item:type",
+                    "doc": [ " Doc for MultiFunctor.B.b " ],
+                    "hidden": false,
+                    "name": "b",
+                    "parameters": [],
+                    "manifest": null,
+                    "kind": { "__class__": "type_kind:abstract" }
+                  }
+                ]
+              }
+            },
+            {
+              "__class__": "functor_parameter",
+              "name": "C",
+              "type": {
+                "__class__": "module_type:signature",
+                "elements": [
+                  {
+                    "__class__": "signature_item:type",
+                    "doc": [ " Doc for MultiFunctor.C.c " ],
+                    "hidden": false,
+                    "name": "c",
+                    "parameters": [],
+                    "manifest": null,
+                    "kind": { "__class__": "type_kind:abstract" }
+                  }
+                ]
+              }
+            }
+          ],
+          "contents": {
+            "__class__": "module_type:signature",
+            "elements": [
+              {
+                "__class__": "signature_item:type",
+                "doc": [],
+                "hidden": false,
+                "name": "t",
+                "parameters": [],
+                "manifest": null,
+                "kind": { "__class__": "type_kind:abstract" }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "__class__": "signature_item:module",
+        "doc": [],
+        "hidden": false,
+        "name": "FunctorOfFunctor",
+        "type": {
+          "__class__": "module_type:functor",
+          "parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "F",
+              "type": {
+                "__class__": "module_type:functor",
+                "parameters": [
+                  {
+                    "__class__": "functor_parameter",
+                    "name": "A",
+                    "type": {
+                      "__class__": "module_type:signature",
+                      "elements": [
+                        {
+                          "__class__": "signature_item:type",
+                          "doc": [],
+                          "hidden": false,
+                          "name": "a",
+                          "parameters": [],
+                          "manifest": null,
+                          "kind": { "__class__": "type_kind:abstract" }
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "contents": {
+                  "__class__": "module_type:signature",
+                  "elements": [
+                    {
+                      "__class__": "signature_item:type",
+                      "doc": [],
+                      "hidden": false,
+                      "name": "f",
+                      "parameters": [],
+                      "manifest": null,
+                      "kind": { "__class__": "type_kind:abstract" }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "contents": {
+            "__class__": "module_type:signature",
+            "elements": [
+              {
+                "__class__": "signature_item:type",
+                "doc": [],
+                "hidden": false,
+                "name": "ff",
+                "parameters": [],
+                "manifest": null,
+                "kind": { "__class__": "type_kind:abstract" }
+              }
+            ]
+          }
+        }
       }
     ]
   }

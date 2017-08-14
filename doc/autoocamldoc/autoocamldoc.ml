@@ -100,24 +100,6 @@ end *)
 module TypedtreeToJson: sig
   val signature: Typedtree.signature -> J.t
 end = struct
-  (*BISECT-IGNORE-BEGIN*)
-  let not_handled =
-    let count = ref 0 in
-    fun s {Location.loc_start; _} ->
-      if !count < 10 then begin
-        IntRef.increment count;
-        let (file, line, char) = Location.get_pos_info loc_start in
-        StdErr.print "autodoc (OCaml): [WARNING] %s not handled at %s:%i:%i\n" s file line char
-      end else if !count = 10 then begin
-        IntRef.increment count;
-        StdErr.print "autodoc (OCaml): [WARNING] more items not handled\n"
-      end;
-      J.obj "not_handled" [
-        ("hidden", J.bo false);
-        ("reason", J.str s)
-      ]
-  (*BISECT-IGNORE-END*)
-
   let hidden attributes =
     attributes
     |> Li.there_exists ~f:(fun ({Asttypes.txt; loc=_}, payload) ->
@@ -205,7 +187,7 @@ end = struct
         ("labels", labels |> Li.map ~f:label_declaration |> J.li);
       ]
 
-  let type_kind ~typ_loc = function
+  let type_kind = function
     | Ttype_abstract ->
       J.obj "type_kind:abstract" [
       ]
@@ -229,7 +211,7 @@ end = struct
         ("labels", labels |> Li.map ~f:label_declaration |> J.li)
       ]
     | Ttype_open -> (*BISECT-IGNORE*)
-      not_handled "type_kind: Ttype_open" typ_loc
+      Exn.failure "type_kind: Ttype_open"
 
   let with_constraint (p, _, constraint_) =
     let type_ {typ_name; typ_params; typ_manifest; typ_loc=_; _} =
@@ -254,14 +236,14 @@ end = struct
       | Twith_modsubst (p', _) ->
         J.obj "with:module_subst" (module_ p')
 
-  let type_declaration {typ_id=_; typ_name; typ_params; typ_type=_; typ_cstrs=_; typ_kind; typ_private=_; typ_manifest; typ_loc; typ_attributes} =
+  let type_declaration {typ_id=_; typ_name; typ_params; typ_type=_; typ_cstrs=_; typ_kind; typ_private=_; typ_manifest; typ_loc=_; typ_attributes} =
     (
       "signature_item:type",
       [
         ("name", string_loc typ_name);
         ("parameters", type_parameters typ_params);
         ("manifest", type_manifest typ_manifest);
-        ("kind", type_kind ~typ_loc typ_kind);
+        ("kind", type_kind typ_kind);
       ],
       typ_attributes
     )
@@ -284,7 +266,7 @@ end = struct
   let rec signature {sig_items; sig_type=_; sig_final_env=_} =
     J.li (Li.map ~f:signature_item sig_items)
 
-  and signature_item {sig_desc; sig_env=_; sig_loc} =
+  and signature_item {sig_desc; sig_env=_; sig_loc=_} =
     let foo (kind, json_attributes, ocaml_attributes) =
       (
         J.obj kind (
@@ -316,17 +298,17 @@ end = struct
           []
         )
       | Tsig_typext _ -> (*BISECT-IGNORE*)
-        not_handled "signature_item: sig_desc=Tsig_typext" sig_loc
+        Exn.failure "signature_item: sig_desc=Tsig_typext"
       | Tsig_exception desc ->
         foo (exception_ desc)
       | Tsig_recmodule _ -> (*BISECT-IGNORE*)
-        not_handled "signature_item: sig_desc=Tsig_recmodule" sig_loc
+        Exn.failure "signature_item: sig_desc=Tsig_recmodule"
       | Tsig_open _ -> (*BISECT-IGNORE*)
-        not_handled "signature_item: sig_desc=Tsig_open" sig_loc
+        Exn.failure "signature_item: sig_desc=Tsig_open"
       | Tsig_class _ -> (*BISECT-IGNORE*)
-        not_handled "signature_item: sig_desc=Tsig_class" sig_loc
+        Exn.failure "signature_item: sig_desc=Tsig_class"
       | Tsig_class_type _ -> (*BISECT-IGNORE*)
-        not_handled "signature_item: sig_desc=Tsig_class_type" sig_loc
+        Exn.failure "signature_item: sig_desc=Tsig_class_type"
 
   and module_type_declaration {mtd_id=_; mtd_name; mtd_type; mtd_attributes; mtd_loc=_} =
     (
@@ -357,7 +339,7 @@ end = struct
       incl_attributes
     )
 
-  and module_type {mty_desc; mty_type=_; mty_env=_; mty_loc; mty_attributes=_} =
+  and module_type {mty_desc; mty_type=_; mty_env=_; mty_loc=_; mty_attributes=_} =
     match mty_desc with
       | Tmty_signature signature_ ->
         J.obj "module_type:signature" [
@@ -398,16 +380,16 @@ end = struct
           (* @todo List elements *)
         ]
       | Tmty_alias (_, _) -> (*BISECT-IGNORE*)
-        not_handled "module_type: mty_desc=Tmty_alias" mty_loc
+        Exn.failure "module_type: mty_desc=Tmty_alias"
 
-  and module_expr {mod_desc; mod_loc; mod_type=_; mod_env=_; mod_attributes=_} =
+  and module_expr {mod_desc; mod_loc=_; mod_type=_; mod_env=_; mod_attributes=_} =
     match mod_desc with
       | Tmod_ident (p, _) ->
         J.obj "module_expr:identifier" [("name", path p)]
       | Tmod_structure _ -> (*BISECT-IGNORE*)
-        not_handled "module_expr: mod_desc=Tmod_structure" mod_loc
+        Exn.failure "module_expr: mod_desc=Tmod_structure"
       | Tmod_functor (_, _, _, _) -> (*BISECT-IGNORE*)
-        not_handled "module_expr: mod_desc=Tmod_functor" mod_loc
+        Exn.failure "module_expr: mod_desc=Tmod_functor"
       | Tmod_apply (functor_, argument, _) ->
         let rec aux arguments functor_ argument =
           let arguments = (module_expr argument)::arguments in
@@ -423,9 +405,9 @@ end = struct
           ("arguments", J.li arguments);
         ]
       | Tmod_constraint (_, _, _, _) -> (*BISECT-IGNORE*)
-        not_handled "module_expr: mod_desc=Tmod_constraint" mod_loc
+        Exn.failure "module_expr: mod_desc=Tmod_constraint"
       | Tmod_unpack (_, _) -> (*BISECT-IGNORE*)
-        not_handled "module_expr: mod_desc=Tmod_unpack" mod_loc
+        Exn.failure "module_expr: mod_desc=Tmod_unpack"
 end
 
 
