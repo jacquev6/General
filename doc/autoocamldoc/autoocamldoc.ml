@@ -446,11 +446,11 @@ end = struct
       | Types.Type_abstract ->
         empty
       | Types.Type_variant _ -> (*BISECT-IGNORE*)
-        warn "TypeConstructors.of_types_type_kind: Type_variant" empty
+        warn "TypeConstructors.OfTypes.type_kind: Type_variant" empty
       | Types.Type_record _ -> (*BISECT-IGNORE*)
-        warn "TypeConstructors.of_types_type_kind: Type_record" empty
+        warn "TypeConstructors.OfTypes.type_kind: Type_record" empty
       | Types.Type_open -> (*BISECT-IGNORE*)
-        warn "TypeConstructors.of_types_type_kind: Type_open" empty
+        warn "TypeConstructors.OfTypes.type_kind: Type_open" empty
   end
 end
 
@@ -812,17 +812,17 @@ end = struct
             declarations
             |> Li.map ~f:Type.OfTypedtree.type_declaration
           | Typedtree.Tsig_typext _ -> (*BISECT-IGNORE*)
-            warn "Contents.signature: Typedtree.Tsig_typext" []
+            warn "Contents.OfTypedtree.signature: Typedtree.Tsig_typext" []
           | Typedtree.Tsig_exception description ->
             [Exception.OfTypedtree.extension_constructor description]
           | Typedtree.Tsig_recmodule _ -> (*BISECT-IGNORE*)
-            warn "Contents.signature: Typedtree.Tsig_recmodule" []
+            warn "Contents.OfTypedtree.signature: Typedtree.Tsig_recmodule" []
           | Typedtree.Tsig_open _ -> (*BISECT-IGNORE*)
-            warn "Contents.signature: Typedtree.Tsig_open" []
+            warn "Contents.OfTypedtree.signature: Typedtree.Tsig_open" []
           | Typedtree.Tsig_class _ -> (*BISECT-IGNORE*)
-            warn "Contents.signature: Typedtree.Tsig_class" []
+            warn "Contents.OfTypedtree.signature: Typedtree.Tsig_class" []
           | Typedtree.Tsig_class_type _ -> (*BISECT-IGNORE*)
-            warn "Contents.signature: Typedtree.Tsig_class_type" []
+            warn "Contents.OfTypedtree.signature: Typedtree.Tsig_class_type" []
       )
       |> of_list
 
