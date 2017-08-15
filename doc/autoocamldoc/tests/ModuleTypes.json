@@ -4,18 +4,275 @@
   "hidden": false,
   "doc": [],
   "functor_parameters": [],
+  "contents_from": null,
   "contents": [
     {
       "__class__": "signature_item:module_type",
       "name": "Signature",
       "hidden": false,
       "doc": [ " Doc for Signature ", " Doc' for Signature " ],
+      "functor_parameters": [],
+      "contents_from": null,
       "contents": [
         {
           "__class__": "signature_item:type",
           "name": "t",
           "hidden": false,
           "doc": [],
+          "parameters": null,
+          "private": false,
+          "manifest": null,
+          "kind": null,
+          "constructors": [],
+          "labels": []
+        }
+      ]
+    },
+    {
+      "__class__": "signature_item:module_type",
+      "name": "Alias",
+      "hidden": false,
+      "doc": [
+        " Doc for Alias ", " Doc' for Alias ", " Doc for Signature ",
+        " Doc' for Signature "
+      ],
+      "functor_parameters": [],
+      "contents_from": "Signature",
+      "contents": [
+        {
+          "__class__": "signature_item:type",
+          "name": "t",
+          "hidden": false,
+          "doc": [],
+          "parameters": null,
+          "private": false,
+          "manifest": null,
+          "kind": null,
+          "constructors": [],
+          "labels": []
+        }
+      ]
+    },
+    {
+      "__class__": "signature_item:module_type",
+      "name": "DoubleAlias",
+      "hidden": false,
+      "doc": [
+        " Doc for DoubleAlias ", " Doc' for DoubleAlias ", " Doc for Alias ",
+        " Doc' for Alias ", " Doc for Signature ", " Doc' for Signature "
+      ],
+      "functor_parameters": [],
+      "contents_from": "Alias",
+      "contents": [
+        {
+          "__class__": "signature_item:type",
+          "name": "t",
+          "hidden": false,
+          "doc": [],
+          "parameters": null,
+          "private": false,
+          "manifest": null,
+          "kind": null,
+          "constructors": [],
+          "labels": []
+        }
+      ]
+    },
+    {
+      "__class__": "signature_item:module_type",
+      "name": "Functor",
+      "hidden": false,
+      "doc": [ " Doc for Functor ", " Doc' for Functor " ],
+      "functor_parameters": [
+        {
+          "__class__": "functor_parameter",
+          "name": "A",
+          "functor_parameters": [],
+          "doc": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "signature_item:type",
+              "name": "a",
+              "hidden": false,
+              "doc": [ " Doc for a ", " Doc' for a " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        }
+      ],
+      "contents_from": null,
+      "contents": [
+        {
+          "__class__": "signature_item:type",
+          "name": "t",
+          "hidden": false,
+          "doc": [ " Doc for t ", " Doc' for t " ],
+          "parameters": null,
+          "private": false,
+          "manifest": null,
+          "kind": null,
+          "constructors": [],
+          "labels": []
+        }
+      ]
+    },
+    {
+      "__class__": "signature_item:module_type",
+      "name": "MultiFunctor",
+      "hidden": false,
+      "doc": [],
+      "functor_parameters": [
+        {
+          "__class__": "functor_parameter",
+          "name": "A",
+          "functor_parameters": [],
+          "doc": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "signature_item:type",
+              "name": "a",
+              "hidden": false,
+              "doc": [],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "functor_parameter",
+          "name": "B",
+          "functor_parameters": [],
+          "doc": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "signature_item:type",
+              "name": "b",
+              "hidden": false,
+              "doc": [],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        }
+      ],
+      "contents_from": null,
+      "contents": [
+        {
+          "__class__": "signature_item:type",
+          "name": "t",
+          "hidden": false,
+          "doc": [],
+          "parameters": null,
+          "private": false,
+          "manifest": null,
+          "kind": null,
+          "constructors": [],
+          "labels": []
+        }
+      ]
+    },
+    {
+      "__class__": "signature_item:module_type",
+      "name": "FunctorAlias",
+      "hidden": false,
+      "doc": [
+        " Doc for FunctorAlias ", " Doc' for FunctorAlias ",
+        " Doc for Functor ", " Doc' for Functor "
+      ],
+      "functor_parameters": [
+        {
+          "__class__": "functor_parameter",
+          "name": "A",
+          "functor_parameters": [],
+          "doc": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "signature_item:type",
+              "name": "a",
+              "hidden": false,
+              "doc": [ " Doc for a ", " Doc' for a " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        }
+      ],
+      "contents_from": "Functor",
+      "contents": [
+        {
+          "__class__": "signature_item:type",
+          "name": "t",
+          "hidden": false,
+          "doc": [ " Doc for t ", " Doc' for t " ],
+          "parameters": null,
+          "private": false,
+          "manifest": null,
+          "kind": null,
+          "constructors": [],
+          "labels": []
+        }
+      ]
+    },
+    {
+      "__class__": "signature_item:module_type",
+      "name": "DoubleFunctorAlias",
+      "hidden": false,
+      "doc": [
+        " Doc for DoubleFunctorAlias ", " Doc' for DoubleFunctorAlias ",
+        " Doc for FunctorAlias ", " Doc' for FunctorAlias ",
+        " Doc for Functor ", " Doc' for Functor "
+      ],
+      "functor_parameters": [
+        {
+          "__class__": "functor_parameter",
+          "name": "A",
+          "functor_parameters": [],
+          "doc": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "signature_item:type",
+              "name": "a",
+              "hidden": false,
+              "doc": [ " Doc for a ", " Doc' for a " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        }
+      ],
+      "contents_from": "FunctorAlias",
+      "contents": [
+        {
+          "__class__": "signature_item:type",
+          "name": "t",
+          "hidden": false,
+          "doc": [ " Doc for t ", " Doc' for t " ],
           "parameters": null,
           "private": false,
           "manifest": null,

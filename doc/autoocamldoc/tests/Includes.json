@@ -4,11 +4,13 @@
   "hidden": false,
   "doc": [],
   "functor_parameters": [],
+  "contents_from": null,
   "contents": [
     {
       "__class__": "signature_item:include",
       "hidden": false,
       "doc": [ " Doc for include ", " Doc' for include " ],
+      "contents_from": null,
       "contents": [
         {
           "__class__": "signature_item:type",
@@ -21,6 +23,125 @@
           "kind": null,
           "constructors": [],
           "labels": []
+        }
+      ]
+    },
+    {
+      "__class__": "signature_item:module_type",
+      "name": "ModuleType",
+      "hidden": true,
+      "doc": [ " Doc for ModuleType ", " Doc' for ModuleType " ],
+      "functor_parameters": [],
+      "contents_from": null,
+      "contents": [
+        {
+          "__class__": "signature_item:type",
+          "name": "t",
+          "hidden": false,
+          "doc": [ " Doc for ModuleType.t ", " Doc' for ModuleType.t " ],
+          "parameters": null,
+          "private": false,
+          "manifest": null,
+          "kind": null,
+          "constructors": [],
+          "labels": []
+        },
+        {
+          "__class__": "signature_item:floating_documentation",
+          "hidden": false,
+          "text": " Floating doc in ModuleType "
+        }
+      ]
+    },
+    {
+      "__class__": "signature_item:module",
+      "name": "A",
+      "hidden": false,
+      "doc": [],
+      "functor_parameters": [],
+      "contents_from": null,
+      "contents": [
+        {
+          "__class__": "signature_item:include",
+          "hidden": false,
+          "doc": [
+            " Doc for include ", " Doc' for include ",
+            " Doc for ModuleType ", " Doc' for ModuleType "
+          ],
+          "contents_from": "ModuleType",
+          "contents": [
+            {
+              "__class__": "signature_item:type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for ModuleType.t ", " Doc' for ModuleType.t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__class__": "signature_item:module_type",
+      "name": "ModuleTypeAlias",
+      "hidden": true,
+      "doc": [
+        " Doc for ModuleTypeAlias ", " Doc' for ModuleTypeAlias ",
+        " Doc for ModuleType ", " Doc' for ModuleType "
+      ],
+      "functor_parameters": [],
+      "contents_from": "ModuleType",
+      "contents": [
+        {
+          "__class__": "signature_item:type",
+          "name": "t",
+          "hidden": false,
+          "doc": [ " Doc for ModuleType.t ", " Doc' for ModuleType.t " ],
+          "parameters": null,
+          "private": false,
+          "manifest": null,
+          "kind": null,
+          "constructors": [],
+          "labels": []
+        }
+      ]
+    },
+    {
+      "__class__": "signature_item:module",
+      "name": "B",
+      "hidden": false,
+      "doc": [],
+      "functor_parameters": [],
+      "contents_from": null,
+      "contents": [
+        {
+          "__class__": "signature_item:include",
+          "hidden": false,
+          "doc": [
+            " Doc for indirect include ", " Doc' for indirect include ",
+            " Doc for ModuleTypeAlias ", " Doc' for ModuleTypeAlias ",
+            " Doc for ModuleType ", " Doc' for ModuleType "
+          ],
+          "contents_from": "ModuleTypeAlias",
+          "contents": [
+            {
+              "__class__": "signature_item:type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for ModuleType.t ", " Doc' for ModuleType.t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
         }
       ]
     }

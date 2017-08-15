@@ -22,9 +22,15 @@ class Generator:
 
     def __gen__signature_item__module(self, module):
         yield ".. module:: {}".format(module.pop("name"))
+        yield from self.__contents_from(module)
         yield ""
         yield from self.__indent(self.__doc(module))
         yield from self.__indent(self.__module_contents(module))
+
+    def __contents_from(self, thing):
+        contents_from = thing.pop("contents_from")
+        if contents_from is not None:
+            yield "  :contents_from: {}".format(contents_from)
 
     def __indent(self, lines):
         for line in lines:
@@ -60,7 +66,9 @@ class Generator:
     def __module_contents(self, thing):
         for parameter in thing.pop("functor_parameters"):
             yield ".. functor_parameter:: {}".format(parameter.pop("name"))
+            yield from self.__contents_from(parameter)
             yield ""
+            yield from self.__indent(self.__doc(parameter))
             yield from self.__indent(self.__module_contents(parameter))
         yield from self.__contents(thing)
 
@@ -74,12 +82,14 @@ class Generator:
 
     def __gen__signature_item__module_type(self, module_type):
         yield ".. module_type:: {}".format(module_type.pop("name"))
+        yield from self.__contents_from(module_type)
         yield ""
         yield from self.__indent(self.__doc(module_type))
-        yield from self.__indent(self.__contents(module_type))
+        yield from self.__indent(self.__module_contents(module_type))
 
     def __gen__signature_item__include(self, include):
         yield ".. include::"
+        yield from self.__contents_from(include)
         yield ""
         yield from self.__indent(self.__doc(include))
         yield from self.__indent(self.__contents(include))

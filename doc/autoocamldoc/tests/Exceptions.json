@@ -4,6 +4,7 @@
   "hidden": false,
   "doc": [],
   "functor_parameters": [],
+  "contents_from": null,
   "contents": [
     {
       "__class__": "signature_item:exception",

@@ -60,3 +60,41 @@ module FunctorOfFunctor(
 ): sig
   type ff
 end
+
+(** Doc for ModuleType *)
+module type ModuleType = sig
+  (** Doc for ModuleType.t *)
+  type t
+  (** Doc' for ModuleType.t *)
+
+  (** Floating doc in ModuleType *)
+end [@@autodoc.hide]
+(** Doc' for ModuleType *)
+
+(** Doc for Identifier *)
+module Identifier: ModuleType
+(** Doc' for Identifier *)
+
+(** Doc for ModuleTypeAlias *)
+module type ModuleTypeAlias = ModuleType [@@autodoc.hide]
+(** Doc' for ModuleTypeAlias *)
+
+(** Doc for IndirectIdentifier *)
+module IndirectIdentifier: ModuleTypeAlias
+(** Doc' for IndirectIdentifier *)
+
+module FunctorWithIdentifierParam(A: ModuleTypeAlias): sig end
+
+(** Doc for FunctorType *)
+module type FunctorType = functor(A: sig
+  (** Doc for a *)
+  type a
+end) -> sig
+  (** Doc for t *)
+  type t
+end [@@autodoc.hide]
+(** Doc' for FunctorType *)
+
+(** Doc for FunctorAsIdentifier *)
+module FunctorAsIdentifier: FunctorType
+(** Doc' for FunctorAsIdentifier *)

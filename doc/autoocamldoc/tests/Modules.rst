@@ -85,3 +85,81 @@ Reference
 
     .. type:: ff
 
+  .. module:: Identifier
+    :contents_from: ModuleType
+
+    Doc for Identifier
+
+    Doc' for Identifier
+
+    Doc for ModuleType
+
+    Doc' for ModuleType
+
+    .. type:: t
+
+      Doc for ModuleType.t
+
+      Doc' for ModuleType.t
+
+  .. module:: IndirectIdentifier
+    :contents_from: ModuleTypeAlias
+
+    Doc for IndirectIdentifier
+
+    Doc' for IndirectIdentifier
+
+    Doc for ModuleTypeAlias
+
+    Doc' for ModuleTypeAlias
+
+    Doc for ModuleType
+
+    Doc' for ModuleType
+
+    .. type:: t
+
+      Doc for ModuleType.t
+
+      Doc' for ModuleType.t
+
+  .. module:: FunctorWithIdentifierParam
+
+    .. functor_parameter:: A
+      :contents_from: ModuleTypeAlias
+
+      Doc for ModuleTypeAlias
+
+      Doc' for ModuleTypeAlias
+
+      Doc for ModuleType
+
+      Doc' for ModuleType
+
+      .. type:: t
+
+        Doc for ModuleType.t
+
+        Doc' for ModuleType.t
+
+  .. module:: FunctorAsIdentifier
+    :contents_from: FunctorType
+
+    Doc for FunctorAsIdentifier
+
+    Doc' for FunctorAsIdentifier
+
+    Doc for FunctorType
+
+    Doc' for FunctorType
+
+    .. functor_parameter:: A
+
+      .. type:: a
+
+        Doc for a
+
+    .. type:: t
+
+      Doc for t
+

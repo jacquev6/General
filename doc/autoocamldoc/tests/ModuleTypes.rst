@@ -14,3 +14,119 @@ Reference
 
     .. type:: t
 
+  .. module_type:: Alias
+    :contents_from: Signature
+
+    Doc for Alias
+
+    Doc' for Alias
+
+    Doc for Signature
+
+    Doc' for Signature
+
+    .. type:: t
+
+  .. module_type:: DoubleAlias
+    :contents_from: Alias
+
+    Doc for DoubleAlias
+
+    Doc' for DoubleAlias
+
+    Doc for Alias
+
+    Doc' for Alias
+
+    Doc for Signature
+
+    Doc' for Signature
+
+    .. type:: t
+
+  .. module_type:: Functor
+
+    Doc for Functor
+
+    Doc' for Functor
+
+    .. functor_parameter:: A
+
+      .. type:: a
+
+        Doc for a
+
+        Doc' for a
+
+    .. type:: t
+
+      Doc for t
+
+      Doc' for t
+
+  .. module_type:: MultiFunctor
+
+    .. functor_parameter:: A
+
+      .. type:: a
+
+    .. functor_parameter:: B
+
+      .. type:: b
+
+    .. type:: t
+
+  .. module_type:: FunctorAlias
+    :contents_from: Functor
+
+    Doc for FunctorAlias
+
+    Doc' for FunctorAlias
+
+    Doc for Functor
+
+    Doc' for Functor
+
+    .. functor_parameter:: A
+
+      .. type:: a
+
+        Doc for a
+
+        Doc' for a
+
+    .. type:: t
+
+      Doc for t
+
+      Doc' for t
+
+  .. module_type:: DoubleFunctorAlias
+    :contents_from: FunctorAlias
+
+    Doc for DoubleFunctorAlias
+
+    Doc' for DoubleFunctorAlias
+
+    Doc for FunctorAlias
+
+    Doc' for FunctorAlias
+
+    Doc for Functor
+
+    Doc' for Functor
+
+    .. functor_parameter:: A
+
+      .. type:: a
+
+        Doc for a
+
+        Doc' for a
+
+    .. type:: t
+
+      Doc for t
+
+      Doc' for t
+
