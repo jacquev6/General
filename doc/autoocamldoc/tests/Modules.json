@@ -1,5 +1,5 @@
 {
-  "__class__": "signature_item:module",
+  "__class__": "module",
   "name": "tests/Modules",
   "hidden": false,
   "doc": [],
@@ -7,7 +7,7 @@
   "contents_from": null,
   "contents": [
     {
-      "__class__": "signature_item:module",
+      "__class__": "module",
       "name": "Signature",
       "hidden": false,
       "doc": [ " Doc for Signature ", " Doc' for Signature " ],
@@ -15,7 +15,7 @@
       "contents_from": null,
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t1",
           "hidden": false,
           "doc": [],
@@ -27,12 +27,12 @@
           "labels": []
         },
         {
-          "__class__": "signature_item:floating_documentation",
+          "__class__": "floating_documentation",
           "hidden": false,
           "text": " Floating doc "
         },
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t2",
           "hidden": false,
           "doc": [],
@@ -44,7 +44,7 @@
           "labels": []
         },
         {
-          "__class__": "signature_item:floating_documentation",
+          "__class__": "floating_documentation",
           "hidden": false,
           "text":
             "       Floating doc with many leading spaces (which should be removed),\n  several lines::\n\n      and a quoted, indented part (that should keep its indentation)\n      with another line with trailing spaces (that should be removed)                 \n\n  And a conclusion with many trailing spaces (which should be removed as well).       "
@@ -52,7 +52,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module",
+      "__class__": "module",
       "name": "Hidden",
       "hidden": true,
       "doc": [ " Doc for Hidden ", " Doc for Hidden " ],
@@ -61,7 +61,7 @@
       "contents": []
     },
     {
-      "__class__": "signature_item:module",
+      "__class__": "module",
       "name": "SimpleFunctor",
       "hidden": false,
       "doc": [ " Doc for SimpleFunctor ", " Doc' for SimpleFunctor " ],
@@ -74,13 +74,13 @@
           "contents_from": null,
           "contents": [
             {
-              "__class__": "signature_item:floating_documentation",
+              "__class__": "floating_documentation",
               "hidden": false,
               "text":
                 " Floating Doc in sig of SimpleFunctor.N (because I've not found a way to attach doc to a functor parameter) "
             },
             {
-              "__class__": "signature_item:value",
+              "__class__": "value",
               "name": "n",
               "hidden": false,
               "doc": [
@@ -94,7 +94,7 @@
       "contents_from": null,
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [
@@ -110,7 +110,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module",
+      "__class__": "module",
       "name": "MultiFunctor",
       "hidden": false,
       "doc": [ " Doc for MultiFunctor " ],
@@ -123,7 +123,7 @@
           "contents_from": null,
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "a",
               "hidden": false,
               "doc": [ " Doc for MultiFunctor.A.a " ],
@@ -144,7 +144,7 @@
           "contents_from": null,
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "b",
               "hidden": false,
               "doc": [ " Doc for MultiFunctor.B.b " ],
@@ -165,7 +165,7 @@
           "contents_from": null,
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "c",
               "hidden": false,
               "doc": [ " Doc for MultiFunctor.C.c " ],
@@ -182,7 +182,7 @@
       "contents_from": null,
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [],
@@ -196,7 +196,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module",
+      "__class__": "module",
       "name": "FunctorOfFunctor",
       "hidden": false,
       "doc": [],
@@ -213,7 +213,7 @@
               "contents_from": null,
               "contents": [
                 {
-                  "__class__": "signature_item:type",
+                  "__class__": "type",
                   "name": "a",
                   "hidden": false,
                   "doc": [],
@@ -231,7 +231,7 @@
           "contents_from": null,
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "f",
               "hidden": false,
               "doc": [],
@@ -248,7 +248,7 @@
       "contents_from": null,
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "ff",
           "hidden": false,
           "doc": [],
@@ -262,7 +262,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module_type",
+      "__class__": "module_type",
       "name": "ModuleType",
       "hidden": true,
       "doc": [ " Doc for ModuleType ", " Doc' for ModuleType " ],
@@ -270,7 +270,7 @@
       "contents_from": null,
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [ " Doc for ModuleType.t ", " Doc' for ModuleType.t " ],
@@ -282,14 +282,14 @@
           "labels": []
         },
         {
-          "__class__": "signature_item:floating_documentation",
+          "__class__": "floating_documentation",
           "hidden": false,
           "text": " Floating doc in ModuleType "
         }
       ]
     },
     {
-      "__class__": "signature_item:module",
+      "__class__": "module",
       "name": "Identifier",
       "hidden": false,
       "doc": [
@@ -300,7 +300,7 @@
       "contents_from": "ModuleType",
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [ " Doc for ModuleType.t ", " Doc' for ModuleType.t " ],
@@ -314,7 +314,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module_type",
+      "__class__": "module_type",
       "name": "ModuleTypeAlias",
       "hidden": true,
       "doc": [
@@ -325,7 +325,7 @@
       "contents_from": "ModuleType",
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [ " Doc for ModuleType.t ", " Doc' for ModuleType.t " ],
@@ -339,7 +339,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module",
+      "__class__": "module",
       "name": "IndirectIdentifier",
       "hidden": false,
       "doc": [
@@ -351,7 +351,7 @@
       "contents_from": "ModuleTypeAlias",
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [ " Doc for ModuleType.t ", " Doc' for ModuleType.t " ],
@@ -365,7 +365,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module",
+      "__class__": "module",
       "name": "FunctorWithIdentifierParam",
       "hidden": false,
       "doc": [],
@@ -381,7 +381,7 @@
           "contents_from": "ModuleTypeAlias",
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "t",
               "hidden": false,
               "doc": [ " Doc for ModuleType.t ", " Doc' for ModuleType.t " ],
@@ -399,7 +399,7 @@
       "contents": []
     },
     {
-      "__class__": "signature_item:module_type",
+      "__class__": "module_type",
       "name": "FunctorType",
       "hidden": true,
       "doc": [ " Doc for FunctorType ", " Doc' for FunctorType " ],
@@ -412,7 +412,7 @@
           "contents_from": null,
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "a",
               "hidden": false,
               "doc": [ " Doc for a " ],
@@ -429,7 +429,7 @@
       "contents_from": null,
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [ " Doc for t " ],
@@ -443,7 +443,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module",
+      "__class__": "module",
       "name": "FunctorAsIdentifier",
       "hidden": false,
       "doc": [
@@ -459,7 +459,7 @@
           "contents_from": null,
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "a",
               "hidden": false,
               "doc": [ " Doc for a " ],
@@ -476,7 +476,7 @@
       "contents_from": "FunctorType",
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [ " Doc for t " ],

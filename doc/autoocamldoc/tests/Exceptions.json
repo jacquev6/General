@@ -1,5 +1,5 @@
 {
-  "__class__": "signature_item:module",
+  "__class__": "module",
   "name": "tests/Exceptions",
   "hidden": false,
   "doc": [],
@@ -7,7 +7,7 @@
   "contents_from": null,
   "contents": [
     {
-      "__class__": "signature_item:exception",
+      "__class__": "exception",
       "name": "Simple",
       "hidden": false,
       "doc": [ " Doc for Single ", " Doc' for Single " ],
@@ -15,7 +15,7 @@
       "labels": []
     },
     {
-      "__class__": "signature_item:exception",
+      "__class__": "exception",
       "name": "SinglePayload",
       "hidden": false,
       "doc": [ " Doc for SinglePayload ", " Doc' for SinglePayload " ],
@@ -23,7 +23,7 @@
       "labels": []
     },
     {
-      "__class__": "signature_item:exception",
+      "__class__": "exception",
       "name": "SeveralPayload",
       "hidden": false,
       "doc": [ " Doc for SeveralPayload ", " Doc' for SeveralPayload " ],
@@ -31,7 +31,7 @@
       "labels": []
     },
     {
-      "__class__": "signature_item:exception",
+      "__class__": "exception",
       "name": "TuplePayload",
       "hidden": false,
       "doc": [ " Doc for TuplePayload ", " Doc' for TuplePayload " ],
@@ -39,7 +39,7 @@
       "labels": []
     },
     {
-      "__class__": "signature_item:exception",
+      "__class__": "exception",
       "name": "RecordPayload",
       "hidden": false,
       "doc": [ " Doc for RecordPayload ", " Doc' for RecordPayload " ],

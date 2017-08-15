@@ -1,5 +1,5 @@
 {
-  "__class__": "signature_item:module",
+  "__class__": "module",
   "name": "tests/Values",
   "hidden": false,
   "doc": [],
@@ -7,7 +7,7 @@
   "contents_from": null,
   "contents": [
     {
-      "__class__": "signature_item:value",
+      "__class__": "value",
       "name": "v",
       "hidden": false,
       "doc": [ " Doc for v ", " Doc' for v " ],

@@ -1,5 +1,5 @@
 {
-  "__class__": "signature_item:module",
+  "__class__": "module",
   "name": "tests/Types",
   "hidden": false,
   "doc": [],
@@ -7,7 +7,7 @@
   "contents_from": null,
   "contents": [
     {
-      "__class__": "signature_item:type",
+      "__class__": "type",
       "name": "manifest",
       "hidden": false,
       "doc": [ " Doc for manifest ", " Doc' for manifest " ],
@@ -19,7 +19,7 @@
       "labels": []
     },
     {
-      "__class__": "signature_item:type",
+      "__class__": "type",
       "name": "parameter",
       "hidden": false,
       "doc": [ " Doc for parameter ", " Doc' for parameter " ],
@@ -31,7 +31,7 @@
       "labels": []
     },
     {
-      "__class__": "signature_item:type",
+      "__class__": "type",
       "name": "parameters",
       "hidden": false,
       "doc": [ " Doc for parameters ", " Doc' for parameters " ],
@@ -43,7 +43,7 @@
       "labels": []
     },
     {
-      "__class__": "signature_item:type",
+      "__class__": "type",
       "name": "variances",
       "hidden": false,
       "doc": [ " Doc for variances ", " Doc' for variances " ],
@@ -55,7 +55,7 @@
       "labels": []
     },
     {
-      "__class__": "signature_item:type",
+      "__class__": "type",
       "name": "record",
       "hidden": false,
       "doc": [ " Doc for record ", " Doc' for record " ],
@@ -78,7 +78,7 @@
       ]
     },
     {
-      "__class__": "signature_item:type",
+      "__class__": "type",
       "name": "variant",
       "hidden": false,
       "doc": [ " Doc for variant ", " Doc' for variant " ],
@@ -133,7 +133,7 @@
       ]
     },
     {
-      "__class__": "signature_item:type",
+      "__class__": "type",
       "name": "recursive1",
       "hidden": false,
       "doc": [ " Doc for recursive1 " ],
@@ -158,7 +158,7 @@
       "labels": []
     },
     {
-      "__class__": "signature_item:type",
+      "__class__": "type",
       "name": "recursive2",
       "hidden": false,
       "doc": [ " Doc for recursive2 " ],
@@ -183,7 +183,7 @@
       "labels": []
     },
     {
-      "__class__": "signature_item:type",
+      "__class__": "type",
       "name": "open_",
       "hidden": false,
       "doc": [ " Doc for open_ ", " Doc' for open_ " ],
@@ -195,7 +195,7 @@
       "labels": []
     },
     {
-      "__class__": "signature_item:type",
+      "__class__": "type",
       "name": "private_int",
       "hidden": false,
       "doc": [],
@@ -207,7 +207,7 @@
       "labels": []
     },
     {
-      "__class__": "signature_item:type",
+      "__class__": "type",
       "name": "private_variant",
       "hidden": false,
       "doc": [],
@@ -226,7 +226,7 @@
       "labels": []
     },
     {
-      "__class__": "signature_item:type",
+      "__class__": "type",
       "name": "private_record",
       "hidden": false,
       "doc": [],

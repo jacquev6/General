@@ -179,7 +179,7 @@ module FloatingDoc: sig
 end = struct
   let of_attribute_payload = Parsetree.(function
     | PStr [{pstr_desc=Pstr_eval ({pexp_desc=Pexp_constant (Parsetree.Pconst_string (s, _)); _}, _); _}] ->
-      J.obj "signature_item:floating_documentation" [
+      J.obj "floating_documentation" [
         Hidden.default;
         ("text", J.str s);
       ]
@@ -530,7 +530,7 @@ module Type: sig
 end = struct
   module OfTypedtree = struct
     let type_declaration {Typedtree.typ_id=_; typ_name; typ_params; typ_type=_; typ_cstrs=_; typ_kind; typ_private; typ_manifest; typ_loc=_; typ_attributes} =
-      J.obj "signature_item:type" [
+      J.obj "type" [
         Name.of_string_loc typ_name;
         Hidden.OfTypedtree.attributes typ_attributes;
         Doc.OfTypedtree.attributes typ_attributes;
@@ -545,7 +545,7 @@ end = struct
 
   module OfTypes = struct
     let type_declaration id {Types.type_params; type_arity=_; type_kind; type_private; type_manifest; type_variance=_; type_newtype_level=_; type_loc=_; type_attributes; type_immediate=_; type_unboxed=_} =
-      J.obj "signature_item:type" [
+      J.obj "type" [
         Name.of_ident id;
         Hidden.OfTypedtree.attributes type_attributes;
         Doc.OfTypedtree.attributes type_attributes;
@@ -575,7 +575,7 @@ end = struct
           | Typedtree.Text_rebind (_, _) -> (*BISECT-IGNORE*)
             Exn.failure "exception_: ext_kind=Text_rebind"
       in
-      J.obj "signature_item:exception" [
+      J.obj "exception" [
         Name.of_string_loc ext_name;
         Hidden.OfTypedtree.attributes ext_attributes;
         Doc.OfTypedtree.attributes ext_attributes;
@@ -599,7 +599,7 @@ end = struct
           (Oprint.parenthesized_ident (Ident.name val_id))
           (Frmt.of_string "(%s)") (* This is not strictly correct for ( * ) but it's prettier for everything else. *)
       in *)
-      J.obj "signature_item:value" [
+      J.obj "value" [
         Name.of_string_loc val_name;
         Hidden.OfTypedtree.attributes val_attributes;
         Doc.OfTypedtree.attributes val_attributes;
@@ -854,7 +854,7 @@ and ModuleType: sig
 end = struct
   module OfTypedtree = struct
     let module_type_declaration {Typedtree.mtd_id=_; mtd_name; mtd_type; mtd_attributes; mtd_loc=_} =
-      J.obj "signature_item:module_type" [
+      J.obj "module_type" [
         Name.of_string_loc mtd_name;
         Hidden.OfTypedtree.attributes mtd_attributes;
         Doc.(merge [OfTypedtree.attributes mtd_attributes; OfTypedtree.module_type_option mtd_type]);
@@ -873,7 +873,7 @@ and Include: sig
 end = struct
   module OfTypedtree = struct
     let include_description {Typedtree.incl_mod; incl_type=_; incl_loc=_; incl_attributes} =
-      J.obj "signature_item:include" [
+      J.obj "include" [
         Hidden.OfTypedtree.attributes incl_attributes;
         Doc.(merge [OfTypedtree.attributes incl_attributes; OfTypedtree.module_type incl_mod]);
         ContentsFrom.OfTypedtree.module_type incl_mod;
@@ -891,7 +891,7 @@ and Module: sig
 end = struct
   module OfTypedtree = struct
     let signature name signature =
-      J.obj "signature_item:module" [
+      J.obj "module" [
         Name.of_string name;
         Hidden.default;
         Doc.empty;
@@ -901,7 +901,7 @@ end = struct
       ]
 
     let module_declaration {Typedtree.md_id=_; md_name; md_type; md_attributes; md_loc=_} =
-      J.obj "signature_item:module" [
+      J.obj "module" [
         Name.of_string_loc md_name;
         Hidden.OfTypedtree.attributes md_attributes;
         Doc.(merge [OfTypedtree.attributes md_attributes; OfTypedtree.module_type md_type]);

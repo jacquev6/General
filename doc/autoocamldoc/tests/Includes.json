@@ -1,5 +1,5 @@
 {
-  "__class__": "signature_item:module",
+  "__class__": "module",
   "name": "tests/Includes",
   "hidden": false,
   "doc": [],
@@ -7,13 +7,13 @@
   "contents_from": null,
   "contents": [
     {
-      "__class__": "signature_item:include",
+      "__class__": "include",
       "hidden": false,
       "doc": [ " Doc for include ", " Doc' for include " ],
       "contents_from": null,
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [],
@@ -27,7 +27,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module_type",
+      "__class__": "module_type",
       "name": "ModuleType",
       "hidden": true,
       "doc": [ " Doc for ModuleType ", " Doc' for ModuleType " ],
@@ -35,7 +35,7 @@
       "contents_from": null,
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [ " Doc for ModuleType.t ", " Doc' for ModuleType.t " ],
@@ -47,14 +47,14 @@
           "labels": []
         },
         {
-          "__class__": "signature_item:floating_documentation",
+          "__class__": "floating_documentation",
           "hidden": false,
           "text": " Floating doc in ModuleType "
         }
       ]
     },
     {
-      "__class__": "signature_item:module",
+      "__class__": "module",
       "name": "A",
       "hidden": false,
       "doc": [],
@@ -62,7 +62,7 @@
       "contents_from": null,
       "contents": [
         {
-          "__class__": "signature_item:include",
+          "__class__": "include",
           "hidden": false,
           "doc": [
             " Doc for include ", " Doc' for include ",
@@ -71,7 +71,7 @@
           "contents_from": "ModuleType",
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "t",
               "hidden": false,
               "doc": [ " Doc for ModuleType.t ", " Doc' for ModuleType.t " ],
@@ -87,7 +87,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module_type",
+      "__class__": "module_type",
       "name": "ModuleTypeAlias",
       "hidden": true,
       "doc": [
@@ -98,7 +98,7 @@
       "contents_from": "ModuleType",
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [ " Doc for ModuleType.t ", " Doc' for ModuleType.t " ],
@@ -112,7 +112,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module",
+      "__class__": "module",
       "name": "B",
       "hidden": false,
       "doc": [],
@@ -120,7 +120,7 @@
       "contents_from": null,
       "contents": [
         {
-          "__class__": "signature_item:include",
+          "__class__": "include",
           "hidden": false,
           "doc": [
             " Doc for indirect include ", " Doc' for indirect include ",
@@ -130,7 +130,7 @@
           "contents_from": "ModuleTypeAlias",
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "t",
               "hidden": false,
               "doc": [ " Doc for ModuleType.t ", " Doc' for ModuleType.t " ],

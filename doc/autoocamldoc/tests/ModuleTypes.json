@@ -1,5 +1,5 @@
 {
-  "__class__": "signature_item:module",
+  "__class__": "module",
   "name": "tests/ModuleTypes",
   "hidden": false,
   "doc": [],
@@ -7,7 +7,7 @@
   "contents_from": null,
   "contents": [
     {
-      "__class__": "signature_item:module_type",
+      "__class__": "module_type",
       "name": "Signature",
       "hidden": false,
       "doc": [ " Doc for Signature ", " Doc' for Signature " ],
@@ -15,7 +15,7 @@
       "contents_from": null,
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [],
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module_type",
+      "__class__": "module_type",
       "name": "Alias",
       "hidden": false,
       "doc": [
@@ -40,7 +40,7 @@
       "contents_from": "Signature",
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [],
@@ -54,7 +54,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module_type",
+      "__class__": "module_type",
       "name": "DoubleAlias",
       "hidden": false,
       "doc": [
@@ -65,7 +65,7 @@
       "contents_from": "Alias",
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [],
@@ -79,7 +79,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module_type",
+      "__class__": "module_type",
       "name": "Functor",
       "hidden": false,
       "doc": [ " Doc for Functor ", " Doc' for Functor " ],
@@ -92,7 +92,7 @@
           "contents_from": null,
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "a",
               "hidden": false,
               "doc": [ " Doc for a ", " Doc' for a " ],
@@ -109,7 +109,7 @@
       "contents_from": null,
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [ " Doc for t ", " Doc' for t " ],
@@ -123,7 +123,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module_type",
+      "__class__": "module_type",
       "name": "MultiFunctor",
       "hidden": false,
       "doc": [],
@@ -136,7 +136,7 @@
           "contents_from": null,
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "a",
               "hidden": false,
               "doc": [],
@@ -157,7 +157,7 @@
           "contents_from": null,
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "b",
               "hidden": false,
               "doc": [],
@@ -174,7 +174,7 @@
       "contents_from": null,
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [],
@@ -188,7 +188,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module_type",
+      "__class__": "module_type",
       "name": "FunctorAlias",
       "hidden": false,
       "doc": [
@@ -204,7 +204,7 @@
           "contents_from": null,
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "a",
               "hidden": false,
               "doc": [ " Doc for a ", " Doc' for a " ],
@@ -221,7 +221,7 @@
       "contents_from": "Functor",
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [ " Doc for t ", " Doc' for t " ],
@@ -235,7 +235,7 @@
       ]
     },
     {
-      "__class__": "signature_item:module_type",
+      "__class__": "module_type",
       "name": "DoubleFunctorAlias",
       "hidden": false,
       "doc": [
@@ -252,7 +252,7 @@
           "contents_from": null,
           "contents": [
             {
-              "__class__": "signature_item:type",
+              "__class__": "type",
               "name": "a",
               "hidden": false,
               "doc": [ " Doc for a ", " Doc' for a " ],
@@ -269,7 +269,7 @@
       "contents_from": "FunctorAlias",
       "contents": [
         {
-          "__class__": "signature_item:type",
+          "__class__": "type",
           "name": "t",
           "hidden": false,
           "doc": [ " Doc for t ", " Doc' for t " ],
