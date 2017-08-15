@@ -81,6 +81,7 @@ module List: sig
   val scan_short: init:'b -> 'a t -> f:('b -> 'a -> General.Shorten.t * 'b) -> 'b t
   val scan_short_i: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> General.Shorten.t * 'b) -> 'b t
   val scan_short_acc: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * General.Shorten.t * 'b) -> 'b t
+  module Two
   module Specialize
   module SpecializeEquatable
 end

@@ -462,6 +462,20 @@ let repr xs ~repr_a =
   |> Format_.apply "[%s]"
 
 
+module Two = struct
+  let to_pair_list xs ys =
+    let rec aux zs = function
+      | ([], []) ->
+        reverse zs
+      | (x::xs, y::ys) ->
+        aux ((x, y)::zs) (xs, ys)
+      | _ ->
+        Exception.invalid_argument "List.Two.to_pair_list"
+    in
+    aux [] (xs, ys)
+end
+
+
 (* @todo Remove *)
 module OCLL = OCamlStandard.ListLabels
 

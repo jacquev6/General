@@ -29,7 +29,7 @@ end
 
 (*BISECT-IGNORE-BEGIN*)
 let warn s v =
-  StdErr.print "WARNING: %s\n" s;
+  StdErr.print "WARNING (autoocamldoc): %s\n" s;
   v
 (*BISECT-IGNORE-END*)
 
@@ -81,6 +81,62 @@ end = struct
 end
 
 
+exception ModTypeNotFound of string
+
+
+(* @todo Understand more deeply how we should add a module type's contents when we explore it.
+Especialy for Mty_ident and Mty_functor *)
+let enter_modtype path env =
+  let signature {Types.mtd_type; _} =
+    let of_module_type = function
+      | Types.Mty_ident _ ->
+        []
+      | Types.Mty_signature signature ->
+        signature
+      | Types.Mty_functor (_, _, _) ->
+        []
+      | Types.Mty_alias (_, _) -> warn "enter_modtype: Mty_alias (not supported)" [] (*BISECT-IGNORE*)
+    in
+    let of_module_type_option = function
+      | None ->
+        []
+      | Some mod_type ->
+        of_module_type mod_type
+    in
+    of_module_type_option mtd_type
+  in
+  (* StdErr.print "Looking-up modtype %s in:\n" (Path.name path);
+  Env.fold_modtypes (fun s path _declaration () ->
+    StdErr.print "  - %s: %s\n" s (Path.name path)
+  ) None env (); *)
+  let declaration =
+    try
+      Env.find_modtype path env
+    with
+      | Exn.NotFound -> Exn.raise (ModTypeNotFound (Path.name path))
+  in
+  (* StdErr.print "Entering modtype %s\n" (Path.name path); *)
+  let env = Env.add_signature (signature declaration) env in
+  (* StdErr.print "Entered modtype %s:\n" (Path.name path);
+  Env.fold_modtypes (fun s path _declaration () ->
+    StdErr.print "  - %s: %s\n" s (Path.name path)
+  ) None env ();
+  StdErr.print "\n"; *)
+  (env, declaration)
+
+
+module AutoocamldocBug: sig
+  val mod_type_not_found: string -> J.t
+end = struct
+  let mod_type_not_found name =
+    J.obj "autoocamldoc_bug" [
+      Name.of_string name;
+      Hidden.default;
+      ("kind", J.str "module type not found");
+    ]
+end
+
+
 module Doc: sig
   val empty: J.a
   val merge: J.a list -> J.a
@@ -127,8 +183,8 @@ end = struct
 
   module OfTypes = struct
     let rec module_type_option env = function
-      | None -> (*BISECT-IGNORE*)
-        warn "Doc.OfTypes.module_type_option: None" []
+      | None ->
+        []
       | Some mod_typ ->
         module_type env mod_typ
 
@@ -137,14 +193,13 @@ end = struct
 
     and module_type env = function
       | Types.Mty_ident path ->
-        Env.find_modtype path env
-        |> modtype_declaration env
+        let (env, mod_type) = enter_modtype path env in
+        modtype_declaration env mod_type
       | Types.Mty_signature _ ->
-        [] (* Empty on purpose *)
+        []
       | Types.Mty_functor (_, _, contents) ->
         module_type env contents
-      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*)
-        warn "Doc.OfTypes.module_type: Mty_alias" []
+      | Types.Mty_alias (_, _) -> warn "Doc.OfTypes.module_type: Mty_alias (not supported)" [] (*BISECT-IGNORE*)
 
     let module_type_option env mod_typ =
       mod_typ
@@ -168,17 +223,16 @@ end = struct
         | Typedtree.Tmty_signature _ ->
           empty
         | Typedtree.Tmty_ident (path, _) ->
-          Env.find_modtype path mty_env
-          |> OfTypes.modtype_declaration mty_env
+          let (env, mod_type) = enter_modtype path mty_env in
+          OfTypes.modtype_declaration env mod_type
           |> of_list
         | Typedtree.Tmty_functor (_, _, _, contents) ->
           module_type contents
         | Typedtree.Tmty_with (_, _) -> (*BISECT-IGNORE*)
-          warn "Doc.OfTypedtree.module_type: Tmty_with" empty
+          warn "Doc.OfTypedtree.module_type: Tmty_with (@todo)" empty
         | Typedtree.Tmty_typeof _ -> (*BISECT-IGNORE*)
-          warn "Doc.OfTypedtree.module_type: Tmty_typeof" empty
-        | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*)
-          warn "Doc.OfTypedtree.module_type: Tmty_alias" empty
+          warn "Doc.OfTypedtree.module_type: Tmty_typeof (@todo)" empty
+        | Typedtree.Tmty_alias (_, _) -> warn "Doc.OfTypedtree.module_type: Tmty_alias (not supported)" empty (*BISECT-IGNORE*)
 
     let module_type_option = Opt.value_map ~f:module_type ~def:empty
   end
@@ -208,7 +262,7 @@ let string_of_type_expr t =
 let string_of_core_type {Typedtree.ctyp_desc=_; ctyp_type; ctyp_env=_; ctyp_loc=_; ctyp_attributes=_} =
   string_of_type_expr ctyp_type
 
-let string_of_record labels =
+let string_of_typedtree_record labels =
   labels
   |> Li.map ~f:(fun {Typedtree.ld_id=_; ld_name={Asttypes.txt; loc=_}; ld_mutable; ld_type; ld_loc=_; ld_attributes=_} ->
     Frmt.apply "%s%s: %s" (if ld_mutable = Asttypes.Mutable then "mutable " else "") txt (string_of_core_type ld_type)
@@ -216,7 +270,15 @@ let string_of_record labels =
   |> StrLi.concat ~sep:"; "
   |> Frmt.apply "{%s}"
 
-let string_of_tuple elements =
+let string_of_types_record labels =
+  labels
+  |> Li.map ~f:(fun {Types.ld_id; ld_mutable; ld_type; ld_loc=_; ld_attributes=_} ->
+    Frmt.apply "%s%s: %s" (if ld_mutable = Asttypes.Mutable then "mutable " else "") (Ident.name ld_id) (string_of_type_expr ld_type)
+  )
+  |> StrLi.concat ~sep:"; "
+  |> Frmt.apply "{%s}"
+
+let string_of_typedtree_tuple elements =
   let format =
     match elements with
       | [{Typedtree.ctyp_type={Types.desc=Types.Ttuple _; _}; _}] ->
@@ -229,10 +291,28 @@ let string_of_tuple elements =
   |> StrLi.concat ~sep:" * "
   |> Frmt.apply format
 
+let string_of_types_tuple elements =
+  let format =
+    match elements with
+      | [{Types.desc=Types.Ttuple _; _}] ->
+        Frmt.of_string "(%s)"
+      | _ ->
+        Frmt.of_string "%s"
+  in
+  elements
+  |> Li.map ~f:string_of_type_expr
+  |> StrLi.concat ~sep:" * "
+  |> Frmt.apply format
+
 
 module Payload: sig
   module OfTypedtree: sig
     open Typedtree
+    val constructor_arguments: constructor_arguments -> J.a
+  end
+
+  module OfTypes: sig
+    open Types
     val constructor_arguments: constructor_arguments -> J.a
   end
 end = struct
@@ -247,11 +327,25 @@ end = struct
         empty
       | Typedtree.Cstr_tuple elements ->
         elements
-        |> string_of_tuple
+        |> string_of_typedtree_tuple
         |> of_string
       | Typedtree.Cstr_record declarations ->
         declarations
-        |> string_of_record
+        |> string_of_typedtree_record
+        |> of_string
+  end
+
+  module OfTypes = struct
+    let constructor_arguments = function
+      | Types.Cstr_tuple [] ->
+        empty
+      | Types.Cstr_tuple elements ->
+        elements
+        |> string_of_types_tuple
+        |> of_string
+      | Types.Cstr_record declarations ->
+        declarations
+        |> string_of_types_record
         |> of_string
   end
 end
@@ -300,7 +394,8 @@ end = struct
         )
         |> of_list
       | Typedtree.Ttype_record declarations ->
-        label_declarations declarations
+        declarations
+        |> label_declarations
         |> of_list
       | Typedtree.Ttype_open ->
         empty
@@ -309,15 +404,36 @@ end = struct
   end
 
   module OfTypes = struct
+    let label_declarations declarations =
+        declarations
+        |> Li.map ~f:(fun {Types.ld_id; ld_mutable=_; ld_type=_; ld_loc=_; ld_attributes} ->
+          J.obj "record_label" [
+            Name.of_ident ld_id;
+            Doc.OfTypedtree.attributes ld_attributes;
+          ]
+        )
+
+    let constructor_arguments = function
+      | Types.Cstr_tuple _ ->
+        []
+      | Types.Cstr_record declarations ->
+        label_declarations declarations
+
     let type_kind = function
       | Types.Type_abstract ->
         empty
-      | Types.Type_variant _ -> (*BISECT-IGNORE*)
-        warn "RecordLabels.OfTypes.type_kind: Type_variant" empty
-      | Types.Type_record _ -> (*BISECT-IGNORE*)
-        warn "RecordLabels.OfTypes.type_kind: Type_record" empty
-      | Types.Type_open -> (*BISECT-IGNORE*)
-        warn "RecordLabels.OfTypes.type_kind: Type_open" empty
+      | Types.Type_variant declarations -> (*BISECT-IGNORE*)
+        declarations
+        |> Li.flat_map ~f:(fun {Types.cd_id=_; cd_args; cd_res=_; cd_loc=_; cd_attributes=_} ->
+          constructor_arguments cd_args
+        )
+        |> of_list
+      | Types.Type_record (declarations, _) ->
+        declarations
+        |> label_declarations
+        |> of_list
+      | Types.Type_open ->
+        empty
   end
 end
 
@@ -330,7 +446,7 @@ module TypeParameters: sig
 
   module OfTypes: sig
     open Types
-    val type_exprs: type_expr list -> J.a
+    val type_exprs_and_variances: type_expr list -> Variance.t list -> J.a
   end
 end = struct
   let of_string s =
@@ -338,18 +454,18 @@ end = struct
 
   let empty = ("parameters", J.null)
 
-  let string_of_type_parameter (t, v) =
-    let variance = match v with
-      | Asttypes.Covariant ->
-        "+"
-      | Asttypes.Contravariant ->
-        "-"
-      | Asttypes.Invariant ->
-        ""
-    in
-    Frmt.apply "%s%s" variance (string_of_core_type t)
-
   module OfTypedtree = struct
+    let string_of_type_parameter (t, v) =
+      let variance = match v with
+        | Asttypes.Covariant ->
+          "+"
+        | Asttypes.Contravariant ->
+          "-"
+        | Asttypes.Invariant ->
+          ""
+      in
+      Frmt.apply "%s%s" variance (string_of_core_type t)
+
     let type_parameters = function
       | [] ->
         empty
@@ -366,11 +482,33 @@ end = struct
   end
 
   module OfTypes = struct
-    let type_exprs = function
-      | [] ->
-        empty
-      | _ -> (*BISECT-IGNORE*)
-        warn "TypeParameters.OfTypes.type_exprs" empty
+    let string_of_type_parameter (t, v) =
+      let variance = match Types.Variance.get_upper v with
+        | (true, true) ->
+          ""
+        | (true, false) ->
+          "+"
+        | (false, true) ->
+          "-"
+        | (false, false) -> (*BISECT-IGNORE*)
+          warn "TypeParameters.OfTypes.string_of_type_parameter: (false, false)" ""
+      in
+      Frmt.apply "%s%s" variance (string_of_type_expr t)
+
+    let type_exprs_and_variances type_exprs variances =
+      match Li.Two.to_pair_list type_exprs variances with
+        | [] ->
+          empty
+        | [type_parameter] ->
+          type_parameter
+          |> string_of_type_parameter
+          |> of_string
+        | type_parameters ->
+          type_parameters
+          |> Li.map ~f:string_of_type_parameter
+          |> StrLi.concat ~sep:", "
+          |> Frmt.apply "(%s)"
+          |> of_string
   end
 end
 
@@ -456,12 +594,20 @@ end = struct
     let type_kind = function
       | Types.Type_abstract ->
         empty
-      | Types.Type_variant _ -> (*BISECT-IGNORE*)
-        warn "TypeConstructors.OfTypes.type_kind: Type_variant" empty
-      | Types.Type_record _ -> (*BISECT-IGNORE*)
-        warn "TypeConstructors.OfTypes.type_kind: Type_record" empty
-      | Types.Type_open -> (*BISECT-IGNORE*)
-        warn "TypeConstructors.OfTypes.type_kind: Type_open" empty
+      | Types.Type_variant declarations ->
+        declarations
+        |> Li.map ~f:(fun {Types.cd_id; cd_args; cd_res=_; cd_loc=_; cd_attributes} ->
+          J.obj "type_constructor" [
+            Name.of_ident cd_id;
+            Doc.OfTypedtree.attributes cd_attributes;
+            Payload.OfTypes.constructor_arguments cd_args;
+          ]
+        )
+        |> of_list
+      | Types.Type_record _ ->
+        empty
+      | Types.Type_open ->
+        empty
   end
 end
 
@@ -495,11 +641,11 @@ end = struct
                 ""
               | Typedtree.Cstr_tuple elements ->
                 elements
-                |> string_of_tuple
+                |> string_of_typedtree_tuple
                 |> Frmt.apply " of %s"
               | Typedtree.Cstr_record declarations ->
                 declarations
-                |> string_of_record
+                |> string_of_typedtree_record
                 |> Frmt.apply " of %s"
           in
           Frmt.apply "%s%s" txt payload
@@ -508,7 +654,7 @@ end = struct
         |> of_string
       | Typedtree.Ttype_record declarations ->
         declarations
-        |> string_of_record
+        |> string_of_typedtree_record
         |> of_string
       | Typedtree.Ttype_open ->
         of_string ".."
@@ -518,12 +664,32 @@ end = struct
     let type_kind = function
       | Types.Type_abstract ->
         empty
-      | Types.Type_variant _ -> (*BISECT-IGNORE*)
-        warn "TypeKind.OfTypes.type_kind: Type_variant" empty
-      | Types.Type_record _ -> (*BISECT-IGNORE*)
-        warn "TypeKind.OfTypes.type_kind: Type_record" empty
-      | Types.Type_open -> (*BISECT-IGNORE*)
-        warn "TypeKind.OfTypes.type_kind: Type_open" empty
+      | Types.Type_variant declarations ->
+        declarations
+        |> Li.map ~f:(fun {Types.cd_id; cd_args; cd_res=_; cd_loc=_; cd_attributes=_} ->
+          let payload =
+            match cd_args with
+              | Types.Cstr_tuple [] ->
+                ""
+              | Types.Cstr_tuple elements ->
+                elements
+                |> string_of_types_tuple
+                |> Frmt.apply " of %s"
+              | Types.Cstr_record declarations ->
+                declarations
+                |> string_of_types_record
+                |> Frmt.apply " of %s"
+          in
+          Frmt.apply "%s%s" (Ident.name cd_id) payload
+        )
+        |> StrLi.concat ~sep:" | "
+        |> of_string
+      | Types.Type_record (declarations, _) ->
+        declarations
+        |> string_of_types_record
+        |> of_string
+      | Types.Type_open ->
+        of_string ".."
   end
 end
 
@@ -555,12 +721,12 @@ end = struct
   end
 
   module OfTypes = struct
-    let type_declaration id {Types.type_params; type_arity=_; type_kind; type_private; type_manifest; type_variance=_; type_newtype_level=_; type_loc=_; type_attributes; type_immediate=_; type_unboxed=_} =
+    let type_declaration id {Types.type_params; type_arity=_; type_kind; type_private; type_manifest; type_variance; type_newtype_level=_; type_loc=_; type_attributes; type_immediate=_; type_unboxed=_} =
       J.obj "type" [
         Name.of_ident id;
         Hidden.OfTypedtree.attributes type_attributes;
         Doc.OfTypedtree.attributes type_attributes;
-        TypeParameters.OfTypes.type_exprs type_params; (* @todo Variances *)
+        TypeParameters.OfTypes.type_exprs_and_variances type_params type_variance; (* @todo Variances *)
         TypePrivate.of_private_flag type_private;
         TypeManifest.OfTypes.type_expr_option type_manifest;
         TypeKind.OfTypes.type_kind type_kind;
@@ -692,25 +858,25 @@ end = struct
         | Typedtree.Tmty_functor (_, _, _, contents) ->
           module_type contents
         | Typedtree.Tmty_with (_, _) -> (*BISECT-IGNORE*)
-          warn "ContentsFrom.OfTypedtree.module_type: Tmty_with" default
+          warn "ContentsFrom.OfTypedtree.module_type: Tmty_with (@todo)" default
         | Typedtree.Tmty_typeof _ -> (*BISECT-IGNORE*)
-          warn "ContentsFrom.OfTypedtree.module_type: Tmty_typeof" default
-        | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*)
-          warn "ContentsFrom.OfTypedtree.module_type: Tmty_alias" default
+          warn "ContentsFrom.OfTypedtree.module_type: Tmty_typeof (@todo)" default
+        | Typedtree.Tmty_alias (_, _) -> warn "ContentsFrom.OfTypedtree.module_type: Tmty_alias (not supported)" default (*BISECT-IGNORE*)
 
     let module_type_option = Opt.value_map ~f:module_type ~def:default
   end
 
   module OfTypes = struct
-    let module_type _env = function
-      | Types.Mty_ident _ -> (*BISECT-IGNORE*)
-        warn "ContentsFrom.OfTypes.module_type: Mty_ident" default
+    let rec module_type env = function
+      | Types.Mty_ident path ->
+        path
+        |> Path.name
+        |> of_string
       | Types.Mty_signature _ ->
         default
-      | Types.Mty_functor (_, _, _) -> (*BISECT-IGNORE*)
-        warn "ContentsFrom.OfTypes.module_type: Mty_functor" default
-      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*)
-        warn "ContentsFrom.OfTypes.module_type: Mty_alias" default
+      | Types.Mty_functor (_, _, contents) ->
+        module_type env contents
+      | Types.Mty_alias (_, _) -> warn "ContentsFrom.OfTypes.module_type: Mty_alias (not supported)" default (*BISECT-IGNORE*)
 
     let module_type_option env = Opt.value_map ~f:(module_type env) ~def:default
   end
@@ -740,10 +906,10 @@ end = struct
   module OfTypes = struct
     let rec module_type env = function
       | Types.Mty_ident path ->
-        let {Types.mtd_type; mtd_attributes=_; mtd_loc=_} = Env.find_modtype path env in
+        let (env, {Types.mtd_type; mtd_attributes=_; mtd_loc=_}) = enter_modtype path env in
         module_type_option env mtd_type
       | Types.Mty_signature _ ->
-        [] (* Empty on purpose *)
+        []
       | Types.Mty_functor (parameter_name, parameter_type, contents) ->
         let parameter = J.obj "functor_parameter" [
           Name.of_ident parameter_name;
@@ -753,12 +919,11 @@ end = struct
           Contents.OfTypes.module_type_option env parameter_type;
         ] in
         parameter::(module_type env contents)
-      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*)
-        warn "FunctorParameters.OfTypes.module_type: Mty_alias" []
+      | Types.Mty_alias (_, _) -> warn "FunctorParameters.OfTypes.module_type: Mty_alias (not supported)" [] (*BISECT-IGNORE*)
 
     and module_type_option env = function
-      | None -> (*BISECT-IGNORE*)
-        warn "FunctorParameters.OfTypes.module_type_option: None" []
+      | None ->
+        []
       | Some mod_typ ->
         module_type env mod_typ
 
@@ -781,10 +946,10 @@ end = struct
       let rec aux {Typedtree.mty_desc; mty_type=_; mty_env; mty_loc=_; mty_attributes=_} =
         match mty_desc with
           | Typedtree.Tmty_signature _ ->
-            [] (* Empty on purpose *)
+            []
           | Typedtree.Tmty_ident (path, _) ->
-            Env.find_modtype path mty_env
-            |> OfTypes.modtype_declaration mty_env
+            let (env, mod_type) = enter_modtype path mty_env in
+            OfTypes.modtype_declaration env mod_type
           | Typedtree.Tmty_functor (_, parameter_name, parameter_type, contents) ->
             let parameter = J.obj "functor_parameter" [
               Name.of_string_loc parameter_name;
@@ -795,11 +960,10 @@ end = struct
             ] in
             parameter::(aux contents)
           | Typedtree.Tmty_with (_, _) -> (*BISECT-IGNORE*)
-            warn "FunctorParameters.OfTypedtree.module_type: Tmty_with" []
+            warn "FunctorParameters.OfTypedtree.module_type: Tmty_with (@todo)" []
           | Typedtree.Tmty_typeof _ -> (*BISECT-IGNORE*)
-            warn "FunctorParameters.OfTypedtree.module_type: Tmty_typeof" []
-          | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*)
-            warn "FunctorParameters.OfTypedtree.module_type: Tmty_alias" []
+            warn "FunctorParameters.OfTypedtree.module_type: Tmty_typeof (@todo)" []
+          | Typedtree.Tmty_alias (_, _) -> warn "FunctorParameters.OfTypedtree.module_type: Tmty_alias (not supported)" [] (*BISECT-IGNORE*)
       in
       aux t
       |> of_list
@@ -828,40 +992,45 @@ end = struct
   let empty = of_list []
 
   module OfTypes = struct
+    let signature_item env = function
+      | Types.Sig_value (id, description) ->
+        Value.OfTypes.value_description id description
+      | Types.Sig_type (id, declaration, _) ->
+        Type.OfTypes.type_declaration id declaration
+      | Types.Sig_typext (_, _, _) -> warn "Contents.OfTypes.signature_item: Sig_typext (not supported)" J.null (*BISECT-IGNORE*)
+      | Types.Sig_module (id, declaration, _) ->
+        Module.OfTypes.module_declaration env id declaration
+      | Types.Sig_modtype (id, declaration) ->
+        ModuleType.OfTypes.modtype_declaration env id declaration
+      | Types.Sig_class (_, _, _) -> warn "Contents.OfTypes.signature_item: Sig_class (not supported)" J.null (*BISECT-IGNORE*)
+      | Types.Sig_class_type (_, _, _) -> warn "Contents.OfTypes.signature_item: Sig_class_type (not supported)" J.null (*BISECT-IGNORE*)
+
+    let signature_item env item =
+      try
+        signature_item env item
+      with
+        | ModTypeNotFound name ->
+          StdErr.print "WARNING (ocamlautodoc): Module type not found: %s (this is a known bug in ocamlautodoc, we'd love some help from a compiler-libs expert)\n" name;
+          AutoocamldocBug.mod_type_not_found name
+
     let signature env items =
       items
-      |> Li.map ~f:(function
-        | Types.Sig_value (id, description) ->
-          Value.OfTypes.value_description id description
-        | Types.Sig_type (id, declaration, _) ->
-          Type.OfTypes.type_declaration id declaration
-        | Types.Sig_typext (_, _, _) -> (*BISECT-IGNORE*)
-          warn "Contents.OfTypes.signature: Sig_typext" J.null
-        | Types.Sig_module (id, declaration, _) ->
-          Module.OfTypes.module_declaration env id declaration
-        | Types.Sig_modtype (id, declaration) ->
-          ModuleType.OfTypes.modtype_declaration env id declaration
-        | Types.Sig_class (_, _, _) -> (*BISECT-IGNORE*)
-          warn "Contents.OfTypes.signature: Sig_class" J.null
-        | Types.Sig_class_type (_, _, _) -> (*BISECT-IGNORE*)
-          warn "Contents.OfTypes.signature: Sig_class_type" J.null
-      )
+      |> Li.map ~f:(signature_item env)
       |> of_list
 
     let rec module_type env = function
       | Types.Mty_ident path ->
-        let {Types.mtd_type; mtd_attributes=_; mtd_loc=_} = Env.find_modtype path env in
+        let (env, {Types.mtd_type; mtd_attributes=_; mtd_loc=_}) = enter_modtype path env in
         module_type_option env mtd_type
       | Types.Mty_signature signature_ ->
         signature env signature_
       | Types.Mty_functor (_, _, contents) ->
         module_type_option env (Some contents)
-      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*)
-        warn "Contents.OfTypes.module_type: Mty_alias" empty
+      | Types.Mty_alias (_, _) -> warn "Contents.OfTypes.module_type: Mty_alias (not supported)" empty (*BISECT-IGNORE*)
 
     and module_type_option env = function
-      | None -> (*BISECT-IGNORE*)
-        warn "Contents.OfTypes.module_type_option: None" empty
+      | None ->
+        empty
       | Some mod_typ ->
         module_type env mod_typ
 
@@ -870,38 +1039,38 @@ end = struct
   end
 
   module OfTypedtree = struct
+    let signature_item {Typedtree.sig_desc; sig_env=_; sig_loc=_} =
+      match sig_desc with
+        | Typedtree.Tsig_attribute ({Asttypes.txt="ocaml.text"; loc=_}, payload) ->
+          [FloatingDoc.of_attribute_payload payload]
+        | Typedtree.Tsig_attribute _ ->
+          []
+        | Typedtree.Tsig_modtype declaration -> begin
+            [ModuleType.OfTypedtree.module_type_declaration declaration]
+        end
+        | Typedtree.Tsig_value description ->
+          [Value.OfTypedtree.value_description description]
+        | Typedtree.Tsig_module declaration ->
+          [Module.OfTypedtree.module_declaration declaration]
+        | Typedtree.Tsig_include description ->
+          [Include.OfTypedtree.include_description description]
+        | Typedtree.Tsig_type (_, declarations) ->
+          declarations
+          |> Li.map ~f:Type.OfTypedtree.type_declaration
+        | Typedtree.Tsig_typext _ -> warn "Contents.OfTypedtree.signature: Typedtree.Tsig_typext (not supported)" [] (*BISECT-IGNORE*)
+        | Typedtree.Tsig_exception description ->
+          [Exception.OfTypedtree.extension_constructor description]
+        | Typedtree.Tsig_recmodule declarations ->
+          declarations
+          |> Li.map ~f:Module.OfTypedtree.module_declaration
+        | Typedtree.Tsig_open _ ->
+          []
+        | Typedtree.Tsig_class _ -> warn "Contents.OfTypedtree.signature: Typedtree.Tsig_class (not supported)" [] (*BISECT-IGNORE*)
+        | Typedtree.Tsig_class_type _ -> warn "Contents.OfTypedtree.signature: Typedtree.Tsig_class_type (not supported)" [] (*BISECT-IGNORE*)
+
     let signature {Typedtree.sig_items; sig_type=_; sig_final_env=_} =
       sig_items
-      |> Li.flat_map ~f:(fun {Typedtree.sig_desc; sig_env=_; sig_loc=_} ->
-        match sig_desc with
-          | Typedtree.Tsig_attribute ({Asttypes.txt="ocaml.text"; loc=_}, payload) ->
-            [FloatingDoc.of_attribute_payload payload]
-          | Typedtree.Tsig_attribute _ ->
-            [] (* Empty on purpose *)
-          | Typedtree.Tsig_modtype declaration ->
-            [ModuleType.OfTypedtree.module_type_declaration declaration]
-          | Typedtree.Tsig_value description ->
-            [Value.OfTypedtree.value_description description]
-          | Typedtree.Tsig_module declaration ->
-            [Module.OfTypedtree.module_declaration declaration]
-          | Typedtree.Tsig_include description ->
-            [Include.OfTypedtree.include_description description]
-          | Typedtree.Tsig_type (_, declarations) ->
-            declarations
-            |> Li.map ~f:Type.OfTypedtree.type_declaration
-          | Typedtree.Tsig_typext _ -> (*BISECT-IGNORE*)
-            warn "Contents.OfTypedtree.signature: Typedtree.Tsig_typext" []
-          | Typedtree.Tsig_exception description ->
-            [Exception.OfTypedtree.extension_constructor description]
-          | Typedtree.Tsig_recmodule _ -> (*BISECT-IGNORE*)
-            warn "Contents.OfTypedtree.signature: Typedtree.Tsig_recmodule" []
-          | Typedtree.Tsig_open _ -> (*BISECT-IGNORE*)
-            warn "Contents.OfTypedtree.signature: Typedtree.Tsig_open" []
-          | Typedtree.Tsig_class _ -> (*BISECT-IGNORE*)
-            warn "Contents.OfTypedtree.signature: Typedtree.Tsig_class" []
-          | Typedtree.Tsig_class_type _ -> (*BISECT-IGNORE*)
-            warn "Contents.OfTypedtree.signature: Typedtree.Tsig_class_type" []
-      )
+      |> Li.flat_map ~f:signature_item
       |> of_list
 
     let rec module_type {Typedtree.mty_desc; mty_type=_; mty_env; mty_loc=_; mty_attributes=_} =
@@ -909,16 +1078,15 @@ end = struct
         | Typedtree.Tmty_signature signature_ ->
           signature signature_
         | Typedtree.Tmty_ident (path, _) ->
-          Env.find_modtype path mty_env
-          |> OfTypes.modtype_declaration mty_env
+          let (env, mod_type) = enter_modtype path mty_env in
+          OfTypes.modtype_declaration env mod_type
         | Typedtree.Tmty_functor (_, _, _, contents) ->
           module_type contents
         | Typedtree.Tmty_with (_, _) -> (*BISECT-IGNORE*)
-          warn "Contents.OfTypedtree.module_type: Tmty_with" empty
+          warn "Contents.OfTypedtree.module_type: Tmty_with (@todo)" empty
         | Typedtree.Tmty_typeof _ -> (*BISECT-IGNORE*)
-          warn "Contents.OfTypedtree.module_type: Tmty_typeof" empty
-        | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*)
-          warn "Contents.OfTypedtree.module_type: Tmty_alias" empty
+          warn "Contents.OfTypedtree.module_type: Tmty_typeof (@todo)" empty
+        | Typedtree.Tmty_alias (_, _) -> warn "Contents.OfTypedtree.module_type: Tmty_alias (not supported)" empty (*BISECT-IGNORE*)
 
     let module_type_option = Opt.value_map ~f:module_type ~def:empty
   end

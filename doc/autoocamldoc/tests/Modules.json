@@ -693,6 +693,97 @@
           "labels": []
         }
       ]
+    },
+    {
+      "__class__": "module",
+      "name": "Recursive1",
+      "hidden": false,
+      "doc": [ " Doc for Recursive1 ", " Doc' for Recursive1 " ],
+      "functor_parameters": [],
+      "contents_from": null,
+      "contents": [
+        {
+          "__class__": "type",
+          "name": "t",
+          "hidden": false,
+          "doc": [ " Doc for t ", " Doc' for t " ],
+          "parameters": null,
+          "private": false,
+          "manifest": null,
+          "kind": "A1 | B1 of Recursive2.t",
+          "constructors": [
+            {
+              "__class__": "type_constructor",
+              "name": "A1",
+              "doc": [ " Doc for A1 " ],
+              "payload": null
+            },
+            {
+              "__class__": "type_constructor",
+              "name": "B1",
+              "doc": [ " Doc for B1 " ],
+              "payload": "Recursive2.t"
+            }
+          ],
+          "labels": []
+        }
+      ]
+    },
+    {
+      "__class__": "module",
+      "name": "Recursive2",
+      "hidden": false,
+      "doc": [ " Doc for Recursive2 ", " Doc' for Recursive2 " ],
+      "functor_parameters": [],
+      "contents_from": null,
+      "contents": [
+        {
+          "__class__": "type",
+          "name": "t",
+          "hidden": false,
+          "doc": [ " Doc for t ", " Doc' for t " ],
+          "parameters": null,
+          "private": false,
+          "manifest": null,
+          "kind": "A2 | B2 of Recursive1.t",
+          "constructors": [
+            {
+              "__class__": "type_constructor",
+              "name": "A2",
+              "doc": [ " Doc for A2 " ],
+              "payload": null
+            },
+            {
+              "__class__": "type_constructor",
+              "name": "B2",
+              "doc": [ " Doc for B2 " ],
+              "payload": "Recursive1.t"
+            }
+          ],
+          "labels": []
+        }
+      ]
+    },
+    {
+      "__class__": "module_type",
+      "name": "Abstract",
+      "hidden": true,
+      "doc": [ " Doc for Abstract ", " Doc' for Abstract " ],
+      "functor_parameters": [],
+      "contents_from": null,
+      "contents": []
+    },
+    {
+      "__class__": "module",
+      "name": "AbstractAsIdentifier",
+      "hidden": false,
+      "doc": [
+        " Doc for AbstractAsIdentifier ", " Doc' for AbstractAsIdentifier ",
+        " Doc for Abstract ", " Doc' for Abstract "
+      ],
+      "functor_parameters": [],
+      "contents_from": "Abstract",
+      "contents": []
     }
   ]
 }

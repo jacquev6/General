@@ -238,3 +238,48 @@ Reference
 
       Doc for t
 
+  .. module:: Recursive1
+
+    Doc for Recursive1
+
+    Doc' for Recursive1
+
+    .. type:: t
+      :kind: A1 | B1 of Recursive2.t
+
+      :constructor A1: Doc for A1
+
+      :constructor B1: Doc for B1
+
+      Doc for t
+
+      Doc' for t
+
+  .. module:: Recursive2
+
+    Doc for Recursive2
+
+    Doc' for Recursive2
+
+    .. type:: t
+      :kind: A2 | B2 of Recursive1.t
+
+      :constructor A2: Doc for A2
+
+      :constructor B2: Doc for B2
+
+      Doc for t
+
+      Doc' for t
+
+  .. module:: AbstractAsIdentifier
+    :contents_from: Abstract
+
+    Doc for AbstractAsIdentifier
+
+    Doc' for AbstractAsIdentifier
+
+    Doc for Abstract
+
+    Doc' for Abstract
+

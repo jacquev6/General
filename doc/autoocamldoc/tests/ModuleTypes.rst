@@ -6,127 +6,382 @@ Reference
 
 .. module:: tests/ModuleTypes
 
-  .. module_type:: Signature
+  .. module_type:: MT
 
-    Doc for Signature
+    .. module_type:: Signature
 
-    Doc' for Signature
+      Doc for Signature
 
-    .. type:: t
+      Doc' for Signature
 
-  .. module_type:: Alias
-    :contents_from: Signature
+      .. type:: t
 
-    Doc for Alias
+    .. module_type:: Alias
+      :contents_from: Signature
 
-    Doc' for Alias
+      Doc for Alias
 
-    Doc for Signature
+      Doc' for Alias
 
-    Doc' for Signature
+      Doc for Signature
 
-    .. type:: t
+      Doc' for Signature
 
-  .. module_type:: DoubleAlias
-    :contents_from: Alias
+      .. type:: t
 
-    Doc for DoubleAlias
+    .. module_type:: DoubleAlias
+      :contents_from: Alias
 
-    Doc' for DoubleAlias
+      Doc for DoubleAlias
 
-    Doc for Alias
+      Doc' for DoubleAlias
 
-    Doc' for Alias
+      Doc for Alias
 
-    Doc for Signature
+      Doc' for Alias
 
-    Doc' for Signature
+      Doc for Signature
 
-    .. type:: t
+      Doc' for Signature
 
-  .. module_type:: Functor
+      .. type:: t
 
-    Doc for Functor
+    .. module_type:: Functor
 
-    Doc' for Functor
+      Doc for Functor
 
-    .. functor_parameter:: A
+      Doc' for Functor
 
-      .. type:: a
+      .. functor_parameter:: A
 
-        Doc for a
+        .. type:: a
 
-        Doc' for a
+          Doc for a
 
-    .. type:: t
+          Doc' for a
 
-      Doc for t
+      .. type:: t
 
-      Doc' for t
+        Doc for t
 
-  .. module_type:: MultiFunctor
+        Doc' for t
 
-    .. functor_parameter:: A
+    .. module_type:: MultiFunctor
 
-      .. type:: a
+      .. functor_parameter:: A
 
-    .. functor_parameter:: B
+        .. type:: a
 
-      .. type:: b
+      .. functor_parameter:: B
 
-    .. type:: t
+        .. type:: b
 
-  .. module_type:: FunctorAlias
-    :contents_from: Functor
+      .. type:: t
 
-    Doc for FunctorAlias
+    .. module_type:: FunctorAlias
+      :contents_from: Functor
 
-    Doc' for FunctorAlias
+      Doc for FunctorAlias
 
-    Doc for Functor
+      Doc' for FunctorAlias
 
-    Doc' for Functor
+      Doc for Functor
 
-    .. functor_parameter:: A
+      Doc' for Functor
 
-      .. type:: a
+      .. functor_parameter:: A
 
-        Doc for a
+        .. type:: a
 
-        Doc' for a
+          Doc for a
 
-    .. type:: t
+          Doc' for a
 
-      Doc for t
+      .. type:: t
 
-      Doc' for t
+        Doc for t
 
-  .. module_type:: DoubleFunctorAlias
-    :contents_from: FunctorAlias
+        Doc' for t
 
-    Doc for DoubleFunctorAlias
+    .. module_type:: DoubleFunctorAlias
+      :contents_from: FunctorAlias
 
-    Doc' for DoubleFunctorAlias
+      Doc for DoubleFunctorAlias
 
-    Doc for FunctorAlias
+      Doc' for DoubleFunctorAlias
 
-    Doc' for FunctorAlias
+      Doc for FunctorAlias
 
-    Doc for Functor
+      Doc' for FunctorAlias
 
-    Doc' for Functor
+      Doc for Functor
 
-    .. functor_parameter:: A
+      Doc' for Functor
 
-      .. type:: a
+      .. functor_parameter:: A
 
-        Doc for a
+        .. type:: a
 
-        Doc' for a
+          Doc for a
 
-    .. type:: t
+          Doc' for a
 
-      Doc for t
+      .. type:: t
 
-      Doc' for t
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: FunctorWithIdentifierContents
+      :contents_from: Signature
+
+      Doc for FunctorWithIdentifierContents
+
+      Doc' for FunctorWithIdentifierContents
+
+      Doc for Signature
+
+      Doc' for Signature
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+      .. type:: t
+
+    .. module_type:: FunctorWithIdentifierContentsAlias
+      :contents_from: FunctorWithIdentifierContents
+
+      Doc for FunctorWithIdentifierContentsAlias
+
+      Doc' for FunctorWithIdentifierContentsAlias
+
+      Doc for FunctorWithIdentifierContents
+
+      Doc' for FunctorWithIdentifierContents
+
+      Doc for Signature
+
+      Doc' for Signature
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+      .. type:: t
+
+    .. module_type:: FunctorWithIdentifierContentsDoubleAlias
+      :contents_from: FunctorWithIdentifierContentsAlias
+
+      Doc for FunctorWithIdentifierContentsDoubleAlias
+
+      Doc' for FunctorWithIdentifierContentsDoubleAlias
+
+      Doc for FunctorWithIdentifierContentsAlias
+
+      Doc' for FunctorWithIdentifierContentsAlias
+
+      Doc for FunctorWithIdentifierContents
+
+      Doc' for FunctorWithIdentifierContents
+
+      Doc for Signature
+
+      Doc' for Signature
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+      .. type:: t
+
+  .. include::
+    :contents_from: MT
+
+    .. module_type:: Signature
+
+      Doc for Signature
+
+      Doc' for Signature
+
+      .. type:: t
+
+    .. module_type:: Alias
+      :contents_from: Signature
+
+      Doc for Alias
+
+      Doc' for Alias
+
+      Doc for Signature
+
+      Doc' for Signature
+
+      .. type:: t
+
+    .. module_type:: DoubleAlias
+      :contents_from: Alias
+
+      Doc for DoubleAlias
+
+      Doc' for DoubleAlias
+
+      Doc for Alias
+
+      Doc' for Alias
+
+      Doc for Signature
+
+      Doc' for Signature
+
+      .. type:: t
+
+    .. module_type:: Functor
+
+      Doc for Functor
+
+      Doc' for Functor
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+          Doc for a
+
+          Doc' for a
+
+      .. type:: t
+
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: MultiFunctor
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+      .. functor_parameter:: B
+
+        .. type:: b
+
+      .. type:: t
+
+    .. module_type:: FunctorAlias
+      :contents_from: Functor
+
+      Doc for FunctorAlias
+
+      Doc' for FunctorAlias
+
+      Doc for Functor
+
+      Doc' for Functor
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+          Doc for a
+
+          Doc' for a
+
+      .. type:: t
+
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: DoubleFunctorAlias
+      :contents_from: FunctorAlias
+
+      Doc for DoubleFunctorAlias
+
+      Doc' for DoubleFunctorAlias
+
+      Doc for FunctorAlias
+
+      Doc' for FunctorAlias
+
+      Doc for Functor
+
+      Doc' for Functor
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+          Doc for a
+
+          Doc' for a
+
+      .. type:: t
+
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: FunctorWithIdentifierContents
+      :contents_from: Signature
+
+      Doc for FunctorWithIdentifierContents
+
+      Doc' for FunctorWithIdentifierContents
+
+      Doc for Signature
+
+      Doc' for Signature
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+      .. type:: t
+
+    .. module_type:: FunctorWithIdentifierContentsAlias
+      :contents_from: FunctorWithIdentifierContents
+
+      Doc for FunctorWithIdentifierContentsAlias
+
+      Doc' for FunctorWithIdentifierContentsAlias
+
+      Doc for FunctorWithIdentifierContents
+
+      Doc' for FunctorWithIdentifierContents
+
+      Doc for Signature
+
+      Doc' for Signature
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+      .. type:: t
+
+    .. module_type:: FunctorWithIdentifierContentsDoubleAlias
+      :contents_from: FunctorWithIdentifierContentsAlias
+
+      Doc for FunctorWithIdentifierContentsDoubleAlias
+
+      Doc' for FunctorWithIdentifierContentsDoubleAlias
+
+      Doc for FunctorWithIdentifierContentsAlias
+
+      Doc' for FunctorWithIdentifierContentsAlias
+
+      Doc for FunctorWithIdentifierContents
+
+      Doc' for FunctorWithIdentifierContents
+
+      Doc for Signature
+
+      Doc' for Signature
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+      .. type:: t
 

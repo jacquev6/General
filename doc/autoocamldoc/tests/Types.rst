@@ -6,104 +6,210 @@ Reference
 
 .. module:: tests/Types
 
-  .. type:: manifest
-    :manifest: int
+  .. module_type:: MT
 
-    Doc for manifest
+    .. type:: manifest
+      :manifest: int
 
-    Doc' for manifest
+      Doc for manifest
 
-  .. type:: parameter
-    :parameters: 'a
+      Doc' for manifest
 
-    Doc for parameter
+    .. type:: parameter
+      :parameters: 'a
 
-    Doc' for parameter
+      Doc for parameter
 
-  .. type:: parameters
-    :parameters: ('a, 'b)
+      Doc' for parameter
 
-    Doc for parameters
+    .. type:: parameters
+      :parameters: ('a, 'b)
 
-    Doc' for parameters
+      Doc for parameters
 
-  .. type:: variances
-    :parameters: (-'a, +'b)
+      Doc' for parameters
 
-    Doc for variances
+    .. type:: variances
+      :parameters: (-'a, +'b)
 
-    Doc' for variances
+      Doc for variances
 
-  .. type:: record
-    :kind: {a: int; b: float}
+      Doc' for variances
 
-    :label a: Doc for record.a
+    .. type:: record
+      :kind: {a: int; mutable b: float}
 
-    :label b: Doc for record.b
+      :label a: Doc for record.a
 
-    Doc for record
+      :label b: Doc for record.b
 
-    Doc' for record
+      Doc for record
 
-  .. type:: variant
-    :kind: None | Single of int | Several of int * float | Tuple of (int * float) | Record of {a: int; b: float}
+      Doc' for record
 
-    :constructor None: Doc for None
+    .. type:: variant
+      :kind: None | Single of int | Several of int * float | Tuple of (int * float) | Record of {a: int; mutable b: float}
 
-    :constructor Single: Doc for Single
+      :constructor None: Doc for None
 
-    :constructor Several: Doc for Several
+      :constructor Single: Doc for Single
 
-    :constructor Tuple: Doc for Tuple
+      :constructor Several: Doc for Several
 
-    :constructor Record: Doc for Record
+      :constructor Tuple: Doc for Tuple
 
-    :label a: Doc for Record.a
+      :constructor Record: Doc for Record
 
-    :label b: Doc for Record.b
+      :label a: Doc for Record.a
 
-    Doc for variant
+      :label b: Doc for Record.b
 
-    Doc' for variant
+      Doc for variant
 
-  .. type:: recursive1
-    :kind: A1 | B1 of recursive2
+      Doc' for variant
 
-    :constructor A1: Doc for A1
+    .. type:: recursive1
+      :kind: A1 | B1 of recursive2
 
-    :constructor B1: Doc for B1
+      :constructor A1: Doc for A1
 
-    Doc for recursive1
+      :constructor B1: Doc for B1
 
-  .. type:: recursive2
-    :kind: A2 | B2 of recursive1
+      Doc for recursive1
 
-    :constructor A2: Doc for A2
+    .. type:: recursive2
+      :kind: A2 | B2 of recursive1
 
-    :constructor B2: Doc for B2
+      :constructor A2: Doc for A2
 
-    Doc for recursive2
+      :constructor B2: Doc for B2
 
-  .. type:: open_
-    :kind: ..
+      Doc for recursive2
 
-    Doc for open_
+    .. type:: open_
+      :kind: ..
 
-    Doc' for open_
+      Doc for open_
 
-  .. type:: private_int
-    :private:
-    :manifest: int
+      Doc' for open_
 
-  .. type:: private_variant
-    :private:
-    :kind: Private
+    .. type:: private_int
+      :private:
+      :manifest: int
 
-    :constructor Private:
+    .. type:: private_variant
+      :private:
+      :kind: Private
 
-  .. type:: private_record
-    :private:
-    :kind: {c: int}
+      :constructor Private:
 
-    :label c:
+    .. type:: private_record
+      :private:
+      :kind: {c: int}
+
+      :label c:
+
+  .. include::
+    :contents_from: MT
+
+    .. type:: manifest
+      :manifest: int
+
+      Doc for manifest
+
+      Doc' for manifest
+
+    .. type:: parameter
+      :parameters: 'a
+
+      Doc for parameter
+
+      Doc' for parameter
+
+    .. type:: parameters
+      :parameters: ('a, 'b)
+
+      Doc for parameters
+
+      Doc' for parameters
+
+    .. type:: variances
+      :parameters: (-'a, +'b)
+
+      Doc for variances
+
+      Doc' for variances
+
+    .. type:: record
+      :kind: {a: int; mutable b: float}
+
+      :label a: Doc for record.a
+
+      :label b: Doc for record.b
+
+      Doc for record
+
+      Doc' for record
+
+    .. type:: variant
+      :kind: None | Single of int | Several of int * float | Tuple of (int * float) | Record of {a: int; mutable b: float}
+
+      :constructor None: Doc for None
+
+      :constructor Single: Doc for Single
+
+      :constructor Several: Doc for Several
+
+      :constructor Tuple: Doc for Tuple
+
+      :constructor Record: Doc for Record
+
+      :label a: Doc for Record.a
+
+      :label b: Doc for Record.b
+
+      Doc for variant
+
+      Doc' for variant
+
+    .. type:: recursive1
+      :kind: A1 | B1 of recursive2
+
+      :constructor A1: Doc for A1
+
+      :constructor B1: Doc for B1
+
+      Doc for recursive1
+
+    .. type:: recursive2
+      :kind: A2 | B2 of recursive1
+
+      :constructor A2: Doc for A2
+
+      :constructor B2: Doc for B2
+
+      Doc for recursive2
+
+    .. type:: open_
+      :kind: ..
+
+      Doc for open_
+
+      Doc' for open_
+
+    .. type:: private_int
+      :private:
+      :manifest: int
+
+    .. type:: private_variant
+      :private:
+      :kind: Private
+
+      :constructor Private:
+
+    .. type:: private_record
+      :private:
+      :kind: {c: int}
+
+      :label c:
 

@@ -114,3 +114,31 @@ end [@@autodoc.hide]
 (** Doc for FunctorAsIdentifier *)
 module FunctorAsIdentifier: FunctorType
 (** Doc' for FunctorAsIdentifier *)
+
+(** Doc for Recursive1 *)
+module rec Recursive1: sig
+  (** Doc for t *)
+  type t =
+    | A1 (** Doc for A1 *)
+    | B1 of Recursive2.t (** Doc for B1 *)
+  (** Doc' for t *)
+end
+(** Doc' for Recursive1 *)
+
+(** Doc for Recursive2 *)
+and Recursive2: sig
+  (** Doc for t *)
+  type t =
+    | A2 (** Doc for A2 *)
+    | B2 of Recursive1.t (** Doc for B2 *)
+  (** Doc' for t *)
+end
+(** Doc' for Recursive2 *)
+
+(** Doc for Abstract *)
+module type Abstract [@@autodoc.hide]
+(** Doc' for Abstract *)
+
+(** Doc for AbstractAsIdentifier *)
+module AbstractAsIdentifier: Abstract
+(** Doc' for AbstractAsIdentifier *)

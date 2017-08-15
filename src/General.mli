@@ -737,6 +737,10 @@ module List: sig
   (* include Traits.Scanable.Right.S1 with type 'a t := 'a t *)
   (* include Traits.Scanable.Short.Right.S1 with type 'a t := 'a t *)
 
+  module Two: sig
+    val to_pair_list: 'a t -> 'b t -> ('a * 'b) t
+  end
+
   module Specialize(A: sig type t end): sig
     type t = A.t list
 
