@@ -67,6 +67,22 @@ module type ModuleType = sig
   type t
   (** Doc' for ModuleType.t *)
 
+  (** Doc for v *)
+  val v: int
+  (** Doc' for v *)
+
+  (** Doc for M *)
+  module M: sig
+    val w: int
+  end
+  (** Doc' for M *)
+
+  (** Doc for MT *)
+  module type MT = sig
+    val x: int
+  end
+  (** Doc' for MT *)
+
   (** Floating doc in ModuleType *)
 end [@@autodoc.hide]
 (** Doc' for ModuleType *)

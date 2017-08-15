@@ -39,6 +39,11 @@ module Name: sig
   val of_string_loc: string Asttypes.loc -> J.a
   val of_ident: Ident.t -> J.a
 end = struct
+  (* @todo let format =
+    Opt.some_if'
+      (Oprint.parenthesized_ident (Ident.name val_id))
+      (Frmt.of_string "(%s)") (* This is not strictly correct for ( * ) but it's prettier for everything else. *)
+  in *)
   let of_string s =
     ("name", J.str s)
 
@@ -89,6 +94,7 @@ module Doc: sig
 
   module OfTypes: sig
     open Types
+    val module_type: Env.t -> module_type -> J.a
     val module_type_option: Env.t -> module_type option -> J.a
   end
 end = struct
@@ -143,6 +149,11 @@ end = struct
     let module_type_option env mod_typ =
       mod_typ
       |> module_type_option env
+      |> of_list
+
+    let module_type env mod_typ =
+      mod_typ
+      |> module_type env
       |> of_list
   end
 
@@ -586,24 +597,64 @@ end = struct
 end
 
 
+module ValueType: sig
+  module OfTypedtree: sig
+    open Typedtree
+    val core_type: core_type -> J.a
+  end
+
+  module OfTypes: sig
+    open Types
+    val type_expr: type_expr -> J.a
+  end
+end = struct
+  let of_string s =
+    ("type", J.str s)
+
+  module OfTypedtree = struct
+    let core_type t =
+      t
+      |> string_of_core_type
+      |> of_string
+  end
+
+  module OfTypes = struct
+    let type_expr t =
+      t
+      |> string_of_type_expr
+      |> of_string
+  end
+end
+
+
 module Value: sig
   module OfTypedtree: sig
     open Typedtree
     val value_description: value_description -> J.t
   end
+
+  module OfTypes: sig
+    open Types
+        val value_description: Ident.t -> value_description -> J.t
+  end
 end = struct
   module OfTypedtree = struct
     let value_description {Typedtree.val_id=_; val_name; val_desc; val_val=_; val_prim=_; val_loc=_; val_attributes} =
-      (* @todo let format =
-        Opt.some_if'
-          (Oprint.parenthesized_ident (Ident.name val_id))
-          (Frmt.of_string "(%s)") (* This is not strictly correct for ( * ) but it's prettier for everything else. *)
-      in *)
       J.obj "value" [
         Name.of_string_loc val_name;
         Hidden.OfTypedtree.attributes val_attributes;
         Doc.OfTypedtree.attributes val_attributes;
-        ("type", val_desc |> string_of_core_type |> J.str);
+        ValueType.OfTypedtree.core_type val_desc;
+      ]
+  end
+
+  module OfTypes = struct
+    let value_description id {Types.val_type; val_kind=_; val_loc=_; val_attributes} =
+      J.obj "value" [
+        Name.of_ident id;
+        Hidden.OfTypedtree.attributes val_attributes;
+        Doc.OfTypedtree.attributes val_attributes;
+        ValueType.OfTypes.type_expr val_type;
       ]
   end
 end
@@ -674,6 +725,12 @@ module rec FunctorParameters: sig
     val module_type: module_type -> J.a
     val module_type_option: module_type option -> J.a
   end
+
+  module OfTypes: sig
+    open Types
+    val module_type: Env.t -> module_type -> J.a
+    val module_type_option: Env.t -> module_type option -> J.a
+  end
 end = struct
   let of_list contents =
     ("functor_parameters", J.li contents)
@@ -681,29 +738,42 @@ end = struct
   let empty = of_list []
 
   module OfTypes = struct
+    let rec module_type env = function
+      | Types.Mty_ident path ->
+        let {Types.mtd_type; mtd_attributes=_; mtd_loc=_} = Env.find_modtype path env in
+        module_type_option env mtd_type
+      | Types.Mty_signature _ ->
+        [] (* Empty on purpose *)
+      | Types.Mty_functor (parameter_name, parameter_type, contents) ->
+        let parameter = J.obj "functor_parameter" [
+          Name.of_ident parameter_name;
+          empty; (* @todo This looks weird. Looks like temporary code *)
+          Doc.OfTypes.module_type_option env parameter_type;
+          ContentsFrom.OfTypes.module_type_option env parameter_type;
+          Contents.OfTypes.module_type_option env parameter_type;
+        ] in
+        parameter::(module_type env contents)
+      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*)
+        warn "FunctorParameters.OfTypes.module_type: Mty_alias" []
+
+    and module_type_option env = function
+      | None -> (*BISECT-IGNORE*)
+        warn "FunctorParameters.OfTypes.module_type_option: None" []
+      | Some mod_typ ->
+        module_type env mod_typ
+
     let modtype_declaration env {Types.mtd_type; mtd_attributes=_; mtd_loc=_} =
-      let rec aux = function
-          | None -> (*BISECT-IGNORE*)
-            warn "FunctorParameters.OfTypes.modtype_declaration: None" []
-          | Some Types.Mty_ident path ->
-            let {Types.mtd_type; mtd_attributes=_; mtd_loc=_} = Env.find_modtype path env in
-            aux mtd_type
-          | Some Types.Mty_signature _ ->
-            [] (* Empty on purpose *)
-          | Some Types.Mty_functor (parameter_name, parameter_type, contents) -> (*BISECT-IGNORE*)
-            let parameter = J.obj "functor_parameter" [
-              Name.of_ident parameter_name;
-              (* of_module_type_option parameter_type; *)
-              empty;
-              Doc.OfTypes.module_type_option env parameter_type;
-              ContentsFrom.OfTypes.module_type_option env parameter_type;
-              Contents.OfTypes.module_type_option env parameter_type;
-            ] in
-            parameter::(aux (Some contents))
-          | Some Types.Mty_alias (_, _) -> (*BISECT-IGNORE*)
-            warn "FunctorParameters.OfTypes.modtype_declaration: Some Mty_alias" []
-      in
-      aux mtd_type
+      module_type_option env mtd_type
+
+    let module_type env mod_typ =
+      mod_typ
+      |> module_type env
+      |> of_list
+
+    let module_type_option env mod_typ =
+      mod_typ
+      |> module_type_option env
+      |> of_list
   end
 
   module OfTypedtree = struct
@@ -748,6 +818,7 @@ and Contents: sig
 
   module OfTypes: sig
     open Types
+    val module_type: Env.t -> module_type -> J.a
     val module_type_option: Env.t -> module_type option -> J.a
   end
 end = struct
@@ -757,35 +828,42 @@ end = struct
   let empty = of_list []
 
   module OfTypes = struct
-    let rec module_type_option env = function
-      | None -> (*BISECT-IGNORE*)
-        warn "Contents.OfTypes.module_type_option: None" empty
-      | Some Types.Mty_ident path ->
+    let signature env items =
+      items
+      |> Li.map ~f:(function
+        | Types.Sig_value (id, description) ->
+          Value.OfTypes.value_description id description
+        | Types.Sig_type (id, declaration, _) ->
+          Type.OfTypes.type_declaration id declaration
+        | Types.Sig_typext (_, _, _) -> (*BISECT-IGNORE*)
+          warn "Contents.OfTypes.signature: Sig_typext" J.null
+        | Types.Sig_module (id, declaration, _) ->
+          Module.OfTypes.module_declaration env id declaration
+        | Types.Sig_modtype (id, declaration) ->
+          ModuleType.OfTypes.modtype_declaration env id declaration
+        | Types.Sig_class (_, _, _) -> (*BISECT-IGNORE*)
+          warn "Contents.OfTypes.signature: Sig_class" J.null
+        | Types.Sig_class_type (_, _, _) -> (*BISECT-IGNORE*)
+          warn "Contents.OfTypes.signature: Sig_class_type" J.null
+      )
+      |> of_list
+
+    let rec module_type env = function
+      | Types.Mty_ident path ->
         let {Types.mtd_type; mtd_attributes=_; mtd_loc=_} = Env.find_modtype path env in
         module_type_option env mtd_type
-      | Some Types.Mty_signature items ->
-        items
-        |> Li.map ~f:(function
-          | Types.Sig_value (_, _) -> (*BISECT-IGNORE*)
-            warn "Contents.OfTypes.module_type_option: Sig_value" J.null
-          | Types.Sig_type (id, declaration, _) ->
-            Type.OfTypes.type_declaration id declaration
-          | Types.Sig_typext (_, _, _) -> (*BISECT-IGNORE*)
-            warn "Contents.OfTypes.module_type_option: Sig_typext" J.null
-          | Types.Sig_module (_, _, _) -> (*BISECT-IGNORE*)
-            warn "Contents.OfTypes.module_type_option: Sig_module" J.null
-          | Types.Sig_modtype (_, _) -> (*BISECT-IGNORE*)
-            warn "Contents.OfTypes.module_type_option: Sig_modtype" J.null
-          | Types.Sig_class (_, _, _) -> (*BISECT-IGNORE*)
-            warn "Contents.OfTypes.module_type_option: Sig_class" J.null
-          | Types.Sig_class_type (_, _, _) -> (*BISECT-IGNORE*)
-            warn "Contents.OfTypes.module_type_option: Sig_class_type" J.null
-        )
-        |> of_list
-      | Some Types.Mty_functor (_, _, contents) ->
+      | Types.Mty_signature signature_ ->
+        signature env signature_
+      | Types.Mty_functor (_, _, contents) ->
         module_type_option env (Some contents)
-      | Some Types.Mty_alias (_, _) -> (*BISECT-IGNORE*)
-        warn "Contents.OfTypes.module_type_option: Some Mty_alias" empty
+      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*)
+        warn "Contents.OfTypes.module_type: Mty_alias" empty
+
+    and module_type_option env = function
+      | None -> (*BISECT-IGNORE*)
+        warn "Contents.OfTypes.module_type_option: None" empty
+      | Some mod_typ ->
+        module_type env mod_typ
 
     let modtype_declaration env {Types.mtd_type; mtd_attributes=_; mtd_loc=_} =
       module_type_option env mtd_type
@@ -851,6 +929,11 @@ and ModuleType: sig
     open Typedtree
     val module_type_declaration: module_type_declaration -> J.t
   end
+
+  module OfTypes: sig
+    open Types
+    val modtype_declaration: Env.t -> Ident.t -> modtype_declaration -> J.t
+  end
 end = struct
   module OfTypedtree = struct
     let module_type_declaration {Typedtree.mtd_id=_; mtd_name; mtd_type; mtd_attributes; mtd_loc=_} =
@@ -861,6 +944,18 @@ end = struct
         FunctorParameters.OfTypedtree.module_type_option mtd_type;
         ContentsFrom.OfTypedtree.module_type_option mtd_type;
         Contents.OfTypedtree.module_type_option mtd_type;
+      ]
+  end
+
+  module OfTypes = struct
+    let modtype_declaration env id {Types.mtd_type; mtd_attributes; mtd_loc=_} =
+      J.obj "module_type" [
+        Name.of_ident id;
+        Hidden.OfTypedtree.attributes mtd_attributes;
+        Doc.(merge [OfTypedtree.attributes mtd_attributes; OfTypes.module_type_option env mtd_type]);
+        FunctorParameters.OfTypes.module_type_option env mtd_type;
+        ContentsFrom.OfTypes.module_type_option env mtd_type;
+        Contents.OfTypes.module_type_option env mtd_type;
       ]
   end
 end
@@ -888,6 +983,11 @@ and Module: sig
     val signature: string -> signature -> J.t
     val module_declaration: module_declaration -> J.t
   end
+
+  module OfTypes: sig
+    open Types
+    val module_declaration: Env.t -> Ident.t -> module_declaration -> J.t
+  end
 end = struct
   module OfTypedtree = struct
     let signature name signature =
@@ -908,6 +1008,18 @@ end = struct
         FunctorParameters.OfTypedtree.module_type md_type;
         ContentsFrom.OfTypedtree.module_type md_type;
         Contents.OfTypedtree.module_type md_type;
+      ]
+  end
+
+  module OfTypes = struct
+    let module_declaration env id {Types.md_type; md_attributes; md_loc=_} =
+      J.obj "module" [
+        Name.of_ident id;
+        Hidden.OfTypedtree.attributes md_attributes;
+        Doc.(merge [OfTypedtree.attributes md_attributes; OfTypes.module_type env md_type]);
+        FunctorParameters.OfTypes.module_type env md_type;
+        ContentsFrom.OfTypes.module_type env md_type;
+        Contents.OfTypes.module_type env md_type;
       ]
   end
 end

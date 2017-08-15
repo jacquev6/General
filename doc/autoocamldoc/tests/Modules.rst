@@ -102,6 +102,31 @@ Reference
 
       Doc' for ModuleType.t
 
+    .. val:: v
+      :type: int
+
+      Doc for v
+
+      Doc' for v
+
+    .. module:: M
+
+      Doc for M
+
+      Doc' for M
+
+      .. val:: w
+        :type: int
+
+    .. module_type:: MT
+
+      Doc for MT
+
+      Doc' for MT
+
+      .. val:: x
+        :type: int
+
   .. module:: IndirectIdentifier
     :contents_from: ModuleTypeAlias
 
@@ -123,6 +148,31 @@ Reference
 
       Doc' for ModuleType.t
 
+    .. val:: v
+      :type: int
+
+      Doc for v
+
+      Doc' for v
+
+    .. module:: M
+
+      Doc for M
+
+      Doc' for M
+
+      .. val:: w
+        :type: int
+
+    .. module_type:: MT
+
+      Doc for MT
+
+      Doc' for MT
+
+      .. val:: x
+        :type: int
+
   .. module:: FunctorWithIdentifierParam
 
     .. functor_parameter:: A
@@ -141,6 +191,31 @@ Reference
         Doc for ModuleType.t
 
         Doc' for ModuleType.t
+
+      .. val:: v
+        :type: int
+
+        Doc for v
+
+        Doc' for v
+
+      .. module:: M
+
+        Doc for M
+
+        Doc' for M
+
+        .. val:: w
+          :type: int
+
+      .. module_type:: MT
+
+        Doc for MT
+
+        Doc' for MT
+
+        .. val:: x
+          :type: int
 
   .. module:: FunctorAsIdentifier
     :contents_from: FunctorType
