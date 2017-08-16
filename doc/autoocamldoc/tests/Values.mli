@@ -6,6 +6,10 @@ module type MT = sig
   (** Doc for hidden *)
   val hidden: int [@@autodoc.hide]
   (** Doc' for hidden *)
+
+  (** Doc for (+): there should be parentheses *)
+  val (+): unit
+  (** Doc' for (+) *)
 end
 
 include MT

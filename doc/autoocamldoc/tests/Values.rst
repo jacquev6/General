@@ -15,6 +15,13 @@ Reference
 
       Doc' for v
 
+    .. val:: (+)
+      :type: unit
+
+      Doc for (+): there should be parentheses
+
+      Doc' for (+)
+
   .. include::
     :contents_from: MT
 
@@ -31,4 +38,11 @@ Reference
       Doc for hidden
 
       Doc' for hidden
+
+    .. val:: (+)
+      :type: unit
+
+      Doc for (+): there should be parentheses
+
+      Doc' for (+)
 

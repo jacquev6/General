@@ -39,13 +39,15 @@ module Name: sig
   val of_string_loc: string Asttypes.loc -> J.a
   val of_ident: Ident.t -> J.a
 end = struct
-  (* @todo let format =
-    Opt.some_if'
-      (Oprint.parenthesized_ident (Ident.name val_id))
-      (Frmt.of_string "(%s)") (* This is not strictly correct for ( * ) but it's prettier for everything else. *)
-  in *)
   let of_string s =
-    ("name", J.str s)
+    let format =
+      if Oprint.parenthesized_ident s then
+        (* This is not strictly correct for ( * ) but it's prettier for everything else. *)
+        Frmt.of_string "(%s)"
+      else
+        Frmt.of_string "%s"
+    in
+    ("name", J.str (Frmt.apply format s))
 
   let of_string_loc {Asttypes.txt; loc=_} =
     of_string txt

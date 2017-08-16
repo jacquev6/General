@@ -27,6 +27,15 @@
           "hidden": true,
           "doc": [ " Doc for hidden ", " Doc' for hidden " ],
           "type": "int"
+        },
+        {
+          "__class__": "value",
+          "name": "(+)",
+          "hidden": false,
+          "doc": [
+            " Doc for (+): there should be parentheses ", " Doc' for (+) "
+          ],
+          "type": "unit"
         }
       ]
     },
@@ -49,6 +58,15 @@
           "hidden": false,
           "doc": [ " Doc for hidden ", " Doc' for hidden " ],
           "type": "int"
+        },
+        {
+          "__class__": "value",
+          "name": "(+)",
+          "hidden": false,
+          "doc": [
+            " Doc for (+): there should be parentheses ", " Doc' for (+) "
+          ],
+          "type": "unit"
         }
       ]
     }
