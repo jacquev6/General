@@ -6,41 +6,90 @@ Reference
 
 .. module:: tests/Exceptions
 
-  .. exception:: Simple
+  .. module_type:: MT
 
-    Doc for Single
+    .. exception:: Simple
 
-    Doc' for Single
+      Doc for Single
 
-  .. exception:: SinglePayload
-    :payload: int
+      Doc' for Single
 
-    Doc for SinglePayload
+    .. exception:: SinglePayload
+      :payload: int
 
-    Doc' for SinglePayload
+      Doc for SinglePayload
 
-  .. exception:: SeveralPayload
-    :payload: int * float * string
+      Doc' for SinglePayload
 
-    Doc for SeveralPayload
+    .. exception:: SeveralPayload
+      :payload: int * float * string
 
-    Doc' for SeveralPayload
+      Doc for SeveralPayload
 
-  .. exception:: TuplePayload
-    :payload: (int * float * string)
+      Doc' for SeveralPayload
 
-    Doc for TuplePayload
+    .. exception:: TuplePayload
+      :payload: (int * float * string)
 
-    Doc' for TuplePayload
+      Doc for TuplePayload
 
-  .. exception:: RecordPayload
-    :payload: {a: int; mutable b: float}
+      Doc' for TuplePayload
 
-    :label a: Doc for RecordPayload.a
+    .. exception:: RecordPayload
+      :payload: {a: int; mutable b: float}
 
-    :label b: Doc for RecordPayload.b
+      :label a: Doc for RecordPayload.a
 
-    Doc for RecordPayload
+      :label b: Doc for RecordPayload.b
 
-    Doc' for RecordPayload
+      Doc for RecordPayload
+
+      Doc' for RecordPayload
+
+  .. include::
+    :contents_from: MT
+
+    .. exception:: Simple
+
+      Doc for Single
+
+      Doc' for Single
+
+    .. exception:: Hidden
+
+      Doc for Hidden
+
+      Doc' for Hidden
+
+    .. exception:: SinglePayload
+      :payload: int
+
+      Doc for SinglePayload
+
+      Doc' for SinglePayload
+
+    .. exception:: SeveralPayload
+      :payload: int * float * string
+
+      Doc for SeveralPayload
+
+      Doc' for SeveralPayload
+
+    .. exception:: TuplePayload
+      :payload: (int * float * string)
+
+      Doc for TuplePayload
+
+      Doc' for TuplePayload
+
+    .. exception:: RecordPayload
+      :payload: {a: int; mutable b: float}
+
+      :label a: Doc for RecordPayload.a
+
+      :label b: Doc for RecordPayload.b
+
+      Doc for RecordPayload
+
+      Doc' for RecordPayload
 

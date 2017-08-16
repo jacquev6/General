@@ -7,11 +7,50 @@
   "contents_from": null,
   "contents": [
     {
-      "__class__": "value",
-      "name": "v",
+      "__class__": "module_type",
+      "name": "MT",
       "hidden": false,
-      "doc": [ " Doc for v ", " Doc' for v " ],
-      "type": "int"
+      "doc": [],
+      "functor_parameters": [],
+      "contents_from": null,
+      "contents": [
+        {
+          "__class__": "value",
+          "name": "v",
+          "hidden": false,
+          "doc": [ " Doc for v ", " Doc' for v " ],
+          "type": "int"
+        },
+        {
+          "__class__": "value",
+          "name": "hidden",
+          "hidden": true,
+          "doc": [ " Doc for hidden ", " Doc' for hidden " ],
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "__class__": "include",
+      "hidden": false,
+      "doc": [],
+      "contents_from": "MT",
+      "contents": [
+        {
+          "__class__": "value",
+          "name": "v",
+          "hidden": false,
+          "doc": [ " Doc for v ", " Doc' for v " ],
+          "type": "int"
+        },
+        {
+          "__class__": "value",
+          "name": "hidden",
+          "hidden": false,
+          "doc": [ " Doc for hidden ", " Doc' for hidden " ],
+          "type": "int"
+        }
+      ]
     }
   ]
 }

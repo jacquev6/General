@@ -28,6 +28,18 @@
         },
         {
           "__class__": "type",
+          "name": "hidden",
+          "hidden": true,
+          "doc": [ " Doc for hidden ", " Doc' for hidden " ],
+          "parameters": null,
+          "private": false,
+          "manifest": null,
+          "kind": null,
+          "constructors": [],
+          "labels": []
+        },
+        {
+          "__class__": "type",
           "name": "parameter",
           "hidden": false,
           "doc": [ " Doc for parameter ", " Doc' for parameter " ],
@@ -263,6 +275,18 @@
           "parameters": null,
           "private": false,
           "manifest": "int",
+          "kind": null,
+          "constructors": [],
+          "labels": []
+        },
+        {
+          "__class__": "type",
+          "name": "hidden",
+          "hidden": false,
+          "doc": [ " Doc for hidden ", " Doc' for hidden " ],
+          "parameters": null,
+          "private": false,
+          "manifest": null,
           "kind": null,
           "constructors": [],
           "labels": []

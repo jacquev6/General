@@ -6,177 +6,135 @@ Reference
 
 .. module:: tests/Modules
 
-  .. module:: Signature
+  .. module_type:: MT
 
-    Doc for Signature
+    .. module:: Signature
 
-    Doc' for Signature
+      Doc for Signature
 
-    .. type:: t1
+      Doc' for Signature
 
-    Floating doc
+      .. type:: t1
 
-    .. type:: t2
+      Floating doc
 
-    Floating doc with many leading spaces (which should be removed),
-    several lines::
+      .. type:: t2
 
-        and a quoted, indented part (that should keep its indentation)
-        with another line with trailing spaces (that should be removed)
+      Floating doc with many leading spaces (which should be removed),
+      several lines::
 
-    And a conclusion with many trailing spaces (which should be removed as well).
+          and a quoted, indented part (that should keep its indentation)
+          with another line with trailing spaces (that should be removed)
 
-  .. module:: SimpleFunctor
+      And a conclusion with many trailing spaces (which should be removed as well).
 
-    Doc for SimpleFunctor
+    .. module:: SimpleFunctor
 
-    Doc' for SimpleFunctor
+      Doc for SimpleFunctor
 
-    .. functor_parameter:: N
+      Doc' for SimpleFunctor
 
-      Floating Doc in sig of SimpleFunctor.N (because I've not found a way to attach doc to a functor parameter)
+      .. functor_parameter:: N
 
-      .. val:: n
-        :type: int
+        Floating Doc in sig of SimpleFunctor.N (because I've not found a way to attach doc to a functor parameter)
 
-        Doc for SimpleFunctor.N.n
+        .. val:: n
+          :type: int
 
-        Doc' for SimpleFunctor.N.n
+          Doc for SimpleFunctor.N.n
 
-    .. type:: t
+          Doc' for SimpleFunctor.N.n
 
-      Doc for SimpleFunctor.t
+      .. type:: t
 
-      Doc' for SimpleFunctor.t
+        Doc for SimpleFunctor.t
 
-  .. module:: MultiFunctor
+        Doc' for SimpleFunctor.t
 
-    Doc for MultiFunctor
+    .. module:: MultiFunctor
 
-    .. functor_parameter:: A
-
-      .. type:: a
-
-        Doc for MultiFunctor.A.a
-
-    .. functor_parameter:: B
-
-      .. type:: b
-
-        Doc for MultiFunctor.B.b
-
-    .. functor_parameter:: C
-
-      .. type:: c
-
-        Doc for MultiFunctor.C.c
-
-    .. type:: t
-
-  .. module:: FunctorOfFunctor
-
-    .. functor_parameter:: F
+      Doc for MultiFunctor
 
       .. functor_parameter:: A
 
         .. type:: a
 
-      .. type:: f
+          Doc for MultiFunctor.A.a
 
-    .. type:: ff
+      .. functor_parameter:: B
 
-  .. module:: Identifier
-    :contents_from: ModuleType
+        .. type:: b
 
-    Doc for Identifier
+          Doc for MultiFunctor.B.b
 
-    Doc' for Identifier
+      .. functor_parameter:: C
 
-    Doc for ModuleType
+        .. type:: c
 
-    Doc' for ModuleType
+          Doc for MultiFunctor.C.c
 
-    .. type:: t
+      .. type:: t
 
-      Doc for ModuleType.t
+    .. module:: FunctorOfFunctor
 
-      Doc' for ModuleType.t
+      .. functor_parameter:: F
 
-    .. val:: v
-      :type: int
+        .. functor_parameter:: A
 
-      Doc for v
+          .. type:: a
 
-      Doc' for v
+        .. type:: f
 
-    .. module:: M
+      .. type:: ff
 
-      Doc for M
+    .. module:: Identifier
+      :contents_from: ModuleType
 
-      Doc' for M
+      Doc for Identifier
 
-      .. val:: w
+      Doc' for Identifier
+
+      Doc for ModuleType
+
+      Doc' for ModuleType
+
+      .. type:: t
+
+        Doc for ModuleType.t
+
+        Doc' for ModuleType.t
+
+      .. val:: v
         :type: int
 
-    .. module_type:: MT
+        Doc for v
 
-      Doc for MT
+        Doc' for v
 
-      Doc' for MT
+      .. module:: M
 
-      .. val:: x
-        :type: int
+        Doc for M
 
-  .. module:: IndirectIdentifier
-    :contents_from: ModuleTypeAlias
+        Doc' for M
 
-    Doc for IndirectIdentifier
+        .. val:: w
+          :type: int
 
-    Doc' for IndirectIdentifier
+      .. module_type:: MT
 
-    Doc for ModuleTypeAlias
+        Doc for MT
 
-    Doc' for ModuleTypeAlias
+        Doc' for MT
 
-    Doc for ModuleType
+        .. val:: x
+          :type: int
 
-    Doc' for ModuleType
-
-    .. type:: t
-
-      Doc for ModuleType.t
-
-      Doc' for ModuleType.t
-
-    .. val:: v
-      :type: int
-
-      Doc for v
-
-      Doc' for v
-
-    .. module:: M
-
-      Doc for M
-
-      Doc' for M
-
-      .. val:: w
-        :type: int
-
-    .. module_type:: MT
-
-      Doc for MT
-
-      Doc' for MT
-
-      .. val:: x
-        :type: int
-
-  .. module:: FunctorWithIdentifierParam
-
-    .. functor_parameter:: A
+    .. module:: IndirectIdentifier
       :contents_from: ModuleTypeAlias
+
+      Doc for IndirectIdentifier
+
+      Doc' for IndirectIdentifier
 
       Doc for ModuleTypeAlias
 
@@ -217,69 +175,488 @@ Reference
         .. val:: x
           :type: int
 
-  .. module:: FunctorAsIdentifier
-    :contents_from: FunctorType
+    .. module:: FunctorWithIdentifierParam
 
-    Doc for FunctorAsIdentifier
+      .. functor_parameter:: A
+        :contents_from: ModuleTypeAlias
 
-    Doc' for FunctorAsIdentifier
+        Doc for ModuleTypeAlias
 
-    Doc for FunctorType
+        Doc' for ModuleTypeAlias
 
-    Doc' for FunctorType
+        Doc for ModuleType
 
-    .. functor_parameter:: A
+        Doc' for ModuleType
 
-      .. type:: a
+        .. type:: t
 
-        Doc for a
+          Doc for ModuleType.t
 
-    .. type:: t
+          Doc' for ModuleType.t
 
-      Doc for t
+        .. val:: v
+          :type: int
 
-  .. module:: Recursive1
+          Doc for v
 
-    Doc for Recursive1
+          Doc' for v
 
-    Doc' for Recursive1
+        .. module:: M
 
-    .. type:: t
-      :kind: A1 | B1 of Recursive2.t
+          Doc for M
 
-      :constructor A1: Doc for A1
+          Doc' for M
 
-      :constructor B1: Doc for B1
+          .. val:: w
+            :type: int
 
-      Doc for t
+        .. module_type:: MT
 
-      Doc' for t
+          Doc for MT
 
-  .. module:: Recursive2
+          Doc' for MT
 
-    Doc for Recursive2
+          .. val:: x
+            :type: int
 
-    Doc' for Recursive2
+    .. module:: FunctorAsIdentifier
+      :contents_from: FunctorType
 
-    .. type:: t
-      :kind: A2 | B2 of Recursive1.t
+      Doc for FunctorAsIdentifier
 
-      :constructor A2: Doc for A2
+      Doc' for FunctorAsIdentifier
 
-      :constructor B2: Doc for B2
+      Doc for FunctorType
 
-      Doc for t
+      Doc' for FunctorType
 
-      Doc' for t
+      .. functor_parameter:: A
 
-  .. module:: AbstractAsIdentifier
-    :contents_from: Abstract
+        .. type:: a
 
-    Doc for AbstractAsIdentifier
+          Doc for a
 
-    Doc' for AbstractAsIdentifier
+      .. type:: t
 
-    Doc for Abstract
+        Doc for t
 
-    Doc' for Abstract
+    .. module:: Recursive1
+
+      Doc for Recursive1
+
+      Doc' for Recursive1
+
+      .. type:: t
+        :kind: A1 | B1 of Recursive2.t
+
+        :constructor A1: Doc for A1
+
+        :constructor B1: Doc for B1
+
+        Doc for t
+
+        Doc' for t
+
+    .. module:: Recursive2
+
+      Doc for Recursive2
+
+      Doc' for Recursive2
+
+      .. type:: t
+        :kind: A2 | B2 of Recursive1.t
+
+        :constructor A2: Doc for A2
+
+        :constructor B2: Doc for B2
+
+        Doc for t
+
+        Doc' for t
+
+    .. module:: AbstractAsIdentifier
+      :contents_from: Abstract
+
+      Doc for AbstractAsIdentifier
+
+      Doc' for AbstractAsIdentifier
+
+      Doc for Abstract
+
+      Doc' for Abstract
+
+  .. include::
+    :contents_from: MT
+
+    .. module:: Signature
+
+      Doc for Signature
+
+      Doc' for Signature
+
+      .. type:: t1
+
+      .. type:: t2
+
+    .. module:: Hidden
+
+      Doc for Hidden
+
+      Doc for Hidden
+
+    .. module:: SimpleFunctor
+
+      Doc for SimpleFunctor
+
+      Doc' for SimpleFunctor
+
+      .. functor_parameter:: N
+
+        .. val:: n
+          :type: int
+
+          Doc for SimpleFunctor.N.n
+
+          Doc' for SimpleFunctor.N.n
+
+      .. type:: t
+
+        Doc for SimpleFunctor.t
+
+        Doc' for SimpleFunctor.t
+
+    .. module:: MultiFunctor
+
+      Doc for MultiFunctor
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+          Doc for MultiFunctor.A.a
+
+      .. functor_parameter:: B
+
+        .. type:: b
+
+          Doc for MultiFunctor.B.b
+
+      .. functor_parameter:: C
+
+        .. type:: c
+
+          Doc for MultiFunctor.C.c
+
+      .. type:: t
+
+    .. module:: FunctorOfFunctor
+
+      .. functor_parameter:: F
+
+        .. functor_parameter:: A
+
+          .. type:: a
+
+        .. type:: f
+
+      .. type:: ff
+
+    .. module_type:: ModuleType
+
+      Doc for ModuleType
+
+      Doc' for ModuleType
+
+      .. type:: t
+
+        Doc for ModuleType.t
+
+        Doc' for ModuleType.t
+
+      .. val:: v
+        :type: int
+
+        Doc for v
+
+        Doc' for v
+
+      .. module:: M
+
+        Doc for M
+
+        Doc' for M
+
+        .. val:: w
+          :type: int
+
+      .. module_type:: MT
+
+        Doc for MT
+
+        Doc' for MT
+
+        .. val:: x
+          :type: int
+
+    .. module:: Identifier
+      :contents_from: ModuleType
+
+      Doc for Identifier
+
+      Doc' for Identifier
+
+      Doc for ModuleType
+
+      Doc' for ModuleType
+
+      .. type:: t
+
+        Doc for ModuleType.t
+
+        Doc' for ModuleType.t
+
+      .. val:: v
+        :type: int
+
+        Doc for v
+
+        Doc' for v
+
+      .. module:: M
+
+        Doc for M
+
+        Doc' for M
+
+        .. val:: w
+          :type: int
+
+      .. module_type:: MT
+
+        Doc for MT
+
+        Doc' for MT
+
+        .. val:: x
+          :type: int
+
+    .. module_type:: ModuleTypeAlias
+      :contents_from: ModuleType
+
+      Doc for ModuleTypeAlias
+
+      Doc' for ModuleTypeAlias
+
+      Doc for ModuleType
+
+      Doc' for ModuleType
+
+      .. type:: t
+
+        Doc for ModuleType.t
+
+        Doc' for ModuleType.t
+
+      .. val:: v
+        :type: int
+
+        Doc for v
+
+        Doc' for v
+
+      .. module:: M
+
+        Doc for M
+
+        Doc' for M
+
+        .. val:: w
+          :type: int
+
+      .. module_type:: MT
+
+        Doc for MT
+
+        Doc' for MT
+
+        .. val:: x
+          :type: int
+
+    .. module:: IndirectIdentifier
+      :contents_from: ModuleTypeAlias
+
+      Doc for IndirectIdentifier
+
+      Doc' for IndirectIdentifier
+
+      Doc for ModuleTypeAlias
+
+      Doc' for ModuleTypeAlias
+
+      Doc for ModuleType
+
+      Doc' for ModuleType
+
+      .. type:: t
+
+        Doc for ModuleType.t
+
+        Doc' for ModuleType.t
+
+      .. val:: v
+        :type: int
+
+        Doc for v
+
+        Doc' for v
+
+      .. module:: M
+
+        Doc for M
+
+        Doc' for M
+
+        .. val:: w
+          :type: int
+
+      .. module_type:: MT
+
+        Doc for MT
+
+        Doc' for MT
+
+        .. val:: x
+          :type: int
+
+    .. module:: FunctorWithIdentifierParam
+
+      .. functor_parameter:: A
+        :contents_from: ModuleTypeAlias
+
+        Doc for ModuleTypeAlias
+
+        Doc' for ModuleTypeAlias
+
+        Doc for ModuleType
+
+        Doc' for ModuleType
+
+        .. type:: t
+
+          Doc for ModuleType.t
+
+          Doc' for ModuleType.t
+
+        .. val:: v
+          :type: int
+
+          Doc for v
+
+          Doc' for v
+
+        .. module:: M
+
+          Doc for M
+
+          Doc' for M
+
+          .. val:: w
+            :type: int
+
+        .. module_type:: MT
+
+          Doc for MT
+
+          Doc' for MT
+
+          .. val:: x
+            :type: int
+
+    .. module_type:: FunctorType
+
+      Doc for FunctorType
+
+      Doc' for FunctorType
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+          Doc for a
+
+      .. type:: t
+
+        Doc for t
+
+    .. module:: FunctorAsIdentifier
+      :contents_from: FunctorType
+
+      Doc for FunctorAsIdentifier
+
+      Doc' for FunctorAsIdentifier
+
+      Doc for FunctorType
+
+      Doc' for FunctorType
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+          Doc for a
+
+      .. type:: t
+
+        Doc for t
+
+    .. module:: Recursive1
+
+      Doc for Recursive1
+
+      Doc' for Recursive1
+
+      .. type:: t
+        :kind: A1 | B1 of Recursive2.t
+
+        :constructor A1: Doc for A1
+
+        :constructor B1: Doc for B1
+
+        Doc for t
+
+        Doc' for t
+
+    .. module:: Recursive2
+
+      Doc for Recursive2
+
+      Doc' for Recursive2
+
+      .. type:: t
+        :kind: A2 | B2 of Recursive1.t
+
+        :constructor A2: Doc for A2
+
+        :constructor B2: Doc for B2
+
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: Abstract
+
+      Doc for Abstract
+
+      Doc' for Abstract
+
+    .. module:: AbstractAsIdentifier
+      :contents_from: Abstract
+
+      Doc for AbstractAsIdentifier
+
+      Doc' for AbstractAsIdentifier
+
+      Doc for Abstract
+
+      Doc' for Abstract
 

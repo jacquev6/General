@@ -119,6 +119,12 @@ Reference
 
       Doc' for manifest
 
+    .. type:: hidden
+
+      Doc for hidden
+
+      Doc' for hidden
+
     .. type:: parameter
       :parameters: 'a
 

@@ -6,22 +6,66 @@ Reference
 
 .. module:: tests/Includes
 
-  .. include::
-
-    Doc for include
-
-    Doc' for include
-
-    .. type:: t
-
-  .. module:: A
+  .. module_type:: MT
 
     .. include::
-      :contents_from: ModuleType
 
       Doc for include
 
       Doc' for include
+
+      .. type:: t
+
+    .. module:: A
+
+      .. include::
+        :contents_from: ModuleType
+
+        Doc for include
+
+        Doc' for include
+
+        Doc for ModuleType
+
+        Doc' for ModuleType
+
+        .. type:: t
+
+          Doc for ModuleType.t
+
+          Doc' for ModuleType.t
+
+    .. module:: B
+
+      .. include::
+        :contents_from: ModuleTypeAlias
+
+        Doc for indirect include
+
+        Doc' for indirect include
+
+        Doc for ModuleTypeAlias
+
+        Doc' for ModuleTypeAlias
+
+        Doc for ModuleType
+
+        Doc' for ModuleType
+
+        .. type:: t
+
+          Doc for ModuleType.t
+
+          Doc' for ModuleType.t
+
+  .. include::
+    :contents_from: MT
+
+    .. type:: t
+
+    .. type:: u
+
+    .. module_type:: ModuleType
 
       Doc for ModuleType
 
@@ -33,14 +77,16 @@ Reference
 
         Doc' for ModuleType.t
 
-  .. module:: B
+    .. module:: A
 
-    .. include::
-      :contents_from: ModuleTypeAlias
+      .. type:: t
 
-      Doc for indirect include
+        Doc for ModuleType.t
 
-      Doc' for indirect include
+        Doc' for ModuleType.t
+
+    .. module_type:: ModuleTypeAlias
+      :contents_from: ModuleType
 
       Doc for ModuleTypeAlias
 
@@ -49,6 +95,14 @@ Reference
       Doc for ModuleType
 
       Doc' for ModuleType
+
+      .. type:: t
+
+        Doc for ModuleType.t
+
+        Doc' for ModuleType.t
+
+    .. module:: B
 
       .. type:: t
 

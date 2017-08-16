@@ -470,6 +470,7 @@ module RecordLabels: sig
 
   module OfTypes: sig
     open Types
+    val constructor_arguments: constructor_arguments -> J.a
     val type_kind: type_kind -> J.a
   end
 end = struct
@@ -544,6 +545,8 @@ end = struct
         |> of_list
       | Types.Type_open ->
         empty
+
+    let constructor_arguments = of_list % constructor_arguments
   end
 end
 
@@ -831,6 +834,11 @@ module Exception: sig
     open Typedtree
     val extension_constructor: extension_constructor -> J.t
   end
+
+  module OfTypes: sig
+    open Types
+    val extension_constructor: Ident.t -> extension_constructor -> J.t
+  end
 end = struct
   module OfTypedtree = struct
     let extension_constructor {Typedtree.ext_id=_; ext_name; ext_type=_; ext_kind; ext_loc=_; ext_attributes} =
@@ -846,6 +854,17 @@ end = struct
         Doc.OfTypedtree.attributes ext_attributes;
         Payload.OfTypedtree.constructor_arguments arguments;
         RecordLabels.OfTypedtree.constructor_arguments arguments;
+      ]
+  end
+
+  module OfTypes = struct
+    let extension_constructor id {Types.ext_type_path=_; ext_type_params=_; ext_args; ext_ret_type=_; ext_private=_; ext_loc=_; ext_attributes} =
+      J.obj "exception" [
+        Name.of_ident id;
+        Hidden.default;
+        Doc.OfTypedtree.attributes ext_attributes;
+        Payload.OfTypes.constructor_arguments ext_args;
+        RecordLabels.OfTypes.constructor_arguments ext_args;
       ]
   end
 end
@@ -997,7 +1016,7 @@ end = struct
       | Types.Mty_functor (parameter_name, parameter_type, contents) ->
         let parameter = J.obj "functor_parameter" [
           Name.of_ident parameter_name;
-          empty; (* @todo This looks weird. Looks like temporary code *)
+          module_type_option env parameter_type |> of_list;
           Doc.OfTypes.module_type_option env parameter_type;
           ContentsFrom.OfTypes.module_type_option env parameter_type;
           Contents.OfTypes.module_type_option env parameter_type;
@@ -1081,6 +1100,8 @@ end = struct
         Value.OfTypes.value_description id description
       | Types.Sig_type (id, declaration, _) ->
         Type.OfTypes.type_declaration id declaration
+      | Types.Sig_typext (id, ({Types.ext_type_path=Path.Pident {Ident.name="exn"; _}; _} as ext), _) ->
+        Exception.OfTypes.extension_constructor id ext
       | Types.Sig_typext (_, _, _) -> warn "Contents.OfTypes.signature_item: Sig_typext (not supported)" J.null (*BISECT-IGNORE*)
       | Types.Sig_module (id, declaration, _) ->
         Module.OfTypes.module_declaration env id declaration

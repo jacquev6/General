@@ -6,10 +6,29 @@ Reference
 
 .. module:: tests/Values
 
-  .. val:: v
-    :type: int
+  .. module_type:: MT
 
-    Doc for v
+    .. val:: v
+      :type: int
 
-    Doc' for v
+      Doc for v
+
+      Doc' for v
+
+  .. include::
+    :contents_from: MT
+
+    .. val:: v
+      :type: int
+
+      Doc for v
+
+      Doc' for v
+
+    .. val:: hidden
+      :type: int
+
+      Doc for hidden
+
+      Doc' for hidden
 
