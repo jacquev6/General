@@ -5,6 +5,7 @@
   "doc": [],
   "functor_parameters": [],
   "contents_from": null,
+  "alias_of": null,
   "contents": [
     {
       "__class__": "module_type",
@@ -88,6 +89,7 @@
           "doc": [],
           "functor_parameters": [],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "include",
@@ -148,6 +150,7 @@
           "doc": [],
           "functor_parameters": [],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "include",
@@ -238,6 +241,7 @@
           "doc": [],
           "functor_parameters": [],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -285,6 +289,7 @@
           "doc": [],
           "functor_parameters": [],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",

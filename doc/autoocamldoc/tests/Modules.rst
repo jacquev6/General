@@ -28,6 +28,13 @@ Reference
 
       And a conclusion with many trailing spaces (which should be removed as well).
 
+    .. module:: AliasOfSignature
+      :alias_of: Signature
+
+      Doc for AliasOfSignature
+
+      Doc' for AliasOfSignature
+
     .. module:: SimpleFunctor
 
       Doc for SimpleFunctor
@@ -87,6 +94,35 @@ Reference
 
       .. type:: ff
 
+    .. module:: AliasOfFunctorOfFunctor
+      :alias_of: FunctorOfFunctor
+
+      Doc for AliasOfFunctorOfFunctor
+
+      Doc' for AliasOfFunctorOfFunctor
+
+    .. module:: ModuleTypeOfAliasOfFunctor
+      :contents_from: module type of AliasOfFunctorOfFunctor
+
+      Doc for ModuleTypeOfAliasOfFunctor
+
+      Doc' for ModuleTypeOfAliasOfFunctor
+
+      Doc for AliasOfFunctorOfFunctor
+
+      Doc' for AliasOfFunctorOfFunctor
+
+      .. functor_parameter:: F
+
+        .. functor_parameter:: A
+
+          .. type:: a
+
+        .. type:: f
+
+      .. type:: ff
+        :manifest: FunctorOfFunctor(F).ff
+
     .. module:: Identifier
       :contents_from: ModuleType
 
@@ -103,6 +139,45 @@ Reference
         Doc for ModuleType.t
 
         Doc' for ModuleType.t
+
+      .. val:: v
+        :type: int
+
+        Doc for v
+
+        Doc' for v
+
+      .. module:: M
+
+        Doc for M
+
+        Doc' for M
+
+        .. val:: w
+          :type: int
+
+      .. module_type:: MT
+
+        Doc for MT
+
+        Doc' for MT
+
+        .. val:: x
+          :type: int
+
+    .. module:: WithType
+      :contents_from: ModuleType with type t = float
+
+      Doc for WithType
+
+      Doc' for WithType
+
+      Doc for ModuleType
+
+      Doc' for ModuleType
+
+      .. type:: t
+        :manifest: float
 
       .. val:: v
         :type: int
@@ -298,6 +373,13 @@ Reference
 
       .. type:: t2
 
+    .. module:: AliasOfSignature
+      :alias_of: Signature
+
+      Doc for AliasOfSignature
+
+      Doc' for AliasOfSignature
+
     .. module:: Hidden
 
       Doc for Hidden
@@ -361,6 +443,30 @@ Reference
 
       .. type:: ff
 
+    .. module:: AliasOfFunctorOfFunctor
+      :alias_of: FunctorOfFunctor
+
+      Doc for AliasOfFunctorOfFunctor
+
+      Doc' for AliasOfFunctorOfFunctor
+
+    .. module:: ModuleTypeOfAliasOfFunctor
+
+      Doc for ModuleTypeOfAliasOfFunctor
+
+      Doc' for ModuleTypeOfAliasOfFunctor
+
+      .. functor_parameter:: F
+
+        .. functor_parameter:: A
+
+          .. type:: a
+
+        .. type:: f
+
+      .. type:: ff
+        :manifest: FunctorOfFunctor(F).ff
+
     .. module_type:: ModuleType
 
       Doc for ModuleType
@@ -414,6 +520,40 @@ Reference
         Doc for ModuleType.t
 
         Doc' for ModuleType.t
+
+      .. val:: v
+        :type: int
+
+        Doc for v
+
+        Doc' for v
+
+      .. module:: M
+
+        Doc for M
+
+        Doc' for M
+
+        .. val:: w
+          :type: int
+
+      .. module_type:: MT
+
+        Doc for MT
+
+        Doc' for MT
+
+        .. val:: x
+          :type: int
+
+    .. module:: WithType
+
+      Doc for WithType
+
+      Doc' for WithType
+
+      .. type:: t
+        :manifest: float
 
       .. val:: v
         :type: int

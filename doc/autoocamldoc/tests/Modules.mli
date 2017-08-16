@@ -19,6 +19,10 @@ module type MT = sig
   end
   (** Doc' for Signature *)
 
+  (** Doc for AliasOfSignature *)
+  module AliasOfSignature = Signature
+  (** Doc' for AliasOfSignature *)
+
   (** Doc for Hidden *)
   module Hidden: sig
   end [@@autodoc.hide]
@@ -62,6 +66,14 @@ module type MT = sig
     type ff
   end
 
+  (** Doc for AliasOfFunctorOfFunctor *)
+  module AliasOfFunctorOfFunctor = FunctorOfFunctor
+  (** Doc' for AliasOfFunctorOfFunctor *)
+
+  (** Doc for ModuleTypeOfAliasOfFunctor *)
+  module ModuleTypeOfAliasOfFunctor: module type of AliasOfFunctorOfFunctor
+  (** Doc' for ModuleTypeOfAliasOfFunctor *)
+
   (** Doc for ModuleType *)
   module type ModuleType = sig
     (** Doc for ModuleType.t *)
@@ -91,6 +103,10 @@ module type MT = sig
   (** Doc for Identifier *)
   module Identifier: ModuleType
   (** Doc' for Identifier *)
+
+  (** Doc for WithType *)
+  module WithType: ModuleType with type t = float
+  (** Doc' for WithType *)
 
   (** Doc for ModuleTypeAlias *)
   module type ModuleTypeAlias = ModuleType [@@autodoc.hide]

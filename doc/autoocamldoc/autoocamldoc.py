@@ -23,6 +23,9 @@ class Generator:
 
     def __item_module(self, module):
         yield ".. module:: {}".format(module.pop("name"))
+        alias_of = module.pop("alias_of")
+        if alias_of is not None:
+            yield "  :alias_of: {}".format(alias_of)
         yield from self.__contents_from(module)
         yield ""
         yield from self.__indent(self.__doc(module))

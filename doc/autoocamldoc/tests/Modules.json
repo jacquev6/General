@@ -5,6 +5,7 @@
   "doc": [],
   "functor_parameters": [],
   "contents_from": null,
+  "alias_of": null,
   "contents": [
     {
       "__class__": "module_type",
@@ -21,6 +22,7 @@
           "doc": [ " Doc for Signature ", " Doc' for Signature " ],
           "functor_parameters": [],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -61,11 +63,24 @@
         },
         {
           "__class__": "module",
+          "name": "AliasOfSignature",
+          "hidden": false,
+          "doc": [
+            " Doc for AliasOfSignature ", " Doc' for AliasOfSignature "
+          ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "alias_of": "Signature",
+          "contents": []
+        },
+        {
+          "__class__": "module",
           "name": "Hidden",
           "hidden": true,
           "doc": [ " Doc for Hidden ", " Doc for Hidden " ],
           "functor_parameters": [],
           "contents_from": null,
+          "alias_of": null,
           "contents": []
         },
         {
@@ -101,6 +116,7 @@
             }
           ],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -189,6 +205,7 @@
             }
           ],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -255,6 +272,7 @@
             }
           ],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -264,6 +282,91 @@
               "parameters": null,
               "private": false,
               "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module",
+          "name": "AliasOfFunctorOfFunctor",
+          "hidden": false,
+          "doc": [
+            " Doc for AliasOfFunctorOfFunctor ",
+            " Doc' for AliasOfFunctorOfFunctor "
+          ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "alias_of": "FunctorOfFunctor",
+          "contents": []
+        },
+        {
+          "__class__": "module",
+          "name": "ModuleTypeOfAliasOfFunctor",
+          "hidden": false,
+          "doc": [
+            " Doc for ModuleTypeOfAliasOfFunctor ",
+            " Doc' for ModuleTypeOfAliasOfFunctor ",
+            " Doc for AliasOfFunctorOfFunctor ",
+            " Doc' for AliasOfFunctorOfFunctor "
+          ],
+          "functor_parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "F",
+              "functor_parameters": [
+                {
+                  "__class__": "functor_parameter",
+                  "name": "A",
+                  "functor_parameters": [],
+                  "doc": [],
+                  "contents_from": null,
+                  "contents": [
+                    {
+                      "__class__": "type",
+                      "name": "a",
+                      "hidden": false,
+                      "doc": [],
+                      "parameters": null,
+                      "private": false,
+                      "manifest": null,
+                      "kind": null,
+                      "constructors": [],
+                      "labels": []
+                    }
+                  ]
+                }
+              ],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "f",
+                  "hidden": false,
+                  "doc": [],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            }
+          ],
+          "contents_from": "module type of AliasOfFunctorOfFunctor",
+          "alias_of": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "ff",
+              "hidden": false,
+              "doc": [],
+              "parameters": null,
+              "private": false,
+              "manifest": "FunctorOfFunctor(F).ff",
               "kind": null,
               "constructors": [],
               "labels": []
@@ -304,6 +407,7 @@
               "doc": [ " Doc for M ", " Doc' for M " ],
               "functor_parameters": [],
               "contents_from": null,
+              "alias_of": null,
               "contents": [
                 {
                   "__class__": "value",
@@ -348,6 +452,7 @@
           ],
           "functor_parameters": [],
           "contents_from": "ModuleType",
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -375,6 +480,75 @@
               "doc": [ " Doc for M ", " Doc' for M " ],
               "functor_parameters": [],
               "contents_from": null,
+              "alias_of": null,
+              "contents": [
+                {
+                  "__class__": "value",
+                  "name": "w",
+                  "hidden": false,
+                  "doc": [],
+                  "type": "int"
+                }
+              ]
+            },
+            {
+              "__class__": "module_type",
+              "name": "MT",
+              "hidden": false,
+              "doc": [ " Doc for MT ", " Doc' for MT " ],
+              "functor_parameters": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "value",
+                  "name": "x",
+                  "hidden": false,
+                  "doc": [],
+                  "type": "int"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "__class__": "module",
+          "name": "WithType",
+          "hidden": false,
+          "doc": [
+            " Doc for WithType ", " Doc' for WithType ",
+            " Doc for ModuleType ", " Doc' for ModuleType "
+          ],
+          "functor_parameters": [],
+          "contents_from": "ModuleType with type t = float",
+          "alias_of": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [],
+              "parameters": null,
+              "private": false,
+              "manifest": "float",
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v",
+              "hidden": false,
+              "doc": [ " Doc for v ", " Doc' for v " ],
+              "type": "int"
+            },
+            {
+              "__class__": "module",
+              "name": "M",
+              "hidden": false,
+              "doc": [ " Doc for M ", " Doc' for M " ],
+              "functor_parameters": [],
+              "contents_from": null,
+              "alias_of": null,
               "contents": [
                 {
                   "__class__": "value",
@@ -441,6 +615,7 @@
               "doc": [ " Doc for M ", " Doc' for M " ],
               "functor_parameters": [],
               "contents_from": null,
+              "alias_of": null,
               "contents": [
                 {
                   "__class__": "value",
@@ -481,6 +656,7 @@
           ],
           "functor_parameters": [],
           "contents_from": "ModuleTypeAlias",
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -508,6 +684,7 @@
               "doc": [ " Doc for M ", " Doc' for M " ],
               "functor_parameters": [],
               "contents_from": null,
+              "alias_of": null,
               "contents": [
                 {
                   "__class__": "value",
@@ -581,6 +758,7 @@
                   "doc": [ " Doc for M ", " Doc' for M " ],
                   "functor_parameters": [],
                   "contents_from": null,
+                  "alias_of": null,
                   "contents": [
                     {
                       "__class__": "value",
@@ -612,6 +790,7 @@
             }
           ],
           "contents_from": null,
+          "alias_of": null,
           "contents": []
         },
         {
@@ -691,6 +870,7 @@
             }
           ],
           "contents_from": "FunctorType",
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -713,6 +893,7 @@
           "doc": [ " Doc for Recursive1 ", " Doc' for Recursive1 " ],
           "functor_parameters": [],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -748,6 +929,7 @@
           "doc": [ " Doc for Recursive2 ", " Doc' for Recursive2 " ],
           "functor_parameters": [],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -796,6 +978,7 @@
           ],
           "functor_parameters": [],
           "contents_from": "Abstract",
+          "alias_of": null,
           "contents": []
         }
       ]
@@ -813,6 +996,7 @@
           "doc": [ " Doc for Signature ", " Doc' for Signature " ],
           "functor_parameters": [],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -842,11 +1026,24 @@
         },
         {
           "__class__": "module",
+          "name": "AliasOfSignature",
+          "hidden": false,
+          "doc": [
+            " Doc for AliasOfSignature ", " Doc' for AliasOfSignature "
+          ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "alias_of": "Signature",
+          "contents": []
+        },
+        {
+          "__class__": "module",
           "name": "Hidden",
           "hidden": false,
           "doc": [ " Doc for Hidden ", " Doc for Hidden " ],
           "functor_parameters": [],
           "contents_from": null,
+          "alias_of": null,
           "contents": []
         },
         {
@@ -876,6 +1073,7 @@
             }
           ],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -964,6 +1162,7 @@
             }
           ],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -1030,6 +1229,7 @@
             }
           ],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -1039,6 +1239,89 @@
               "parameters": null,
               "private": false,
               "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module",
+          "name": "AliasOfFunctorOfFunctor",
+          "hidden": false,
+          "doc": [
+            " Doc for AliasOfFunctorOfFunctor ",
+            " Doc' for AliasOfFunctorOfFunctor "
+          ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "alias_of": "FunctorOfFunctor",
+          "contents": []
+        },
+        {
+          "__class__": "module",
+          "name": "ModuleTypeOfAliasOfFunctor",
+          "hidden": false,
+          "doc": [
+            " Doc for ModuleTypeOfAliasOfFunctor ",
+            " Doc' for ModuleTypeOfAliasOfFunctor "
+          ],
+          "functor_parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "F",
+              "functor_parameters": [
+                {
+                  "__class__": "functor_parameter",
+                  "name": "A",
+                  "functor_parameters": [],
+                  "doc": [],
+                  "contents_from": null,
+                  "contents": [
+                    {
+                      "__class__": "type",
+                      "name": "a",
+                      "hidden": false,
+                      "doc": [],
+                      "parameters": null,
+                      "private": false,
+                      "manifest": null,
+                      "kind": null,
+                      "constructors": [],
+                      "labels": []
+                    }
+                  ]
+                }
+              ],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "f",
+                  "hidden": false,
+                  "doc": [],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            }
+          ],
+          "contents_from": null,
+          "alias_of": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "ff",
+              "hidden": false,
+              "doc": [],
+              "parameters": null,
+              "private": false,
+              "manifest": "FunctorOfFunctor(F).ff",
               "kind": null,
               "constructors": [],
               "labels": []
@@ -1079,6 +1362,7 @@
               "doc": [ " Doc for M ", " Doc' for M " ],
               "functor_parameters": [],
               "contents_from": null,
+              "alias_of": null,
               "contents": [
                 {
                   "__class__": "value",
@@ -1118,6 +1402,7 @@
           ],
           "functor_parameters": [],
           "contents_from": "ModuleType",
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -1145,6 +1430,72 @@
               "doc": [ " Doc for M ", " Doc' for M " ],
               "functor_parameters": [],
               "contents_from": null,
+              "alias_of": null,
+              "contents": [
+                {
+                  "__class__": "value",
+                  "name": "w",
+                  "hidden": false,
+                  "doc": [],
+                  "type": "int"
+                }
+              ]
+            },
+            {
+              "__class__": "module_type",
+              "name": "MT",
+              "hidden": false,
+              "doc": [ " Doc for MT ", " Doc' for MT " ],
+              "functor_parameters": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "value",
+                  "name": "x",
+                  "hidden": false,
+                  "doc": [],
+                  "type": "int"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "__class__": "module",
+          "name": "WithType",
+          "hidden": false,
+          "doc": [ " Doc for WithType ", " Doc' for WithType " ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "alias_of": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [],
+              "parameters": null,
+              "private": false,
+              "manifest": "float",
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v",
+              "hidden": false,
+              "doc": [ " Doc for v ", " Doc' for v " ],
+              "type": "int"
+            },
+            {
+              "__class__": "module",
+              "name": "M",
+              "hidden": false,
+              "doc": [ " Doc for M ", " Doc' for M " ],
+              "functor_parameters": [],
+              "contents_from": null,
+              "alias_of": null,
               "contents": [
                 {
                   "__class__": "value",
@@ -1211,6 +1562,7 @@
               "doc": [ " Doc for M ", " Doc' for M " ],
               "functor_parameters": [],
               "contents_from": null,
+              "alias_of": null,
               "contents": [
                 {
                   "__class__": "value",
@@ -1251,6 +1603,7 @@
           ],
           "functor_parameters": [],
           "contents_from": "ModuleTypeAlias",
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -1278,6 +1631,7 @@
               "doc": [ " Doc for M ", " Doc' for M " ],
               "functor_parameters": [],
               "contents_from": null,
+              "alias_of": null,
               "contents": [
                 {
                   "__class__": "value",
@@ -1351,6 +1705,7 @@
                   "doc": [ " Doc for M ", " Doc' for M " ],
                   "functor_parameters": [],
                   "contents_from": null,
+                  "alias_of": null,
                   "contents": [
                     {
                       "__class__": "value",
@@ -1382,6 +1737,7 @@
             }
           ],
           "contents_from": null,
+          "alias_of": null,
           "contents": []
         },
         {
@@ -1461,6 +1817,7 @@
             }
           ],
           "contents_from": "FunctorType",
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -1483,6 +1840,7 @@
           "doc": [ " Doc for Recursive1 ", " Doc' for Recursive1 " ],
           "functor_parameters": [],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -1518,6 +1876,7 @@
           "doc": [ " Doc for Recursive2 ", " Doc' for Recursive2 " ],
           "functor_parameters": [],
           "contents_from": null,
+          "alias_of": null,
           "contents": [
             {
               "__class__": "type",
@@ -1566,6 +1925,7 @@
           ],
           "functor_parameters": [],
           "contents_from": "Abstract",
+          "alias_of": null,
           "contents": []
         }
       ]

@@ -93,7 +93,7 @@ let enter_modtype path env =
         signature
       | Types.Mty_functor (_, _, _) ->
         []
-      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*) warn "enter_modtype: Mty_alias (not supported)" []
+      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*) warn "enter_modtype: Mty_alias (@todo)" []
     in
     let of_module_type_option = function
       | None ->
@@ -199,7 +199,8 @@ end = struct
         []
       | Types.Mty_functor (_, _, contents) ->
         module_type env contents
-      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*) warn "Doc.OfTypes.module_type: Mty_alias (not supported)" []
+      | Types.Mty_alias (_, _) ->
+        []
 
     let module_type_option env mod_typ =
       mod_typ
@@ -253,7 +254,8 @@ end = struct
           module_type mod_type
         | Typedtree.Tmty_typeof module_ ->
           module_expr module_
-        | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*) warn "Doc.OfTypedtree.module_type: Tmty_alias (not supported)" empty
+        | Typedtree.Tmty_alias (_, _) ->
+          empty
 
     let module_type_option = Opt.value_map ~f:module_type ~def:empty
   end
@@ -401,7 +403,7 @@ let rec string_of_module_type {Typedtree.mty_desc; mty_type=_; mty_env=_; mty_lo
       module_
       |> string_of_module_expr
       |> Frmt.apply "module type of %s"
-    | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*) warn "string_of_module_type: Tmty_alias (not supported)" "..."
+    | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*) warn "string_of_module_type: Tmty_alias (@todo)" "..."
 
 
 module Payload: sig
@@ -953,7 +955,8 @@ end = struct
           t
           |> string_of_module_type
           |> of_string
-        | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*) warn "ContentsFrom.OfTypedtree.module_type: Tmty_alias (not supported)" default
+        | Typedtree.Tmty_alias (_, _) ->
+          default
 
     let module_type_option = Opt.value_map ~f:module_type ~def:default
   end
@@ -968,9 +971,59 @@ end = struct
         default
       | Types.Mty_functor (_, _, contents) ->
         module_type env contents
-      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*) warn "ContentsFrom.OfTypes.module_type: Mty_alias (not supported)" default
+      | Types.Mty_alias (_, _) ->
+        default
 
     let module_type_option env = Opt.value_map ~f:(module_type env) ~def:default
+  end
+end
+
+
+module AliasOf: sig
+  val default: J.a
+
+  module OfTypedtree: sig
+    open Typedtree
+    val module_type: module_type -> J.a
+  end
+
+  module OfTypes: sig
+    open Types
+    val module_type: Env.t -> module_type -> J.a
+  end
+end = struct
+  let of_string s =
+    ("alias_of", J.str s)
+
+  let default = ("alias_of", J.null)
+
+  module OfTypedtree = struct
+    let module_type {Typedtree.mty_desc; mty_type=_; mty_env=_; mty_loc=_; mty_attributes=_} =
+      match mty_desc with
+        | Typedtree.Tmty_signature _ ->
+          default
+        | Typedtree.Tmty_functor (_, _, _, _) ->
+          default
+        | Typedtree.Tmty_ident (_, _) ->
+          default
+        | Typedtree.Tmty_with (_, _) ->
+          default
+        | Typedtree.Tmty_typeof _ ->
+          default
+        | Typedtree.Tmty_alias (path, _) ->
+          of_string (Path.name path)
+  end
+
+  module OfTypes = struct
+    let module_type _env = function
+      | Types.Mty_ident _ ->
+        default
+      | Types.Mty_signature _ ->
+        default
+      | Types.Mty_functor (_, _, _) ->
+        default
+      | Types.Mty_alias (_, path) ->
+        of_string (Path.name path)
   end
 end
 
@@ -1011,7 +1064,8 @@ end = struct
           Contents.OfTypes.module_type_option env parameter_type;
         ] in
         parameter::(module_type' env contents)
-      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*) warn "FunctorParameters.OfTypes.module_type': Mty_alias (not supported)" []
+      | Types.Mty_alias (_, _) ->
+        []
 
     and module_type_option env = function
       | None ->
@@ -1055,7 +1109,8 @@ end = struct
             []
           | Typedtree.Tmty_typeof _ ->
             OfTypes.module_type' mty_env mty_type
-          | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*) warn "FunctorParameters.OfTypedtree.module_type: Tmty_alias (not supported)" []
+          | Typedtree.Tmty_alias (_, _) ->
+            []
       in
       aux t
       |> of_list
@@ -1120,7 +1175,8 @@ end = struct
         signature env signature_
       | Types.Mty_functor (_, _, contents) ->
         module_type env contents
-      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*) warn "Contents.OfTypes.module_type: Mty_alias (not supported)" empty
+      | Types.Mty_alias (_, _) ->
+        empty
 
     and module_type_option env = function
       | None ->
@@ -1180,7 +1236,8 @@ end = struct
           OfTypes.module_type mty_env mty_type
         | Typedtree.Tmty_typeof _ ->
           OfTypes.module_type mty_env mty_type
-        | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*) warn "Contents.OfTypedtree.module_type: Tmty_alias (not supported)" empty
+        | Typedtree.Tmty_alias (_, _) ->
+          empty
 
     let module_type_option = Opt.value_map ~f:module_type ~def:empty
   end
@@ -1259,6 +1316,7 @@ end = struct
         Doc.empty;
         FunctorParameters.empty;
         ContentsFrom.default;
+        AliasOf.default;
         Contents.OfTypedtree.signature signature;
       ]
 
@@ -1269,6 +1327,7 @@ end = struct
         Doc.(merge [OfTypedtree.attributes md_attributes; OfTypedtree.module_type md_type]);
         FunctorParameters.OfTypedtree.module_type md_type;
         ContentsFrom.OfTypedtree.module_type md_type;
+        AliasOf.OfTypedtree.module_type md_type;
         Contents.OfTypedtree.module_type md_type;
       ]
   end
@@ -1281,6 +1340,7 @@ end = struct
         Doc.(merge [OfTypedtree.attributes md_attributes; OfTypes.module_type env md_type]);
         FunctorParameters.OfTypes.module_type env md_type;
         ContentsFrom.OfTypes.module_type env md_type;
+        AliasOf.OfTypes.module_type env md_type;
         Contents.OfTypes.module_type env md_type;
       ]
   end
