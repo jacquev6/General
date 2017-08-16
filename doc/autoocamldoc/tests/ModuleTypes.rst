@@ -61,6 +61,7 @@ Reference
           Doc' for a
 
       .. type:: t
+        :manifest: A.a list
 
         Doc for t
 
@@ -98,6 +99,7 @@ Reference
           Doc' for a
 
       .. type:: t
+        :manifest: A.a list
 
         Doc for t
 
@@ -127,6 +129,7 @@ Reference
           Doc' for a
 
       .. type:: t
+        :manifest: A.a list
 
         Doc for t
 
@@ -232,6 +235,7 @@ Reference
           Doc' for a
 
       .. type:: t
+        :manifest: A.a list
 
         Doc for t
 
@@ -257,6 +261,54 @@ Reference
         .. type:: b
 
       .. type:: t
+
+    .. module_type:: ModuleTypeOfStruct
+      :contents_from: module type of struct ... end
+
+      Doc for ModuleTypeOfStruct
+
+      Doc' for ModuleTypeOfStruct
+
+      .. type:: t
+
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: ModuleTypeOfLiteralFunctor
+      :contents_from: module type of functor (...) -> struct ... end
+
+      Doc for ModuleTypeOfLiteralFunctor
+
+      Doc' for ModuleTypeOfLiteralFunctor
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+      .. type:: t
+
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: ModuleTypeOfApply
+      :contents_from: module type of FunctorModule(struct ... end)
+
+      Doc for ModuleTypeOfApply
+
+      Doc' for ModuleTypeOfApply
+
+      Doc for FunctorModule
+
+      Doc' for FunctorModule
+
+      .. type:: t
+        :manifest: int list
+
+        Doc for t
+
+        Doc' for t
 
     .. module_type:: WithType
       :contents_from: ForWithType with type t0 = int and type 'a t1 = 'a list and type ('a, 'b) t2 = ('a, 'b) result
@@ -438,6 +490,7 @@ Reference
           Doc' for a
 
       .. type:: t
+        :manifest: A.a list
 
         Doc for t
 
@@ -475,6 +528,7 @@ Reference
           Doc' for a
 
       .. type:: t
+        :manifest: A.a list
 
         Doc for t
 
@@ -504,6 +558,7 @@ Reference
           Doc' for a
 
       .. type:: t
+        :manifest: A.a list
 
         Doc for t
 
@@ -616,6 +671,7 @@ Reference
           Doc' for a
 
       .. type:: t
+        :manifest: A.a list
 
         Doc for t
 
@@ -641,6 +697,7 @@ Reference
           Doc' for a
 
       .. type:: t
+        :manifest: A.a list
 
         Doc for t
 
@@ -679,6 +736,47 @@ Reference
         .. type:: b
 
       .. type:: t
+
+    .. module_type:: ModuleTypeOfStruct
+
+      Doc for ModuleTypeOfStruct
+
+      Doc' for ModuleTypeOfStruct
+
+      .. type:: t
+
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: ModuleTypeOfLiteralFunctor
+
+      Doc for ModuleTypeOfLiteralFunctor
+
+      Doc' for ModuleTypeOfLiteralFunctor
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+      .. type:: t
+
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: ModuleTypeOfApply
+
+      Doc for ModuleTypeOfApply
+
+      Doc' for ModuleTypeOfApply
+
+      .. type:: t
+        :manifest: int list
+
+        Doc for t
+
+        Doc' for t
 
     .. module_type:: ForWithType
 

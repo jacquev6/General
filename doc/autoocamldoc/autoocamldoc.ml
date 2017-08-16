@@ -27,11 +27,7 @@ module J = struct
 end
 
 
-(*BISECT-IGNORE-BEGIN*)
-let warn s v =
-  StdErr.print "WARNING (autoocamldoc): %s\n" s;
-  v
-(*BISECT-IGNORE-END*)
+(*BISECT-IGNORE*) let warn s v = StdErr.print "WARNING (autoocamldoc): %s\n" s; v
 
 
 module Name: sig
@@ -97,7 +93,7 @@ let enter_modtype path env =
         signature
       | Types.Mty_functor (_, _, _) ->
         []
-      | Types.Mty_alias (_, _) -> warn "enter_modtype: Mty_alias (not supported)" [] (*BISECT-IGNORE*)
+      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*) warn "enter_modtype: Mty_alias (not supported)" []
     in
     let of_module_type_option = function
       | None ->
@@ -170,8 +166,7 @@ end = struct
     |> Li.flat_map ~f:(function
       | (_, `List x) ->
         x
-      | _ -> (*BISECT-IGNORE*)
-        Exn.failure "Doc.merge"
+      | _ -> (*BISECT-IGNORE*) Exn.failure "Doc.merge"
     )
     |> of_list
 
@@ -182,8 +177,7 @@ end = struct
         match payload with
           | PStr [{pstr_desc=Pstr_eval ({pexp_desc=Pexp_constant (Parsetree.Pconst_string (s, _)); _}, _); _}] ->
             J.str s
-          | _ -> (*BISECT-IGNORE*)
-            Exn.failure "Doc.of_attribute"
+          | _ -> (*BISECT-IGNORE*) Exn.failure "Doc.of_attribute"
       ))
     )
 
@@ -205,7 +199,7 @@ end = struct
         []
       | Types.Mty_functor (_, _, contents) ->
         module_type env contents
-      | Types.Mty_alias (_, _) -> warn "Doc.OfTypes.module_type: Mty_alias (not supported)" [] (*BISECT-IGNORE*)
+      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*) warn "Doc.OfTypes.module_type: Mty_alias (not supported)" []
 
     let module_type_option env mod_typ =
       mod_typ
@@ -229,25 +223,23 @@ end = struct
       |> filter_attributes
       |> of_list
 
-    let module_expr {Typedtree.mod_desc; mod_loc=_; mod_type=_; mod_env; mod_attributes=_} =
-      (* @todo What about mod_attributes? *)
+    let rec module_expr {Typedtree.mod_desc; mod_loc=_; mod_type=_; mod_env; mod_attributes} =
+      assert (filter_attributes mod_attributes = []);
       match mod_desc with
         | Typedtree.Tmod_ident (path, _) ->
           let (env, declaration) = enter_module path mod_env in
           OfTypes.module_declaration env declaration
-        | Typedtree.Tmod_structure _ -> (*BISECT-IGNORE*)
-          warn "Doc.OfTypedtree.module_expr: Tmod_structure (@todo?)" empty
-        | Typedtree.Tmod_functor (_, _, _, _) -> (*BISECT-IGNORE*)
-          warn "Doc.OfTypedtree.module_expr: Tmod_functor (@todo?)" empty
-        | Typedtree.Tmod_apply (_, _, _) -> (*BISECT-IGNORE*)
-          warn "Doc.OfTypedtree.module_expr: Tmod_apply (@todo?)" empty
-        | Typedtree.Tmod_constraint (_, _, _, _) -> (*BISECT-IGNORE*)
-          warn "Doc.OfTypedtree.module_expr: Tmod_constraint (@todo?)" empty
-        | Typedtree.Tmod_unpack (_, _) -> (*BISECT-IGNORE*)
-          warn "Doc.OfTypedtree.module_expr: Tmod_unpack (@todo?)" empty
+        | Typedtree.Tmod_structure _ ->
+          empty
+        | Typedtree.Tmod_functor (_, _, _, _) ->
+          empty
+        | Typedtree.Tmod_apply (functor_, _,_) ->
+          module_expr functor_
+        | Typedtree.Tmod_constraint (_, _, _, _) -> (*BISECT-IGNORE*) warn "Doc.OfTypedtree.module_expr: Tmod_constraint (not supported)" empty
+        | Typedtree.Tmod_unpack (_, _) -> (*BISECT-IGNORE*) warn "Doc.OfTypedtree.module_expr: Tmod_unpack (not supported)" empty
 
-    let rec module_type {Typedtree.mty_desc; mty_type=_; mty_env; mty_loc=_; mty_attributes=_} =
-      (* @todo What about mty_attributes? *)
+    let rec module_type {Typedtree.mty_desc; mty_type=_; mty_env; mty_loc=_; mty_attributes} =
+      assert (filter_attributes mty_attributes = []);
       match mty_desc with
         | Typedtree.Tmty_signature _ ->
           empty
@@ -261,7 +253,7 @@ end = struct
           module_type mod_type
         | Typedtree.Tmty_typeof module_ ->
           module_expr module_
-        | Typedtree.Tmty_alias (_, _) -> warn "Doc.OfTypedtree.module_type: Tmty_alias (not supported)" empty (*BISECT-IGNORE*)
+        | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*) warn "Doc.OfTypedtree.module_type: Tmty_alias (not supported)" empty
 
     let module_type_option = Opt.value_map ~f:module_type ~def:empty
   end
@@ -277,7 +269,7 @@ end = struct
         Hidden.default;
         ("text", J.str s);
       ]
-    | _ -> Exn.failure "FloatingDoc.of_attribute_payload" (*BISECT-IGNORE*)
+    | _ -> (*BISECT-IGNORE*) Exn.failure "FloatingDoc.of_attribute_payload"
   )
 end
 
@@ -332,20 +324,18 @@ let string_of_types_tuple elements =
   |> StrLi.concat ~sep:" * "
   |> Frmt.apply format
 
-let string_of_module_expr {Typedtree.mod_desc; mod_loc=_; mod_type=_; mod_env=_; mod_attributes=_} =
+let rec string_of_module_expr {Typedtree.mod_desc; mod_loc=_; mod_type=_; mod_env=_; mod_attributes=_} =
   match mod_desc with
     | Typedtree.Tmod_ident (path, _) ->
       Path.name path
-    | Typedtree.Tmod_structure _ -> (*BISECT-IGNORE*)
-      warn "string_of_module_expr: Tmod_structure (@todo?)" ""
-    | Typedtree.Tmod_functor (_, _, _, _) -> (*BISECT-IGNORE*)
-      warn "string_of_module_expr: Tmod_functor (@todo?)" ""
-    | Typedtree.Tmod_apply (_, _, _) -> (*BISECT-IGNORE*)
-      warn "string_of_module_expr: Tmod_apply (@todo?)" ""
-    | Typedtree.Tmod_constraint (_, _, _, _) -> (*BISECT-IGNORE*)
-      warn "string_of_module_expr: Tmod_constraint (@todo?)" ""
-    | Typedtree.Tmod_unpack (_, _) -> (*BISECT-IGNORE*)
-      warn "string_of_module_expr: Tmod_unpack (@todo?)" ""
+    | Typedtree.Tmod_structure _ ->
+      "struct ... end"
+    | Typedtree.Tmod_functor (_, _, _, contents) ->
+      Frmt.apply "functor (...) -> %s" (string_of_module_expr contents)
+    | Typedtree.Tmod_apply (functor_, parameter, _) ->
+      Frmt.apply "%s(%s)" (string_of_module_expr functor_) (string_of_module_expr parameter)
+    | Typedtree.Tmod_constraint (_, _, _, _) -> (*BISECT-IGNORE*) warn "string_of_module_expr: Tmod_constraint (not supported)" "..."
+    | Typedtree.Tmod_unpack (_, _) -> (*BISECT-IGNORE*) warn "string_of_module_expr: Tmod_unpack (not supported)" "..."
 
 let string_of_type_parameter (t, v) =
   let variance = match v with
@@ -376,10 +366,8 @@ let rec string_of_module_type {Typedtree.mty_desc; mty_type=_; mty_env=_; mty_lo
   match mty_desc with
     | Typedtree.Tmty_ident (path, _) ->
       Path.name path
-    | Typedtree.Tmty_signature _ -> (*BISECT-IGNORE*)
-      warn "string_of_module_type: Tmty_signature (@todo?)" ""
-    | Typedtree.Tmty_functor (_, _, _, _) -> (*BISECT-IGNORE*)
-      warn "string_of_module_type: Tmty_functor (@todo?)" ""
+    | Typedtree.Tmty_signature _ -> (*BISECT-IGNORE*) warn "string_of_module_type: Tmty_signature (should not happen)" "..."
+    | Typedtree.Tmty_functor (_, _, _, _) -> (*BISECT-IGNORE*) warn "string_of_module_type: Tmty_functor (should not happen)" "..."
     | Typedtree.Tmty_with (base_module_type, constraints) ->
       constraints
       |> Li.map ~f:(fun (path, _, constraint_) ->
@@ -413,8 +401,7 @@ let rec string_of_module_type {Typedtree.mty_desc; mty_type=_; mty_env=_; mty_lo
       module_
       |> string_of_module_expr
       |> Frmt.apply "module type of %s"
-    | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*)
-      warn "string_of_module_type: Tmty_alias (@todo?)" ""
+    | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*) warn "string_of_module_type: Tmty_alias (not supported)" "..."
 
 
 module Payload: sig
@@ -585,7 +572,7 @@ end = struct
           "+"
         | (false, true) ->
           "-"
-        | (false, false) -> warn "TypeParameters.OfTypes.string_of_type_parameter: (false, false) (not supported)" "" (*BISECT-IGNORE*)
+        | (false, false) -> (*BISECT-IGNORE*) warn "TypeParameters.OfTypes.string_of_type_parameter: (false, false) (not supported)" ""
       in
       Frmt.apply "%s%s" variance (string_of_type_expr t)
 
@@ -848,7 +835,7 @@ end = struct
         match ext_kind with
           | Typedtree.Text_decl (arguments, _) ->
             arguments
-          | Typedtree.Text_rebind (_, _) -> Exn.failure "exception_: ext_kind=Text_rebind" (*BISECT-IGNORE*)
+          | Typedtree.Text_rebind (_, _) -> (*BISECT-IGNORE*) Exn.failure "exception_: ext_kind=Text_rebind"
       in
       J.obj "exception" [
         Name.of_string_loc ext_name;
@@ -966,7 +953,7 @@ end = struct
           t
           |> string_of_module_type
           |> of_string
-        | Typedtree.Tmty_alias (_, _) -> warn "ContentsFrom.OfTypedtree.module_type: Tmty_alias (not supported)" default (*BISECT-IGNORE*)
+        | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*) warn "ContentsFrom.OfTypedtree.module_type: Tmty_alias (not supported)" default
 
     let module_type_option = Opt.value_map ~f:module_type ~def:default
   end
@@ -981,7 +968,7 @@ end = struct
         default
       | Types.Mty_functor (_, _, contents) ->
         module_type env contents
-      | Types.Mty_alias (_, _) -> warn "ContentsFrom.OfTypes.module_type: Mty_alias (not supported)" default (*BISECT-IGNORE*)
+      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*) warn "ContentsFrom.OfTypes.module_type: Mty_alias (not supported)" default
 
     let module_type_option env = Opt.value_map ~f:(module_type env) ~def:default
   end
@@ -1024,7 +1011,7 @@ end = struct
           Contents.OfTypes.module_type_option env parameter_type;
         ] in
         parameter::(module_type' env contents)
-      | Types.Mty_alias (_, _) -> warn "FunctorParameters.OfTypes.module_type': Mty_alias (not supported)" [] (*BISECT-IGNORE*)
+      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*) warn "FunctorParameters.OfTypes.module_type': Mty_alias (not supported)" []
 
     and module_type_option env = function
       | None ->
@@ -1068,7 +1055,7 @@ end = struct
             []
           | Typedtree.Tmty_typeof _ ->
             OfTypes.module_type' mty_env mty_type
-          | Typedtree.Tmty_alias (_, _) -> warn "FunctorParameters.OfTypedtree.module_type: Tmty_alias (not supported)" [] (*BISECT-IGNORE*)
+          | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*) warn "FunctorParameters.OfTypedtree.module_type: Tmty_alias (not supported)" []
       in
       aux t
       |> of_list
@@ -1104,13 +1091,13 @@ end = struct
         Type.OfTypes.type_declaration id declaration
       | Types.Sig_typext (id, ({Types.ext_type_path=Path.Pident {Ident.name="exn"; _}; _} as ext), _) ->
         Exception.OfTypes.extension_constructor id ext
-      | Types.Sig_typext (_, _, _) -> warn "Contents.OfTypes.signature_item: Sig_typext (not supported)" J.null (*BISECT-IGNORE*)
+      | Types.Sig_typext (_, _, _) -> (*BISECT-IGNORE*) warn "Contents.OfTypes.signature_item: Sig_typext (not supported)" J.null
       | Types.Sig_module (id, declaration, _) ->
         Module.OfTypes.module_declaration env id declaration
       | Types.Sig_modtype (id, declaration) ->
         ModuleType.OfTypes.modtype_declaration env id declaration
-      | Types.Sig_class (_, _, _) -> warn "Contents.OfTypes.signature_item: Sig_class (not supported)" J.null (*BISECT-IGNORE*)
-      | Types.Sig_class_type (_, _, _) -> warn "Contents.OfTypes.signature_item: Sig_class_type (not supported)" J.null (*BISECT-IGNORE*)
+      | Types.Sig_class (_, _, _) -> (*BISECT-IGNORE*) warn "Contents.OfTypes.signature_item: Sig_class (not supported)" J.null
+      | Types.Sig_class_type (_, _, _) -> (*BISECT-IGNORE*) warn "Contents.OfTypes.signature_item: Sig_class_type (not supported)" J.null
 
     let signature_item env item =
       try
@@ -1133,7 +1120,7 @@ end = struct
         signature env signature_
       | Types.Mty_functor (_, _, contents) ->
         module_type env contents
-      | Types.Mty_alias (_, _) -> warn "Contents.OfTypes.module_type: Mty_alias (not supported)" empty (*BISECT-IGNORE*)
+      | Types.Mty_alias (_, _) -> (*BISECT-IGNORE*) warn "Contents.OfTypes.module_type: Mty_alias (not supported)" empty
 
     and module_type_option env = function
       | None ->
@@ -1164,7 +1151,7 @@ end = struct
         | Typedtree.Tsig_type (_, declarations) ->
           declarations
           |> Li.map ~f:Type.OfTypedtree.type_declaration
-        | Typedtree.Tsig_typext _ -> warn "Contents.OfTypedtree.signature: Typedtree.Tsig_typext (not supported)" [] (*BISECT-IGNORE*)
+        | Typedtree.Tsig_typext _ -> (*BISECT-IGNORE*) warn "Contents.OfTypedtree.signature: Typedtree.Tsig_typext (not supported)" []
         | Typedtree.Tsig_exception description ->
           [Exception.OfTypedtree.extension_constructor description]
         | Typedtree.Tsig_recmodule declarations ->
@@ -1172,8 +1159,8 @@ end = struct
           |> Li.map ~f:Module.OfTypedtree.module_declaration
         | Typedtree.Tsig_open _ ->
           []
-        | Typedtree.Tsig_class _ -> warn "Contents.OfTypedtree.signature: Typedtree.Tsig_class (not supported)" [] (*BISECT-IGNORE*)
-        | Typedtree.Tsig_class_type _ -> warn "Contents.OfTypedtree.signature: Typedtree.Tsig_class_type (not supported)" [] (*BISECT-IGNORE*)
+        | Typedtree.Tsig_class _ -> (*BISECT-IGNORE*) warn "Contents.OfTypedtree.signature: Typedtree.Tsig_class (not supported)" []
+        | Typedtree.Tsig_class_type _ -> (*BISECT-IGNORE*) warn "Contents.OfTypedtree.signature: Typedtree.Tsig_class_type (not supported)" []
 
     let signature {Typedtree.sig_items; sig_type=_; sig_final_env=_} =
       sig_items
@@ -1193,7 +1180,7 @@ end = struct
           OfTypes.module_type mty_env mty_type
         | Typedtree.Tmty_typeof _ ->
           OfTypes.module_type mty_env mty_type
-        | Typedtree.Tmty_alias (_, _) -> warn "Contents.OfTypedtree.module_type: Tmty_alias (not supported)" empty (*BISECT-IGNORE*)
+        | Typedtree.Tmty_alias (_, _) -> (*BISECT-IGNORE*) warn "Contents.OfTypedtree.module_type: Tmty_alias (not supported)" empty
 
     let module_type_option = Opt.value_map ~f:module_type ~def:empty
   end

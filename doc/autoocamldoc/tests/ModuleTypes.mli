@@ -22,7 +22,7 @@ module type MT = sig
     (** Doc' for a *)
   end) -> sig
     (** Doc for t *)
-    type t
+    type t = A.a list
     (** Doc' for t *)
   end
   (** Doc' for Functor *)
@@ -78,6 +78,26 @@ module type MT = sig
   (** Doc for ModuleTypeOfMultiFunctor *)
   module type ModuleTypeOfMultiFunctor = module type of MultiFunctorModule
   (** Doc' for ModuleTypeOfMultiFunctor *)
+
+  (** Doc for ModuleTypeOfStruct *)
+  module type ModuleTypeOfStruct = module type of struct
+    (** Doc for t *)
+    type t
+    (** Doc' for t *)
+  end
+  (** Doc' for ModuleTypeOfStruct *)
+
+  (** Doc for ModuleTypeOfLiteralFunctor *)
+  module type ModuleTypeOfLiteralFunctor = module type of functor(A: sig type a end) -> struct
+    (** Doc for t *)
+    type t
+    (** Doc' for t *)
+  end
+  (** Doc' for ModuleTypeOfLiteralFunctor *)
+
+  (** Doc for ModuleTypeOfApply *)
+  module type ModuleTypeOfApply = module type of FunctorModule(struct type a = int end)
+  (** Doc' for ModuleTypeOfApply *)
 
   (** Doc for ForWithType *)
   module type ForWithType = sig

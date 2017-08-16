@@ -124,7 +124,7 @@
               "doc": [ " Doc for t ", " Doc' for t " ],
               "parameters": null,
               "private": false,
-              "manifest": null,
+              "manifest": "A.a list",
               "kind": null,
               "constructors": [],
               "labels": []
@@ -236,7 +236,7 @@
               "doc": [ " Doc for t ", " Doc' for t " ],
               "parameters": null,
               "private": false,
-              "manifest": null,
+              "manifest": "A.a list",
               "kind": null,
               "constructors": [],
               "labels": []
@@ -284,7 +284,7 @@
               "doc": [ " Doc for t ", " Doc' for t " ],
               "parameters": null,
               "private": false,
-              "manifest": null,
+              "manifest": "A.a list",
               "kind": null,
               "constructors": [],
               "labels": []
@@ -528,7 +528,7 @@
               "doc": [ " Doc for t ", " Doc' for t " ],
               "parameters": null,
               "private": false,
-              "manifest": null,
+              "manifest": "A.a list",
               "kind": null,
               "constructors": [],
               "labels": []
@@ -576,7 +576,7 @@
               "doc": [ " Doc for t ", " Doc' for t " ],
               "parameters": null,
               "private": false,
-              "manifest": null,
+              "manifest": "A.a list",
               "kind": null,
               "constructors": [],
               "labels": []
@@ -713,6 +713,102 @@
               "parameters": null,
               "private": false,
               "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ModuleTypeOfStruct",
+          "hidden": false,
+          "doc": [
+            " Doc for ModuleTypeOfStruct ", " Doc' for ModuleTypeOfStruct "
+          ],
+          "functor_parameters": [],
+          "contents_from": "module type of struct ... end",
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ModuleTypeOfLiteralFunctor",
+          "hidden": false,
+          "doc": [
+            " Doc for ModuleTypeOfLiteralFunctor ",
+            " Doc' for ModuleTypeOfLiteralFunctor "
+          ],
+          "functor_parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "A",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "a",
+                  "hidden": false,
+                  "doc": [],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            }
+          ],
+          "contents_from": "module type of functor (...) -> struct ... end",
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ModuleTypeOfApply",
+          "hidden": false,
+          "doc": [
+            " Doc for ModuleTypeOfApply ", " Doc' for ModuleTypeOfApply ",
+            " Doc for FunctorModule ", " Doc' for FunctorModule "
+          ],
+          "functor_parameters": [],
+          "contents_from": "module type of FunctorModule(struct ... end)",
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": "int list",
               "kind": null,
               "constructors": [],
               "labels": []
@@ -1133,7 +1229,7 @@
               "doc": [ " Doc for t ", " Doc' for t " ],
               "parameters": null,
               "private": false,
-              "manifest": null,
+              "manifest": "A.a list",
               "kind": null,
               "constructors": [],
               "labels": []
@@ -1245,7 +1341,7 @@
               "doc": [ " Doc for t ", " Doc' for t " ],
               "parameters": null,
               "private": false,
-              "manifest": null,
+              "manifest": "A.a list",
               "kind": null,
               "constructors": [],
               "labels": []
@@ -1293,7 +1389,7 @@
               "doc": [ " Doc for t ", " Doc' for t " ],
               "parameters": null,
               "private": false,
-              "manifest": null,
+              "manifest": "A.a list",
               "kind": null,
               "constructors": [],
               "labels": []
@@ -1534,7 +1630,7 @@
               "doc": [ " Doc for t ", " Doc' for t " ],
               "parameters": null,
               "private": false,
-              "manifest": null,
+              "manifest": "A.a list",
               "kind": null,
               "constructors": [],
               "labels": []
@@ -1582,7 +1678,7 @@
               "doc": [ " Doc for t ", " Doc' for t " ],
               "parameters": null,
               "private": false,
-              "manifest": null,
+              "manifest": "A.a list",
               "kind": null,
               "constructors": [],
               "labels": []
@@ -1718,6 +1814,101 @@
               "parameters": null,
               "private": false,
               "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ModuleTypeOfStruct",
+          "hidden": false,
+          "doc": [
+            " Doc for ModuleTypeOfStruct ", " Doc' for ModuleTypeOfStruct "
+          ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ModuleTypeOfLiteralFunctor",
+          "hidden": false,
+          "doc": [
+            " Doc for ModuleTypeOfLiteralFunctor ",
+            " Doc' for ModuleTypeOfLiteralFunctor "
+          ],
+          "functor_parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "A",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "a",
+                  "hidden": false,
+                  "doc": [],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            }
+          ],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ModuleTypeOfApply",
+          "hidden": false,
+          "doc": [
+            " Doc for ModuleTypeOfApply ", " Doc' for ModuleTypeOfApply "
+          ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": "int list",
               "kind": null,
               "constructors": [],
               "labels": []
