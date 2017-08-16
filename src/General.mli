@@ -7,7 +7,7 @@ module Pervasives: sig
   include module type of Foundations.ResetPervasives [@@autodoc.hide]
   include module type of Foundations.ResetStandardLibrary
 
-  (** The module overrides all elements from the standard
+  (** This module overrides all elements from the standard
   `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_
   with unusable but guiding values like:
 
@@ -1020,59 +1020,63 @@ module Testing: sig
   val check_int_list: expected:int list -> int list -> unit
 end
 
-(* Modules to be opened *)
+(** Modules to be opened *)
 
 module Standard: sig
-  module Testing: module type of Testing
+  (** This modules defines aliases for all standard modules in :mod:`General`: *)
 
-  module Array: module type of Array
-  module BigInt: module type of BigInt
-  module Bool: module type of Bool
-  module CallStack: module type of CallStack
-  module Char: module type of Char
-  module Exception: module type of Exception
-  module Exit: module type of Exit with type t = Exit.t
-  module Float: module type of Float
-  module Format: module type of Format
-  module Function1: module type of Function1
-  module Function2: module type of Function2
-  module Function3: module type of Function3
-  module Function4: module type of Function4
-  module Function5: module type of Function5
-  module InChannel: module type of InChannel
-  module InFile: module type of InFile
-  module Int32: module type of Int32
-  module Int64: module type of Int64
-  module Int: module type of Int
-  module Lazy: module type of Lazy
-  module List: module type of List
-  module NativeInt: module type of NativeInt
-  module Option: module type of Option
-  module OutChannel: module type of OutChannel
-  module OutFile: module type of OutFile
-  module Reference: module type of Reference
-  module StdErr: module type of StdErr
-  module StdIn: module type of StdIn
-  module StdOut: module type of StdOut
-  module Stream: module type of Stream
-  module String: module type of String
-  module Tuple2: module type of Tuple2
-  module Tuple3: module type of Tuple3
-  module Tuple4: module type of Tuple4
-  module Tuple5: module type of Tuple5
-  module Unit: module type of Unit
+  module Testing = Testing
 
-  module IntRange: module type of IntRange
+  module Array = Array
+  module BigInt = BigInt
+  module Bool = Bool
+  module CallStack = CallStack
+  module Char = Char
+  module Exception = Exception
+  module Exit = Exit
+  module Float = Float
+  module Format = Format
+  module Function1 = Function1
+  module Function2 = Function2
+  module Function3 = Function3
+  module Function4 = Function4
+  module Function5 = Function5
+  module InChannel = InChannel
+  module InFile = InFile
+  module Int32 = Int32
+  module Int64 = Int64
+  module Int = Int
+  module Lazy = Lazy
+  module List = List
+  module NativeInt = NativeInt
+  module Option = Option
+  module OutChannel = OutChannel
+  module OutFile = OutFile
+  module Reference = Reference
+  module StdErr = StdErr
+  module StdIn = StdIn
+  module StdOut = StdOut
+  module Stream = Stream
+  module String = String
+  module Tuple2 = Tuple2
+  module Tuple3 = Tuple3
+  module Tuple4 = Tuple4
+  module Tuple5 = Tuple5
+  module Unit = Unit
 
-  module IntOption: module type of IntOption
-  module FloatOption: module type of FloatOption
-  module StringOption: module type of StringOption
-  module IntReference: module type of IntReference
-  module FloatReference: module type of FloatReference
-  module StringReference: module type of StringReference
-  module IntList: module type of IntList
-  module FloatList: module type of FloatList
-  module StringList: module type of StringList
+  module IntRange = IntRange
+
+  module IntOption = IntOption
+  module FloatOption = FloatOption
+  module StringOption = StringOption
+  module IntReference = IntReference
+  module FloatReference = FloatReference
+  module StringReference = StringReference
+  module IntList = IntList
+  module FloatList = FloatList
+  module StringList = StringList
+
+  (** It also include :mod:`General.Pervasives`. *)
 
   include module type of Pervasives
   with module Array := Array
@@ -1084,61 +1088,67 @@ module Standard: sig
   and module List := List
   and module Stream := Stream
   and module String := String
+  [@@autodoc.hide]
 end
 
 module Abbr: sig
-  module Tst: module type of Testing
+  (** This modules defines abbreviated aliases for all standard modules in :mod:`General`: *)
 
-  module Ar: module type of Array
-  module BigInt: module type of BigInt
-  module Bo: module type of Bool
-  module CallStack: module type of CallStack
-  module Ch: module type of Char
-  module Exit: module type of Exit with type t = Exit.t
-  module Exn: module type of Exception
-  module Fl: module type of Float
-  module Frmt: module type of Format
-  module Fun1: module type of Function1
-  module Fun2: module type of Function2
-  module Fun3: module type of Function3
-  module Fun4: module type of Function4
-  module Fun5: module type of Function5
-  module InCh: module type of InChannel
-  module InFile: module type of InFile
-  module Int32: module type of Int32
-  module Int64: module type of Int64
-  module Int: module type of Int
-  module Laz: module type of Lazy
-  module Li: module type of List
-  module NativeInt: module type of NativeInt
-  module Opt: module type of Option
-  module OutCh: module type of OutChannel
-  module OutFile: module type of OutFile
-  module Ref: module type of Reference
-  module StdErr: module type of StdErr
-  module StdIn: module type of StdIn
-  module StdOut: module type of StdOut
-  module Str: module type of String
-  module Strm: module type of Stream
-  module Tu2: module type of Tuple2
-  module Tu3: module type of Tuple3
-  module Tu4: module type of Tuple4
-  module Tu5: module type of Tuple5
-  module Unit: module type of Unit
+  module Tst = Testing
 
-  module IntRa: module type of IntRange
+  module Ar = Array
+  module BigInt = BigInt
+  module Bo = Bool
+  module CallStack = CallStack
+  module Ch = Char
+  module Exit = Exit
+  module Exn = Exception
+  module Fl = Float
+  module Frmt = Format
+  module Fun1 = Function1
+  module Fun2 = Function2
+  module Fun3 = Function3
+  module Fun4 = Function4
+  module Fun5 = Function5
+  module InCh = InChannel
+  module InFile = InFile
+  module Int32 = Int32
+  module Int64 = Int64
+  module Int = Int
+  module Laz = Lazy
+  module Li = List
+  module NativeInt = NativeInt
+  module Opt = Option
+  module OutCh = OutChannel
+  module OutFile = OutFile
+  module Ref = Reference
+  module StdErr = StdErr
+  module StdIn = StdIn
+  module StdOut = StdOut
+  module Str = String
+  module Strm = Stream
+  module Tu2 = Tuple2
+  module Tu3 = Tuple3
+  module Tu4 = Tuple4
+  module Tu5 = Tuple5
+  module Unit = Unit
 
-  module IntOpt: module type of IntOption
-  module FlOpt: module type of FloatOption
-  module StrOpt: module type of StringOption
-  module IntRef: module type of IntReference
-  module FlRef: module type of FloatReference
-  module StrRef: module type of StringReference
-  module IntLi: module type of IntList
-  module FlLi: module type of FloatList
-  module StrLi: module type of StringList
+  module IntRa = IntRange
+
+  module IntOpt = IntOption
+  module FlOpt = FloatOption
+  module StrOpt = StringOption
+  module IntRef = IntReference
+  module FlRef = FloatReference
+  module StrRef = StringReference
+  module IntLi = IntList
+  module FlLi = FloatList
+  module StrLi = StringList
+
+  (** It also include :mod:`General.Pervasives`. *)
 
   include module type of Pervasives
   with module Int32 := Int32
   and module Int64 := Int64
+  [@@autodoc.hide]
 end

@@ -29,3 +29,4 @@ Reference
         .. type:: t
 
       Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found C
+

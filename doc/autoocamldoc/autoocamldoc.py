@@ -139,6 +139,7 @@ class Generator:
 
     def __item_autoocamldoc_bug(self, bug):
         yield "Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): {} {}".format(bug.pop("kind"), bug.pop("name"))
+        yield ""
 
 
 def ensure_single_lines(lines):

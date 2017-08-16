@@ -9,6 +9,7 @@ function build {
         $@
 }
 
+# @todo Should we use module aliases instead of packs? (https://caml.inria.fr/pub/docs/manual-ocaml-4.02/extn.html#sec235)
 for directory in $(find src -mindepth 1 -type d)
 do
     # echo "Rebuilding ${directory}.mlpack from $directory's contents"
@@ -139,6 +140,14 @@ class FunctorArgument:
     def text(self, indent):
         return "({}: {})".format(self.name, self.signature.text(indent))
 
+class Alias:
+    def __init__(self, name, base):
+        self.name = name
+        self.base = base
+
+    def text(self, indent):
+        return "{}module {} = {}\n".format(indent, self.name, self.base)
+
 class Name:
     def __init__(self, name):
         self.name = name
@@ -215,10 +224,15 @@ class UTop:
     def __parse_module(self):
         self.__assert_token("module")
         name = self.__next_token()
-        self.__assert_token(":")
-        arguments = self.__parse_functor_arguments()
-        signature = self.__parse_signature()
-        return Module(name, arguments, signature)
+        if self.__peek_token() == ":":
+            self.__assert_token(":")
+            arguments = self.__parse_functor_arguments()
+            signature = self.__parse_signature()
+            return Module(name, arguments, signature)
+        else:
+            self.__assert_token("=")
+            base = self.__next_token()
+            return Alias(name, base)
 
     def __parse_functor_arguments(self):
         arguments = []

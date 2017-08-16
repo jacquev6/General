@@ -1,51 +1,51 @@
 module Standard: sig
-  module Testing
-  module Array
-  module BigInt
-  module Bool
-  module CallStack
-  module Char
-  module Exception
-  module Exit
-  module Float
-  module Format
-  module Function1
-  module Function2
-  module Function3
-  module Function4
-  module Function5
-  module InChannel
-  module InFile
-  module Int32
-  module Int64
-  module Int
-  module Lazy
-  module List
-  module NativeInt
-  module Option
-  module OutChannel
-  module OutFile
-  module Reference
-  module StdErr
-  module StdIn
-  module StdOut
-  module Stream
-  module String
-  module Tuple2
-  module Tuple3
-  module Tuple4
-  module Tuple5
-  module Unit
-  module IntRange
-  module IntOption
-  module FloatOption
-  module StringOption
-  module IntReference
-  module FloatReference
-  module StringReference
-  module IntList
-  module FloatList
-  module StringList
+  module Testing = General.Testing
+  module Array = General.Array
+  module BigInt = General.BigInt
+  module Bool = General.Bool
+  module CallStack = General.CallStack
+  module Char = General.Char
+  module Exception = General.Exception
+  module Exit = General.Exit
+  module Float = General.Float
+  module Format = General.Format
+  module Function1 = General.Function1
+  module Function2 = General.Function2
+  module Function3 = General.Function3
+  module Function4 = General.Function4
+  module Function5 = General.Function5
+  module InChannel = General.InChannel
+  module InFile = General.InFile
+  module Int32 = General.Int32
+  module Int64 = General.Int64
+  module Int = General.Int
+  module Lazy = General.Lazy
+  module List = General.List
+  module NativeInt = General.NativeInt
+  module Option = General.Option
+  module OutChannel = General.OutChannel
+  module OutFile = General.OutFile
+  module Reference = General.Reference
+  module StdErr = General.StdErr
+  module StdIn = General.StdIn
+  module StdOut = General.StdOut
+  module Stream = General.Stream
+  module String = General.String
+  module Tuple2 = General.Tuple2
+  module Tuple3 = General.Tuple3
+  module Tuple4 = General.Tuple4
+  module Tuple5 = General.Tuple5
+  module Unit = General.Unit
+  module IntRange = General.IntRange
+  module IntOption = General.IntOption
+  module FloatOption = General.FloatOption
+  module StringOption = General.StringOption
+  module IntReference = General.IntReference
+  module FloatReference = General.FloatReference
+  module StringReference = General.StringReference
+  module IntList = General.IntList
+  module FloatList = General.FloatList
+  module StringList = General.StringList
   exception Exit
   val raise: [> `Please_use_General__Exception__raise ]
   val raise_notrace: [> `Please_use_General__Exception__raise_without_backtrace ]

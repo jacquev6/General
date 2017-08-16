@@ -1,51 +1,51 @@
 module Abbr: sig
-  module Tst
-  module Ar
-  module BigInt
-  module Bo
-  module CallStack
-  module Ch
-  module Exit
-  module Exn
-  module Fl
-  module Frmt
-  module Fun1
-  module Fun2
-  module Fun3
-  module Fun4
-  module Fun5
-  module InCh
-  module InFile
-  module Int32
-  module Int64
-  module Int
-  module Laz
-  module Li
-  module NativeInt
-  module Opt
-  module OutCh
-  module OutFile
-  module Ref
-  module StdErr
-  module StdIn
-  module StdOut
-  module Str
-  module Strm
-  module Tu2
-  module Tu3
-  module Tu4
-  module Tu5
-  module Unit
-  module IntRa
-  module IntOpt
-  module FlOpt
-  module StrOpt
-  module IntRef
-  module FlRef
-  module StrRef
-  module IntLi
-  module FlLi
-  module StrLi
+  module Tst = General.Testing
+  module Ar = General.Array
+  module BigInt = General.BigInt
+  module Bo = General.Bool
+  module CallStack = General.CallStack
+  module Ch = General.Char
+  module Exit = General.Exit
+  module Exn = General.Exception
+  module Fl = General.Float
+  module Frmt = General.Format
+  module Fun1 = General.Function1
+  module Fun2 = General.Function2
+  module Fun3 = General.Function3
+  module Fun4 = General.Function4
+  module Fun5 = General.Function5
+  module InCh = General.InChannel
+  module InFile = General.InFile
+  module Int32 = General.Int32
+  module Int64 = General.Int64
+  module Int = General.Int
+  module Laz = General.Lazy
+  module Li = General.List
+  module NativeInt = General.NativeInt
+  module Opt = General.Option
+  module OutCh = General.OutChannel
+  module OutFile = General.OutFile
+  module Ref = General.Reference
+  module StdErr = General.StdErr
+  module StdIn = General.StdIn
+  module StdOut = General.StdOut
+  module Str = General.String
+  module Strm = General.Stream
+  module Tu2 = General.Tuple2
+  module Tu3 = General.Tuple3
+  module Tu4 = General.Tuple4
+  module Tu5 = General.Tuple5
+  module Unit = General.Unit
+  module IntRa = General.IntRange
+  module IntOpt = General.IntOption
+  module FlOpt = General.FloatOption
+  module StrOpt = General.StringOption
+  module IntRef = General.IntReference
+  module FlRef = General.FloatReference
+  module StrRef = General.StringReference
+  module IntLi = General.IntList
+  module FlLi = General.FloatList
+  module StrLi = General.StringList
   exception Exit
   val raise: [> `Please_use_General__Exception__raise ]
   val raise_notrace: [> `Please_use_General__Exception__raise_without_backtrace ]
