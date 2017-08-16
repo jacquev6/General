@@ -489,6 +489,237 @@
           ]
         },
         {
+          "__class__": "module",
+          "name": "FunctorModule",
+          "hidden": true,
+          "doc": [
+            " Doc for FunctorModule ", " Doc' for FunctorModule ",
+            " Doc for Functor ", " Doc' for Functor "
+          ],
+          "functor_parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "A",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "a",
+                  "hidden": false,
+                  "doc": [ " Doc for a ", " Doc' for a " ],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            }
+          ],
+          "contents_from": "Functor",
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ModuleTypeOfFunctor",
+          "hidden": false,
+          "doc": [
+            " Doc for ModuleTypeOfFunctor ",
+            " Doc' for ModuleTypeOfFunctor ", " Doc for FunctorModule ",
+            " Doc' for FunctorModule "
+          ],
+          "functor_parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "A",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "a",
+                  "hidden": false,
+                  "doc": [ " Doc for a ", " Doc' for a " ],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            }
+          ],
+          "contents_from": "module type of FunctorModule",
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module",
+          "name": "MultiFunctorModule",
+          "hidden": true,
+          "doc": [
+            " Doc for MultiFunctorModule ", " Doc' for MultiFunctorModule "
+          ],
+          "functor_parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "A",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "a",
+                  "hidden": false,
+                  "doc": [],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            },
+            {
+              "__class__": "functor_parameter",
+              "name": "B",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "b",
+                  "hidden": false,
+                  "doc": [],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            }
+          ],
+          "contents_from": "MultiFunctor",
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ModuleTypeOfMultiFunctor",
+          "hidden": false,
+          "doc": [
+            " Doc for ModuleTypeOfMultiFunctor ",
+            " Doc' for ModuleTypeOfMultiFunctor ",
+            " Doc for MultiFunctorModule ", " Doc' for MultiFunctorModule "
+          ],
+          "functor_parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "A",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "a",
+                  "hidden": false,
+                  "doc": [],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            },
+            {
+              "__class__": "functor_parameter",
+              "name": "B",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "b",
+                  "hidden": false,
+                  "doc": [],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            }
+          ],
+          "contents_from": "module type of MultiFunctorModule",
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
           "__class__": "module_type",
           "name": "ForWithType",
           "hidden": true,
@@ -1254,6 +1485,236 @@
               "name": "t",
               "hidden": false,
               "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module",
+          "name": "FunctorModule",
+          "hidden": false,
+          "doc": [
+            " Doc for FunctorModule ", " Doc' for FunctorModule ",
+            " Doc for Functor ", " Doc' for Functor "
+          ],
+          "functor_parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "A",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "a",
+                  "hidden": false,
+                  "doc": [ " Doc for a ", " Doc' for a " ],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            }
+          ],
+          "contents_from": "Functor",
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ModuleTypeOfFunctor",
+          "hidden": false,
+          "doc": [
+            " Doc for ModuleTypeOfFunctor ",
+            " Doc' for ModuleTypeOfFunctor ", " Doc for Functor ",
+            " Doc' for Functor "
+          ],
+          "functor_parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "A",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "a",
+                  "hidden": false,
+                  "doc": [ " Doc for a ", " Doc' for a " ],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            }
+          ],
+          "contents_from": "Functor",
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module",
+          "name": "MultiFunctorModule",
+          "hidden": false,
+          "doc": [
+            " Doc for MultiFunctorModule ", " Doc' for MultiFunctorModule "
+          ],
+          "functor_parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "A",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "a",
+                  "hidden": false,
+                  "doc": [],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            },
+            {
+              "__class__": "functor_parameter",
+              "name": "B",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "b",
+                  "hidden": false,
+                  "doc": [],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            }
+          ],
+          "contents_from": "MultiFunctor",
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ModuleTypeOfMultiFunctor",
+          "hidden": false,
+          "doc": [
+            " Doc for ModuleTypeOfMultiFunctor ",
+            " Doc' for ModuleTypeOfMultiFunctor "
+          ],
+          "functor_parameters": [
+            {
+              "__class__": "functor_parameter",
+              "name": "A",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "a",
+                  "hidden": false,
+                  "doc": [],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            },
+            {
+              "__class__": "functor_parameter",
+              "name": "B",
+              "functor_parameters": [],
+              "doc": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "b",
+                  "hidden": false,
+                  "doc": [],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            }
+          ],
+          "contents_from": "MultiFunctor",
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [],
               "parameters": null,
               "private": false,
               "manifest": null,

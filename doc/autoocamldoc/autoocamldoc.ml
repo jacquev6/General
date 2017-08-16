@@ -1007,7 +1007,7 @@ end = struct
   let empty = of_list []
 
   module OfTypes = struct
-    let rec module_type env = function
+    let rec module_type' env = function
       | Types.Mty_ident path ->
         let (env, {Types.mtd_type; mtd_attributes=_; mtd_loc=_}) = enter_modtype path env in
         module_type_option env mtd_type
@@ -1021,21 +1021,21 @@ end = struct
           ContentsFrom.OfTypes.module_type_option env parameter_type;
           Contents.OfTypes.module_type_option env parameter_type;
         ] in
-        parameter::(module_type env contents)
-      | Types.Mty_alias (_, _) -> warn "FunctorParameters.OfTypes.module_type: Mty_alias (not supported)" [] (*BISECT-IGNORE*)
+        parameter::(module_type' env contents)
+      | Types.Mty_alias (_, _) -> warn "FunctorParameters.OfTypes.module_type': Mty_alias (not supported)" [] (*BISECT-IGNORE*)
 
     and module_type_option env = function
       | None ->
         []
       | Some mod_typ ->
-        module_type env mod_typ
+        module_type' env mod_typ
 
     let modtype_declaration env {Types.mtd_type; mtd_attributes=_; mtd_loc=_} =
       module_type_option env mtd_type
 
     let module_type env mod_typ =
       mod_typ
-      |> module_type env
+      |> module_type' env
       |> of_list
 
     let module_type_option env mod_typ =
@@ -1046,7 +1046,7 @@ end = struct
 
   module OfTypedtree = struct
     let rec module_type t =
-      let rec aux {Typedtree.mty_desc; mty_type=_; mty_env; mty_loc=_; mty_attributes=_} =
+      let rec aux {Typedtree.mty_desc; mty_type; mty_env; mty_loc=_; mty_attributes=_} =
         match mty_desc with
           | Typedtree.Tmty_signature _ ->
             []
@@ -1062,10 +1062,10 @@ end = struct
               Contents.OfTypedtree.module_type_option parameter_type;
             ] in
             parameter::(aux contents)
-          | Typedtree.Tmty_with (_, _) -> (*BISECT-IGNORE*)
-            warn "FunctorParameters.OfTypedtree.module_type: Tmty_with (@todo)" []
-          | Typedtree.Tmty_typeof _ -> (*BISECT-IGNORE*)
-            warn "FunctorParameters.OfTypedtree.module_type: Tmty_typeof (@todo)" []
+          | Typedtree.Tmty_with (_, _) ->
+            []
+          | Typedtree.Tmty_typeof _ ->
+            OfTypes.module_type' mty_env mty_type
           | Typedtree.Tmty_alias (_, _) -> warn "FunctorParameters.OfTypedtree.module_type: Tmty_alias (not supported)" [] (*BISECT-IGNORE*)
       in
       aux t

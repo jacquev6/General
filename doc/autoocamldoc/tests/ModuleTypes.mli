@@ -63,6 +63,22 @@ module type MT = sig
   module type ModuleTypeOf = module type of Module
   (** Doc' for ModuleTypeOf *)
 
+  (** Doc for FunctorModule *)
+  module FunctorModule: Functor [@@autodoc.hide]
+  (** Doc' for FunctorModule *)
+
+  (** Doc for ModuleTypeOfFunctor *)
+  module type ModuleTypeOfFunctor = module type of FunctorModule
+  (** Doc' for ModuleTypeOfFunctor *)
+
+  (** Doc for MultiFunctorModule *)
+  module MultiFunctorModule: MultiFunctor [@@autodoc.hide]
+  (** Doc' for MultiFunctorModule *)
+
+  (** Doc for ModuleTypeOfMultiFunctor *)
+  module type ModuleTypeOfMultiFunctor = module type of MultiFunctorModule
+  (** Doc' for ModuleTypeOfMultiFunctor *)
+
   (** Doc for ForWithType *)
   module type ForWithType = sig
     (** Doc for t0 *)

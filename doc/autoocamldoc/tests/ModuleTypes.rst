@@ -212,6 +212,52 @@ Reference
 
         Doc' for t
 
+    .. module_type:: ModuleTypeOfFunctor
+      :contents_from: module type of FunctorModule
+
+      Doc for ModuleTypeOfFunctor
+
+      Doc' for ModuleTypeOfFunctor
+
+      Doc for FunctorModule
+
+      Doc' for FunctorModule
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+          Doc for a
+
+          Doc' for a
+
+      .. type:: t
+
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: ModuleTypeOfMultiFunctor
+      :contents_from: module type of MultiFunctorModule
+
+      Doc for ModuleTypeOfMultiFunctor
+
+      Doc' for ModuleTypeOfMultiFunctor
+
+      Doc for MultiFunctorModule
+
+      Doc' for MultiFunctorModule
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+      .. functor_parameter:: B
+
+        .. type:: b
+
+      .. type:: t
+
     .. module_type:: WithType
       :contents_from: ForWithType with type t0 = int and type 'a t1 = 'a list and type ('a, 'b) t2 = ('a, 'b) result
 
@@ -549,6 +595,90 @@ Reference
         Doc for t
 
         Doc' for t
+
+    .. module:: FunctorModule
+      :contents_from: Functor
+
+      Doc for FunctorModule
+
+      Doc' for FunctorModule
+
+      Doc for Functor
+
+      Doc' for Functor
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+          Doc for a
+
+          Doc' for a
+
+      .. type:: t
+
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: ModuleTypeOfFunctor
+      :contents_from: Functor
+
+      Doc for ModuleTypeOfFunctor
+
+      Doc' for ModuleTypeOfFunctor
+
+      Doc for Functor
+
+      Doc' for Functor
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+          Doc for a
+
+          Doc' for a
+
+      .. type:: t
+
+        Doc for t
+
+        Doc' for t
+
+    .. module:: MultiFunctorModule
+      :contents_from: MultiFunctor
+
+      Doc for MultiFunctorModule
+
+      Doc' for MultiFunctorModule
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+      .. functor_parameter:: B
+
+        .. type:: b
+
+      .. type:: t
+
+    .. module_type:: ModuleTypeOfMultiFunctor
+      :contents_from: MultiFunctor
+
+      Doc for ModuleTypeOfMultiFunctor
+
+      Doc' for ModuleTypeOfMultiFunctor
+
+      .. functor_parameter:: A
+
+        .. type:: a
+
+      .. functor_parameter:: B
+
+        .. type:: b
+
+      .. type:: t
 
     .. module_type:: ForWithType
 
