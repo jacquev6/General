@@ -1,16 +1,10 @@
-module type C = sig
-  type t
-end
-
 module type A = sig
   module type B = sig
-    module type D = sig
+    module type C = sig
       type t
     end
 
-    module type AliasC = C
-
-    module type AliasD = D
+    module type Alias = C
   end
 end
 

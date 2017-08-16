@@ -8,28 +8,6 @@
   "contents": [
     {
       "__class__": "module_type",
-      "name": "C",
-      "hidden": false,
-      "doc": [],
-      "functor_parameters": [],
-      "contents_from": null,
-      "contents": [
-        {
-          "__class__": "type",
-          "name": "t",
-          "hidden": false,
-          "doc": [],
-          "parameters": null,
-          "private": false,
-          "manifest": null,
-          "kind": null,
-          "constructors": [],
-          "labels": []
-        }
-      ]
-    },
-    {
-      "__class__": "module_type",
       "name": "A",
       "hidden": false,
       "doc": [],
@@ -46,7 +24,7 @@
           "contents": [
             {
               "__class__": "module_type",
-              "name": "D",
+              "name": "C",
               "hidden": false,
               "doc": [],
               "functor_parameters": [],
@@ -68,33 +46,11 @@
             },
             {
               "__class__": "module_type",
-              "name": "AliasC",
+              "name": "Alias",
               "hidden": false,
               "doc": [],
               "functor_parameters": [],
               "contents_from": "C",
-              "contents": [
-                {
-                  "__class__": "type",
-                  "name": "t",
-                  "hidden": false,
-                  "doc": [],
-                  "parameters": null,
-                  "private": false,
-                  "manifest": null,
-                  "kind": null,
-                  "constructors": [],
-                  "labels": []
-                }
-              ]
-            },
-            {
-              "__class__": "module_type",
-              "name": "AliasD",
-              "hidden": false,
-              "doc": [],
-              "functor_parameters": [],
-              "contents_from": "D",
               "contents": [
                 {
                   "__class__": "type",
@@ -130,7 +86,7 @@
           "contents": [
             {
               "__class__": "module_type",
-              "name": "D",
+              "name": "C",
               "hidden": false,
               "doc": [],
               "functor_parameters": [],
@@ -151,30 +107,8 @@
               ]
             },
             {
-              "__class__": "module_type",
-              "name": "AliasC",
-              "hidden": false,
-              "doc": [],
-              "functor_parameters": [],
-              "contents_from": "C",
-              "contents": [
-                {
-                  "__class__": "type",
-                  "name": "t",
-                  "hidden": false,
-                  "doc": [],
-                  "parameters": null,
-                  "private": false,
-                  "manifest": null,
-                  "kind": null,
-                  "constructors": [],
-                  "labels": []
-                }
-              ]
-            },
-            {
               "__class__": "autoocamldoc_bug",
-              "name": "D",
+              "name": "C",
               "hidden": false,
               "kind": "module type not found"
             }

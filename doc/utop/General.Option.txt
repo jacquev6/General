@@ -13,6 +13,8 @@ module Option: sig
   val min: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> 'a t
   val max: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> 'a t
   val min_max: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> 'a t * 'a t
+  val none: 'a t
+  val some: 'a -> 'a t
   val some_if: bool -> 'a lazy_t -> 'a t
   val some_if': bool -> 'a -> 'a t
   val is_some: 'a t -> bool

@@ -18,6 +18,11 @@ let repr x ~repr_a =
     | None -> "None"
     | Some x -> Format_.apply "Some %s" (repr_a x)
 
+let none = None
+
+let some x =
+  Some x
+
 let some_if condition value =
   if condition then Some (Lazy_.value value) else None
 

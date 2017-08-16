@@ -469,6 +469,9 @@ module Option: sig
 
   (* @feature coalesce[_def] (with an (|||) operator? The operator *has* to be lazy like (&&) and (||)) *)
 
+  val none: 'a t
+  val some: 'a -> 'a t
+
   val some_if: bool -> 'a lazy_t -> 'a t
   val some_if': bool -> 'a -> 'a t
 

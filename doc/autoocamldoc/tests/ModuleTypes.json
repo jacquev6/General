@@ -440,6 +440,349 @@
               "labels": []
             }
           ]
+        },
+        {
+          "__class__": "module",
+          "name": "Module",
+          "hidden": true,
+          "doc": [ " Doc for Module ", " Doc' for Module " ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ModuleTypeOf",
+          "hidden": false,
+          "doc": [
+            " Doc for ModuleTypeOf ", " Doc' for ModuleTypeOf ",
+            " Doc for Module ", " Doc' for Module "
+          ],
+          "functor_parameters": [],
+          "contents_from": "module type of Module",
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ForWithType",
+          "hidden": true,
+          "doc": [ " Doc for ForWithType ", " Doc' for ForWithType " ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t0",
+              "hidden": false,
+              "doc": [ " Doc for t0 ", " Doc' for t0 " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v0",
+              "hidden": false,
+              "doc": [ " Doc for v0 ", " Doc' for v0 " ],
+              "type": "t0"
+            },
+            {
+              "__class__": "type",
+              "name": "t1",
+              "hidden": false,
+              "doc": [ " Doc for t1 ", " Doc' for t1 " ],
+              "parameters": "'a",
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v1",
+              "hidden": false,
+              "doc": [ " Doc for v1 ", " Doc' for v1 " ],
+              "type": "int t1"
+            },
+            {
+              "__class__": "type",
+              "name": "t2",
+              "hidden": false,
+              "doc": [ " Doc for t2 ", " Doc' for t2 " ],
+              "parameters": "('a, 'b)",
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v2",
+              "hidden": false,
+              "doc": [ " Doc for v2 ", " Doc' for v2 " ],
+              "type": "(int, float) t2"
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "WithType",
+          "hidden": false,
+          "doc": [
+            " Doc for WithType ", " Doc' for WithType ",
+            " Doc for ForWithType ", " Doc' for ForWithType "
+          ],
+          "functor_parameters": [],
+          "contents_from":
+            "ForWithType with type t0 = int and type 'a t1 = 'a list and type ('a, 'b) t2 = ('a, 'b) result",
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t0",
+              "hidden": false,
+              "doc": [],
+              "parameters": null,
+              "private": false,
+              "manifest": "int",
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v0",
+              "hidden": false,
+              "doc": [ " Doc for v0 ", " Doc' for v0 " ],
+              "type": "t0"
+            },
+            {
+              "__class__": "type",
+              "name": "t1",
+              "hidden": false,
+              "doc": [],
+              "parameters": "+'a",
+              "private": false,
+              "manifest": "'a list",
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v1",
+              "hidden": false,
+              "doc": [ " Doc for v1 ", " Doc' for v1 " ],
+              "type": "int t1"
+            },
+            {
+              "__class__": "type",
+              "name": "t2",
+              "hidden": false,
+              "doc": [],
+              "parameters": "(+'a, +'b)",
+              "private": false,
+              "manifest": "('a, 'b) result",
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v2",
+              "hidden": false,
+              "doc": [ " Doc for v2 ", " Doc' for v2 " ],
+              "type": "(int, float) t2"
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "WithTypeSubst",
+          "hidden": false,
+          "doc": [
+            " Doc for WithTypeSubst ", " Doc' for WithTypeSubst ",
+            " Doc for ForWithType ", " Doc' for ForWithType "
+          ],
+          "functor_parameters": [],
+          "contents_from":
+            "ForWithType with type t0 := int and type 'a t1 := 'a list and type ('a, 'b) t2 := ('a, 'b) result",
+          "contents": [
+            {
+              "__class__": "value",
+              "name": "v0",
+              "hidden": false,
+              "doc": [ " Doc for v0 ", " Doc' for v0 " ],
+              "type": "int"
+            },
+            {
+              "__class__": "value",
+              "name": "v1",
+              "hidden": false,
+              "doc": [ " Doc for v1 ", " Doc' for v1 " ],
+              "type": "int list"
+            },
+            {
+              "__class__": "value",
+              "name": "v2",
+              "hidden": false,
+              "doc": [ " Doc for v2 ", " Doc' for v2 " ],
+              "type": "(int, float) result"
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ForWithModule",
+          "hidden": true,
+          "doc": [ " Doc for ForWithModule ", " Doc' for ForWithModule " ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "module",
+              "name": "M",
+              "hidden": false,
+              "doc": [ " Doc of M ", " Doc' of M " ],
+              "functor_parameters": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "t",
+                  "hidden": false,
+                  "doc": [ " Doc of t ", " Doc' of t " ],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            },
+            {
+              "__class__": "value",
+              "name": "v",
+              "hidden": false,
+              "doc": [ " Doc for v ", " Doc' for v " ],
+              "type": "M.t"
+            }
+          ]
+        },
+        {
+          "__class__": "module",
+          "name": "MyM",
+          "hidden": true,
+          "doc": [ " Doc for MyM ", " Doc' for MyM " ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t=int  ", " Doc' for t=int  " ],
+              "parameters": null,
+              "private": false,
+              "manifest": "int",
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "WithModule",
+          "hidden": false,
+          "doc": [
+            " Doc for WithModule ", " Doc' for WithModule ",
+            " Doc for ForWithModule ", " Doc' for ForWithModule "
+          ],
+          "functor_parameters": [],
+          "contents_from": "ForWithModule with module M = MyM",
+          "contents": [
+            {
+              "__class__": "module",
+              "name": "M",
+              "hidden": false,
+              "doc": [ " Doc for MyM ", " Doc' for MyM " ],
+              "functor_parameters": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "t",
+                  "hidden": false,
+                  "doc": [ " Doc for t=int  ", " Doc' for t=int  " ],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": "int",
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            },
+            {
+              "__class__": "value",
+              "name": "v",
+              "hidden": false,
+              "doc": [ " Doc for v ", " Doc' for v " ],
+              "type": "M.t"
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "WithModuleSubst",
+          "hidden": false,
+          "doc": [
+            " Doc for WithModuleSubst ", " Doc' for WithModuleSubst ",
+            " Doc for ForWithModule ", " Doc' for ForWithModule "
+          ],
+          "functor_parameters": [],
+          "contents_from": "ForWithModule with module M := MyM",
+          "contents": [
+            {
+              "__class__": "value",
+              "name": "v",
+              "hidden": false,
+              "doc": [ " Doc for v ", " Doc' for v " ],
+              "type": "MyM.t"
+            }
+          ]
         }
       ]
     },
@@ -873,6 +1216,334 @@
               "kind": null,
               "constructors": [],
               "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module",
+          "name": "Module",
+          "hidden": false,
+          "doc": [ " Doc for Module ", " Doc' for Module " ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ModuleTypeOf",
+          "hidden": false,
+          "doc": [ " Doc for ModuleTypeOf ", " Doc' for ModuleTypeOf " ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t ", " Doc' for t " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ForWithType",
+          "hidden": false,
+          "doc": [ " Doc for ForWithType ", " Doc' for ForWithType " ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t0",
+              "hidden": false,
+              "doc": [ " Doc for t0 ", " Doc' for t0 " ],
+              "parameters": null,
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v0",
+              "hidden": false,
+              "doc": [ " Doc for v0 ", " Doc' for v0 " ],
+              "type": "t0"
+            },
+            {
+              "__class__": "type",
+              "name": "t1",
+              "hidden": false,
+              "doc": [ " Doc for t1 ", " Doc' for t1 " ],
+              "parameters": "'a",
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v1",
+              "hidden": false,
+              "doc": [ " Doc for v1 ", " Doc' for v1 " ],
+              "type": "int t1"
+            },
+            {
+              "__class__": "type",
+              "name": "t2",
+              "hidden": false,
+              "doc": [ " Doc for t2 ", " Doc' for t2 " ],
+              "parameters": "('a, 'b)",
+              "private": false,
+              "manifest": null,
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v2",
+              "hidden": false,
+              "doc": [ " Doc for v2 ", " Doc' for v2 " ],
+              "type": "(int, float) t2"
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "WithType",
+          "hidden": false,
+          "doc": [ " Doc for WithType ", " Doc' for WithType " ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t0",
+              "hidden": false,
+              "doc": [],
+              "parameters": null,
+              "private": false,
+              "manifest": "int",
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v0",
+              "hidden": false,
+              "doc": [ " Doc for v0 ", " Doc' for v0 " ],
+              "type": "t0"
+            },
+            {
+              "__class__": "type",
+              "name": "t1",
+              "hidden": false,
+              "doc": [],
+              "parameters": "+'a",
+              "private": false,
+              "manifest": "'a list",
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v1",
+              "hidden": false,
+              "doc": [ " Doc for v1 ", " Doc' for v1 " ],
+              "type": "int t1"
+            },
+            {
+              "__class__": "type",
+              "name": "t2",
+              "hidden": false,
+              "doc": [],
+              "parameters": "(+'a, +'b)",
+              "private": false,
+              "manifest": "('a, 'b) result",
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            },
+            {
+              "__class__": "value",
+              "name": "v2",
+              "hidden": false,
+              "doc": [ " Doc for v2 ", " Doc' for v2 " ],
+              "type": "(int, float) t2"
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "WithTypeSubst",
+          "hidden": false,
+          "doc": [ " Doc for WithTypeSubst ", " Doc' for WithTypeSubst " ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "value",
+              "name": "v0",
+              "hidden": false,
+              "doc": [ " Doc for v0 ", " Doc' for v0 " ],
+              "type": "int"
+            },
+            {
+              "__class__": "value",
+              "name": "v1",
+              "hidden": false,
+              "doc": [ " Doc for v1 ", " Doc' for v1 " ],
+              "type": "int list"
+            },
+            {
+              "__class__": "value",
+              "name": "v2",
+              "hidden": false,
+              "doc": [ " Doc for v2 ", " Doc' for v2 " ],
+              "type": "(int, float) result"
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "ForWithModule",
+          "hidden": false,
+          "doc": [ " Doc for ForWithModule ", " Doc' for ForWithModule " ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "module",
+              "name": "M",
+              "hidden": false,
+              "doc": [ " Doc of M ", " Doc' of M " ],
+              "functor_parameters": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "t",
+                  "hidden": false,
+                  "doc": [ " Doc of t ", " Doc' of t " ],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": null,
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            },
+            {
+              "__class__": "value",
+              "name": "v",
+              "hidden": false,
+              "doc": [ " Doc for v ", " Doc' for v " ],
+              "type": "M.t"
+            }
+          ]
+        },
+        {
+          "__class__": "module",
+          "name": "MyM",
+          "hidden": false,
+          "doc": [ " Doc for MyM ", " Doc' for MyM " ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "type",
+              "name": "t",
+              "hidden": false,
+              "doc": [ " Doc for t=int  ", " Doc' for t=int  " ],
+              "parameters": null,
+              "private": false,
+              "manifest": "int",
+              "kind": null,
+              "constructors": [],
+              "labels": []
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "WithModule",
+          "hidden": false,
+          "doc": [ " Doc for WithModule ", " Doc' for WithModule " ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "module",
+              "name": "M",
+              "hidden": false,
+              "doc": [ " Doc for MyM ", " Doc' for MyM " ],
+              "functor_parameters": [],
+              "contents_from": null,
+              "contents": [
+                {
+                  "__class__": "type",
+                  "name": "t",
+                  "hidden": false,
+                  "doc": [ " Doc for t=int  ", " Doc' for t=int  " ],
+                  "parameters": null,
+                  "private": false,
+                  "manifest": "int",
+                  "kind": null,
+                  "constructors": [],
+                  "labels": []
+                }
+              ]
+            },
+            {
+              "__class__": "value",
+              "name": "v",
+              "hidden": false,
+              "doc": [ " Doc for v ", " Doc' for v " ],
+              "type": "M.t"
+            }
+          ]
+        },
+        {
+          "__class__": "module_type",
+          "name": "WithModuleSubst",
+          "hidden": false,
+          "doc": [
+            " Doc for WithModuleSubst ", " Doc' for WithModuleSubst "
+          ],
+          "functor_parameters": [],
+          "contents_from": null,
+          "contents": [
+            {
+              "__class__": "value",
+              "name": "v",
+              "hidden": false,
+              "doc": [ " Doc for v ", " Doc' for v " ],
+              "type": "MyM.t"
             }
           ]
         }

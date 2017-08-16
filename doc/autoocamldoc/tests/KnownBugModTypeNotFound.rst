@@ -6,25 +6,16 @@ Reference
 
 .. module:: tests/KnownBugModTypeNotFound
 
-  .. module_type:: C
-
-    .. type:: t
-
   .. module_type:: A
 
     .. module_type:: B
 
-      .. module_type:: D
+      .. module_type:: C
 
         .. type:: t
 
-      .. module_type:: AliasC
+      .. module_type:: Alias
         :contents_from: C
-
-        .. type:: t
-
-      .. module_type:: AliasD
-        :contents_from: D
 
         .. type:: t
 
@@ -33,13 +24,8 @@ Reference
 
     .. module_type:: B
 
-      .. module_type:: D
+      .. module_type:: C
 
         .. type:: t
 
-      .. module_type:: AliasC
-        :contents_from: C
-
-        .. type:: t
-
-      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found D
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found C

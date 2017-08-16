@@ -1,3 +1,6 @@
+(* @todo module type MT = sig ... end include MT *)
+(* @todo autodoc.hide *)
+
 (** Doc for include *)
 include sig
   type t

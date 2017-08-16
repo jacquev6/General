@@ -195,6 +195,147 @@ Reference
 
       .. type:: t
 
+    .. module_type:: ModuleTypeOf
+      :contents_from: module type of Module
+
+      Doc for ModuleTypeOf
+
+      Doc' for ModuleTypeOf
+
+      Doc for Module
+
+      Doc' for Module
+
+      .. type:: t
+
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: WithType
+      :contents_from: ForWithType with type t0 = int and type 'a t1 = 'a list and type ('a, 'b) t2 = ('a, 'b) result
+
+      Doc for WithType
+
+      Doc' for WithType
+
+      Doc for ForWithType
+
+      Doc' for ForWithType
+
+      .. type:: t0
+        :manifest: int
+
+      .. val:: v0
+        :type: t0
+
+        Doc for v0
+
+        Doc' for v0
+
+      .. type:: t1
+        :parameters: +'a
+        :manifest: 'a list
+
+      .. val:: v1
+        :type: int t1
+
+        Doc for v1
+
+        Doc' for v1
+
+      .. type:: t2
+        :parameters: (+'a, +'b)
+        :manifest: ('a, 'b) result
+
+      .. val:: v2
+        :type: (int, float) t2
+
+        Doc for v2
+
+        Doc' for v2
+
+    .. module_type:: WithTypeSubst
+      :contents_from: ForWithType with type t0 := int and type 'a t1 := 'a list and type ('a, 'b) t2 := ('a, 'b) result
+
+      Doc for WithTypeSubst
+
+      Doc' for WithTypeSubst
+
+      Doc for ForWithType
+
+      Doc' for ForWithType
+
+      .. val:: v0
+        :type: int
+
+        Doc for v0
+
+        Doc' for v0
+
+      .. val:: v1
+        :type: int list
+
+        Doc for v1
+
+        Doc' for v1
+
+      .. val:: v2
+        :type: (int, float) result
+
+        Doc for v2
+
+        Doc' for v2
+
+    .. module_type:: WithModule
+      :contents_from: ForWithModule with module M = MyM
+
+      Doc for WithModule
+
+      Doc' for WithModule
+
+      Doc for ForWithModule
+
+      Doc' for ForWithModule
+
+      .. module:: M
+
+        Doc for MyM
+
+        Doc' for MyM
+
+        .. type:: t
+          :manifest: int
+
+          Doc for t=int
+
+          Doc' for t=int
+
+      .. val:: v
+        :type: M.t
+
+        Doc for v
+
+        Doc' for v
+
+    .. module_type:: WithModuleSubst
+      :contents_from: ForWithModule with module M := MyM
+
+      Doc for WithModuleSubst
+
+      Doc' for WithModuleSubst
+
+      Doc for ForWithModule
+
+      Doc' for ForWithModule
+
+      .. val:: v
+        :type: MyM.t
+
+        Doc for v
+
+        Doc' for v
+
   .. include::
     :contents_from: MT
 
@@ -384,4 +525,217 @@ Reference
         .. type:: a
 
       .. type:: t
+
+    .. module:: Module
+
+      Doc for Module
+
+      Doc' for Module
+
+      .. type:: t
+
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: ModuleTypeOf
+
+      Doc for ModuleTypeOf
+
+      Doc' for ModuleTypeOf
+
+      .. type:: t
+
+        Doc for t
+
+        Doc' for t
+
+    .. module_type:: ForWithType
+
+      Doc for ForWithType
+
+      Doc' for ForWithType
+
+      .. type:: t0
+
+        Doc for t0
+
+        Doc' for t0
+
+      .. val:: v0
+        :type: t0
+
+        Doc for v0
+
+        Doc' for v0
+
+      .. type:: t1
+        :parameters: 'a
+
+        Doc for t1
+
+        Doc' for t1
+
+      .. val:: v1
+        :type: int t1
+
+        Doc for v1
+
+        Doc' for v1
+
+      .. type:: t2
+        :parameters: ('a, 'b)
+
+        Doc for t2
+
+        Doc' for t2
+
+      .. val:: v2
+        :type: (int, float) t2
+
+        Doc for v2
+
+        Doc' for v2
+
+    .. module_type:: WithType
+
+      Doc for WithType
+
+      Doc' for WithType
+
+      .. type:: t0
+        :manifest: int
+
+      .. val:: v0
+        :type: t0
+
+        Doc for v0
+
+        Doc' for v0
+
+      .. type:: t1
+        :parameters: +'a
+        :manifest: 'a list
+
+      .. val:: v1
+        :type: int t1
+
+        Doc for v1
+
+        Doc' for v1
+
+      .. type:: t2
+        :parameters: (+'a, +'b)
+        :manifest: ('a, 'b) result
+
+      .. val:: v2
+        :type: (int, float) t2
+
+        Doc for v2
+
+        Doc' for v2
+
+    .. module_type:: WithTypeSubst
+
+      Doc for WithTypeSubst
+
+      Doc' for WithTypeSubst
+
+      .. val:: v0
+        :type: int
+
+        Doc for v0
+
+        Doc' for v0
+
+      .. val:: v1
+        :type: int list
+
+        Doc for v1
+
+        Doc' for v1
+
+      .. val:: v2
+        :type: (int, float) result
+
+        Doc for v2
+
+        Doc' for v2
+
+    .. module_type:: ForWithModule
+
+      Doc for ForWithModule
+
+      Doc' for ForWithModule
+
+      .. module:: M
+
+        Doc of M
+
+        Doc' of M
+
+        .. type:: t
+
+          Doc of t
+
+          Doc' of t
+
+      .. val:: v
+        :type: M.t
+
+        Doc for v
+
+        Doc' for v
+
+    .. module:: MyM
+
+      Doc for MyM
+
+      Doc' for MyM
+
+      .. type:: t
+        :manifest: int
+
+        Doc for t=int
+
+        Doc' for t=int
+
+    .. module_type:: WithModule
+
+      Doc for WithModule
+
+      Doc' for WithModule
+
+      .. module:: M
+
+        Doc for MyM
+
+        Doc' for MyM
+
+        .. type:: t
+          :manifest: int
+
+          Doc for t=int
+
+          Doc' for t=int
+
+      .. val:: v
+        :type: M.t
+
+        Doc for v
+
+        Doc' for v
+
+    .. module_type:: WithModuleSubst
+
+      Doc for WithModuleSubst
+
+      Doc' for WithModuleSubst
+
+      .. val:: v
+        :type: MyM.t
+
+        Doc for v
+
+        Doc' for v
 

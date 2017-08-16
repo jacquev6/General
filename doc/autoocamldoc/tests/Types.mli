@@ -1,3 +1,5 @@
+(* @todo autodoc.hide *)
+
 module type MT = sig
   (** Doc for manifest *)
   type manifest = int
