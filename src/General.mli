@@ -868,7 +868,7 @@ end
 module StringList: sig
   include module type of List.Specialize(String)
 
-  val concat: ?sep:string -> t -> string
+  val join: ?sep:string -> t -> string
 end
 
 (* @feature XxxList when Xxx is a Ringoid: add sum, product *)

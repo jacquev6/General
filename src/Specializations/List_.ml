@@ -12,5 +12,5 @@ end
 module String_ = struct
   include List_.Specialize(String_)
 
-  let concat = Foundations.List_.concat_string_list
+  let join = Foundations.List_.join_string_list
 end

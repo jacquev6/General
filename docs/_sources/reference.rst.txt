@@ -10199,7 +10199,7 @@ Reference
         .. val:: scan_short_acc
           :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> String.t -> 'acc * Foundations.Shorten.t * 'a) -> 'a list
 
-    .. val:: concat
+    .. val:: join
       :type: ?sep:string -> t -> string
 
   .. module:: Format

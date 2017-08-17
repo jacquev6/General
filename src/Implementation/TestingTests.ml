@@ -32,7 +32,7 @@ module Tests = struct
       (let module T = Traits.Representable.Tests.Make0(Result)(ResultExamples) in T.test);
       "to_indented_strings" >:: (
         let make ?(verbose=false) expected result =
-          (expected |> Foundations.List_.concat_string_list ~sep:"\n") >: (lazy (
+          (expected |> Foundations.List_.join_string_list ~sep:"\n") >: (lazy (
             let actual =
               result
               |> Result.decorate_with_counts

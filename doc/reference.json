@@ -51052,7 +51052,7 @@
         },
         {
           "__class__": "value",
-          "name": "concat",
+          "name": "join",
           "hidden": false,
           "doc": [],
           "type": "?sep:string -> t -> string"

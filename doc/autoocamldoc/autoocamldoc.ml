@@ -289,7 +289,7 @@ let string_of_typedtree_record labels =
   |> Li.map ~f:(fun {Typedtree.ld_id=_; ld_name={Asttypes.txt; loc=_}; ld_mutable; ld_type; ld_loc=_; ld_attributes=_} ->
     Frmt.apply "%s%s: %s" (if ld_mutable = Asttypes.Mutable then "mutable " else "") txt (string_of_core_type ld_type)
   )
-  |> StrLi.concat ~sep:"; "
+  |> StrLi.join ~sep:"; "
   |> Frmt.apply "{%s}"
 
 let string_of_types_record labels =
@@ -297,7 +297,7 @@ let string_of_types_record labels =
   |> Li.map ~f:(fun {Types.ld_id; ld_mutable; ld_type; ld_loc=_; ld_attributes=_} ->
     Frmt.apply "%s%s: %s" (if ld_mutable = Asttypes.Mutable then "mutable " else "") (Ident.name ld_id) (string_of_type_expr ld_type)
   )
-  |> StrLi.concat ~sep:"; "
+  |> StrLi.join ~sep:"; "
   |> Frmt.apply "{%s}"
 
 let string_of_typedtree_tuple elements =
@@ -310,7 +310,7 @@ let string_of_typedtree_tuple elements =
   in
   elements
   |> Li.map ~f:string_of_core_type
-  |> StrLi.concat ~sep:" * "
+  |> StrLi.join ~sep:" * "
   |> Frmt.apply format
 
 let string_of_types_tuple elements =
@@ -323,7 +323,7 @@ let string_of_types_tuple elements =
   in
   elements
   |> Li.map ~f:string_of_type_expr
-  |> StrLi.concat ~sep:" * "
+  |> StrLi.join ~sep:" * "
   |> Frmt.apply format
 
 let rec string_of_module_expr {Typedtree.mod_desc; mod_loc=_; mod_type=_; mod_env=_; mod_attributes=_} =
@@ -360,7 +360,7 @@ let string_of_type_parameters = function
   | type_parameters ->
     type_parameters
     |> Li.map ~f:string_of_type_parameter
-    |> StrLi.concat ~sep:", "
+    |> StrLi.join ~sep:", "
     |> Frmt.apply "(%s)"
     |> Opt.some
 
@@ -397,7 +397,7 @@ let rec string_of_module_type {Typedtree.mty_desc; mty_type=_; mty_env=_; mty_lo
               operator
               (Path.name path)
       )
-      |> StrLi.concat ~sep:" and "
+      |> StrLi.join ~sep:" and "
       |> Frmt.apply "%s with %s" (string_of_module_type base_module_type)
     | Typedtree.Tmty_typeof module_ ->
       module_
@@ -589,7 +589,7 @@ end = struct
         | type_parameters ->
           type_parameters
           |> Li.map ~f:string_of_type_parameter
-          |> StrLi.concat ~sep:", "
+          |> StrLi.join ~sep:", "
           |> Frmt.apply "(%s)"
           |> of_string
   end
@@ -733,7 +733,7 @@ end = struct
           in
           Frmt.apply "%s%s" txt payload
         )
-        |> StrLi.concat ~sep:" | "
+        |> StrLi.join ~sep:" | "
         |> of_string
       | Typedtree.Ttype_record declarations ->
         declarations
@@ -765,7 +765,7 @@ end = struct
           in
           Frmt.apply "%s%s" (Ident.name cd_id) payload
         )
-        |> StrLi.concat ~sep:" | "
+        |> StrLi.join ~sep:" | "
         |> of_string
       | Types.Type_record (declarations, _) ->
         declarations

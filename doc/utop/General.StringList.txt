@@ -15,6 +15,7 @@ module StringList: sig
   val try_tail: t -> t option
   val prepend: string -> t -> t
   val reverse: t -> t
+  val concat: t -> t -> t
   val map: t -> f:(string -> string) -> t
   val map_i: t -> f:(i:int -> string -> string) -> t
   val map_acc: acc:'acc -> t -> f:(acc:'acc -> string -> 'acc * string) -> t
@@ -79,5 +80,5 @@ module StringList: sig
   val scan_short_i: init:string -> t -> f:(i:int -> string -> string -> General.Shorten.t * string) -> t
   val scan_short_acc: acc:'acc -> init:string -> t -> f:(acc:'acc -> string -> string -> 'acc * General.Shorten.t * string) -> t
   module ToList
-  val concat: ?sep:string -> t -> string
+  val join: ?sep:string -> t -> string
 end

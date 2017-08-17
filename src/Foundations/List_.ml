@@ -450,7 +450,7 @@ let size xs =
   in
   aux 0 xs
 
-let concat_string_list ?(sep="") xs =
+let join_string_list ?(sep="") xs =
   xs
   |> try_reduce ~f:(fun a b -> Format_.apply "%s%s%s" a sep b)
   |> Option.value_def ~def:""
@@ -458,7 +458,7 @@ let concat_string_list ?(sep="") xs =
 let repr xs ~repr_a =
   xs
   |> map ~f:repr_a
-  |> concat_string_list ~sep:"; "
+  |> join_string_list ~sep:"; "
   |> Format_.apply "[%s]"
 
 
