@@ -207,7 +207,7 @@
           "__class__": "type",
           "name": "open_",
           "hidden": false,
-          "doc": [ " Doc for open_ ", " Doc' for open_ " ],
+          "doc": [ " Doc for open\\_ ", " Doc' for open\\_ " ],
           "parameters": null,
           "private": false,
           "manifest": null,
@@ -460,7 +460,7 @@
           "__class__": "type",
           "name": "open_",
           "hidden": false,
-          "doc": [ " Doc for open_ ", " Doc' for open_ " ],
+          "doc": [ " Doc for open\\_ ", " Doc' for open\\_ " ],
           "parameters": null,
           "private": false,
           "manifest": null,
@@ -514,6 +514,11 @@
           ]
         }
       ]
+    },
+    {
+      "__class__": "floating_documentation",
+      "hidden": false,
+      "text": " A reference to a type: :typ:`tests/Types.parameters`. "
     }
   ]
 }

@@ -1,3 +1,5 @@
+(* @todo [@@autodoc.inline] *)
+
 module type MT = sig
   (** Doc for include *)
   include sig

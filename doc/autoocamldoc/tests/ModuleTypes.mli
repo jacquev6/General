@@ -169,3 +169,5 @@ module type MT = sig
 end
 
 include MT
+
+(** A reference to a module type: :modtyp:`tests/ModuleTypes.Signature`. *)

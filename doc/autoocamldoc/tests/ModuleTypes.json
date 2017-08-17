@@ -2213,6 +2213,12 @@
           ]
         }
       ]
+    },
+    {
+      "__class__": "floating_documentation",
+      "hidden": false,
+      "text":
+        " A reference to a module type: :modtyp:`tests/ModuleTypes.Signature`. "
     }
   ]
 }

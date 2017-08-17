@@ -91,7 +91,7 @@ class Generator:
         yield from self.__indent(self.__module_contents(module_type))
 
     def __item_include(self, include):
-        yield ".. include::"
+        yield ".. incl::"
         yield from self.__contents_from(include)
         yield ""
         yield from self.__indent(self.__doc(include))

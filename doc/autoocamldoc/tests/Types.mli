@@ -48,9 +48,9 @@ module type MT = sig
     | A2 (** Doc for A2 *)
     | B2 of recursive1 (** Doc for B2 *)
 
-  (** Doc for open_ *)
+  (** Doc for open\_ *)
   type open_ = ..
-  (** Doc' for open_ *)
+  (** Doc' for open\_ *)
 
   (* @todo type open_ +=
     | AO
@@ -67,3 +67,5 @@ module type MT = sig
 end
 
 include MT
+
+(** A reference to a type: :typ:`tests/Types.parameters`. *)

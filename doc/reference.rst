@@ -6,15 +6,13 @@ Reference
 
 .. module:: General
 
-  Some doc for General
+  Some doc for :mod:`General`
 
   .. module:: Pervasives
 
-    Some doc for Pervasives
+    Some doc for :mod:`General.Pervasives`
 
-    Not yet documented: signature_item:include
-
-    The module overrides all elements from the standard
+    This module overrides all elements from the standard
     `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_
     with unusable but guiding values like:
 
@@ -152,45 +150,5702 @@ Reference
 
     .. type:: t
       :manifest: Foundations.Shorten.t
+      :kind: GoOn | ShortCircuit
+
+      :constructor GoOn: Used to indicate iteration should proceed to next item
+
+      :constructor ShortCircuit: Used to indicate iteration should stop after this item
 
       Return type for functions used in short-circuit iterations over collections.
-      (i.e: @todoc reference val:`General.Traits.Foldable.Short.S0.fold_short`)
+      (i.e: :val:`General.Traits.Foldable.Short.S0:fold_short`)
 
   .. module:: Traits
+    :contents_from: module type of Traits
 
-    Not yet documented: module_type:of
+    .. module:: Representable
+
+      .. module:: Basic
+
+        .. module_type:: S0
+
+          .. type:: t
+
+          .. val:: repr
+            :type: t -> string
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: repr
+            :type: 'a t -> repr_a:('a -> string) -> string
+
+        .. module_type:: S2
+
+          .. type:: t
+            :parameters: ('a, 'b)
+
+          .. val:: repr
+            :type: ('a, 'b) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> string
+
+        .. module_type:: S3
+
+          .. type:: t
+            :parameters: ('a, 'b, 'c)
+
+          .. val:: repr
+            :type: ('a, 'b, 'c) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> string
+
+        .. module_type:: S4
+
+          .. type:: t
+            :parameters: ('a, 'b, 'c, 'd)
+
+          .. val:: repr
+            :type: ('a, 'b, 'c, 'd) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> string
+
+        .. module_type:: S5
+
+          .. type:: t
+            :parameters: ('a, 'b, 'c, 'd, 'e)
+
+          .. val:: repr
+            :type: ('a, 'b, 'c, 'd, 'e) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> repr_e:('e -> string) -> string
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S1
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S2
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S3
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S4
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S5
+
+      .. module_type:: S0
+
+        .. type:: t
+
+        .. val:: repr
+          :type: t -> string
+
+      .. module_type:: S1
+
+        .. type:: t
+          :parameters: 'a
+
+        .. val:: repr
+          :type: 'a t -> repr_a:('a -> string) -> string
+
+      .. module_type:: S2
+
+        .. type:: t
+          :parameters: ('a, 'b)
+
+        .. val:: repr
+          :type: ('a, 'b) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> string
+
+      .. module_type:: S3
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c)
+
+        .. val:: repr
+          :type: ('a, 'b, 'c) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> string
+
+      .. module_type:: S4
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c, 'd)
+
+        .. val:: repr
+          :type: ('a, 'b, 'c, 'd) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> string
+
+      .. module_type:: S5
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c, 'd, 'e)
+
+        .. val:: repr
+          :type: ('a, 'b, 'c, 'd, 'e) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> repr_e:('e -> string) -> string
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Basic.S1
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Basic.S2
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Basic.S3
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Basic.S4
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Basic.S5
+
+      .. module:: Tests
+
+        .. module:: Examples
+
+          .. module_type:: S0
+
+            .. type:: t
+
+            .. val:: repr
+              :type: (t * string) list
+
+          Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Basic.S0
+
+          .. module_type:: S1
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: repr
+              :type: (A.t t * string) list
+
+          .. module_type:: S2
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: ('a, 'b)
+
+            .. val:: repr
+              :type: ((A.t, B.t) t * string) list
+
+          .. module_type:: S3
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c)
+
+            .. val:: repr
+              :type: ((A.t, B.t, C.t) t * string) list
+
+          .. module_type:: S4
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd)
+
+            .. val:: repr
+              :type: ((A.t, B.t, C.t, D.t) t * string) list
+
+          .. module_type:: S5
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd, 'e)
+
+            .. val:: repr
+              :type: ((A.t, B.t, C.t, D.t, E.t) t * string) list
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S0
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S1
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S2
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S3
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S4
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S5
+
+    .. module:: Equatable
+
+      .. module:: Basic
+
+        .. module_type:: SPoly
+
+          .. val:: equal
+            :type: 'a -> 'a -> bool
+
+            Polymorphic structural equality
+
+        .. module_type:: SPhys
+
+          .. val:: equal
+            :type: 'a -> 'a -> bool
+
+            Physical identity (address equality)
+
+        .. module_type:: S0
+
+          .. type:: t
+
+          .. val:: equal
+            :type: t -> t -> bool
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: equal
+            :type: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+
+        .. module_type:: S2
+
+          .. type:: t
+            :parameters: ('a, 'b)
+
+          .. val:: equal
+            :type: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+        .. module_type:: S3
+
+          .. type:: t
+            :parameters: ('a, 'b, 'c)
+
+          .. val:: equal
+            :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+        .. module_type:: S4
+
+          .. type:: t
+            :parameters: ('a, 'b, 'c, 'd)
+
+          .. val:: equal
+            :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+        .. module_type:: S5
+
+          .. type:: t
+            :parameters: ('a, 'b, 'c, 'd, 'e)
+
+          .. val:: equal
+            :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S1
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S2
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S3
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S4
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S5
+
+      .. module:: Operators
+
+        .. module_type:: SPoly
+
+          .. val:: (=)
+            :type: 'a -> 'a -> bool
+
+          .. val:: (<>)
+            :type: 'a -> 'a -> bool
+
+        .. module_type:: S0
+
+          .. type:: t
+
+          .. val:: (=)
+            :type: t -> t -> bool
+
+          .. val:: (<>)
+            :type: t -> t -> bool
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: equal
+              :type: t -> t -> bool
+
+            .. val:: different
+              :type: t -> t -> bool
+
+          .. val:: (=)
+            :type: M.t -> M.t -> bool
+
+          .. val:: (<>)
+            :type: M.t -> M.t -> bool
+
+      .. module_type:: SPoly
+
+        Doc for General.Traits.Equatable.SPoly
+
+        .. val:: equal
+          :type: 'a -> 'a -> bool
+
+          Polymorphic structural equality
+
+        .. val:: different
+          :type: 'a -> 'a -> bool
+
+          Polymorphic inequality
+
+        .. module:: O
+
+          .. val:: (=)
+            :type: 'a -> 'a -> bool
+
+          .. val:: (<>)
+            :type: 'a -> 'a -> bool
+
+      .. module_type:: SPhys
+
+        Doc for General.Traits.Equatable.SPhys
+
+        .. val:: equal
+          :type: 'a -> 'a -> bool
+
+          Physical identity (address equality)
+
+        .. val:: different
+          :type: 'a -> 'a -> bool
+
+          Physical inequality
+
+      .. module_type:: S0
+
+        .. type:: t
+
+        .. val:: equal
+          :type: t -> t -> bool
+
+        .. val:: different
+          :type: t -> t -> bool
+
+        .. module:: O
+
+          .. val:: (=)
+            :type: t -> t -> bool
+
+          .. val:: (<>)
+            :type: t -> t -> bool
+
+      .. module_type:: S1
+
+        .. type:: t
+          :parameters: 'a
+
+        .. val:: equal
+          :type: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+
+        .. val:: different
+          :type: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+
+      .. module_type:: S2
+
+        .. type:: t
+          :parameters: ('a, 'b)
+
+        .. val:: equal
+          :type: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+        .. val:: different
+          :type: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+      .. module_type:: S3
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c)
+
+        .. val:: equal
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+        .. val:: different
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+      .. module_type:: S4
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c, 'd)
+
+        .. val:: equal
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+        .. val:: different
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+      .. module_type:: S5
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c, 'd, 'e)
+
+        .. val:: equal
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+        .. val:: different
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+      .. module:: Different
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: equal
+              :type: t -> t -> bool
+
+          .. val:: different
+            :type: M.t -> M.t -> bool
+
+        .. module:: Make1
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: equal
+              :type: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+
+          .. val:: different
+            :type: 'a M.t -> 'a M.t -> equal_a:('a -> 'a -> bool) -> bool
+
+        .. module:: Make2
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b)
+
+            .. val:: equal
+              :type: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+          .. val:: different
+            :type: ('a, 'b) M.t -> ('a, 'b) M.t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+        .. module:: Make3
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c)
+
+            .. val:: equal
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+          .. val:: different
+            :type: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+        .. module:: Make4
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd)
+
+            .. val:: equal
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+          .. val:: different
+            :type: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+        .. module:: Make5
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd, 'e)
+
+            .. val:: equal
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+          .. val:: different
+            :type: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S1
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S2
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S3
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S4
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S5
+
+      .. module:: Tests
+
+        .. module:: Examples
+
+          .. module_type:: S0
+
+            .. type:: t
+
+            .. val:: equal
+              :type: t list list
+
+            .. val:: different
+              :type: (t * t) list
+
+          .. module_type:: Element
+
+            .. type:: t
+
+            .. val:: equal
+              :type: t -> t -> bool
+
+            .. val:: repr
+              :type: t -> string
+
+          .. module_type:: S1
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: equal
+              :type: A.t t list list
+
+            .. val:: different
+              :type: (A.t t * A.t t) list
+
+          .. module_type:: S2
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: ('a, 'b)
+
+            .. val:: equal
+              :type: (A.t, B.t) t list list
+
+            .. val:: different
+              :type: ((A.t, B.t) t * (A.t, B.t) t) list
+
+          .. module_type:: S3
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c)
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t) t list list
+
+            .. val:: different
+              :type: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
+
+          .. module_type:: S4
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd)
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t, D.t) t list list
+
+            .. val:: different
+              :type: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
+
+          .. module_type:: S5
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd, 'e)
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t, D.t, E.t) t list list
+
+            .. val:: different
+              :type: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: equal
+              :type: t -> t -> bool
+
+            .. val:: different
+              :type: t -> t -> bool
+
+            .. module:: O
+
+              .. val:: (=)
+                :type: t -> t -> bool
+
+              .. val:: (<>)
+                :type: t -> t -> bool
+
+            .. val:: repr
+              :type: t -> string
+
+          .. functor_parameter:: E
+
+            .. val:: equal
+              :type: M.t list list
+
+            .. val:: different
+              :type: (M.t * M.t) list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+        .. module:: Make1
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: equal
+              :type: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+
+            .. val:: different
+              :type: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+
+            .. val:: repr
+              :type: 'a t -> repr_a:('a -> string) -> string
+
+          .. functor_parameter:: E
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            .. val:: equal
+              :type: A.t M.t list list
+
+            .. val:: different
+              :type: (A.t M.t * A.t M.t) list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+        .. module:: Make2
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b)
+
+            .. val:: equal
+              :type: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+            .. val:: different
+              :type: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+            .. val:: repr
+              :type: ('a, 'b) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> string
+
+          .. functor_parameter:: E
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            .. val:: equal
+              :type: (A.t, B.t) M.t list list
+
+            .. val:: different
+              :type: ((A.t, B.t) M.t * (A.t, B.t) M.t) list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+        .. module:: Make3
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c)
+
+            .. val:: equal
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+            .. val:: different
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+            .. val:: repr
+              :type: ('a, 'b, 'c) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> string
+
+          .. functor_parameter:: E
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t) M.t list list
+
+            .. val:: different
+              :type: ((A.t, B.t, C.t) M.t * (A.t, B.t, C.t) M.t) list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+        .. module:: Make4
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd)
+
+            .. val:: equal
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+            .. val:: different
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+            .. val:: repr
+              :type: ('a, 'b, 'c, 'd) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> string
+
+          .. functor_parameter:: E
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t, D.t) M.t list list
+
+            .. val:: different
+              :type: ((A.t, B.t, C.t, D.t) M.t * (A.t, B.t, C.t, D.t) M.t) list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+        .. module:: Make5
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd, 'e)
+
+            .. val:: equal
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+            .. val:: different
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+            .. val:: repr
+              :type: ('a, 'b, 'c, 'd, 'e) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> repr_e:('e -> string) -> string
+
+          .. functor_parameter:: E
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t, D.t, E.t) M.t list list
+
+            .. val:: different
+              :type: ((A.t, B.t, C.t, D.t, E.t) M.t * (A.t, B.t, C.t, D.t, E.t) M.t) list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+    .. module:: Comparable
+
+      .. module:: Basic
+
+        .. module_type:: SPoly
+
+          .. val:: compare
+            :type: 'a -> 'a -> Foundations.Compare.t
+
+        .. module_type:: S0
+
+          .. type:: t
+
+          .. val:: compare
+            :type: t -> t -> Foundations.Compare.t
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: compare
+            :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. module_type:: S2
+
+          .. type:: t
+            :parameters: ('a, 'b)
+
+          .. val:: compare
+            :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. module_type:: S3
+
+          .. type:: t
+            :parameters: ('a, 'b, 'c)
+
+          .. val:: compare
+            :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. module_type:: S4
+
+          .. type:: t
+            :parameters: ('a, 'b, 'c, 'd)
+
+          .. val:: compare
+            :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. module_type:: S5
+
+          .. type:: t
+            :parameters: ('a, 'b, 'c, 'd, 'e)
+
+          .. val:: compare
+            :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S1
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S2
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S3
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S4
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S5
+
+      .. module:: Operators
+
+        .. module_type:: SPoly
+
+          .. val:: (<)
+            :type: 'a -> 'a -> bool
+
+          .. val:: (<=)
+            :type: 'a -> 'a -> bool
+
+          .. val:: (>)
+            :type: 'a -> 'a -> bool
+
+          .. val:: (>=)
+            :type: 'a -> 'a -> bool
+
+        .. module_type:: S0
+
+          .. type:: t
+
+          .. val:: (<)
+            :type: t -> t -> bool
+
+          .. val:: (<=)
+            :type: t -> t -> bool
+
+          .. val:: (>)
+            :type: t -> t -> bool
+
+          .. val:: (>=)
+            :type: t -> t -> bool
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: less_than
+              :type: t -> t -> bool
+
+            .. val:: less_or_equal
+              :type: t -> t -> bool
+
+            .. val:: greater_than
+              :type: t -> t -> bool
+
+            .. val:: greater_or_equal
+              :type: t -> t -> bool
+
+          .. val:: (<)
+            :type: M.t -> M.t -> bool
+
+          .. val:: (<=)
+            :type: M.t -> M.t -> bool
+
+          .. val:: (>)
+            :type: M.t -> M.t -> bool
+
+          .. val:: (>=)
+            :type: M.t -> M.t -> bool
+
+      .. module_type:: SPoly
+
+        .. val:: compare
+          :type: 'a -> 'a -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: 'a -> 'a -> bool
+
+        .. val:: less_or_equal
+          :type: 'a -> 'a -> bool
+
+        .. val:: greater_than
+          :type: 'a -> 'a -> bool
+
+        .. val:: greater_or_equal
+          :type: 'a -> 'a -> bool
+
+        .. val:: between
+          :type: 'a -> low:'a -> high:'a -> bool
+
+        .. val:: between_or_equal
+          :type: 'a -> low:'a -> high:'a -> bool
+
+        .. val:: min
+          :type: 'a -> 'a -> 'a
+
+        .. val:: max
+          :type: 'a -> 'a -> 'a
+
+        .. val:: min_max
+          :type: 'a -> 'a -> 'a * 'a
+
+        .. module:: O
+
+          .. val:: (<)
+            :type: 'a -> 'a -> bool
+
+          .. val:: (<=)
+            :type: 'a -> 'a -> bool
+
+          .. val:: (>)
+            :type: 'a -> 'a -> bool
+
+          .. val:: (>=)
+            :type: 'a -> 'a -> bool
+
+      .. module_type:: S0
+
+        .. type:: t
+
+        .. val:: compare
+          :type: t -> t -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: t -> t -> bool
+
+        .. val:: less_or_equal
+          :type: t -> t -> bool
+
+        .. val:: greater_than
+          :type: t -> t -> bool
+
+        .. val:: greater_or_equal
+          :type: t -> t -> bool
+
+        .. val:: between
+          :type: t -> low:t -> high:t -> bool
+
+        .. val:: between_or_equal
+          :type: t -> low:t -> high:t -> bool
+
+        .. val:: min
+          :type: t -> t -> t
+
+        .. val:: max
+          :type: t -> t -> t
+
+        .. val:: min_max
+          :type: t -> t -> t * t
+
+        .. module:: O
+
+          .. val:: (<)
+            :type: t -> t -> bool
+
+          .. val:: (<=)
+            :type: t -> t -> bool
+
+          .. val:: (>)
+            :type: t -> t -> bool
+
+          .. val:: (>=)
+            :type: t -> t -> bool
+
+      .. module_type:: S1
+
+        .. type:: t
+          :parameters: 'a
+
+        .. val:: compare
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. val:: less_or_equal
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_than
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_or_equal
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. val:: between
+          :type: 'a t -> low:'a t -> high:'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. val:: between_or_equal
+          :type: 'a t -> low:'a t -> high:'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. val:: min
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t
+
+        .. val:: max
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t
+
+        .. val:: min_max
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t * 'a t
+
+      .. module_type:: S2
+
+        .. type:: t
+          :parameters: ('a, 'b)
+
+        .. val:: compare
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. val:: less_or_equal
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_than
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_or_equal
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. val:: between
+          :type: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. val:: between_or_equal
+          :type: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. val:: min
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) t
+
+        .. val:: max
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) t
+
+        .. val:: min_max
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) t * ('a, 'b) t
+
+      .. module_type:: S3
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c)
+
+        .. val:: compare
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. val:: less_or_equal
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_than
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_or_equal
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. val:: between
+          :type: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. val:: between_or_equal
+          :type: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. val:: min
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) t
+
+        .. val:: max
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) t
+
+        .. val:: min_max
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) t * ('a, 'b, 'c) t
+
+      .. module_type:: S4
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c, 'd)
+
+        .. val:: compare
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. val:: less_or_equal
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_than
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_or_equal
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. val:: between
+          :type: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. val:: between_or_equal
+          :type: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. val:: min
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) t
+
+        .. val:: max
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) t
+
+        .. val:: min_max
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) t * ('a, 'b, 'c, 'd) t
+
+      .. module_type:: S5
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c, 'd, 'e)
+
+        .. val:: compare
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+        .. val:: less_or_equal
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_than
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_or_equal
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+        .. val:: between
+          :type: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+        .. val:: between_or_equal
+          :type: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+        .. val:: min
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
+
+        .. val:: max
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
+
+        .. val:: min_max
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
+
+      .. module:: GreaterLessThan
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: compare
+              :type: t -> t -> Foundations.Compare.t
+
+          .. val:: less_than
+            :type: M.t -> M.t -> bool
+
+          .. val:: less_or_equal
+            :type: M.t -> M.t -> bool
+
+          .. val:: greater_than
+            :type: M.t -> M.t -> bool
+
+          .. val:: greater_or_equal
+            :type: M.t -> M.t -> bool
+
+        .. module:: Make1
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: compare
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> Foundations.Compare.t
+
+          .. val:: less_than
+            :type: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+          .. val:: less_or_equal
+            :type: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+          .. val:: greater_than
+            :type: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+          .. val:: greater_or_equal
+            :type: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. module:: Make2
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b)
+
+            .. val:: compare
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> Foundations.Compare.t
+
+          .. val:: less_than
+            :type: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+          .. val:: less_or_equal
+            :type: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+          .. val:: greater_than
+            :type: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+          .. val:: greater_or_equal
+            :type: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. module:: Make3
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c)
+
+            .. val:: compare
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> Foundations.Compare.t
+
+          .. val:: less_than
+            :type: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+          .. val:: less_or_equal
+            :type: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+          .. val:: greater_than
+            :type: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+          .. val:: greater_or_equal
+            :type: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. module:: Make4
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd)
+
+            .. val:: compare
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> Foundations.Compare.t
+
+          .. val:: less_than
+            :type: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+          .. val:: less_or_equal
+            :type: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+          .. val:: greater_than
+            :type: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+          .. val:: greater_or_equal
+            :type: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. module:: Make5
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd, 'e)
+
+            .. val:: compare
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> Foundations.Compare.t
+
+          .. val:: less_than
+            :type: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+          .. val:: less_or_equal
+            :type: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+          .. val:: greater_than
+            :type: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+          .. val:: greater_or_equal
+            :type: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+      .. module:: Between
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: less_than
+              :type: t -> t -> bool
+
+            .. val:: less_or_equal
+              :type: t -> t -> bool
+
+            .. val:: greater_than
+              :type: t -> t -> bool
+
+            .. val:: greater_or_equal
+              :type: t -> t -> bool
+
+          .. val:: between
+            :type: M.t -> low:M.t -> high:M.t -> bool
+
+          .. val:: between_or_equal
+            :type: M.t -> low:M.t -> high:M.t -> bool
+
+        .. module:: Make1
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: less_than
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+            .. val:: less_or_equal
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_than
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_or_equal
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+          .. val:: between
+            :type: 'a M.t -> low:'a M.t -> high:'a M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+          .. val:: between_or_equal
+            :type: 'a M.t -> low:'a M.t -> high:'a M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. module:: Make2
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b)
+
+            .. val:: less_than
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+            .. val:: less_or_equal
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_than
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_or_equal
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+          .. val:: between
+            :type: ('a, 'b) M.t -> low:('a, 'b) M.t -> high:('a, 'b) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+          .. val:: between_or_equal
+            :type: ('a, 'b) M.t -> low:('a, 'b) M.t -> high:('a, 'b) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. module:: Make3
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c)
+
+            .. val:: less_than
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+            .. val:: less_or_equal
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_than
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_or_equal
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+          .. val:: between
+            :type: ('a, 'b, 'c) M.t -> low:('a, 'b, 'c) M.t -> high:('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+          .. val:: between_or_equal
+            :type: ('a, 'b, 'c) M.t -> low:('a, 'b, 'c) M.t -> high:('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. module:: Make4
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd)
+
+            .. val:: less_than
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+            .. val:: less_or_equal
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_than
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_or_equal
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+          .. val:: between
+            :type: ('a, 'b, 'c, 'd) M.t -> low:('a, 'b, 'c, 'd) M.t -> high:('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+          .. val:: between_or_equal
+            :type: ('a, 'b, 'c, 'd) M.t -> low:('a, 'b, 'c, 'd) M.t -> high:('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. module:: Make5
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd, 'e)
+
+            .. val:: less_than
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+            .. val:: less_or_equal
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_than
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_or_equal
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+          .. val:: between
+            :type: ('a, 'b, 'c, 'd, 'e) M.t -> low:('a, 'b, 'c, 'd, 'e) M.t -> high:('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+          .. val:: between_or_equal
+            :type: ('a, 'b, 'c, 'd, 'e) M.t -> low:('a, 'b, 'c, 'd, 'e) M.t -> high:('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+      .. module:: MinMax
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: compare
+              :type: t -> t -> Foundations.Compare.t
+
+          .. val:: min
+            :type: M.t -> M.t -> M.t
+
+          .. val:: max
+            :type: M.t -> M.t -> M.t
+
+          .. val:: min_max
+            :type: M.t -> M.t -> M.t * M.t
+
+        .. module:: Make1
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: compare
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> Foundations.Compare.t
+
+          .. val:: min
+            :type: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a M.t
+
+          .. val:: max
+            :type: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a M.t
+
+          .. val:: min_max
+            :type: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a M.t * 'a M.t
+
+        .. module:: Make2
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b)
+
+            .. val:: compare
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> Foundations.Compare.t
+
+          .. val:: min
+            :type: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) M.t
+
+          .. val:: max
+            :type: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) M.t
+
+          .. val:: min_max
+            :type: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) M.t * ('a, 'b) M.t
+
+        .. module:: Make3
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c)
+
+            .. val:: compare
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> Foundations.Compare.t
+
+          .. val:: min
+            :type: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) M.t
+
+          .. val:: max
+            :type: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) M.t
+
+          .. val:: min_max
+            :type: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) M.t * ('a, 'b, 'c) M.t
+
+        .. module:: Make4
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd)
+
+            .. val:: compare
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> Foundations.Compare.t
+
+          .. val:: min
+            :type: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) M.t
+
+          .. val:: max
+            :type: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) M.t
+
+          .. val:: min_max
+            :type: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) M.t * ('a, 'b, 'c, 'd) M.t
+
+        .. module:: Make5
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd, 'e)
+
+            .. val:: compare
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> Foundations.Compare.t
+
+          .. val:: min
+            :type: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) M.t
+
+          .. val:: max
+            :type: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) M.t
+
+          .. val:: min_max
+            :type: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) M.t * ('a, 'b, 'c, 'd, 'e) M.t
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S1
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S2
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S3
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S4
+
+      Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S5
+
+      .. module:: Tests
+
+        .. module:: Examples
+
+          .. module_type:: S0
+
+            .. type:: t
+
+            .. val:: ordered
+              :type: t list list
+
+            .. val:: equal
+              :type: t list list
+
+          .. module_type:: Element
+
+            .. type:: t
+
+            .. val:: compare
+              :type: t -> t -> Foundations.Compare.t
+
+            .. val:: equal
+              :type: t -> t -> bool
+
+            .. val:: repr
+              :type: t -> string
+
+          .. module_type:: S1
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: ordered
+              :type: A.t t list list
+
+            .. val:: equal
+              :type: A.t t list list
+
+          .. module_type:: S2
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: ('a, 'b)
+
+            .. val:: ordered
+              :type: (A.t, B.t) t list list
+
+            .. val:: equal
+              :type: (A.t, B.t) t list list
+
+          .. module_type:: S3
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c)
+
+            .. val:: ordered
+              :type: (A.t, B.t, C.t) t list list
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t) t list list
+
+          .. module_type:: S4
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd)
+
+            .. val:: ordered
+              :type: (A.t, B.t, C.t, D.t) t list list
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t, D.t) t list list
+
+          .. module_type:: S5
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd, 'e)
+
+            .. val:: ordered
+              :type: (A.t, B.t, C.t, D.t, E.t) t list list
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t, D.t, E.t) t list list
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: compare
+              :type: t -> t -> Foundations.Compare.t
+
+            .. val:: less_than
+              :type: t -> t -> bool
+
+            .. val:: less_or_equal
+              :type: t -> t -> bool
+
+            .. val:: greater_than
+              :type: t -> t -> bool
+
+            .. val:: greater_or_equal
+              :type: t -> t -> bool
+
+            .. val:: between
+              :type: t -> low:t -> high:t -> bool
+
+            .. val:: between_or_equal
+              :type: t -> low:t -> high:t -> bool
+
+            .. val:: min
+              :type: t -> t -> t
+
+            .. val:: max
+              :type: t -> t -> t
+
+            .. val:: min_max
+              :type: t -> t -> t * t
+
+            .. module:: O
+
+              .. val:: (<)
+                :type: t -> t -> bool
+
+              .. val:: (<=)
+                :type: t -> t -> bool
+
+              .. val:: (>)
+                :type: t -> t -> bool
+
+              .. val:: (>=)
+                :type: t -> t -> bool
+
+            .. val:: repr
+              :type: t -> string
+
+            .. val:: equal
+              :type: t -> t -> bool
+
+          .. functor_parameter:: E
+
+            .. val:: ordered
+              :type: M.t list list
+
+            .. val:: equal
+              :type: M.t list list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+        .. module:: Make1
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: compare
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> Foundations.Compare.t
+
+            .. val:: less_than
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+            .. val:: less_or_equal
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_than
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_or_equal
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+            .. val:: between
+              :type: 'a t -> low:'a t -> high:'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+            .. val:: between_or_equal
+              :type: 'a t -> low:'a t -> high:'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+            .. val:: min
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t
+
+            .. val:: max
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t
+
+            .. val:: min_max
+              :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t * 'a t
+
+            .. val:: equal
+              :type: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+
+            .. val:: repr
+              :type: 'a t -> repr_a:('a -> string) -> string
+
+          .. functor_parameter:: E
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            .. val:: ordered
+              :type: A.t M.t list list
+
+            .. val:: equal
+              :type: A.t M.t list list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+        .. module:: Make2
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b)
+
+            .. val:: compare
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> Foundations.Compare.t
+
+            .. val:: less_than
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+            .. val:: less_or_equal
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_than
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_or_equal
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+            .. val:: between
+              :type: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+            .. val:: between_or_equal
+              :type: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+            .. val:: min
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) t
+
+            .. val:: max
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) t
+
+            .. val:: min_max
+              :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) t * ('a, 'b) t
+
+            .. val:: equal
+              :type: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+            .. val:: repr
+              :type: ('a, 'b) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> string
+
+          .. functor_parameter:: E
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            .. val:: ordered
+              :type: (A.t, B.t) M.t list list
+
+            .. val:: equal
+              :type: (A.t, B.t) M.t list list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+        .. module:: Make3
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c)
+
+            .. val:: compare
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> Foundations.Compare.t
+
+            .. val:: less_than
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+            .. val:: less_or_equal
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_than
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_or_equal
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+            .. val:: between
+              :type: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+            .. val:: between_or_equal
+              :type: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+            .. val:: min
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) t
+
+            .. val:: max
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) t
+
+            .. val:: min_max
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) t * ('a, 'b, 'c) t
+
+            .. val:: equal
+              :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+            .. val:: repr
+              :type: ('a, 'b, 'c) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> string
+
+          .. functor_parameter:: E
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            .. val:: ordered
+              :type: (A.t, B.t, C.t) M.t list list
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t) M.t list list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+        .. module:: Make4
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd)
+
+            .. val:: compare
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> Foundations.Compare.t
+
+            .. val:: less_than
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+            .. val:: less_or_equal
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_than
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_or_equal
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+            .. val:: between
+              :type: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+            .. val:: between_or_equal
+              :type: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+            .. val:: min
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) t
+
+            .. val:: max
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) t
+
+            .. val:: min_max
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) t * ('a, 'b, 'c, 'd) t
+
+            .. val:: equal
+              :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+            .. val:: repr
+              :type: ('a, 'b, 'c, 'd) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> string
+
+          .. functor_parameter:: E
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            .. val:: ordered
+              :type: (A.t, B.t, C.t, D.t) M.t list list
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t, D.t) M.t list list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+        .. module:: Make5
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd, 'e)
+
+            .. val:: compare
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> Foundations.Compare.t
+
+            .. val:: less_than
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+            .. val:: less_or_equal
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_than
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+            .. val:: greater_or_equal
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+            .. val:: between
+              :type: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+            .. val:: between_or_equal
+              :type: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+            .. val:: min
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
+
+            .. val:: max
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
+
+            .. val:: min_max
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
+
+            .. val:: equal
+              :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+            .. val:: repr
+              :type: ('a, 'b, 'c, 'd, 'e) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> repr_e:('e -> string) -> string
+
+          .. functor_parameter:: E
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Examples.Element
+
+            .. val:: ordered
+              :type: (A.t, B.t, C.t, D.t, E.t) M.t list list
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t, D.t, E.t) M.t list list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+    .. module:: Displayable
+
+      .. module:: Basic
+
+        .. module_type:: S0
+
+          .. type:: t
+
+          .. val:: to_string
+            :type: t -> string
+
+      .. module_type:: S0
+
+        .. type:: t
+
+        .. val:: to_string
+          :type: t -> string
+
+      .. module:: Tests
+
+        .. module:: Examples
+
+          .. module_type:: S0
+
+            .. type:: t
+
+            .. val:: to_string
+              :type: (t * string) list
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S0
+
+    .. module:: FilterMapable
+
+      .. module_type:: S0
+
+        .. type:: elt
+
+        .. type:: t
+
+        .. val:: map
+          :type: t -> f:(elt -> elt) -> t
+
+        .. val:: map_i
+          :type: t -> f:(i:int -> elt -> elt) -> t
+
+        .. val:: map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * elt) -> t
+
+        .. val:: filter
+          :type: t -> f:(elt -> bool) -> t
+
+        .. val:: filter_i
+          :type: t -> f:(i:int -> elt -> bool) -> t
+
+        .. val:: filter_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * bool) -> t
+
+        .. val:: filter_map
+          :type: t -> f:(elt -> elt option) -> t
+
+        .. val:: filter_map_i
+          :type: t -> f:(i:int -> elt -> elt option) -> t
+
+        .. val:: filter_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * elt option) -> t
+
+        .. val:: flat_map
+          :type: t -> f:(elt -> t) -> t
+
+        .. val:: flat_map_i
+          :type: t -> f:(i:int -> elt -> t) -> t
+
+        .. val:: flat_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * t) -> t
+
+      .. module_type:: S1
+
+        .. type:: t
+          :parameters: 'a
+
+        .. val:: map
+          :type: 'a t -> f:('a -> 'b) -> 'b t
+
+        .. val:: map_i
+          :type: 'a t -> f:(i:int -> 'a -> 'b) -> 'b t
+
+        .. val:: map_acc
+          :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b) -> 'b t
+
+        .. val:: filter
+          :type: 'a t -> f:('a -> bool) -> 'a t
+
+        .. val:: filter_i
+          :type: 'a t -> f:(i:int -> 'a -> bool) -> 'a t
+
+        .. val:: filter_acc
+          :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a t
+
+        .. val:: filter_map
+          :type: 'a t -> f:('a -> 'b option) -> 'b t
+
+        .. val:: filter_map_i
+          :type: 'a t -> f:(i:int -> 'a -> 'b option) -> 'b t
+
+        .. val:: filter_map_acc
+          :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b t
+
+        .. val:: flat_map
+          :type: 'a t -> f:('a -> 'b t) -> 'b t
+
+        .. val:: flat_map_i
+          :type: 'a t -> f:(i:int -> 'a -> 'b t) -> 'b t
+
+        .. val:: flat_map_acc
+          :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b t) -> 'b t
+
+      .. module:: ToContainer
+
+        .. functor_parameter:: C
+
+          .. type:: t
+            :parameters: 'a
+
+        .. module_type:: S0
+
+          .. type:: elt
+
+          .. type:: t
+
+          .. val:: map
+            :type: t -> f:(elt -> 'b) -> 'b C.t
+
+          .. val:: map_i
+            :type: t -> f:(i:int -> elt -> 'b) -> 'b C.t
+
+          .. val:: map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * 'b) -> 'b C.t
+
+          .. val:: filter
+            :type: t -> f:(elt -> bool) -> elt C.t
+
+          .. val:: filter_i
+            :type: t -> f:(i:int -> elt -> bool) -> elt C.t
+
+          .. val:: filter_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * bool) -> elt C.t
+
+          .. val:: filter_map
+            :type: t -> f:(elt -> 'b option) -> 'b C.t
+
+          .. val:: filter_map_i
+            :type: t -> f:(i:int -> elt -> 'b option) -> 'b C.t
+
+          .. val:: filter_map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * 'b option) -> 'b C.t
+
+          .. val:: flat_map
+            :type: t -> f:(elt -> 'b C.t) -> 'b C.t
+
+          .. val:: flat_map_i
+            :type: t -> f:(i:int -> elt -> 'b C.t) -> 'b C.t
+
+          .. val:: flat_map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * 'b C.t) -> 'b C.t
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: map
+            :type: 'a t -> f:('a -> 'b) -> 'b C.t
+
+          .. val:: map_i
+            :type: 'a t -> f:(i:int -> 'a -> 'b) -> 'b C.t
+
+          .. val:: map_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b) -> 'b C.t
+
+          .. val:: filter
+            :type: 'a t -> f:('a -> bool) -> 'a C.t
+
+          .. val:: filter_i
+            :type: 'a t -> f:(i:int -> 'a -> bool) -> 'a C.t
+
+          .. val:: filter_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a C.t
+
+          .. val:: filter_map
+            :type: 'a t -> f:('a -> 'b option) -> 'b C.t
+
+          .. val:: filter_map_i
+            :type: 'a t -> f:(i:int -> 'a -> 'b option) -> 'b C.t
+
+          .. val:: filter_map_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b C.t
+
+          .. val:: flat_map
+            :type: 'a t -> f:('a -> 'b C.t) -> 'b C.t
+
+          .. val:: flat_map_i
+            :type: 'a t -> f:(i:int -> 'a -> 'b C.t) -> 'b C.t
+
+          .. val:: flat_map_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b C.t) -> 'b C.t
+
+        .. module:: Tests
+
+          .. module:: Make1
+
+            .. functor_parameter:: M
+
+              .. type:: t
+                :parameters: 'a
+
+              .. val:: of_list
+                :type: 'a list -> 'a t
+
+            .. functor_parameter:: ToContainer
+
+              .. val:: map
+                :type: 'a M.t -> f:('a -> 'b) -> 'b C.t
+
+              .. val:: map_i
+                :type: 'a M.t -> f:(i:int -> 'a -> 'b) -> 'b C.t
+
+              .. val:: map_acc
+                :type: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * 'b) -> 'b C.t
+
+              .. val:: filter
+                :type: 'a M.t -> f:('a -> bool) -> 'a C.t
+
+              .. val:: filter_i
+                :type: 'a M.t -> f:(i:int -> 'a -> bool) -> 'a C.t
+
+              .. val:: filter_acc
+                :type: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a C.t
+
+              .. val:: filter_map
+                :type: 'a M.t -> f:('a -> 'b option) -> 'b C.t
+
+              .. val:: filter_map_i
+                :type: 'a M.t -> f:(i:int -> 'a -> 'b option) -> 'b C.t
+
+              .. val:: filter_map_acc
+                :type: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b C.t
+
+              .. val:: flat_map
+                :type: 'a M.t -> f:('a -> 'b C.t) -> 'b C.t
+
+              .. val:: flat_map_i
+                :type: 'a M.t -> f:(i:int -> 'a -> 'b C.t) -> 'b C.t
+
+              .. val:: flat_map_acc
+                :type: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * 'b C.t) -> 'b C.t
+
+            .. functor_parameter:: Container
+
+              .. val:: of_list
+                :type: 'a list -> 'a C.t
+
+              .. val:: to_list
+                :type: 'a C.t -> 'a list
+
+            .. val:: test
+              :type: Testing.Test.t
+
+      .. module:: ToList
+
+        .. module_type:: S0
+
+          .. type:: elt
+
+          .. type:: t
+
+          .. val:: map
+            :type: t -> f:(elt -> 'b) -> 'b list
+
+          .. val:: map_i
+            :type: t -> f:(i:int -> elt -> 'b) -> 'b list
+
+          .. val:: map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * 'b) -> 'b list
+
+          .. val:: filter
+            :type: t -> f:(elt -> bool) -> elt list
+
+          .. val:: filter_i
+            :type: t -> f:(i:int -> elt -> bool) -> elt list
+
+          .. val:: filter_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * bool) -> elt list
+
+          .. val:: filter_map
+            :type: t -> f:(elt -> 'b option) -> 'b list
+
+          .. val:: filter_map_i
+            :type: t -> f:(i:int -> elt -> 'b option) -> 'b list
+
+          .. val:: filter_map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * 'b option) -> 'b list
+
+          .. val:: flat_map
+            :type: t -> f:(elt -> 'b list) -> 'b list
+
+          .. val:: flat_map_i
+            :type: t -> f:(i:int -> elt -> 'b list) -> 'b list
+
+          .. val:: flat_map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * 'b list) -> 'b list
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: map
+            :type: 'a t -> f:('a -> 'b) -> 'b list
+
+          .. val:: map_i
+            :type: 'a t -> f:(i:int -> 'a -> 'b) -> 'b list
+
+          .. val:: map_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b) -> 'b list
+
+          .. val:: filter
+            :type: 'a t -> f:('a -> bool) -> 'a list
+
+          .. val:: filter_i
+            :type: 'a t -> f:(i:int -> 'a -> bool) -> 'a list
+
+          .. val:: filter_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a list
+
+          .. val:: filter_map
+            :type: 'a t -> f:('a -> 'b option) -> 'b list
+
+          .. val:: filter_map_i
+            :type: 'a t -> f:(i:int -> 'a -> 'b option) -> 'b list
+
+          .. val:: filter_map_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b list
+
+          .. val:: flat_map
+            :type: 'a t -> f:('a -> 'b list) -> 'b list
+
+          .. val:: flat_map_i
+            :type: 'a t -> f:(i:int -> 'a -> 'b list) -> 'b list
+
+          .. val:: flat_map_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b list) -> 'b list
+
+        .. module:: Tests
+
+          .. module:: Make1
+
+            .. functor_parameter:: M
+
+              .. type:: t
+                :parameters: 'a
+
+              .. val:: of_list
+                :type: 'a list -> 'a t
+
+            .. functor_parameter:: ToContainer
+
+              .. val:: map
+                :type: 'a M.t -> f:('a -> 'b) -> 'b list
+
+              .. val:: map_i
+                :type: 'a M.t -> f:(i:int -> 'a -> 'b) -> 'b list
+
+              .. val:: map_acc
+                :type: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * 'b) -> 'b list
+
+              .. val:: filter
+                :type: 'a M.t -> f:('a -> bool) -> 'a list
+
+              .. val:: filter_i
+                :type: 'a M.t -> f:(i:int -> 'a -> bool) -> 'a list
+
+              .. val:: filter_acc
+                :type: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a list
+
+              .. val:: filter_map
+                :type: 'a M.t -> f:('a -> 'b option) -> 'b list
+
+              .. val:: filter_map_i
+                :type: 'a M.t -> f:(i:int -> 'a -> 'b option) -> 'b list
+
+              .. val:: filter_map_acc
+                :type: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b list
+
+              .. val:: flat_map
+                :type: 'a M.t -> f:('a -> 'b list) -> 'b list
+
+              .. val:: flat_map_i
+                :type: 'a M.t -> f:(i:int -> 'a -> 'b list) -> 'b list
+
+              .. val:: flat_map_acc
+                :type: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * 'b list) -> 'b list
+
+            .. functor_parameter:: Container
+
+              .. val:: of_list
+                :type: 'a list -> 'a list
+
+              .. val:: to_list
+                :type: 'a list -> 'a list
+
+            .. val:: test
+              :type: Testing.Test.t
+
+      .. module:: ToArray
+
+        .. module_type:: S0
+
+          .. type:: elt
+
+          .. type:: t
+
+          .. val:: map
+            :type: t -> f:(elt -> 'b) -> 'b array
+
+          .. val:: map_i
+            :type: t -> f:(i:int -> elt -> 'b) -> 'b array
+
+          .. val:: map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * 'b) -> 'b array
+
+          .. val:: filter
+            :type: t -> f:(elt -> bool) -> elt array
+
+          .. val:: filter_i
+            :type: t -> f:(i:int -> elt -> bool) -> elt array
+
+          .. val:: filter_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * bool) -> elt array
+
+          .. val:: filter_map
+            :type: t -> f:(elt -> 'b option) -> 'b array
+
+          .. val:: filter_map_i
+            :type: t -> f:(i:int -> elt -> 'b option) -> 'b array
+
+          .. val:: filter_map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * 'b option) -> 'b array
+
+          .. val:: flat_map
+            :type: t -> f:(elt -> 'b array) -> 'b array
+
+          .. val:: flat_map_i
+            :type: t -> f:(i:int -> elt -> 'b array) -> 'b array
+
+          .. val:: flat_map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * 'b array) -> 'b array
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: map
+            :type: 'a t -> f:('a -> 'b) -> 'b array
+
+          .. val:: map_i
+            :type: 'a t -> f:(i:int -> 'a -> 'b) -> 'b array
+
+          .. val:: map_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b) -> 'b array
+
+          .. val:: filter
+            :type: 'a t -> f:('a -> bool) -> 'a array
+
+          .. val:: filter_i
+            :type: 'a t -> f:(i:int -> 'a -> bool) -> 'a array
+
+          .. val:: filter_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a array
+
+          .. val:: filter_map
+            :type: 'a t -> f:('a -> 'b option) -> 'b array
+
+          .. val:: filter_map_i
+            :type: 'a t -> f:(i:int -> 'a -> 'b option) -> 'b array
+
+          .. val:: filter_map_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b array
+
+          .. val:: flat_map
+            :type: 'a t -> f:('a -> 'b array) -> 'b array
+
+          .. val:: flat_map_i
+            :type: 'a t -> f:(i:int -> 'a -> 'b array) -> 'b array
+
+          .. val:: flat_map_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b array) -> 'b array
+
+        .. module:: Tests
+
+          .. module:: Make1
+
+            .. functor_parameter:: M
+
+              .. type:: t
+                :parameters: 'a
+
+              .. val:: of_list
+                :type: 'a list -> 'a t
+
+            .. functor_parameter:: ToContainer
+
+              .. val:: map
+                :type: 'a M.t -> f:('a -> 'b) -> 'b array
+
+              .. val:: map_i
+                :type: 'a M.t -> f:(i:int -> 'a -> 'b) -> 'b array
+
+              .. val:: map_acc
+                :type: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * 'b) -> 'b array
+
+              .. val:: filter
+                :type: 'a M.t -> f:('a -> bool) -> 'a array
+
+              .. val:: filter_i
+                :type: 'a M.t -> f:(i:int -> 'a -> bool) -> 'a array
+
+              .. val:: filter_acc
+                :type: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a array
+
+              .. val:: filter_map
+                :type: 'a M.t -> f:('a -> 'b option) -> 'b array
+
+              .. val:: filter_map_i
+                :type: 'a M.t -> f:(i:int -> 'a -> 'b option) -> 'b array
+
+              .. val:: filter_map_acc
+                :type: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b array
+
+              .. val:: flat_map
+                :type: 'a M.t -> f:('a -> 'b array) -> 'b array
+
+              .. val:: flat_map_i
+                :type: 'a M.t -> f:(i:int -> 'a -> 'b array) -> 'b array
+
+              .. val:: flat_map_acc
+                :type: acc:'acc -> 'a M.t -> f:(acc:'acc -> 'a -> 'acc * 'b array) -> 'b array
+
+            .. functor_parameter:: Container
+
+              .. val:: of_list
+                :type: 'a list -> 'a array
+
+              .. val:: to_list
+                :type: 'a array -> 'a list
+
+            .. val:: test
+              :type: Testing.Test.t
+
+      .. module:: Tests
+
+        .. module:: Make1
+
+          .. functor_parameter:: M
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: map
+              :type: 'a t -> f:('a -> 'b) -> 'b t
+
+            .. val:: map_i
+              :type: 'a t -> f:(i:int -> 'a -> 'b) -> 'b t
+
+            .. val:: map_acc
+              :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b) -> 'b t
+
+            .. val:: filter
+              :type: 'a t -> f:('a -> bool) -> 'a t
+
+            .. val:: filter_i
+              :type: 'a t -> f:(i:int -> 'a -> bool) -> 'a t
+
+            .. val:: filter_acc
+              :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a t
+
+            .. val:: filter_map
+              :type: 'a t -> f:('a -> 'b option) -> 'b t
+
+            .. val:: filter_map_i
+              :type: 'a t -> f:(i:int -> 'a -> 'b option) -> 'b t
+
+            .. val:: filter_map_acc
+              :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b t
+
+            .. val:: flat_map
+              :type: 'a t -> f:('a -> 'b t) -> 'b t
+
+            .. val:: flat_map_i
+              :type: 'a t -> f:(i:int -> 'a -> 'b t) -> 'b t
+
+            .. val:: flat_map_acc
+              :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b t) -> 'b t
+
+            .. val:: to_list
+              :type: 'a t -> 'a list
+
+            .. val:: of_list
+              :type: 'a list -> 'a t
+
+          .. val:: test
+            :type: Testing.Test.t
+
+    .. module:: Foldable
+
+      .. module:: Basic
+
+        .. module_type:: S0
+
+          .. type:: elt
+
+          .. type:: t
+
+          .. val:: fold
+            :type: init:'b -> t -> f:('b -> elt -> 'b) -> 'b
+
+          .. val:: fold_i
+            :type: init:'b -> t -> f:(i:int -> 'b -> elt -> 'b) -> 'b
+
+          .. val:: fold_acc
+            :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> elt -> 'acc * 'b) -> 'b
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: fold
+            :type: init:'b -> 'a t -> f:('b -> 'a -> 'b) -> 'b
+
+          .. val:: fold_i
+            :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> 'b) -> 'b
+
+          .. val:: fold_acc
+            :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b
+
+      .. module_type:: S0
+
+        .. type:: elt
+
+        .. type:: t
+
+        .. val:: fold
+          :type: init:'b -> t -> f:('b -> elt -> 'b) -> 'b
+
+        .. val:: fold_i
+          :type: init:'b -> t -> f:(i:int -> 'b -> elt -> 'b) -> 'b
+
+        .. val:: fold_acc
+          :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> elt -> 'acc * 'b) -> 'b
+
+        .. val:: reduce
+          :type: t -> f:(elt -> elt -> elt) -> elt
+
+        .. val:: reduce_i
+          :type: t -> f:(i:int -> elt -> elt -> elt) -> elt
+
+        .. val:: reduce_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> elt -> elt -> 'acc * elt) -> elt
+
+        .. val:: try_reduce
+          :type: t -> f:(elt -> elt -> elt) -> elt option
+
+        .. val:: try_reduce_i
+          :type: t -> f:(i:int -> elt -> elt -> elt) -> elt option
+
+        .. val:: try_reduce_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> elt -> elt -> 'acc * elt) -> elt option
+
+        .. val:: iter
+          :type: t -> f:(elt -> unit) -> unit
+
+        .. val:: iter_i
+          :type: t -> f:(i:int -> elt -> unit) -> unit
+
+        .. val:: iter_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc) -> unit
+
+        .. val:: count
+          :type: t -> f:(elt -> bool) -> int
+
+        .. val:: count_i
+          :type: t -> f:(i:int -> elt -> bool) -> int
+
+        .. val:: count_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * bool) -> int
+
+      .. module_type:: S1
+
+        .. type:: t
+          :parameters: 'a
+
+        .. val:: fold
+          :type: init:'b -> 'a t -> f:('b -> 'a -> 'b) -> 'b
+
+        .. val:: fold_i
+          :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> 'b) -> 'b
+
+        .. val:: fold_acc
+          :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b
+
+        .. val:: reduce
+          :type: 'a t -> f:('a -> 'a -> 'a) -> 'a
+
+        .. val:: reduce_i
+          :type: 'a t -> f:(i:int -> 'a -> 'a -> 'a) -> 'a
+
+        .. val:: reduce_acc
+          :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'a -> 'acc * 'a) -> 'a
+
+        .. val:: try_reduce
+          :type: 'a t -> f:('a -> 'a -> 'a) -> 'a option
+
+        .. val:: try_reduce_i
+          :type: 'a t -> f:(i:int -> 'a -> 'a -> 'a) -> 'a option
+
+        .. val:: try_reduce_acc
+          :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'a -> 'acc * 'a) -> 'a option
+
+        .. val:: iter
+          :type: 'a t -> f:('a -> unit) -> unit
+
+        .. val:: iter_i
+          :type: 'a t -> f:(i:int -> 'a -> unit) -> unit
+
+        .. val:: iter_acc
+          :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc) -> unit
+
+        .. val:: count
+          :type: 'a t -> f:('a -> bool) -> int
+
+        .. val:: count_i
+          :type: 'a t -> f:(i:int -> 'a -> bool) -> int
+
+        .. val:: count_acc
+          :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> int
+
+      .. module:: Right
+
+        .. module:: Basic
+
+          .. module_type:: S0
+
+            .. type:: elt
+
+            .. type:: t
+
+            .. val:: fold_right
+              :type: t -> init:'b -> f:(elt -> 'b -> 'b) -> 'b
+
+            .. val:: fold_right_i
+              :type: t -> init:'b -> f:(i:int -> elt -> 'b -> 'b) -> 'b
+
+            .. val:: fold_right_acc
+              :type: acc:'acc -> t -> init:'b -> f:(acc:'acc -> elt -> 'b -> 'acc * 'b) -> 'b
+
+          .. module_type:: S1
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: fold_right
+              :type: 'a t -> init:'b -> f:('a -> 'b -> 'b) -> 'b
+
+            .. val:: fold_right_i
+              :type: 'a t -> init:'b -> f:(i:int -> 'a -> 'b -> 'b) -> 'b
+
+            .. val:: fold_right_acc
+              :type: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * 'b) -> 'b
+
+        .. module_type:: S0
+
+          .. type:: elt
+
+          .. type:: t
+
+          .. val:: fold_right
+            :type: t -> init:'b -> f:(elt -> 'b -> 'b) -> 'b
+
+          .. val:: fold_right_i
+            :type: t -> init:'b -> f:(i:int -> elt -> 'b -> 'b) -> 'b
+
+          .. val:: fold_right_acc
+            :type: acc:'acc -> t -> init:'b -> f:(acc:'acc -> elt -> 'b -> 'acc * 'b) -> 'b
+
+          .. val:: reduce_right
+            :type: t -> f:(elt -> elt -> elt) -> elt
+
+          .. val:: reduce_right_i
+            :type: t -> f:(i:int -> elt -> elt -> elt) -> elt
+
+          .. val:: reduce_right_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> elt -> 'acc * elt) -> elt
+
+          .. val:: try_reduce_right
+            :type: t -> f:(elt -> elt -> elt) -> elt option
+
+          .. val:: try_reduce_right_i
+            :type: t -> f:(i:int -> elt -> elt -> elt) -> elt option
+
+          .. val:: try_reduce_right_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> elt -> 'acc * elt) -> elt option
+
+          .. val:: iter_right
+            :type: t -> f:(elt -> unit) -> unit
+
+          .. val:: iter_right_i
+            :type: t -> f:(i:int -> elt -> unit) -> unit
+
+          .. val:: iter_right_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * unit) -> unit
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: fold_right
+            :type: 'a t -> init:'b -> f:('a -> 'b -> 'b) -> 'b
+
+          .. val:: fold_right_i
+            :type: 'a t -> init:'b -> f:(i:int -> 'a -> 'b -> 'b) -> 'b
+
+          .. val:: fold_right_acc
+            :type: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * 'b) -> 'b
+
+          .. val:: reduce_right
+            :type: 'a t -> f:('a -> 'a -> 'a) -> 'a
+
+          .. val:: reduce_right_i
+            :type: 'a t -> f:(i:int -> 'a -> 'a -> 'a) -> 'a
+
+          .. val:: reduce_right_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'a -> 'acc * 'a) -> 'a
+
+          .. val:: try_reduce_right
+            :type: 'a t -> f:('a -> 'a -> 'a) -> 'a option
+
+          .. val:: try_reduce_right_i
+            :type: 'a t -> f:(i:int -> 'a -> 'a -> 'a) -> 'a option
+
+          .. val:: try_reduce_right_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'a -> 'acc * 'a) -> 'a option
+
+          .. val:: iter_right
+            :type: 'a t -> f:('a -> unit) -> unit
+
+          .. val:: iter_right_i
+            :type: 'a t -> f:(i:int -> 'a -> unit) -> unit
+
+          .. val:: iter_right_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * unit) -> unit
+
+      .. module:: Short
+
+        .. module:: Basic
+
+          .. module_type:: S0
+
+            .. type:: elt
+
+            .. type:: t
+
+            .. val:: fold_short
+              :type: init:'b -> t -> f:('b -> elt -> Foundations.Shorten.t * 'b) -> 'b
+
+            .. val:: fold_short_i
+              :type: init:'b -> t -> f:(i:int -> 'b -> elt -> Foundations.Shorten.t * 'b) -> 'b
+
+            .. val:: fold_short_acc
+              :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> elt -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+          .. module_type:: S1
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: fold_short
+              :type: init:'b -> 'a t -> f:('b -> 'a -> Foundations.Shorten.t * 'b) -> 'b
+
+            .. val:: fold_short_i
+              :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> Foundations.Shorten.t * 'b) -> 'b
+
+            .. val:: fold_short_acc
+              :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+        .. module_type:: S0
+
+          .. type:: elt
+
+          .. type:: t
+
+          .. val:: fold_short
+            :type: init:'b -> t -> f:('b -> elt -> Foundations.Shorten.t * 'b) -> 'b
+
+          .. val:: fold_short_i
+            :type: init:'b -> t -> f:(i:int -> 'b -> elt -> Foundations.Shorten.t * 'b) -> 'b
+
+          .. val:: fold_short_acc
+            :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> elt -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+          .. val:: reduce_short
+            :type: t -> f:(elt -> elt -> Foundations.Shorten.t * elt) -> elt
+
+          .. val:: reduce_short_i
+            :type: t -> f:(i:int -> elt -> elt -> Foundations.Shorten.t * elt) -> elt
+
+          .. val:: reduce_short_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> elt -> 'acc * Foundations.Shorten.t * elt) -> elt
+
+          .. val:: try_reduce_short
+            :type: t -> f:(elt -> elt -> Foundations.Shorten.t * elt) -> elt option
+
+          .. val:: try_reduce_short_i
+            :type: t -> f:(i:int -> elt -> elt -> Foundations.Shorten.t * elt) -> elt option
+
+          .. val:: try_reduce_short_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> elt -> 'acc * Foundations.Shorten.t * elt) -> elt option
+
+          .. val:: iter_short
+            :type: t -> f:(elt -> Foundations.Shorten.t) -> unit
+
+          .. val:: iter_short_i
+            :type: t -> f:(i:int -> elt -> Foundations.Shorten.t) -> unit
+
+          .. val:: iter_short_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * Foundations.Shorten.t) -> unit
+
+          .. val:: for_all
+            :type: t -> f:(elt -> bool) -> bool
+
+          .. val:: for_all_i
+            :type: t -> f:(i:int -> elt -> bool) -> bool
+
+          .. val:: for_all_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * bool) -> bool
+
+          .. val:: there_exists
+            :type: t -> f:(elt -> bool) -> bool
+
+          .. val:: there_exists_i
+            :type: t -> f:(i:int -> elt -> bool) -> bool
+
+          .. val:: there_exists_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * bool) -> bool
+
+          .. val:: find
+            :type: t -> f:(elt -> bool) -> elt
+
+          .. val:: find_i
+            :type: t -> f:(i:int -> elt -> bool) -> elt
+
+          .. val:: find_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * bool) -> elt
+
+          .. val:: try_find
+            :type: t -> f:(elt -> bool) -> elt option
+
+          .. val:: try_find_i
+            :type: t -> f:(i:int -> elt -> bool) -> elt option
+
+          .. val:: try_find_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * bool) -> elt option
+
+          .. val:: find_map
+            :type: t -> f:(elt -> 'b option) -> 'b
+
+          .. val:: find_map_i
+            :type: t -> f:(i:int -> elt -> 'b option) -> 'b
+
+          .. val:: find_map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * 'b option) -> 'b
+
+          .. val:: try_find_map
+            :type: t -> f:(elt -> 'b option) -> 'b option
+
+          .. val:: try_find_map_i
+            :type: t -> f:(i:int -> elt -> 'b option) -> 'b option
+
+          .. val:: try_find_map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * 'b option) -> 'b option
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: fold_short
+            :type: init:'b -> 'a t -> f:('b -> 'a -> Foundations.Shorten.t * 'b) -> 'b
+
+          .. val:: fold_short_i
+            :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> Foundations.Shorten.t * 'b) -> 'b
+
+          .. val:: fold_short_acc
+            :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+          .. val:: reduce_short
+            :type: 'a t -> f:('a -> 'a -> Foundations.Shorten.t * 'a) -> 'a
+
+          .. val:: reduce_short_i
+            :type: 'a t -> f:(i:int -> 'a -> 'a -> Foundations.Shorten.t * 'a) -> 'a
+
+          .. val:: reduce_short_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'a -> 'acc * Foundations.Shorten.t * 'a) -> 'a
+
+          .. val:: try_reduce_short
+            :type: 'a t -> f:('a -> 'a -> Foundations.Shorten.t * 'a) -> 'a option
+
+          .. val:: try_reduce_short_i
+            :type: 'a t -> f:(i:int -> 'a -> 'a -> Foundations.Shorten.t * 'a) -> 'a option
+
+          .. val:: try_reduce_short_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'a -> 'acc * Foundations.Shorten.t * 'a) -> 'a option
+
+          .. val:: iter_short
+            :type: 'a t -> f:('a -> Foundations.Shorten.t) -> unit
+
+          .. val:: iter_short_i
+            :type: 'a t -> f:(i:int -> 'a -> Foundations.Shorten.t) -> unit
+
+          .. val:: iter_short_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * Foundations.Shorten.t) -> unit
+
+          .. val:: for_all
+            :type: 'a t -> f:('a -> bool) -> bool
+
+          .. val:: for_all_i
+            :type: 'a t -> f:(i:int -> 'a -> bool) -> bool
+
+          .. val:: for_all_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> bool
+
+          .. val:: there_exists
+            :type: 'a t -> f:('a -> bool) -> bool
+
+          .. val:: there_exists_i
+            :type: 'a t -> f:(i:int -> 'a -> bool) -> bool
+
+          .. val:: there_exists_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> bool
+
+          .. val:: find
+            :type: 'a t -> f:('a -> bool) -> 'a
+
+          .. val:: find_i
+            :type: 'a t -> f:(i:int -> 'a -> bool) -> 'a
+
+          .. val:: find_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a
+
+          .. val:: try_find
+            :type: 'a t -> f:('a -> bool) -> 'a option
+
+          .. val:: try_find_i
+            :type: 'a t -> f:(i:int -> 'a -> bool) -> 'a option
+
+          .. val:: try_find_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a option
+
+          .. val:: find_map
+            :type: 'a t -> f:('a -> 'b option) -> 'b
+
+          .. val:: find_map_i
+            :type: 'a t -> f:(i:int -> 'a -> 'b option) -> 'b
+
+          .. val:: find_map_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b
+
+          .. val:: try_find_map
+            :type: 'a t -> f:('a -> 'b option) -> 'b option
+
+          .. val:: try_find_map_i
+            :type: 'a t -> f:(i:int -> 'a -> 'b option) -> 'b option
+
+          .. val:: try_find_map_acc
+            :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b option
+
+        .. module:: Right
+
+          .. module:: Basic
+
+            .. module_type:: S0
+
+              .. type:: elt
+
+              .. type:: t
+
+              .. val:: fold_short_right
+                :type: t -> init:'b -> f:(elt -> 'b -> Foundations.Shorten.t * 'b) -> 'b
+
+              .. val:: fold_short_right_i
+                :type: t -> init:'b -> f:(i:int -> elt -> 'b -> Foundations.Shorten.t * 'b) -> 'b
+
+              .. val:: fold_short_right_acc
+                :type: acc:'acc -> t -> init:'b -> f:(acc:'acc -> elt -> 'b -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+            .. module_type:: S1
+
+              .. type:: t
+                :parameters: 'a
+
+              .. val:: fold_short_right
+                :type: 'a t -> init:'b -> f:('a -> 'b -> Foundations.Shorten.t * 'b) -> 'b
+
+              .. val:: fold_short_right_i
+                :type: 'a t -> init:'b -> f:(i:int -> 'a -> 'b -> Foundations.Shorten.t * 'b) -> 'b
+
+              .. val:: fold_short_right_acc
+                :type: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+          .. module_type:: S0
+
+            .. type:: elt
+
+            .. type:: t
+
+            .. val:: fold_short_right
+              :type: t -> init:'b -> f:(elt -> 'b -> Foundations.Shorten.t * 'b) -> 'b
+
+            .. val:: fold_short_right_i
+              :type: t -> init:'b -> f:(i:int -> elt -> 'b -> Foundations.Shorten.t * 'b) -> 'b
+
+            .. val:: fold_short_right_acc
+              :type: acc:'acc -> t -> init:'b -> f:(acc:'acc -> elt -> 'b -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+            .. val:: reduce_short_right
+              :type: t -> f:(elt -> elt -> Foundations.Shorten.t * elt) -> elt
+
+            .. val:: reduce_short_right_i
+              :type: t -> f:(i:int -> elt -> elt -> Foundations.Shorten.t * elt) -> elt
+
+            .. val:: reduce_short_right_acc
+              :type: acc:'acc -> t -> f:(acc:'acc -> elt -> elt -> 'acc * Foundations.Shorten.t * elt) -> elt
+
+            .. val:: try_reduce_short_right
+              :type: t -> f:(elt -> elt -> Foundations.Shorten.t * elt) -> elt option
+
+            .. val:: try_reduce_short_right_i
+              :type: t -> f:(i:int -> elt -> elt -> Foundations.Shorten.t * elt) -> elt option
+
+            .. val:: try_reduce_short_right_acc
+              :type: acc:'acc -> t -> f:(acc:'acc -> elt -> elt -> 'acc * Foundations.Shorten.t * elt) -> elt option
+
+            .. val:: iter_short_right
+              :type: t -> f:(elt -> Foundations.Shorten.t) -> unit
+
+            .. val:: iter_short_right_i
+              :type: t -> f:(i:int -> elt -> Foundations.Shorten.t) -> unit
+
+            .. val:: iter_short_right_acc
+              :type: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * Foundations.Shorten.t) -> unit
+
+          .. module_type:: S1
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: fold_short_right
+              :type: 'a t -> init:'b -> f:('a -> 'b -> Foundations.Shorten.t * 'b) -> 'b
+
+            .. val:: fold_short_right_i
+              :type: 'a t -> init:'b -> f:(i:int -> 'a -> 'b -> Foundations.Shorten.t * 'b) -> 'b
+
+            .. val:: fold_short_right_acc
+              :type: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+            .. val:: reduce_short_right
+              :type: 'a t -> f:('a -> 'a -> Foundations.Shorten.t * 'a) -> 'a
+
+            .. val:: reduce_short_right_i
+              :type: 'a t -> f:(i:int -> 'a -> 'a -> Foundations.Shorten.t * 'a) -> 'a
+
+            .. val:: reduce_short_right_acc
+              :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'a -> 'acc * Foundations.Shorten.t * 'a) -> 'a
+
+            .. val:: try_reduce_short_right
+              :type: 'a t -> f:('a -> 'a -> Foundations.Shorten.t * 'a) -> 'a option
+
+            .. val:: try_reduce_short_right_i
+              :type: 'a t -> f:(i:int -> 'a -> 'a -> Foundations.Shorten.t * 'a) -> 'a option
+
+            .. val:: try_reduce_short_right_acc
+              :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'a -> 'acc * Foundations.Shorten.t * 'a) -> 'a option
+
+            .. val:: iter_short_right
+              :type: 'a t -> f:('a -> Foundations.Shorten.t) -> unit
+
+            .. val:: iter_short_right_i
+              :type: 'a t -> f:(i:int -> 'a -> Foundations.Shorten.t) -> unit
+
+            .. val:: iter_short_right_acc
+              :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * Foundations.Shorten.t) -> unit
+
+    .. module:: Parsable
+
+      .. module:: Basic
+
+        .. module_type:: S0
+
+          .. type:: t
+
+          .. val:: try_of_string
+            :type: string -> t option
+
+          .. val:: of_string
+            :type: string -> t
+
+      .. module_type:: S0
+
+        .. type:: t
+
+        .. val:: try_of_string
+          :type: string -> t option
+
+        .. val:: of_string
+          :type: string -> t
+
+      .. module:: Tests
+
+        .. module:: Examples
+
+          .. module_type:: S0
+
+            .. type:: t
+
+            .. val:: of_string
+              :type: (string * t) list
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: try_of_string
+              :type: string -> t option
+
+            .. val:: of_string
+              :type: string -> t
+
+            .. val:: equal
+              :type: t -> t -> bool
+
+            .. val:: repr
+              :type: t -> string
+
+          .. functor_parameter:: E
+
+            .. val:: of_string
+              :type: (string * M.t) list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+    .. module:: PredSucc
+
+      .. module_type:: S0
+
+        .. type:: t
+
+        .. val:: succ
+          :type: t -> t
+
+        .. val:: pred
+          :type: t -> t
+
+      .. module:: Make0
+
+        .. functor_parameter:: M
+
+          .. type:: t
+
+          .. val:: one
+            :type: t
+
+          .. val:: add
+            :type: t -> t -> t
+
+          .. val:: substract
+            :type: t -> t -> t
+
+        .. val:: pred
+          :type: M.t -> M.t
+
+        .. val:: succ
+          :type: M.t -> M.t
+
+      .. module:: Tests
+
+        .. module:: Examples
+
+          .. module_type:: S0
+
+            .. type:: t
+
+            .. val:: succ
+              :type: (t * t) list
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: succ
+              :type: t -> t
+
+            .. val:: pred
+              :type: t -> t
+
+            .. val:: equal
+              :type: t -> t -> bool
+
+            .. val:: repr
+              :type: t -> string
+
+          .. functor_parameter:: E
+
+            .. val:: succ
+              :type: (M.t * M.t) list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+    .. module:: Ringoid
+
+      .. module:: Basic
+
+        .. module_type:: S0
+
+          .. type:: t
+
+          .. val:: zero
+            :type: t
+
+          .. val:: one
+            :type: t
+
+          .. val:: negate
+            :type: t -> t
+
+          .. val:: add
+            :type: t -> t -> t
+
+          .. val:: substract
+            :type: t -> t -> t
+
+          .. val:: multiply
+            :type: t -> t -> t
+
+          .. val:: divide
+            :type: t -> t -> t
+
+      .. module:: Operators
+
+        .. module_type:: S0
+
+          .. type:: t
+
+          .. val:: (~+)
+            :type: t -> t
+
+          .. val:: (~-)
+            :type: t -> t
+
+          .. val:: (+)
+            :type: t -> t -> t
+
+          .. val:: (-)
+            :type: t -> t -> t
+
+          .. val:: (*)
+            :type: t -> t -> t
+
+          .. val:: (/)
+            :type: t -> t -> t
+
+          .. val:: (**)
+            :type: t -> int -> t
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: negate
+              :type: t -> t
+
+            .. val:: add
+              :type: t -> t -> t
+
+            .. val:: substract
+              :type: t -> t -> t
+
+            .. val:: multiply
+              :type: t -> t -> t
+
+            .. val:: divide
+              :type: t -> t -> t
+
+            .. val:: exponentiate
+              :type: t -> int -> t
+
+          .. val:: (~+)
+            :type: 'a -> 'a
+
+          .. val:: (~-)
+            :type: M.t -> M.t
+
+          .. val:: (+)
+            :type: M.t -> M.t -> M.t
+
+          .. val:: (-)
+            :type: M.t -> M.t -> M.t
+
+          .. val:: (*)
+            :type: M.t -> M.t -> M.t
+
+          .. val:: (/)
+            :type: M.t -> M.t -> M.t
+
+          .. val:: (**)
+            :type: M.t -> int -> M.t
+
+      .. module_type:: S0
+
+        .. type:: t
+
+        .. val:: zero
+          :type: t
+
+        .. val:: one
+          :type: t
+
+        .. val:: negate
+          :type: t -> t
+
+        .. val:: add
+          :type: t -> t -> t
+
+        .. val:: substract
+          :type: t -> t -> t
+
+        .. val:: multiply
+          :type: t -> t -> t
+
+        .. val:: divide
+          :type: t -> t -> t
+
+        .. val:: square
+          :type: t -> t
+
+        .. val:: exponentiate
+          :type: t -> int -> t
+
+        .. module:: O
+
+          .. val:: (~+)
+            :type: t -> t
+
+          .. val:: (~-)
+            :type: t -> t
+
+          .. val:: (+)
+            :type: t -> t -> t
+
+          .. val:: (-)
+            :type: t -> t -> t
+
+          .. val:: (*)
+            :type: t -> t -> t
+
+          .. val:: (/)
+            :type: t -> t -> t
+
+          .. val:: (**)
+            :type: t -> int -> t
+
+      .. module:: Substract
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: negate
+              :type: t -> t
+
+            .. val:: add
+              :type: t -> t -> t
+
+          .. val:: substract
+            :type: M.t -> M.t -> M.t
+
+      .. module:: Square
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: multiply
+              :type: t -> t -> t
+
+          .. val:: square
+            :type: M.t -> M.t
+
+      .. module:: Exponentiate
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: one
+              :type: t
+
+            .. val:: square
+              :type: t -> t
+
+            .. val:: multiply
+              :type: t -> t -> t
+
+            .. val:: exponentiate_negative_exponent
+              :type: exponentiate:(t -> int -> t) -> t -> int -> t
+
+          .. val:: exponentiate
+            :type: M.t -> int -> M.t
+
+      .. module:: Tests
+
+        .. module:: Examples
+
+          .. module_type:: S0
+
+            .. type:: t
+
+            .. val:: add_substract
+              :type: (t * t * t) list
+
+            .. val:: negate
+              :type: (t * t) list
+
+            .. val:: multiply
+              :type: (t * t * t) list
+
+            .. val:: divide
+              :type: (t * t * t) list
+
+            .. val:: exponentiate
+              :type: (t * int * t) list
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: zero
+              :type: t
+
+            .. val:: one
+              :type: t
+
+            .. val:: negate
+              :type: t -> t
+
+            .. val:: add
+              :type: t -> t -> t
+
+            .. val:: substract
+              :type: t -> t -> t
+
+            .. val:: multiply
+              :type: t -> t -> t
+
+            .. val:: divide
+              :type: t -> t -> t
+
+            .. val:: square
+              :type: t -> t
+
+            .. val:: exponentiate
+              :type: t -> int -> t
+
+            .. module:: O
+
+              .. val:: (~+)
+                :type: t -> t
+
+              .. val:: (~-)
+                :type: t -> t
+
+              .. val:: (+)
+                :type: t -> t -> t
+
+              .. val:: (-)
+                :type: t -> t -> t
+
+              .. val:: (*)
+                :type: t -> t -> t
+
+              .. val:: (/)
+                :type: t -> t -> t
+
+              .. val:: (**)
+                :type: t -> int -> t
+
+            .. val:: repr
+              :type: t -> string
+
+            .. val:: equal
+              :type: t -> t -> bool
+
+          .. functor_parameter:: E
+
+            .. val:: add_substract
+              :type: (M.t * M.t * M.t) list
+
+            .. val:: negate
+              :type: (M.t * M.t) list
+
+            .. val:: multiply
+              :type: (M.t * M.t * M.t) list
+
+            .. val:: divide
+              :type: (M.t * M.t * M.t) list
+
+            .. val:: exponentiate
+              :type: (M.t * int * M.t) list
+
+          .. val:: test
+            :type: Testing.Test.t
+
+    .. module:: Scanable
+
+      .. module_type:: S0
+
+        .. type:: elt
+
+        .. type:: t
+
+        .. val:: scan
+          :type: init:elt -> t -> f:(elt -> elt -> elt) -> t
+
+        .. val:: scan_i
+          :type: init:elt -> t -> f:(i:int -> elt -> elt -> elt) -> t
+
+        .. val:: scan_acc
+          :type: acc:'acc -> init:elt -> t -> f:(acc:'acc -> elt -> elt -> 'acc * elt) -> t
+
+      .. module_type:: S1
+
+        .. type:: t
+          :parameters: 'a
+
+        .. val:: scan
+          :type: init:'b -> 'a t -> f:('b -> 'a -> 'b) -> 'b t
+
+        .. val:: scan_i
+          :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> 'b) -> 'b t
+
+        .. val:: scan_acc
+          :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b t
+
+      .. module:: ToContainer
+
+        .. functor_parameter:: C
+
+          .. type:: t
+            :parameters: 'a
+
+        .. module_type:: S0
+
+          .. type:: elt
+
+          .. type:: t
+
+          .. val:: scan
+            :type: init:'a -> t -> f:('a -> elt -> 'a) -> 'a C.t
+
+          .. val:: scan_i
+            :type: init:'a -> t -> f:(i:int -> 'a -> elt -> 'a) -> 'a C.t
+
+          .. val:: scan_acc
+            :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> elt -> 'acc * 'a) -> 'a C.t
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: scan
+            :type: init:'b -> 'a t -> f:('b -> 'a -> 'b) -> 'b C.t
+
+          .. val:: scan_i
+            :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> 'b) -> 'b C.t
+
+          .. val:: scan_acc
+            :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b C.t
+
+      .. module:: ToList
+
+        .. module_type:: S0
+
+          .. type:: elt
+
+          .. type:: t
+
+          .. val:: scan
+            :type: init:'a -> t -> f:('a -> elt -> 'a) -> 'a list
+
+          .. val:: scan_i
+            :type: init:'a -> t -> f:(i:int -> 'a -> elt -> 'a) -> 'a list
+
+          .. val:: scan_acc
+            :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> elt -> 'acc * 'a) -> 'a list
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: scan
+            :type: init:'b -> 'a t -> f:('b -> 'a -> 'b) -> 'b list
+
+          .. val:: scan_i
+            :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> 'b) -> 'b list
+
+          .. val:: scan_acc
+            :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b list
+
+      .. module:: ToArray
+
+        .. module_type:: S0
+
+          .. type:: elt
+
+          .. type:: t
+
+          .. val:: scan
+            :type: init:'a -> t -> f:('a -> elt -> 'a) -> 'a array
+
+          .. val:: scan_i
+            :type: init:'a -> t -> f:(i:int -> 'a -> elt -> 'a) -> 'a array
+
+          .. val:: scan_acc
+            :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> elt -> 'acc * 'a) -> 'a array
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: scan
+            :type: init:'b -> 'a t -> f:('b -> 'a -> 'b) -> 'b array
+
+          .. val:: scan_i
+            :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> 'b) -> 'b array
+
+          .. val:: scan_acc
+            :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b array
+
+      .. module:: Right
+
+        .. module_type:: S0
+
+          .. type:: elt
+
+          .. type:: t
+
+          .. val:: scan_right
+            :type: t -> init:elt -> f:(elt -> elt -> elt) -> t
+
+          .. val:: scan_right_i
+            :type: t -> init:elt -> f:(i:int -> elt -> elt -> elt) -> t
+
+          .. val:: scan_right_acc
+            :type: acc:'acc -> t -> init:elt -> f:(acc:'acc -> elt -> elt -> 'acc * elt) -> t
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: scan_right
+            :type: 'a t -> init:'b -> f:('a -> 'b -> 'b) -> 'b t
+
+          .. val:: scan_right_i
+            :type: 'a t -> init:'b -> f:(i:int -> 'a -> 'b -> 'b) -> 'b t
+
+          .. val:: scan_right_acc
+            :type: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * 'b) -> 'b t
+
+        .. module:: ToContainer
+
+          .. functor_parameter:: C
+
+            .. type:: t
+              :parameters: 'a
+
+          .. module_type:: S0
+
+            .. type:: elt
+
+            .. type:: t
+
+            .. val:: scan_right
+              :type: t -> init:'a -> f:(elt -> 'a -> 'a) -> 'a C.t
+
+            .. val:: scan_right_i
+              :type: t -> init:'a -> f:(i:int -> elt -> 'a -> 'a) -> 'a C.t
+
+            .. val:: scan_right_acc
+              :type: acc:'acc -> t -> init:'a -> f:(acc:'acc -> elt -> 'a -> 'acc * 'a) -> 'a C.t
+
+          .. module_type:: S1
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: scan_right
+              :type: 'a t -> init:'b -> f:('a -> 'b -> 'b) -> 'b C.t
+
+            .. val:: scan_right_i
+              :type: 'a t -> init:'b -> f:(i:int -> 'a -> 'b -> 'b) -> 'b C.t
+
+            .. val:: scan_right_acc
+              :type: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * 'b) -> 'b C.t
+
+        .. module:: ToList
+
+          .. module_type:: S0
+
+            .. type:: elt
+
+            .. type:: t
+
+            .. val:: scan_right
+              :type: t -> init:'a -> f:(elt -> 'a -> 'a) -> 'a list
+
+            .. val:: scan_right_i
+              :type: t -> init:'a -> f:(i:int -> elt -> 'a -> 'a) -> 'a list
+
+            .. val:: scan_right_acc
+              :type: acc:'acc -> t -> init:'a -> f:(acc:'acc -> elt -> 'a -> 'acc * 'a) -> 'a list
+
+          .. module_type:: S1
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: scan_right
+              :type: 'a t -> init:'b -> f:('a -> 'b -> 'b) -> 'b list
+
+            .. val:: scan_right_i
+              :type: 'a t -> init:'b -> f:(i:int -> 'a -> 'b -> 'b) -> 'b list
+
+            .. val:: scan_right_acc
+              :type: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * 'b) -> 'b list
+
+        .. module:: ToArray
+
+          .. module_type:: S0
+
+            .. type:: elt
+
+            .. type:: t
+
+            .. val:: scan_right
+              :type: t -> init:'a -> f:(elt -> 'a -> 'a) -> 'a array
+
+            .. val:: scan_right_i
+              :type: t -> init:'a -> f:(i:int -> elt -> 'a -> 'a) -> 'a array
+
+            .. val:: scan_right_acc
+              :type: acc:'acc -> t -> init:'a -> f:(acc:'acc -> elt -> 'a -> 'acc * 'a) -> 'a array
+
+          .. module_type:: S1
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: scan_right
+              :type: 'a t -> init:'b -> f:('a -> 'b -> 'b) -> 'b array
+
+            .. val:: scan_right_i
+              :type: 'a t -> init:'b -> f:(i:int -> 'a -> 'b -> 'b) -> 'b array
+
+            .. val:: scan_right_acc
+              :type: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * 'b) -> 'b array
+
+      .. module:: Short
+
+        .. module_type:: S0
+
+          .. type:: elt
+
+          .. type:: t
+
+          .. val:: scan_short
+            :type: init:elt -> t -> f:(elt -> elt -> Foundations.Shorten.t * elt) -> t
+
+          .. val:: scan_short_i
+            :type: init:elt -> t -> f:(i:int -> elt -> elt -> Foundations.Shorten.t * elt) -> t
+
+          .. val:: scan_short_acc
+            :type: acc:'acc -> init:elt -> t -> f:(acc:'acc -> elt -> elt -> 'acc * Foundations.Shorten.t * elt) -> t
+
+        .. module_type:: S1
+
+          .. type:: t
+            :parameters: 'a
+
+          .. val:: scan_short
+            :type: init:'b -> 'a t -> f:('b -> 'a -> Foundations.Shorten.t * 'b) -> 'b t
+
+          .. val:: scan_short_i
+            :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> Foundations.Shorten.t * 'b) -> 'b t
+
+          .. val:: scan_short_acc
+            :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Foundations.Shorten.t * 'b) -> 'b t
+
+        .. module:: ToContainer
+
+          .. functor_parameter:: C
+
+            .. type:: t
+              :parameters: 'a
+
+          .. module_type:: S0
+
+            .. type:: elt
+
+            .. type:: t
+
+            .. val:: scan_short
+              :type: init:'a -> t -> f:('a -> elt -> Foundations.Shorten.t * 'a) -> 'a C.t
+
+            .. val:: scan_short_i
+              :type: init:'a -> t -> f:(i:int -> 'a -> elt -> Foundations.Shorten.t * 'a) -> 'a C.t
+
+            .. val:: scan_short_acc
+              :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> elt -> 'acc * Foundations.Shorten.t * 'a) -> 'a C.t
+
+          .. module_type:: S1
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: scan_short
+              :type: init:'b -> 'a t -> f:('b -> 'a -> Foundations.Shorten.t * 'b) -> 'b C.t
+
+            .. val:: scan_short_i
+              :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> Foundations.Shorten.t * 'b) -> 'b C.t
+
+            .. val:: scan_short_acc
+              :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Foundations.Shorten.t * 'b) -> 'b C.t
+
+        .. module:: ToList
+
+          .. module_type:: S0
+
+            .. type:: elt
+
+            .. type:: t
+
+            .. val:: scan_short
+              :type: init:'a -> t -> f:('a -> elt -> Foundations.Shorten.t * 'a) -> 'a list
+
+            .. val:: scan_short_i
+              :type: init:'a -> t -> f:(i:int -> 'a -> elt -> Foundations.Shorten.t * 'a) -> 'a list
+
+            .. val:: scan_short_acc
+              :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> elt -> 'acc * Foundations.Shorten.t * 'a) -> 'a list
+
+          .. module_type:: S1
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: scan_short
+              :type: init:'b -> 'a t -> f:('b -> 'a -> Foundations.Shorten.t * 'b) -> 'b list
+
+            .. val:: scan_short_i
+              :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> Foundations.Shorten.t * 'b) -> 'b list
+
+            .. val:: scan_short_acc
+              :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Foundations.Shorten.t * 'b) -> 'b list
+
+        .. module:: ToArray
+
+          .. module_type:: S0
+
+            .. type:: elt
+
+            .. type:: t
+
+            .. val:: scan_short
+              :type: init:'a -> t -> f:('a -> elt -> Foundations.Shorten.t * 'a) -> 'a array
+
+            .. val:: scan_short_i
+              :type: init:'a -> t -> f:(i:int -> 'a -> elt -> Foundations.Shorten.t * 'a) -> 'a array
+
+            .. val:: scan_short_acc
+              :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> elt -> 'acc * Foundations.Shorten.t * 'a) -> 'a array
+
+          .. module_type:: S1
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: scan_short
+              :type: init:'b -> 'a t -> f:('b -> 'a -> Foundations.Shorten.t * 'b) -> 'b array
+
+            .. val:: scan_short_i
+              :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> Foundations.Shorten.t * 'b) -> 'b array
+
+            .. val:: scan_short_acc
+              :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Foundations.Shorten.t * 'b) -> 'b array
+
+        .. module:: Right
+
+          .. module_type:: S0
+
+            .. type:: elt
+
+            .. type:: t
+
+            .. val:: scan_short_right
+              :type: t -> init:elt -> f:(elt -> elt -> Foundations.Shorten.t * elt) -> t
+
+            .. val:: scan_short_right_i
+              :type: t -> init:elt -> f:(i:int -> elt -> elt -> Foundations.Shorten.t * elt) -> t
+
+            .. val:: scan_short_right_acc
+              :type: acc:'acc -> t -> init:elt -> f:(acc:'acc -> elt -> elt -> 'acc * Foundations.Shorten.t * elt) -> t
+
+          .. module_type:: S1
+
+            .. type:: t
+              :parameters: 'a
+
+            .. val:: scan_short_right
+              :type: 'a t -> init:'b -> f:('a -> 'b -> Foundations.Shorten.t * 'b) -> 'b t
+
+            .. val:: scan_short_right_i
+              :type: 'a t -> init:'b -> f:(i:int -> 'a -> 'b -> Foundations.Shorten.t * 'b) -> 'b t
+
+            .. val:: scan_short_right_acc
+              :type: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * Foundations.Shorten.t * 'b) -> 'b t
+
+          .. module:: ToContainer
+
+            .. functor_parameter:: C
+
+              .. type:: t
+                :parameters: 'a
+
+            .. module_type:: S0
+
+              .. type:: elt
+
+              .. type:: t
+
+              .. val:: scan_short_right
+                :type: t -> init:'a -> f:(elt -> 'a -> Foundations.Shorten.t * 'a) -> 'a C.t
+
+              .. val:: scan_short_right_i
+                :type: t -> init:'a -> f:(i:int -> elt -> 'a -> Foundations.Shorten.t * 'a) -> 'a C.t
+
+              .. val:: scan_short_right_acc
+                :type: acc:'acc -> t -> init:'a -> f:(acc:'acc -> elt -> 'a -> 'acc * Foundations.Shorten.t * 'a) -> 'a C.t
+
+            .. module_type:: S1
+
+              .. type:: t
+                :parameters: 'a
+
+              .. val:: scan_short_right
+                :type: 'a t -> init:'b -> f:('a -> 'b -> Foundations.Shorten.t * 'b) -> 'b C.t
+
+              .. val:: scan_short_right_i
+                :type: 'a t -> init:'b -> f:(i:int -> 'a -> 'b -> Foundations.Shorten.t * 'b) -> 'b C.t
+
+              .. val:: scan_short_right_acc
+                :type: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * Foundations.Shorten.t * 'b) -> 'b C.t
+
+          .. module:: ToList
+
+            .. module_type:: S0
+
+              .. type:: elt
+
+              .. type:: t
+
+              .. val:: scan_short_right
+                :type: t -> init:'a -> f:(elt -> 'a -> Foundations.Shorten.t * 'a) -> 'a list
+
+              .. val:: scan_short_right_i
+                :type: t -> init:'a -> f:(i:int -> elt -> 'a -> Foundations.Shorten.t * 'a) -> 'a list
+
+              .. val:: scan_short_right_acc
+                :type: acc:'acc -> t -> init:'a -> f:(acc:'acc -> elt -> 'a -> 'acc * Foundations.Shorten.t * 'a) -> 'a list
+
+            .. module_type:: S1
+
+              .. type:: t
+                :parameters: 'a
+
+              .. val:: scan_short_right
+                :type: 'a t -> init:'b -> f:('a -> 'b -> Foundations.Shorten.t * 'b) -> 'b list
+
+              .. val:: scan_short_right_i
+                :type: 'a t -> init:'b -> f:(i:int -> 'a -> 'b -> Foundations.Shorten.t * 'b) -> 'b list
+
+              .. val:: scan_short_right_acc
+                :type: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * Foundations.Shorten.t * 'b) -> 'b list
+
+          .. module:: ToArray
+
+            .. module_type:: S0
+
+              .. type:: elt
+
+              .. type:: t
+
+              .. val:: scan_short_right
+                :type: t -> init:'a -> f:(elt -> 'a -> Foundations.Shorten.t * 'a) -> 'a array
+
+              .. val:: scan_short_right_i
+                :type: t -> init:'a -> f:(i:int -> elt -> 'a -> Foundations.Shorten.t * 'a) -> 'a array
+
+              .. val:: scan_short_right_acc
+                :type: acc:'acc -> t -> init:'a -> f:(acc:'acc -> elt -> 'a -> 'acc * Foundations.Shorten.t * 'a) -> 'a array
+
+            .. module_type:: S1
+
+              .. type:: t
+                :parameters: 'a
+
+              .. val:: scan_short_right
+                :type: 'a t -> init:'b -> f:('a -> 'b -> Foundations.Shorten.t * 'b) -> 'b array
+
+              .. val:: scan_short_right_i
+                :type: 'a t -> init:'b -> f:(i:int -> 'a -> 'b -> Foundations.Shorten.t * 'b) -> 'b array
+
+              .. val:: scan_short_right_acc
+                :type: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * Foundations.Shorten.t * 'b) -> 'b array
 
   .. module:: Concepts
+    :contents_from: module type of Concepts
 
-    Not yet documented: module_type:of
+    .. module:: Identifiable
+
+      .. module:: Operators
+
+        .. module_type:: SPoly
+
+          .. val:: (=)
+            :type: 'a -> 'a -> bool
+
+          .. val:: (<>)
+            :type: 'a -> 'a -> bool
+
+        .. module_type:: S0
+
+          .. type:: t
+
+          .. val:: (=)
+            :type: t -> t -> bool
+
+          .. val:: (<>)
+            :type: t -> t -> bool
+
+        .. module:: Make0
+
+          .. functor_parameter:: M
+
+            .. type:: t
+
+            .. val:: equal
+              :type: t -> t -> bool
+
+            .. val:: different
+              :type: t -> t -> bool
+
+          .. val:: (=)
+            :type: M.t -> M.t -> bool
+
+          .. val:: (<>)
+            :type: M.t -> M.t -> bool
+
+      .. module_type:: S0
+
+        .. type:: t
+
+        .. val:: equal
+          :type: t -> t -> bool
+
+        .. val:: different
+          :type: t -> t -> bool
+
+        .. module:: O
+
+          .. val:: (=)
+            :type: t -> t -> bool
+
+          .. val:: (<>)
+            :type: t -> t -> bool
+
+        .. val:: repr
+          :type: t -> string
+
+      .. module_type:: S1
+
+        .. type:: t
+          :parameters: 'a
+
+        .. val:: equal
+          :type: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+
+        .. val:: different
+          :type: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+
+        .. val:: repr
+          :type: 'a t -> repr_a:('a -> string) -> string
+
+      .. module_type:: S2
+
+        .. type:: t
+          :parameters: ('a, 'b)
+
+        .. val:: equal
+          :type: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+        .. val:: different
+          :type: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+        .. val:: repr
+          :type: ('a, 'b) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> string
+
+      .. module_type:: S3
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c)
+
+        .. val:: equal
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+        .. val:: different
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+        .. val:: repr
+          :type: ('a, 'b, 'c) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> string
+
+      .. module_type:: S4
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c, 'd)
+
+        .. val:: equal
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+        .. val:: different
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+        .. val:: repr
+          :type: ('a, 'b, 'c, 'd) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> string
+
+      .. module_type:: S5
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c, 'd, 'e)
+
+        .. val:: equal
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+        .. val:: different
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+        .. val:: repr
+          :type: ('a, 'b, 'c, 'd, 'e) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> repr_e:('e -> string) -> string
+
+      .. module:: Tests
+
+        .. module:: Examples
+
+          .. module_type:: S0
+
+            .. type:: t
+
+            .. val:: equal
+              :type: t list list
+
+            .. val:: different
+              :type: (t * t) list
+
+            .. val:: repr
+              :type: (t * string) list
+
+          .. module_type:: Element
+
+            .. type:: t
+
+            .. val:: equal
+              :type: t -> t -> bool
+
+            .. val:: repr
+              :type: t -> string
+
+          .. module_type:: S1
+
+            .. type:: t
+              :parameters: 'a
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. val:: equal
+              :type: A.t t list list
+
+            .. val:: different
+              :type: (A.t t * A.t t) list
+
+            .. val:: repr
+              :type: (A.t t * string) list
+
+          .. module_type:: S2
+
+            .. type:: t
+              :parameters: ('a, 'b)
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. val:: equal
+              :type: (A.t, B.t) t list list
+
+            .. val:: different
+              :type: ((A.t, B.t) t * (A.t, B.t) t) list
+
+            .. val:: repr
+              :type: ((A.t, B.t) t * string) list
+
+          .. module_type:: S3
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c)
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t) t list list
+
+            .. val:: different
+              :type: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
+
+            .. val:: repr
+              :type: ((A.t, B.t, C.t) t * string) list
+
+          .. module_type:: S4
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd)
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t, D.t) t list list
+
+            .. val:: different
+              :type: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
+
+            .. val:: repr
+              :type: ((A.t, B.t, C.t, D.t) t * string) list
+
+          .. module_type:: S5
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd, 'e)
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t, D.t, E.t) t list list
+
+            .. val:: different
+              :type: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
+
+            .. val:: repr
+              :type: ((A.t, B.t, C.t, D.t, E.t) t * string) list
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S0
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S1
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S2
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S3
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S4
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S5
+
+    .. module:: Able
+
+      .. module:: Operators
+
+        .. module_type:: S0
+
+          .. type:: t
+
+          .. val:: (=)
+            :type: t -> t -> bool
+
+          .. val:: (<>)
+            :type: t -> t -> bool
+
+          .. val:: (<)
+            :type: t -> t -> bool
+
+          .. val:: (<=)
+            :type: t -> t -> bool
+
+          .. val:: (>)
+            :type: t -> t -> bool
+
+          .. val:: (>=)
+            :type: t -> t -> bool
+
+      .. module_type:: S0
+
+        .. type:: t
+
+        .. module:: O
+
+          .. val:: (=)
+            :type: t -> t -> bool
+
+          .. val:: (<>)
+            :type: t -> t -> bool
+
+          .. val:: (<)
+            :type: t -> t -> bool
+
+          .. val:: (<=)
+            :type: t -> t -> bool
+
+          .. val:: (>)
+            :type: t -> t -> bool
+
+          .. val:: (>=)
+            :type: t -> t -> bool
+
+        .. val:: equal
+          :type: t -> t -> bool
+
+        .. val:: different
+          :type: t -> t -> bool
+
+        .. val:: repr
+          :type: t -> string
+
+        .. val:: compare
+          :type: t -> t -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: t -> t -> bool
+
+        .. val:: less_or_equal
+          :type: t -> t -> bool
+
+        .. val:: greater_than
+          :type: t -> t -> bool
+
+        .. val:: greater_or_equal
+          :type: t -> t -> bool
+
+        .. val:: between
+          :type: t -> low:t -> high:t -> bool
+
+        .. val:: between_or_equal
+          :type: t -> low:t -> high:t -> bool
+
+        .. val:: min
+          :type: t -> t -> t
+
+        .. val:: max
+          :type: t -> t -> t
+
+        .. val:: min_max
+          :type: t -> t -> t * t
+
+      .. module_type:: S1
+
+        .. type:: t
+          :parameters: 'a
+
+        .. val:: equal
+          :type: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+
+        .. val:: different
+          :type: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+
+        .. val:: repr
+          :type: 'a t -> repr_a:('a -> string) -> string
+
+        .. val:: compare
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. val:: less_or_equal
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_than
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_or_equal
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. val:: between
+          :type: 'a t -> low:'a t -> high:'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. val:: between_or_equal
+          :type: 'a t -> low:'a t -> high:'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+        .. val:: min
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t
+
+        .. val:: max
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t
+
+        .. val:: min_max
+          :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t * 'a t
+
+      .. module_type:: S2
+
+        .. type:: t
+          :parameters: ('a, 'b)
+
+        .. val:: equal
+          :type: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+        .. val:: different
+          :type: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+        .. val:: repr
+          :type: ('a, 'b) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> string
+
+        .. val:: compare
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. val:: less_or_equal
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_than
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_or_equal
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. val:: between
+          :type: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. val:: between_or_equal
+          :type: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+        .. val:: min
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) t
+
+        .. val:: max
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) t
+
+        .. val:: min_max
+          :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) t * ('a, 'b) t
+
+      .. module_type:: S3
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c)
+
+        .. val:: equal
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+        .. val:: different
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+        .. val:: repr
+          :type: ('a, 'b, 'c) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> string
+
+        .. val:: compare
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. val:: less_or_equal
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_than
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_or_equal
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. val:: between
+          :type: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. val:: between_or_equal
+          :type: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+        .. val:: min
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) t
+
+        .. val:: max
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) t
+
+        .. val:: min_max
+          :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) t * ('a, 'b, 'c) t
+
+      .. module_type:: S4
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c, 'd)
+
+        .. val:: equal
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+        .. val:: different
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+        .. val:: repr
+          :type: ('a, 'b, 'c, 'd) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> string
+
+        .. val:: compare
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. val:: less_or_equal
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_than
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_or_equal
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. val:: between
+          :type: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. val:: between_or_equal
+          :type: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+        .. val:: min
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) t
+
+        .. val:: max
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) t
+
+        .. val:: min_max
+          :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) t * ('a, 'b, 'c, 'd) t
+
+      .. module_type:: S5
+
+        .. type:: t
+          :parameters: ('a, 'b, 'c, 'd, 'e)
+
+        .. val:: equal
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+        .. val:: different
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+        .. val:: repr
+          :type: ('a, 'b, 'c, 'd, 'e) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> repr_e:('e -> string) -> string
+
+        .. val:: compare
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+        .. val:: less_or_equal
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_than
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+        .. val:: greater_or_equal
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+        .. val:: between
+          :type: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+        .. val:: between_or_equal
+          :type: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+        .. val:: min
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
+
+        .. val:: max
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
+
+        .. val:: min_max
+          :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
+
+      .. module:: Tests
+
+        .. module:: Examples
+
+          .. module_type:: S0
+
+            .. type:: t
+
+            .. val:: different
+              :type: (t * t) list
+
+            .. val:: repr
+              :type: (t * string) list
+
+            .. val:: ordered
+              :type: t list list
+
+            .. val:: equal
+              :type: t list list
+
+          .. module_type:: Element
+
+            .. type:: t
+
+            .. val:: compare
+              :type: t -> t -> Foundations.Compare.t
+
+            .. val:: equal
+              :type: t -> t -> bool
+
+            .. val:: repr
+              :type: t -> string
+
+          .. module_type:: S1
+
+            .. type:: t
+              :parameters: 'a
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. val:: different
+              :type: (A.t t * A.t t) list
+
+            .. val:: repr
+              :type: (A.t t * string) list
+
+            .. val:: ordered
+              :type: A.t t list list
+
+            .. val:: equal
+              :type: A.t t list list
+
+          .. module_type:: S2
+
+            .. type:: t
+              :parameters: ('a, 'b)
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. val:: different
+              :type: ((A.t, B.t) t * (A.t, B.t) t) list
+
+            .. val:: repr
+              :type: ((A.t, B.t) t * string) list
+
+            .. val:: ordered
+              :type: (A.t, B.t) t list list
+
+            .. val:: equal
+              :type: (A.t, B.t) t list list
+
+          .. module_type:: S3
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c)
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. val:: different
+              :type: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
+
+            .. val:: repr
+              :type: ((A.t, B.t, C.t) t * string) list
+
+            .. val:: ordered
+              :type: (A.t, B.t, C.t) t list list
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t) t list list
+
+          .. module_type:: S4
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd)
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. val:: different
+              :type: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
+
+            .. val:: repr
+              :type: ((A.t, B.t, C.t, D.t) t * string) list
+
+            .. val:: ordered
+              :type: (A.t, B.t, C.t, D.t) t list list
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t, D.t) t list list
+
+          .. module_type:: S5
+
+            .. type:: t
+              :parameters: ('a, 'b, 'c, 'd, 'e)
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found Element
+
+            .. val:: different
+              :type: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
+
+            .. val:: repr
+              :type: ((A.t, B.t, C.t, D.t, E.t) t * string) list
+
+            .. val:: ordered
+              :type: (A.t, B.t, C.t, D.t, E.t) t list list
+
+            .. val:: equal
+              :type: (A.t, B.t, C.t, D.t, E.t) t list list
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S0
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S1
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S2
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S3
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S4
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S5
+
+    .. module:: Number
+
+      .. module:: Operators
+
+        .. module_type:: S0
+
+          .. type:: t
+
+          .. val:: (=)
+            :type: t -> t -> bool
+
+          .. val:: (<>)
+            :type: t -> t -> bool
+
+          .. val:: (~+)
+            :type: t -> t
+
+          .. val:: (~-)
+            :type: t -> t
+
+          .. val:: (+)
+            :type: t -> t -> t
+
+          .. val:: (-)
+            :type: t -> t -> t
+
+          .. val:: (*)
+            :type: t -> t -> t
+
+          .. val:: (/)
+            :type: t -> t -> t
+
+          .. val:: (**)
+            :type: t -> int -> t
+
+      .. module_type:: S0
+
+        .. type:: t
+
+        .. module:: O
+
+          .. val:: (=)
+            :type: t -> t -> bool
+
+          .. val:: (<>)
+            :type: t -> t -> bool
+
+          .. val:: (~+)
+            :type: t -> t
+
+          .. val:: (~-)
+            :type: t -> t
+
+          .. val:: (+)
+            :type: t -> t -> t
+
+          .. val:: (-)
+            :type: t -> t -> t
+
+          .. val:: (*)
+            :type: t -> t -> t
+
+          .. val:: (/)
+            :type: t -> t -> t
+
+          .. val:: (**)
+            :type: t -> int -> t
+
+        .. val:: to_string
+          :type: t -> string
+
+        .. val:: equal
+          :type: t -> t -> bool
+
+        .. val:: different
+          :type: t -> t -> bool
+
+        .. val:: try_of_string
+          :type: string -> t option
+
+        .. val:: of_string
+          :type: string -> t
+
+        .. val:: repr
+          :type: t -> string
+
+        .. val:: zero
+          :type: t
+
+        .. val:: one
+          :type: t
+
+        .. val:: negate
+          :type: t -> t
+
+        .. val:: add
+          :type: t -> t -> t
+
+        .. val:: substract
+          :type: t -> t -> t
+
+        .. val:: multiply
+          :type: t -> t -> t
+
+        .. val:: divide
+          :type: t -> t -> t
+
+        .. val:: square
+          :type: t -> t
+
+        .. val:: exponentiate
+          :type: t -> int -> t
+
+        .. val:: of_int
+          :type: int -> t
+
+        .. val:: of_float
+          :type: float -> t
+
+      .. module:: Tests
+
+        .. module:: Examples
+
+          .. module_type:: S0
+
+            .. type:: t
+
+            .. val:: to_string
+              :type: (t * string) list
+
+            .. val:: equal
+              :type: t list list
+
+            .. val:: different
+              :type: (t * t) list
+
+            .. val:: of_string
+              :type: (string * t) list
+
+            .. val:: repr
+              :type: (t * string) list
+
+            .. val:: add_substract
+              :type: (t * t * t) list
+
+            .. val:: negate
+              :type: (t * t) list
+
+            .. val:: multiply
+              :type: (t * t * t) list
+
+            .. val:: divide
+              :type: (t * t * t) list
+
+            .. val:: exponentiate
+              :type: (t * int * t) list
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S0
+
+    .. module:: RealNumber
+
+      .. module:: Operators
+
+        .. module_type:: S0
+
+          .. type:: t
+
+          .. val:: (=)
+            :type: t -> t -> bool
+
+          .. val:: (<>)
+            :type: t -> t -> bool
+
+          .. val:: (~+)
+            :type: t -> t
+
+          .. val:: (~-)
+            :type: t -> t
+
+          .. val:: (+)
+            :type: t -> t -> t
+
+          .. val:: (-)
+            :type: t -> t -> t
+
+          .. val:: (*)
+            :type: t -> t -> t
+
+          .. val:: (/)
+            :type: t -> t -> t
+
+          .. val:: (**)
+            :type: t -> int -> t
+
+          .. val:: (<)
+            :type: t -> t -> bool
+
+          .. val:: (<=)
+            :type: t -> t -> bool
+
+          .. val:: (>)
+            :type: t -> t -> bool
+
+          .. val:: (>=)
+            :type: t -> t -> bool
+
+          .. val:: (mod)
+            :type: t -> t -> t
+
+      .. module_type:: S0
+
+        .. type:: t
+
+        .. module:: O
+
+          .. val:: (=)
+            :type: t -> t -> bool
+
+          .. val:: (<>)
+            :type: t -> t -> bool
+
+          .. val:: (~+)
+            :type: t -> t
+
+          .. val:: (~-)
+            :type: t -> t
+
+          .. val:: (+)
+            :type: t -> t -> t
+
+          .. val:: (-)
+            :type: t -> t -> t
+
+          .. val:: (*)
+            :type: t -> t -> t
+
+          .. val:: (/)
+            :type: t -> t -> t
+
+          .. val:: (**)
+            :type: t -> int -> t
+
+          .. val:: (<)
+            :type: t -> t -> bool
+
+          .. val:: (<=)
+            :type: t -> t -> bool
+
+          .. val:: (>)
+            :type: t -> t -> bool
+
+          .. val:: (>=)
+            :type: t -> t -> bool
+
+          .. val:: (mod)
+            :type: t -> t -> t
+
+        .. val:: to_string
+          :type: t -> string
+
+        .. val:: equal
+          :type: t -> t -> bool
+
+        .. val:: different
+          :type: t -> t -> bool
+
+        .. val:: try_of_string
+          :type: string -> t option
+
+        .. val:: of_string
+          :type: string -> t
+
+        .. val:: repr
+          :type: t -> string
+
+        .. val:: zero
+          :type: t
+
+        .. val:: one
+          :type: t
+
+        .. val:: negate
+          :type: t -> t
+
+        .. val:: add
+          :type: t -> t -> t
+
+        .. val:: substract
+          :type: t -> t -> t
+
+        .. val:: multiply
+          :type: t -> t -> t
+
+        .. val:: divide
+          :type: t -> t -> t
+
+        .. val:: square
+          :type: t -> t
+
+        .. val:: exponentiate
+          :type: t -> int -> t
+
+        .. val:: of_int
+          :type: int -> t
+
+        .. val:: of_float
+          :type: float -> t
+
+        .. val:: compare
+          :type: t -> t -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: t -> t -> bool
+
+        .. val:: less_or_equal
+          :type: t -> t -> bool
+
+        .. val:: greater_than
+          :type: t -> t -> bool
+
+        .. val:: greater_or_equal
+          :type: t -> t -> bool
+
+        .. val:: between
+          :type: t -> low:t -> high:t -> bool
+
+        .. val:: between_or_equal
+          :type: t -> low:t -> high:t -> bool
+
+        .. val:: min
+          :type: t -> t -> t
+
+        .. val:: max
+          :type: t -> t -> t
+
+        .. val:: min_max
+          :type: t -> t -> t * t
+
+        .. val:: abs
+          :type: t -> t
+
+        .. val:: modulo
+          :type: t -> t -> t
+
+        .. val:: to_int
+          :type: t -> int
+
+        .. val:: to_float
+          :type: t -> float
+
+      .. module:: Tests
+
+        .. module:: Examples
+
+          .. module_type:: S0
+
+            .. type:: t
+
+            .. val:: to_string
+              :type: (t * string) list
+
+            .. val:: different
+              :type: (t * t) list
+
+            .. val:: of_string
+              :type: (string * t) list
+
+            .. val:: repr
+              :type: (t * string) list
+
+            .. val:: add_substract
+              :type: (t * t * t) list
+
+            .. val:: negate
+              :type: (t * t) list
+
+            .. val:: multiply
+              :type: (t * t * t) list
+
+            .. val:: divide
+              :type: (t * t * t) list
+
+            .. val:: exponentiate
+              :type: (t * int * t) list
+
+            .. val:: ordered
+              :type: t list list
+
+            .. val:: equal
+              :type: t list list
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S0
+
+    .. module:: Integer
+
+      .. module_type:: S0
+
+        .. type:: t
+
+        .. module:: O
+
+          .. val:: (=)
+            :type: t -> t -> bool
+
+          .. val:: (<>)
+            :type: t -> t -> bool
+
+          .. val:: (~+)
+            :type: t -> t
+
+          .. val:: (~-)
+            :type: t -> t
+
+          .. val:: (+)
+            :type: t -> t -> t
+
+          .. val:: (-)
+            :type: t -> t -> t
+
+          .. val:: (*)
+            :type: t -> t -> t
+
+          .. val:: (/)
+            :type: t -> t -> t
+
+          .. val:: (**)
+            :type: t -> int -> t
+
+          .. val:: (<)
+            :type: t -> t -> bool
+
+          .. val:: (<=)
+            :type: t -> t -> bool
+
+          .. val:: (>)
+            :type: t -> t -> bool
+
+          .. val:: (>=)
+            :type: t -> t -> bool
+
+          .. val:: (mod)
+            :type: t -> t -> t
+
+        .. val:: to_string
+          :type: t -> string
+
+        .. val:: equal
+          :type: t -> t -> bool
+
+        .. val:: different
+          :type: t -> t -> bool
+
+        .. val:: try_of_string
+          :type: string -> t option
+
+        .. val:: of_string
+          :type: string -> t
+
+        .. val:: repr
+          :type: t -> string
+
+        .. val:: zero
+          :type: t
+
+        .. val:: one
+          :type: t
+
+        .. val:: negate
+          :type: t -> t
+
+        .. val:: add
+          :type: t -> t -> t
+
+        .. val:: substract
+          :type: t -> t -> t
+
+        .. val:: multiply
+          :type: t -> t -> t
+
+        .. val:: divide
+          :type: t -> t -> t
+
+        .. val:: square
+          :type: t -> t
+
+        .. val:: exponentiate
+          :type: t -> int -> t
+
+        .. val:: of_int
+          :type: int -> t
+
+        .. val:: of_float
+          :type: float -> t
+
+        .. val:: compare
+          :type: t -> t -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: t -> t -> bool
+
+        .. val:: less_or_equal
+          :type: t -> t -> bool
+
+        .. val:: greater_than
+          :type: t -> t -> bool
+
+        .. val:: greater_or_equal
+          :type: t -> t -> bool
+
+        .. val:: between
+          :type: t -> low:t -> high:t -> bool
+
+        .. val:: between_or_equal
+          :type: t -> low:t -> high:t -> bool
+
+        .. val:: min
+          :type: t -> t -> t
+
+        .. val:: max
+          :type: t -> t -> t
+
+        .. val:: min_max
+          :type: t -> t -> t * t
+
+        .. val:: abs
+          :type: t -> t
+
+        .. val:: modulo
+          :type: t -> t -> t
+
+        .. val:: to_int
+          :type: t -> int
+
+        .. val:: to_float
+          :type: t -> float
+
+        .. val:: succ
+          :type: t -> t
+
+        .. val:: pred
+          :type: t -> t
+
+      .. module:: Tests
+
+        Known bug in autoocamldoc (we'd love some help from a compiler-libs expert): module type not found S0
 
   .. module:: Compare
 
     .. type:: t
       :manifest: Foundations.Compare.t
+      :kind: LT | EQ | GT
+
+      :constructor LT:
+
+      :constructor EQ:
+
+      :constructor GT:
 
     .. module:: Poly
+      :contents_from: Traits.Comparable.SPoly
 
-      Not yet documented: module_type:identifier
+      .. val:: compare
+        :type: 'a -> 'a -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: 'a -> 'a -> bool
+
+      .. val:: less_or_equal
+        :type: 'a -> 'a -> bool
+
+      .. val:: greater_than
+        :type: 'a -> 'a -> bool
+
+      .. val:: greater_or_equal
+        :type: 'a -> 'a -> bool
+
+      .. val:: between
+        :type: 'a -> low:'a -> high:'a -> bool
+
+      .. val:: between_or_equal
+        :type: 'a -> low:'a -> high:'a -> bool
+
+      .. val:: min
+        :type: 'a -> 'a -> 'a
+
+      .. val:: max
+        :type: 'a -> 'a -> 'a
+
+      .. val:: min_max
+        :type: 'a -> 'a -> 'a * 'a
+
+      .. module:: O
+
+        .. val:: (<)
+          :type: 'a -> 'a -> bool
+
+        .. val:: (<=)
+          :type: 'a -> 'a -> bool
+
+        .. val:: (>)
+          :type: 'a -> 'a -> bool
+
+        .. val:: (>=)
+          :type: 'a -> 'a -> bool
 
   .. module:: Equate
 
     .. module:: Poly
+      :contents_from: Traits.Equatable.SPoly
 
-      Not yet documented: module_type:identifier
+      Doc for General.Traits.Equatable.SPoly
+
+      .. val:: equal
+        :type: 'a -> 'a -> bool
+
+        Polymorphic structural equality
+
+      .. val:: different
+        :type: 'a -> 'a -> bool
+
+        Polymorphic inequality
+
+      .. module:: O
+
+        .. val:: (=)
+          :type: 'a -> 'a -> bool
+
+        .. val:: (<>)
+          :type: 'a -> 'a -> bool
 
     .. module:: Phys
+      :contents_from: Traits.Equatable.SPhys
 
-      Not yet documented: module_type:identifier
+      Doc for General.Traits.Equatable.SPhys
+
+      .. val:: equal
+        :type: 'a -> 'a -> bool
+
+        Physical identity (address equality)
+
+      .. val:: different
+        :type: 'a -> 'a -> bool
+
+        Physical inequality
 
   .. module:: CallStack
 
     .. type:: t
       :manifest: Pervasives.OCamlStandard.Printexc.raw_backtrace
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Traits.Displayable.S0 with type t := t
 
-    Not yet documented: signature_item:include
+      .. val:: to_string
+        :type: t -> string
+
+    .. incl::
+      :contents_from: Traits.Representable.S0 with type t := t
+
+      .. val:: repr
+        :type: t -> string
 
     .. val:: current
       :type: ?max_size:int -> unit -> t
@@ -199,8 +5854,77 @@ Reference
 
       .. type:: t
         :manifest: Pervasives.OCamlStandard.Printexc.location
+        :kind: {filename: string; line_number: int; start_char: int; end_char: int}
 
-      Not yet documented: signature_item:include
+        :label filename:
+
+        :label line_number:
+
+        :label start_char:
+
+        :label end_char:
+
+      .. incl::
+        :contents_from: Concepts.Able.S0 with type t := t
+
+        .. module:: O
+
+          .. val:: (=)
+            :type: t -> t -> bool
+
+          .. val:: (<>)
+            :type: t -> t -> bool
+
+          .. val:: (<)
+            :type: t -> t -> bool
+
+          .. val:: (<=)
+            :type: t -> t -> bool
+
+          .. val:: (>)
+            :type: t -> t -> bool
+
+          .. val:: (>=)
+            :type: t -> t -> bool
+
+        .. val:: equal
+          :type: t -> t -> bool
+
+        .. val:: different
+          :type: t -> t -> bool
+
+        .. val:: repr
+          :type: t -> string
+
+        .. val:: compare
+          :type: t -> t -> Foundations.Compare.t
+
+        .. val:: less_than
+          :type: t -> t -> bool
+
+        .. val:: less_or_equal
+          :type: t -> t -> bool
+
+        .. val:: greater_than
+          :type: t -> t -> bool
+
+        .. val:: greater_or_equal
+          :type: t -> t -> bool
+
+        .. val:: between
+          :type: t -> low:t -> high:t -> bool
+
+        .. val:: between_or_equal
+          :type: t -> low:t -> high:t -> bool
+
+        .. val:: min
+          :type: t -> t -> t
+
+        .. val:: max
+          :type: t -> t -> t
+
+        .. val:: min_max
+          :type: t -> t -> t * t
 
     .. module:: Frame
 
@@ -224,9 +5948,31 @@ Reference
     .. type:: t
       :manifest: exn
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.Identifiable.S0 with type t := t
 
-    Not yet documented: signature_item:include
+      .. val:: equal
+        :type: t -> t -> bool
+
+      .. val:: different
+        :type: t -> t -> bool
+
+      .. module:: O
+
+        .. val:: (=)
+          :type: t -> t -> bool
+
+        .. val:: (<>)
+          :type: t -> t -> bool
+
+      .. val:: repr
+        :type: t -> string
+
+    .. incl::
+      :contents_from: Traits.Displayable.S0 with type t := t
+
+      .. val:: to_string
+        :type: t -> string
 
     .. val:: register_printer
       :type: (t -> string option) -> unit
@@ -295,6 +6041,11 @@ Reference
   .. module:: Exit
 
     .. type:: t
+      :kind: Success | Failure of int
+
+      :constructor Success:
+
+      :constructor Failure:
 
     .. val:: of_int
       :type: int -> t
@@ -409,7 +6160,26 @@ Reference
 
     .. module:: O
 
-      Not yet documented: signature_item:include
+      .. incl::
+        :contents_from: Concepts.Able.Operators.S0 with type t := t
+
+        .. val:: (=)
+          :type: t -> t -> bool
+
+        .. val:: (<>)
+          :type: t -> t -> bool
+
+        .. val:: (<)
+          :type: t -> t -> bool
+
+        .. val:: (<=)
+          :type: t -> t -> bool
+
+        .. val:: (>)
+          :type: t -> t -> bool
+
+        .. val:: (>=)
+          :type: t -> t -> bool
 
       .. val:: not
         :type: t -> t
@@ -420,11 +6190,62 @@ Reference
       .. val:: (||)
         :type: t -> t -> t
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.Able.S0 with type t := t and module O := O
 
-    Not yet documented: signature_item:include
+      .. val:: equal
+        :type: t -> t -> bool
 
-    Not yet documented: signature_item:include
+      .. val:: different
+        :type: t -> t -> bool
+
+      .. val:: repr
+        :type: t -> string
+
+      .. val:: compare
+        :type: t -> t -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: t -> t -> bool
+
+      .. val:: less_or_equal
+        :type: t -> t -> bool
+
+      .. val:: greater_than
+        :type: t -> t -> bool
+
+      .. val:: greater_or_equal
+        :type: t -> t -> bool
+
+      .. val:: between
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: between_or_equal
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: min
+        :type: t -> t -> t
+
+      .. val:: max
+        :type: t -> t -> t
+
+      .. val:: min_max
+        :type: t -> t -> t * t
+
+    .. incl::
+      :contents_from: Traits.Displayable.S0 with type t := t
+
+      .. val:: to_string
+        :type: t -> string
+
+    .. incl::
+      :contents_from: Traits.Parsable.S0 with type t := t
+
+      .. val:: try_of_string
+        :type: string -> t option
+
+      .. val:: of_string
+        :type: string -> t
 
     .. val:: not
       :type: t -> t
@@ -454,7 +6275,151 @@ Reference
     .. type:: t
       :manifest: int
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.Integer.S0 with type t := t
+
+      .. module:: O
+
+        .. val:: (=)
+          :type: t -> t -> bool
+
+        .. val:: (<>)
+          :type: t -> t -> bool
+
+        .. val:: (~+)
+          :type: t -> t
+
+        .. val:: (~-)
+          :type: t -> t
+
+        .. val:: (+)
+          :type: t -> t -> t
+
+        .. val:: (-)
+          :type: t -> t -> t
+
+        .. val:: (*)
+          :type: t -> t -> t
+
+        .. val:: (/)
+          :type: t -> t -> t
+
+        .. val:: (**)
+          :type: t -> int -> t
+
+        .. val:: (<)
+          :type: t -> t -> bool
+
+        .. val:: (<=)
+          :type: t -> t -> bool
+
+        .. val:: (>)
+          :type: t -> t -> bool
+
+        .. val:: (>=)
+          :type: t -> t -> bool
+
+        .. val:: (mod)
+          :type: t -> t -> t
+
+      .. val:: to_string
+        :type: t -> string
+
+      .. val:: equal
+        :type: t -> t -> bool
+
+      .. val:: different
+        :type: t -> t -> bool
+
+      .. val:: try_of_string
+        :type: string -> t option
+
+      .. val:: of_string
+        :type: string -> t
+
+      .. val:: repr
+        :type: t -> string
+
+      .. val:: zero
+        :type: t
+
+      .. val:: one
+        :type: t
+
+      .. val:: negate
+        :type: t -> t
+
+      .. val:: add
+        :type: t -> t -> t
+
+      .. val:: substract
+        :type: t -> t -> t
+
+      .. val:: multiply
+        :type: t -> t -> t
+
+      .. val:: divide
+        :type: t -> t -> t
+
+      .. val:: square
+        :type: t -> t
+
+      .. val:: exponentiate
+        :type: t -> int -> t
+
+      .. val:: of_int
+        :type: int -> t
+
+      .. val:: of_float
+        :type: float -> t
+
+      .. val:: compare
+        :type: t -> t -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: t -> t -> bool
+
+      .. val:: less_or_equal
+        :type: t -> t -> bool
+
+      .. val:: greater_than
+        :type: t -> t -> bool
+
+      .. val:: greater_or_equal
+        :type: t -> t -> bool
+
+      .. val:: between
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: between_or_equal
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: min
+        :type: t -> t -> t
+
+      .. val:: max
+        :type: t -> t -> t
+
+      .. val:: min_max
+        :type: t -> t -> t * t
+
+      .. val:: abs
+        :type: t -> t
+
+      .. val:: modulo
+        :type: t -> t -> t
+
+      .. val:: to_int
+        :type: t -> int
+
+      .. val:: to_float
+        :type: t -> float
+
+      .. val:: succ
+        :type: t -> t
+
+      .. val:: pred
+        :type: t -> t
 
     .. val:: smallest
       :type: t
@@ -490,7 +6455,151 @@ Reference
     .. type:: t
       :manifest: int32
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.Integer.S0 with type t := t
+
+      .. module:: O
+
+        .. val:: (=)
+          :type: t -> t -> bool
+
+        .. val:: (<>)
+          :type: t -> t -> bool
+
+        .. val:: (~+)
+          :type: t -> t
+
+        .. val:: (~-)
+          :type: t -> t
+
+        .. val:: (+)
+          :type: t -> t -> t
+
+        .. val:: (-)
+          :type: t -> t -> t
+
+        .. val:: (*)
+          :type: t -> t -> t
+
+        .. val:: (/)
+          :type: t -> t -> t
+
+        .. val:: (**)
+          :type: t -> int -> t
+
+        .. val:: (<)
+          :type: t -> t -> bool
+
+        .. val:: (<=)
+          :type: t -> t -> bool
+
+        .. val:: (>)
+          :type: t -> t -> bool
+
+        .. val:: (>=)
+          :type: t -> t -> bool
+
+        .. val:: (mod)
+          :type: t -> t -> t
+
+      .. val:: to_string
+        :type: t -> string
+
+      .. val:: equal
+        :type: t -> t -> bool
+
+      .. val:: different
+        :type: t -> t -> bool
+
+      .. val:: try_of_string
+        :type: string -> t option
+
+      .. val:: of_string
+        :type: string -> t
+
+      .. val:: repr
+        :type: t -> string
+
+      .. val:: zero
+        :type: t
+
+      .. val:: one
+        :type: t
+
+      .. val:: negate
+        :type: t -> t
+
+      .. val:: add
+        :type: t -> t -> t
+
+      .. val:: substract
+        :type: t -> t -> t
+
+      .. val:: multiply
+        :type: t -> t -> t
+
+      .. val:: divide
+        :type: t -> t -> t
+
+      .. val:: square
+        :type: t -> t
+
+      .. val:: exponentiate
+        :type: t -> int -> t
+
+      .. val:: of_int
+        :type: int -> t
+
+      .. val:: of_float
+        :type: float -> t
+
+      .. val:: compare
+        :type: t -> t -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: t -> t -> bool
+
+      .. val:: less_or_equal
+        :type: t -> t -> bool
+
+      .. val:: greater_than
+        :type: t -> t -> bool
+
+      .. val:: greater_or_equal
+        :type: t -> t -> bool
+
+      .. val:: between
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: between_or_equal
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: min
+        :type: t -> t -> t
+
+      .. val:: max
+        :type: t -> t -> t
+
+      .. val:: min_max
+        :type: t -> t -> t * t
+
+      .. val:: abs
+        :type: t -> t
+
+      .. val:: modulo
+        :type: t -> t -> t
+
+      .. val:: to_int
+        :type: t -> int
+
+      .. val:: to_float
+        :type: t -> float
+
+      .. val:: succ
+        :type: t -> t
+
+      .. val:: pred
+        :type: t -> t
 
     .. val:: smallest
       :type: t
@@ -503,7 +6612,151 @@ Reference
     .. type:: t
       :manifest: int64
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.Integer.S0 with type t := t
+
+      .. module:: O
+
+        .. val:: (=)
+          :type: t -> t -> bool
+
+        .. val:: (<>)
+          :type: t -> t -> bool
+
+        .. val:: (~+)
+          :type: t -> t
+
+        .. val:: (~-)
+          :type: t -> t
+
+        .. val:: (+)
+          :type: t -> t -> t
+
+        .. val:: (-)
+          :type: t -> t -> t
+
+        .. val:: (*)
+          :type: t -> t -> t
+
+        .. val:: (/)
+          :type: t -> t -> t
+
+        .. val:: (**)
+          :type: t -> int -> t
+
+        .. val:: (<)
+          :type: t -> t -> bool
+
+        .. val:: (<=)
+          :type: t -> t -> bool
+
+        .. val:: (>)
+          :type: t -> t -> bool
+
+        .. val:: (>=)
+          :type: t -> t -> bool
+
+        .. val:: (mod)
+          :type: t -> t -> t
+
+      .. val:: to_string
+        :type: t -> string
+
+      .. val:: equal
+        :type: t -> t -> bool
+
+      .. val:: different
+        :type: t -> t -> bool
+
+      .. val:: try_of_string
+        :type: string -> t option
+
+      .. val:: of_string
+        :type: string -> t
+
+      .. val:: repr
+        :type: t -> string
+
+      .. val:: zero
+        :type: t
+
+      .. val:: one
+        :type: t
+
+      .. val:: negate
+        :type: t -> t
+
+      .. val:: add
+        :type: t -> t -> t
+
+      .. val:: substract
+        :type: t -> t -> t
+
+      .. val:: multiply
+        :type: t -> t -> t
+
+      .. val:: divide
+        :type: t -> t -> t
+
+      .. val:: square
+        :type: t -> t
+
+      .. val:: exponentiate
+        :type: t -> int -> t
+
+      .. val:: of_int
+        :type: int -> t
+
+      .. val:: of_float
+        :type: float -> t
+
+      .. val:: compare
+        :type: t -> t -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: t -> t -> bool
+
+      .. val:: less_or_equal
+        :type: t -> t -> bool
+
+      .. val:: greater_than
+        :type: t -> t -> bool
+
+      .. val:: greater_or_equal
+        :type: t -> t -> bool
+
+      .. val:: between
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: between_or_equal
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: min
+        :type: t -> t -> t
+
+      .. val:: max
+        :type: t -> t -> t
+
+      .. val:: min_max
+        :type: t -> t -> t * t
+
+      .. val:: abs
+        :type: t -> t
+
+      .. val:: modulo
+        :type: t -> t -> t
+
+      .. val:: to_int
+        :type: t -> int
+
+      .. val:: to_float
+        :type: t -> float
+
+      .. val:: succ
+        :type: t -> t
+
+      .. val:: pred
+        :type: t -> t
 
     .. val:: smallest
       :type: t
@@ -516,7 +6769,151 @@ Reference
     .. type:: t
       :manifest: nativeint
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.Integer.S0 with type t := t
+
+      .. module:: O
+
+        .. val:: (=)
+          :type: t -> t -> bool
+
+        .. val:: (<>)
+          :type: t -> t -> bool
+
+        .. val:: (~+)
+          :type: t -> t
+
+        .. val:: (~-)
+          :type: t -> t
+
+        .. val:: (+)
+          :type: t -> t -> t
+
+        .. val:: (-)
+          :type: t -> t -> t
+
+        .. val:: (*)
+          :type: t -> t -> t
+
+        .. val:: (/)
+          :type: t -> t -> t
+
+        .. val:: (**)
+          :type: t -> int -> t
+
+        .. val:: (<)
+          :type: t -> t -> bool
+
+        .. val:: (<=)
+          :type: t -> t -> bool
+
+        .. val:: (>)
+          :type: t -> t -> bool
+
+        .. val:: (>=)
+          :type: t -> t -> bool
+
+        .. val:: (mod)
+          :type: t -> t -> t
+
+      .. val:: to_string
+        :type: t -> string
+
+      .. val:: equal
+        :type: t -> t -> bool
+
+      .. val:: different
+        :type: t -> t -> bool
+
+      .. val:: try_of_string
+        :type: string -> t option
+
+      .. val:: of_string
+        :type: string -> t
+
+      .. val:: repr
+        :type: t -> string
+
+      .. val:: zero
+        :type: t
+
+      .. val:: one
+        :type: t
+
+      .. val:: negate
+        :type: t -> t
+
+      .. val:: add
+        :type: t -> t -> t
+
+      .. val:: substract
+        :type: t -> t -> t
+
+      .. val:: multiply
+        :type: t -> t -> t
+
+      .. val:: divide
+        :type: t -> t -> t
+
+      .. val:: square
+        :type: t -> t
+
+      .. val:: exponentiate
+        :type: t -> int -> t
+
+      .. val:: of_int
+        :type: int -> t
+
+      .. val:: of_float
+        :type: float -> t
+
+      .. val:: compare
+        :type: t -> t -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: t -> t -> bool
+
+      .. val:: less_or_equal
+        :type: t -> t -> bool
+
+      .. val:: greater_than
+        :type: t -> t -> bool
+
+      .. val:: greater_or_equal
+        :type: t -> t -> bool
+
+      .. val:: between
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: between_or_equal
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: min
+        :type: t -> t -> t
+
+      .. val:: max
+        :type: t -> t -> t
+
+      .. val:: min_max
+        :type: t -> t -> t * t
+
+      .. val:: abs
+        :type: t -> t
+
+      .. val:: modulo
+        :type: t -> t -> t
+
+      .. val:: to_int
+        :type: t -> int
+
+      .. val:: to_float
+        :type: t -> float
+
+      .. val:: succ
+        :type: t -> t
+
+      .. val:: pred
+        :type: t -> t
 
     .. val:: smallest
       :type: t
@@ -529,14 +6926,296 @@ Reference
     .. type:: t
       :manifest: Pervasives.OCamlStandard.Big_int.big_int
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.Integer.S0 with type t := t
+
+      .. module:: O
+
+        .. val:: (=)
+          :type: t -> t -> bool
+
+        .. val:: (<>)
+          :type: t -> t -> bool
+
+        .. val:: (~+)
+          :type: t -> t
+
+        .. val:: (~-)
+          :type: t -> t
+
+        .. val:: (+)
+          :type: t -> t -> t
+
+        .. val:: (-)
+          :type: t -> t -> t
+
+        .. val:: (*)
+          :type: t -> t -> t
+
+        .. val:: (/)
+          :type: t -> t -> t
+
+        .. val:: (**)
+          :type: t -> int -> t
+
+        .. val:: (<)
+          :type: t -> t -> bool
+
+        .. val:: (<=)
+          :type: t -> t -> bool
+
+        .. val:: (>)
+          :type: t -> t -> bool
+
+        .. val:: (>=)
+          :type: t -> t -> bool
+
+        .. val:: (mod)
+          :type: t -> t -> t
+
+      .. val:: to_string
+        :type: t -> string
+
+      .. val:: equal
+        :type: t -> t -> bool
+
+      .. val:: different
+        :type: t -> t -> bool
+
+      .. val:: try_of_string
+        :type: string -> t option
+
+      .. val:: of_string
+        :type: string -> t
+
+      .. val:: repr
+        :type: t -> string
+
+      .. val:: zero
+        :type: t
+
+      .. val:: one
+        :type: t
+
+      .. val:: negate
+        :type: t -> t
+
+      .. val:: add
+        :type: t -> t -> t
+
+      .. val:: substract
+        :type: t -> t -> t
+
+      .. val:: multiply
+        :type: t -> t -> t
+
+      .. val:: divide
+        :type: t -> t -> t
+
+      .. val:: square
+        :type: t -> t
+
+      .. val:: exponentiate
+        :type: t -> int -> t
+
+      .. val:: of_int
+        :type: int -> t
+
+      .. val:: of_float
+        :type: float -> t
+
+      .. val:: compare
+        :type: t -> t -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: t -> t -> bool
+
+      .. val:: less_or_equal
+        :type: t -> t -> bool
+
+      .. val:: greater_than
+        :type: t -> t -> bool
+
+      .. val:: greater_or_equal
+        :type: t -> t -> bool
+
+      .. val:: between
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: between_or_equal
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: min
+        :type: t -> t -> t
+
+      .. val:: max
+        :type: t -> t -> t
+
+      .. val:: min_max
+        :type: t -> t -> t * t
+
+      .. val:: abs
+        :type: t -> t
+
+      .. val:: modulo
+        :type: t -> t -> t
+
+      .. val:: to_int
+        :type: t -> int
+
+      .. val:: to_float
+        :type: t -> float
+
+      .. val:: succ
+        :type: t -> t
+
+      .. val:: pred
+        :type: t -> t
 
   .. module:: Float
 
     .. type:: t
       :manifest: float
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.RealNumber.S0 with type t := t
+
+      .. module:: O
+
+        .. val:: (=)
+          :type: t -> t -> bool
+
+        .. val:: (<>)
+          :type: t -> t -> bool
+
+        .. val:: (~+)
+          :type: t -> t
+
+        .. val:: (~-)
+          :type: t -> t
+
+        .. val:: (+)
+          :type: t -> t -> t
+
+        .. val:: (-)
+          :type: t -> t -> t
+
+        .. val:: (*)
+          :type: t -> t -> t
+
+        .. val:: (/)
+          :type: t -> t -> t
+
+        .. val:: (**)
+          :type: t -> int -> t
+
+        .. val:: (<)
+          :type: t -> t -> bool
+
+        .. val:: (<=)
+          :type: t -> t -> bool
+
+        .. val:: (>)
+          :type: t -> t -> bool
+
+        .. val:: (>=)
+          :type: t -> t -> bool
+
+        .. val:: (mod)
+          :type: t -> t -> t
+
+      .. val:: to_string
+        :type: t -> string
+
+      .. val:: equal
+        :type: t -> t -> bool
+
+      .. val:: different
+        :type: t -> t -> bool
+
+      .. val:: try_of_string
+        :type: string -> t option
+
+      .. val:: of_string
+        :type: string -> t
+
+      .. val:: repr
+        :type: t -> string
+
+      .. val:: zero
+        :type: t
+
+      .. val:: one
+        :type: t
+
+      .. val:: negate
+        :type: t -> t
+
+      .. val:: add
+        :type: t -> t -> t
+
+      .. val:: substract
+        :type: t -> t -> t
+
+      .. val:: multiply
+        :type: t -> t -> t
+
+      .. val:: divide
+        :type: t -> t -> t
+
+      .. val:: square
+        :type: t -> t
+
+      .. val:: exponentiate
+        :type: t -> int -> t
+
+      .. val:: of_int
+        :type: int -> t
+
+      .. val:: of_float
+        :type: float -> t
+
+      .. val:: compare
+        :type: t -> t -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: t -> t -> bool
+
+      .. val:: less_or_equal
+        :type: t -> t -> bool
+
+      .. val:: greater_than
+        :type: t -> t -> bool
+
+      .. val:: greater_or_equal
+        :type: t -> t -> bool
+
+      .. val:: between
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: between_or_equal
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: min
+        :type: t -> t -> t
+
+      .. val:: max
+        :type: t -> t -> t
+
+      .. val:: min_max
+        :type: t -> t -> t * t
+
+      .. val:: abs
+        :type: t -> t
+
+      .. val:: modulo
+        :type: t -> t -> t
+
+      .. val:: to_int
+        :type: t -> int
+
+      .. val:: to_float
+        :type: t -> float
 
     .. val:: epsilon
       :type: t
@@ -634,8 +7313,23 @@ Reference
     .. module:: Class
 
       .. type:: t
+        :kind: Normal | SubNormal | Zero | Infinite | NotANumber
 
-      Not yet documented: signature_item:include
+        :constructor Normal:
+
+        :constructor SubNormal:
+
+        :constructor Zero:
+
+        :constructor Infinite:
+
+        :constructor NotANumber:
+
+      .. incl::
+        :contents_from: Traits.Representable.S0 with type t := t
+
+        .. val:: repr
+          :type: t -> string
 
       .. val:: of_float
         :type: float -> t
@@ -650,14 +7344,77 @@ Reference
 
     .. module:: O
 
-      Not yet documented: signature_item:include
+      .. incl::
+        :contents_from: Concepts.Able.Operators.S0 with type t := t
+
+        .. val:: (=)
+          :type: t -> t -> bool
+
+        .. val:: (<>)
+          :type: t -> t -> bool
+
+        .. val:: (<)
+          :type: t -> t -> bool
+
+        .. val:: (<=)
+          :type: t -> t -> bool
+
+        .. val:: (>)
+          :type: t -> t -> bool
+
+        .. val:: (>=)
+          :type: t -> t -> bool
 
       .. val:: (^)
         :type: t -> t -> t
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Traits.Displayable.S0 with type t := t
 
-    Not yet documented: signature_item:include
+      .. val:: to_string
+        :type: t -> string
+
+    .. incl::
+      :contents_from: Concepts.Able.S0 with type t := t and module O := O
+
+      .. val:: equal
+        :type: t -> t -> bool
+
+      .. val:: different
+        :type: t -> t -> bool
+
+      .. val:: repr
+        :type: t -> string
+
+      .. val:: compare
+        :type: t -> t -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: t -> t -> bool
+
+      .. val:: less_or_equal
+        :type: t -> t -> bool
+
+      .. val:: greater_than
+        :type: t -> t -> bool
+
+      .. val:: greater_or_equal
+        :type: t -> t -> bool
+
+      .. val:: between
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: between_or_equal
+        :type: t -> low:t -> high:t -> bool
+
+      .. val:: min
+        :type: t -> t -> t
+
+      .. val:: max
+        :type: t -> t -> t
+
+      .. val:: min_max
+        :type: t -> t -> t * t
 
     .. val:: concat
       :type: t -> t -> t
@@ -698,7 +7455,53 @@ Reference
       :parameters: 'a
       :manifest: 'a option
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.Able.S1 with type 'a t := 'a t
+
+      .. val:: equal
+        :type: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+
+      .. val:: different
+        :type: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+
+      .. val:: repr
+        :type: 'a t -> repr_a:('a -> string) -> string
+
+      .. val:: compare
+        :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+      .. val:: less_or_equal
+        :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+      .. val:: greater_than
+        :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+      .. val:: greater_or_equal
+        :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+      .. val:: between
+        :type: 'a t -> low:'a t -> high:'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+      .. val:: between_or_equal
+        :type: 'a t -> low:'a t -> high:'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> bool
+
+      .. val:: min
+        :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t
+
+      .. val:: max
+        :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t
+
+      .. val:: min_max
+        :type: 'a t -> 'a t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> 'a t * 'a t
+
+    .. val:: none
+      :type: 'a t
+
+    .. val:: some
+      :type: 'a -> 'a t
 
     .. val:: some_if
       :type: bool -> 'a lazy_t -> 'a t
@@ -738,7 +7541,48 @@ Reference
 
     .. module:: Specialize
 
-      Not yet documented: module_type:functor
+      .. functor_parameter:: A
+
+        .. type:: t
+
+      .. type:: t
+        :manifest: A.t option
+
+      .. val:: some_if
+        :type: bool -> A.t lazy_t -> t
+
+      .. val:: some_if'
+        :type: bool -> A.t -> t
+
+      .. val:: is_some
+        :type: t -> bool
+
+      .. val:: is_none
+        :type: t -> bool
+
+      .. val:: value_def
+        :type: t -> def:A.t -> A.t
+
+      .. val:: value
+        :type: ?exc:exn -> t -> A.t
+
+      .. val:: or_failure
+        :type: ('a, unit, string, string, string, t -> A.t) CamlinternalFormatBasics.format6 -> 'a
+
+      .. val:: map
+        :type: t -> f:(A.t -> 'a) -> 'a option
+
+      .. val:: iter
+        :type: t -> f:(A.t -> unit) -> unit
+
+      .. val:: filter
+        :type: t -> f:(A.t -> bool) -> t
+
+      .. val:: filter_map
+        :type: t -> f:(A.t -> 'a option) -> 'a option
+
+      .. val:: value_map
+        :type: t -> def:'a -> f:(A.t -> 'a) -> 'a
 
   .. module:: Lazy
 
@@ -760,6 +7604,9 @@ Reference
     .. type:: t
       :parameters: 'a
       :manifest: 'a Pervasives.OCamlStandard.Pervasives.ref
+      :kind: {mutable contents: 'a}
+
+      :label contents:
 
     .. val:: of_contents
       :type: 'a -> 'a t
@@ -783,23 +7630,162 @@ Reference
 
     .. module:: SpecializeOperators
 
-      Not yet documented: module_type:functor
+      .. functor_parameter:: A
+
+        .. type:: t
+
+      .. type:: t
+        :manifest: A.t t
+
+      .. val:: ref
+        :type: A.t -> t
+
+      .. val:: (!)
+        :type: t -> A.t
+
+      .. val:: (:=)
+        :type: t -> A.t -> unit
 
     .. module:: Specialize
 
-      Not yet documented: module_type:functor
+      .. functor_parameter:: A
+
+        .. type:: t
+
+      .. type:: t
+        :manifest: A.t t
+
+      .. val:: of_contents
+        :type: A.t -> t
+
+      .. val:: contents
+        :type: t -> A.t
+
+      .. val:: assign
+        :type: t -> A.t -> unit
+
+      .. module:: O
+        :contents_from: module type of SpecializeOperators(A) with type t := t
+
+        .. val:: ref
+          :type: A.t -> t
+
+        .. val:: (!)
+          :type: t -> A.t
+
+        .. val:: (:=)
+          :type: t -> A.t -> unit
 
     .. module:: SpecializePredSucc
 
-      Not yet documented: module_type:functor
+      .. functor_parameter:: A
+        :contents_from: Traits.PredSucc.S0
+
+        .. type:: t
+
+        .. val:: succ
+          :type: t -> t
+
+        .. val:: pred
+          :type: t -> t
+
+      .. type:: t
+        :manifest: A.t t
+
+      .. val:: increment
+        :type: t -> unit
+
+      .. val:: decrement
+        :type: t -> unit
 
     .. module:: SpecializeRingoidOperators
 
-      Not yet documented: module_type:functor
+      .. functor_parameter:: A
+        :contents_from: Traits.Ringoid.Basic.S0
+
+        .. type:: t
+
+        .. val:: zero
+          :type: t
+
+        .. val:: one
+          :type: t
+
+        .. val:: negate
+          :type: t -> t
+
+        .. val:: add
+          :type: t -> t -> t
+
+        .. val:: substract
+          :type: t -> t -> t
+
+        .. val:: multiply
+          :type: t -> t -> t
+
+        .. val:: divide
+          :type: t -> t -> t
+
+      .. type:: t
+        :manifest: A.t t
+
+      .. val:: (=+)
+        :type: t -> A.t -> unit
+
+      .. val:: (=-)
+        :type: t -> A.t -> unit
+
+      .. val:: (=*)
+        :type: t -> A.t -> unit
+
+      .. val:: (=/)
+        :type: t -> A.t -> unit
 
     .. module:: SpecializeRingoid
 
-      Not yet documented: module_type:functor
+      .. functor_parameter:: A
+        :contents_from: Traits.Ringoid.Basic.S0
+
+        .. type:: t
+
+        .. val:: zero
+          :type: t
+
+        .. val:: one
+          :type: t
+
+        .. val:: negate
+          :type: t -> t
+
+        .. val:: add
+          :type: t -> t -> t
+
+        .. val:: substract
+          :type: t -> t -> t
+
+        .. val:: multiply
+          :type: t -> t -> t
+
+        .. val:: divide
+          :type: t -> t -> t
+
+      .. type:: t
+        :manifest: A.t t
+
+      .. module:: O
+        :contents_from: module type of SpecializeRingoidOperators(A) with type t := t
+
+        .. val:: (=+)
+          :type: t -> A.t -> unit
+
+        .. val:: (=-)
+          :type: t -> A.t -> unit
+
+        .. val:: (=*)
+          :type: t -> A.t -> unit
+
+        .. val:: (=/)
+          :type: t -> A.t -> unit
 
   .. module:: Tuple2
 
@@ -807,7 +7793,47 @@ Reference
       :parameters: ('a, 'b)
       :manifest: 'a * 'b
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.Able.S2 with type ('a, 'b) t := ('a, 'b) t
+
+      .. val:: equal
+        :type: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+      .. val:: different
+        :type: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+
+      .. val:: repr
+        :type: ('a, 'b) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> string
+
+      .. val:: compare
+        :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+      .. val:: less_or_equal
+        :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+      .. val:: greater_than
+        :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+      .. val:: greater_or_equal
+        :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+      .. val:: between
+        :type: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+      .. val:: between_or_equal
+        :type: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> bool
+
+      .. val:: min
+        :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) t
+
+      .. val:: max
+        :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) t
+
+      .. val:: min_max
+        :type: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> ('a, 'b) t * ('a, 'b) t
 
     .. val:: make
       :type: 'a -> 'b -> ('a, 'b) t
@@ -827,7 +7853,47 @@ Reference
       :parameters: ('a, 'b, 'c)
       :manifest: 'a * 'b * 'c
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.Able.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+
+      .. val:: equal
+        :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+      .. val:: different
+        :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+
+      .. val:: repr
+        :type: ('a, 'b, 'c) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> string
+
+      .. val:: compare
+        :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+      .. val:: less_or_equal
+        :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+      .. val:: greater_than
+        :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+      .. val:: greater_or_equal
+        :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+      .. val:: between
+        :type: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+      .. val:: between_or_equal
+        :type: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> bool
+
+      .. val:: min
+        :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) t
+
+      .. val:: max
+        :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) t
+
+      .. val:: min_max
+        :type: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> ('a, 'b, 'c) t * ('a, 'b, 'c) t
 
     .. val:: make
       :type: 'a -> 'b -> 'c -> ('a, 'b, 'c) t
@@ -850,7 +7916,47 @@ Reference
       :parameters: ('a, 'b, 'c, 'd)
       :manifest: 'a * 'b * 'c * 'd
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.Able.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+
+      .. val:: equal
+        :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+      .. val:: different
+        :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+
+      .. val:: repr
+        :type: ('a, 'b, 'c, 'd) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> string
+
+      .. val:: compare
+        :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+      .. val:: less_or_equal
+        :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+      .. val:: greater_than
+        :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+      .. val:: greater_or_equal
+        :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+      .. val:: between
+        :type: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+      .. val:: between_or_equal
+        :type: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> bool
+
+      .. val:: min
+        :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) t
+
+      .. val:: max
+        :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) t
+
+      .. val:: min_max
+        :type: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd) t * ('a, 'b, 'c, 'd) t
 
     .. val:: make
       :type: 'a -> 'b -> 'c -> 'd -> ('a, 'b, 'c, 'd) t
@@ -876,7 +7982,47 @@ Reference
       :parameters: ('a, 'b, 'c, 'd, 'e)
       :manifest: 'a * 'b * 'c * 'd * 'e
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.Able.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+
+      .. val:: equal
+        :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+      .. val:: different
+        :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+
+      .. val:: repr
+        :type: ('a, 'b, 'c, 'd, 'e) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> repr_e:('e -> string) -> string
+
+      .. val:: compare
+        :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> Foundations.Compare.t
+
+      .. val:: less_than
+        :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+      .. val:: less_or_equal
+        :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+      .. val:: greater_than
+        :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+      .. val:: greater_or_equal
+        :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+      .. val:: between
+        :type: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+      .. val:: between_or_equal
+        :type: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> bool
+
+      .. val:: min
+        :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
+
+      .. val:: max
+        :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
+
+      .. val:: min_max
+        :type: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Foundations.Compare.t) -> compare_b:('b -> 'b -> Foundations.Compare.t) -> compare_c:('c -> 'c -> Foundations.Compare.t) -> compare_d:('d -> 'd -> Foundations.Compare.t) -> compare_e:('e -> 'e -> Foundations.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
 
     .. val:: make
       :type: 'a -> 'b -> 'c -> 'd -> 'e -> ('a, 'b, 'c, 'd, 'e) t
@@ -901,15 +8047,135 @@ Reference
 
   .. module:: IntOption
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: module type of Option.Specialize(Int)
+
+      .. type:: t
+        :manifest: Int.t option
+
+      .. val:: some_if
+        :type: bool -> Int.t lazy_t -> t
+
+      .. val:: some_if'
+        :type: bool -> Int.t -> t
+
+      .. val:: is_some
+        :type: t -> bool
+
+      .. val:: is_none
+        :type: t -> bool
+
+      .. val:: value_def
+        :type: t -> def:Int.t -> Int.t
+
+      .. val:: value
+        :type: ?exc:exn -> t -> Int.t
+
+      .. val:: or_failure
+        :type: ('a, unit, string, string, string, t -> Int.t) CamlinternalFormatBasics.format6 -> 'a
+
+      .. val:: map
+        :type: t -> f:(Int.t -> 'a) -> 'a option
+
+      .. val:: iter
+        :type: t -> f:(Int.t -> unit) -> unit
+
+      .. val:: filter
+        :type: t -> f:(Int.t -> bool) -> t
+
+      .. val:: filter_map
+        :type: t -> f:(Int.t -> 'a option) -> 'a option
+
+      .. val:: value_map
+        :type: t -> def:'a -> f:(Int.t -> 'a) -> 'a
 
   .. module:: FloatOption
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: module type of Option.Specialize(Float)
+
+      .. type:: t
+        :manifest: Float.t option
+
+      .. val:: some_if
+        :type: bool -> Float.t lazy_t -> t
+
+      .. val:: some_if'
+        :type: bool -> Float.t -> t
+
+      .. val:: is_some
+        :type: t -> bool
+
+      .. val:: is_none
+        :type: t -> bool
+
+      .. val:: value_def
+        :type: t -> def:Float.t -> Float.t
+
+      .. val:: value
+        :type: ?exc:exn -> t -> Float.t
+
+      .. val:: or_failure
+        :type: ('a, unit, string, string, string, t -> Float.t) CamlinternalFormatBasics.format6 -> 'a
+
+      .. val:: map
+        :type: t -> f:(Float.t -> 'a) -> 'a option
+
+      .. val:: iter
+        :type: t -> f:(Float.t -> unit) -> unit
+
+      .. val:: filter
+        :type: t -> f:(Float.t -> bool) -> t
+
+      .. val:: filter_map
+        :type: t -> f:(Float.t -> 'a option) -> 'a option
+
+      .. val:: value_map
+        :type: t -> def:'a -> f:(Float.t -> 'a) -> 'a
 
   .. module:: StringOption
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: module type of Option.Specialize(String)
+
+      .. type:: t
+        :manifest: String.t option
+
+      .. val:: some_if
+        :type: bool -> String.t lazy_t -> t
+
+      .. val:: some_if'
+        :type: bool -> String.t -> t
+
+      .. val:: is_some
+        :type: t -> bool
+
+      .. val:: is_none
+        :type: t -> bool
+
+      .. val:: value_def
+        :type: t -> def:String.t -> String.t
+
+      .. val:: value
+        :type: ?exc:exn -> t -> String.t
+
+      .. val:: or_failure
+        :type: ('a, unit, string, string, string, t -> String.t) CamlinternalFormatBasics.format6 -> 'a
+
+      .. val:: map
+        :type: t -> f:(String.t -> 'a) -> 'a option
+
+      .. val:: iter
+        :type: t -> f:(String.t -> unit) -> unit
+
+      .. val:: filter
+        :type: t -> f:(String.t -> bool) -> t
+
+      .. val:: filter_map
+        :type: t -> f:(String.t -> 'a option) -> 'a option
+
+      .. val:: value_map
+        :type: t -> def:'a -> f:(String.t -> 'a) -> 'a
 
   .. module:: IntReference
 
@@ -918,15 +8184,56 @@ Reference
 
     .. module:: O
 
-      Not yet documented: signature_item:include
+      .. incl::
+        :contents_from: module type of Reference.SpecializeOperators(Int) with type t := t
 
-      Not yet documented: signature_item:include
+        .. val:: ref
+          :type: Int.t -> t
 
-    Not yet documented: signature_item:include
+        .. val:: (!)
+          :type: t -> Int.t
 
-    Not yet documented: signature_item:include
+        .. val:: (:=)
+          :type: t -> Int.t -> unit
 
-    Not yet documented: signature_item:include
+      .. incl::
+        :contents_from: module type of Reference.SpecializeRingoidOperators(Int) with type t := t
+
+        .. val:: (=+)
+          :type: t -> Int.t -> unit
+
+        .. val:: (=-)
+          :type: t -> Int.t -> unit
+
+        .. val:: (=*)
+          :type: t -> Int.t -> unit
+
+        .. val:: (=/)
+          :type: t -> Int.t -> unit
+
+    .. incl::
+      :contents_from: module type of Reference.Specialize(Int) with type t := t and module O := O
+
+      .. val:: of_contents
+        :type: Int.t -> t
+
+      .. val:: contents
+        :type: t -> Int.t
+
+      .. val:: assign
+        :type: t -> Int.t -> unit
+
+    .. incl::
+      :contents_from: module type of Reference.SpecializePredSucc(Int) with type t := t
+
+      .. val:: increment
+        :type: t -> unit
+
+      .. val:: decrement
+        :type: t -> unit
+
+    .. incl::
+      :contents_from: module type of Reference.SpecializeRingoid(Int) with type t := t and module O := O
 
   .. module:: FloatReference
 
@@ -935,13 +8242,47 @@ Reference
 
     .. module:: O
 
-      Not yet documented: signature_item:include
+      .. incl::
+        :contents_from: module type of Reference.SpecializeOperators(Float) with type t := t
 
-      Not yet documented: signature_item:include
+        .. val:: ref
+          :type: Float.t -> t
 
-    Not yet documented: signature_item:include
+        .. val:: (!)
+          :type: t -> Float.t
 
-    Not yet documented: signature_item:include
+        .. val:: (:=)
+          :type: t -> Float.t -> unit
+
+      .. incl::
+        :contents_from: module type of Reference.SpecializeRingoidOperators(Float) with type t := t
+
+        .. val:: (=+)
+          :type: t -> Float.t -> unit
+
+        .. val:: (=-)
+          :type: t -> Float.t -> unit
+
+        .. val:: (=*)
+          :type: t -> Float.t -> unit
+
+        .. val:: (=/)
+          :type: t -> Float.t -> unit
+
+    .. incl::
+      :contents_from: module type of Reference.Specialize(Float) with type t := t and module O := O
+
+      .. val:: of_contents
+        :type: Float.t -> t
+
+      .. val:: contents
+        :type: t -> Float.t
+
+      .. val:: assign
+        :type: t -> Float.t -> unit
+
+    .. incl::
+      :contents_from: module type of Reference.SpecializeRingoid(Float) with type t := t and module O := O
 
   .. module:: StringReference
 
@@ -950,12 +8291,32 @@ Reference
 
     .. module:: O
 
-      Not yet documented: signature_item:include
+      .. incl::
+        :contents_from: module type of Reference.SpecializeOperators(String) with type t := t
+
+        .. val:: ref
+          :type: String.t -> t
+
+        .. val:: (!)
+          :type: t -> String.t
+
+        .. val:: (:=)
+          :type: t -> String.t -> unit
 
       .. val:: (=^)
         :type: t -> string -> unit
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: module type of Reference.Specialize(String) with type t := t and module O := O
+
+      .. val:: of_contents
+        :type: String.t -> t
+
+      .. val:: contents
+        :type: t -> String.t
+
+      .. val:: assign
+        :type: t -> String.t -> unit
 
   .. module:: List
 
@@ -1021,23 +8382,558 @@ Reference
     .. val:: concat
       :type: 'a t -> 'a t -> 'a t
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Traits.FilterMapable.S1 with type 'a t := 'a t
 
-    Not yet documented: signature_item:include
+      .. val:: map
+        :type: 'a t -> f:('a -> 'b) -> 'b t
 
-    Not yet documented: signature_item:include
+      .. val:: map_i
+        :type: 'a t -> f:(i:int -> 'a -> 'b) -> 'b t
 
-    Not yet documented: signature_item:include
+      .. val:: map_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b) -> 'b t
 
-    Not yet documented: signature_item:include
+      .. val:: filter
+        :type: 'a t -> f:('a -> bool) -> 'a t
+
+      .. val:: filter_i
+        :type: 'a t -> f:(i:int -> 'a -> bool) -> 'a t
+
+      .. val:: filter_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a t
+
+      .. val:: filter_map
+        :type: 'a t -> f:('a -> 'b option) -> 'b t
+
+      .. val:: filter_map_i
+        :type: 'a t -> f:(i:int -> 'a -> 'b option) -> 'b t
+
+      .. val:: filter_map_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b t
+
+      .. val:: flat_map
+        :type: 'a t -> f:('a -> 'b t) -> 'b t
+
+      .. val:: flat_map_i
+        :type: 'a t -> f:(i:int -> 'a -> 'b t) -> 'b t
+
+      .. val:: flat_map_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b t) -> 'b t
+
+    .. incl::
+      :contents_from: Traits.Foldable.S1 with type 'a t := 'a t
+
+      .. val:: fold
+        :type: init:'b -> 'a t -> f:('b -> 'a -> 'b) -> 'b
+
+      .. val:: fold_i
+        :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> 'b) -> 'b
+
+      .. val:: fold_acc
+        :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b
+
+      .. val:: reduce
+        :type: 'a t -> f:('a -> 'a -> 'a) -> 'a
+
+      .. val:: reduce_i
+        :type: 'a t -> f:(i:int -> 'a -> 'a -> 'a) -> 'a
+
+      .. val:: reduce_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'a -> 'acc * 'a) -> 'a
+
+      .. val:: try_reduce
+        :type: 'a t -> f:('a -> 'a -> 'a) -> 'a option
+
+      .. val:: try_reduce_i
+        :type: 'a t -> f:(i:int -> 'a -> 'a -> 'a) -> 'a option
+
+      .. val:: try_reduce_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'a -> 'acc * 'a) -> 'a option
+
+      .. val:: iter
+        :type: 'a t -> f:('a -> unit) -> unit
+
+      .. val:: iter_i
+        :type: 'a t -> f:(i:int -> 'a -> unit) -> unit
+
+      .. val:: iter_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc) -> unit
+
+      .. val:: count
+        :type: 'a t -> f:('a -> bool) -> int
+
+      .. val:: count_i
+        :type: 'a t -> f:(i:int -> 'a -> bool) -> int
+
+      .. val:: count_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> int
+
+    .. incl::
+      :contents_from: Traits.Foldable.Short.S1 with type 'a t := 'a t
+
+      .. val:: fold_short
+        :type: init:'b -> 'a t -> f:('b -> 'a -> Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: fold_short_i
+        :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: fold_short_acc
+        :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: reduce_short
+        :type: 'a t -> f:('a -> 'a -> Foundations.Shorten.t * 'a) -> 'a
+
+      .. val:: reduce_short_i
+        :type: 'a t -> f:(i:int -> 'a -> 'a -> Foundations.Shorten.t * 'a) -> 'a
+
+      .. val:: reduce_short_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'a -> 'acc * Foundations.Shorten.t * 'a) -> 'a
+
+      .. val:: try_reduce_short
+        :type: 'a t -> f:('a -> 'a -> Foundations.Shorten.t * 'a) -> 'a option
+
+      .. val:: try_reduce_short_i
+        :type: 'a t -> f:(i:int -> 'a -> 'a -> Foundations.Shorten.t * 'a) -> 'a option
+
+      .. val:: try_reduce_short_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'a -> 'acc * Foundations.Shorten.t * 'a) -> 'a option
+
+      .. val:: iter_short
+        :type: 'a t -> f:('a -> Foundations.Shorten.t) -> unit
+
+      .. val:: iter_short_i
+        :type: 'a t -> f:(i:int -> 'a -> Foundations.Shorten.t) -> unit
+
+      .. val:: iter_short_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * Foundations.Shorten.t) -> unit
+
+      .. val:: for_all
+        :type: 'a t -> f:('a -> bool) -> bool
+
+      .. val:: for_all_i
+        :type: 'a t -> f:(i:int -> 'a -> bool) -> bool
+
+      .. val:: for_all_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> bool
+
+      .. val:: there_exists
+        :type: 'a t -> f:('a -> bool) -> bool
+
+      .. val:: there_exists_i
+        :type: 'a t -> f:(i:int -> 'a -> bool) -> bool
+
+      .. val:: there_exists_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> bool
+
+      .. val:: find
+        :type: 'a t -> f:('a -> bool) -> 'a
+
+      .. val:: find_i
+        :type: 'a t -> f:(i:int -> 'a -> bool) -> 'a
+
+      .. val:: find_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a
+
+      .. val:: try_find
+        :type: 'a t -> f:('a -> bool) -> 'a option
+
+      .. val:: try_find_i
+        :type: 'a t -> f:(i:int -> 'a -> bool) -> 'a option
+
+      .. val:: try_find_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a option
+
+      .. val:: find_map
+        :type: 'a t -> f:('a -> 'b option) -> 'b
+
+      .. val:: find_map_i
+        :type: 'a t -> f:(i:int -> 'a -> 'b option) -> 'b
+
+      .. val:: find_map_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b
+
+      .. val:: try_find_map
+        :type: 'a t -> f:('a -> 'b option) -> 'b option
+
+      .. val:: try_find_map_i
+        :type: 'a t -> f:(i:int -> 'a -> 'b option) -> 'b option
+
+      .. val:: try_find_map_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b option
+
+    .. incl::
+      :contents_from: Traits.Scanable.S1 with type 'a t := 'a t
+
+      .. val:: scan
+        :type: init:'b -> 'a t -> f:('b -> 'a -> 'b) -> 'b t
+
+      .. val:: scan_i
+        :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> 'b) -> 'b t
+
+      .. val:: scan_acc
+        :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b t
+
+    .. incl::
+      :contents_from: Traits.Scanable.Short.S1 with type 'a t := 'a t
+
+      .. val:: scan_short
+        :type: init:'b -> 'a t -> f:('b -> 'a -> Foundations.Shorten.t * 'b) -> 'b t
+
+      .. val:: scan_short_i
+        :type: init:'b -> 'a t -> f:(i:int -> 'b -> 'a -> Foundations.Shorten.t * 'b) -> 'b t
+
+      .. val:: scan_short_acc
+        :type: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Foundations.Shorten.t * 'b) -> 'b t
+
+    .. module:: Two
+
+      .. val:: to_pair_list
+        :type: 'a t -> 'b t -> ('a * 'b) t
 
     .. module:: Specialize
 
-      Not yet documented: module_type:functor
+      .. functor_parameter:: A
+
+        .. type:: t
+
+      .. type:: t
+        :manifest: A.t list
+
+      .. module:: O
+
+        .. val:: (@)
+          :type: t -> t -> t
+
+      .. val:: empty
+        :type: t
+
+      .. val:: singleton
+        :type: A.t -> t
+
+      .. val:: of_list
+        :type: A.t list -> t
+
+      .. val:: to_list
+        :type: t -> A.t list
+
+      .. val:: of_array
+        :type: A.t array -> t
+
+      .. val:: to_array
+        :type: t -> A.t array
+
+      .. val:: size
+        :type: t -> int
+
+      .. val:: is_empty
+        :type: t -> bool
+
+      .. val:: head
+        :type: t -> A.t
+
+      .. val:: tail
+        :type: t -> t
+
+      .. val:: try_head
+        :type: t -> A.t option
+
+      .. val:: try_tail
+        :type: t -> t option
+
+      .. val:: prepend
+        :type: A.t -> t -> t
+
+      .. val:: reverse
+        :type: t -> t
+
+      .. val:: concat
+        :type: t -> t -> t
+
+      .. incl::
+        :contents_from: Traits.FilterMapable.S0 with type elt := A.t and type t := t
+
+        .. val:: map
+          :type: t -> f:(A.t -> A.t) -> t
+
+        .. val:: map_i
+          :type: t -> f:(i:int -> A.t -> A.t) -> t
+
+        .. val:: map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * A.t) -> t
+
+        .. val:: filter
+          :type: t -> f:(A.t -> bool) -> t
+
+        .. val:: filter_i
+          :type: t -> f:(i:int -> A.t -> bool) -> t
+
+        .. val:: filter_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * bool) -> t
+
+        .. val:: filter_map
+          :type: t -> f:(A.t -> A.t option) -> t
+
+        .. val:: filter_map_i
+          :type: t -> f:(i:int -> A.t -> A.t option) -> t
+
+        .. val:: filter_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * A.t option) -> t
+
+        .. val:: flat_map
+          :type: t -> f:(A.t -> t) -> t
+
+        .. val:: flat_map_i
+          :type: t -> f:(i:int -> A.t -> t) -> t
+
+        .. val:: flat_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * t) -> t
+
+      .. incl::
+        :contents_from: Traits.Foldable.S0 with type elt := A.t and type t := t
+
+        .. val:: fold
+          :type: init:'b -> t -> f:('b -> A.t -> 'b) -> 'b
+
+        .. val:: fold_i
+          :type: init:'b -> t -> f:(i:int -> 'b -> A.t -> 'b) -> 'b
+
+        .. val:: fold_acc
+          :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> A.t -> 'acc * 'b) -> 'b
+
+        .. val:: reduce
+          :type: t -> f:(A.t -> A.t -> A.t) -> A.t
+
+        .. val:: reduce_i
+          :type: t -> f:(i:int -> A.t -> A.t -> A.t) -> A.t
+
+        .. val:: reduce_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> A.t -> 'acc * A.t) -> A.t
+
+        .. val:: try_reduce
+          :type: t -> f:(A.t -> A.t -> A.t) -> A.t option
+
+        .. val:: try_reduce_i
+          :type: t -> f:(i:int -> A.t -> A.t -> A.t) -> A.t option
+
+        .. val:: try_reduce_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> A.t -> 'acc * A.t) -> A.t option
+
+        .. val:: iter
+          :type: t -> f:(A.t -> unit) -> unit
+
+        .. val:: iter_i
+          :type: t -> f:(i:int -> A.t -> unit) -> unit
+
+        .. val:: iter_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc) -> unit
+
+        .. val:: count
+          :type: t -> f:(A.t -> bool) -> int
+
+        .. val:: count_i
+          :type: t -> f:(i:int -> A.t -> bool) -> int
+
+        .. val:: count_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * bool) -> int
+
+      .. incl::
+        :contents_from: Traits.Foldable.Short.S0 with type elt := A.t and type t := t
+
+        .. val:: fold_short
+          :type: init:'b -> t -> f:('b -> A.t -> Foundations.Shorten.t * 'b) -> 'b
+
+        .. val:: fold_short_i
+          :type: init:'b -> t -> f:(i:int -> 'b -> A.t -> Foundations.Shorten.t * 'b) -> 'b
+
+        .. val:: fold_short_acc
+          :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> A.t -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+        .. val:: reduce_short
+          :type: t -> f:(A.t -> A.t -> Foundations.Shorten.t * A.t) -> A.t
+
+        .. val:: reduce_short_i
+          :type: t -> f:(i:int -> A.t -> A.t -> Foundations.Shorten.t * A.t) -> A.t
+
+        .. val:: reduce_short_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> A.t -> 'acc * Foundations.Shorten.t * A.t) -> A.t
+
+        .. val:: try_reduce_short
+          :type: t -> f:(A.t -> A.t -> Foundations.Shorten.t * A.t) -> A.t option
+
+        .. val:: try_reduce_short_i
+          :type: t -> f:(i:int -> A.t -> A.t -> Foundations.Shorten.t * A.t) -> A.t option
+
+        .. val:: try_reduce_short_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> A.t -> 'acc * Foundations.Shorten.t * A.t) -> A.t option
+
+        .. val:: iter_short
+          :type: t -> f:(A.t -> Foundations.Shorten.t) -> unit
+
+        .. val:: iter_short_i
+          :type: t -> f:(i:int -> A.t -> Foundations.Shorten.t) -> unit
+
+        .. val:: iter_short_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * Foundations.Shorten.t) -> unit
+
+        .. val:: for_all
+          :type: t -> f:(A.t -> bool) -> bool
+
+        .. val:: for_all_i
+          :type: t -> f:(i:int -> A.t -> bool) -> bool
+
+        .. val:: for_all_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * bool) -> bool
+
+        .. val:: there_exists
+          :type: t -> f:(A.t -> bool) -> bool
+
+        .. val:: there_exists_i
+          :type: t -> f:(i:int -> A.t -> bool) -> bool
+
+        .. val:: there_exists_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * bool) -> bool
+
+        .. val:: find
+          :type: t -> f:(A.t -> bool) -> A.t
+
+        .. val:: find_i
+          :type: t -> f:(i:int -> A.t -> bool) -> A.t
+
+        .. val:: find_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * bool) -> A.t
+
+        .. val:: try_find
+          :type: t -> f:(A.t -> bool) -> A.t option
+
+        .. val:: try_find_i
+          :type: t -> f:(i:int -> A.t -> bool) -> A.t option
+
+        .. val:: try_find_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * bool) -> A.t option
+
+        .. val:: find_map
+          :type: t -> f:(A.t -> 'b option) -> 'b
+
+        .. val:: find_map_i
+          :type: t -> f:(i:int -> A.t -> 'b option) -> 'b
+
+        .. val:: find_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * 'b option) -> 'b
+
+        .. val:: try_find_map
+          :type: t -> f:(A.t -> 'b option) -> 'b option
+
+        .. val:: try_find_map_i
+          :type: t -> f:(i:int -> A.t -> 'b option) -> 'b option
+
+        .. val:: try_find_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * 'b option) -> 'b option
+
+      .. incl::
+        :contents_from: Traits.Scanable.S0 with type elt := A.t and type t := t
+
+        .. val:: scan
+          :type: init:A.t -> t -> f:(A.t -> A.t -> A.t) -> t
+
+        .. val:: scan_i
+          :type: init:A.t -> t -> f:(i:int -> A.t -> A.t -> A.t) -> t
+
+        .. val:: scan_acc
+          :type: acc:'acc -> init:A.t -> t -> f:(acc:'acc -> A.t -> A.t -> 'acc * A.t) -> t
+
+      .. incl::
+        :contents_from: Traits.Scanable.Short.S0 with type elt := A.t and type t := t
+
+        .. val:: scan_short
+          :type: init:A.t -> t -> f:(A.t -> A.t -> Foundations.Shorten.t * A.t) -> t
+
+        .. val:: scan_short_i
+          :type: init:A.t -> t -> f:(i:int -> A.t -> A.t -> Foundations.Shorten.t * A.t) -> t
+
+        .. val:: scan_short_acc
+          :type: acc:'acc -> init:A.t -> t -> f:(acc:'acc -> A.t -> A.t -> 'acc * Foundations.Shorten.t * A.t) -> t
+
+      .. module:: ToList
+
+        .. incl::
+          :contents_from: Traits.FilterMapable.ToList.S0 with type elt := A.t and type t := t
+
+          .. val:: map
+            :type: t -> f:(A.t -> 'b) -> 'b list
+
+          .. val:: map_i
+            :type: t -> f:(i:int -> A.t -> 'b) -> 'b list
+
+          .. val:: map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * 'b) -> 'b list
+
+          .. val:: filter
+            :type: t -> f:(A.t -> bool) -> A.t list
+
+          .. val:: filter_i
+            :type: t -> f:(i:int -> A.t -> bool) -> A.t list
+
+          .. val:: filter_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * bool) -> A.t list
+
+          .. val:: filter_map
+            :type: t -> f:(A.t -> 'b option) -> 'b list
+
+          .. val:: filter_map_i
+            :type: t -> f:(i:int -> A.t -> 'b option) -> 'b list
+
+          .. val:: filter_map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * 'b option) -> 'b list
+
+          .. val:: flat_map
+            :type: t -> f:(A.t -> 'b list) -> 'b list
+
+          .. val:: flat_map_i
+            :type: t -> f:(i:int -> A.t -> 'b list) -> 'b list
+
+          .. val:: flat_map_acc
+            :type: acc:'acc -> t -> f:(acc:'acc -> A.t -> 'acc * 'b list) -> 'b list
+
+        .. incl::
+          :contents_from: Traits.Scanable.ToList.S0 with type elt := A.t and type t := t
+
+          .. val:: scan
+            :type: init:'a -> t -> f:('a -> A.t -> 'a) -> 'a list
+
+          .. val:: scan_i
+            :type: init:'a -> t -> f:(i:int -> 'a -> A.t -> 'a) -> 'a list
+
+          .. val:: scan_acc
+            :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> A.t -> 'acc * 'a) -> 'a list
+
+        .. incl::
+          :contents_from: Traits.Scanable.Short.ToList.S0 with type elt := A.t and type t := t
+
+          .. val:: scan_short
+            :type: init:'a -> t -> f:('a -> A.t -> Foundations.Shorten.t * 'a) -> 'a list
+
+          .. val:: scan_short_i
+            :type: init:'a -> t -> f:(i:int -> 'a -> A.t -> Foundations.Shorten.t * 'a) -> 'a list
+
+          .. val:: scan_short_acc
+            :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> A.t -> 'acc * Foundations.Shorten.t * 'a) -> 'a list
 
     .. module:: SpecializeEquatable
 
-      Not yet documented: module_type:functor
+      .. functor_parameter:: A
+        :contents_from: Traits.Equatable.Basic.S0
+
+        .. type:: t
+
+        .. val:: equal
+          :type: t -> t -> bool
+
+      .. type:: t
+        :manifest: A.t list
+
+      .. val:: contains
+        :type: t -> A.t -> bool
 
   .. module:: Array
 
@@ -1072,17 +8968,109 @@ Reference
     .. val:: concat
       :type: 'a t -> 'a t -> 'a t
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Traits.FilterMapable.S1 with type 'a t := 'a t
+
+      .. val:: map
+        :type: 'a t -> f:('a -> 'b) -> 'b t
+
+      .. val:: map_i
+        :type: 'a t -> f:(i:int -> 'a -> 'b) -> 'b t
+
+      .. val:: map_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b) -> 'b t
+
+      .. val:: filter
+        :type: 'a t -> f:('a -> bool) -> 'a t
+
+      .. val:: filter_i
+        :type: 'a t -> f:(i:int -> 'a -> bool) -> 'a t
+
+      .. val:: filter_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a t
+
+      .. val:: filter_map
+        :type: 'a t -> f:('a -> 'b option) -> 'b t
+
+      .. val:: filter_map_i
+        :type: 'a t -> f:(i:int -> 'a -> 'b option) -> 'b t
+
+      .. val:: filter_map_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b t
+
+      .. val:: flat_map
+        :type: 'a t -> f:('a -> 'b t) -> 'b t
+
+      .. val:: flat_map_i
+        :type: 'a t -> f:(i:int -> 'a -> 'b t) -> 'b t
+
+      .. val:: flat_map_acc
+        :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b t) -> 'b t
 
     .. module:: ToList
 
-      Not yet documented: signature_item:include
+      .. incl::
+        :contents_from: Traits.FilterMapable.ToList.S1 with type 'a t := 'a t
+
+        .. val:: map
+          :type: 'a t -> f:('a -> 'b) -> 'b list
+
+        .. val:: map_i
+          :type: 'a t -> f:(i:int -> 'a -> 'b) -> 'b list
+
+        .. val:: map_acc
+          :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b) -> 'b list
+
+        .. val:: filter
+          :type: 'a t -> f:('a -> bool) -> 'a list
+
+        .. val:: filter_i
+          :type: 'a t -> f:(i:int -> 'a -> bool) -> 'a list
+
+        .. val:: filter_acc
+          :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * bool) -> 'a list
+
+        .. val:: filter_map
+          :type: 'a t -> f:('a -> 'b option) -> 'b list
+
+        .. val:: filter_map_i
+          :type: 'a t -> f:(i:int -> 'a -> 'b option) -> 'b list
+
+        .. val:: filter_map_acc
+          :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b option) -> 'b list
+
+        .. val:: flat_map
+          :type: 'a t -> f:('a -> 'b list) -> 'b list
+
+        .. val:: flat_map_i
+          :type: 'a t -> f:(i:int -> 'a -> 'b list) -> 'b list
+
+        .. val:: flat_map_acc
+          :type: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b list) -> 'b list
 
   .. module:: IntRange
 
     .. type:: t
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Concepts.Identifiable.S0 with type t := t
+
+      .. val:: equal
+        :type: t -> t -> bool
+
+      .. val:: different
+        :type: t -> t -> bool
+
+      .. module:: O
+
+        .. val:: (=)
+          :type: t -> t -> bool
+
+        .. val:: (<>)
+          :type: t -> t -> bool
+
+      .. val:: repr
+        :type: t -> string
 
     .. val:: empty
       :type: t
@@ -1096,29 +9084,1120 @@ Reference
     .. val:: to_array
       :type: t -> int array
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: Traits.Foldable.S0 with type elt := int and type t := t
 
-    Not yet documented: signature_item:include
+      .. val:: fold
+        :type: init:'b -> t -> f:('b -> int -> 'b) -> 'b
+
+      .. val:: fold_i
+        :type: init:'b -> t -> f:(i:int -> 'b -> int -> 'b) -> 'b
+
+      .. val:: fold_acc
+        :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> int -> 'acc * 'b) -> 'b
+
+      .. val:: reduce
+        :type: t -> f:(int -> int -> int) -> int
+
+      .. val:: reduce_i
+        :type: t -> f:(i:int -> int -> int -> int) -> int
+
+      .. val:: reduce_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> int -> int -> 'acc * int) -> int
+
+      .. val:: try_reduce
+        :type: t -> f:(int -> int -> int) -> int option
+
+      .. val:: try_reduce_i
+        :type: t -> f:(i:int -> int -> int -> int) -> int option
+
+      .. val:: try_reduce_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> int -> int -> 'acc * int) -> int option
+
+      .. val:: iter
+        :type: t -> f:(int -> unit) -> unit
+
+      .. val:: iter_i
+        :type: t -> f:(i:int -> int -> unit) -> unit
+
+      .. val:: iter_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> int -> 'acc) -> unit
+
+      .. val:: count
+        :type: t -> f:(int -> bool) -> int
+
+      .. val:: count_i
+        :type: t -> f:(i:int -> int -> bool) -> int
+
+      .. val:: count_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> int -> 'acc * bool) -> int
+
+    .. incl::
+      :contents_from: Traits.Foldable.Short.S0 with type elt := int and type t := t
+
+      .. val:: fold_short
+        :type: init:'b -> t -> f:('b -> int -> Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: fold_short_i
+        :type: init:'b -> t -> f:(i:int -> 'b -> int -> Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: fold_short_acc
+        :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> int -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: reduce_short
+        :type: t -> f:(int -> int -> Foundations.Shorten.t * int) -> int
+
+      .. val:: reduce_short_i
+        :type: t -> f:(i:int -> int -> int -> Foundations.Shorten.t * int) -> int
+
+      .. val:: reduce_short_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> int -> int -> 'acc * Foundations.Shorten.t * int) -> int
+
+      .. val:: try_reduce_short
+        :type: t -> f:(int -> int -> Foundations.Shorten.t * int) -> int option
+
+      .. val:: try_reduce_short_i
+        :type: t -> f:(i:int -> int -> int -> Foundations.Shorten.t * int) -> int option
+
+      .. val:: try_reduce_short_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> int -> int -> 'acc * Foundations.Shorten.t * int) -> int option
+
+      .. val:: iter_short
+        :type: t -> f:(int -> Foundations.Shorten.t) -> unit
+
+      .. val:: iter_short_i
+        :type: t -> f:(i:int -> int -> Foundations.Shorten.t) -> unit
+
+      .. val:: iter_short_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> int -> 'acc * Foundations.Shorten.t) -> unit
+
+      .. val:: for_all
+        :type: t -> f:(int -> bool) -> bool
+
+      .. val:: for_all_i
+        :type: t -> f:(i:int -> int -> bool) -> bool
+
+      .. val:: for_all_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> int -> 'acc * bool) -> bool
+
+      .. val:: there_exists
+        :type: t -> f:(int -> bool) -> bool
+
+      .. val:: there_exists_i
+        :type: t -> f:(i:int -> int -> bool) -> bool
+
+      .. val:: there_exists_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> int -> 'acc * bool) -> bool
+
+      .. val:: find
+        :type: t -> f:(int -> bool) -> int
+
+      .. val:: find_i
+        :type: t -> f:(i:int -> int -> bool) -> int
+
+      .. val:: find_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> int -> 'acc * bool) -> int
+
+      .. val:: try_find
+        :type: t -> f:(int -> bool) -> int option
+
+      .. val:: try_find_i
+        :type: t -> f:(i:int -> int -> bool) -> int option
+
+      .. val:: try_find_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> int -> 'acc * bool) -> int option
+
+      .. val:: find_map
+        :type: t -> f:(int -> 'b option) -> 'b
+
+      .. val:: find_map_i
+        :type: t -> f:(i:int -> int -> 'b option) -> 'b
+
+      .. val:: find_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> int -> 'acc * 'b option) -> 'b
+
+      .. val:: try_find_map
+        :type: t -> f:(int -> 'b option) -> 'b option
+
+      .. val:: try_find_map_i
+        :type: t -> f:(i:int -> int -> 'b option) -> 'b option
+
+      .. val:: try_find_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> int -> 'acc * 'b option) -> 'b option
 
     .. module:: ToList
 
-      Not yet documented: signature_item:include
+      .. incl::
+        :contents_from: Traits.FilterMapable.ToList.S0 with type elt := int and type t := t
 
-      Not yet documented: signature_item:include
+        .. val:: map
+          :type: t -> f:(int -> 'b) -> 'b list
 
-      Not yet documented: signature_item:include
+        .. val:: map_i
+          :type: t -> f:(i:int -> int -> 'b) -> 'b list
+
+        .. val:: map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> int -> 'acc * 'b) -> 'b list
+
+        .. val:: filter
+          :type: t -> f:(int -> bool) -> int list
+
+        .. val:: filter_i
+          :type: t -> f:(i:int -> int -> bool) -> int list
+
+        .. val:: filter_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> int -> 'acc * bool) -> int list
+
+        .. val:: filter_map
+          :type: t -> f:(int -> 'b option) -> 'b list
+
+        .. val:: filter_map_i
+          :type: t -> f:(i:int -> int -> 'b option) -> 'b list
+
+        .. val:: filter_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> int -> 'acc * 'b option) -> 'b list
+
+        .. val:: flat_map
+          :type: t -> f:(int -> 'b list) -> 'b list
+
+        .. val:: flat_map_i
+          :type: t -> f:(i:int -> int -> 'b list) -> 'b list
+
+        .. val:: flat_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> int -> 'acc * 'b list) -> 'b list
+
+      .. incl::
+        :contents_from: Traits.Scanable.ToList.S0 with type elt := int and type t := t
+
+        .. val:: scan
+          :type: init:'a -> t -> f:('a -> int -> 'a) -> 'a list
+
+        .. val:: scan_i
+          :type: init:'a -> t -> f:(i:int -> 'a -> int -> 'a) -> 'a list
+
+        .. val:: scan_acc
+          :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> int -> 'acc * 'a) -> 'a list
+
+      .. incl::
+        :contents_from: Traits.Scanable.Short.ToList.S0 with type elt := int and type t := t
+
+        .. val:: scan_short
+          :type: init:'a -> t -> f:('a -> int -> Foundations.Shorten.t * 'a) -> 'a list
+
+        .. val:: scan_short_i
+          :type: init:'a -> t -> f:(i:int -> 'a -> int -> Foundations.Shorten.t * 'a) -> 'a list
+
+        .. val:: scan_short_acc
+          :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> int -> 'acc * Foundations.Shorten.t * 'a) -> 'a list
 
   .. module:: IntList
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: module type of List.Specialize(Int)
+
+      .. type:: t
+        :manifest: Int.t list
+
+      .. module:: O
+
+        .. val:: (@)
+          :type: t -> t -> t
+
+      .. val:: empty
+        :type: t
+
+      .. val:: singleton
+        :type: Int.t -> t
+
+      .. val:: of_list
+        :type: Int.t list -> t
+
+      .. val:: to_list
+        :type: t -> Int.t list
+
+      .. val:: of_array
+        :type: Int.t array -> t
+
+      .. val:: to_array
+        :type: t -> Int.t array
+
+      .. val:: size
+        :type: t -> int
+
+      .. val:: is_empty
+        :type: t -> bool
+
+      .. val:: head
+        :type: t -> Int.t
+
+      .. val:: tail
+        :type: t -> t
+
+      .. val:: try_head
+        :type: t -> Int.t option
+
+      .. val:: try_tail
+        :type: t -> t option
+
+      .. val:: prepend
+        :type: Int.t -> t -> t
+
+      .. val:: reverse
+        :type: t -> t
+
+      .. val:: concat
+        :type: t -> t -> t
+
+      .. val:: map
+        :type: t -> f:(Int.t -> Int.t) -> t
+
+      .. val:: map_i
+        :type: t -> f:(i:int -> Int.t -> Int.t) -> t
+
+      .. val:: map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * Int.t) -> t
+
+      .. val:: filter
+        :type: t -> f:(Int.t -> bool) -> t
+
+      .. val:: filter_i
+        :type: t -> f:(i:int -> Int.t -> bool) -> t
+
+      .. val:: filter_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * bool) -> t
+
+      .. val:: filter_map
+        :type: t -> f:(Int.t -> Int.t option) -> t
+
+      .. val:: filter_map_i
+        :type: t -> f:(i:int -> Int.t -> Int.t option) -> t
+
+      .. val:: filter_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * Int.t option) -> t
+
+      .. val:: flat_map
+        :type: t -> f:(Int.t -> t) -> t
+
+      .. val:: flat_map_i
+        :type: t -> f:(i:int -> Int.t -> t) -> t
+
+      .. val:: flat_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * t) -> t
+
+      .. val:: fold
+        :type: init:'b -> t -> f:('b -> Int.t -> 'b) -> 'b
+
+      .. val:: fold_i
+        :type: init:'b -> t -> f:(i:int -> 'b -> Int.t -> 'b) -> 'b
+
+      .. val:: fold_acc
+        :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> Int.t -> 'acc * 'b) -> 'b
+
+      .. val:: reduce
+        :type: t -> f:(Int.t -> Int.t -> Int.t) -> Int.t
+
+      .. val:: reduce_i
+        :type: t -> f:(i:int -> Int.t -> Int.t -> Int.t) -> Int.t
+
+      .. val:: reduce_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> Int.t -> 'acc * Int.t) -> Int.t
+
+      .. val:: try_reduce
+        :type: t -> f:(Int.t -> Int.t -> Int.t) -> Int.t option
+
+      .. val:: try_reduce_i
+        :type: t -> f:(i:int -> Int.t -> Int.t -> Int.t) -> Int.t option
+
+      .. val:: try_reduce_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> Int.t -> 'acc * Int.t) -> Int.t option
+
+      .. val:: iter
+        :type: t -> f:(Int.t -> unit) -> unit
+
+      .. val:: iter_i
+        :type: t -> f:(i:int -> Int.t -> unit) -> unit
+
+      .. val:: iter_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc) -> unit
+
+      .. val:: count
+        :type: t -> f:(Int.t -> bool) -> int
+
+      .. val:: count_i
+        :type: t -> f:(i:int -> Int.t -> bool) -> int
+
+      .. val:: count_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * bool) -> int
+
+      .. val:: fold_short
+        :type: init:'b -> t -> f:('b -> Int.t -> Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: fold_short_i
+        :type: init:'b -> t -> f:(i:int -> 'b -> Int.t -> Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: fold_short_acc
+        :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> Int.t -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: reduce_short
+        :type: t -> f:(Int.t -> Int.t -> Foundations.Shorten.t * Int.t) -> Int.t
+
+      .. val:: reduce_short_i
+        :type: t -> f:(i:int -> Int.t -> Int.t -> Foundations.Shorten.t * Int.t) -> Int.t
+
+      .. val:: reduce_short_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> Int.t -> 'acc * Foundations.Shorten.t * Int.t) -> Int.t
+
+      .. val:: try_reduce_short
+        :type: t -> f:(Int.t -> Int.t -> Foundations.Shorten.t * Int.t) -> Int.t option
+
+      .. val:: try_reduce_short_i
+        :type: t -> f:(i:int -> Int.t -> Int.t -> Foundations.Shorten.t * Int.t) -> Int.t option
+
+      .. val:: try_reduce_short_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> Int.t -> 'acc * Foundations.Shorten.t * Int.t) -> Int.t option
+
+      .. val:: iter_short
+        :type: t -> f:(Int.t -> Foundations.Shorten.t) -> unit
+
+      .. val:: iter_short_i
+        :type: t -> f:(i:int -> Int.t -> Foundations.Shorten.t) -> unit
+
+      .. val:: iter_short_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * Foundations.Shorten.t) -> unit
+
+      .. val:: for_all
+        :type: t -> f:(Int.t -> bool) -> bool
+
+      .. val:: for_all_i
+        :type: t -> f:(i:int -> Int.t -> bool) -> bool
+
+      .. val:: for_all_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * bool) -> bool
+
+      .. val:: there_exists
+        :type: t -> f:(Int.t -> bool) -> bool
+
+      .. val:: there_exists_i
+        :type: t -> f:(i:int -> Int.t -> bool) -> bool
+
+      .. val:: there_exists_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * bool) -> bool
+
+      .. val:: find
+        :type: t -> f:(Int.t -> bool) -> Int.t
+
+      .. val:: find_i
+        :type: t -> f:(i:int -> Int.t -> bool) -> Int.t
+
+      .. val:: find_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * bool) -> Int.t
+
+      .. val:: try_find
+        :type: t -> f:(Int.t -> bool) -> Int.t option
+
+      .. val:: try_find_i
+        :type: t -> f:(i:int -> Int.t -> bool) -> Int.t option
+
+      .. val:: try_find_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * bool) -> Int.t option
+
+      .. val:: find_map
+        :type: t -> f:(Int.t -> 'b option) -> 'b
+
+      .. val:: find_map_i
+        :type: t -> f:(i:int -> Int.t -> 'b option) -> 'b
+
+      .. val:: find_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * 'b option) -> 'b
+
+      .. val:: try_find_map
+        :type: t -> f:(Int.t -> 'b option) -> 'b option
+
+      .. val:: try_find_map_i
+        :type: t -> f:(i:int -> Int.t -> 'b option) -> 'b option
+
+      .. val:: try_find_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * 'b option) -> 'b option
+
+      .. val:: scan
+        :type: init:Int.t -> t -> f:(Int.t -> Int.t -> Int.t) -> t
+
+      .. val:: scan_i
+        :type: init:Int.t -> t -> f:(i:int -> Int.t -> Int.t -> Int.t) -> t
+
+      .. val:: scan_acc
+        :type: acc:'acc -> init:Int.t -> t -> f:(acc:'acc -> Int.t -> Int.t -> 'acc * Int.t) -> t
+
+      .. val:: scan_short
+        :type: init:Int.t -> t -> f:(Int.t -> Int.t -> Foundations.Shorten.t * Int.t) -> t
+
+      .. val:: scan_short_i
+        :type: init:Int.t -> t -> f:(i:int -> Int.t -> Int.t -> Foundations.Shorten.t * Int.t) -> t
+
+      .. val:: scan_short_acc
+        :type: acc:'acc -> init:Int.t -> t -> f:(acc:'acc -> Int.t -> Int.t -> 'acc * Foundations.Shorten.t * Int.t) -> t
+
+      .. module:: ToList
+
+        .. val:: map
+          :type: t -> f:(Int.t -> 'b) -> 'b list
+
+        .. val:: map_i
+          :type: t -> f:(i:int -> Int.t -> 'b) -> 'b list
+
+        .. val:: map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * 'b) -> 'b list
+
+        .. val:: filter
+          :type: t -> f:(Int.t -> bool) -> Int.t list
+
+        .. val:: filter_i
+          :type: t -> f:(i:int -> Int.t -> bool) -> Int.t list
+
+        .. val:: filter_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * bool) -> Int.t list
+
+        .. val:: filter_map
+          :type: t -> f:(Int.t -> 'b option) -> 'b list
+
+        .. val:: filter_map_i
+          :type: t -> f:(i:int -> Int.t -> 'b option) -> 'b list
+
+        .. val:: filter_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * 'b option) -> 'b list
+
+        .. val:: flat_map
+          :type: t -> f:(Int.t -> 'b list) -> 'b list
+
+        .. val:: flat_map_i
+          :type: t -> f:(i:int -> Int.t -> 'b list) -> 'b list
+
+        .. val:: flat_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> Int.t -> 'acc * 'b list) -> 'b list
+
+        .. val:: scan
+          :type: init:'a -> t -> f:('a -> Int.t -> 'a) -> 'a list
+
+        .. val:: scan_i
+          :type: init:'a -> t -> f:(i:int -> 'a -> Int.t -> 'a) -> 'a list
+
+        .. val:: scan_acc
+          :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> Int.t -> 'acc * 'a) -> 'a list
+
+        .. val:: scan_short
+          :type: init:'a -> t -> f:('a -> Int.t -> Foundations.Shorten.t * 'a) -> 'a list
+
+        .. val:: scan_short_i
+          :type: init:'a -> t -> f:(i:int -> 'a -> Int.t -> Foundations.Shorten.t * 'a) -> 'a list
+
+        .. val:: scan_short_acc
+          :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> Int.t -> 'acc * Foundations.Shorten.t * 'a) -> 'a list
 
   .. module:: FloatList
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: module type of List.Specialize(Float)
+
+      .. type:: t
+        :manifest: Float.t list
+
+      .. module:: O
+
+        .. val:: (@)
+          :type: t -> t -> t
+
+      .. val:: empty
+        :type: t
+
+      .. val:: singleton
+        :type: Float.t -> t
+
+      .. val:: of_list
+        :type: Float.t list -> t
+
+      .. val:: to_list
+        :type: t -> Float.t list
+
+      .. val:: of_array
+        :type: Float.t array -> t
+
+      .. val:: to_array
+        :type: t -> Float.t array
+
+      .. val:: size
+        :type: t -> int
+
+      .. val:: is_empty
+        :type: t -> bool
+
+      .. val:: head
+        :type: t -> Float.t
+
+      .. val:: tail
+        :type: t -> t
+
+      .. val:: try_head
+        :type: t -> Float.t option
+
+      .. val:: try_tail
+        :type: t -> t option
+
+      .. val:: prepend
+        :type: Float.t -> t -> t
+
+      .. val:: reverse
+        :type: t -> t
+
+      .. val:: concat
+        :type: t -> t -> t
+
+      .. val:: map
+        :type: t -> f:(Float.t -> Float.t) -> t
+
+      .. val:: map_i
+        :type: t -> f:(i:int -> Float.t -> Float.t) -> t
+
+      .. val:: map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * Float.t) -> t
+
+      .. val:: filter
+        :type: t -> f:(Float.t -> bool) -> t
+
+      .. val:: filter_i
+        :type: t -> f:(i:int -> Float.t -> bool) -> t
+
+      .. val:: filter_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * bool) -> t
+
+      .. val:: filter_map
+        :type: t -> f:(Float.t -> Float.t option) -> t
+
+      .. val:: filter_map_i
+        :type: t -> f:(i:int -> Float.t -> Float.t option) -> t
+
+      .. val:: filter_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * Float.t option) -> t
+
+      .. val:: flat_map
+        :type: t -> f:(Float.t -> t) -> t
+
+      .. val:: flat_map_i
+        :type: t -> f:(i:int -> Float.t -> t) -> t
+
+      .. val:: flat_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * t) -> t
+
+      .. val:: fold
+        :type: init:'b -> t -> f:('b -> Float.t -> 'b) -> 'b
+
+      .. val:: fold_i
+        :type: init:'b -> t -> f:(i:int -> 'b -> Float.t -> 'b) -> 'b
+
+      .. val:: fold_acc
+        :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> Float.t -> 'acc * 'b) -> 'b
+
+      .. val:: reduce
+        :type: t -> f:(Float.t -> Float.t -> Float.t) -> Float.t
+
+      .. val:: reduce_i
+        :type: t -> f:(i:int -> Float.t -> Float.t -> Float.t) -> Float.t
+
+      .. val:: reduce_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> Float.t -> 'acc * Float.t) -> Float.t
+
+      .. val:: try_reduce
+        :type: t -> f:(Float.t -> Float.t -> Float.t) -> Float.t option
+
+      .. val:: try_reduce_i
+        :type: t -> f:(i:int -> Float.t -> Float.t -> Float.t) -> Float.t option
+
+      .. val:: try_reduce_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> Float.t -> 'acc * Float.t) -> Float.t option
+
+      .. val:: iter
+        :type: t -> f:(Float.t -> unit) -> unit
+
+      .. val:: iter_i
+        :type: t -> f:(i:int -> Float.t -> unit) -> unit
+
+      .. val:: iter_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc) -> unit
+
+      .. val:: count
+        :type: t -> f:(Float.t -> bool) -> int
+
+      .. val:: count_i
+        :type: t -> f:(i:int -> Float.t -> bool) -> int
+
+      .. val:: count_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * bool) -> int
+
+      .. val:: fold_short
+        :type: init:'b -> t -> f:('b -> Float.t -> Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: fold_short_i
+        :type: init:'b -> t -> f:(i:int -> 'b -> Float.t -> Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: fold_short_acc
+        :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> Float.t -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: reduce_short
+        :type: t -> f:(Float.t -> Float.t -> Foundations.Shorten.t * Float.t) -> Float.t
+
+      .. val:: reduce_short_i
+        :type: t -> f:(i:int -> Float.t -> Float.t -> Foundations.Shorten.t * Float.t) -> Float.t
+
+      .. val:: reduce_short_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> Float.t -> 'acc * Foundations.Shorten.t * Float.t) -> Float.t
+
+      .. val:: try_reduce_short
+        :type: t -> f:(Float.t -> Float.t -> Foundations.Shorten.t * Float.t) -> Float.t option
+
+      .. val:: try_reduce_short_i
+        :type: t -> f:(i:int -> Float.t -> Float.t -> Foundations.Shorten.t * Float.t) -> Float.t option
+
+      .. val:: try_reduce_short_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> Float.t -> 'acc * Foundations.Shorten.t * Float.t) -> Float.t option
+
+      .. val:: iter_short
+        :type: t -> f:(Float.t -> Foundations.Shorten.t) -> unit
+
+      .. val:: iter_short_i
+        :type: t -> f:(i:int -> Float.t -> Foundations.Shorten.t) -> unit
+
+      .. val:: iter_short_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * Foundations.Shorten.t) -> unit
+
+      .. val:: for_all
+        :type: t -> f:(Float.t -> bool) -> bool
+
+      .. val:: for_all_i
+        :type: t -> f:(i:int -> Float.t -> bool) -> bool
+
+      .. val:: for_all_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * bool) -> bool
+
+      .. val:: there_exists
+        :type: t -> f:(Float.t -> bool) -> bool
+
+      .. val:: there_exists_i
+        :type: t -> f:(i:int -> Float.t -> bool) -> bool
+
+      .. val:: there_exists_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * bool) -> bool
+
+      .. val:: find
+        :type: t -> f:(Float.t -> bool) -> Float.t
+
+      .. val:: find_i
+        :type: t -> f:(i:int -> Float.t -> bool) -> Float.t
+
+      .. val:: find_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * bool) -> Float.t
+
+      .. val:: try_find
+        :type: t -> f:(Float.t -> bool) -> Float.t option
+
+      .. val:: try_find_i
+        :type: t -> f:(i:int -> Float.t -> bool) -> Float.t option
+
+      .. val:: try_find_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * bool) -> Float.t option
+
+      .. val:: find_map
+        :type: t -> f:(Float.t -> 'b option) -> 'b
+
+      .. val:: find_map_i
+        :type: t -> f:(i:int -> Float.t -> 'b option) -> 'b
+
+      .. val:: find_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * 'b option) -> 'b
+
+      .. val:: try_find_map
+        :type: t -> f:(Float.t -> 'b option) -> 'b option
+
+      .. val:: try_find_map_i
+        :type: t -> f:(i:int -> Float.t -> 'b option) -> 'b option
+
+      .. val:: try_find_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * 'b option) -> 'b option
+
+      .. val:: scan
+        :type: init:Float.t -> t -> f:(Float.t -> Float.t -> Float.t) -> t
+
+      .. val:: scan_i
+        :type: init:Float.t -> t -> f:(i:int -> Float.t -> Float.t -> Float.t) -> t
+
+      .. val:: scan_acc
+        :type: acc:'acc -> init:Float.t -> t -> f:(acc:'acc -> Float.t -> Float.t -> 'acc * Float.t) -> t
+
+      .. val:: scan_short
+        :type: init:Float.t -> t -> f:(Float.t -> Float.t -> Foundations.Shorten.t * Float.t) -> t
+
+      .. val:: scan_short_i
+        :type: init:Float.t -> t -> f:(i:int -> Float.t -> Float.t -> Foundations.Shorten.t * Float.t) -> t
+
+      .. val:: scan_short_acc
+        :type: acc:'acc -> init:Float.t -> t -> f:(acc:'acc -> Float.t -> Float.t -> 'acc * Foundations.Shorten.t * Float.t) -> t
+
+      .. module:: ToList
+
+        .. val:: map
+          :type: t -> f:(Float.t -> 'b) -> 'b list
+
+        .. val:: map_i
+          :type: t -> f:(i:int -> Float.t -> 'b) -> 'b list
+
+        .. val:: map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * 'b) -> 'b list
+
+        .. val:: filter
+          :type: t -> f:(Float.t -> bool) -> Float.t list
+
+        .. val:: filter_i
+          :type: t -> f:(i:int -> Float.t -> bool) -> Float.t list
+
+        .. val:: filter_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * bool) -> Float.t list
+
+        .. val:: filter_map
+          :type: t -> f:(Float.t -> 'b option) -> 'b list
+
+        .. val:: filter_map_i
+          :type: t -> f:(i:int -> Float.t -> 'b option) -> 'b list
+
+        .. val:: filter_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * 'b option) -> 'b list
+
+        .. val:: flat_map
+          :type: t -> f:(Float.t -> 'b list) -> 'b list
+
+        .. val:: flat_map_i
+          :type: t -> f:(i:int -> Float.t -> 'b list) -> 'b list
+
+        .. val:: flat_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> Float.t -> 'acc * 'b list) -> 'b list
+
+        .. val:: scan
+          :type: init:'a -> t -> f:('a -> Float.t -> 'a) -> 'a list
+
+        .. val:: scan_i
+          :type: init:'a -> t -> f:(i:int -> 'a -> Float.t -> 'a) -> 'a list
+
+        .. val:: scan_acc
+          :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> Float.t -> 'acc * 'a) -> 'a list
+
+        .. val:: scan_short
+          :type: init:'a -> t -> f:('a -> Float.t -> Foundations.Shorten.t * 'a) -> 'a list
+
+        .. val:: scan_short_i
+          :type: init:'a -> t -> f:(i:int -> 'a -> Float.t -> Foundations.Shorten.t * 'a) -> 'a list
+
+        .. val:: scan_short_acc
+          :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> Float.t -> 'acc * Foundations.Shorten.t * 'a) -> 'a list
 
   .. module:: StringList
 
-    Not yet documented: signature_item:include
+    .. incl::
+      :contents_from: module type of List.Specialize(String)
+
+      .. type:: t
+        :manifest: String.t list
+
+      .. module:: O
+
+        .. val:: (@)
+          :type: t -> t -> t
+
+      .. val:: empty
+        :type: t
+
+      .. val:: singleton
+        :type: String.t -> t
+
+      .. val:: of_list
+        :type: String.t list -> t
+
+      .. val:: to_list
+        :type: t -> String.t list
+
+      .. val:: of_array
+        :type: String.t array -> t
+
+      .. val:: to_array
+        :type: t -> String.t array
+
+      .. val:: size
+        :type: t -> int
+
+      .. val:: is_empty
+        :type: t -> bool
+
+      .. val:: head
+        :type: t -> String.t
+
+      .. val:: tail
+        :type: t -> t
+
+      .. val:: try_head
+        :type: t -> String.t option
+
+      .. val:: try_tail
+        :type: t -> t option
+
+      .. val:: prepend
+        :type: String.t -> t -> t
+
+      .. val:: reverse
+        :type: t -> t
+
+      .. val:: concat
+        :type: t -> t -> t
+
+      .. val:: map
+        :type: t -> f:(String.t -> String.t) -> t
+
+      .. val:: map_i
+        :type: t -> f:(i:int -> String.t -> String.t) -> t
+
+      .. val:: map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * String.t) -> t
+
+      .. val:: filter
+        :type: t -> f:(String.t -> bool) -> t
+
+      .. val:: filter_i
+        :type: t -> f:(i:int -> String.t -> bool) -> t
+
+      .. val:: filter_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * bool) -> t
+
+      .. val:: filter_map
+        :type: t -> f:(String.t -> String.t option) -> t
+
+      .. val:: filter_map_i
+        :type: t -> f:(i:int -> String.t -> String.t option) -> t
+
+      .. val:: filter_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * String.t option) -> t
+
+      .. val:: flat_map
+        :type: t -> f:(String.t -> t) -> t
+
+      .. val:: flat_map_i
+        :type: t -> f:(i:int -> String.t -> t) -> t
+
+      .. val:: flat_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * t) -> t
+
+      .. val:: fold
+        :type: init:'b -> t -> f:('b -> String.t -> 'b) -> 'b
+
+      .. val:: fold_i
+        :type: init:'b -> t -> f:(i:int -> 'b -> String.t -> 'b) -> 'b
+
+      .. val:: fold_acc
+        :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> String.t -> 'acc * 'b) -> 'b
+
+      .. val:: reduce
+        :type: t -> f:(String.t -> String.t -> String.t) -> String.t
+
+      .. val:: reduce_i
+        :type: t -> f:(i:int -> String.t -> String.t -> String.t) -> String.t
+
+      .. val:: reduce_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> String.t -> 'acc * String.t) -> String.t
+
+      .. val:: try_reduce
+        :type: t -> f:(String.t -> String.t -> String.t) -> String.t option
+
+      .. val:: try_reduce_i
+        :type: t -> f:(i:int -> String.t -> String.t -> String.t) -> String.t option
+
+      .. val:: try_reduce_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> String.t -> 'acc * String.t) -> String.t option
+
+      .. val:: iter
+        :type: t -> f:(String.t -> unit) -> unit
+
+      .. val:: iter_i
+        :type: t -> f:(i:int -> String.t -> unit) -> unit
+
+      .. val:: iter_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc) -> unit
+
+      .. val:: count
+        :type: t -> f:(String.t -> bool) -> int
+
+      .. val:: count_i
+        :type: t -> f:(i:int -> String.t -> bool) -> int
+
+      .. val:: count_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * bool) -> int
+
+      .. val:: fold_short
+        :type: init:'b -> t -> f:('b -> String.t -> Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: fold_short_i
+        :type: init:'b -> t -> f:(i:int -> 'b -> String.t -> Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: fold_short_acc
+        :type: acc:'acc -> init:'b -> t -> f:(acc:'acc -> 'b -> String.t -> 'acc * Foundations.Shorten.t * 'b) -> 'b
+
+      .. val:: reduce_short
+        :type: t -> f:(String.t -> String.t -> Foundations.Shorten.t * String.t) -> String.t
+
+      .. val:: reduce_short_i
+        :type: t -> f:(i:int -> String.t -> String.t -> Foundations.Shorten.t * String.t) -> String.t
+
+      .. val:: reduce_short_acc
+        :type: acc:'acc -> t -> f:(acc:'acc ->    String.t -> String.t -> 'acc * Foundations.Shorten.t * String.t) -> String.t
+
+      .. val:: try_reduce_short
+        :type: t -> f:(String.t -> String.t -> Foundations.Shorten.t * String.t) -> String.t option
+
+      .. val:: try_reduce_short_i
+        :type: t -> f:(i:int -> String.t -> String.t -> Foundations.Shorten.t * String.t) -> String.t option
+
+      .. val:: try_reduce_short_acc
+        :type: acc:'acc -> t -> f:(acc:'acc ->    String.t -> String.t -> 'acc * Foundations.Shorten.t * String.t) -> String.t option
+
+      .. val:: iter_short
+        :type: t -> f:(String.t -> Foundations.Shorten.t) -> unit
+
+      .. val:: iter_short_i
+        :type: t -> f:(i:int -> String.t -> Foundations.Shorten.t) -> unit
+
+      .. val:: iter_short_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * Foundations.Shorten.t) -> unit
+
+      .. val:: for_all
+        :type: t -> f:(String.t -> bool) -> bool
+
+      .. val:: for_all_i
+        :type: t -> f:(i:int -> String.t -> bool) -> bool
+
+      .. val:: for_all_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * bool) -> bool
+
+      .. val:: there_exists
+        :type: t -> f:(String.t -> bool) -> bool
+
+      .. val:: there_exists_i
+        :type: t -> f:(i:int -> String.t -> bool) -> bool
+
+      .. val:: there_exists_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * bool) -> bool
+
+      .. val:: find
+        :type: t -> f:(String.t -> bool) -> String.t
+
+      .. val:: find_i
+        :type: t -> f:(i:int -> String.t -> bool) -> String.t
+
+      .. val:: find_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * bool) -> String.t
+
+      .. val:: try_find
+        :type: t -> f:(String.t -> bool) -> String.t option
+
+      .. val:: try_find_i
+        :type: t -> f:(i:int -> String.t -> bool) -> String.t option
+
+      .. val:: try_find_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * bool) -> String.t option
+
+      .. val:: find_map
+        :type: t -> f:(String.t -> 'b option) -> 'b
+
+      .. val:: find_map_i
+        :type: t -> f:(i:int -> String.t -> 'b option) -> 'b
+
+      .. val:: find_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * 'b option) -> 'b
+
+      .. val:: try_find_map
+        :type: t -> f:(String.t -> 'b option) -> 'b option
+
+      .. val:: try_find_map_i
+        :type: t -> f:(i:int -> String.t -> 'b option) -> 'b option
+
+      .. val:: try_find_map_acc
+        :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * 'b option) -> 'b option
+
+      .. val:: scan
+        :type: init:String.t -> t -> f:(String.t -> String.t -> String.t) -> t
+
+      .. val:: scan_i
+        :type: init:String.t -> t -> f:(i:int -> String.t -> String.t -> String.t) -> t
+
+      .. val:: scan_acc
+        :type: acc:'acc -> init:String.t -> t -> f:(acc:'acc -> String.t -> String.t -> 'acc * String.t) -> t
+
+      .. val:: scan_short
+        :type: init:String.t -> t -> f:(String.t -> String.t -> Foundations.Shorten.t * String.t) -> t
+
+      .. val:: scan_short_i
+        :type: init:String.t -> t -> f:(i:int -> String.t -> String.t -> Foundations.Shorten.t * String.t) -> t
+
+      .. val:: scan_short_acc
+        :type: acc:'acc -> init:String.t -> t -> f:(acc:'acc ->    String.t -> String.t -> 'acc * Foundations.Shorten.t * String.t) -> t
+
+      .. module:: ToList
+
+        .. val:: map
+          :type: t -> f:(String.t -> 'b) -> 'b list
+
+        .. val:: map_i
+          :type: t -> f:(i:int -> String.t -> 'b) -> 'b list
+
+        .. val:: map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * 'b) -> 'b list
+
+        .. val:: filter
+          :type: t -> f:(String.t -> bool) -> String.t list
+
+        .. val:: filter_i
+          :type: t -> f:(i:int -> String.t -> bool) -> String.t list
+
+        .. val:: filter_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * bool) -> String.t list
+
+        .. val:: filter_map
+          :type: t -> f:(String.t -> 'b option) -> 'b list
+
+        .. val:: filter_map_i
+          :type: t -> f:(i:int -> String.t -> 'b option) -> 'b list
+
+        .. val:: filter_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * 'b option) -> 'b list
+
+        .. val:: flat_map
+          :type: t -> f:(String.t -> 'b list) -> 'b list
+
+        .. val:: flat_map_i
+          :type: t -> f:(i:int -> String.t -> 'b list) -> 'b list
+
+        .. val:: flat_map_acc
+          :type: acc:'acc -> t -> f:(acc:'acc -> String.t -> 'acc * 'b list) -> 'b list
+
+        .. val:: scan
+          :type: init:'a -> t -> f:('a -> String.t -> 'a) -> 'a list
+
+        .. val:: scan_i
+          :type: init:'a -> t -> f:(i:int -> 'a -> String.t -> 'a) -> 'a list
+
+        .. val:: scan_acc
+          :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> String.t -> 'acc * 'a) -> 'a list
+
+        .. val:: scan_short
+          :type: init:'a -> t -> f:('a -> String.t -> Foundations.Shorten.t * 'a) -> 'a list
+
+        .. val:: scan_short_i
+          :type: init:'a -> t -> f:(i:int -> 'a -> String.t -> Foundations.Shorten.t * 'a) -> 'a list
+
+        .. val:: scan_short_acc
+          :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> String.t -> 'acc * Foundations.Shorten.t * 'a) -> 'a list
 
     .. val:: concat
       :type: ?sep:string -> t -> string
@@ -1326,387 +10405,299 @@ Reference
     .. val:: check_int_list
       :type: expected:int list -> int list -> unit
 
+  Modules to be opened
+
   .. module:: Standard
 
-    .. module:: Testing
+    This modules defines aliases for all standard modules in :mod:`General`:
 
-      Not yet documented: module_type:of
+    .. module:: Testing
+      :alias_of: Testing
 
     .. module:: Array
-
-      Not yet documented: module_type:of
+      :alias_of: Array
 
     .. module:: BigInt
-
-      Not yet documented: module_type:of
+      :alias_of: BigInt
 
     .. module:: Bool
-
-      Not yet documented: module_type:of
+      :alias_of: Bool
 
     .. module:: CallStack
-
-      Not yet documented: module_type:of
+      :alias_of: CallStack
 
     .. module:: Char
-
-      Not yet documented: module_type:of
+      :alias_of: Char
 
     .. module:: Exception
-
-      Not yet documented: module_type:of
+      :alias_of: Exception
 
     .. module:: Exit
-
-      Not yet documented: module_type:with
+      :alias_of: Exit
 
     .. module:: Float
-
-      Not yet documented: module_type:of
+      :alias_of: Float
 
     .. module:: Format
-
-      Not yet documented: module_type:of
+      :alias_of: Format
 
     .. module:: Function1
-
-      Not yet documented: module_type:of
+      :alias_of: Function1
 
     .. module:: Function2
-
-      Not yet documented: module_type:of
+      :alias_of: Function2
 
     .. module:: Function3
-
-      Not yet documented: module_type:of
+      :alias_of: Function3
 
     .. module:: Function4
-
-      Not yet documented: module_type:of
+      :alias_of: Function4
 
     .. module:: Function5
-
-      Not yet documented: module_type:of
+      :alias_of: Function5
 
     .. module:: InChannel
-
-      Not yet documented: module_type:of
+      :alias_of: InChannel
 
     .. module:: InFile
-
-      Not yet documented: module_type:of
+      :alias_of: InFile
 
     .. module:: Int32
-
-      Not yet documented: module_type:of
+      :alias_of: Int32
 
     .. module:: Int64
-
-      Not yet documented: module_type:of
+      :alias_of: Int64
 
     .. module:: Int
-
-      Not yet documented: module_type:of
+      :alias_of: Int
 
     .. module:: Lazy
-
-      Not yet documented: module_type:of
+      :alias_of: Lazy
 
     .. module:: List
-
-      Not yet documented: module_type:of
+      :alias_of: List
 
     .. module:: NativeInt
-
-      Not yet documented: module_type:of
+      :alias_of: NativeInt
 
     .. module:: Option
-
-      Not yet documented: module_type:of
+      :alias_of: Option
 
     .. module:: OutChannel
-
-      Not yet documented: module_type:of
+      :alias_of: OutChannel
 
     .. module:: OutFile
-
-      Not yet documented: module_type:of
+      :alias_of: OutFile
 
     .. module:: Reference
-
-      Not yet documented: module_type:of
+      :alias_of: Reference
 
     .. module:: StdErr
-
-      Not yet documented: module_type:of
+      :alias_of: StdErr
 
     .. module:: StdIn
-
-      Not yet documented: module_type:of
+      :alias_of: StdIn
 
     .. module:: StdOut
-
-      Not yet documented: module_type:of
+      :alias_of: StdOut
 
     .. module:: Stream
-
-      Not yet documented: module_type:of
+      :alias_of: Stream
 
     .. module:: String
-
-      Not yet documented: module_type:of
+      :alias_of: String
 
     .. module:: Tuple2
-
-      Not yet documented: module_type:of
+      :alias_of: Tuple2
 
     .. module:: Tuple3
-
-      Not yet documented: module_type:of
+      :alias_of: Tuple3
 
     .. module:: Tuple4
-
-      Not yet documented: module_type:of
+      :alias_of: Tuple4
 
     .. module:: Tuple5
-
-      Not yet documented: module_type:of
+      :alias_of: Tuple5
 
     .. module:: Unit
-
-      Not yet documented: module_type:of
+      :alias_of: Unit
 
     .. module:: IntRange
-
-      Not yet documented: module_type:of
+      :alias_of: IntRange
 
     .. module:: IntOption
-
-      Not yet documented: module_type:of
+      :alias_of: IntOption
 
     .. module:: FloatOption
-
-      Not yet documented: module_type:of
+      :alias_of: FloatOption
 
     .. module:: StringOption
-
-      Not yet documented: module_type:of
+      :alias_of: StringOption
 
     .. module:: IntReference
-
-      Not yet documented: module_type:of
+      :alias_of: IntReference
 
     .. module:: FloatReference
-
-      Not yet documented: module_type:of
+      :alias_of: FloatReference
 
     .. module:: StringReference
-
-      Not yet documented: module_type:of
+      :alias_of: StringReference
 
     .. module:: IntList
-
-      Not yet documented: module_type:of
+      :alias_of: IntList
 
     .. module:: FloatList
-
-      Not yet documented: module_type:of
+      :alias_of: FloatList
 
     .. module:: StringList
+      :alias_of: StringList
 
-      Not yet documented: module_type:of
-
-    Not yet documented: signature_item:include
+    It also includes :mod:`General.Pervasives`.
 
   .. module:: Abbr
 
-    .. module:: Tst
+    This modules defines abbreviated aliases for all standard modules in :mod:`General`:
 
-      Not yet documented: module_type:of
+    .. module:: Tst
+      :alias_of: Testing
 
     .. module:: Ar
-
-      Not yet documented: module_type:of
+      :alias_of: Array
 
     .. module:: BigInt
-
-      Not yet documented: module_type:of
+      :alias_of: BigInt
 
     .. module:: Bo
-
-      Not yet documented: module_type:of
+      :alias_of: Bool
 
     .. module:: CallStack
-
-      Not yet documented: module_type:of
+      :alias_of: CallStack
 
     .. module:: Ch
-
-      Not yet documented: module_type:of
+      :alias_of: Char
 
     .. module:: Exit
-
-      Not yet documented: module_type:with
+      :alias_of: Exit
 
     .. module:: Exn
-
-      Not yet documented: module_type:of
+      :alias_of: Exception
 
     .. module:: Fl
-
-      Not yet documented: module_type:of
+      :alias_of: Float
 
     .. module:: Frmt
-
-      Not yet documented: module_type:of
+      :alias_of: Format
 
     .. module:: Fun1
-
-      Not yet documented: module_type:of
+      :alias_of: Function1
 
     .. module:: Fun2
-
-      Not yet documented: module_type:of
+      :alias_of: Function2
 
     .. module:: Fun3
-
-      Not yet documented: module_type:of
+      :alias_of: Function3
 
     .. module:: Fun4
-
-      Not yet documented: module_type:of
+      :alias_of: Function4
 
     .. module:: Fun5
-
-      Not yet documented: module_type:of
+      :alias_of: Function5
 
     .. module:: InCh
-
-      Not yet documented: module_type:of
+      :alias_of: InChannel
 
     .. module:: InFile
-
-      Not yet documented: module_type:of
+      :alias_of: InFile
 
     .. module:: Int32
-
-      Not yet documented: module_type:of
+      :alias_of: Int32
 
     .. module:: Int64
-
-      Not yet documented: module_type:of
+      :alias_of: Int64
 
     .. module:: Int
-
-      Not yet documented: module_type:of
+      :alias_of: Int
 
     .. module:: Laz
-
-      Not yet documented: module_type:of
+      :alias_of: Lazy
 
     .. module:: Li
-
-      Not yet documented: module_type:of
+      :alias_of: List
 
     .. module:: NativeInt
-
-      Not yet documented: module_type:of
+      :alias_of: NativeInt
 
     .. module:: Opt
-
-      Not yet documented: module_type:of
+      :alias_of: Option
 
     .. module:: OutCh
-
-      Not yet documented: module_type:of
+      :alias_of: OutChannel
 
     .. module:: OutFile
-
-      Not yet documented: module_type:of
+      :alias_of: OutFile
 
     .. module:: Ref
-
-      Not yet documented: module_type:of
+      :alias_of: Reference
 
     .. module:: StdErr
-
-      Not yet documented: module_type:of
+      :alias_of: StdErr
 
     .. module:: StdIn
-
-      Not yet documented: module_type:of
+      :alias_of: StdIn
 
     .. module:: StdOut
-
-      Not yet documented: module_type:of
+      :alias_of: StdOut
 
     .. module:: Str
-
-      Not yet documented: module_type:of
+      :alias_of: String
 
     .. module:: Strm
-
-      Not yet documented: module_type:of
+      :alias_of: Stream
 
     .. module:: Tu2
-
-      Not yet documented: module_type:of
+      :alias_of: Tuple2
 
     .. module:: Tu3
-
-      Not yet documented: module_type:of
+      :alias_of: Tuple3
 
     .. module:: Tu4
-
-      Not yet documented: module_type:of
+      :alias_of: Tuple4
 
     .. module:: Tu5
-
-      Not yet documented: module_type:of
+      :alias_of: Tuple5
 
     .. module:: Unit
-
-      Not yet documented: module_type:of
+      :alias_of: Unit
 
     .. module:: IntRa
-
-      Not yet documented: module_type:of
+      :alias_of: IntRange
 
     .. module:: IntOpt
-
-      Not yet documented: module_type:of
+      :alias_of: IntOption
 
     .. module:: FlOpt
-
-      Not yet documented: module_type:of
+      :alias_of: FloatOption
 
     .. module:: StrOpt
-
-      Not yet documented: module_type:of
+      :alias_of: StringOption
 
     .. module:: IntRef
-
-      Not yet documented: module_type:of
+      :alias_of: IntReference
 
     .. module:: FlRef
-
-      Not yet documented: module_type:of
+      :alias_of: FloatReference
 
     .. module:: StrRef
-
-      Not yet documented: module_type:of
+      :alias_of: StringReference
 
     .. module:: IntLi
-
-      Not yet documented: module_type:of
+      :alias_of: IntList
 
     .. module:: FlLi
-
-      Not yet documented: module_type:of
+      :alias_of: FloatList
 
     .. module:: StrLi
+      :alias_of: StringList
 
-      Not yet documented: module_type:of
-
-    Not yet documented: signature_item:include
+    It also includes :mod:`General.Pervasives`.
 

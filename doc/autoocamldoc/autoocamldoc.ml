@@ -1159,7 +1159,7 @@ end = struct
         signature_item env item
       with
         | ModTypeNotFound name ->
-          StdErr.print "WARNING (ocamlautodoc): Module type not found: %s (this is a known bug in ocamlautodoc, we'd love some help from a compiler-libs expert)\n" name;
+          StdErr.print "WARNING (autoocamldoc): Module type not found: %s (this is a known bug in autoocamldoc, we'd love some help from a compiler-libs expert)\n" name;
           AutoocamldocBug.mod_type_not_found name
 
     let signature env items =

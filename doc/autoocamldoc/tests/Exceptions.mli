@@ -28,3 +28,5 @@ module type MT = sig
 end
 
 include MT
+
+(** A reference to an exception: :exn:`tests/Exceptions.Simple`. *)

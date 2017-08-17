@@ -8,9 +8,12 @@ Contents
 ========
 
 .. toctree::
+    :glob:
 
     user_guide
     reference
+
+    autoocamldoc/tests/*
 
 Indices and tables
 ==================

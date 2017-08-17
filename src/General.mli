@@ -1,11 +1,11 @@
 (* Basics *)
 
-(** Some doc for General *)
+(** Some doc for :mod:`General` *)
 
-(** Some doc for Pervasives *)
+(** Some doc for :mod:`General.Pervasives` *)
 module Pervasives: sig
   include module type of Foundations.ResetPervasives [@@autodoc.hide]
-  include module type of Foundations.ResetStandardLibrary
+  include module type of Foundations.ResetStandardLibrary [@@autodoc.hide]
 
   (** This module overrides all elements from the standard
   `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_
@@ -88,7 +88,7 @@ end
 
 module Shorten: sig
   (** Return type for functions used in short-circuit iterations over collections.
-  (i.e: @todoc reference val:`General.Traits.Foldable.Short.S0.fold_short`) *)
+  (i.e: :val:`General.Traits.Foldable.Short.S0:fold_short`) *)
   type t = Foundations.Shorten.t =
     | GoOn (** Used to indicate iteration should proceed to next item *)
     | ShortCircuit (** Used to indicate iteration should stop after this item *)
@@ -1076,7 +1076,7 @@ module Standard: sig
   module FloatList = FloatList
   module StringList = StringList
 
-  (** It also include :mod:`General.Pervasives`. *)
+  (** It also includes :mod:`General.Pervasives`. *)
 
   include module type of Pervasives
   with module Array := Array
@@ -1145,7 +1145,7 @@ module Abbr: sig
   module FlLi = FloatList
   module StrLi = StringList
 
-  (** It also include :mod:`General.Pervasives`. *)
+  (** It also includes :mod:`General.Pervasives`. *)
 
   include module type of Pervasives
   with module Int32 := Int32

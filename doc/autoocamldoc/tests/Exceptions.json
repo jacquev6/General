@@ -142,6 +142,12 @@
           ]
         }
       ]
+    },
+    {
+      "__class__": "floating_documentation",
+      "hidden": false,
+      "text":
+        " A reference to an exception: :exn:`tests/Exceptions.Simple`. "
     }
   ]
 }

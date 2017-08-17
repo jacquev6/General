@@ -13,3 +13,5 @@ module type MT = sig
 end
 
 include MT
+
+(** A reference to a value: :val:`tests/Values.v`. *)
