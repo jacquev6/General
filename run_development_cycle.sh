@@ -369,18 +369,9 @@ then
     coverage3 erase
     cd ../..
 
-    # This is a workaround for a bug of ocamlbuild. (We'll open a bug or submit a patch when we're sure we're able to use the "right" behavior)
-    # When packing, ocamlbuild doesn't pass -keep-docs or -keep-locs to ocamlc -pack so locs and docs are lost.
-    # We use -classic-display to know what ocamlbuild does, and we replicate that in another directory, fixing the calls to ocamlc -pack
-    build -build-dir _build_for_autodoc -X doc -X _build_copy_for_autodoc -X _build_coverage -X demo -X _build_native -tag keep_locs -tag keep_docs General.cmi
-    rm -rf _build_copy_for_autodoc
-    mv _build_for_autodoc _build_copy_for_autodoc
-    build -build-dir _build_for_autodoc -X doc -X _build_copy_for_autodoc -X _build_coverage -X demo -X _build_native -classic-display -tag keep_locs -tag keep_docs General.cmi \
-    | sed "s/ -pack / -pack -keep-docs -keep-locs /" \
-    | (cd _build_copy_for_autodoc; sh)
-    # End of workaround
+    build -build-dir _build_for_autodoc -X doc -X _build_coverage -X demo -X _build_native -tag keep_docs General.cmi
 
-    cd _build_copy_for_autodoc/src
+    cd _build_for_autodoc/src
     # strace -t -e trace=open \
     ../../doc/autoocamldoc/_build/autoocamldoc.byte General.mli > ../../doc/reference.json
     cd ../..
