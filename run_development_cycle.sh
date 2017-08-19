@@ -5,6 +5,7 @@ set -o errexit
 function build {
     ocamlbuild \
         -use-ocamlfind -no-links \
+        -X _build \
         -plugin-tag "package(cppo_ocamlbuild)" \
         $@
 }
@@ -16,13 +17,13 @@ do
     ls $directory/*.ml* | sed "s#\..*##" | sort -u >${directory}.mlpack
 done
 
-build -build-dir _build_native -X _build_coverage -X demo -X doc -X _build_for_autodoc -X _build_copy_for_autodoc \
+build -build-dir _build/native \
     src/Foundations/ResetPervasives.inferred.mli \
     General.cmxa unit_tests.native
 
 python3 <<END
 def complete_definitions():
-    with open("_build_native/src/Foundations/ResetPervasives.inferred.mli") as f:
+    with open("_build/native/src/Foundations/ResetPervasives.inferred.mli") as f:
         current_line = None
         for line in f:
             line = line.strip()
@@ -51,7 +52,7 @@ END
 
 python3 <<END
 def all_please_uses():
-    with open("_build_native/src/Foundations/ResetPervasives.inferred.mli") as f:
+    with open("_build/native/src/Foundations/ResetPervasives.inferred.mli") as f:
         for line in f:
             for word in line.split():
                 if word.startswith("\`Please_use_") and not word.endswith("__todo"):
@@ -68,13 +69,13 @@ END
 
 cd demo
 # This simulates the 'opam install' process, but is quicker
-rm -rf _build_with_lib
-mkdir _build_with_lib
-cp ../_build_native/src/General.cmi ../_build_native/src/General.cmx ../_build_native/src/General.a ../_build_native/src/General.cmxa _build_with_lib
-build -build-dir _build_with_lib -X _build_with_package -package num -lib General demo.native demo_pervasives.native
+rm -rf _build/with_lib
+mkdir -p _build/with_lib
+cp ../_build/native/src/General.cmi ../_build/native/src/General.cmx ../_build/native/src/General.a ../_build/native/src/General.cmxa _build/with_lib
+build -build-dir _build/with_lib  -package num -lib General demo.native demo_pervasives.native
 cd ..
 
-build -build-dir _build_coverage -X _build_native -X demo -X doc -X _build_for_autodoc -X _build_copy_for_autodoc \
+build -build-dir _build/coverage \
     -package bisect_ppx -tag debug \
     -tag-line 'true:+open(DependenciesForBisectPpx)' \
     -tag-line '<DependenciesForBisectPpx.*>:-open(DependenciesForBisectPpx)' \
@@ -85,26 +86,26 @@ build -build-dir _build_coverage -X _build_native -X demo -X doc -X _build_for_a
 
 echo
 echo "Running unit tests in byte code"
-_build_coverage/src/unit_tests.byte
+_build/coverage/src/unit_tests.byte
 rm -f bisect????.out
-_build_coverage/src/unit_tests.byte --verbose > _build_coverage/unit_tests_output.txt
+_build/coverage/src/unit_tests.byte --verbose > _build/coverage/unit_tests_output.txt
 echo
 bisect-summary bisect????.out | grep -v -e "^100.0% \[.*\] src/" -e "^100.0% .*ForBisectPpx.ml$" -e "^  0.0% \[.*0/0.*\] src/"
 echo
-bisect-ppx-report -I _build_coverage -html _build_coverage/bisect bisect????.out
-echo "See coverage report (for General's unit tests) in $(pwd)/_build_coverage/bisect/index.html"
+bisect-ppx-report -I _build/coverage -html _build/coverage/bisect bisect????.out
+echo "See coverage report (for General's unit tests) in $(pwd)/_build/coverage/bisect/index.html"
 rm -f bisect????.out
 
-js_of_ocaml +nat.js _build_coverage/src/unit_tests.byte
+js_of_ocaml +nat.js _build/coverage/src/unit_tests.byte
 
 echo
 echo "Running unit tests in node.js"
-node _build_coverage/src/unit_tests.js
+node _build/coverage/src/unit_tests.js
 rm -f bisect????.out
 
 echo
 echo "Running demo"
-demo/_build_with_lib/demo.native
+demo/_build/with_lib/demo.native
 
 echo
 echo "Exporting interface as seen in utop"
@@ -299,7 +300,7 @@ def utop(*options):
     yield UTop(process)
     process.communicate()
 
-with utop("-I", "demo/_build_with_lib") as utop:
+with utop("-I", "demo/_build/with_lib") as utop:
     def show(module_name):
         # print(module_name)
         module = utop.show_module(module_name)
@@ -334,8 +335,8 @@ opam pin add --yes --no-action .
 opam reinstall --yes General
 
 cd demo
-rm -rf _build_with_package
-build -build-dir _build_with_package -X _build_with_lib -package General demo.byte demo.native
+rm -rf _build/with_package
+build -build-dir _build/with_package -package General demo.byte demo.native
 cd ..
 
 if [ $(opam switch show) = "4.05.0" ]
@@ -369,12 +370,12 @@ then
     coverage3 erase
     cd ../..
 
-    build -build-dir _build_for_autodoc -X doc -X _build_coverage -X demo -X _build_native -tag keep_docs General.cmi
+    build -build-dir _build/for_autodoc -tag keep_docs General.cmi
 
-    cd _build_for_autodoc/src
+    cd _build/for_autodoc/src
     # strace -t -e trace=open \
-    ../../doc/autoocamldoc/_build/autoocamldoc.byte General.mli > ../../doc/reference.json
-    cd ../..
+    ../../../doc/autoocamldoc/_build/autoocamldoc.byte General.mli > ../../../doc/reference.json
+    cd ../../..
     doc/autoocamldoc/autoocamldoc.py <doc/reference.json >doc/reference.rst
 
     rm -rf _build/sphinx  # Keep while we're developing the Sphinx extension
