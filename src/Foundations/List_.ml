@@ -259,15 +259,15 @@ let try_find_i xs ~f =
 
 let find xs ~f =
   try_find xs ~f
-  |> Option.or_failure "List.find"
+  |> Option.value ~exc:Exception.NotFound
 
 let find_acc ~acc xs ~f =
   try_find_acc ~acc xs ~f
-  |> Option.or_failure "List.find_acc"
+  |> Option.value ~exc:Exception.NotFound
 
 let find_i xs ~f =
   try_find_i xs ~f
-  |> Option.or_failure "List.find_i"
+  |> Option.value ~exc:Exception.NotFound
 
 
 let there_exists xs ~f =
@@ -313,15 +313,15 @@ let try_find_map_i xs ~f =
 
 let find_map xs ~f =
   try_find_map xs ~f
-  |> Option.or_failure "List.find_map"
+  |> Option.value ~exc:Exception.NotFound
 
 let find_map_acc ~acc xs ~f =
   try_find_map_acc ~acc xs ~f
-  |> Option.or_failure "List.find_map_acc"
+  |> Option.value ~exc:Exception.NotFound
 
 let find_map_i xs ~f =
   try_find_map_i xs ~f
-  |> Option.or_failure "List.find_map_i"
+  |> Option.value ~exc:Exception.NotFound
 
 
 let fold_short ~init xs ~f =
