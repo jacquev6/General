@@ -40223,7 +40223,7 @@
           "name": "exit",
           "hidden": false,
           "doc": [],
-          "type": "t -> unit"
+          "type": "t -> 'a"
         },
         {
           "__class__": "value",

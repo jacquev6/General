@@ -216,7 +216,7 @@ module Exit: sig
 
   val of_int: int -> t
 
-  val exit: t -> unit
+  val exit: t -> 'a
 
   val at_exit: (unit -> unit) -> unit
 end

@@ -6051,7 +6051,7 @@ Reference
       :type: int -> t
 
     .. val:: exit
-      :type: t -> unit
+      :type: t -> 'a
 
     .. val:: at_exit
       :type: (unit -> unit) -> unit
