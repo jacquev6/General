@@ -49491,6 +49491,22 @@
               ]
             }
           ]
+        },
+        {
+          "__class__": "include",
+          "hidden": false,
+          "doc": [],
+          "contents_from":
+            "module type of List.SpecializeEquatable(Int) with type t := t",
+          "contents": [
+            {
+              "__class__": "value",
+              "name": "contains",
+              "hidden": false,
+              "doc": [],
+              "type": "t -> Int.t -> bool"
+            }
+          ]
         }
       ]
     },
@@ -50267,6 +50283,22 @@
                     "acc:'acc ->\ninit:'a ->\nt ->\nf:(acc:'acc -> 'a -> Float.t -> 'acc * Foundations.Shorten.t * 'a) -> 'a list"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "__class__": "include",
+          "hidden": false,
+          "doc": [],
+          "contents_from":
+            "module type of List.SpecializeEquatable(Float) with type t := t",
+          "contents": [
+            {
+              "__class__": "value",
+              "name": "contains",
+              "hidden": false,
+              "doc": [],
+              "type": "t -> Float.t -> bool"
             }
           ]
         }
@@ -51047,6 +51079,22 @@
                     "acc:'acc ->\ninit:'a ->\nt ->\nf:(acc:'acc -> 'a -> String.t -> 'acc * Foundations.Shorten.t * 'a) ->\n'a list"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "__class__": "include",
+          "hidden": false,
+          "doc": [],
+          "contents_from":
+            "module type of List.SpecializeEquatable(String) with type t := t",
+          "contents": [
+            {
+              "__class__": "value",
+              "name": "contains",
+              "hidden": false,
+              "doc": [],
+              "type": "t -> String.t -> bool"
             }
           ]
         },

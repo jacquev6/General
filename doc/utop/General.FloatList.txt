@@ -80,4 +80,5 @@ module FloatList: sig
   val scan_short_i: init:float -> t -> f:(i:int -> float -> float -> General.Shorten.t * float) -> t
   val scan_short_acc: acc:'acc -> init:float -> t -> f:(acc:'acc -> float -> float -> 'acc * General.Shorten.t * float) -> t
   module ToList
+  val contains: t -> float -> bool
 end

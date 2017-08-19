@@ -80,5 +80,6 @@ module StringList: sig
   val scan_short_i: init:string -> t -> f:(i:int -> string -> string -> General.Shorten.t * string) -> t
   val scan_short_acc: acc:'acc -> init:string -> t -> f:(acc:'acc -> string -> string -> 'acc * General.Shorten.t * string) -> t
   module ToList
+  val contains: t -> string -> bool
   val join: ?sep:string -> t -> string
 end

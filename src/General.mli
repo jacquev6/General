@@ -859,14 +859,17 @@ end
 
 module IntList: sig
   include module type of List.Specialize(Int)
+  include module type of List.SpecializeEquatable(Int) with type t := t
 end
 
 module FloatList: sig
   include module type of List.Specialize(Float)
+  include module type of List.SpecializeEquatable(Float) with type t := t
 end
 
 module StringList: sig
   include module type of List.Specialize(String)
+  include module type of List.SpecializeEquatable(String) with type t := t
 
   val join: ?sep:string -> t -> string
 end

@@ -80,4 +80,5 @@ module IntList: sig
   val scan_short_i: init:int -> t -> f:(i:int -> int -> int -> General.Shorten.t * int) -> t
   val scan_short_acc: acc:'acc -> init:int -> t -> f:(acc:'acc -> int -> int -> 'acc * General.Shorten.t * int) -> t
   module ToList
+  val contains: t -> int -> bool
 end

@@ -9593,6 +9593,12 @@ Reference
         .. val:: scan_short_acc
           :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> Int.t -> 'acc * Foundations.Shorten.t * 'a) -> 'a list
 
+    .. incl::
+      :contents_from: module type of List.SpecializeEquatable(Int) with type t := t
+
+      .. val:: contains
+        :type: t -> Int.t -> bool
+
   .. module:: FloatList
 
     .. incl::
@@ -9896,6 +9902,12 @@ Reference
         .. val:: scan_short_acc
           :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> Float.t -> 'acc * Foundations.Shorten.t * 'a) -> 'a list
 
+    .. incl::
+      :contents_from: module type of List.SpecializeEquatable(Float) with type t := t
+
+      .. val:: contains
+        :type: t -> Float.t -> bool
+
   .. module:: StringList
 
     .. incl::
@@ -10198,6 +10210,12 @@ Reference
 
         .. val:: scan_short_acc
           :type: acc:'acc -> init:'a -> t -> f:(acc:'acc -> 'a -> String.t -> 'acc * Foundations.Shorten.t * 'a) -> 'a list
+
+    .. incl::
+      :contents_from: module type of List.SpecializeEquatable(String) with type t := t
+
+      .. val:: contains
+        :type: t -> String.t -> bool
 
     .. val:: join
       :type: ?sep:string -> t -> string
