@@ -13,8 +13,6 @@ Contents
     user_guide
     reference
 
-    autoocamldoc/tests/*
-
 Indices and tables
 ==================
 

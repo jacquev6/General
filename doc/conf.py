@@ -2,10 +2,6 @@
 
 # Copyright 2017 Vincent Jacques <vincent@vincent-jacques.net>
 
-import os
-import sys
-
-
 master_doc = "index"
 project = "General"
 author = '<a href="http://vincent-jacques.net/">Vincent Jacques</a>'
@@ -13,9 +9,8 @@ copyright = ('2017 {} <script>var jacquev6_ribbon_github="{}"</script>'.format(a
              '<script src="https://jacquev6.github.io/ribbon.js"></script>')
 extensions = []
 
-# Local directory sphinx-ocaml
-sys.path.append(os.path.join(os.path.dirname(__file__), "sphinx-ocaml"))
-extensions.append("ocaml")
+# https://github.com/jacquev6/sphinx-ocaml
+extensions.append("sphinxcontrib.ocaml")
 primary_domain = "ocaml"
 
 nitpicky = True

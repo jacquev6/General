@@ -339,44 +339,19 @@ rm -rf _build/with_package
 build -build-dir _build/with_package -package General demo.byte demo.native
 cd ..
 
-if [ $(opam switch show) = "4.05.0" ]
+if which autoocamldoc && which sphinx-build
 then
     echo
     echo "Building doc"
     echo
 
-    cd doc/autoocamldoc
-    ocamlbuild -use-ocamlfind -no-links -package bisect_ppx autoocamldoc.byte
-
-    echo
-
-    rm -f bisect????.out
-    coverage3 erase
-    for f in tests/*.mli
-    do
-        _build/autoocamldoc.byte $f >${f%.mli}.json
-        coverage3 run --branch --append ./autoocamldoc.py <${f%.mli}.json >${f%.mli}.rst
-    done
-    bisect-summary bisect????.out
-    echo
-    bisect-ppx-report -html _build/bisect bisect????.out
-    echo "See coverage report (for autoocamldoc.ml) in $(pwd)/_build/bisect/index.html"
-    echo
-    coverage3 report
-    echo
-    coverage3 html --directory _build/coverage
-    echo "See coverage report (for autoocamldoc.py) in $(pwd)/_build/coverage/index.html"
-    rm -f bisect????.out
-    coverage3 erase
-    cd ../..
-
     build -build-dir _build/for_autodoc -tag keep_docs General.cmi
 
     cd _build/for_autodoc/src
-    # strace -t -e trace=open \
-    ../../../doc/autoocamldoc/_build/autoocamldoc.byte General.mli > ../../../doc/reference.json
+    autoocamldoc General.mli > ../../../doc/reference.json
     cd ../../..
-    doc/autoocamldoc/autoocamldoc.py <doc/reference.json >doc/reference.rst
+    # @todo Change that when autodocumenting is better in sphinx-ocaml
+    ../sphinx-ocaml/sphinxcontrib/ocaml/autoocamldoc.py <doc/reference.json >doc/reference.rst
 
     rm -rf _build/sphinx  # Keep while we're developing the Sphinx extension
     sphinx-build doc _build/sphinx/html -d _build/sphinx/doctrees
