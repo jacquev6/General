@@ -7,7 +7,7 @@ homepage: "https://jacquev6.github.io/General/"
 dev-repo: "https://github.com/jacquev6/General.git"
 bug-reports: "http://github.com/jacquev6/General/issues/"
 available: [
-  ocaml-version >= "4.02.2"  # We need "type nonrec"
+  ocaml-version >= "4.02.3"
   & ocaml-version < "5"
 ]
 build: [
