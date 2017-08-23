@@ -13,7 +13,7 @@ install:
   - opam switch --yes $OCAML_VERSION
   - eval `opam config env`
   - opam switch
-  - opam install --yes ocamlfind ocamlbuild cppo
+  - opam install --yes ocamlfind ocamlbuild cppo_ocamlbuild
   - opam upgrade --yes
   - opam list
 script:
@@ -22,6 +22,7 @@ script:
 env:
   - OCAML_VERSION=4.02.2
   - OCAML_VERSION=4.05.0
+  - OCAML_VERSION=4.05.0+flambda
 cache:
   directories:
   - $HOME/.opam

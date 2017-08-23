@@ -2,6 +2,10 @@
 
 set -o errexit
 
+eval `opam config env`
+opam install --yes utop bisect_ppx bisect-summary ocamlfind ocamlbuild js_of_ocaml-compiler cppo_ocamlbuild
+clear
+
 function build {
     ocamlbuild \
         -use-ocamlfind -no-links \
@@ -71,7 +75,8 @@ cd demo
 # This simulates the 'opam install' process, but is quicker
 rm -rf _build/with_lib
 mkdir -p _build/with_lib
-cp ../_build/native/src/General.cmi ../_build/native/src/General.cmx ../_build/native/src/General.a ../_build/native/src/General.cmxa _build/with_lib
+cp ../_build/native/src/General.cmi ../_build/native/src/General.a ../_build/native/src/General.cmxa _build/with_lib
+cp ../_build/native/src/*.cmx _build/with_lib
 build -build-dir _build/with_lib  -package num -lib General demo.native demo_pervasives.native
 cd ..
 
@@ -361,6 +366,9 @@ then
     rm -f docs/.buildinfo
     echo
     echo "See documentation in $(pwd)/docs/index.html"
+else
+    echo
+    echo "Not trying to build doc because autoocamldoc or sphinx-build is missing"
 fi
 
 echo
