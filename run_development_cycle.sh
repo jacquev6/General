@@ -344,19 +344,13 @@ rm -rf _build/with_package
 build -build-dir _build/with_package -package General demo.byte demo.native
 cd ..
 
-if which autoocamldoc && which sphinx-build
+if (which sphinxcontrib-ocaml-autodoc && which sphinx-build) >/dev/null
 then
     echo
     echo "Building doc"
     echo
 
     build -build-dir _build/for_autodoc -tag keep_docs General.cmi
-
-    cd _build/for_autodoc/src
-    autoocamldoc General.mli > ../../../doc/reference.json
-    cd ../../..
-    # @todo Change that when autodocumenting is better in sphinx-ocaml
-    ../sphinx-ocaml/sphinxcontrib/ocaml/autoocamldoc.py <doc/reference.json >doc/reference.rst
 
     rm -rf _build/sphinx  # Keep while we're developing the Sphinx extension
     sphinx-build doc _build/sphinx/html -d _build/sphinx/doctrees
