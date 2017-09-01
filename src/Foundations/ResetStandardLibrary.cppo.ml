@@ -88,6 +88,7 @@ EMPTY(Pervasives)
 EMPTY(Arg)
 module Array = struct
   let get = Array.get
+  let set = Array.set
 end
 EMPTY(ArrayLabels)
 EMPTY(Buffer)
@@ -132,6 +133,7 @@ EMPTY(StdLabels)
 EMPTY(Stream)
 module String = struct
   let get = String.get
+  let set = OCamlStandard.Bytes.set
 end
 EMPTY(StringLabels)
 EMPTY(Sys)

@@ -1,6 +1,7 @@
 type t = string
 
 module OCSS = OCamlStandard.String
+module OCSB = OCamlStandard.Bytes
 open Int.O
 open Bool.O
 open Functions.Function1.O
@@ -12,6 +13,7 @@ let to_string = Functions.Function1.identity
 let of_string = Functions.Function1.identity
 
 let get = OCSS.get
+let set = OCSB.set
 
 let concat = OCSP.(^)
 

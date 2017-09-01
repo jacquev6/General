@@ -430,6 +430,7 @@ module String: sig
   type t = string
 
   val get: t -> int -> char
+  val set: bytes -> int -> char -> unit
 
   module O: sig
     include Concepts.Able.Operators.S0 with type t := t
@@ -801,6 +802,7 @@ module Array: sig
   (* @todo Implement *)
 
   val get: 'a t -> int -> 'a
+  val set: 'a t -> int -> 'a -> unit
 end
 
 module Stream: sig

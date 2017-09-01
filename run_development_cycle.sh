@@ -77,7 +77,7 @@ rm -rf _build/with_lib
 mkdir -p _build/with_lib
 cp ../_build/native/src/General.cmi ../_build/native/src/General.a ../_build/native/src/General.cmxa _build/with_lib
 cp ../_build/native/src/*.cmx _build/with_lib
-build -build-dir _build/with_lib  -package num -lib General demo.native demo_pervasives.native
+build -build-dir _build/with_lib  -package num -lib General demo.native demo_pervasives.native demo_syntactic_sugar.native
 cd ..
 
 build -build-dir _build/coverage \
