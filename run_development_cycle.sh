@@ -81,7 +81,7 @@ build -build-dir _build/with_lib  -package num -lib General demo.native demo_per
 cd ..
 
 build -build-dir _build/coverage \
-    -package bisect_ppx -tag debug \
+    -package bisect_ppx -tag debug -tag "cppo_D(DEBUG)" \
     -tag-line 'true:+open(DependenciesForBisectPpx)' \
     -tag-line '<DependenciesForBisectPpx.*>:-open(DependenciesForBisectPpx)' \
     unit_tests.byte
