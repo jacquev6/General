@@ -459,6 +459,18 @@ module String: sig
   val split: t -> sep:t -> t list
 end
 
+module Bytes: sig
+  type t = bytes
+
+  val of_string: string -> t
+  val to_string: t -> string
+
+  val get: t -> int -> char
+  val set: t -> int -> char -> unit
+
+  (* val make: int -> t *)
+end
+
 (* @feature Rational, Complex, Quaternion, Matrix *)
 
 (* Fixed-size containers *)
@@ -1035,6 +1047,7 @@ module Standard: sig
   module Array = Array
   module BigInt = BigInt
   module Bool = Bool
+  module Bytes = Bytes
   module CallStack = CallStack
   module Char = Char
   module Exception = Exception
@@ -1085,6 +1098,7 @@ module Standard: sig
 
   include module type of Pervasives
   with module Array := Array
+  and module Bytes := Bytes
   and module Char := Char
   and module Format := Format
   and module Int32 := Int32
@@ -1104,6 +1118,7 @@ module Abbr: sig
   module Ar = Array
   module BigInt = BigInt
   module Bo = Bool
+  module By = Bytes
   module CallStack = CallStack
   module Ch = Char
   module Exit = Exit
