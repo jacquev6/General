@@ -6,6 +6,7 @@ addons:
     sources:
     - avsm
     packages:
+    - aspcud
     - opam
 install:
   - opam init --yes
