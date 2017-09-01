@@ -3,6 +3,7 @@ module Standard: sig
   module Array = General.Array
   module BigInt = General.BigInt
   module Bool = General.Bool
+  module Bytes = General.Bytes
   module CallStack = General.CallStack
   module Char = General.Char
   module Exception = General.Exception
@@ -202,7 +203,6 @@ module Standard: sig
   module Arg
   module ArrayLabels
   module Buffer
-  module Bytes
   module BytesLabels
   module Callback
   module Complex

@@ -23,6 +23,7 @@ module General: sig
   module BigInt
   module Float
   module String
+  module Bytes
   module Option
   module Lazy
   module Reference

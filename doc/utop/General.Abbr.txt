@@ -3,6 +3,7 @@ module Abbr: sig
   module Ar = General.Array
   module BigInt = General.BigInt
   module Bo = General.Bool
+  module By = General.Bytes
   module CallStack = General.CallStack
   module Ch = General.Char
   module Exit = General.Exit

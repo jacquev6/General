@@ -29,7 +29,8 @@ include (Equate.Poly: module type of Equate.Poly with module O := O)
 
 let size = OCSS.length
 
-let substring s ~pos ~len = OCSS.sub s pos len
+let substring s ~pos ~len =
+  OCSS.sub s pos len
 
 let prefix s ~len =
   substring s ~pos:0 ~len

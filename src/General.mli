@@ -429,8 +429,15 @@ end
 module String: sig
   type t = string
 
+  (* val make: char -> len:int -> t *)
+  (* val of_list: char list -> t *)
+  (* val to_list: t -> char list *)
+
   val get: t -> int -> char
   val set: bytes -> int -> char -> unit
+
+  (* val of_bytes: bytes -> t *)
+  (* val to_bytes: t -> bytes *)
 
   module O: sig
     include Concepts.Able.Operators.S0 with type t := t
@@ -813,6 +820,7 @@ module Array: sig
 
   (* @todo Implement *)
 
+  val size: 'a t -> int
   val get: 'a t -> int -> 'a
   val set: 'a t -> int -> 'a -> unit
 end

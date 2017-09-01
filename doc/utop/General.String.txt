@@ -1,6 +1,7 @@
 module String: sig
   type t = string
   val get: t -> int -> char
+  val set: t -> int -> char -> unit
   module O
   val to_string: t -> t
   val equal: t -> t -> bool

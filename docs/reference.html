@@ -13717,6 +13717,11 @@ with unusable but guiding values like:</p>
 <em class="property">val </em><code class="descname">get</code><em class="property">: t -&gt; int -&gt; char</em><a class="headerlink" href="#val General.String.get" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="val">
+<dt id="val General.String.set">
+<em class="property">val </em><code class="descname">set</code><em class="property">: bytes -&gt; int -&gt; char -&gt; unit</em><a class="headerlink" href="#val General.String.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="module">
 <dt id="mod General.String.O">
 <em class="property">module </em><code class="descname">O</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.String.O" title="Permalink to this definition">¶</a></dt>
@@ -13903,6 +13908,38 @@ with unusable but guiding values like:</p>
 <dl class="val">
 <dt id="val General.String.split">
 <em class="property">val </em><code class="descname">split</code><em class="property">: t -&gt; sep:t -&gt; t list</em><a class="headerlink" href="#val General.String.split" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+<dl class="module">
+<dt id="mod General.Bytes">
+<em class="property">module </em><code class="descname">Bytes</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.Bytes" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="type">
+<dt id="typ General.Bytes.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = bytes</em><a class="headerlink" href="#typ General.Bytes.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Bytes.of_string">
+<em class="property">val </em><code class="descname">of_string</code><em class="property">: string -&gt; t</em><a class="headerlink" href="#val General.Bytes.of_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Bytes.to_string">
+<em class="property">val </em><code class="descname">to_string</code><em class="property">: t -&gt; string</em><a class="headerlink" href="#val General.Bytes.to_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Bytes.get">
+<em class="property">val </em><code class="descname">get</code><em class="property">: t -&gt; int -&gt; char</em><a class="headerlink" href="#val General.Bytes.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Bytes.set">
+<em class="property">val </em><code class="descname">set</code><em class="property">: t -&gt; int -&gt; char -&gt; unit</em><a class="headerlink" href="#val General.Bytes.set" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd><dt>
@@ -16610,8 +16647,18 @@ with unusable but guiding values like:</p>
 <dd></dd></dl>
 
 <dl class="val">
+<dt id="val General.Array.size">
+<em class="property">val </em><code class="descname">size</code><em class="property">: 'a t -&gt; int</em><a class="headerlink" href="#val General.Array.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
 <dt id="val General.Array.get">
 <em class="property">val </em><code class="descname">get</code><em class="property">: 'a t -&gt; int -&gt; 'a</em><a class="headerlink" href="#val General.Array.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Array.set">
+<em class="property">val </em><code class="descname">set</code><em class="property">: 'a t -&gt; int -&gt; 'a -&gt; unit</em><a class="headerlink" href="#val General.Array.set" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd><dt>
@@ -19232,6 +19279,11 @@ with unusable but guiding values like:</p>
 <dd></dd></dl>
 
 <dl class="module">
+<dt id="mod General.Standard.Bytes">
+<em class="property">module </em><code class="descname">Bytes</code><em class="property"> = Bytes</em><a class="headerlink" href="#mod General.Standard.Bytes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
 <dt id="mod General.Standard.CallStack">
 <em class="property">module </em><code class="descname">CallStack</code><em class="property"> = CallStack</em><a class="headerlink" href="#mod General.Standard.CallStack" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -19473,6 +19525,11 @@ with unusable but guiding values like:</p>
 <dl class="module">
 <dt id="mod General.Abbr.Bo">
 <em class="property">module </em><code class="descname">Bo</code><em class="property"> = Bool</em><a class="headerlink" href="#mod General.Abbr.Bo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Abbr.By">
+<em class="property">module </em><code class="descname">By</code><em class="property"> = Bytes</em><a class="headerlink" href="#mod General.Abbr.By" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
