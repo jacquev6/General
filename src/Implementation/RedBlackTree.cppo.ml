@@ -290,7 +290,10 @@ let replace xs ~cmp x =
   |> Invariants.validate ~cmp
   #endif
 
-let remove xs ~cmp x =
+let remove xs ~cmp ~cmp_k x =
+  #ifndef DEBUG
+  ignore cmp;
+  #endif
   let rec remove_min = function
     | Black {l=Empty; v; r=Empty} ->
       (EmptyPlus, v)
@@ -312,7 +315,7 @@ let remove xs ~cmp x =
     | Empty ->
       (false, Empty)
     | Black {l; v; r} as t -> (
-      match cmp x v with
+      match cmp_k x v with
         | Compare.LT ->
           let (modified, l') = aux l in
           if modified then
@@ -343,7 +346,7 @@ let remove xs ~cmp x =
         )
     )
     | Red {l; v; r} as t -> (
-      match cmp x v with
+      match cmp_k x v with
         | Compare.LT ->
           let (modified, l') = aux l in
           if modified then
@@ -388,13 +391,16 @@ let is_empty = function
   | Empty -> true
   | _ -> false
 
-let try_get xs ~cmp x =
+let try_get xs ~cmp ~cmp_k x =
+  #ifndef DEBUG
+  ignore cmp;
+  #endif
   let rec aux = function
     | Empty ->
       None
     | Black {l; v; r}
     | Red {l; v; r} -> (
-      match cmp x v with
+      match cmp_k x v with
         | Compare.LT ->
           aux l
         | Compare.EQ ->
@@ -705,7 +711,7 @@ module Tests = struct
     "try_get" >:: (
       let make t x expected =
         ~: "try_get %s %i" (repr t) x (lazy (
-          check_int_option ~expected (try_get t ~cmp x)
+          check_int_option ~expected (try_get t ~cmp ~cmp_k:cmp x)
         ))
       in
       let make_t t x =
@@ -736,7 +742,7 @@ module Tests = struct
     "remove" >:: (
       let make t x expected =
         ~: "remove %s %i" (repr t) x (lazy (
-          check_poly ~repr:(Tuples.Tuple2.repr ~repr_a:Bool.repr ~repr_b:repr) ~expected (remove t ~cmp x)
+          check_poly ~repr:(Tuples.Tuple2.repr ~repr_a:Bool.repr ~repr_b:repr) ~expected (remove t ~cmp ~cmp_k:cmp x)
         ))
       in
       let make_t t x expected =
@@ -1138,6 +1144,20 @@ module Tests = struct
         make_f brbr135b79b11 10;
         make_t brbr135b79b11 11 (Black {l=Black {l=Red {l=Empty; v=1; r=Empty}; v=3; r=Empty}; v=5; r=Black {l=Red {l=Empty; v=7; r=Empty}; v=9; r=Empty}});
         make_f brbr135b79b11 12;
+      ]
+    );
+    "heterogeneous" >:: (
+      let cmp_k (`Int (x:int)) (y:int) = Int.compare x y in
+      [
+        "try_get" >: (lazy (
+          check_some_42 (try_get (Black {l=Empty; v=42; r=Empty}) ~cmp ~cmp_k (`Int 42))
+        ));
+        "remove" >: (lazy (
+          check_poly
+            ~repr:(Tuples.Tuple2.repr ~repr_a:Bool.repr ~repr_b:repr)
+            ~expected:(true, Empty)
+            (remove (Black {l=Empty; v=42; r=Empty}) ~cmp ~cmp_k (`Int 42))
+        ));
       ]
     );
   ]
