@@ -416,6 +416,31 @@ let try_get xs ~cmp ~cmp_k x =
   #endif
   |> aux
 
+let fold xs ~cmp ~init ~f =
+  #ifndef DEBUG
+  ignore cmp;
+  #endif
+  let rec aux acc = function
+    | Empty ->
+      acc
+    | Red {l; v; r}
+    | Black {l; v; r} ->
+      aux (f (aux acc l) v) r
+    | _ -> Exception.failure "broken invariants" (*BISECT-IGNORE*) (* Unreachable *)
+  in
+  xs
+  #ifdef DEBUG
+  |> Invariants.validate ~cmp
+  #endif
+  |> aux init
+
+let to_list xs ~cmp =
+  fold xs ~cmp ~init:[] ~f:(Functions.Function2.flip List_.prepend)
+  |> List_.reverse
+
+let size xs ~cmp =
+  fold xs ~cmp ~init:0 ~f:(fun n _ -> Int.succ n)
+
 module Tests = struct
   open Testing
 
@@ -1158,6 +1183,28 @@ module Tests = struct
             ~expected:(true, Empty)
             (remove (Black {l=Empty; v=42; r=Empty}) ~cmp ~cmp_k (`Int 42))
         ));
+      ]
+    );
+    "to_list" >:: (
+      let make t expected =
+        (repr t) >: (lazy (
+          check_int_list ~expected (to_list ~cmp t)
+        ))
+      in
+      [
+        make empty [];
+        make bb13br57r9 [1; 3; 5; 7; 9];
+      ]
+    );
+    "size" >:: (
+      let make t expected =
+        (repr t) >: (lazy (
+          check_int ~expected (size ~cmp t)
+        ))
+      in
+      [
+        make empty 0;
+        make bb13br57r9 5;
       ]
     );
   ]

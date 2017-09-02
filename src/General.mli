@@ -854,11 +854,19 @@ module SortedSet: sig
 
     val empty: 'a t
 
+    val of_list: 'a list -> 'a t
+    val to_list: 'a t -> 'a list
+
+    val is_empty: 'a t -> bool
+    val size: 'a t -> int
+
     val add: 'a t -> v:'a -> bool * 'a t
     val replace: 'a t -> v:'a -> 'a t
     val remove: 'a t -> v:'a -> bool * 'a t
 
     val contains: 'a t -> v:'a -> bool
+
+    (* @todo Traits *)
   end
 
   module Make(E: Traits.Comparable.Basic.S0): sig
@@ -866,11 +874,19 @@ module SortedSet: sig
 
     val empty: t
 
+    val of_list: E.t list -> t
+    val to_list: t -> E.t list
+
+    val is_empty: t -> bool
+    val size: t -> int
+
     val add: t -> v:E.t -> bool * t
     val replace: t -> v:E.t -> t
     val remove: t -> v:E.t -> bool * t
 
     val contains: t -> v:E.t -> bool
+
+    (* @todo Traits *)
   end
 end
 
@@ -880,12 +896,24 @@ module SortedMap: sig
 
     val empty: ('a, 'b) t
 
+    (* val of_list_unique: ('a * 'b) list -> ('a, 'b) t *)
+    (* val try_of_list_unique: ('a * 'b) list -> ('a, 'b) t option *)
+    val of_list_first: ('a * 'b) list -> ('a, 'b) t
+    val of_list_last: ('a * 'b) list -> ('a, 'b) t
+    (* val of_list_reduce: ('a * 'b) list -> f:('b -> 'b -> 'b) -> ('a, 'b) t *)
+    val to_list: ('a, 'b) t -> ('a * 'b) list
+
+    val is_empty: ('a, 'b) t -> bool
+    val size: ('a, 'b) t -> int
+
     val add: ('a, 'b) t -> k:'a -> v:'b -> bool * ('a, 'b) t
     val replace: ('a, 'b) t -> k:'a -> v:'b -> ('a, 'b) t
     val remove: ('a, 'b) t -> k:'a -> bool * ('a, 'b) t
 
     val try_get: ('a, 'b) t -> k:'a -> 'b option
     val get: ('a, 'b) t -> k:'a -> 'b
+
+    (* @todo Traits *)
   end
 
   module Make(K: Traits.Comparable.Basic.S0): sig
@@ -893,12 +921,22 @@ module SortedMap: sig
 
     val empty: 'a t
 
+    (* @todo [try_]of_list_unique, of_list_reduce *)
+    val of_list_first: (K.t * 'a) list -> 'a t
+    val of_list_last: (K.t * 'a) list -> 'a t
+    val to_list: 'a t -> (K.t * 'a) list
+
+    val is_empty: 'a t -> bool
+    val size: 'a t -> int
+
     val add: 'a t -> k:K.t -> v:'a -> bool * 'a t
     val replace: 'a t -> k:K.t -> v:'a -> 'a t
     val remove: 'a t -> k:K.t -> bool * 'a t
 
     val try_get: 'a t -> k:K.t -> 'a option
     val get: 'a t -> k:K.t -> 'a
+
+    (* @todo Traits *)
   end
 end
 

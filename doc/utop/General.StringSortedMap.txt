@@ -1,6 +1,11 @@
 module StringSortedMap: sig
   type 'a t = 'a General.StringSortedMap.t
   val empty: 'a t
+  val of_list_first: (string * 'a) list -> 'a t
+  val of_list_last: (string * 'a) list -> 'a t
+  val to_list: 'a t -> (string * 'a) list
+  val is_empty: 'a t -> bool
+  val size: 'a t -> int
   val add: 'a t -> k:string -> v:'a -> bool * 'a t
   val replace: 'a t -> k:string -> v:'a -> 'a t
   val remove: 'a t -> k:string -> bool * 'a t
