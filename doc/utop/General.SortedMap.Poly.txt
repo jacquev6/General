@@ -1,0 +1,9 @@
+module Poly: sig
+  type ('a, 'b) t
+  val empty: ('a, 'b) t
+  val add: ('a, 'b) t -> k:'a -> v:'b -> bool * ('a, 'b) t
+  val replace: ('a, 'b) t -> k:'a -> v:'b -> ('a, 'b) t
+  val remove: ('a, 'b) t -> k:'a -> bool * ('a, 'b) t
+  val try_get: ('a, 'b) t -> k:'a -> 'b option
+  val get: ('a, 'b) t -> k:'a -> 'b
+end

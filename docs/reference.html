@@ -11868,6 +11868,90 @@ with unusable but guiding values like:</p>
 <em class="property">type </em><code class="descname">t</code><em class="property"> = char</em><a class="headerlink" href="#typ General.Char.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="incl">
+<dt id="incl General.Char.0">
+<em class="property">include </em><code class="descname">Traits.Comparable.S0 with type t := t</code><em class="property"> = sig</em><a class="headerlink" href="#incl General.Char.0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="val">
+<dt id="val General.Char.compare">
+<em class="property">val </em><code class="descname">compare</code><em class="property">: t -&gt; t -&gt; Foundations.Compare.t</em><a class="headerlink" href="#val General.Char.compare" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Char.less_than">
+<em class="property">val </em><code class="descname">less_than</code><em class="property">: t -&gt; t -&gt; bool</em><a class="headerlink" href="#val General.Char.less_than" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Char.less_or_equal">
+<em class="property">val </em><code class="descname">less_or_equal</code><em class="property">: t -&gt; t -&gt; bool</em><a class="headerlink" href="#val General.Char.less_or_equal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Char.greater_than">
+<em class="property">val </em><code class="descname">greater_than</code><em class="property">: t -&gt; t -&gt; bool</em><a class="headerlink" href="#val General.Char.greater_than" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Char.greater_or_equal">
+<em class="property">val </em><code class="descname">greater_or_equal</code><em class="property">: t -&gt; t -&gt; bool</em><a class="headerlink" href="#val General.Char.greater_or_equal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Char.between">
+<em class="property">val </em><code class="descname">between</code><em class="property">: t -&gt; low:t -&gt; high:t -&gt; bool</em><a class="headerlink" href="#val General.Char.between" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Char.between_or_equal">
+<em class="property">val </em><code class="descname">between_or_equal</code><em class="property">: t -&gt; low:t -&gt; high:t -&gt; bool</em><a class="headerlink" href="#val General.Char.between_or_equal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Char.min">
+<em class="property">val </em><code class="descname">min</code><em class="property">: t -&gt; t -&gt; t</em><a class="headerlink" href="#val General.Char.min" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Char.max">
+<em class="property">val </em><code class="descname">max</code><em class="property">: t -&gt; t -&gt; t</em><a class="headerlink" href="#val General.Char.max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Char.min_max">
+<em class="property">val </em><code class="descname">min_max</code><em class="property">: t -&gt; t -&gt; t * t</em><a class="headerlink" href="#val General.Char.min_max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Char.O">
+<em class="property">module </em><code class="descname">O</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.Char.O" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="val">
+<dt id="val General.Char.O.(&lt;)">
+<em class="property">val </em><code class="descname">(&lt;)</code><em class="property">: t -&gt; t -&gt; bool</em><a class="headerlink" href="#val General.Char.O.(<)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Char.O.(&lt;=)">
+<em class="property">val </em><code class="descname">(&lt;=)</code><em class="property">: t -&gt; t -&gt; bool</em><a class="headerlink" href="#val General.Char.O.(<=)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Char.O.(&gt;)">
+<em class="property">val </em><code class="descname">(&gt;)</code><em class="property">: t -&gt; t -&gt; bool</em><a class="headerlink" href="#val General.Char.O.(>)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Char.O.(&gt;=)">
+<em class="property">val </em><code class="descname">(&gt;=)</code><em class="property">: t -&gt; t -&gt; bool</em><a class="headerlink" href="#val General.Char.O.(>=)" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
 <dl class="val">
 <dt id="val General.Char.of_int">
 <em class="property">val </em><code class="descname">of_int</code><em class="property">: int -&gt; t</em><a class="headerlink" href="#val General.Char.of_int" title="Permalink to this definition">¶</a></dt>
@@ -16849,6 +16933,216 @@ with unusable but guiding values like:</p>
 </dl>
 
 <dl class="module">
+<dt id="mod General.SortedSet">
+<em class="property">module </em><code class="descname">SortedSet</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.SortedSet" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="module">
+<dt id="mod General.SortedSet.Poly">
+<em class="property">module </em><code class="descname">Poly</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.SortedSet.Poly" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="type">
+<dt id="typ General.SortedSet.Poly.t">
+<em class="property">type 'a </em><code class="descname">t</code><a class="headerlink" href="#typ General.SortedSet.Poly.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedSet.Poly.empty">
+<em class="property">val </em><code class="descname">empty</code><em class="property">: 'a t</em><a class="headerlink" href="#val General.SortedSet.Poly.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedSet.Poly.add">
+<em class="property">val </em><code class="descname">add</code><em class="property">: 'a t -&gt; v:'a -&gt; bool * 'a t</em><a class="headerlink" href="#val General.SortedSet.Poly.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedSet.Poly.replace">
+<em class="property">val </em><code class="descname">replace</code><em class="property">: 'a t -&gt; v:'a -&gt; 'a t</em><a class="headerlink" href="#val General.SortedSet.Poly.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedSet.Poly.remove">
+<em class="property">val </em><code class="descname">remove</code><em class="property">: 'a t -&gt; v:'a -&gt; bool * 'a t</em><a class="headerlink" href="#val General.SortedSet.Poly.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedSet.Poly.contains">
+<em class="property">val </em><code class="descname">contains</code><em class="property">: 'a t -&gt; v:'a -&gt; bool</em><a class="headerlink" href="#val General.SortedSet.Poly.contains" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+<dl class="module">
+<dt id="mod General.SortedSet.Make">
+<em class="property">module </em><code class="descname">Make</code><em class="property"> : functor</em><a class="headerlink" href="#mod General.SortedSet.Make" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="functor_parameter">
+<dt>
+<em class="property">(</em><code class="descname">E</code><em class="property"> : Traits.Comparable.Basic.S0 = sig</em></dt>
+<dd><dl class="type">
+<dt id="typ General.SortedSet.Make.E$t">
+<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.SortedSet.Make.E$t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedSet.Make.E$compare">
+<em class="property">val </em><code class="descname">compare</code><em class="property">: t -&gt; t -&gt; Foundations.Compare.t</em><a class="headerlink" href="#val General.SortedSet.Make.E$compare" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end)</em></dt>
+</dl>
+
+</dd><dt>
+<em class="property">-&gt; sig</em></dt>
+<dd><dl class="type">
+<dt id="typ General.SortedSet.Make.t">
+<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.SortedSet.Make.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedSet.Make.empty">
+<em class="property">val </em><code class="descname">empty</code><em class="property">: t</em><a class="headerlink" href="#val General.SortedSet.Make.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedSet.Make.add">
+<em class="property">val </em><code class="descname">add</code><em class="property">: t -&gt; v:E.t -&gt; bool * t</em><a class="headerlink" href="#val General.SortedSet.Make.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedSet.Make.replace">
+<em class="property">val </em><code class="descname">replace</code><em class="property">: t -&gt; v:E.t -&gt; t</em><a class="headerlink" href="#val General.SortedSet.Make.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedSet.Make.remove">
+<em class="property">val </em><code class="descname">remove</code><em class="property">: t -&gt; v:E.t -&gt; bool * t</em><a class="headerlink" href="#val General.SortedSet.Make.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedSet.Make.contains">
+<em class="property">val </em><code class="descname">contains</code><em class="property">: t -&gt; v:E.t -&gt; bool</em><a class="headerlink" href="#val General.SortedSet.Make.contains" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+<dl class="module">
+<dt id="mod General.SortedMap">
+<em class="property">module </em><code class="descname">SortedMap</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.SortedMap" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="module">
+<dt id="mod General.SortedMap.Poly">
+<em class="property">module </em><code class="descname">Poly</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.SortedMap.Poly" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="type">
+<dt id="typ General.SortedMap.Poly.t">
+<em class="property">type ('a, 'b) </em><code class="descname">t</code><a class="headerlink" href="#typ General.SortedMap.Poly.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedMap.Poly.empty">
+<em class="property">val </em><code class="descname">empty</code><em class="property">: ('a, 'b) t</em><a class="headerlink" href="#val General.SortedMap.Poly.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedMap.Poly.add">
+<em class="property">val </em><code class="descname">add</code><em class="property">: ('a, 'b) t -&gt; k:'a -&gt; v:'b -&gt; bool * ('a, 'b) t</em><a class="headerlink" href="#val General.SortedMap.Poly.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedMap.Poly.replace">
+<em class="property">val </em><code class="descname">replace</code><em class="property">: ('a, 'b) t -&gt; k:'a -&gt; v:'b -&gt; ('a, 'b) t</em><a class="headerlink" href="#val General.SortedMap.Poly.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedMap.Poly.remove">
+<em class="property">val </em><code class="descname">remove</code><em class="property">: ('a, 'b) t -&gt; k:'a -&gt; bool * ('a, 'b) t</em><a class="headerlink" href="#val General.SortedMap.Poly.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedMap.Poly.try_get">
+<em class="property">val </em><code class="descname">try_get</code><em class="property">: ('a, 'b) t -&gt; k:'a -&gt; 'b option</em><a class="headerlink" href="#val General.SortedMap.Poly.try_get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedMap.Poly.get">
+<em class="property">val </em><code class="descname">get</code><em class="property">: ('a, 'b) t -&gt; k:'a -&gt; 'b</em><a class="headerlink" href="#val General.SortedMap.Poly.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+<dl class="module">
+<dt id="mod General.SortedMap.Make">
+<em class="property">module </em><code class="descname">Make</code><em class="property"> : functor</em><a class="headerlink" href="#mod General.SortedMap.Make" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="functor_parameter">
+<dt>
+<em class="property">(</em><code class="descname">K</code><em class="property"> : Traits.Comparable.Basic.S0 = sig</em></dt>
+<dd><dl class="type">
+<dt id="typ General.SortedMap.Make.K$t">
+<em class="property">type </em><code class="descname">t</code><a class="headerlink" href="#typ General.SortedMap.Make.K$t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedMap.Make.K$compare">
+<em class="property">val </em><code class="descname">compare</code><em class="property">: t -&gt; t -&gt; Foundations.Compare.t</em><a class="headerlink" href="#val General.SortedMap.Make.K$compare" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end)</em></dt>
+</dl>
+
+</dd><dt>
+<em class="property">-&gt; sig</em></dt>
+<dd><dl class="type">
+<dt id="typ General.SortedMap.Make.t">
+<em class="property">type 'a </em><code class="descname">t</code><a class="headerlink" href="#typ General.SortedMap.Make.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedMap.Make.empty">
+<em class="property">val </em><code class="descname">empty</code><em class="property">: 'a t</em><a class="headerlink" href="#val General.SortedMap.Make.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedMap.Make.add">
+<em class="property">val </em><code class="descname">add</code><em class="property">: 'a t -&gt; k:K.t -&gt; v:'a -&gt; bool * 'a t</em><a class="headerlink" href="#val General.SortedMap.Make.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedMap.Make.replace">
+<em class="property">val </em><code class="descname">replace</code><em class="property">: 'a t -&gt; k:K.t -&gt; v:'a -&gt; 'a t</em><a class="headerlink" href="#val General.SortedMap.Make.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedMap.Make.remove">
+<em class="property">val </em><code class="descname">remove</code><em class="property">: 'a t -&gt; k:K.t -&gt; bool * 'a t</em><a class="headerlink" href="#val General.SortedMap.Make.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedMap.Make.try_get">
+<em class="property">val </em><code class="descname">try_get</code><em class="property">: 'a t -&gt; k:K.t -&gt; 'a option</em><a class="headerlink" href="#val General.SortedMap.Make.try_get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.SortedMap.Make.get">
+<em class="property">val </em><code class="descname">get</code><em class="property">: 'a t -&gt; k:K.t -&gt; 'a</em><a class="headerlink" href="#val General.SortedMap.Make.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+<dl class="module">
 <dt id="mod General.IntRange">
 <em class="property">module </em><code class="descname">IntRange</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.IntRange" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
@@ -18872,6 +19166,378 @@ with unusable but guiding values like:</p>
 </dl>
 
 <dl class="module">
+<dt id="mod General.IntSortedSet">
+<em class="property">module </em><code class="descname">IntSortedSet</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.IntSortedSet" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="incl">
+<dt id="incl General.IntSortedSet.0">
+<em class="property">include </em><code class="descname">module type of SortedSet.Make(Int)</code><em class="property"> = sig</em><a class="headerlink" href="#incl General.IntSortedSet.0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="type">
+<dt id="typ General.IntSortedSet.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = SortedSet.Make(Int).t</em><a class="headerlink" href="#typ General.IntSortedSet.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.IntSortedSet.empty">
+<em class="property">val </em><code class="descname">empty</code><em class="property">: t</em><a class="headerlink" href="#val General.IntSortedSet.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.IntSortedSet.add">
+<em class="property">val </em><code class="descname">add</code><em class="property">: t -&gt; v:Int.t -&gt; bool * t</em><a class="headerlink" href="#val General.IntSortedSet.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.IntSortedSet.replace">
+<em class="property">val </em><code class="descname">replace</code><em class="property">: t -&gt; v:Int.t -&gt; t</em><a class="headerlink" href="#val General.IntSortedSet.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.IntSortedSet.remove">
+<em class="property">val </em><code class="descname">remove</code><em class="property">: t -&gt; v:Int.t -&gt; bool * t</em><a class="headerlink" href="#val General.IntSortedSet.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.IntSortedSet.contains">
+<em class="property">val </em><code class="descname">contains</code><em class="property">: t -&gt; v:Int.t -&gt; bool</em><a class="headerlink" href="#val General.IntSortedSet.contains" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+<dl class="module">
+<dt id="mod General.FloatSortedSet">
+<em class="property">module </em><code class="descname">FloatSortedSet</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.FloatSortedSet" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="incl">
+<dt id="incl General.FloatSortedSet.0">
+<em class="property">include </em><code class="descname">module type of SortedSet.Make(Float)</code><em class="property"> = sig</em><a class="headerlink" href="#incl General.FloatSortedSet.0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="type">
+<dt id="typ General.FloatSortedSet.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = SortedSet.Make(Float).t</em><a class="headerlink" href="#typ General.FloatSortedSet.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.FloatSortedSet.empty">
+<em class="property">val </em><code class="descname">empty</code><em class="property">: t</em><a class="headerlink" href="#val General.FloatSortedSet.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.FloatSortedSet.add">
+<em class="property">val </em><code class="descname">add</code><em class="property">: t -&gt; v:Float.t -&gt; bool * t</em><a class="headerlink" href="#val General.FloatSortedSet.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.FloatSortedSet.replace">
+<em class="property">val </em><code class="descname">replace</code><em class="property">: t -&gt; v:Float.t -&gt; t</em><a class="headerlink" href="#val General.FloatSortedSet.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.FloatSortedSet.remove">
+<em class="property">val </em><code class="descname">remove</code><em class="property">: t -&gt; v:Float.t -&gt; bool * t</em><a class="headerlink" href="#val General.FloatSortedSet.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.FloatSortedSet.contains">
+<em class="property">val </em><code class="descname">contains</code><em class="property">: t -&gt; v:Float.t -&gt; bool</em><a class="headerlink" href="#val General.FloatSortedSet.contains" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+<dl class="module">
+<dt id="mod General.StringSortedSet">
+<em class="property">module </em><code class="descname">StringSortedSet</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.StringSortedSet" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="incl">
+<dt id="incl General.StringSortedSet.0">
+<em class="property">include </em><code class="descname">module type of SortedSet.Make(String)</code><em class="property"> = sig</em><a class="headerlink" href="#incl General.StringSortedSet.0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="type">
+<dt id="typ General.StringSortedSet.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = SortedSet.Make(String).t</em><a class="headerlink" href="#typ General.StringSortedSet.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.StringSortedSet.empty">
+<em class="property">val </em><code class="descname">empty</code><em class="property">: t</em><a class="headerlink" href="#val General.StringSortedSet.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.StringSortedSet.add">
+<em class="property">val </em><code class="descname">add</code><em class="property">: t -&gt; v:String.t -&gt; bool * t</em><a class="headerlink" href="#val General.StringSortedSet.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.StringSortedSet.replace">
+<em class="property">val </em><code class="descname">replace</code><em class="property">: t -&gt; v:String.t -&gt; t</em><a class="headerlink" href="#val General.StringSortedSet.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.StringSortedSet.remove">
+<em class="property">val </em><code class="descname">remove</code><em class="property">: t -&gt; v:String.t -&gt; bool * t</em><a class="headerlink" href="#val General.StringSortedSet.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.StringSortedSet.contains">
+<em class="property">val </em><code class="descname">contains</code><em class="property">: t -&gt; v:String.t -&gt; bool</em><a class="headerlink" href="#val General.StringSortedSet.contains" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+<dl class="module">
+<dt id="mod General.CharSortedSet">
+<em class="property">module </em><code class="descname">CharSortedSet</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.CharSortedSet" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="incl">
+<dt id="incl General.CharSortedSet.0">
+<em class="property">include </em><code class="descname">module type of SortedSet.Make(Char)</code><em class="property"> = sig</em><a class="headerlink" href="#incl General.CharSortedSet.0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="type">
+<dt id="typ General.CharSortedSet.t">
+<em class="property">type </em><code class="descname">t</code><em class="property"> = SortedSet.Make(Char).t</em><a class="headerlink" href="#typ General.CharSortedSet.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.CharSortedSet.empty">
+<em class="property">val </em><code class="descname">empty</code><em class="property">: t</em><a class="headerlink" href="#val General.CharSortedSet.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.CharSortedSet.add">
+<em class="property">val </em><code class="descname">add</code><em class="property">: t -&gt; v:Char.t -&gt; bool * t</em><a class="headerlink" href="#val General.CharSortedSet.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.CharSortedSet.replace">
+<em class="property">val </em><code class="descname">replace</code><em class="property">: t -&gt; v:Char.t -&gt; t</em><a class="headerlink" href="#val General.CharSortedSet.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.CharSortedSet.remove">
+<em class="property">val </em><code class="descname">remove</code><em class="property">: t -&gt; v:Char.t -&gt; bool * t</em><a class="headerlink" href="#val General.CharSortedSet.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.CharSortedSet.contains">
+<em class="property">val </em><code class="descname">contains</code><em class="property">: t -&gt; v:Char.t -&gt; bool</em><a class="headerlink" href="#val General.CharSortedSet.contains" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+<dl class="module">
+<dt id="mod General.IntSortedMap">
+<em class="property">module </em><code class="descname">IntSortedMap</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.IntSortedMap" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="incl">
+<dt id="incl General.IntSortedMap.0">
+<em class="property">include </em><code class="descname">module type of SortedMap.Make(Int)</code><em class="property"> = sig</em><a class="headerlink" href="#incl General.IntSortedMap.0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="type">
+<dt id="typ General.IntSortedMap.t">
+<em class="property">type 'a </em><code class="descname">t</code><em class="property"> = 'a SortedMap.Make(Int).t</em><a class="headerlink" href="#typ General.IntSortedMap.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.IntSortedMap.empty">
+<em class="property">val </em><code class="descname">empty</code><em class="property">: 'a t</em><a class="headerlink" href="#val General.IntSortedMap.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.IntSortedMap.add">
+<em class="property">val </em><code class="descname">add</code><em class="property">: 'a t -&gt; k:Int.t -&gt; v:'a -&gt; bool * 'a t</em><a class="headerlink" href="#val General.IntSortedMap.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.IntSortedMap.replace">
+<em class="property">val </em><code class="descname">replace</code><em class="property">: 'a t -&gt; k:Int.t -&gt; v:'a -&gt; 'a t</em><a class="headerlink" href="#val General.IntSortedMap.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.IntSortedMap.remove">
+<em class="property">val </em><code class="descname">remove</code><em class="property">: 'a t -&gt; k:Int.t -&gt; bool * 'a t</em><a class="headerlink" href="#val General.IntSortedMap.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.IntSortedMap.try_get">
+<em class="property">val </em><code class="descname">try_get</code><em class="property">: 'a t -&gt; k:Int.t -&gt; 'a option</em><a class="headerlink" href="#val General.IntSortedMap.try_get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.IntSortedMap.get">
+<em class="property">val </em><code class="descname">get</code><em class="property">: 'a t -&gt; k:Int.t -&gt; 'a</em><a class="headerlink" href="#val General.IntSortedMap.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+<dl class="module">
+<dt id="mod General.FloatSortedMap">
+<em class="property">module </em><code class="descname">FloatSortedMap</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.FloatSortedMap" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="incl">
+<dt id="incl General.FloatSortedMap.0">
+<em class="property">include </em><code class="descname">module type of SortedMap.Make(Float)</code><em class="property"> = sig</em><a class="headerlink" href="#incl General.FloatSortedMap.0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="type">
+<dt id="typ General.FloatSortedMap.t">
+<em class="property">type 'a </em><code class="descname">t</code><em class="property"> = 'a SortedMap.Make(Float).t</em><a class="headerlink" href="#typ General.FloatSortedMap.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.FloatSortedMap.empty">
+<em class="property">val </em><code class="descname">empty</code><em class="property">: 'a t</em><a class="headerlink" href="#val General.FloatSortedMap.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.FloatSortedMap.add">
+<em class="property">val </em><code class="descname">add</code><em class="property">: 'a t -&gt; k:Float.t -&gt; v:'a -&gt; bool * 'a t</em><a class="headerlink" href="#val General.FloatSortedMap.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.FloatSortedMap.replace">
+<em class="property">val </em><code class="descname">replace</code><em class="property">: 'a t -&gt; k:Float.t -&gt; v:'a -&gt; 'a t</em><a class="headerlink" href="#val General.FloatSortedMap.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.FloatSortedMap.remove">
+<em class="property">val </em><code class="descname">remove</code><em class="property">: 'a t -&gt; k:Float.t -&gt; bool * 'a t</em><a class="headerlink" href="#val General.FloatSortedMap.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.FloatSortedMap.try_get">
+<em class="property">val </em><code class="descname">try_get</code><em class="property">: 'a t -&gt; k:Float.t -&gt; 'a option</em><a class="headerlink" href="#val General.FloatSortedMap.try_get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.FloatSortedMap.get">
+<em class="property">val </em><code class="descname">get</code><em class="property">: 'a t -&gt; k:Float.t -&gt; 'a</em><a class="headerlink" href="#val General.FloatSortedMap.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+<dl class="module">
+<dt id="mod General.StringSortedMap">
+<em class="property">module </em><code class="descname">StringSortedMap</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.StringSortedMap" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="incl">
+<dt id="incl General.StringSortedMap.0">
+<em class="property">include </em><code class="descname">module type of SortedMap.Make(String)</code><em class="property"> = sig</em><a class="headerlink" href="#incl General.StringSortedMap.0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="type">
+<dt id="typ General.StringSortedMap.t">
+<em class="property">type 'a </em><code class="descname">t</code><em class="property"> = 'a SortedMap.Make(String).t</em><a class="headerlink" href="#typ General.StringSortedMap.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.StringSortedMap.empty">
+<em class="property">val </em><code class="descname">empty</code><em class="property">: 'a t</em><a class="headerlink" href="#val General.StringSortedMap.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.StringSortedMap.add">
+<em class="property">val </em><code class="descname">add</code><em class="property">: 'a t -&gt; k:String.t -&gt; v:'a -&gt; bool * 'a t</em><a class="headerlink" href="#val General.StringSortedMap.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.StringSortedMap.replace">
+<em class="property">val </em><code class="descname">replace</code><em class="property">: 'a t -&gt; k:String.t -&gt; v:'a -&gt; 'a t</em><a class="headerlink" href="#val General.StringSortedMap.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.StringSortedMap.remove">
+<em class="property">val </em><code class="descname">remove</code><em class="property">: 'a t -&gt; k:String.t -&gt; bool * 'a t</em><a class="headerlink" href="#val General.StringSortedMap.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.StringSortedMap.try_get">
+<em class="property">val </em><code class="descname">try_get</code><em class="property">: 'a t -&gt; k:String.t -&gt; 'a option</em><a class="headerlink" href="#val General.StringSortedMap.try_get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.StringSortedMap.get">
+<em class="property">val </em><code class="descname">get</code><em class="property">: 'a t -&gt; k:String.t -&gt; 'a</em><a class="headerlink" href="#val General.StringSortedMap.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+<dl class="module">
+<dt id="mod General.CharSortedMap">
+<em class="property">module </em><code class="descname">CharSortedMap</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.CharSortedMap" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="incl">
+<dt id="incl General.CharSortedMap.0">
+<em class="property">include </em><code class="descname">module type of SortedMap.Make(Char)</code><em class="property"> = sig</em><a class="headerlink" href="#incl General.CharSortedMap.0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="type">
+<dt id="typ General.CharSortedMap.t">
+<em class="property">type 'a </em><code class="descname">t</code><em class="property"> = 'a SortedMap.Make(Char).t</em><a class="headerlink" href="#typ General.CharSortedMap.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.CharSortedMap.empty">
+<em class="property">val </em><code class="descname">empty</code><em class="property">: 'a t</em><a class="headerlink" href="#val General.CharSortedMap.empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.CharSortedMap.add">
+<em class="property">val </em><code class="descname">add</code><em class="property">: 'a t -&gt; k:Char.t -&gt; v:'a -&gt; bool * 'a t</em><a class="headerlink" href="#val General.CharSortedMap.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.CharSortedMap.replace">
+<em class="property">val </em><code class="descname">replace</code><em class="property">: 'a t -&gt; k:Char.t -&gt; v:'a -&gt; 'a t</em><a class="headerlink" href="#val General.CharSortedMap.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.CharSortedMap.remove">
+<em class="property">val </em><code class="descname">remove</code><em class="property">: 'a t -&gt; k:Char.t -&gt; bool * 'a t</em><a class="headerlink" href="#val General.CharSortedMap.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.CharSortedMap.try_get">
+<em class="property">val </em><code class="descname">try_get</code><em class="property">: 'a t -&gt; k:Char.t -&gt; 'a option</em><a class="headerlink" href="#val General.CharSortedMap.try_get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.CharSortedMap.get">
+<em class="property">val </em><code class="descname">get</code><em class="property">: 'a t -&gt; k:Char.t -&gt; 'a</em><a class="headerlink" href="#val General.CharSortedMap.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+</dd><dt>
+<em class="property">end</em></dt>
+</dl>
+
+<dl class="module">
 <dt id="mod General.Format">
 <em class="property">module </em><code class="descname">Format</code><em class="property"> : sig</em><a class="headerlink" href="#mod General.Format" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="type">
@@ -19349,6 +20015,11 @@ with unusable but guiding values like:</p>
 <dd></dd></dl>
 
 <dl class="module">
+<dt id="mod General.Standard.Int">
+<em class="property">module </em><code class="descname">Int</code><em class="property"> = Int</em><a class="headerlink" href="#mod General.Standard.Int" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
 <dt id="mod General.Standard.Int32">
 <em class="property">module </em><code class="descname">Int32</code><em class="property"> = Int32</em><a class="headerlink" href="#mod General.Standard.Int32" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -19356,11 +20027,6 @@ with unusable but guiding values like:</p>
 <dl class="module">
 <dt id="mod General.Standard.Int64">
 <em class="property">module </em><code class="descname">Int64</code><em class="property"> = Int64</em><a class="headerlink" href="#mod General.Standard.Int64" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="module">
-<dt id="mod General.Standard.Int">
-<em class="property">module </em><code class="descname">Int</code><em class="property"> = Int</em><a class="headerlink" href="#mod General.Standard.Int" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
@@ -19396,6 +20062,16 @@ with unusable but guiding values like:</p>
 <dl class="module">
 <dt id="mod General.Standard.Reference">
 <em class="property">module </em><code class="descname">Reference</code><em class="property"> = Reference</em><a class="headerlink" href="#mod General.Standard.Reference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Standard.SortedMap">
+<em class="property">module </em><code class="descname">SortedMap</code><em class="property"> = SortedMap</em><a class="headerlink" href="#mod General.Standard.SortedMap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Standard.SortedSet">
+<em class="property">module </em><code class="descname">SortedSet</code><em class="property"> = SortedSet</em><a class="headerlink" href="#mod General.Standard.SortedSet" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
@@ -19454,13 +20130,13 @@ with unusable but guiding values like:</p>
 <dd></dd></dl>
 
 <dl class="module">
-<dt id="mod General.Standard.IntOption">
-<em class="property">module </em><code class="descname">IntOption</code><em class="property"> = IntOption</em><a class="headerlink" href="#mod General.Standard.IntOption" title="Permalink to this definition">¶</a></dt>
+<dt id="mod General.Standard.FloatOption">
+<em class="property">module </em><code class="descname">FloatOption</code><em class="property"> = FloatOption</em><a class="headerlink" href="#mod General.Standard.FloatOption" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
-<dt id="mod General.Standard.FloatOption">
-<em class="property">module </em><code class="descname">FloatOption</code><em class="property"> = FloatOption</em><a class="headerlink" href="#mod General.Standard.FloatOption" title="Permalink to this definition">¶</a></dt>
+<dt id="mod General.Standard.IntOption">
+<em class="property">module </em><code class="descname">IntOption</code><em class="property"> = IntOption</em><a class="headerlink" href="#mod General.Standard.IntOption" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
@@ -19469,13 +20145,13 @@ with unusable but guiding values like:</p>
 <dd></dd></dl>
 
 <dl class="module">
-<dt id="mod General.Standard.IntReference">
-<em class="property">module </em><code class="descname">IntReference</code><em class="property"> = IntReference</em><a class="headerlink" href="#mod General.Standard.IntReference" title="Permalink to this definition">¶</a></dt>
+<dt id="mod General.Standard.FloatReference">
+<em class="property">module </em><code class="descname">FloatReference</code><em class="property"> = FloatReference</em><a class="headerlink" href="#mod General.Standard.FloatReference" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
-<dt id="mod General.Standard.FloatReference">
-<em class="property">module </em><code class="descname">FloatReference</code><em class="property"> = FloatReference</em><a class="headerlink" href="#mod General.Standard.FloatReference" title="Permalink to this definition">¶</a></dt>
+<dt id="mod General.Standard.IntReference">
+<em class="property">module </em><code class="descname">IntReference</code><em class="property"> = IntReference</em><a class="headerlink" href="#mod General.Standard.IntReference" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
@@ -19484,18 +20160,58 @@ with unusable but guiding values like:</p>
 <dd></dd></dl>
 
 <dl class="module">
-<dt id="mod General.Standard.IntList">
-<em class="property">module </em><code class="descname">IntList</code><em class="property"> = IntList</em><a class="headerlink" href="#mod General.Standard.IntList" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="module">
 <dt id="mod General.Standard.FloatList">
 <em class="property">module </em><code class="descname">FloatList</code><em class="property"> = FloatList</em><a class="headerlink" href="#mod General.Standard.FloatList" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
+<dt id="mod General.Standard.IntList">
+<em class="property">module </em><code class="descname">IntList</code><em class="property"> = IntList</em><a class="headerlink" href="#mod General.Standard.IntList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
 <dt id="mod General.Standard.StringList">
 <em class="property">module </em><code class="descname">StringList</code><em class="property"> = StringList</em><a class="headerlink" href="#mod General.Standard.StringList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Standard.CharSortedSet">
+<em class="property">module </em><code class="descname">CharSortedSet</code><em class="property"> = CharSortedSet</em><a class="headerlink" href="#mod General.Standard.CharSortedSet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Standard.FloatSortedSet">
+<em class="property">module </em><code class="descname">FloatSortedSet</code><em class="property"> = FloatSortedSet</em><a class="headerlink" href="#mod General.Standard.FloatSortedSet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Standard.IntSortedSet">
+<em class="property">module </em><code class="descname">IntSortedSet</code><em class="property"> = IntSortedSet</em><a class="headerlink" href="#mod General.Standard.IntSortedSet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Standard.StringSortedSet">
+<em class="property">module </em><code class="descname">StringSortedSet</code><em class="property"> = StringSortedSet</em><a class="headerlink" href="#mod General.Standard.StringSortedSet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Standard.CharSortedMap">
+<em class="property">module </em><code class="descname">CharSortedMap</code><em class="property"> = CharSortedMap</em><a class="headerlink" href="#mod General.Standard.CharSortedMap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Standard.FloatSortedMap">
+<em class="property">module </em><code class="descname">FloatSortedMap</code><em class="property"> = FloatSortedMap</em><a class="headerlink" href="#mod General.Standard.FloatSortedMap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Standard.IntSortedMap">
+<em class="property">module </em><code class="descname">IntSortedMap</code><em class="property"> = IntSortedMap</em><a class="headerlink" href="#mod General.Standard.IntSortedMap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Standard.StringSortedMap">
+<em class="property">module </em><code class="descname">StringSortedMap</code><em class="property"> = StringSortedMap</em><a class="headerlink" href="#mod General.Standard.StringSortedMap" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p>It also includes <a class="reference internal" href="#mod General.Pervasives"><code class="xref ocaml ocaml-mod docutils literal"><span class="pre">General.Pervasives</span></code></a>.</p>
@@ -19598,6 +20314,11 @@ with unusable but guiding values like:</p>
 <dd></dd></dl>
 
 <dl class="module">
+<dt id="mod General.Abbr.Int">
+<em class="property">module </em><code class="descname">Int</code><em class="property"> = Int</em><a class="headerlink" href="#mod General.Abbr.Int" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
 <dt id="mod General.Abbr.Int32">
 <em class="property">module </em><code class="descname">Int32</code><em class="property"> = Int32</em><a class="headerlink" href="#mod General.Abbr.Int32" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -19605,11 +20326,6 @@ with unusable but guiding values like:</p>
 <dl class="module">
 <dt id="mod General.Abbr.Int64">
 <em class="property">module </em><code class="descname">Int64</code><em class="property"> = Int64</em><a class="headerlink" href="#mod General.Abbr.Int64" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="module">
-<dt id="mod General.Abbr.Int">
-<em class="property">module </em><code class="descname">Int</code><em class="property"> = Int</em><a class="headerlink" href="#mod General.Abbr.Int" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
@@ -19645,6 +20361,16 @@ with unusable but guiding values like:</p>
 <dl class="module">
 <dt id="mod General.Abbr.Ref">
 <em class="property">module </em><code class="descname">Ref</code><em class="property"> = Reference</em><a class="headerlink" href="#mod General.Abbr.Ref" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Abbr.SoMap">
+<em class="property">module </em><code class="descname">SoMap</code><em class="property"> = SortedMap</em><a class="headerlink" href="#mod General.Abbr.SoMap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Abbr.SoSet">
+<em class="property">module </em><code class="descname">SoSet</code><em class="property"> = SortedSet</em><a class="headerlink" href="#mod General.Abbr.SoSet" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
@@ -19703,13 +20429,13 @@ with unusable but guiding values like:</p>
 <dd></dd></dl>
 
 <dl class="module">
-<dt id="mod General.Abbr.IntOpt">
-<em class="property">module </em><code class="descname">IntOpt</code><em class="property"> = IntOption</em><a class="headerlink" href="#mod General.Abbr.IntOpt" title="Permalink to this definition">¶</a></dt>
+<dt id="mod General.Abbr.FlOpt">
+<em class="property">module </em><code class="descname">FlOpt</code><em class="property"> = FloatOption</em><a class="headerlink" href="#mod General.Abbr.FlOpt" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
-<dt id="mod General.Abbr.FlOpt">
-<em class="property">module </em><code class="descname">FlOpt</code><em class="property"> = FloatOption</em><a class="headerlink" href="#mod General.Abbr.FlOpt" title="Permalink to this definition">¶</a></dt>
+<dt id="mod General.Abbr.IntOpt">
+<em class="property">module </em><code class="descname">IntOpt</code><em class="property"> = IntOption</em><a class="headerlink" href="#mod General.Abbr.IntOpt" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
@@ -19718,13 +20444,13 @@ with unusable but guiding values like:</p>
 <dd></dd></dl>
 
 <dl class="module">
-<dt id="mod General.Abbr.IntRef">
-<em class="property">module </em><code class="descname">IntRef</code><em class="property"> = IntReference</em><a class="headerlink" href="#mod General.Abbr.IntRef" title="Permalink to this definition">¶</a></dt>
+<dt id="mod General.Abbr.FlRef">
+<em class="property">module </em><code class="descname">FlRef</code><em class="property"> = FloatReference</em><a class="headerlink" href="#mod General.Abbr.FlRef" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
-<dt id="mod General.Abbr.FlRef">
-<em class="property">module </em><code class="descname">FlRef</code><em class="property"> = FloatReference</em><a class="headerlink" href="#mod General.Abbr.FlRef" title="Permalink to this definition">¶</a></dt>
+<dt id="mod General.Abbr.IntRef">
+<em class="property">module </em><code class="descname">IntRef</code><em class="property"> = IntReference</em><a class="headerlink" href="#mod General.Abbr.IntRef" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
@@ -19733,18 +20459,58 @@ with unusable but guiding values like:</p>
 <dd></dd></dl>
 
 <dl class="module">
-<dt id="mod General.Abbr.IntLi">
-<em class="property">module </em><code class="descname">IntLi</code><em class="property"> = IntList</em><a class="headerlink" href="#mod General.Abbr.IntLi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="module">
 <dt id="mod General.Abbr.FlLi">
 <em class="property">module </em><code class="descname">FlLi</code><em class="property"> = FloatList</em><a class="headerlink" href="#mod General.Abbr.FlLi" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
+<dt id="mod General.Abbr.IntLi">
+<em class="property">module </em><code class="descname">IntLi</code><em class="property"> = IntList</em><a class="headerlink" href="#mod General.Abbr.IntLi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
 <dt id="mod General.Abbr.StrLi">
 <em class="property">module </em><code class="descname">StrLi</code><em class="property"> = StringList</em><a class="headerlink" href="#mod General.Abbr.StrLi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Abbr.ChSoSet">
+<em class="property">module </em><code class="descname">ChSoSet</code><em class="property"> = CharSortedSet</em><a class="headerlink" href="#mod General.Abbr.ChSoSet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Abbr.FlSoSet">
+<em class="property">module </em><code class="descname">FlSoSet</code><em class="property"> = FloatSortedSet</em><a class="headerlink" href="#mod General.Abbr.FlSoSet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Abbr.IntSoSet">
+<em class="property">module </em><code class="descname">IntSoSet</code><em class="property"> = IntSortedSet</em><a class="headerlink" href="#mod General.Abbr.IntSoSet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Abbr.StrSoSet">
+<em class="property">module </em><code class="descname">StrSoSet</code><em class="property"> = StringSortedSet</em><a class="headerlink" href="#mod General.Abbr.StrSoSet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Abbr.ChSoMap">
+<em class="property">module </em><code class="descname">ChSoMap</code><em class="property"> = CharSortedMap</em><a class="headerlink" href="#mod General.Abbr.ChSoMap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Abbr.FlSoMap">
+<em class="property">module </em><code class="descname">FlSoMap</code><em class="property"> = FloatSortedMap</em><a class="headerlink" href="#mod General.Abbr.FlSoMap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Abbr.IntSoMap">
+<em class="property">module </em><code class="descname">IntSoMap</code><em class="property"> = IntSortedMap</em><a class="headerlink" href="#mod General.Abbr.IntSoMap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="module">
+<dt id="mod General.Abbr.StrSoMap">
+<em class="property">module </em><code class="descname">StrSoMap</code><em class="property"> = StringSortedMap</em><a class="headerlink" href="#mod General.Abbr.StrSoMap" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p>It also includes <a class="reference internal" href="#mod General.Pervasives"><code class="xref ocaml ocaml-mod docutils literal"><span class="pre">General.Pervasives</span></code></a>.</p>

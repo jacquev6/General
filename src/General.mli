@@ -312,6 +312,7 @@ module Char: sig
   type t = char
 
   (* @todo Integer, smallest, greatest *)
+  include Traits.Comparable.S0 with type t := t
 
   val of_int: int -> t
   val to_int: t -> int
@@ -847,12 +848,66 @@ module Stream: sig
   (* @feature module Specialize (with ToList and ToStream) *)
 end
 
+module SortedSet: sig
+  module Poly: sig
+    type 'a t
+
+    val empty: 'a t
+
+    val add: 'a t -> v:'a -> bool * 'a t
+    val replace: 'a t -> v:'a -> 'a t
+    val remove: 'a t -> v:'a -> bool * 'a t
+
+    val contains: 'a t -> v:'a -> bool
+  end
+
+  module Make(E: Traits.Comparable.Basic.S0): sig
+    type t
+
+    val empty: t
+
+    val add: t -> v:E.t -> bool * t
+    val replace: t -> v:E.t -> t
+    val remove: t -> v:E.t -> bool * t
+
+    val contains: t -> v:E.t -> bool
+  end
+end
+
+module SortedMap: sig
+  module Poly: sig
+    type ('a, 'b) t
+
+    val empty: ('a, 'b) t
+
+    val add: ('a, 'b) t -> k:'a -> v:'b -> bool * ('a, 'b) t
+    val replace: ('a, 'b) t -> k:'a -> v:'b -> ('a, 'b) t
+    val remove: ('a, 'b) t -> k:'a -> bool * ('a, 'b) t
+
+    val try_get: ('a, 'b) t -> k:'a -> 'b option
+    val get: ('a, 'b) t -> k:'a -> 'b
+  end
+
+  module Make(K: Traits.Comparable.Basic.S0): sig
+    type 'a t
+
+    val empty: 'a t
+
+    val add: 'a t -> k:K.t -> v:'a -> bool * 'a t
+    val replace: 'a t -> k:K.t -> v:'a -> 'a t
+    val remove: 'a t -> k:K.t -> bool * 'a t
+
+    val try_get: 'a t -> k:K.t -> 'a option
+    val get: 'a t -> k:K.t -> 'a
+  end
+end
+
+(* @feature Heap *)
 (* @feature SortedList, UniqueList? *)
 (* @feature Double-ended queue *)
-(* @feature SortedSet, SortedMap, HashSet, HashMap *)
+(* @feature HashSet, HashMap *)
 (* @feature SortedMultiSet, SortedMultiMap, HashMultiSet, HashMultiMap *)
-(* [Sorted|Hash]Index (a Map where the keys are computed from the values (think "vertex_by_name")) *)
-(* @feature Stream *)
+(* [Sorted|Hash][Multi]Index (a Map where the keys are computed from the values (think "vertex_by_name")) *)
 
 (* Specializations of collection containers *)
 
@@ -894,6 +949,38 @@ module StringList: sig
   include module type of List.SpecializeEquatable(String) with type t := t
 
   val join: ?sep:string -> t -> string
+end
+
+module IntSortedSet: sig
+  include module type of SortedSet.Make(Int)
+end
+
+module FloatSortedSet: sig
+  include module type of SortedSet.Make(Float)
+end
+
+module StringSortedSet: sig
+  include module type of SortedSet.Make(String)
+end
+
+module CharSortedSet: sig
+  include module type of SortedSet.Make(Char)
+end
+
+module IntSortedMap: sig
+  include module type of SortedMap.Make(Int)
+end
+
+module FloatSortedMap: sig
+  include module type of SortedMap.Make(Float)
+end
+
+module StringSortedMap: sig
+  include module type of SortedMap.Make(String)
+end
+
+module CharSortedMap: sig
+  include module type of SortedMap.Make(Char)
 end
 
 (* @feature XxxList when Xxx is a Ringoid: add sum, product *)
@@ -1069,9 +1156,9 @@ module Standard: sig
   module Function5 = Function5
   module InChannel = InChannel
   module InFile = InFile
+  module Int = Int
   module Int32 = Int32
   module Int64 = Int64
-  module Int = Int
   module Lazy = Lazy
   module List = List
   module NativeInt = NativeInt
@@ -1079,6 +1166,8 @@ module Standard: sig
   module OutChannel = OutChannel
   module OutFile = OutFile
   module Reference = Reference
+  module SortedMap = SortedMap
+  module SortedSet = SortedSet
   module StdErr = StdErr
   module StdIn = StdIn
   module StdOut = StdOut
@@ -1092,15 +1181,27 @@ module Standard: sig
 
   module IntRange = IntRange
 
-  module IntOption = IntOption
   module FloatOption = FloatOption
+  module IntOption = IntOption
   module StringOption = StringOption
-  module IntReference = IntReference
+
   module FloatReference = FloatReference
+  module IntReference = IntReference
   module StringReference = StringReference
-  module IntList = IntList
+
   module FloatList = FloatList
+  module IntList = IntList
   module StringList = StringList
+
+  module CharSortedSet = CharSortedSet
+  module FloatSortedSet = FloatSortedSet
+  module IntSortedSet = IntSortedSet
+  module StringSortedSet = StringSortedSet
+
+  module CharSortedMap = CharSortedMap
+  module FloatSortedMap = FloatSortedMap
+  module IntSortedMap = IntSortedMap
+  module StringSortedMap = StringSortedMap
 
   (** It also includes :mod:`General.Pervasives`. *)
 
@@ -1140,9 +1241,9 @@ module Abbr: sig
   module Fun5 = Function5
   module InCh = InChannel
   module InFile = InFile
+  module Int = Int
   module Int32 = Int32
   module Int64 = Int64
-  module Int = Int
   module Laz = Lazy
   module Li = List
   module NativeInt = NativeInt
@@ -1150,6 +1251,8 @@ module Abbr: sig
   module OutCh = OutChannel
   module OutFile = OutFile
   module Ref = Reference
+  module SoMap = SortedMap
+  module SoSet = SortedSet
   module StdErr = StdErr
   module StdIn = StdIn
   module StdOut = StdOut
@@ -1163,15 +1266,27 @@ module Abbr: sig
 
   module IntRa = IntRange
 
-  module IntOpt = IntOption
   module FlOpt = FloatOption
+  module IntOpt = IntOption
   module StrOpt = StringOption
-  module IntRef = IntReference
+
   module FlRef = FloatReference
+  module IntRef = IntReference
   module StrRef = StringReference
-  module IntLi = IntList
+
   module FlLi = FloatList
+  module IntLi = IntList
   module StrLi = StringList
+
+  module ChSoSet = CharSortedSet
+  module FlSoSet = FloatSortedSet
+  module IntSoSet = IntSortedSet
+  module StrSoSet = StringSortedSet
+
+  module ChSoMap = CharSortedMap
+  module FlSoMap = FloatSortedMap
+  module IntSoMap = IntSortedMap
+  module StrSoMap = StringSortedMap
 
   (** It also includes :mod:`General.Pervasives`. *)
 

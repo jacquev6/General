@@ -40,10 +40,20 @@ module General: sig
   module List
   module Array
   module Stream
+  module SortedSet
+  module SortedMap
   module IntRange
   module IntList
   module FloatList
   module StringList
+  module IntSortedSet
+  module FloatSortedSet
+  module StringSortedSet
+  module CharSortedSet
+  module IntSortedMap
+  module FloatSortedMap
+  module StringSortedMap
+  module CharSortedMap
   module Format
   module InChannel
   module InFile

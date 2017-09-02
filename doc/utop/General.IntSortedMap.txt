@@ -1,0 +1,9 @@
+module IntSortedMap: sig
+  type 'a t = 'a General.IntSortedMap.t
+  val empty: 'a t
+  val add: 'a t -> k:int -> v:'a -> bool * 'a t
+  val replace: 'a t -> k:int -> v:'a -> 'a t
+  val remove: 'a t -> k:int -> bool * 'a t
+  val try_get: 'a t -> k:int -> 'a option
+  val get: 'a t -> k:int -> 'a
+end

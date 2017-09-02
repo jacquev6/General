@@ -1,0 +1,8 @@
+module FloatSortedSet: sig
+  type t = General.FloatSortedSet.t
+  val empty: t
+  val add: t -> v:float -> bool * t
+  val replace: t -> v:float -> t
+  val remove: t -> v:float -> bool * t
+  val contains: t -> v:float -> bool
+end

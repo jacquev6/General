@@ -17,9 +17,9 @@ module Abbr: sig
   module Fun5 = General.Function5
   module InCh = General.InChannel
   module InFile = General.InFile
+  module Int = General.Int
   module Int32 = General.Int32
   module Int64 = General.Int64
-  module Int = General.Int
   module Laz = General.Lazy
   module Li = General.List
   module NativeInt = General.NativeInt
@@ -27,6 +27,8 @@ module Abbr: sig
   module OutCh = General.OutChannel
   module OutFile = General.OutFile
   module Ref = General.Reference
+  module SoMap = General.SortedMap
+  module SoSet = General.SortedSet
   module StdErr = General.StdErr
   module StdIn = General.StdIn
   module StdOut = General.StdOut
@@ -38,15 +40,23 @@ module Abbr: sig
   module Tu5 = General.Tuple5
   module Unit = General.Unit
   module IntRa = General.IntRange
-  module IntOpt = General.IntOption
   module FlOpt = General.FloatOption
+  module IntOpt = General.IntOption
   module StrOpt = General.StringOption
-  module IntRef = General.IntReference
   module FlRef = General.FloatReference
+  module IntRef = General.IntReference
   module StrRef = General.StringReference
-  module IntLi = General.IntList
   module FlLi = General.FloatList
+  module IntLi = General.IntList
   module StrLi = General.StringList
+  module ChSoSet = General.CharSortedSet
+  module FlSoSet = General.FloatSortedSet
+  module IntSoSet = General.IntSortedSet
+  module StrSoSet = General.StringSortedSet
+  module ChSoMap = General.CharSortedMap
+  module FlSoMap = General.FloatSortedMap
+  module IntSoMap = General.IntSortedMap
+  module StrSoMap = General.StringSortedMap
   exception Exit
   val raise: [> `Please_use_General__Exception__raise ]
   val raise_notrace: [> `Please_use_General__Exception__raise_without_backtrace ]

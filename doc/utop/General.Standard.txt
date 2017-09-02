@@ -17,9 +17,9 @@ module Standard: sig
   module Function5 = General.Function5
   module InChannel = General.InChannel
   module InFile = General.InFile
+  module Int = General.Int
   module Int32 = General.Int32
   module Int64 = General.Int64
-  module Int = General.Int
   module Lazy = General.Lazy
   module List = General.List
   module NativeInt = General.NativeInt
@@ -27,6 +27,8 @@ module Standard: sig
   module OutChannel = General.OutChannel
   module OutFile = General.OutFile
   module Reference = General.Reference
+  module SortedMap = General.SortedMap
+  module SortedSet = General.SortedSet
   module StdErr = General.StdErr
   module StdIn = General.StdIn
   module StdOut = General.StdOut
@@ -38,15 +40,23 @@ module Standard: sig
   module Tuple5 = General.Tuple5
   module Unit = General.Unit
   module IntRange = General.IntRange
-  module IntOption = General.IntOption
   module FloatOption = General.FloatOption
+  module IntOption = General.IntOption
   module StringOption = General.StringOption
-  module IntReference = General.IntReference
   module FloatReference = General.FloatReference
+  module IntReference = General.IntReference
   module StringReference = General.StringReference
-  module IntList = General.IntList
   module FloatList = General.FloatList
+  module IntList = General.IntList
   module StringList = General.StringList
+  module CharSortedSet = General.CharSortedSet
+  module FloatSortedSet = General.FloatSortedSet
+  module IntSortedSet = General.IntSortedSet
+  module StringSortedSet = General.StringSortedSet
+  module CharSortedMap = General.CharSortedMap
+  module FloatSortedMap = General.FloatSortedMap
+  module IntSortedMap = General.IntSortedMap
+  module StringSortedMap = General.StringSortedMap
   exception Exit
   val raise: [> `Please_use_General__Exception__raise ]
   val raise_notrace: [> `Please_use_General__Exception__raise_without_backtrace ]

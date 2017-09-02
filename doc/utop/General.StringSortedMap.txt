@@ -1,0 +1,9 @@
+module StringSortedMap: sig
+  type 'a t = 'a General.StringSortedMap.t
+  val empty: 'a t
+  val add: 'a t -> k:string -> v:'a -> bool * 'a t
+  val replace: 'a t -> k:string -> v:'a -> 'a t
+  val remove: 'a t -> k:string -> bool * 'a t
+  val try_get: 'a t -> k:string -> 'a option
+  val get: 'a t -> k:string -> 'a
+end

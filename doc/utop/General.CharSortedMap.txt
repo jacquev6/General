@@ -1,0 +1,9 @@
+module CharSortedMap: sig
+  type 'a t = 'a General.CharSortedMap.t
+  val empty: 'a t
+  val add: 'a t -> k:char -> v:'a -> bool * 'a t
+  val replace: 'a t -> k:char -> v:'a -> 'a t
+  val remove: 'a t -> k:char -> bool * 'a t
+  val try_get: 'a t -> k:char -> 'a option
+  val get: 'a t -> k:char -> 'a
+end

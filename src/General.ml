@@ -35,6 +35,8 @@ module Option = Implementation.Option
 module OutChannel = Implementation.OutChannel
 module OutFile = Implementation.OutFile
 module Reference = Implementation.Reference
+module SortedMap = Implementation.SortedMap
+module SortedSet = Implementation.SortedSet
 module StdErr = Implementation.StdErr
 module StdIn = Implementation.StdIn
 module StdOut = Implementation.StdOut
@@ -48,15 +50,27 @@ module Unit = Implementation.Unit
 
 module IntRange = Implementation.IntRange
 
-module IntOption = Specializations.Option.Int
 module FloatOption = Specializations.Option.Float
+module IntOption = Specializations.Option.Int
 module StringOption = Specializations.Option.String_
-module IntReference = Specializations.Reference.Int
+
 module FloatReference = Specializations.Reference.Float
+module IntReference = Specializations.Reference.Int
 module StringReference = Specializations.Reference.String_
-module IntList = Specializations.List_.Int
+
 module FloatList = Specializations.List_.Float
+module IntList = Specializations.List_.Int
 module StringList = Specializations.List_.String_
+
+module CharSortedSet = Specializations.SortedSet.Char_
+module FloatSortedSet = Specializations.SortedSet.Float
+module IntSortedSet = Specializations.SortedSet.Int
+module StringSortedSet = Specializations.SortedSet.String_
+
+module CharSortedMap = Specializations.SortedMap.Char_
+module FloatSortedMap = Specializations.SortedMap.Float
+module IntSortedMap = Specializations.SortedMap.Int
+module StringSortedMap = Specializations.SortedMap.String_
 
 module Standard = struct
   module Testing = Testing
@@ -88,6 +102,8 @@ module Standard = struct
   module OutChannel = OutChannel
   module OutFile = OutFile
   module Reference = Reference
+  module SortedMap = SortedMap
+  module SortedSet = SortedSet
   module StdErr = StdErr
   module StdIn = StdIn
   module StdOut = StdOut
@@ -101,15 +117,27 @@ module Standard = struct
 
   module IntRange = IntRange
 
-  module IntOption = IntOption
   module FloatOption = FloatOption
+  module IntOption = IntOption
   module StringOption = StringOption
-  module IntReference = IntReference
+
   module FloatReference = FloatReference
+  module IntReference = IntReference
   module StringReference = StringReference
-  module IntList = IntList
+
   module FloatList = FloatList
+  module IntList = IntList
   module StringList = StringList
+
+  module CharSortedSet = CharSortedSet
+  module FloatSortedSet = FloatSortedSet
+  module IntSortedSet = IntSortedSet
+  module StringSortedSet = StringSortedSet
+
+  module CharSortedMap = CharSortedMap
+  module FloatSortedMap = FloatSortedMap
+  module IntSortedMap = IntSortedMap
+  module StringSortedMap = StringSortedMap
 
   include (
     Pervasives: module type of Pervasives
@@ -156,6 +184,8 @@ module Abbr = struct
   module OutCh = OutChannel
   module OutFile = OutFile
   module Ref = Reference
+  module SoMap = SortedMap
+  module SoSet = SortedSet
   module StdErr = StdErr
   module StdIn = StdIn
   module StdOut = StdOut
@@ -169,15 +199,27 @@ module Abbr = struct
 
   module IntRa = IntRange
 
-  module IntOpt = IntOption
   module FlOpt = FloatOption
+  module IntOpt = IntOption
   module StrOpt = StringOption
-  module IntRef = IntReference
+
   module FlRef = FloatReference
+  module IntRef = IntReference
   module StrRef = StringReference
-  module IntLi = IntList
+
   module FlLi = FloatList
+  module IntLi = IntList
   module StrLi = StringList
+
+  module ChSoSet = CharSortedSet
+  module FlSoSet = FloatSortedSet
+  module IntSoSet = IntSortedSet
+  module StrSoSet = StringSortedSet
+
+  module ChSoMap = CharSortedMap
+  module FlSoMap = FloatSortedMap
+  module IntSoMap = IntSortedMap
+  module StrSoMap = StringSortedMap
 
   include (
     Pervasives: module type of Pervasives

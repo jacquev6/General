@@ -1,0 +1,8 @@
+module Poly: sig
+  type 'a t
+  val empty: 'a t
+  val add: 'a t -> v:'a -> bool * 'a t
+  val replace: 'a t -> v:'a -> 'a t
+  val remove: 'a t -> v:'a -> bool * 'a t
+  val contains: 'a t -> v:'a -> bool
+end
