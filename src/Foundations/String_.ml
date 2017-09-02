@@ -5,12 +5,16 @@ module OCSB = OCamlStandard.Bytes
 open Int.O
 open Bool.O
 open Functions.Function1.O
+open Reference.O
 
 let repr x =
   Format_.apply "%S" x
 
 let to_string = Functions.Function1.identity
 let of_string = Functions.Function1.identity
+
+let of_bytes = OCSB.to_string
+let to_bytes = OCSB.of_string
 
 let get = OCSS.get
 let set = OCSB.set
@@ -28,6 +32,28 @@ include (Compare.Poly: module type of Compare.Poly with module O := O)
 include (Equate.Poly: module type of Equate.Poly with module O := O)
 
 let size = OCSS.length
+
+let make c ~len =
+  OCSS.make len c
+
+let of_char c =
+  make c ~len:1
+
+let to_list s =
+  let r = ref [] in
+  for i = size s - 1 downto 0 do
+    r := s.[i]::!r
+  done;
+  !r
+
+let of_list xs =
+  let len = List_.size xs in
+  let r = OCSB.create len in
+  xs
+  |> List_.iter_i ~f:(fun ~i x ->
+    OCSB.set r i x
+  );
+  of_bytes r
 
 let substring s ~pos ~len =
   OCSS.sub s pos len
@@ -88,3 +114,14 @@ let split s ~sep =
   match aux [] (size s) ((size s) - len) with
     | [""] -> []
     | parts -> parts
+
+let fold ~init s ~f =
+  s
+  |> to_list
+  |> List_.fold ~init ~f
+
+let filter s ~f =
+  s
+  |> to_list
+  |> List_.filter ~f
+  |> of_list

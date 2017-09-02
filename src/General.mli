@@ -430,15 +430,17 @@ end
 module String: sig
   type t = string
 
-  (* val make: char -> len:int -> t *)
-  (* val of_list: char list -> t *)
-  (* val to_list: t -> char list *)
+  val make: char -> len:int -> t
+  val of_char: char -> t
+  val of_list: char list -> t
+  val to_list: t -> char list
 
+  val size: t -> int
   val get: t -> int -> char
   val set: bytes -> int -> char -> unit
 
-  (* val of_bytes: bytes -> t *)
-  (* val to_bytes: t -> bytes *)
+  val of_bytes: bytes -> t
+  val to_bytes: t -> bytes
 
   module O: sig
     include Concepts.Able.Operators.S0 with type t := t
@@ -460,15 +462,24 @@ module String: sig
   val has_prefix: t -> pre:t -> bool
   val try_drop_prefix: t -> pre:t -> t option
   val drop_prefix: t -> pre:t -> t
+  val drop_prefix': t -> len:int -> t
   val has_suffix: t -> suf:t -> bool
   val try_drop_suffix: t -> suf:t -> t option
   val drop_suffix: t -> suf:t -> t
+  val drop_suffix': t -> len:int -> t
 
   val split: t -> sep:t -> t list
+  val split': t -> seps:char list -> t list
+
+  (* @todo Traits *)
+  val fold: init:'a -> t -> f:('a -> char -> 'a) -> 'a
+  val filter: t -> f:(char -> bool) -> t
 end
 
 module Bytes: sig
   type t = bytes
+
+  val size: t -> int
 
   val of_string: string -> t
   val to_string: t -> string
@@ -476,7 +487,7 @@ module Bytes: sig
   val get: t -> int -> char
   val set: t -> int -> char -> unit
 
-  (* val make: int -> t *)
+  val make: len:int -> t
 end
 
 (* @feature Rational, Complex, Quaternion, Matrix *)

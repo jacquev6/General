@@ -1,6 +1,6 @@
 opam-version: "1.2"
 name: "General"
-version: "0.2.0"
+version: "0.3.0"
 maintainer: "Vincent Jacques <vincent@vincent-jacques.net>"
 authors: "Vincent Jacques <vincent@vincent-jacques.net>"
 homepage: "https://jacquev6.github.io/General/"
@@ -29,5 +29,5 @@ remove: [
 depends: [
   "ocamlbuild" {build}
   "ocamlfind" {build}
-  "cppo_ocamlbuild"
+  "cppo_ocamlbuild" {build & >= "1.6.0"}
 ]

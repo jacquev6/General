@@ -1,4 +1,4 @@
-*General* is an OCaml (4.02.2+) general purpose library.
+*General* is an OCaml (4.02.3+) general purpose library.
 It adds rich functionality to built-in and basic OCaml types.
 
 It's licensed under the `MIT license <http://choosealicense.com/licenses/mit/>`_.

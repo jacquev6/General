@@ -7,3 +7,8 @@ let to_string = OCSB.to_string
 
 let get = OCSB.get
 let set = OCSB.set
+
+let size = OCSB.length
+
+let make ~len =
+  OCSB.create len

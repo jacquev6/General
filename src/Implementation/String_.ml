@@ -1,5 +1,21 @@
 include Foundations.String_
 
+let split' s ~seps =
+  let seps = SortedSet.Poly.of_list seps in
+  let (parts, last_part) =
+    s
+    |> fold ~init:([], []) ~f:(fun (parts, current_part) c ->
+      if SortedSet.Poly.contains seps ~v:c then
+        (current_part::parts, [])
+      else
+        (parts, c::current_part)
+    )
+  in
+  last_part::parts
+  |> List_.map ~f:List_.reverse
+  |> List_.map ~f:of_list
+  |> List_.reverse
+
 module Tests = struct
   open Testing
 
@@ -24,5 +40,16 @@ module Tests = struct
 
   let test = "String" >:: [
     (let module T = Concepts.Able.Tests.Make0(Foundations.String_)(Examples) in T.test);
+    "split'" >:: (
+      let make s seps expected =
+        ~: "%S %S" s (of_list seps) (lazy (
+          check_string_list ~expected (split' s ~seps)
+        ))
+      in
+      [
+        make "abcdefghfj" ['c'; 'f'] ["ab"; "de"; "gh"; "j"];
+        make "xabxxcdx" ['x'] [""; "ab"; ""; "cd"; ""];
+      ]
+    );
   ]
 end

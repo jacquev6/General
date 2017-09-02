@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Reference &#8212; General  documentation</title>
+    <title>Reference &#8212; General 0.3.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '',
+        VERSION:     '0.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -13797,6 +13797,31 @@ with unusable but guiding values like:</p>
 <dd></dd></dl>
 
 <dl class="val">
+<dt id="val General.String.make">
+<em class="property">val </em><code class="descname">make</code><em class="property">: char -&gt; len:int -&gt; t</em><a class="headerlink" href="#val General.String.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.String.of_char">
+<em class="property">val </em><code class="descname">of_char</code><em class="property">: char -&gt; t</em><a class="headerlink" href="#val General.String.of_char" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.String.of_list">
+<em class="property">val </em><code class="descname">of_list</code><em class="property">: char list -&gt; t</em><a class="headerlink" href="#val General.String.of_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.String.to_list">
+<em class="property">val </em><code class="descname">to_list</code><em class="property">: t -&gt; char list</em><a class="headerlink" href="#val General.String.to_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.String.size">
+<em class="property">val </em><code class="descname">size</code><em class="property">: t -&gt; int</em><a class="headerlink" href="#val General.String.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
 <dt id="val General.String.get">
 <em class="property">val </em><code class="descname">get</code><em class="property">: t -&gt; int -&gt; char</em><a class="headerlink" href="#val General.String.get" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -13804,6 +13829,16 @@ with unusable but guiding values like:</p>
 <dl class="val">
 <dt id="val General.String.set">
 <em class="property">val </em><code class="descname">set</code><em class="property">: bytes -&gt; int -&gt; char -&gt; unit</em><a class="headerlink" href="#val General.String.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.String.of_bytes">
+<em class="property">val </em><code class="descname">of_bytes</code><em class="property">: bytes -&gt; t</em><a class="headerlink" href="#val General.String.of_bytes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.String.to_bytes">
+<em class="property">val </em><code class="descname">to_bytes</code><em class="property">: t -&gt; bytes</em><a class="headerlink" href="#val General.String.to_bytes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="module">
@@ -13975,6 +14010,11 @@ with unusable but guiding values like:</p>
 <dd></dd></dl>
 
 <dl class="val">
+<dt id="val General.String.drop_prefix'">
+<em class="property">val </em><code class="descname">drop_prefix'</code><em class="property">: t -&gt; len:int -&gt; t</em><a class="headerlink" href="#val General.String.drop_prefix'" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
 <dt id="val General.String.has_suffix">
 <em class="property">val </em><code class="descname">has_suffix</code><em class="property">: t -&gt; suf:t -&gt; bool</em><a class="headerlink" href="#val General.String.has_suffix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -13990,8 +14030,28 @@ with unusable but guiding values like:</p>
 <dd></dd></dl>
 
 <dl class="val">
+<dt id="val General.String.drop_suffix'">
+<em class="property">val </em><code class="descname">drop_suffix'</code><em class="property">: t -&gt; len:int -&gt; t</em><a class="headerlink" href="#val General.String.drop_suffix'" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
 <dt id="val General.String.split">
 <em class="property">val </em><code class="descname">split</code><em class="property">: t -&gt; sep:t -&gt; t list</em><a class="headerlink" href="#val General.String.split" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.String.split'">
+<em class="property">val </em><code class="descname">split'</code><em class="property">: t -&gt; seps:char list -&gt; t list</em><a class="headerlink" href="#val General.String.split'" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.String.fold">
+<em class="property">val </em><code class="descname">fold</code><em class="property">: init:'a -&gt; t -&gt; f:('a -&gt; char -&gt; 'a) -&gt; 'a</em><a class="headerlink" href="#val General.String.fold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.String.filter">
+<em class="property">val </em><code class="descname">filter</code><em class="property">: t -&gt; f:(char -&gt; bool) -&gt; t</em><a class="headerlink" href="#val General.String.filter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd><dt>
@@ -14004,6 +14064,11 @@ with unusable but guiding values like:</p>
 <dd><dl class="type">
 <dt id="typ General.Bytes.t">
 <em class="property">type </em><code class="descname">t</code><em class="property"> = bytes</em><a class="headerlink" href="#typ General.Bytes.t" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Bytes.size">
+<em class="property">val </em><code class="descname">size</code><em class="property">: t -&gt; int</em><a class="headerlink" href="#val General.Bytes.size" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="val">
@@ -14024,6 +14089,11 @@ with unusable but guiding values like:</p>
 <dl class="val">
 <dt id="val General.Bytes.set">
 <em class="property">val </em><code class="descname">set</code><em class="property">: t -&gt; int -&gt; char -&gt; unit</em><a class="headerlink" href="#val General.Bytes.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="val">
+<dt id="val General.Bytes.make">
+<em class="property">val </em><code class="descname">make</code><em class="property">: len:int -&gt; t</em><a class="headerlink" href="#val General.Bytes.make" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd><dt>

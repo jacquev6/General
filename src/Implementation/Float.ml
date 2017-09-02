@@ -133,6 +133,20 @@ module Tests = struct
   let test = "Float" >:: [
     (let module T = Concepts.RealNumber.Tests.Make0(SelfB)(Examples) in T.test);
     (let module T = Traits.Parsable.Tests.Make0(SelfB)(Examples) in T.test);
+    "ceil" >:: (
+      let make x expected =
+        ~: "%f" x (lazy (check_float_exact ~expected (ceil x)))
+      in
+      [
+        make (-1.) (-1.);
+        make (-0.99) 0.;
+        make (-0.1) 0.;
+        make 0. 0.;
+        make 0.01 1.;
+        make 0.99 1.;
+        make 1. 1.;
+      ]
+    );
     "Class" >:: [
       (let module T = Traits.Comparable.Tests.Make0(SelfB.Class)(ClassExamples) in T.test);
       (let module T = Traits.Equatable.Tests.Make0(SelfB.Class)(ClassExamples) in T.test);

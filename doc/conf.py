@@ -8,6 +8,9 @@ author = '<a href="http://vincent-jacques.net/">Vincent Jacques</a>'
 copyright = ('2017 {} <script>var jacquev6_ribbon_github="{}"</script>'.format(author, project) +
              '<script src="https://jacquev6.github.io/ribbon.js"></script>')
 
+version = "0.3.0"  # @todo Remove triplication of version (/opam, /META and /doc/conf.py)
+release = version
+
 nitpicky = True
 extensions = []
 
