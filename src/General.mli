@@ -316,6 +316,9 @@ module Char: sig
 
   val of_int: int -> t
   val to_int: t -> int
+
+  val to_string: t -> string
+  val repeat: t -> len:int -> string
 end
 
 module Int: sig
@@ -430,7 +433,6 @@ end
 module String: sig
   type t = string
 
-  val make: char -> len:int -> t
   val of_char: char -> t
   val of_list: char list -> t
   val to_list: t -> char list
@@ -968,7 +970,7 @@ module IntRange: sig
   Warning: compare r1 r2 should always be equal to List.compare (to_list r1) (to_list r2), so Compare.Poly will not work. *)
 
   val empty: t
-  val create: ?start:int -> ?step:int -> int -> t
+  val make: ?start:int -> ?step:int -> int -> t
 
   val to_list: t -> int list
   val to_array: t -> int array

@@ -1,6 +1,5 @@
 module String: sig
   type t = string
-  val make: char -> len:int -> t
   val of_char: char -> t
   val of_list: char list -> t
   val to_list: t -> char list

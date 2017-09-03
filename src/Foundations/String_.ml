@@ -33,11 +33,8 @@ include (Equate.Poly: module type of Equate.Poly with module O := O)
 
 let size = OCSS.length
 
-let make c ~len =
-  OCSS.make len c
-
 let of_char c =
-  make c ~len:1
+  OCSS.make 1 c
 
 let to_list s =
   let r = ref [] in

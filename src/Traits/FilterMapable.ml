@@ -116,7 +116,7 @@ module ToContainer(C: sig type 'a t end) = struct
             [1; 2; 0; 3; 4]
             |> M.of_list
             |> flat_map ~f:(fun x ->
-              IntRange.create x
+              IntRange.make x
               |> IntRange.ToList.map ~f:(fun n -> x * (n + 1))
               |> Container.of_list
             )
@@ -129,7 +129,7 @@ module ToContainer(C: sig type 'a t end) = struct
             [1; 2; 0; 3; 4]
             |> M.of_list
             |> flat_map_i ~f:(fun ~i x ->
-              IntRange.create x
+              IntRange.make x
               |> IntRange.ToList.map ~f:(fun n -> (x + i) * (n + 1))
               |> Container.of_list
             )
@@ -144,7 +144,7 @@ module ToContainer(C: sig type 'a t end) = struct
             |> flat_map_acc ~acc:42 ~f:(fun ~acc x ->
               let acc = acc * (x + 1)
               and ys =
-                IntRange.create x
+                IntRange.make x
                 |> IntRange.ToList.map ~f:(fun n -> acc + x * (n + 1))
                 |> Container.of_list
               in

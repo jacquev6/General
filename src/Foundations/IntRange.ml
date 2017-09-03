@@ -15,7 +15,7 @@ type t =
 
 let empty = Empty
 
-let create ?(start=0) ?(step=1) stop =
+let make ?(start=0) ?(step=1) stop =
   (* We normalize everything here, so that to_list is simpler, and Equate.Poly is appropriate *)
   if (stop - start) * step <= 0 then
     Empty
