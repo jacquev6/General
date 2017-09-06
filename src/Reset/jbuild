@@ -7,6 +7,12 @@
 ))
 
 (rule (
+  (targets (ResetPervasives.inferred.mli))
+  (deps (ResetPervasives.ml))
+  (action (with-outputs-to ${@} (run ${bin:ocamlc} -i ${<})))
+))
+
+(rule (
   (targets (ResetStandardLibrary.ml))
   (deps (ResetStandardLibrary.cppo.ml))
   (action (run ${bin:cppo} -V OCAML:${ocaml_version} ${<} -o ${@}))
