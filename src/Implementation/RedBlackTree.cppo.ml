@@ -21,7 +21,6 @@ let repr ~repr_a =
   in
   aux
 
-#ifdef DEBUG
 module Invariants = struct
   type t =
     | HasBlackRoot
@@ -138,7 +137,6 @@ module Invariants = struct
       | [] -> t
       | broken_invariants -> Exception.raise (BrokenInvariants broken_invariants)
 end
-#endif
 
 module Restore = struct
   let fix_root_color = function
@@ -488,7 +486,6 @@ module Tests = struct
   let brbr135b79b11 = Black {l=Red {l=Black {l=Red {l=Empty; v=1; r=Empty}; v=3; r=Empty}; v=5; r=Black {l=Empty; v=7; r=Empty}}; v=9; r=Black {l=Empty; v=11; r=Empty}}
 
   let test = "RedBlackTree" >:: [
-    #ifdef DEBUG
     "Invariants" >:: [
       "validate" >:: (
         let make t expected =
@@ -516,7 +513,6 @@ module Tests = struct
         ]
       )
     ];
-    #endif
     "add" >:: (
       let make t x expected =
         ~: "add %s %i" (repr t) x (lazy (

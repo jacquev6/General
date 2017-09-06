@@ -10,6 +10,13 @@ module Tests = struct
   exception TestException0'
   exception TestException1 of string
 
+  let () = Exception.register_printer (function
+    | TestException0 -> Some "TestingTests.Tests.TestException0"
+    | TestException0' -> Some "TestingTests.Tests.TestException0'"
+    | TestException1 s -> Some (Format_.apply "TestingTests.Tests.TestException1(%S)" s)
+    | _ -> None
+  )
+
   module ResultExamples = struct
     open Result
     open Status
@@ -62,9 +69,7 @@ module Tests = struct
             (Single {label="bar 3'"; status=Failure (WrongExceptionNamed ("Foo", TestException0', None))});
           make
             [
-              if old_javascript then
-                "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(bad) not raised, but exception TestingTests.Tests.TestException1(too bad) raised\n"
-              else if javascript then
+              if javascript then
                 "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n"
               else
                 "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
@@ -73,9 +78,7 @@ module Tests = struct
             (Single {label="bar 4"; status=Failure (WrongException (TestException1 "bad", TestException1 "too bad", Some callstack))});
           make
             [
-              if old_javascript then
-                "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(too bad) raised\n"
-              else if javascript then
+              if javascript then
                 "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n"
               else
                 "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
@@ -90,9 +93,7 @@ module Tests = struct
             (Single {label="bar 6"; status=Error (TestException0, None)});
           make
             [
-              if old_javascript then
-                "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(bad) raised\n"
-              else if javascript then
+              if javascript then
                 "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n"
               else
                 "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
