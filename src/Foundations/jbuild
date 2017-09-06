@@ -1,0 +1,14 @@
+(jbuild_version 1)
+
+(rule (
+  (targets (Stream_.ml))
+  (deps (Stream_.cppo.ml))
+  (action (run ${bin:cppo} -V OCAML:${ocaml_version} ${<} -o ${@}))
+))
+
+(library (
+  (name Foundations)
+;  (preprocess (pps (bisect_ppx)))
+  (flags (:standard -nopervasives -w @A-44-45 -open Reset_))
+  (libraries (Reset_))
+))

@@ -1,0 +1,7 @@
+(jbuild_version 1)
+
+(library (
+  (name Concepts)
+  (libraries (Foundations Traits))
+  (flags (:standard -nopervasives -w @A-44 -open Pervasives_))
+))

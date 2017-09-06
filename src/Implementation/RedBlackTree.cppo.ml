@@ -240,6 +240,7 @@ let add xs ~cmp x =
   in
   let (modified, t) =
     xs
+    (* @todo Define DEBUG when compiling with jbuilder --dev *)
     #ifdef DEBUG
     |> Invariants.validate ~cmp
     #endif

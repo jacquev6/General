@@ -3,7 +3,7 @@
 set -o errexit
 
 eval `opam config env`
-opam install --yes utop bisect_ppx bisect-summary ocamlfind ocamlbuild js_of_ocaml-compiler cppo_ocamlbuild
+opam install --yes utop bisect_ppx bisect-summary ocamlfind ocamlbuild js_of_ocaml-compiler cppo_ocamlbuild jbuilder
 clear
 
 function build {
@@ -88,6 +88,10 @@ build -build-dir _build/coverage \
 
 # @todo Could we build with *one* module using bisect_ppx and measure coverage of this module by its own tests?
 # Currently, a few functions are measured as covered because they are used in the test framework.
+
+echo
+echo "Running unit tests in byte code using jbuilder"
+jbuilder runtest --dev
 
 echo
 echo "Running unit tests in byte code"
