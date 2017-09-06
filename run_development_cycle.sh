@@ -22,12 +22,12 @@ do
 done
 
 build -build-dir _build/native \
-    src/Foundations/ResetPervasives.inferred.mli \
+    src/Reset/ResetPervasives.inferred.mli \
     General.cmxa unit_tests.native
 
 python3 <<END
 def complete_definitions():
-    with open("_build/native/src/Foundations/ResetPervasives.inferred.mli") as f:
+    with open("_build/native/src/Reset/ResetPervasives.inferred.mli") as f:
         current_line = None
         for line in f:
             line = line.strip()
@@ -56,7 +56,7 @@ END
 
 python3 <<END
 def all_please_uses():
-    with open("_build/native/src/Foundations/ResetPervasives.inferred.mli") as f:
+    with open("_build/native/src/Reset/ResetPervasives.inferred.mli") as f:
         for line in f:
             for word in line.split():
                 if word.startswith("\`Please_use_") and not word.endswith("__todo"):

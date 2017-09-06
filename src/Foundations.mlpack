@@ -14,9 +14,6 @@ src/Foundations/List_
 src/Foundations/Option
 src/Foundations/PervasivesWhitelist
 src/Foundations/Reference
-src/Foundations/Reset
-src/Foundations/ResetPervasives
-src/Foundations/ResetStandardLibrary
 src/Foundations/Shorten
 src/Foundations/Stream_
 src/Foundations/String_

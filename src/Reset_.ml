@@ -1,3 +1,4 @@
 include Reset.ResetPervasives
 include Reset.ResetStandardLibrary
-include Foundations.PervasivesWhitelist
+
+module OCSP = OCamlStandard.Pervasives

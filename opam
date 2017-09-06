@@ -18,7 +18,7 @@ install: [
     "cp"
     "META"
     "_build/src/General.cmi" "_build/src/General.cma" "_build/src/General.a" "_build/src/General.cmxa"
-    "_build/src/Foundations.cmx" "_build/src/Traits.cmx" "_build/src/Concepts.cmx" "_build/src/Implementation.cmx" "_build/src/Testing.cmx" "_build/src/Specializations.cmx"
+    "_build/src/Reset.cmx" "_build/src/Foundations.cmx" "_build/src/Traits.cmx" "_build/src/Concepts.cmx" "_build/src/Implementation.cmx" "_build/src/Testing.cmx" "_build/src/Specializations.cmx"
     "_build/src/General.cmx"
     "%{prefix}%/lib/General"
   ]

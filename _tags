@@ -9,6 +9,7 @@ true: cppo_V_OCAML
 
 <src>: include
 
+<src/Reset/*.cmx>: for-pack(Reset)
 <src/Foundations/*.cmx>: for-pack(Foundations)
 <src/Traits/*.cmx>: for-pack(Traits)
 <src/Concepts/*.cmx>: for-pack(Concepts)
@@ -16,5 +17,5 @@ true: cppo_V_OCAML
 <src/Specializations/*.cmx>: for-pack(Specializations)
 
 <src/**>: nopervasives
-<src/Foundations/**> and not <src/Foundations/Reset*.*>: open(Reset)
-<src/**> and not <src/Reset/**> and not <src/Foundations/**> and not <src/Pervasives_.*> and not <src/General.mli>: open(Pervasives_)
+<src/Foundations/**>: open(Reset_)
+<src/**> and not <src/Reset/**> and not <src/Foundations/**> and not <src/Reset_.*> and not <src/Pervasives_.*> and not <src/General.mli>: open(Pervasives_)

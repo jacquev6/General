@@ -4,8 +4,8 @@
 
 (** Some doc for :mod:`General.Pervasives` *)
 module Pervasives: sig
-  include module type of Foundations.ResetPervasives [@@autodoc.hide]
-  include module type of Foundations.ResetStandardLibrary [@@autodoc.hide]
+  include module type of Reset.ResetPervasives [@@autodoc.hide]
+  include module type of Reset.ResetStandardLibrary [@@autodoc.hide]
 
   (** This module overrides all elements from the standard
   `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_
