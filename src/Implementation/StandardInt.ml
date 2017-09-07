@@ -6,7 +6,7 @@ module Make(M: sig
 
   val zero: t
   val one: t
-  val minus_one: t
+  (* val minus_one: t *)
   val neg: t -> t
   val add: t -> t -> t
   val sub: t -> t -> t
@@ -18,13 +18,13 @@ module Make(M: sig
   val abs: t -> t
   val max_int: t
   val min_int: t
-  val logand: t -> t -> t
-  val logor: t -> t -> t
-  val logxor: t -> t -> t
-  val lognot: t -> t
-  val shift_left: t -> int -> t
-  val shift_right: t -> int -> t
-  val shift_right_logical: t -> int -> t
+  (* val logand: t -> t -> t *)
+  (* val logor: t -> t -> t *)
+  (* val logxor: t -> t -> t *)
+  (* val lognot: t -> t *)
+  (* val shift_left: t -> int -> t *)
+  (* val shift_right: t -> int -> t *)
+  (* val shift_right_logical: t -> int -> t *)
   val of_int: int -> t
   val to_int: t -> int
   val of_float: float -> t
