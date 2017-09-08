@@ -21,10 +21,10 @@ module Tests = struct
         if javascript then
           "" (*BISECT-IGNORE*)
         else
-          "Raised by primitive operation at file \"src/Implementation/CallStack.ml\", line 3, characters 15-49\n\
-          Called from file \"src/Implementation/CallStack.ml\", line 4, characters 15-30\n\
-          Called from file \"src/Implementation/CallStack.ml\", line 4, characters 15-30\n\
-          Called from file \"src/Implementation/CallStack.ml\", line 7, characters 2-9\n"
+          "Raised by primitive operation at file \"src/Implementation/CallStack.ml\", line 3, characters 19-53\n\
+          Called from file \"src/Implementation/CallStack.ml\", line 4, characters 19-34\n\
+          Called from file \"src/Implementation/CallStack.ml\", line 4, characters 19-34\n\
+          Called from file \"src/Implementation/CallStack.ml\", line 7, characters 6-13\n"
       );
     ]
 
@@ -53,9 +53,9 @@ module Tests = struct
       match frames stack with
         | [] -> [] (*BISECT-IGNORE*)
         | frame::_ -> Frame.[
-            "format 0" >: (lazy (check_some_string ~expected:"Raised by primitive operation at file \"src/Implementation/CallStack.ml\", line 3, characters 15-49" (format 0 frame)));
-            "format 1" >: (lazy (check_some_string ~expected:"Called from file \"src/Implementation/CallStack.ml\", line 3, characters 15-49" (format 1 frame)));
-            "location" >: (lazy (check_some ~repr:Location.repr ~equal:Location.equal ~expected:{Location.filename="src/Implementation/CallStack.ml"; line_number=3; start_char=15; end_char=49} (location frame)))
+            "format 0" >: (lazy (check_some_string ~expected:"Raised by primitive operation at file \"src/Implementation/CallStack.ml\", line 3, characters 19-53" (format 0 frame)));
+            "format 1" >: (lazy (check_some_string ~expected:"Called from file \"src/Implementation/CallStack.ml\", line 3, characters 19-53" (format 1 frame)));
+            "location" >: (lazy (check_some ~repr:Location.repr ~equal:Location.equal ~expected:{Location.filename="src/Implementation/CallStack.ml"; line_number=3; start_char=19; end_char=53} (location frame)))
           ]
     );
   ]

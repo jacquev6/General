@@ -1,6 +1,0 @@
-description="General"
-version="0.3.0"
-requires="num"
-
-archive(byte)="General.cma"
-archive(native)="General.cmxa"

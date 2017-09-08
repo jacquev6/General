@@ -4,8 +4,8 @@
 
 (** Some doc for :mod:`General.Pervasives` *)
 module Pervasives: sig
-  include module type of Reset.ResetPervasives [@@autodoc.hide]
-  include module type of Reset.ResetStandardLibrary [@@autodoc.hide]
+  include module type of Impl.Reset.ResetPervasives [@@autodoc.hide]
+  include module type of Impl.Reset.ResetStandardLibrary [@@autodoc.hide]
 
   (** This module overrides all elements from the standard
   `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_
@@ -89,12 +89,12 @@ end
 module Shorten: sig
   (** Return type for functions used in short-circuit iterations over collections.
   (i.e: :val:`General.Traits.Foldable.Short.S0:fold_short`) *)
-  type t = Foundations.Shorten.t =
+  type t = Impl.Foundations.Shorten.t =
     | GoOn (** Used to indicate iteration should proceed to next item *)
     | ShortCircuit (** Used to indicate iteration should stop after this item *)
 end
 
-module Traits: module type of Traits
+module Traits: module type of Impl.Traits
 (* @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
 (* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
 
@@ -106,14 +106,14 @@ module Traits: module type of Traits
 - other criteria?
 and we need a generic function in each category. *)
 
-module Concepts: module type of Concepts
+module Concepts: module type of Impl.Concepts
 (* @feature Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer *)
 (* @feature Concepts.Stringable including Parsable and Displayable *)
 
 (* Technical, utility modules *)
 
 module Compare: sig
-  type t = Foundations.Compare.t = LT | EQ | GT
+  type t = Impl.Foundations.Compare.t = LT | EQ | GT
 
   module Poly: Traits.Comparable.SPoly
 end
@@ -1129,7 +1129,7 @@ module Testing: sig
   end
 
   module Test: sig
-    type t = Testing.Test.t
+    type t = Impl.Testing.Test.t
 
     val run: ?record_backtrace:bool -> t -> Result.t
   end
@@ -1346,3 +1346,7 @@ module Abbr: sig
   and module Int64 := Int64
   [@@autodoc.hide]
 end
+
+module Tests: sig
+  val test: Testing.Test.t
+end [@@autodoc.hide]

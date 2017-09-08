@@ -65,4 +65,5 @@ module General: sig
   module Testing
   module Standard
   module Abbr
+  module Tests
 end

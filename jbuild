@@ -1,0 +1,30 @@
+(jbuild_version 1)
+
+(library (
+  (name General)
+  (public_name General)
+  (preprocess (action (run ${bin:cppo} -V OCAML:${ocaml_version} ${<})))
+  (modules (General Impl))
+  (libraries (num))
+  (flags (:standard -nopervasives -w @A-4-33-44-45-48))
+))
+
+(executable (
+  (name unit_tests)
+  (preprocess (action (run ${bin:cppo} -V OCAML:${ocaml_version} ${<})))
+  (modules (unit_tests))
+  (libraries (General))
+))
+
+(alias (
+  (name runtest)
+  (deps (unit_tests.bc))
+  (action (run ${exe:unit_tests.bc}))
+))
+
+; @todo Run unit tests in JavaScript
+;(alias (
+;  (name runtest)
+;  (deps (unit_tests.bc.js))
+;  (action (run ${bin:node} ${exe:unit_tests.bc.js}))
+;))

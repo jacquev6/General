@@ -1,7 +1,0 @@
-(jbuild_version 1)
-
-(library (
-  (name Traits)
-  (libraries (Foundations Pervasives_ Testing))
-  (flags (:standard -nopervasives -w @A-4-33-44 -open Pervasives_))
-))

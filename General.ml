@@ -1,12 +1,8 @@
-module Pervasives = Pervasives_
+include Impl
 
 module Shorten = Implementation.Shorten
 module Compare = Implementation.Compare
 module Equate = Implementation.Equate
-
-module Traits = Traits
-module Concepts = Concepts
-module Testing = Testing
 
 module Array = Implementation.Array_
 module BigInt = Implementation.BigInt
@@ -226,4 +222,32 @@ module Abbr = struct
     with module Int32 := Int32
     and module Int64 := Int64
   )
+end
+
+module Tests = struct
+  open Testing
+
+  let test = "General" >:: Implementation.[
+    BigInt.Tests.test;
+    Bool.Tests.test;
+    CallStack.Tests.test;
+    Exception.Tests.test;
+    Float.Tests.test;
+    Functions.Tests.test;
+    Int.Tests.test;
+    Int32_.Tests.test;
+    Int64_.Tests.test;
+    Lazy_.Tests.test;
+    List_.Tests.test;
+    NativeInt_.Tests.test;
+    Option.Tests.test;
+    RedBlackTree.Tests.test;
+    Stream_.Tests.test;
+    String_.Tests.test;
+    Tuples.Tests.test;
+
+    IntRange.Tests.test;
+
+    TestingTests.Tests.test;
+  ]
 end

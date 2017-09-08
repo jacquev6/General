@@ -1,7 +1,0 @@
-(jbuild_version 1)
-
-(library (
-  (name Specializations)
-  (libraries (Foundations Traits Concepts Implementation))
-  (flags (:standard -nopervasives -w @A -open Pervasives_))
-))

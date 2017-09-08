@@ -3,29 +3,15 @@
 set -o errexit
 
 eval `opam config env`
-opam install --yes utop bisect_ppx bisect-summary ocamlfind ocamlbuild js_of_ocaml-compiler cppo_ocamlbuild jbuilder
+opam install --yes utop cppo jbuilder
 clear
 
-function build {
-    ocamlbuild \
-        -use-ocamlfind -no-links \
-        -X _build \
-        -plugin-tag "package(cppo_ocamlbuild)" \
-        $@
-}
-
-# @todo Should we use module aliases instead of packs? (https://caml.inria.fr/pub/docs/manual-ocaml-4.02/extn.html#sec235)
-for directory in $(find src -mindepth 1 -type d)
-do
-    # echo "Rebuilding ${directory}.mlpack from $directory's contents"
-    ls $directory/*.ml* | sed "s#\..*##" | sort -u >${directory}.mlpack
-done
-
-jbuilder build src/Reset/ResetPervasives.inferred.mli
-
+# @todo Integrate this with jbuild
+cppo -V OCAML:$(ocamlc -version) src/Reset/ResetPervasives.cppo.ml > ResetPervasives.ml
+ocamlc -i -impl ResetPervasives.ml > ResetPervasives.inferred.mli
 python3 <<END
 def complete_definitions():
-    with open("_build/default/src/Reset/ResetPervasives.inferred.mli") as f:
+    with open("ResetPervasives.inferred.mli") as f:
         current_line = None
         for line in f:
             line = line.strip()
@@ -51,10 +37,9 @@ for line in complete_definitions():
 if not ok:
     exit(1)
 END
-
 python3 <<END
 def all_please_uses():
-    with open("_build/default/src/Reset/ResetPervasives.inferred.mli") as f:
+    with open("ResetPervasives.inferred.mli") as f:
         for line in f:
             for word in line.split():
                 if word.startswith("\`Please_use_") and not word.endswith("__todo"):
@@ -69,56 +54,21 @@ with open("demo/demo_pervasives.ml", "w") as f:
             f.write("let _ = {}\n".format(symbol))
 END
 
-build -build-dir _build/native \
-    General.cmxa unit_tests.native
-
-cd demo
-# This simulates the 'opam install' process, but is quicker
-rm -rf _build/with_lib
-mkdir -p _build/with_lib
-cp ../_build/native/src/General.cmi ../_build/native/src/General.a ../_build/native/src/General.cmxa _build/with_lib
-cp ../_build/native/src/*.cmx _build/with_lib
-build -build-dir _build/with_lib  -package num -lib General demo.native demo_pervasives.native demo_syntactic_sugar.native
-cd ..
-
-build -build-dir _build/coverage \
-    -package bisect_ppx -tag debug -tag "cppo_D(DEBUG)" \
-    -tag-line 'true:+open(DependenciesForBisectPpx)' \
-    -tag-line '<DependenciesForBisectPpx.*>:-open(DependenciesForBisectPpx)' \
-    unit_tests.byte
-
-# @todo Could we build with *one* module using bisect_ppx and measure coverage of this module by its own tests?
-# Currently, a few functions are measured as covered because they are used in the test framework.
+# @todo Do this as a custom preprocessor in jbuild
+echo "Flattening sources"
+./flatten.py
 
 echo
 echo "Running unit tests in byte code using jbuilder"
+# @todo Measure test coverage. If possible, module by module.
 jbuilder runtest --dev
 
-echo
-echo "Running unit tests in byte code"
-_build/coverage/src/unit_tests.byte
-rm -f bisect????.out
-_build/coverage/src/unit_tests.byte --verbose > _build/coverage/unit_tests_output.txt
-echo
-bisect-summary bisect????.out | grep -v -e "^100.0% \[.*\] src/" -e "^100.0% .*ForBisectPpx.ml$" -e "^  0.0% \[.*0/0.*\] src/"
-echo
-bisect-ppx-report -I _build/coverage -html _build/coverage/bisect bisect????.out
-echo "See coverage report (for General's unit tests) in $(pwd)/_build/coverage/bisect/index.html"
-rm -f bisect????.out
-
-js_of_ocaml +nat.js _build/coverage/src/unit_tests.byte
-
-echo
-echo "Running unit tests in node.js"
-node _build/coverage/src/unit_tests.js
-rm -f bisect????.out
-
-echo
-echo "Running demo"
-demo/_build/with_lib/demo.native
+# @todo build -build-dir _build/with_lib  -package num -lib General demo.native demo_pervasives.native demo_syntactic_sugar.native
+# @todo demo/_build/with_lib/demo.native
 
 echo
 echo "Exporting interface as seen in utop"
+# @todo Fix generated doc/utop: some "General__Impl.Implementation.Xxx" appeared when flattening the code
 rm -rf doc/utop
 mkdir doc/utop
 
@@ -310,7 +260,7 @@ def utop(*options):
     yield UTop(process)
     process.communicate()
 
-with utop("-I", "demo/_build/with_lib") as utop:
+with utop("-I", "_build/default") as utop:
     def show(module_name):
         # print(module_name)
         module = utop.show_module(module_name)
@@ -329,13 +279,6 @@ with utop("-I", "demo/_build/with_lib") as utop:
     show("General")
 END
 
-for m in src/*.mlpack
-do
-    m=${m%.mlpack}
-    m=${m#src/}
-    grep --color -e "[^\.]$m\." doc/utop/*.txt && exit 1
-done
-
 if [ "x$1" == "x--quick" ]
 then
     exit
@@ -344,10 +287,7 @@ fi
 opam pin add --yes --no-action .
 opam reinstall --yes General
 
-cd demo
-rm -rf _build/with_package
-build -build-dir _build/with_package -package General demo.byte demo.native
-cd ..
+# @todo build -build-dir _build/with_package -package General demo.byte demo.native
 
 if (which sphinxcontrib-ocaml-autodoc && which sphinx-build) >/dev/null
 then
