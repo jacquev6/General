@@ -1,17 +1,6 @@
 open Foundations
 
 module Basic = struct
-  module type SPoly = sig
-    (** Polymorphic structural equality *)
-    val equal: 'a -> 'a
-      -> bool
-  end
-  module type SPhys = sig
-    (** Physical identity (address equality) *)
-    val equal: 'a -> 'a
-      -> bool
-  end
-
   module type S0 = sig
     type t
 
@@ -106,13 +95,6 @@ module Basic = struct
 end
 
 module Operators = struct
-  module type SPoly = sig
-    val (=): 'a -> 'a
-      -> bool
-    val (<>): 'a -> 'a
-      -> bool
-  end
-
   module type S0 = sig
     type t
 
@@ -138,26 +120,6 @@ module Operators = struct
     let (<>) x y =
       different x y
   end
-end
-
-(** Doc for General.Traits.Equatable.SPoly *)
-module type SPoly = sig
-  include Basic.SPoly
-
-  (** Polymorphic inequality *)
-  val different: 'a -> 'a
-    -> bool
-
-  module O: sig include Operators.SPoly end
-end
-
-(** Doc for General.Traits.Equatable.SPhys *)
-module type SPhys = sig
-  include Basic.SPhys
-
-  (** Physical inequality *)
-  val different: 'a -> 'a
-    -> bool
 end
 
 module type S0 = sig

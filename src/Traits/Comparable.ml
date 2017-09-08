@@ -3,11 +3,6 @@ open Foundations
 (* @feature Descending, ascending *)
 
 module Basic = struct
-  module type SPoly = sig
-    val compare: 'a -> 'a
-      -> Compare.t
-  end
-
   module type S0 = sig
     type t
 
@@ -102,17 +97,6 @@ module Basic = struct
 end
 
 module Operators = struct
-  module type SPoly = sig
-    val (<): 'a -> 'a
-      -> bool
-    val (<=): 'a -> 'a
-      -> bool
-    val (>): 'a -> 'a
-      -> bool
-    val (>=): 'a -> 'a
-      -> bool
-  end
-
   module type S0 = sig
     type t
 
@@ -151,33 +135,6 @@ module Operators = struct
     let (>=) x y =
       greater_or_equal x y
   end
-end
-
-module type SPoly = sig
-  include Basic.SPoly
-
-  val less_than: 'a -> 'a
-    -> bool
-  val less_or_equal: 'a -> 'a
-    -> bool
-  val greater_than: 'a -> 'a
-    -> bool
-  val greater_or_equal: 'a -> 'a
-    -> bool
-
-  val between: 'a -> low:'a -> high:'a
-    -> bool
-  val between_or_equal: 'a -> low:'a -> high:'a
-    -> bool
-
-  val min: 'a -> 'a
-    -> 'a
-  val max: 'a -> 'a
-    -> 'a
-  val min_max: 'a -> 'a
-    -> 'a * 'a
-
-  module O: sig include Operators.SPoly end
 end
 
 module type S0 = sig

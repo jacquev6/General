@@ -94,6 +94,56 @@ module Shorten: sig
     | ShortCircuit (** Used to indicate iteration should stop after this item *)
 end
 
+module Compare: sig
+  type t = Impl.Foundations.Compare.t = LT | EQ | GT
+
+  module Poly: sig
+    val compare: 'a -> 'a -> t
+
+    val less_than: 'a -> 'a -> bool
+    val less_or_equal: 'a -> 'a -> bool
+    val greater_than: 'a -> 'a -> bool
+    val greater_or_equal: 'a -> 'a -> bool
+
+    val between: 'a -> low:'a -> high:'a -> bool
+    val between_or_equal: 'a -> low:'a -> high:'a -> bool
+
+    val min: 'a -> 'a -> 'a
+    val max: 'a -> 'a -> 'a
+    val min_max: 'a -> 'a -> 'a * 'a
+
+    module O: sig
+      val (<): 'a -> 'a -> bool
+      val (<=): 'a -> 'a -> bool
+      val (>): 'a -> 'a -> bool
+      val (>=): 'a -> 'a -> bool
+    end
+  end
+end
+
+module Equate: sig
+  module Poly: sig
+    (** Polymorphic structural equality *)
+    val equal: 'a -> 'a -> bool
+
+    (** Polymorphic inequality *)
+    val different: 'a -> 'a -> bool
+
+    module O: sig
+      val (=): 'a -> 'a -> bool
+      val (<>): 'a -> 'a -> bool
+    end
+  end
+
+  module Phys: sig
+    (** Physical identity (address equality) *)
+    val equal: 'a -> 'a -> bool
+
+    (** Physical inequality *)
+    val different: 'a -> 'a -> bool
+  end
+end
+
 module Traits: module type of Impl.Traits
 (* @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
 (* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
@@ -111,17 +161,6 @@ module Concepts: module type of Impl.Concepts
 (* @feature Concepts.Stringable including Parsable and Displayable *)
 
 (* Technical, utility modules *)
-
-module Compare: sig
-  type t = Impl.Foundations.Compare.t = LT | EQ | GT
-
-  module Poly: Traits.Comparable.SPoly
-end
-
-module Equate: sig
-  module Poly: Traits.Equatable.SPoly
-  module Phys: Traits.Equatable.SPhys
-end
 
 module CallStack: sig
   type t = Pervasives.OCamlStandard.Printexc.raw_backtrace
