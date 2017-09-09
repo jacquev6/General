@@ -13,18 +13,21 @@ class Flattener:
 
     def general(self):
         yield from self.module_of_dir("Reset", [
-            "ResetPervasives.cppo.ml",
-            "ResetStandardLibrary.cppo.ml",
+            "CommonHeader.ml",
+            "DefinitionHeader.ml",
+            "ResetPervasives.ml",
+            "ResetStandardLibrary.ml",
+            "Footer.ml",
         ])
         yield ""
         yield "open Reset.ResetPervasives"
         yield "open Reset.ResetStandardLibrary"
         yield "module OCSP = OCamlStandard.Pervasives"
+        yield from self.module_of_file("Equate.ml")
+        yield from self.module_of_file("Compare.ml")
+        yield from self.module_of_file("Shorten.ml")
         yield ""
         yield from self.module_of_dir("Foundations", [
-            "Equate.ml",
-            "Compare.ml",
-            "Shorten.ml",
             "Format_.ml",
             "Lazy_.ml",
             "Exception.ml",
@@ -80,7 +83,6 @@ class Flattener:
             "Array_.ml",
             "Exception.ml",
             "Format_.ml",
-            "Compare.ml",
             "StandardInt.ml",
             "Int32_.cppo.ml",
             "Int64_.cppo.ml",
@@ -92,7 +94,6 @@ class Flattener:
             "List_.ml",
             "CallStack.ml",
             "Char_.ml",
-            "Equate.ml",
             "Exit.ml",
             "Functions.ml",
             "InChannel.ml",
@@ -106,7 +107,6 @@ class Flattener:
             "Tuples.cppo.ml",
             "RedBlackTree.cppo.ml",
             "Reference.ml",
-            "Shorten.ml",
             "SortedMap.ml",
             "SortedSet.ml",
             "StandardOutChannel.ml",

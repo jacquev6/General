@@ -1,9 +1,5 @@
 include Impl
 
-module Shorten = Implementation.Shorten
-module Compare = Implementation.Compare
-module Equate = Implementation.Equate
-
 module Array = Implementation.Array_
 module BigInt = Implementation.BigInt
 module Bool = Implementation.Bool

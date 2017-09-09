@@ -2,10 +2,26 @@
 
 (** Some doc for :mod:`General` *)
 
+module Reset: sig
+  (* @todo Don't include ../../src/ Instead, add included files as dependencies for preprocess actions. *)
+  #include "../../src/Reset/CommonHeader.ml"
+  #include "../../src/Reset/SignatureHeader.ml"
+
+  module ResetPervasives: sig
+    #include "../../src/Reset/ResetPervasives.ml"
+  end
+
+  module ResetStandardLibrary: sig
+    #include "../../src/Reset/ResetStandardLibrary.ml"
+  end
+
+  #include "../../src/Reset/Footer.ml"
+end [@@autodoc.hide]
+
 (** Some doc for :mod:`General.Pervasives` *)
 module Pervasives: sig
-  include module type of Impl.Reset.ResetPervasives [@@autodoc.hide]
-  include module type of Impl.Reset.ResetStandardLibrary [@@autodoc.hide]
+  include module type of Reset.ResetPervasives [@@autodoc.hide]
+  include module type of Reset.ResetStandardLibrary [@@autodoc.hide]
 
   (** This module overrides all elements from the standard
   `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_
@@ -89,13 +105,13 @@ end
 module Shorten: sig
   (** Return type for functions used in short-circuit iterations over collections.
   (i.e: :val:`General.Traits.Foldable.Short.S0:fold_short`) *)
-  type t = Impl.Foundations.Shorten.t =
+  type t = Impl.Shorten.t =
     | GoOn (** Used to indicate iteration should proceed to next item *)
     | ShortCircuit (** Used to indicate iteration should stop after this item *)
 end
 
 module Compare: sig
-  type t = Impl.Foundations.Compare.t = LT | EQ | GT
+  type t = Impl.Compare.t = LT | EQ | GT
 
   module Poly: sig
     val compare: 'a -> 'a -> t

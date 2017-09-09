@@ -6,53 +6,14 @@ eval `opam config env`
 opam install --yes utop cppo jbuilder
 clear
 
-# @todo Integrate this with jbuild
-cppo -V OCAML:$(ocamlc -version) src/Reset/ResetPervasives.cppo.ml > ResetPervasives.ml
-ocamlc -i -impl ResetPervasives.ml > ResetPervasives.inferred.mli
-python3 <<END
-def complete_definitions():
-    with open("ResetPervasives.inferred.mli") as f:
-        current_line = None
-        for line in f:
-            line = line.strip()
-            if any(line.startswith(prefix + " ") for prefix in ["exception", "external", "type", "val", "module"]):
-                if current_line is not None:
-                    yield current_line
-                current_line = line
-            else:
-                current_line += " " + line
-        yield current_line
+# @todo Add #included file a jbuild dependencies, then remove next line
+rm -rf _build
 
-ok = True
-for line in complete_definitions():
-    assert line.count(" : ") <= 1, line
-    if (
-        "\`Please_use_General_" not in line and
-        line not in ["exception Exit", "module LargeFile : sig"] and
-        all(not line.startswith("external __{}__ : ".format(x)) for x in ["LOC", "FILE", "LINE", "MODULE", "POS", "LOC_OF", "LINE_OF", "POS_OF"])
-    ):
-        ok = False
-        print("Not reset in Pervasives:", line)
-
-if not ok:
-    exit(1)
-END
-python3 <<END
-def all_please_uses():
-    with open("ResetPervasives.inferred.mli") as f:
-        for line in f:
-            for word in line.split():
-                if word.startswith("\`Please_use_") and not word.endswith("__todo"):
-                    yield word[12:].replace("__", ".")
-with open("demo/demo_pervasives.ml", "w") as f:
-    for symbol in sorted(set(all_please_uses())):
-        if symbol.endswith("Reference.t") or symbol.endswith("Format.t"):
-            f.write("let (_: _ {} option) = None\n".format(symbol))
-        elif symbol.endswith(".t"):
-            f.write("let (_: {} option) = None\n".format(symbol))
-        else:
-            f.write("let _ = {}\n".format(symbol))
-END
+# @todo Integrate validation of ResetPervasives with jbuild:
+# in a demo app, check that:
+#  - all symbols in OCamlStandard.Pervasives are reset in ResetPervasives
+#  - all symbols in ResetPervasives do exist in OCamlStandard.Pervasives
+# Symbols: modules, types, exceptions, values, externals
 
 # @todo Do this as a custom preprocessor in jbuild
 echo "Flattening sources"
