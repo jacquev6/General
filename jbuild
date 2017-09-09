@@ -4,6 +4,9 @@
   (name unit_tests)
   (modules (unit_tests))
   (libraries (General))
+  (js_of_ocaml (
+    (flags (+nat.js))
+  ))
 ))
 
 (alias (
@@ -12,9 +15,8 @@
   (action (run ${exe:unit_tests.bc}))
 ))
 
-; @todo Run unit tests in JavaScript
-;(alias (
-;  (name runtest)
-;  (deps (unit_tests.bc.js))
-;  (action (run ${bin:node} ${exe:unit_tests.bc.js}))
-;))
+(alias (
+  (name runtest)
+  (deps (unit_tests.bc.js))
+  (action (run ${bin:node} ${exe:unit_tests.bc.js}))
+))
