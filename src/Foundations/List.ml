@@ -452,14 +452,14 @@ let size xs =
 
 let join_string_list ?(sep="") xs =
   xs
-  |> try_reduce ~f:(fun a b -> Format_.apply "%s%s%s" a sep b)
+  |> try_reduce ~f:(fun a b -> Format.apply "%s%s%s" a sep b)
   |> Option.value_def ~def:""
 
 let repr xs ~repr_a =
   xs
   |> map ~f:repr_a
   |> join_string_list ~sep:"; "
-  |> Format_.apply "[%s]"
+  |> Format.apply "[%s]"
 
 
 module Two = struct

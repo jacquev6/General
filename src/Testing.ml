@@ -15,17 +15,17 @@ module Result = struct
 
     let failure_repr = function
       | NotEqual (x, y) ->
-        Format_.apply "NotEqual (%S, %S)" x y
+        Format.apply "NotEqual (%S, %S)" x y
       | NoException exc ->
-        Format_.apply "NoException %s" (Exception.repr exc)
+        Format.apply "NoException %s" (Exception.repr exc)
       | NoExceptionNamed exc ->
-        Format_.apply "NoExceptionNamed %S" exc
+        Format.apply "NoExceptionNamed %S" exc
       | WrongException (expected, exc, bt) ->
-        Format_.apply "WrongException (%s, %s, %s)" (Exception.repr expected) (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
+        Format.apply "WrongException (%s, %s, %s)" (Exception.repr expected) (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
       | WrongExceptionNamed (expected, exc, bt) ->
-        Format_.apply "WrongExceptionNamed (%S, %s, %s)" expected (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
+        Format.apply "WrongExceptionNamed (%S, %s, %s)" expected (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
       | Custom x ->
-        Format_.apply "Custom %S" x
+        Format.apply "Custom %S" x
 
     type t =
       | Success
@@ -36,34 +36,34 @@ module Result = struct
       | Success ->
         "Success"
       | Failure reason ->
-        Format_.apply "Failure (%s)" (failure_repr reason)
+        Format.apply "Failure (%s)" (failure_repr reason)
       | Error (exc, bt) ->
-        Format_.apply "Error (%s, %s)" (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
+        Format.apply "Error (%s, %s)" (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
 
     let to_string = function
         | Success ->
           "OK"
         | Failure (NotEqual (expected, actual)) ->
           (* @todo split lines, quote each line, display very explicitly. Unless both values are single line. Quote anyway *)
-          Format_.apply "FAILED: expected %s, but got %s" expected actual
+          Format.apply "FAILED: expected %s, but got %s" expected actual
         | Failure (NoException expected) ->
-          Format_.apply "FAILED: expected exception %s not raised" (Exception.to_string expected)
+          Format.apply "FAILED: expected exception %s not raised" (Exception.to_string expected)
         | Failure (NoExceptionNamed expected) ->
-          Format_.apply "FAILED: expected exception %s not raised" expected
+          Format.apply "FAILED: expected exception %s not raised" expected
         | Failure (WrongException (expected, exc, None)) ->
-          Format_.apply "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" (Exception.to_string expected) (Exception.to_string exc)
+          Format.apply "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" (Exception.to_string expected) (Exception.to_string exc)
         | Failure (WrongException (expected, exc, Some bt)) ->
-          Format_.apply "FAILED: expected exception %s not raised, but exception %s raised\n%s" (Exception.to_string expected) (Exception.to_string exc) (CallStack.to_string bt)
+          Format.apply "FAILED: expected exception %s not raised, but exception %s raised\n%s" (Exception.to_string expected) (Exception.to_string exc) (CallStack.to_string bt)
         | Failure (WrongExceptionNamed (expected, exc, None)) ->
-          Format_.apply "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" expected (Exception.to_string exc)
+          Format.apply "FAILED: expected exception %s not raised, but exception %s raised (no backtrace)" expected (Exception.to_string exc)
         | Failure (WrongExceptionNamed (expected, exc, Some bt)) ->
-          Format_.apply "FAILED: expected exception %s not raised, but exception %s raised\n%s" expected (Exception.to_string exc) (CallStack.to_string bt)
+          Format.apply "FAILED: expected exception %s not raised, but exception %s raised\n%s" expected (Exception.to_string exc) (CallStack.to_string bt)
         | Failure (Custom message) ->
-          Format_.apply "FAILED: %s" message
+          Format.apply "FAILED: %s" message
         | Error (exc, None) ->
-          Format_.apply "ERROR: exception %s raised (no backtrace)" (Exception.to_string exc)
+          Format.apply "ERROR: exception %s raised (no backtrace)" (Exception.to_string exc)
         | Error (exc, Some bt) ->
-          Format_.apply "ERROR: exception %s raised\n%s" (Exception.to_string exc) (CallStack.to_string bt)
+          Format.apply "ERROR: exception %s raised\n%s" (Exception.to_string exc) (CallStack.to_string bt)
   end
 
   type single = {
@@ -82,9 +82,9 @@ module Result = struct
 
   let rec repr = function
     | Single {label; status} ->
-      Format_.apply "Single {label=%S; status=%s}" label (Status.repr status)
+      Format.apply "Single {label=%S; status=%s}" label (Status.repr status)
     | Group {name; children} ->
-      Format_.apply "Group {name=%S; children=%s}" name (List_.repr ~repr_a:repr children)
+      Format.apply "Group {name=%S; children=%s}" name (List.repr ~repr_a:repr children)
 
   let equal x y =
     Equate.Poly.equal x y
@@ -115,16 +115,16 @@ module Result = struct
     | Single {label; status} ->
       `Single (label, status)
     | Group {name; children} ->
-      let children = List_.map ~f:decorate_with_counts children in
+      let children = List.map ~f:decorate_with_counts children in
       let counts =
         children
-        |> List_.map ~f:(function
+        |> List.map ~f:(function
           | `Single (_, status) ->
             Counts.of_status status
           | `Group (_, _, counts) ->
             counts
         )
-        |> List_.fold ~init:Counts.zero ~f:Counts.add
+        |> List.fold ~init:Counts.zero ~f:Counts.add
       in
       `Group (name, children, counts)
 
@@ -133,18 +133,18 @@ module Result = struct
       | `Single (label, status) ->
         if verbose || status <> Status.Success then
           (* @todo Indent potential backtrace or anything else that could span several lines *)
-          [Format_.apply "%s%S: %s" indent label (Status.to_string status)]
+          [Format.apply "%s%S: %s" indent label (Status.to_string status)]
         else
           []
       | `Group (name, children, {Counts.successes; failures; errors}) ->
         let children =
           children
-          |> List_.flat_map ~f:(aux (indent ^ "  "))
+          |> List.flat_map ~f:(aux (indent ^ "  "))
         and line =
           if Int.O.(failures + errors = 0) then
-            Format_.apply "%s%S (Successes: %i)" indent name successes
+            Format.apply "%s%S (Successes: %i)" indent name successes
           else
-            Format_.apply "%s%S (Successes: %i, failures: %i, errors: %i)" indent name successes failures errors
+            Format.apply "%s%S (Successes: %i, failures: %i, errors: %i)" indent name successes failures errors
         in
         if verbose || Int.O.(failures + errors <> 0) then
           line::children
@@ -178,11 +178,11 @@ module Test = struct
     Exception.record_backtraces record_backtrace;
     let rec aux = function
       | Group {name; tests} ->
-        let children = List_.map ~f:aux tests in
+        let children = List.map ~f:aux tests in
         Result.Group {Result.name; children}
       | Single {label; check} ->
         try
-          Lazy_.value check;
+          Lazy.value check;
           Result.Single {Result.label; status=Result.Status.Success}
         with
           | TestFailure reason ->
@@ -209,7 +209,7 @@ let command_line_main ~argv test =
   in
   result
   |> Result.to_indented_strings ~verbose
-  |> List_.iter ~f:(OCSPf.printf "%s\n");
+  |> List.iter ~f:(OCSPf.printf "%s\n");
   match result with
     | `Single (_, Result.Status.Success) | `Group (_, _, {Result.Counts.failures=0; errors=0; _}) ->
       Exit.Success
@@ -225,17 +225,17 @@ let (>:) label check =
   Test.(Single {label; check})
 
 let (~::) format =
-  Format_.with_result ~f:(>::) format
+  Format.with_result ~f:(>::) format
 
 let (~:) format =
-  Format_.with_result ~f:(>:) format
+  Format.with_result ~f:(>:) format
 
 (* Checks *)
 
-let javascript = String_.has_suffix OCSS.argv.(0) ~suf:".js"
+let javascript = String.has_suffix OCSS.argv.(0) ~suf:".js"
 
 let fail format =
-  Format_.with_result
+  Format.with_result
     ~f:(fun message ->
       Exception.raise (TestFailure (Result.Status.Custom message))
     )
@@ -244,7 +244,7 @@ let fail format =
 exception NoExceptionRaised
 let expect_exception ~expected x =
   try
-    ignore (Lazy_.value x);
+    ignore (Lazy.value x);
     Exception.raise NoExceptionRaised
   with
     | NoExceptionRaised -> Exception.raise (TestFailure (Result.Status.NoException expected))
@@ -253,11 +253,11 @@ let expect_exception ~expected x =
 
 let expect_exception_named ~expected x =
   try
-    ignore (Lazy_.value x);
+    ignore (Lazy.value x);
     Exception.raise NoExceptionRaised
   with
     | NoExceptionRaised -> Exception.raise (TestFailure (Result.Status.NoExceptionNamed expected))
-    | actual when String_.equal (Exception.name actual) expected -> ()
+    | actual when String.equal (Exception.name actual) expected -> ()
     | exc -> Exception.raise (TestFailure (Result.Status.WrongExceptionNamed (expected, exc, Exception.most_recent_backtrace ())))
 
 let check ~repr ~equal ~expected actual =
@@ -277,7 +277,7 @@ let check_false actual =
   check_bool ~expected:false actual
 
 let check_string ~expected actual =
-  check ~repr:String_.repr ~equal:String_.equal ~expected actual
+  check ~repr:String.repr ~equal:String.equal ~expected actual
 
 let check_int ~expected actual =
   check ~repr:Int.repr ~equal:Int.equal ~expected actual
@@ -310,7 +310,7 @@ let check_none_int actual =
   check_int_option ~expected:None actual
 
 let check_string_option ~expected actual =
-  check_option ~repr:String_.repr ~equal:String_.equal ~expected actual
+  check_option ~repr:String.repr ~equal:String.equal ~expected actual
 
 let check_some_string ~expected actual =
   check_string_option ~expected:(Some expected) actual
@@ -319,10 +319,10 @@ let check_none_string actual =
   check_string_option ~expected:None actual
 
 let check_list ~repr ~equal ~expected actual =
-  check ~repr:(List_.repr ~repr_a:repr) ~equal:(List_.equal ~equal_a:equal) ~expected actual
+  check ~repr:(List.repr ~repr_a:repr) ~equal:(List.equal ~equal_a:equal) ~expected actual
 
 let check_string_list ~expected actual =
-  check_list ~repr:String_.repr ~equal:String_.equal ~expected actual
+  check_list ~repr:String.repr ~equal:String.equal ~expected actual
 
 let check_int_list ~expected actual =
   check_list ~repr:Int.repr ~equal:Int.equal ~expected actual

@@ -1,8 +1,3 @@
-open Implementation
-module Reference = Implementation.Reference
-
-module OCSP = OCamlStandard.Pervasives
-
 module Int = struct
   module Spe = Reference.Specialize(Int)
   module Ringoid = Reference.SpecializeRingoid(Int)
@@ -32,8 +27,8 @@ module Float = struct
   include (Ringoid: module type of Ringoid with type t := t and module O := O)
 end
 
-module String_ = struct
-  module Spe = Reference.Specialize(String_)
+module String = struct
+  module Spe = Reference.Specialize(String)
 
   module O = struct
     include Spe.O

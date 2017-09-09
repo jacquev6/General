@@ -25,12 +25,12 @@ let raise = OCSP.raise
 let raise_without_backtrace = OCSP.raise_notrace
 
 let invalid_argument format =
-  Format_.with_result
+  Format.with_result
     ~f:(fun message -> raise (InvalidArgument message))
     format
 
 let failure format =
-  Format_.with_result
+  Format.with_result
     ~f:(fun message -> raise (Failure message))
     format
 
@@ -47,6 +47,6 @@ let most_recent_backtrace () =
 
 let or_none x =
   try
-    Some (Lazy_.value x)
+    Some (Lazy.value x)
   with
     | _ -> None

@@ -34,7 +34,7 @@ module Tests = struct
       (let module T = Traits.Comparable.Tests.Make0(M)(E) in T.test);
     ] @ (
       E.negate
-      |> List_.flat_map ~f:(fun (x, y) ->
+      |> List.flat_map ~f:(fun (x, y) ->
         let abs_x = if greater_or_equal x zero then x else y
         and abs_y = if greater_or_equal y zero then y else x in
         [

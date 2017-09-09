@@ -1,6 +1,6 @@
 module Self = struct
-  include Traits.Equatable.Different.Make1(Foundations.List_)
-  include Foundations.List_
+  include Traits.Equatable.Different.Make1(Foundations.List)
+  include Foundations.List
 end
 
 include Self
@@ -81,7 +81,7 @@ module Tests = struct
     "tail" >: (lazy (check_int_list ~expected:[2; 3] (tail [1; 2; 3])));
     "tail []" >: (lazy (expect_exception ~expected:(Exception.Failure "List.tail") (lazy (tail []))));
     "fold []" >: (lazy (check_int ~expected:0 (fold ~init:0 ~f:(fun _ -> Exception.failure "Don't call me") []))); (*BISECT-IGNORE*)
-    "fold" >: (lazy (check_string ~expected:"init-3-4" (fold ~init:"init" ~f:(Format_.apply "%s-%d") [3; 4])));
+    "fold" >: (lazy (check_string ~expected:"init-3-4" (fold ~init:"init" ~f:(Format.apply "%s-%d") [3; 4])));
     "reduce [0]" >: (lazy (check_int ~expected:0 (reduce ~f:(fun _ -> Exception.failure "Don't call me") [0]))); (*BISECT-IGNORE*)
     "reduce" >: (lazy (check_int ~expected:4096 (reduce ~f:Int.exponentiate [2; 3; 4])));
     "try_reduce" >: (lazy (check_some_int ~expected:4096 (try_reduce ~f:Int.exponentiate [2; 3; 4])));

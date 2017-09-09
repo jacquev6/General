@@ -17,7 +17,7 @@ let to_list xs =
   OCSS.iter (fun x ->
     ys := x::!ys
   ) xs;
-  List_.reverse !ys
+  List.reverse !ys
 
 let concat = OCSS.iapp
 
@@ -133,7 +133,7 @@ module ToList = struct
   let map xs ~f =
     let rec aux ys =
       match try_next xs with
-        | None -> List_.reverse ys
+        | None -> List.reverse ys
         | Some x -> aux ((f x)::ys)
     in
     aux []
@@ -141,7 +141,7 @@ module ToList = struct
   let map_acc ~acc xs ~f =
     let rec aux acc ys =
       match try_next xs with
-        | None -> List_.reverse ys
+        | None -> List.reverse ys
         | Some x ->
           let (acc, y) = f ~acc x in
           aux acc (y::ys)
@@ -155,7 +155,7 @@ module ToList = struct
   let filter xs ~f =
     let rec aux ys =
       match try_next xs with
-        | None -> List_.reverse ys
+        | None -> List.reverse ys
         | Some x ->
           let ys = if f x then x::ys else ys in
           aux ys
@@ -165,7 +165,7 @@ module ToList = struct
   let filter_acc ~acc xs ~f =
     let rec aux acc ys =
       match try_next xs with
-        | None -> List_.reverse ys
+        | None -> List.reverse ys
         | Some x ->
           let (acc, b) = f ~acc x in
           let ys = if b then x::ys else ys in
@@ -180,7 +180,7 @@ module ToList = struct
   let filter_map xs ~f =
     let rec aux ys =
       match try_next xs with
-        | None -> List_.reverse ys
+        | None -> List.reverse ys
         | Some x ->
           let ys =
             match f x with
@@ -194,7 +194,7 @@ module ToList = struct
   let filter_map_acc ~acc xs ~f =
     let rec aux acc ys =
       match try_next xs with
-        | None -> List_.reverse ys
+        | None -> List.reverse ys
         | Some x ->
           let (acc, y) = f ~acc x in
           let ys =
@@ -213,18 +213,18 @@ module ToList = struct
   let flat_map xs ~f =
     let rec aux ys =
       match try_next xs with
-        | None -> List_.reverse ys
-        | Some x -> aux (List_.rev_concat (f x) ys)
+        | None -> List.reverse ys
+        | Some x -> aux (List.rev_concat (f x) ys)
     in
     aux []
 
   let flat_map_acc ~acc xs ~f =
     let rec aux acc ys =
       match try_next xs with
-        | None -> List_.reverse ys
+        | None -> List.reverse ys
         | Some x ->
           let (acc, y) = f ~acc x in
-          aux acc (List_.rev_concat y ys)
+          aux acc (List.rev_concat y ys)
     in
     aux acc []
 

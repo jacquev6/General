@@ -20,7 +20,7 @@ module Tests = struct
 
   module Examples2 = struct
     module A = Foundations.Int
-    module B = Foundations.String_
+    module B = Foundations.String
 
     let repr = [
       ((1, "a"), "(1, \"a\")");
@@ -42,7 +42,7 @@ module Tests = struct
 
   module Examples3 = struct
     module A = Foundations.Int
-    module B = Foundations.String_
+    module B = Foundations.String
     module C = Foundations.Float
 
     let repr = [
@@ -66,7 +66,7 @@ module Tests = struct
 
   module Examples4 = struct
     module A = Foundations.Int
-    module B = Foundations.String_
+    module B = Foundations.String
     module C = Foundations.Float
     module D = Foundations.Int
 
@@ -92,7 +92,7 @@ module Tests = struct
 
   module Examples5 = struct
     module A = Foundations.Int
-    module B = Foundations.String_
+    module B = Foundations.String
     module C = Foundations.Float
     module D = Foundations.Int
     module E = Foundations.Int

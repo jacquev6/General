@@ -5,8 +5,8 @@ let rec stack = function
 
 let stack =
   stack 2
-  |> List_.filter_map ~f:identity
-  |> List_.head
+  |> List.filter_map ~f:identity
+  |> List.head
 (* End of symbols to not move *)
 
 include Foundations.CallStack
@@ -43,7 +43,7 @@ module Tests = struct
   let test = "CallStack" >:: [
     (let module T = Traits.Displayable.Tests.Make0(Foundations.CallStack)(Examples) in T.test);
     (let module T = Traits.Representable.Tests.Make0(Foundations.CallStack)(Examples) in T.test);
-    "frames" >: (lazy (check_int ~expected:(if javascript then 0 else 4) (stack |> frames |> List_.size))); (*BISECT-IGNORE*)
+    "frames" >: (lazy (check_int ~expected:(if javascript then 0 else 4) (stack |> frames |> List.size))); (*BISECT-IGNORE*)
     "Location" >:: [
       (* (let module T = Traits.Comparable.Tests.Make0(Foundations.CallStack.Location)(LocationExamples) in T.test); *)
       (* (let module T = Traits.Equatable.Tests.Make0(Foundations.CallStack.Location)(LocationExamples) in T.test); *)

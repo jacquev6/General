@@ -8,7 +8,7 @@ open Functions.Function1.O
 open Reference.O
 
 let repr x =
-  Format_.apply "%S" x
+  Format.apply "%S" x
 
 let to_string = Functions.Function1.identity
 let of_string = Functions.Function1.identity
@@ -45,10 +45,10 @@ let to_list s =
   !r
 
 let of_list xs =
-  let len = List_.size xs in
+  let len = List.size xs in
   let r = OCSB.create len in
   xs
-  |> List_.iter_i ~f:(fun ~i x ->
+  |> List.iter_i ~f:(fun ~i x ->
     OCSB.set r i x
   );
   of_bytes r
@@ -116,10 +116,10 @@ let split s ~sep =
 let fold ~init s ~f =
   s
   |> to_list
-  |> List_.fold ~init ~f
+  |> List.fold ~init ~f
 
 let filter s ~f =
   s
   |> to_list
-  |> List_.filter ~f
+  |> List.filter ~f
   |> of_list

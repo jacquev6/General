@@ -1,4 +1,4 @@
-include Foundations.String_
+include Foundations.String
 
 let split' s ~seps =
   let seps = SortedSet.Poly.of_list seps in
@@ -12,9 +12,9 @@ let split' s ~seps =
     )
   in
   last_part::parts
-  |> List_.map ~f:List_.reverse
-  |> List_.map ~f:of_list
-  |> List_.reverse
+  |> List.map ~f:List.reverse
+  |> List.map ~f:of_list
+  |> List.reverse
 
 module Tests = struct
   open Testing
@@ -39,7 +39,7 @@ module Tests = struct
   end
 
   let test = "String" >:: [
-    (let module T = Concepts.Able.Tests.Make0(Foundations.String_)(Examples) in T.test);
+    (let module T = Concepts.Able.Tests.Make0(Foundations.String)(Examples) in T.test);
     "split'" >:: (
       let make s seps expected =
         ~: "%S %S" s (of_list seps) (lazy (

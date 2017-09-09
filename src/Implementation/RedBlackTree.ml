@@ -15,9 +15,9 @@ let repr ~repr_a =
   let rec aux = function
     | Empty -> "Empty"
     | EmptyPlus -> "EmptyPlus"
-    | Black {l; v; r} -> Format_.apply "Black {l=%s; v=%s; r=%s}" (aux l) (repr_a v) (aux r)
-    | BlackPlus {l; v; r} -> Format_.apply "BlackPlus {l=%s; v=%s; r=%s}" (aux l) (repr_a v) (aux r)
-    | Red {l; v; r} -> Format_.apply "Red {l=%s; v=%s; r=%s}" (aux l) (repr_a v) (aux r)
+    | Black {l; v; r} -> Format.apply "Black {l=%s; v=%s; r=%s}" (aux l) (repr_a v) (aux r)
+    | BlackPlus {l; v; r} -> Format.apply "BlackPlus {l=%s; v=%s; r=%s}" (aux l) (repr_a v) (aux r)
+    | Red {l; v; r} -> Format.apply "Red {l=%s; v=%s; r=%s}" (aux l) (repr_a v) (aux r)
   in
   aux
 
@@ -39,7 +39,7 @@ module Invariants = struct
 
   let _ = Exception.register_printer (function
     | BrokenInvariants broken_invariants ->
-      Some (Format_.apply "Broken red-black tree invariants: %s" (broken_invariants |> List_.map ~f:repr |> List_.join_string_list ~sep:", "))
+      Some (Format.apply "Broken red-black tree invariants: %s" (broken_invariants |> List.map ~f:repr |> List.join_string_list ~sep:", "))
     | _ ->
       None
   )
@@ -130,7 +130,7 @@ module Invariants = struct
         (is_black_balanced, IsBlackBalanced);
         (is_binary_search_tree ~cmp, IsBinarySearchTree);
       ]
-      |> List_.filter_map ~f:(fun (predicate, invariant) ->
+      |> List.filter_map ~f:(fun (predicate, invariant) ->
         Option.some_if' (not (predicate t)) invariant
       )
     with
@@ -434,8 +434,8 @@ let fold xs ~cmp ~init ~f =
   |> aux init
 
 let to_list xs ~cmp =
-  fold xs ~cmp ~init:[] ~f:(Functions.Function2.flip List_.prepend)
-  |> List_.reverse
+  fold xs ~cmp ~init:[] ~f:(Functions.Function2.flip List.prepend)
+  |> List.reverse
 
 let size xs ~cmp =
   fold xs ~cmp ~init:0 ~f:(fun n _ -> Int.succ n)

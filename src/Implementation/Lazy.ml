@@ -1,4 +1,4 @@
-include Foundations.Lazy_
+include Foundations.Lazy
 
 open Testing
 

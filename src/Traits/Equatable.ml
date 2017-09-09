@@ -295,9 +295,9 @@ module Tests = struct
 
     let test = "Equatable" >:: (
       E.equal
-      |> List_.flat_map ~f:(fun xs ->
-        List_.cartesian_product xs xs
-        |> List_.flat_map ~f:(fun (x, y) ->
+      |> List.flat_map ~f:(fun xs ->
+        List.cartesian_product xs xs
+        |> List.flat_map ~f:(fun (x, y) ->
           let rx = repr x and ry = repr y in
           [
             ~: "equal %s %s" rx ry (lazy (check_true (equal x y)));
@@ -314,7 +314,7 @@ module Tests = struct
       )
     ) @ (
       E.different
-      |> List_.flat_map ~f:(fun (x, y) ->
+      |> List.flat_map ~f:(fun (x, y) ->
         let rx = repr x and ry = repr y in
         [
           ~: "equal %s %s" rx ry (lazy (check_false (equal x y)));

@@ -106,7 +106,7 @@ module Tests = struct
 
     let test = "Representable" >:: (
       E.repr
-      |> List_.map ~f:(fun (v, expected) ->
+      |> List.map ~f:(fun (v, expected) ->
         ~: "repr %s" expected (lazy (check_string ~expected (repr v)))
       )
     )

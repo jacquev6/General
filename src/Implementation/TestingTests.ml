@@ -13,7 +13,7 @@ module Tests = struct
   let () = Exception.register_printer (function
     | TestException0 -> Some "TestingTests.Tests.TestException0"
     | TestException0' -> Some "TestingTests.Tests.TestException0'"
-    | TestException1 s -> Some (Format_.apply "TestingTests.Tests.TestException1(%S)" s)
+    | TestException1 s -> Some (Format.apply "TestingTests.Tests.TestException1(%S)" s)
     | _ -> None
   )
 
@@ -39,7 +39,7 @@ module Tests = struct
       (let module T = Traits.Representable.Tests.Make0(Result)(ResultExamples) in T.test);
       "to_indented_strings" >:: (
         let make ?(verbose=false) expected result =
-          (expected |> Foundations.List_.join_string_list ~sep:"\n") >: (lazy (
+          (expected |> Foundations.List.join_string_list ~sep:"\n") >: (lazy (
             let actual =
               result
               |> Result.decorate_with_counts
