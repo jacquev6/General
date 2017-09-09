@@ -15,10 +15,6 @@ rm -rf _build
 #  - all symbols in ResetPervasives do exist in OCamlStandard.Pervasives
 # Symbols: modules, types, exceptions, values, externals
 
-# @todo Do this as a custom preprocessor in jbuild
-echo "Flattening sources"
-./flatten.py
-
 echo
 echo "Running unit tests in byte code using jbuilder"
 # @todo Measure test coverage. If possible, module by module.
