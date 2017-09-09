@@ -33,5 +33,4 @@ module FilterMapable: sig
   module ToContainer
   module ToList
   module ToArray
-  module Tests
 end

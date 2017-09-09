@@ -1,24 +1,6 @@
 module Comparable: sig
   module Basic
   module Operators
-  module type SPoly = sig
-    val compare: 'a -> 'a -> General.Compare.t
-    val less_than: 'a -> 'a -> bool
-    val less_or_equal: 'a -> 'a -> bool
-    val greater_than: 'a -> 'a -> bool
-    val greater_or_equal: 'a -> 'a -> bool
-    val between: 'a -> low:'a -> high:'a -> bool
-    val between_or_equal: 'a -> low:'a -> high:'a -> bool
-    val min: 'a -> 'a -> 'a
-    val max: 'a -> 'a -> 'a
-    val min_max: 'a -> 'a -> 'a * 'a
-    module O: sig
-      val (<): 'a -> 'a -> bool
-      val (<=): 'a -> 'a -> bool
-      val (>): 'a -> 'a -> bool
-      val (>=): 'a -> 'a -> bool
-    end
-  end
   module type S0 = sig
     type t
     val compare: t -> t -> General.Compare.t
@@ -103,13 +85,4 @@ module Comparable: sig
     val max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> compare_d:('d -> 'd -> General.Compare.t) -> compare_e:('e -> 'e -> General.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
     val min_max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> compare_d:('d -> 'd -> General.Compare.t) -> compare_e:('e -> 'e -> General.Compare.t) -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
   end
-  module GreaterLessThan
-  module Between
-  module MinMax
-  module Specialize1
-  module Specialize2
-  module Specialize3
-  module Specialize4
-  module Specialize5
-  module Tests
 end

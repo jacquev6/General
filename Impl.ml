@@ -22,13 +22,17 @@ end
 
 open Reset.ResetPervasives
 open Reset.ResetStandardLibrary
+
 module OCSP = OCamlStandard.Pervasives
+
 module Equate = struct
   #include "../../src/Equate.ml"
 end
+
 module Compare = struct
   #include "../../src/Compare.ml"
 end
+
 module Shorten = struct
   #include "../../src/Shorten.ml"
 end
@@ -107,6 +111,8 @@ module Foundations = struct
   end
 end
 
+open Foundations
+
 module Pervasives = struct
   include Reset.ResetPervasives
   include Reset.ResetStandardLibrary
@@ -136,14 +142,6 @@ module Traits = struct
     #include "../../src/Traits/Displayable.ml"
   end
 
-  module FilterMapable = struct
-    #include "../../src/Traits/FilterMapable.ml"
-  end
-
-  module Foldable = struct
-    #include "../../src/Traits/Foldable.ml"
-  end
-
   module Parsable = struct
     #include "../../src/Traits/Parsable.ml"
   end
@@ -154,6 +152,14 @@ module Traits = struct
 
   module Ringoid = struct
     #include "../../src/Traits/Ringoid.ml"
+  end
+
+  module FilterMapable = struct
+    #include "../../src/Traits/FilterMapable.ml"
+  end
+
+  module Foldable = struct
+    #include "../../src/Traits/Foldable.ml"
   end
 
   module Scanable = struct

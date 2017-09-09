@@ -1,14 +1,4 @@
-open Foundations
-
-module Basic = struct
-  module type S0 = sig
-    type t
-
-    val to_string: t -> string
-  end
-end
-
-include Basic
+#include "../../src/Traits/Displayable.signatures.ml"
 
 module Tests = struct
   open Testing

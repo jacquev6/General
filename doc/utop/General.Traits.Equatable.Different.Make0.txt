@@ -1,6 +1,0 @@
-module Make0(M: sig
-  type t
-  val equal: t -> t -> bool
-end): sig
-  val different: M.t -> M.t -> bool
-end

@@ -1,33 +1,9 @@
-open Foundations
-
 module Basic = struct
-  module type S0 = sig
-    type t
-
-    val zero: t
-    val one: t
-
-    val negate: t -> t
-    val add: t -> t -> t
-    val substract: t -> t -> t
-    val multiply: t -> t -> t
-    val divide: t -> t -> t
-  end
+  #include "../../src/Traits/Ringoid.signatures.Basic.ml"
 end
 
 module Operators = struct
-  module type S0 = sig
-    type t
-
-    val (~+): t -> t
-    val (~-): t -> t
-    val (+): t -> t -> t
-    val (-): t -> t -> t
-    val ( * ): t -> t -> t
-    val (/): t -> t -> t
-
-    val ( ** ): t -> int -> t
-  end
+  #include "../../src/Traits/Ringoid.signatures.Operators.ml"
 
   module Make0(M: sig
     type t
@@ -65,14 +41,7 @@ module Operators = struct
   end
 end
 
-module type S0 = sig
-  include Basic.S0
-
-  val square: t -> t
-  val exponentiate: t -> int -> t
-
-  module O: Operators.S0 with type t := t
-end
+#include "../../src/Traits/Ringoid.signatures.ml"
 
 module Substract = struct
   module Make0(M: sig
@@ -149,7 +118,7 @@ module Tests = struct
 
   module Make0(M: sig
     include S0
-    include Representable.Basic.S0 with type t := t
+    include Representable.S0 with type t := t
     include Equatable.Basic.S0 with type t := t
   end)(E: Examples.S0 with type t := M.t): sig val test: Test.t end = struct
     open M

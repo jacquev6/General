@@ -4,6 +4,4 @@ module PredSucc: sig
     val succ: t -> t
     val pred: t -> t
   end
-  module Make0
-  module Tests
 end

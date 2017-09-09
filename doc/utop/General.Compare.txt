@@ -1,4 +1,4 @@
 module Compare: sig
   type t = General.Compare.t = LT | EQ | GT
-  module Poly: General.Traits.Comparable.SPoly
+  module Poly
 end

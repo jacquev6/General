@@ -1,6 +1,0 @@
-module Make3(M: sig
-  type ('a, 'b, 'c) t
-  val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
-end): sig
-  val different: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
-end

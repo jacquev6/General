@@ -1,8 +1,0 @@
-module Make0(M: General.Concepts.Able.S0)(E: sig
-  val different: (M.t * M.t) list
-  val repr: (M.t * string) list
-  val ordered: M.t list list
-  val equal: M.t list list
-end): sig
-  val test: General.Testing.Test.t
-end

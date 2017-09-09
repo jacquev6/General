@@ -1,11 +1,4 @@
-open Foundations
-
-module type S0 = sig
-  type t
-
-  val succ: t -> t
-  val pred: t -> t
-end
+#include "../../src/Traits/PredSucc.signatures.ml"
 
 module Make0(M: sig
   type t
@@ -38,7 +31,7 @@ module Tests = struct
   module Make0(M: sig
     include S0
     include Equatable.Basic.S0 with type t := t
-    include Representable.Basic.S0 with type t := t
+    include Representable.S0 with type t := t
   end)(E: Examples.S0 with type t := M.t) = struct
     open M
 

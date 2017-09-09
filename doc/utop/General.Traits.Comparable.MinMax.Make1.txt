@@ -1,8 +1,0 @@
-module Make1(M: sig
-  type 'a t
-  val compare: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> General.Compare.t
-end): sig
-  val min: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> General.Compare.t) -> 'a M.t
-  val max: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> General.Compare.t) -> 'a M.t
-  val min_max: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> General.Compare.t) -> 'a M.t * 'a M.t
-end

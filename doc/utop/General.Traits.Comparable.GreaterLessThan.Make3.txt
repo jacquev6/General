@@ -1,9 +1,0 @@
-module Make3(M: sig
-  type ('a, 'b, 'c) t
-  val compare: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> General.Compare.t
-end): sig
-  val less_than: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> bool
-  val less_or_equal: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> bool
-  val greater_than: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> bool
-  val greater_or_equal: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> bool
-end

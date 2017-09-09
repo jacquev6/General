@@ -1,64 +1,7 @@
-open Foundations
-
 (* @feature Descending, ascending *)
 
 module Basic = struct
-  module type S0 = sig
-    type t
-
-    val compare: t -> t
-      -> Compare.t
-  end
-
-  module type S1 = sig
-    type 'a t
-
-    val compare: 'a t -> 'a t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> Compare.t
-  end
-
-  module type S2 = sig
-    type ('a, 'b) t
-
-    val compare: ('a, 'b) t -> ('a, 'b) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> Compare.t
-  end
-
-  module type S3 = sig
-    type ('a, 'b, 'c) t
-
-    val compare: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> Compare.t
-  end
-
-  module type S4 = sig
-    type ('a, 'b, 'c, 'd) t
-
-    val compare: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> Compare.t
-  end
-
-  module type S5 = sig
-    type ('a, 'b, 'c, 'd, 'e) t
-
-    val compare: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> compare_e:('e -> 'e -> Compare.t)
-      -> Compare.t
-  end
+  #include "../../src/Traits/Comparable.signatures.Basic.ml"
 
   module Specialize1(M: S1)(A: S0): S0 with type t = A.t M.t = struct
     type t = A.t M.t
@@ -97,18 +40,7 @@ module Basic = struct
 end
 
 module Operators = struct
-  module type S0 = sig
-    type t
-
-    val (<): t -> t
-      -> bool
-    val (<=): t -> t
-      -> bool
-    val (>): t -> t
-      -> bool
-    val (>=): t -> t
-      -> bool
-  end
+  #include "../../src/Traits/Comparable.signatures.Operators.ml"
 
   module Make0(M: sig
     type t
@@ -137,292 +69,7 @@ module Operators = struct
   end
 end
 
-module type S0 = sig
-  include Basic.S0
-
-  val less_than: t -> t
-    -> bool
-  val less_or_equal: t -> t
-    -> bool
-  val greater_than: t -> t
-    -> bool
-  val greater_or_equal: t -> t
-    -> bool
-
-  val between: t -> low:t -> high:t
-    -> bool
-  val between_or_equal: t -> low:t -> high:t
-    -> bool
-
-  val min: t -> t
-    -> t
-  val max: t -> t
-    -> t
-  val min_max: t -> t
-    -> t * t
-
-  module O: Operators.S0 with type t := t
-end
-
-module type S1 = sig
-  include Basic.S1
-
-  val less_than: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> bool
-  val less_or_equal: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> bool
-  val greater_than: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> bool
-  val greater_or_equal: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> bool
-
-  val between: 'a t -> low:'a t -> high:'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> bool
-  val between_or_equal: 'a t -> low:'a t -> high:'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> bool
-
-  val min: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> 'a t
-  val max: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> 'a t
-  val min_max: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> 'a t * 'a t
-end
-
-module type S2 = sig
-  include Basic.S2
-
-  val less_than: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> bool
-  val less_or_equal: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> bool
-  val greater_than: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> bool
-  val greater_or_equal: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> bool
-
-  val between: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> bool
-  val between_or_equal: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> bool
-
-  val min: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> ('a, 'b) t
-  val max: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> ('a, 'b) t
-  val min_max: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> ('a, 'b) t * ('a, 'b) t
-end
-
-module type S3 = sig
-  include Basic.S3
-
-  val less_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> bool
-  val less_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> bool
-  val greater_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> bool
-  val greater_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> bool
-
-  val between: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> bool
-  val between_or_equal: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> bool
-
-  val min: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> ('a, 'b, 'c) t
-  val max: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> ('a, 'b, 'c) t
-  val min_max: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> ('a, 'b, 'c) t * ('a, 'b, 'c) t
-end
-
-module type S4 = sig
-  include Basic.S4
-
-  val less_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> bool
-  val less_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> bool
-  val greater_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> bool
-  val greater_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> bool
-
-  val between: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> bool
-  val between_or_equal: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> bool
-
-  val min: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> ('a, 'b, 'c, 'd) t
-  val max: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> ('a, 'b, 'c, 'd) t
-  val min_max: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> ('a, 'b, 'c, 'd) t * ('a, 'b, 'c, 'd) t
-end
-
-module type S5 = sig
-  include Basic.S5
-
-  val less_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> bool
-  val less_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> bool
-  val greater_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> bool
-  val greater_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> bool
-
-  val between: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> bool
-  val between_or_equal: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> bool
-
-  val min: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> ('a, 'b, 'c, 'd, 'e) t
-  val max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> ('a, 'b, 'c, 'd, 'e) t
-  val min_max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
-end
+#include "../../src/Traits/Comparable.signatures.ml"
 
 module GreaterLessThan = struct
   module Make0(M: sig
@@ -1152,7 +799,7 @@ module Tests = struct
     module type Element = sig
       include Basic.S0
       include Equatable.Basic.S0 with type t := t
-      include Representable.Basic.S0 with type t := t
+      include Representable.S0 with type t := t
     end
 
     module type S1 = sig
@@ -1213,7 +860,7 @@ module Tests = struct
 
   module Make0(M: sig
     include S0
-    include Representable.Basic.S0 with type t := t
+    include Representable.S0 with type t := t
     include Equatable.Basic.S0 with type t := t
   end)(E: Examples.S0 with type t := M.t): sig val test: Test.t end = struct
     open M
@@ -1309,50 +956,50 @@ module Tests = struct
   module Make1(M: sig
     include S1
     include Equatable.Basic.S1 with type 'a t := 'a t
-    include Representable.Basic.S1 with type 'a t := 'a t
+    include Representable.S1 with type 'a t := 'a t
   end)(E: Examples.S1 with type 'a t := 'a M.t): sig val test: Test.t end = Make0(struct
     include Specialize1(M)(E.A)
-    include (Representable.Basic.Specialize1(M)(E.A): Representable.Basic.S0 with type t := t)
+    include (Representable.Specialize1(M)(E.A): Representable.S0 with type t := t)
     include (Equatable.Basic.Specialize1(M)(E.A): Equatable.Basic.S0 with type t := t)
   end)(E)
 
   module Make2(M: sig
     include S2
     include Equatable.Basic.S2 with type ('a, 'b) t := ('a, 'b) t
-    include Representable.Basic.S2 with type ('a, 'b) t := ('a, 'b) t
+    include Representable.S2 with type ('a, 'b) t := ('a, 'b) t
   end)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t): sig val test: Test.t end = Make0(struct
     include Specialize2(M)(E.A)(E.B)
-    include (Representable.Basic.Specialize2(M)(E.A)(E.B): Representable.Basic.S0 with type t := t)
+    include (Representable.Specialize2(M)(E.A)(E.B): Representable.S0 with type t := t)
     include (Equatable.Basic.Specialize2(M)(E.A)(E.B): Equatable.Basic.S0 with type t := t)
   end)(E)
 
   module Make3(M: sig
     include S3
     include Equatable.Basic.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-    include Representable.Basic.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+    include Representable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
   end)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t): sig val test: Test.t end = Make0(struct
     include Specialize3(M)(E.A)(E.B)(E.C)
-    include (Representable.Basic.Specialize3(M)(E.A)(E.B)(E.C): Representable.Basic.S0 with type t := t)
+    include (Representable.Specialize3(M)(E.A)(E.B)(E.C): Representable.S0 with type t := t)
     include (Equatable.Basic.Specialize3(M)(E.A)(E.B)(E.C): Equatable.Basic.S0 with type t := t)
   end)(E)
 
   module Make4(M: sig
     include S4
     include Equatable.Basic.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-    include Representable.Basic.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+    include Representable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
   end)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t): sig val test: Test.t end = Make0(struct
     include Specialize4(M)(E.A)(E.B)(E.C)(E.D)
-    include (Representable.Basic.Specialize4(M)(E.A)(E.B)(E.C)(E.D): Representable.Basic.S0 with type t := t)
+    include (Representable.Specialize4(M)(E.A)(E.B)(E.C)(E.D): Representable.S0 with type t := t)
     include (Equatable.Basic.Specialize4(M)(E.A)(E.B)(E.C)(E.D): Equatable.Basic.S0 with type t := t)
   end)(E)
 
   module Make5(M: sig
     include S5
     include Equatable.Basic.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-    include Representable.Basic.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+    include Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
   end)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t): sig val test: Test.t end = Make0(struct
     include Specialize5(M)(E.A)(E.B)(E.C)(E.D)(E.E)
-    include (Representable.Basic.Specialize5(M)(E.A)(E.B)(E.C)(E.D)(E.E): Representable.Basic.S0 with type t := t)
+    include (Representable.Specialize5(M)(E.A)(E.B)(E.C)(E.D)(E.E): Representable.S0 with type t := t)
     include (Equatable.Basic.Specialize5(M)(E.A)(E.B)(E.C)(E.D)(E.E): Equatable.Basic.S0 with type t := t)
   end)(E)
 end

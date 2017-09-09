@@ -32,9 +32,4 @@ end): sig
     val flat_map_i: 'a t -> f:(i:int -> 'a -> 'b C.t) -> 'b C.t
     val flat_map_acc: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b C.t) -> 'b C.t
   end
-  module Tests: sig
-    module Make1: sig
-      val test: General.Testing.Test.t
-    end
-  end
 end

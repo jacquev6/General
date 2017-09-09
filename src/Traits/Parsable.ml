@@ -1,15 +1,4 @@
-open Foundations
-
-module Basic = struct
-  module type S0 = sig
-    type t
-
-    val try_of_string: string -> t option
-    val of_string: string -> t
-  end
-end
-
-include Basic
+#include "../../src/Traits/Parsable.signatures.ml"
 
 module Tests = struct
   open Testing
@@ -25,7 +14,7 @@ module Tests = struct
   module Make0(M: sig
     include S0
     include Equatable.Basic.S0 with type t := t
-    include Representable.Basic.S0 with type t := t
+    include Representable.S0 with type t := t
   end)(E: Examples.S0 with type t := M.t) = struct
     open M
 

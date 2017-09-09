@@ -1,33 +1,8 @@
-open Foundations
-
 module Operators = struct
-  module type S0 = sig
-    type t
-
-    include Number.Operators.S0 with type t := t
-    include Traits.Comparable.Operators.S0 with type t := t
-
-    val (mod): t -> t -> t
-  end
+  #include "../../src/Concepts/RealNumber.signatures.Operators.ml"
 end
 
-module type S0 = sig
-  type t
-
-  module O: Operators.S0 with type t := t
-
-  include Number.S0 with type t := t and module O := O
-  include Traits.Comparable.S0 with type t := t and module O := O
-
-  val abs: t -> t
-  val modulo: t -> t -> t
-
-  (* @feature Traits.ToStandardNumbers? *)
-  val to_int: t -> int
-  val to_float: t -> float
-
-  (* @feature sign *)
-end
+#include "../../src/Concepts/RealNumber.signatures.ml"
 
 module Tests = struct
   open Testing

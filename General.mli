@@ -160,9 +160,155 @@ module Equate: sig
   end
 end
 
-module Traits: module type of Impl.Traits
-(* @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
-(* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
+module Traits: sig
+  (* @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
+  (* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
+  (* @todo Publish helper functors (Specialize, Ringoid.Exponentiate.Make, Tests.Make, etc.) *)
+
+  module Representable: sig
+    #include "../../src/Traits/Representable.signatures.ml"
+  end
+
+  module Displayable: sig
+    #include "../../src/Traits/Displayable.signatures.ml"
+  end
+
+  module Parsable: sig
+    #include "../../src/Traits/Parsable.signatures.ml"
+  end
+
+  module Equatable: sig
+    module Basic: sig
+      #include "../../src/Traits/Equatable.signatures.Basic.ml"
+    end
+
+    module Operators: sig
+      #include "../../src/Traits/Equatable.signatures.Operators.ml"
+    end
+
+    #include "../../src/Traits/Equatable.signatures.ml"
+  end
+
+  module Comparable: sig
+    module Basic: sig
+      #include "../../src/Traits/Comparable.signatures.Basic.ml"
+    end
+
+    module Operators: sig
+      #include "../../src/Traits/Comparable.signatures.Operators.ml"
+    end
+
+    #include "../../src/Traits/Comparable.signatures.ml"
+  end
+
+  module Ringoid: sig
+    module Basic: sig
+      #include "../../src/Traits/Ringoid.signatures.Basic.ml"
+    end
+
+    module Operators: sig
+      #include "../../src/Traits/Ringoid.signatures.Operators.ml"
+    end
+
+    #include "../../src/Traits/Ringoid.signatures.ml"
+  end
+
+  module PredSucc: sig
+    #include "../../src/Traits/PredSucc.signatures.ml"
+  end
+
+  module FilterMapable: sig
+    #include "../../src/Traits/FilterMapable.signatures.ml"
+
+    module ToContainer(C: sig type 'a t end): sig
+      #include "../../src/Traits/FilterMapable.signatures.ToContainer.ml"
+    end
+
+    module ToList: module type of ToContainer(struct type 'a t = 'a list end)
+
+    module ToArray: module type of ToContainer(struct type 'a t = 'a array end)
+  end
+
+  module Foldable: sig
+    module Basic: sig
+      #include "../../src/Traits/Foldable.signatures.Basic.ml"
+    end
+
+    #include "../../src/Traits/Foldable.signatures.ml"
+
+    module Right: sig
+      module Basic: sig
+        #include "../../src/Traits/Foldable.signatures.Right.Basic.ml"
+      end
+
+      #include "../../src/Traits/Foldable.signatures.Right.ml"
+    end
+
+    module Short: sig
+      module Basic: sig
+        #include "../../src/Traits/Foldable.signatures.Short.Basic.ml"
+      end
+
+      #include "../../src/Traits/Foldable.signatures.Short.ml"
+
+      module Right: sig
+        module Basic: sig
+          #include "../../src/Traits/Foldable.signatures.Short.Right.Basic.ml"
+        end
+
+        #include "../../src/Traits/Foldable.signatures.Short.Right.ml"
+      end
+    end
+  end
+
+  module Scanable: sig
+    #include "../../src/Traits/Scanable.signatures.ml"
+
+    module ToContainer(C: sig type 'a t end): sig
+      #include "../../src/Traits/Scanable.signatures.ToContainer.ml"
+    end
+
+    module ToList: module type of ToContainer(struct type 'a t = 'a list end)
+
+    module ToArray: module type of ToContainer(struct type 'a t = 'a array end)
+
+    module Right: sig
+      #include "../../src/Traits/Scanable.signatures.Right.ml"
+
+      module ToContainer(C: sig type 'a t end): sig
+        #include "../../src/Traits/Scanable.signatures.Right.ToContainer.ml"
+      end
+
+      module ToList: module type of ToContainer(struct type 'a t = 'a list end)
+
+      module ToArray: module type of ToContainer(struct type 'a t = 'a array end)
+    end
+
+    module Short: sig
+      #include "../../src/Traits/Scanable.signatures.Short.ml"
+
+      module ToContainer(C: sig type 'a t end): sig
+        #include "../../src/Traits/Scanable.signatures.Short.ToContainer.ml"
+      end
+
+      module ToList: module type of ToContainer(struct type 'a t = 'a list end)
+
+      module ToArray: module type of ToContainer(struct type 'a t = 'a array end)
+
+      module Right: sig
+        #include "../../src/Traits/Scanable.signatures.Short.Right.ml"
+
+        module ToContainer(C: sig type 'a t end): sig
+          #include "../../src/Traits/Scanable.signatures.Short.Right.ToContainer.ml"
+        end
+
+        module ToList: module type of ToContainer(struct type 'a t = 'a list end)
+
+        module ToArray: module type of ToContainer(struct type 'a t = 'a array end)
+      end
+    end
+  end
+end
 
 (* Typology of iterations other collection:
 - is there an accumulator (fold vs map)
@@ -172,9 +318,42 @@ module Traits: module type of Impl.Traits
 - other criteria?
 and we need a generic function in each category. *)
 
-module Concepts: module type of Impl.Concepts
-(* @feature Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer *)
-(* @feature Concepts.Stringable including Parsable and Displayable *)
+module Concepts: sig
+  (* @feature Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer *)
+  (* @feature Concepts.Stringable including Parsable and Displayable *)
+
+  module Identifiable: sig
+    #include "../../src/Concepts/Identifiable.signatures.ml"
+  end
+
+  module Able: sig
+    module Operators: sig
+      #include "../../src/Concepts/Able.signatures.Operators.ml"
+    end
+
+    #include "../../src/Concepts/Able.signatures.ml"
+  end
+
+  module Number: sig
+    module Operators: sig
+      #include "../../src/Concepts/Number.signatures.Operators.ml"
+    end
+
+    #include "../../src/Concepts/Number.signatures.ml"
+  end
+
+  module RealNumber: sig
+    module Operators: sig
+      #include "../../src/Concepts/RealNumber.signatures.Operators.ml"
+    end
+
+    #include "../../src/Concepts/RealNumber.signatures.ml"
+  end
+
+  module Integer: sig
+    #include "../../src/Concepts/Integer.signatures.ml"
+  end
+end
 
 (* Technical, utility modules *)
 
