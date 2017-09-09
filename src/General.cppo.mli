@@ -3,7 +3,6 @@
 (** Some doc for :mod:`General` *)
 
 module Reset: sig
-  (* @todo Don't include ../../src/ Instead, add included files as dependencies for preprocess actions. *)
   #include "Reset/CommonHeader.ml"
   #include "Reset/SignatureHeader.ml"
 
@@ -36,7 +35,7 @@ module Pervasives: sig
 
   It then brings back a small set of ubiquitous values: *)
 
-  (** **Boolean operators** *)(* @todoc Make this a title? (Same for the next ones) *)
+  (** **Boolean operators** *)
 
   (** Negation. Alias of :val:`General.Bool.O.not`. *)
   val not: bool -> bool
@@ -163,7 +162,7 @@ end
 module Traits: sig
   (* @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
   (* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
-  (* @todo Publish helper functors (Specialize, Ringoid.Exponentiate.Make, Tests.Make, etc.) *)
+  (* @feature Publish helper functors (Specialize, Ringoid.Exponentiate.Make, Tests.Make, etc.) *)
 
   module Representable: sig
     #include "Traits/Representable.signatures.ml"
@@ -446,7 +445,7 @@ module Exit: sig
     | Success
     | Failure of int
 
-  (* @todo Able *)
+  (* @feature Able *)
 
   val of_int: int -> t
 
@@ -516,7 +515,7 @@ end
 module Unit: sig
   type t = unit
 
-  (* @todo Able *)
+  (* @feature Able *)
 
   val ignore: 'a -> t
 end
@@ -545,7 +544,7 @@ end
 module Char: sig
   type t = char
 
-  (* @todo Integer, smallest, greatest *)
+  (* @feature Integer, smallest, greatest *)
   include Traits.Comparable.S0 with type t := t
 
   val of_int: int -> t
@@ -708,7 +707,7 @@ module String: sig
   val split: t -> sep:t -> t list
   val split': t -> seps:char list -> t list
 
-  (* @todo Traits *)
+  (* @feature Traits *)
   val fold: init:'a -> t -> f:('a -> char -> 'a) -> 'a
   val filter: t -> f:(char -> bool) -> t
 end
@@ -793,7 +792,7 @@ end
 module Reference: sig
   type 'a t = 'a Pervasives.OCamlStandard.Pervasives.ref = {mutable contents: 'a}
 
-  (* @todo Concept.Able *)
+  (* @feature Concept.Able *)
 
   val of_contents: 'a -> 'a t
   val contents: 'a t -> 'a
@@ -823,10 +822,10 @@ module Reference: sig
     module O: module type of SpecializeOperators(A) with type t := t
   end
 
-  (* @todo SpecializeComparable *)
-  (* @todo SpecializeEquatable *)
-  (* @todo SpecializeRepresentable *)
-  (* @todo SpecializeAble (merge of three previous) *)
+  (* @feature SpecializeComparable *)
+  (* @feature SpecializeEquatable *)
+  (* @feature SpecializeRepresentable *)
+  (* @feature SpecializeAble (merge of three previous) *)
 
   module SpecializePredSucc(A: Traits.PredSucc.S0): sig
     type nonrec t = A.t t
@@ -1114,7 +1113,7 @@ module SortedSet: sig
 
     val contains: 'a t -> v:'a -> bool
 
-    (* @todo Traits *)
+    (* @feature Traits *)
   end
 
   module Make(E: Traits.Comparable.Basic.S0): sig
@@ -1134,7 +1133,7 @@ module SortedSet: sig
 
     val contains: t -> v:E.t -> bool
 
-    (* @todo Traits *)
+    (* @feature Traits *)
   end
 end
 
@@ -1161,7 +1160,7 @@ module SortedMap: sig
     val try_get: ('a, 'b) t -> k:'a -> 'b option
     val get: ('a, 'b) t -> k:'a -> 'b
 
-    (* @todo Traits *)
+    (* @feature Traits *)
   end
 
   module Make(K: Traits.Comparable.Basic.S0): sig
@@ -1169,7 +1168,7 @@ module SortedMap: sig
 
     val empty: 'a t
 
-    (* @todo [try_]of_list_unique, of_list_reduce *)
+    (* @feature [try_]of_list_unique, of_list_reduce *)
     val of_list_first: (K.t * 'a) list -> 'a t
     val of_list_last: (K.t * 'a) list -> 'a t
     val to_list: 'a t -> (K.t * 'a) list
@@ -1184,7 +1183,7 @@ module SortedMap: sig
     val try_get: 'a t -> k:K.t -> 'a option
     val get: 'a t -> k:K.t -> 'a
 
-    (* @todo Traits *)
+    (* @feature Traits *)
   end
 end
 
@@ -1272,7 +1271,7 @@ end
 (* @feature XxxList when Xxx is a Ringoid: add sum, product *)
 (* @feature BoolList (with all, exists, etc.) *)
 (* @feature OptionList (with first_some, values (ie filter_some)) *)
-(* @todo ListList, ArrayArray, StreamStream with val flatten: 'a t t -> 'a t *)
+(* @feature ListList, ArrayArray, StreamStream with val flatten: 'a t t -> 'a t *)
 (* @feature LazyList.to_list_lazy *)
 
 (* Input/output *)
@@ -1359,7 +1358,7 @@ end
 
 module Testing: sig
   module Result: sig
-    (* @todo Publish this type (so that clients can write reports) *)
+    (* @feature Publish this type (so that clients can write reports) *)
     type t
   end
 
