@@ -40,8 +40,8 @@ module Tests = struct
     "failure" >: (lazy (expect_exception ~expected:(Failure "Foo bar 42") (lazy (failure "Foo %s %n" "bar" 42))));
     "invalid_argument" >: (lazy (expect_exception ~expected:(Invalid_argument "Grmbl baz 43") (lazy (invalid_argument "Grmbl %s %n" "baz" 43))));
     "Aliases" >:: [
-      "MatchFailure = Match_failure" >: (lazy (expect_exception ~expected:(MatchFailure ("../../src/Implementation/Exception.ml", 3, 30)) match_failure));
-      "AssertFailure = Assert_failure" >: (lazy (expect_exception ~expected:(AssertFailure ("../../src/Implementation/Exception.ml", 5, 26)) assert_failure));
+      "MatchFailure = Match_failure" >: (lazy (expect_exception ~expected:(MatchFailure ("Implementation/Exception.ml", 3, 30)) match_failure));
+      "AssertFailure = Assert_failure" >: (lazy (expect_exception ~expected:(AssertFailure ("Implementation/Exception.ml", 5, 26)) assert_failure));
       "InvalidArgument = Invalid_argument" >: (lazy (expect_exception ~expected:(InvalidArgument "List.nth") (lazy (OCSL.nth [] (-1)))));
       "Failure = Failure" >: (lazy (expect_exception ~expected:(Failure "foo") (lazy (OCSP.failwith "foo"))));
       "NotFound = Not_found" >: (lazy (expect_exception ~expected:NotFound (lazy (OCSL.find (fun _ -> true) [])))); (*BISECT-IGNORE*)

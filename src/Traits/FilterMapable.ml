@@ -1,9 +1,9 @@
 (* [ToList.|ToArray.|][filter|map|filter_map|flat_map][|_i|_acc] *)
 
-#include "../../src/Traits/FilterMapable.signatures.ml"
+#include "FilterMapable.signatures.ml"
 
 module ToContainer(C: sig type 'a t end) = struct
-  #include "../../src/Traits/FilterMapable.signatures.ToContainer.ml"
+  #include "FilterMapable.signatures.ToContainer.ml"
 
   module Tests = struct
     open Testing

@@ -1,17 +1,7 @@
 (jbuild_version 1)
 
-(library (
-  (name General)
-  (public_name General)
-  (preprocess (action (run ${bin:cppo} -V OCAML:${ocaml_version} ${<})))
-  (modules (General))
-  (libraries (num))
-  (flags (:standard -nopervasives -w @A-4-33-44-45-48))
-))
-
 (executable (
   (name unit_tests)
-  (preprocess (action (run ${bin:cppo} -V OCAML:${ocaml_version} ${<})))
   (modules (unit_tests))
   (libraries (General))
 ))

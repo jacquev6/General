@@ -6,9 +6,6 @@ eval `opam config env`
 opam install --yes utop cppo jbuilder
 clear
 
-# @todo Add #included file a jbuild dependencies, then remove next line
-rm -rf _build
-
 # @todo Integrate validation of ResetPervasives with jbuild:
 # in a demo app, check that:
 #  - all symbols in OCamlStandard.Pervasives are reset in ResetPervasives
@@ -25,7 +22,6 @@ jbuilder runtest --dev
 
 echo
 echo "Exporting interface as seen in utop"
-# @todo Fix generated doc/utop: some "General__Impl.Implementation.Xxx" appeared when flattening the code
 rm -rf doc/utop
 mkdir doc/utop
 
@@ -217,7 +213,7 @@ def utop(*options):
     yield UTop(process)
     process.communicate()
 
-with utop("-I", "_build/default") as utop:
+with utop("-I", "_build/default/src") as utop:
     def show(module_name):
         # print(module_name)
         module = utop.show_module(module_name)

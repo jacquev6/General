@@ -1,4 +1,4 @@
-#include "../../src/Traits/Displayable.signatures.ml"
+#include "Displayable.signatures.ml"
 
 module Tests = struct
   open Testing

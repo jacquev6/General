@@ -1,4 +1,4 @@
-#include "../../src/Traits/Parsable.signatures.ml"
+#include "Parsable.signatures.ml"
 
 module Tests = struct
   open Testing

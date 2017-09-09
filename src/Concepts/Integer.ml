@@ -1,4 +1,4 @@
-#include "../../src/Concepts/Integer.signatures.ml"
+#include "Integer.signatures.ml"
 
 module Tests = struct
   open Testing

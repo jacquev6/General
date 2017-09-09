@@ -1,8 +1,8 @@
 module Operators = struct
-  #include "../../src/Concepts/Number.signatures.Operators.ml"
+  #include "Number.signatures.Operators.ml"
 end
 
-#include "../../src/Concepts/Number.signatures.ml"
+#include "Number.signatures.ml"
 
 module Tests = struct
   open Testing

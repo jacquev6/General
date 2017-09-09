@@ -1,4 +1,4 @@
-#include "../../src/Traits/PredSucc.signatures.ml"
+#include "PredSucc.signatures.ml"
 
 (* module Make0(M: sig
   type t

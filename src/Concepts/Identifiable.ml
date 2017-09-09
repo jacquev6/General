@@ -1,4 +1,4 @@
-#include "../../src/Concepts/Identifiable.signatures.ml"
+#include "Identifiable.signatures.ml"
 
 module Tests = struct
   open Testing

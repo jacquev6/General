@@ -1,5 +1,5 @@
 module Basic = struct
-  #include "../../src/Traits/Equatable.signatures.Basic.ml"
+  #include "Equatable.signatures.Basic.ml"
 
   module Specialize1(M: S1)(A: S0): S0 with type t = A.t M.t = struct
     type t = A.t M.t
@@ -38,7 +38,7 @@ module Basic = struct
 end
 
 module Operators = struct
-  #include "../../src/Traits/Equatable.signatures.Operators.ml"
+  #include "Equatable.signatures.Operators.ml"
 
   module Make0(M: sig
     type t
@@ -58,7 +58,7 @@ module Operators = struct
   end
 end
 
-#include "../../src/Traits/Equatable.signatures.ml"
+#include "Equatable.signatures.ml"
 
 module Different = struct
   module Make0(M: sig

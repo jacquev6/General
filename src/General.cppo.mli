@@ -4,18 +4,18 @@
 
 module Reset: sig
   (* @todo Don't include ../../src/ Instead, add included files as dependencies for preprocess actions. *)
-  #include "../../src/Reset/CommonHeader.ml"
-  #include "../../src/Reset/SignatureHeader.ml"
+  #include "Reset/CommonHeader.ml"
+  #include "Reset/SignatureHeader.ml"
 
   module ResetPervasives: sig
-    #include "../../src/Reset/ResetPervasives.ml"
+    #include "Reset/ResetPervasives.ml"
   end
 
   module ResetStandardLibrary: sig
-    #include "../../src/Reset/ResetStandardLibrary.ml"
+    #include "Reset/ResetStandardLibrary.ml"
   end
 
-  #include "../../src/Reset/Footer.ml"
+  #include "Reset/Footer.ml"
 end [@@autodoc.hide]
 
 (** Some doc for :mod:`General.Pervasives` *)
@@ -166,62 +166,62 @@ module Traits: sig
   (* @todo Publish helper functors (Specialize, Ringoid.Exponentiate.Make, Tests.Make, etc.) *)
 
   module Representable: sig
-    #include "../../src/Traits/Representable.signatures.ml"
+    #include "Traits/Representable.signatures.ml"
   end
 
   module Displayable: sig
-    #include "../../src/Traits/Displayable.signatures.ml"
+    #include "Traits/Displayable.signatures.ml"
   end
 
   module Parsable: sig
-    #include "../../src/Traits/Parsable.signatures.ml"
+    #include "Traits/Parsable.signatures.ml"
   end
 
   module Equatable: sig
     module Basic: sig
-      #include "../../src/Traits/Equatable.signatures.Basic.ml"
+      #include "Traits/Equatable.signatures.Basic.ml"
     end
 
     module Operators: sig
-      #include "../../src/Traits/Equatable.signatures.Operators.ml"
+      #include "Traits/Equatable.signatures.Operators.ml"
     end
 
-    #include "../../src/Traits/Equatable.signatures.ml"
+    #include "Traits/Equatable.signatures.ml"
   end
 
   module Comparable: sig
     module Basic: sig
-      #include "../../src/Traits/Comparable.signatures.Basic.ml"
+      #include "Traits/Comparable.signatures.Basic.ml"
     end
 
     module Operators: sig
-      #include "../../src/Traits/Comparable.signatures.Operators.ml"
+      #include "Traits/Comparable.signatures.Operators.ml"
     end
 
-    #include "../../src/Traits/Comparable.signatures.ml"
+    #include "Traits/Comparable.signatures.ml"
   end
 
   module Ringoid: sig
     module Basic: sig
-      #include "../../src/Traits/Ringoid.signatures.Basic.ml"
+      #include "Traits/Ringoid.signatures.Basic.ml"
     end
 
     module Operators: sig
-      #include "../../src/Traits/Ringoid.signatures.Operators.ml"
+      #include "Traits/Ringoid.signatures.Operators.ml"
     end
 
-    #include "../../src/Traits/Ringoid.signatures.ml"
+    #include "Traits/Ringoid.signatures.ml"
   end
 
   module PredSucc: sig
-    #include "../../src/Traits/PredSucc.signatures.ml"
+    #include "Traits/PredSucc.signatures.ml"
   end
 
   module FilterMapable: sig
-    #include "../../src/Traits/FilterMapable.signatures.ml"
+    #include "Traits/FilterMapable.signatures.ml"
 
     module ToContainer(C: sig type 'a t end): sig
-      #include "../../src/Traits/FilterMapable.signatures.ToContainer.ml"
+      #include "Traits/FilterMapable.signatures.ToContainer.ml"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -231,41 +231,41 @@ module Traits: sig
 
   module Foldable: sig
     module Basic: sig
-      #include "../../src/Traits/Foldable.signatures.Basic.ml"
+      #include "Traits/Foldable.signatures.Basic.ml"
     end
 
-    #include "../../src/Traits/Foldable.signatures.ml"
+    #include "Traits/Foldable.signatures.ml"
 
     module Right: sig
       module Basic: sig
-        #include "../../src/Traits/Foldable.signatures.Right.Basic.ml"
+        #include "Traits/Foldable.signatures.Right.Basic.ml"
       end
 
-      #include "../../src/Traits/Foldable.signatures.Right.ml"
+      #include "Traits/Foldable.signatures.Right.ml"
     end
 
     module Short: sig
       module Basic: sig
-        #include "../../src/Traits/Foldable.signatures.Short.Basic.ml"
+        #include "Traits/Foldable.signatures.Short.Basic.ml"
       end
 
-      #include "../../src/Traits/Foldable.signatures.Short.ml"
+      #include "Traits/Foldable.signatures.Short.ml"
 
       module Right: sig
         module Basic: sig
-          #include "../../src/Traits/Foldable.signatures.Short.Right.Basic.ml"
+          #include "Traits/Foldable.signatures.Short.Right.Basic.ml"
         end
 
-        #include "../../src/Traits/Foldable.signatures.Short.Right.ml"
+        #include "Traits/Foldable.signatures.Short.Right.ml"
       end
     end
   end
 
   module Scanable: sig
-    #include "../../src/Traits/Scanable.signatures.ml"
+    #include "Traits/Scanable.signatures.ml"
 
     module ToContainer(C: sig type 'a t end): sig
-      #include "../../src/Traits/Scanable.signatures.ToContainer.ml"
+      #include "Traits/Scanable.signatures.ToContainer.ml"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -273,10 +273,10 @@ module Traits: sig
     module ToArray: module type of ToContainer(struct type 'a t = 'a array end)
 
     module Right: sig
-      #include "../../src/Traits/Scanable.signatures.Right.ml"
+      #include "Traits/Scanable.signatures.Right.ml"
 
       module ToContainer(C: sig type 'a t end): sig
-        #include "../../src/Traits/Scanable.signatures.Right.ToContainer.ml"
+        #include "Traits/Scanable.signatures.Right.ToContainer.ml"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -285,10 +285,10 @@ module Traits: sig
     end
 
     module Short: sig
-      #include "../../src/Traits/Scanable.signatures.Short.ml"
+      #include "Traits/Scanable.signatures.Short.ml"
 
       module ToContainer(C: sig type 'a t end): sig
-        #include "../../src/Traits/Scanable.signatures.Short.ToContainer.ml"
+        #include "Traits/Scanable.signatures.Short.ToContainer.ml"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -296,10 +296,10 @@ module Traits: sig
       module ToArray: module type of ToContainer(struct type 'a t = 'a array end)
 
       module Right: sig
-        #include "../../src/Traits/Scanable.signatures.Short.Right.ml"
+        #include "Traits/Scanable.signatures.Short.Right.ml"
 
         module ToContainer(C: sig type 'a t end): sig
-          #include "../../src/Traits/Scanable.signatures.Short.Right.ToContainer.ml"
+          #include "Traits/Scanable.signatures.Short.Right.ToContainer.ml"
         end
 
         module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -323,35 +323,35 @@ module Concepts: sig
   (* @feature Concepts.Stringable including Parsable and Displayable *)
 
   module Identifiable: sig
-    #include "../../src/Concepts/Identifiable.signatures.ml"
+    #include "Concepts/Identifiable.signatures.ml"
   end
 
   module Able: sig
     module Operators: sig
-      #include "../../src/Concepts/Able.signatures.Operators.ml"
+      #include "Concepts/Able.signatures.Operators.ml"
     end
 
-    #include "../../src/Concepts/Able.signatures.ml"
+    #include "Concepts/Able.signatures.ml"
   end
 
   module Number: sig
     module Operators: sig
-      #include "../../src/Concepts/Number.signatures.Operators.ml"
+      #include "Concepts/Number.signatures.Operators.ml"
     end
 
-    #include "../../src/Concepts/Number.signatures.ml"
+    #include "Concepts/Number.signatures.ml"
   end
 
   module RealNumber: sig
     module Operators: sig
-      #include "../../src/Concepts/RealNumber.signatures.Operators.ml"
+      #include "Concepts/RealNumber.signatures.Operators.ml"
     end
 
-    #include "../../src/Concepts/RealNumber.signatures.ml"
+    #include "Concepts/RealNumber.signatures.ml"
   end
 
   module Integer: sig
-    #include "../../src/Concepts/Integer.signatures.ml"
+    #include "Concepts/Integer.signatures.ml"
   end
 end
 

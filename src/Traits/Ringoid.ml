@@ -1,9 +1,9 @@
 module Basic = struct
-  #include "../../src/Traits/Ringoid.signatures.Basic.ml"
+  #include "Ringoid.signatures.Basic.ml"
 end
 
 module Operators = struct
-  #include "../../src/Traits/Ringoid.signatures.Operators.ml"
+  #include "Ringoid.signatures.Operators.ml"
 
   module Make0(M: sig
     type t
@@ -41,7 +41,7 @@ module Operators = struct
   end
 end
 
-#include "../../src/Traits/Ringoid.signatures.ml"
+#include "Ringoid.signatures.ml"
 
 (* module Substract = struct
   module Make0(M: sig

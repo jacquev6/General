@@ -1,7 +1,7 @@
 (* @feature Descending, ascending *)
 
 module Basic = struct
-  #include "../../src/Traits/Comparable.signatures.Basic.ml"
+  #include "Comparable.signatures.Basic.ml"
 
   module Specialize1(M: S1)(A: S0): S0 with type t = A.t M.t = struct
     type t = A.t M.t
@@ -40,7 +40,7 @@ module Basic = struct
 end
 
 module Operators = struct
-  #include "../../src/Traits/Comparable.signatures.Operators.ml"
+  #include "Comparable.signatures.Operators.ml"
 
   module Make0(M: sig
     type t
@@ -69,7 +69,7 @@ module Operators = struct
   end
 end
 
-#include "../../src/Traits/Comparable.signatures.ml"
+#include "Comparable.signatures.ml"
 
 module GreaterLessThan = struct
   module Make0(M: sig
