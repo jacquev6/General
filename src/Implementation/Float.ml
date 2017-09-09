@@ -108,8 +108,6 @@ module ClassExamples = struct
     (NotANumber, "NotANumber");
   ]
 
-  let to_string = repr
-
   let equal = [
     [Normal];
     [SubNormal];

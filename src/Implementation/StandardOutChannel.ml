@@ -1,5 +1,3 @@
-module OCSP = OCamlStandard.Pervasives
-
 module Make(C: sig val channel: OutChannel.t end) = struct
   let channel = C.channel
 

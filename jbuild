@@ -4,7 +4,7 @@
   (name General)
   (public_name General)
   (preprocess (action (run ${bin:cppo} -V OCAML:${ocaml_version} ${<})))
-  (modules (General Impl))
+  (modules (General))
   (libraries (num))
   (flags (:standard -nopervasives -w @A-4-33-44-45-48))
 ))

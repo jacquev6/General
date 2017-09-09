@@ -43,7 +43,7 @@ end
 
 #include "../../src/Traits/Ringoid.signatures.ml"
 
-module Substract = struct
+(* module Substract = struct
   module Make0(M: sig
     type t
 
@@ -55,7 +55,7 @@ module Substract = struct
     let substract x y =
       add x (negate y)
   end
-end
+end *)
 
 module Square = struct
   module Make0(M: sig

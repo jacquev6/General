@@ -105,13 +105,13 @@ end
 module Shorten: sig
   (** Return type for functions used in short-circuit iterations over collections.
   (i.e: :val:`General.Traits.Foldable.Short.S0:fold_short`) *)
-  type t = Impl.Shorten.t =
+  type t =
     | GoOn (** Used to indicate iteration should proceed to next item *)
     | ShortCircuit (** Used to indicate iteration should stop after this item *)
 end
 
 module Compare: sig
-  type t = Impl.Compare.t = LT | EQ | GT
+  type t = LT | EQ | GT
 
   module Poly: sig
     val compare: 'a -> 'a -> t
@@ -684,6 +684,7 @@ module String: sig
   end
 
   include Traits.Displayable.S0 with type t := t
+  include Traits.Parsable.S0 with type t := t
   include Concepts.Able.S0 with type t := t and module O := O
 
   val concat: t -> t -> t
@@ -1363,7 +1364,7 @@ module Testing: sig
   end
 
   module Test: sig
-    type t = Impl.Testing.Test.t
+    type t
 
     val run: ?record_backtrace:bool -> t -> Result.t
   end
@@ -1381,6 +1382,8 @@ module Testing: sig
   val fail: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
 
   val expect_exception: expected:exn -> 'a lazy_t -> unit
+
+  val expect_exception_named: expected:string -> 'a lazy_t -> unit
 
   val check: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
 
@@ -1409,6 +1412,12 @@ module Testing: sig
   val check_some_int: expected:int -> int option -> unit
 
   val check_none_int: int option -> unit
+
+  val check_string_option: expected:string option -> string option -> unit
+
+  val check_some_string: expected:string -> string option -> unit
+
+  val check_none_string: string option -> unit
 
   val check_list: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a list -> 'a list -> unit
 

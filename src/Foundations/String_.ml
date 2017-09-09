@@ -12,6 +12,7 @@ let repr x =
 
 let to_string = Functions.Function1.identity
 let of_string = Functions.Function1.identity
+let try_of_string = Option.some
 
 let of_bytes = OCSB.to_string
 let to_bytes = OCSB.of_string
