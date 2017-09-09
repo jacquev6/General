@@ -92,7 +92,7 @@ module Foundations = struct
   end
 
   module Stream_ = struct
-    #include "Foundations/Stream_.cppo.ml"
+    #include "Foundations/Stream_.ml"
   end
 
   module Unit = struct
@@ -117,7 +117,7 @@ module Pervasives = Ubiquitous
 open Ubiquitous
 
 module Testing = struct
-  #include "Testing.cppo.ml"
+  #include "Testing.ml"
 end
 
 module Traits = struct
@@ -202,11 +202,11 @@ module Implementation = struct
   end
 
   module Int32_ = struct
-    #include "Implementation/Int32_.cppo.ml"
+    #include "Implementation/Int32_.ml"
   end
 
   module Int64_ = struct
-    #include "Implementation/Int64_.cppo.ml"
+    #include "Implementation/Int64_.ml"
   end
 
   module Float = struct
@@ -266,7 +266,7 @@ module Implementation = struct
   end
 
   module NativeInt_ = struct
-    #include "Implementation/NativeInt_.cppo.ml"
+    #include "Implementation/NativeInt_.ml"
   end
 
   module Option = struct
@@ -282,11 +282,11 @@ module Implementation = struct
   end
 
   module Tuples = struct
-    #include "Implementation/Tuples.cppo.ml"
+    #include "Implementation/Tuples.ml"
   end
 
   module RedBlackTree = struct
-    #include "Implementation/RedBlackTree.cppo.ml"
+    #include "Implementation/RedBlackTree.ml"
   end
 
   module Reference = struct
