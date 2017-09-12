@@ -1,9 +1,0 @@
-module Make0(M: sig
-  type t
-  val compare: t -> t -> General.Compare.t
-end): sig
-  val less_than: M.t -> M.t -> bool
-  val less_or_equal: M.t -> M.t -> bool
-  val greater_than: M.t -> M.t -> bool
-  val greater_or_equal: M.t -> M.t -> bool
-end

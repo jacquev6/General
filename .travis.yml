@@ -14,12 +14,11 @@ install:
   - opam switch --yes $OCAML_VERSION
   - eval `opam config env`
   - opam switch
-  - opam install --yes ocamlfind ocamlbuild cppo_ocamlbuild
+  - opam install --yes jbuilder cppo js_of_ocaml-compiler
   - opam upgrade --yes
   - opam list
 script:
-  - ocamlbuild -use-ocamlfind -plugin-tag "package(cppo_ocamlbuild)" -tag debug unit_tests.byte
-  - _build/src/unit_tests.byte
+  - jbuilder runtest
 env:
   - OCAML_VERSION=4.02.3
   - OCAML_VERSION=4.05.0

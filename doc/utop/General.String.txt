@@ -10,6 +10,8 @@ module String: sig
   val to_bytes: t -> t
   module O
   val to_string: t -> t
+  val try_of_string: t -> t option
+  val of_string: t -> t
   val equal: t -> t -> bool
   val different: t -> t -> bool
   val repr: t -> t

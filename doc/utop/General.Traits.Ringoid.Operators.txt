@@ -9,5 +9,4 @@ module Operators: sig
     val (/): t -> t -> t
     val (**): t -> int -> t
   end
-  module Make0
 end

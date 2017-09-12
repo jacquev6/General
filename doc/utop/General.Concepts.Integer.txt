@@ -51,5 +51,4 @@ module Integer: sig
     val succ: t -> t
     val pred: t -> t
   end
-  module Tests
 end

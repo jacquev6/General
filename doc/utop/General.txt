@@ -1,10 +1,11 @@
 module General: sig
+  module Reset
   module Pervasives
   module Shorten
-  module Traits
-  module Concepts
   module Compare
   module Equate
+  module Traits
+  module Concepts
   module CallStack
   module Exception
   module Exit
@@ -65,4 +66,5 @@ module General: sig
   module Testing
   module Standard
   module Abbr
+  module Tests
 end

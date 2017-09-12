@@ -1,4 +1,0 @@
-module Specialize3(M: General.Traits.Representable.Basic.S3)(A: General.Traits.Representable.Basic.S0)(B: General.Traits.Representable.Basic.S0)(C: General.Traits.Representable.Basic.S0): sig
-  type t = (A.t, B.t, C.t) M.t
-  val repr: t -> string
-end

@@ -19,7 +19,7 @@ module Poly = struct
 
   let of_list vs =
     vs
-    |> List_.fold ~init:empty ~f:(fun t v ->
+    |> List.fold ~init:empty ~f:(fun t v ->
       add t ~v
       |> Tuples.Tuple2.get_1
     )
@@ -57,7 +57,7 @@ module Make(E: Traits.Comparable.Basic.S0) = struct
 
   let of_list vs =
     vs
-    |> List_.fold ~init:empty ~f:(fun t v ->
+    |> List.fold ~init:empty ~f:(fun t v ->
       add t ~v
       |> Tuples.Tuple2.get_1
     )

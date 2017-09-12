@@ -1,33 +1,9 @@
-open Foundations
-
 module Basic = struct
-  module type S0 = sig
-    type t
-
-    val zero: t
-    val one: t
-
-    val negate: t -> t
-    val add: t -> t -> t
-    val substract: t -> t -> t
-    val multiply: t -> t -> t
-    val divide: t -> t -> t
-  end
+  #include "Ringoid.signatures.Basic.ml"
 end
 
 module Operators = struct
-  module type S0 = sig
-    type t
-
-    val (~+): t -> t
-    val (~-): t -> t
-    val (+): t -> t -> t
-    val (-): t -> t -> t
-    val ( * ): t -> t -> t
-    val (/): t -> t -> t
-
-    val ( ** ): t -> int -> t
-  end
+  #include "Ringoid.signatures.Operators.ml"
 
   module Make0(M: sig
     type t
@@ -65,16 +41,9 @@ module Operators = struct
   end
 end
 
-module type S0 = sig
-  include Basic.S0
+#include "Ringoid.signatures.ml"
 
-  val square: t -> t
-  val exponentiate: t -> int -> t
-
-  module O: Operators.S0 with type t := t
-end
-
-module Substract = struct
+(* module Substract = struct
   module Make0(M: sig
     type t
 
@@ -86,7 +55,7 @@ module Substract = struct
     let substract x y =
       add x (negate y)
   end
-end
+end *)
 
 module Square = struct
   module Make0(M: sig
@@ -149,7 +118,7 @@ module Tests = struct
 
   module Make0(M: sig
     include S0
-    include Representable.Basic.S0 with type t := t
+    include Representable.S0 with type t := t
     include Equatable.Basic.S0 with type t := t
   end)(E: Examples.S0 with type t := M.t): sig val test: Test.t end = struct
     open M
@@ -191,7 +160,7 @@ module Tests = struct
 
     let test = "Ringoid" >:: (
       E.add_substract
-      |> List_.flat_map ~f:(fun (x, y, z) ->
+      |> List.flat_map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y and rz = repr z in
         [
           ~: "add %s %s" rx ry (lazy (check ~expected:z (add x y)));
@@ -206,7 +175,7 @@ module Tests = struct
       )
     ) @ (
       E.negate
-      |> List_.flat_map ~f:(fun (x, y) ->
+      |> List.flat_map ~f:(fun (x, y) ->
         let rx = repr x and ry = repr y in
         [
           ~: "negate %s" rx (lazy (check ~expected:y (negate x)));
@@ -227,7 +196,7 @@ module Tests = struct
       )
     ) @ (
       E.multiply
-      |> List_.flat_map ~f:(fun (x, y, expected) ->
+      |> List.flat_map ~f:(fun (x, y, expected) ->
         let rx = repr x and ry = repr y in
         [
           ~: "multiply %s %s" rx ry (lazy (check ~expected (multiply x y)));
@@ -236,7 +205,7 @@ module Tests = struct
       )
     ) @ (
       E.divide
-      |> List_.flat_map ~f:(fun (x, y, expected) ->
+      |> List.flat_map ~f:(fun (x, y, expected) ->
         let rx = repr x and ry = repr y in
         [
           ~: "divide %s %s" rx ry (lazy (check ~expected (divide x y)));
@@ -245,7 +214,7 @@ module Tests = struct
       )
     ) @ (
       E.exponentiate
-      |> List_.flat_map ~f:(fun (x, n, expected) ->
+      |> List.flat_map ~f:(fun (x, n, expected) ->
         let rx = repr x in
         [
           ~: "exponentiate %s %n" rx n (lazy (check ~expected (exponentiate x n)));

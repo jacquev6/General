@@ -1,8 +1,0 @@
-module Make0(M: sig
-  type t
-  val equal: t -> t -> bool
-  val different: t -> t -> bool
-end): sig
-  val (=): M.t -> M.t -> bool
-  val (<>): M.t -> M.t -> bool
-end

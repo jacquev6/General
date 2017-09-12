@@ -17,7 +17,7 @@ module Location = struct
   }
 
   let repr {filename; line_number; start_char; end_char} =
-    Format_.apply "{filename=%S; line_number=%n; start_char=%n; end_char=%n}" filename line_number start_char end_char
+    Format.apply "{filename=%S; line_number=%n; start_char=%n; end_char=%n}" filename line_number start_char end_char
 
   module O = struct
     include Equate.Poly.O
@@ -41,4 +41,4 @@ end
 let frames bt =
   match OCSPE.backtrace_slots bt with
     | None -> [] (*BISECT-IGNORE*) (* Would require compiling without tag debug *)
-    | Some frames -> List_.of_array frames
+    | Some frames -> List.of_array frames

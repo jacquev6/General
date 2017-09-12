@@ -1,9 +1,0 @@
-module Specialize3(M: General.Traits.Equatable.S3)(A: General.Traits.Equatable.Basic.S0)(B: General.Traits.Equatable.Basic.S0)(C: General.Traits.Equatable.Basic.S0): sig
-  type t = (A.t, B.t, C.t) M.t
-  val equal: t -> t -> bool
-  val different: t -> t -> bool
-  module O: sig
-    val (=): t -> t -> bool
-    val (<>): t -> t -> bool
-  end
-end

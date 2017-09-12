@@ -1,7 +1,0 @@
-module Make2(M: General.Traits.Representable.S2)(E: sig
-  module A: General.Traits.Representable.Tests.Examples.Element
-  module B: General.Traits.Representable.Tests.Examples.Element
-  val repr: ((A.t, B.t) M.t * string) list
-end): sig
-  val test: General.Testing.Test.t
-end

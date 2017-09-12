@@ -1,10 +1,7 @@
-open Implementation
-module SortedMap = Implementation.SortedMap
-
 module Int = SortedMap.Make(Int)
 
 module Float = SortedMap.Make(Float)
 
-module String_ = SortedMap.Make(String_)
+module String = SortedMap.Make(String)
 
-module Char_ = SortedMap.Make(Char_)
+module Char = SortedMap.Make(Char)

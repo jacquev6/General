@@ -12,7 +12,7 @@ module SelfA = struct
   let of_float x =
     let of_small_float x =
       x
-      |> Int64_.of_float
+      |> Int64.of_float
       |> OCSB.big_int_of_int64
     and breakpoint =
       58 (* Any integer between 53 and 63 (included) works, because floats have 53 significant bits and int64s have 63 significant bits *)

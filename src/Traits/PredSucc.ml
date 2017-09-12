@@ -1,13 +1,6 @@
-open Foundations
+#include "PredSucc.signatures.ml"
 
-module type S0 = sig
-  type t
-
-  val succ: t -> t
-  val pred: t -> t
-end
-
-module Make0(M: sig
+(* module Make0(M: sig
   type t
 
   val one: t
@@ -22,7 +15,7 @@ end) = struct
 
   let succ x =
     add x one
-end
+end *)
 
 module Tests = struct
   open Testing
@@ -38,13 +31,13 @@ module Tests = struct
   module Make0(M: sig
     include S0
     include Equatable.Basic.S0 with type t := t
-    include Representable.Basic.S0 with type t := t
+    include Representable.S0 with type t := t
   end)(E: Examples.S0 with type t := M.t) = struct
     open M
 
     let test = "PredSucc" >:: (
       E.succ
-      |> List_.flat_map ~f:(fun (p, s) ->
+      |> List.flat_map ~f:(fun (p, s) ->
         let rp = repr p and rs = repr s in
         [
           ~: "succ %s" rp (lazy (check ~repr ~equal ~expected:s (succ p)));

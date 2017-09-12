@@ -24,7 +24,7 @@ module Tuple2 = struct
     Bool.O.(equal_a x x' && equal_b y y')
 
   let repr (x, y) ~repr_a ~repr_b =
-    Format_.apply "(%s, %s)" (repr_a x) (repr_b y)
+    Format.apply "(%s, %s)" (repr_a x) (repr_b y)
 end
 
 module Tuple3 = struct
@@ -60,7 +60,7 @@ module Tuple3 = struct
     Bool.O.(equal_a x x' && equal_b y y' && equal_c z z')
 
   let repr (x, y, z) ~repr_a ~repr_b ~repr_c =
-    Format_.apply "(%s, %s, %s)" (repr_a x) (repr_b y) (repr_c z)
+    Format.apply "(%s, %s, %s)" (repr_a x) (repr_b y) (repr_c z)
 end
 
 module Tuple4 = struct
@@ -103,7 +103,7 @@ module Tuple4 = struct
     Bool.O.(equal_a x x' && equal_b y y' && equal_c z z' && equal_d u u')
 
   let repr (x, y, z, u) ~repr_a ~repr_b ~repr_c ~repr_d =
-    Format_.apply "(%s, %s, %s, %s)" (repr_a x) (repr_b y) (repr_c z) (repr_d u)
+    Format.apply "(%s, %s, %s, %s)" (repr_a x) (repr_b y) (repr_c z) (repr_d u)
 end
 
 module Tuple5 = struct
@@ -153,5 +153,5 @@ module Tuple5 = struct
     Bool.O.(equal_a x x' && equal_b y y' && equal_c z z' && equal_d u u' && equal_e v v')
 
   let repr (x, y, z, u, v) ~repr_a ~repr_b ~repr_c ~repr_d ~repr_e =
-    Format_.apply "(%s, %s, %s, %s, %s)" (repr_a x) (repr_b y) (repr_c z) (repr_d u) (repr_e v)
+    Format.apply "(%s, %s, %s, %s, %s)" (repr_a x) (repr_b y) (repr_c z) (repr_d u) (repr_e v)
 end

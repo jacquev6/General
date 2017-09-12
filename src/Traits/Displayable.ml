@@ -1,14 +1,4 @@
-open Foundations
-
-module Basic = struct
-  module type S0 = sig
-    type t
-
-    val to_string: t -> string
-  end
-end
-
-include Basic
+#include "Displayable.signatures.ml"
 
 module Tests = struct
   open Testing
@@ -26,7 +16,7 @@ module Tests = struct
 
     let test = "Displayable" >:: (
       E.to_string
-      |> List_.map ~f:(fun (v, expected) ->
+      |> List.map ~f:(fun (v, expected) ->
         ~: "to_string %s" expected (lazy (check_string ~expected (to_string v)))
       )
     )

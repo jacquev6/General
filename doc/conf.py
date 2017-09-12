@@ -8,7 +8,7 @@ author = '<a href="http://vincent-jacques.net/">Vincent Jacques</a>'
 copyright = ('2017 {} <script>var jacquev6_ribbon_github="{}"</script>'.format(author, project) +
              '<script src="https://jacquev6.github.io/ribbon.js"></script>')
 
-version = "0.3.0"  # @todo Remove triplication of version (/opam, /META and /doc/conf.py)
+version = "0.3.0"  # @todo Remove duplication of version (/General.opam and /doc/conf.py)
 release = version
 
 nitpicky = True
@@ -17,8 +17,7 @@ extensions = []
 # https://github.com/jacquev6/sphinx-ocaml
 extensions.append("sphinxcontrib.ocaml")
 primary_domain = "ocaml"
-ocaml_source_directories = ["src"]
-ocaml_include_directories = ["_build/for_autodoc/src"]
+ocaml_source_directories = ["_build/default/src"]
 
 # https://github.com/bitprophet/alabaster
 # html_theme_path

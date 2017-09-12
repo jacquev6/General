@@ -1,33 +1,8 @@
-open Foundations
-
 module Operators = struct
-  module type S0 = sig
-    type t
-
-    include Number.Operators.S0 with type t := t
-    include Traits.Comparable.Operators.S0 with type t := t
-
-    val (mod): t -> t -> t
-  end
+  #include "RealNumber.signatures.Operators.ml"
 end
 
-module type S0 = sig
-  type t
-
-  module O: Operators.S0 with type t := t
-
-  include Number.S0 with type t := t and module O := O
-  include Traits.Comparable.S0 with type t := t and module O := O
-
-  val abs: t -> t
-  val modulo: t -> t -> t
-
-  (* @feature Traits.ToStandardNumbers? *)
-  val to_int: t -> int
-  val to_float: t -> float
-
-  (* @feature sign *)
-end
+#include "RealNumber.signatures.ml"
 
 module Tests = struct
   open Testing
@@ -59,7 +34,7 @@ module Tests = struct
       (let module T = Traits.Comparable.Tests.Make0(M)(E) in T.test);
     ] @ (
       E.negate
-      |> List_.flat_map ~f:(fun (x, y) ->
+      |> List.flat_map ~f:(fun (x, y) ->
         let abs_x = if greater_or_equal x zero then x else y
         and abs_y = if greater_or_equal y zero then y else x in
         [

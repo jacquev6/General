@@ -21,7 +21,7 @@ module Poly = struct
 
   let of_list_first vs =
     vs
-    |> List_.fold ~init:empty ~f:(fun t (k, v) ->
+    |> List.fold ~init:empty ~f:(fun t (k, v) ->
       add t ~k ~v
       |> Tuples.Tuple2.get_1
     )
@@ -31,7 +31,7 @@ module Poly = struct
 
   let of_list_last vs =
     vs
-    |> List_.fold ~init:empty ~f:(fun t (k, v) ->
+    |> List.fold ~init:empty ~f:(fun t (k, v) ->
       replace t ~k ~v
     )
 
@@ -71,7 +71,7 @@ module Make(K: Traits.Comparable.Basic.S0) = struct
 
   let of_list_first vs =
     vs
-    |> List_.fold ~init:empty ~f:(fun t (k, v) ->
+    |> List.fold ~init:empty ~f:(fun t (k, v) ->
       add t ~k ~v
       |> Tuples.Tuple2.get_1
     )
@@ -81,7 +81,7 @@ module Make(K: Traits.Comparable.Basic.S0) = struct
 
   let of_list_last vs =
     vs
-    |> List_.fold ~init:empty ~f:(fun t (k, v) ->
+    |> List.fold ~init:empty ~f:(fun t (k, v) ->
       replace t ~k ~v
     )
 

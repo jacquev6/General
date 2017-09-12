@@ -50,5 +50,4 @@ module RealNumber: sig
     val to_int: t -> int
     val to_float: t -> float
   end
-  module Tests
 end

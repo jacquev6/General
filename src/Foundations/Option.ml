@@ -16,7 +16,7 @@ let compare x y ~compare_a =
 let repr x ~repr_a =
   match x with
     | None -> "None"
-    | Some x -> Format_.apply "Some %s" (repr_a x)
+    | Some x -> Format.apply "Some %s" (repr_a x)
 
 let none = None
 
@@ -24,7 +24,7 @@ let some x =
   Some x
 
 let some_if condition value =
-  if condition then Some (Lazy_.value value) else None
+  if condition then Some (Lazy.value value) else None
 
 let some_if' condition value =
   if condition then Some value else None
@@ -40,7 +40,7 @@ let value ?(exc=Failure "Option.value") x =
     | None -> OCSP.raise exc
 
 let or_failure format =
-  Format_.with_result
+  Format.with_result
     ~f:(fun message ->
       function
       | None ->

@@ -2,8 +2,8 @@ include Bool.O
 include Float.O_dot
 include Functions.Function1.O
 include Int.O
-include List_.O
-include String_.O
+include List.O
+include String.O
 include Reference.O
 
 include Equate.Poly.O
