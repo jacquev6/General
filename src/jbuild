@@ -1,3 +1,5 @@
+(jbuild_version 1)
+
 ; @todo Generate cppo dependencies to #included file instead of listing them manually. Handle recursive inclusions
 
 (rule (
