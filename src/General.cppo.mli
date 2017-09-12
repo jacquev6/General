@@ -159,11 +159,14 @@ module Equate: sig
   end
 end
 
+(** Traits are isolated capabilities associated with a type. *)
 module Traits: sig
   (* @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
   (* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
   (* @feature Publish helper functors (Specialize, Ringoid.Exponentiate.Make, Tests.Make, etc.) *)
 
+  (** A *representation* is a string representing a value for a software developer audience.
+  When possible, it should a valid OCaml expression for the value. *)
   module Representable: sig
     #include "Traits/Representable.signatures.ml"
   end

@@ -17,8 +17,7 @@ extensions = []
 # https://github.com/jacquev6/sphinx-ocaml
 extensions.append("sphinxcontrib.ocaml")
 primary_domain = "ocaml"
-ocaml_source_directories = ["src"]
-ocaml_include_directories = ["_build/for_autodoc/src"]
+ocaml_source_directories = ["_build/default/src"]
 
 # https://github.com/bitprophet/alabaster
 # html_theme_path

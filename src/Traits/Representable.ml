@@ -1,6 +1,3 @@
-(* Representation: a string representing the object for a software developer audience.
-When possible, it should a valid OCaml expression representing the value. *)
-
 #include "Representable.signatures.ml"
 
 module Specialize1(M: S1)(A: S0): S0 with type t = A.t M.t = struct

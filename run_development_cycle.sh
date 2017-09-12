@@ -248,8 +248,6 @@ then
     echo "Building doc"
     echo
 
-    build -build-dir _build/for_autodoc -tag keep_docs General.cmi
-
     rm -rf _build/sphinx  # Keep while we're developing the Sphinx extension
     sphinx-build doc _build/sphinx/html -d _build/sphinx/doctrees
     rm -rf docs
