@@ -3,7 +3,7 @@
 set -o errexit
 
 eval `opam config env`
-opam install --yes utop cppo jbuilder
+opam install --yes utop cppo jbuilder num js_of_ocaml-compiler
 clear
 
 # @todo Integrate validation of ResetPervasives with jbuild:
