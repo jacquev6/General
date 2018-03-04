@@ -728,6 +728,7 @@ module Bytes: sig
   val get: t -> int -> char
   val set: t -> int -> char -> unit
 
+  val empty: t
   val make: len:int -> t
 end
 

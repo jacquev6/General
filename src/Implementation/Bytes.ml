@@ -10,5 +10,7 @@ let set = OCSB.set
 
 let size = OCSB.length
 
+let empty = OCSB.empty
+
 let make ~len =
   OCSB.create len
