@@ -16,6 +16,7 @@ module Testing: sig
   val check_true: bool -> unit
   val check_false: bool -> unit
   val check_int: expected:int -> int -> unit
+  val check_float: ?precision:float -> expected:float -> float -> unit
   val check_float_exact: expected:float -> float -> unit
   val check_option: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a option -> 'a option -> unit
   val check_some: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a option -> unit

@@ -32,6 +32,7 @@ module Float: sig
   val modulo: t -> t -> t
   val to_int: t -> int
   val to_float: t -> t
+  val approx_equal: ?precision:t -> t -> t -> bool
   val epsilon: t
   val smallest: t
   val greatest: t

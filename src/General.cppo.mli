@@ -615,6 +615,8 @@ module Float: sig
 
   include Concepts.RealNumber.S0 with type t := t
 
+  val approx_equal: ?precision:t -> t -> t -> bool
+
   val epsilon: t
   val smallest: t
   val greatest: t
@@ -1400,6 +1402,8 @@ module Testing: sig
   val check_false: bool -> unit
 
   val check_int: expected:int -> int -> unit
+
+  val check_float: ?precision:float -> expected:float -> float -> unit
 
   val check_float_exact: expected:float -> float -> unit
 

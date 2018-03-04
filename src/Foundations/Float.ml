@@ -77,6 +77,9 @@ end
 include (Compare.Poly: module type of Compare.Poly with module O := O)
 include (Equate.Poly: module type of Equate.Poly with module O := O)
 
+let approx_equal ?(precision=1e-10) a b =
+  less_than (abs (substract a b)) precision
+
 module O_dot = struct
   let (~-.) = OCSP.(~-.)
   let (~+.) = OCSP.(~+.)

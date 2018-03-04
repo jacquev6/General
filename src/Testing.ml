@@ -285,6 +285,9 @@ let check_int ~expected actual =
 let check_42 actual =
   check ~repr:Int.repr ~equal:Int.equal ~expected:42 actual
 
+let check_float ?precision ~expected actual =
+  check ~repr:Float.repr ~equal:(Float.approx_equal ?precision) ~expected actual
+
 let check_float_exact ~expected actual =
   check ~repr:Float.repr ~equal:Float.equal ~expected actual
 
