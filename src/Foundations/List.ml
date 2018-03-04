@@ -473,6 +473,16 @@ module Two = struct
         Exception.invalid_argument "List.Two.to_pair_list"
     in
     aux [] (xs, ys)
+
+  let to_pair_list_short xs ys =
+    let rec aux zs = function
+      | ([], _)
+      | (_, []) ->
+        reverse zs
+      | (x::xs, y::ys) ->
+        aux ((x, y)::zs) (xs, ys)
+    in
+    aux [] (xs, ys)
 end
 
 

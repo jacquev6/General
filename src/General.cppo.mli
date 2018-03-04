@@ -1015,6 +1015,7 @@ module List: sig
 
   module Two: sig
     val to_pair_list: 'a t -> 'b t -> ('a * 'b) t
+    val to_pair_list_short: 'a t -> 'b t -> ('a * 'b) t
   end
 
   module Specialize(A: sig type t end): sig
