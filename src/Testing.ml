@@ -71,24 +71,6 @@ module Result = struct
     status: Status.t;
   }
 
-  type group = {
-    name: string;
-    children: t list;
-  }
-
-  and t =
-    | Single of single
-    | Group of group
-
-  let rec repr = function
-    | Single {label; status} ->
-      Format.apply "Single {label=%S; status=%s}" label (Status.repr status)
-    | Group {name; children} ->
-      Format.apply "Group {name=%S; children=%s}" name (List.repr ~repr_a:repr children)
-
-  let equal x y =
-    Equate.Poly.equal x y
-
   module Counts = struct
     type t = {
       successes: int;
@@ -109,34 +91,39 @@ module Result = struct
         failures = failures + failures';
         errors = errors + errors';
       }
+
+    let repr {successes; failures; errors} =
+      Format.apply "{successes=%i; failures=%i; errors=%i}" successes failures errors
   end
 
-  let rec decorate_with_counts = function
+  type group = {
+    name: string;
+    children: t list;
+    counts: Counts.t;
+  }
+
+  and t =
+    | Single of single
+    | Group of group
+
+  let rec repr = function
     | Single {label; status} ->
-      `Single (label, status)
-    | Group {name; children} ->
-      let children = List.map ~f:decorate_with_counts children in
-      let counts =
-        children
-        |> List.map ~f:(function
-          | `Single (_, status) ->
-            Counts.of_status status
-          | `Group (_, _, counts) ->
-            counts
-        )
-        |> List.fold ~init:Counts.zero ~f:Counts.add
-      in
-      `Group (name, children, counts)
+      Format.apply "Single {label=%S; status=%s}" label (Status.repr status)
+    | Group {name; children; counts} ->
+      Format.apply "Group {name=%S; children=%s; counts=%s}" name (List.repr ~repr_a:repr children) (Counts.repr counts)
+
+  let equal x y =
+    Equate.Poly.equal x y
 
   let to_indented_strings ~verbose =
     let rec aux indent = function
-      | `Single (label, status) ->
+      | Single {label; status} ->
         if verbose || status <> Status.Success then
           (* @todo Indent potential backtrace or anything else that could span several lines *)
           [Format.apply "%s%S: %s" indent label (Status.to_string status)]
         else
           []
-      | `Group (name, children, {Counts.successes; failures; errors}) ->
+      | Group {name; children; counts={Counts.successes; failures; errors}} ->
         let children =
           children
           |> List.flat_map ~f:(aux (indent ^ "  "))
@@ -173,13 +160,22 @@ module Test = struct
     | Single of single
     | Group of group
 
-
   let run ?(record_backtrace=true) test =
     Exception.record_backtraces record_backtrace;
     let rec aux = function
       | Group {name; tests} ->
         let children = List.map ~f:aux tests in
-        Result.Group {Result.name; children}
+        let counts =
+          children
+          |> List.fold ~init:Result.Counts.zero ~f:(fun counts result ->
+            let counts' = match result with
+              | Result.Single {Result.status; _} -> Result.Counts.of_status status
+              | Result.Group {Result.counts; _} -> counts
+            in
+            Result.Counts.add counts counts'
+          )
+        in
+        Result.Group {Result.name; children; counts}
       | Single {label; check} ->
         try
           Lazy.value check;
@@ -202,16 +198,13 @@ let command_line_main ~argv test =
       | [_; "--verbose"] -> true
       | _ -> false
   in
-  let result =
-    test
-    |> Test.run
-    |> Result.decorate_with_counts
-  in
+  let result = Test.run test in
   result
   |> Result.to_indented_strings ~verbose
   |> List.iter ~f:(OCSPf.printf "%s\n");
   match result with
-    | `Single (_, Result.Status.Success) | `Group (_, _, {Result.Counts.failures=0; errors=0; _}) ->
+    | Result.Single {Result.status=Result.Status.Success; _}
+    | Result.Group {Result.counts={Result.Counts.failures=0; errors=0; _}; _} ->
       Exit.Success
     | _ -> Exit.Failure 1
 (*BISECT-IGNORE-END*)

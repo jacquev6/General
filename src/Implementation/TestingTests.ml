@@ -20,6 +20,7 @@ module Tests = struct
   module ResultExamples = struct
     open Result
     open Status
+    open Counts
 
     let repr = [
       (Single {label="foo"; status=Success}, "Single {label=\"foo\"; status=Success}");
@@ -30,7 +31,7 @@ module Tests = struct
       (Single {label="foo"; status=Failure (WrongExceptionNamed ("Foo", TestException0', None))}, "Single {label=\"foo\"; status=Failure (WrongExceptionNamed (\"Foo\", TestingTests.Tests.TestException0', None))}");
       (Single {label="foo"; status=Failure (Custom "bad")}, "Single {label=\"foo\"; status=Failure (Custom \"bad\")}");
       (Single {label="foo"; status=Error (TestException0, None)}, "Single {label=\"foo\"; status=Error (TestingTests.Tests.TestException0, None)}");
-      (Group {name="bar"; children=[Single {label="foo"; status=Success}]}, "Group {name=\"bar\"; children=[Single {label=\"foo\"; status=Success}]}");
+      (Group {name="bar"; children=[Single {label="foo"; status=Success}]; counts={successes=1; failures=2; errors=3}}, "Group {name=\"bar\"; children=[Single {label=\"foo\"; status=Success}]; counts={successes=1; failures=2; errors=3}}");
     ]
   end
 
@@ -42,13 +43,12 @@ module Tests = struct
           (expected |> Foundations.List.join_string_list ~sep:"\n") >: (lazy (
             let actual =
               result
-              |> Result.decorate_with_counts
               |> Result.to_indented_strings ~verbose
             in
             check_string_list ~expected actual
           ))
         in
-        Result.(Status.[
+        Result.(Status.(Counts.[
           make ~verbose:true
             ["\"foo\": OK"]
             (Single {label="foo"; status=Success});
@@ -106,32 +106,32 @@ module Tests = struct
               "  \"bar\": OK";
               "  \"baz\": OK";
             ]
-            (Group {name="foo"; children=[Single {label="bar"; status=Success}; Single {label="baz"; status=Success}]});
+            (Group {name="foo"; children=[Single {label="bar"; status=Success}; Single {label="baz"; status=Success}]; counts={successes=2; failures=0; errors=0}});
           make ~verbose:false
             [
               "\"foo\" (Successes: 2)";
             ]
-            (Group {name="foo"; children=[Single {label="bar"; status=Success}; Single {label="baz"; status=Success}]});
+            (Group {name="foo"; children=[Single {label="bar"; status=Success}; Single {label="baz"; status=Success}]; counts={successes=2; failures=0; errors=0}});
           make ~verbose:true
             [
               "\"foo\" (Successes: 1, failures: 1, errors: 0)";
               "  \"bar\": FAILED: nope";
               "  \"baz\": OK";
             ]
-            (Group {name="foo"; children=[Single {label="bar"; status=Failure (Custom "nope")}; Single {label="baz"; status=Success}]});
+            (Group {name="foo"; children=[Single {label="bar"; status=Failure (Custom "nope")}; Single {label="baz"; status=Success}]; counts={successes=1; failures=1; errors=0}});
           make ~verbose:false
             [
               "\"foo\" (Successes: 1, failures: 1, errors: 0)";
               "  \"bar\": FAILED: nope";
             ]
-            (Group {name="foo"; children=[Single {label="bar"; status=Failure (Custom "nope")}; Single {label="baz"; status=Success}]});
+            (Group {name="foo"; children=[Single {label="bar"; status=Failure (Custom "nope")}; Single {label="baz"; status=Success}]; counts={successes=1; failures=1; errors=0}});
           make
             [
               "\"foo\" (Successes: 0, failures: 0, errors: 1)";
               "  \"bar\": ERROR: exception TestingTests.Tests.TestException0 raised (no backtrace)";
             ]
-            (Group {name="foo"; children=[Single {label="bar"; status=Error (TestException0, None)}]});
-        ])
+            (Group {name="foo"; children=[Single {label="bar"; status=Error (TestException0, None)}]; counts={successes=0; failures=0; errors=1}});
+        ]))
       );
     ];
     "Test" >:: [
@@ -143,10 +143,10 @@ module Tests = struct
           in
           name >: (lazy (check ~repr:Result.repr ~equal:Result.equal ~expected (Test.run ~record_backtrace:false test)))
         in
-        Result.(Status.[
+        Result.(Status.(Counts.[
           make (Single {label="single success"; status=Success}) ("single success" >: (lazy ()));
           make
-            (Group {name="group success"; children=[Single {label="child"; status=Success}]})
+            (Group {name="group success"; children=[Single {label="child"; status=Success}]; counts={successes=1; failures=0; errors=0}})
             ("group success" >:: ["child" >: (lazy ())]);
           make
             (Single {label="not equal failure"; status=Failure (NotEqual ("42", "43"))})
@@ -163,7 +163,7 @@ module Tests = struct
           make
             (Single {label="error"; status=Error (TestException0, None)})
             ("error" >: (lazy (Exception.raise TestException0)));
-        ])
+        ]))
       );
     ];
   ]
