@@ -218,9 +218,9 @@ module Pervasives: sig
   val (@@): ('a -> 'b) -> 'a -> 'b
   val (|>): 'a -> ('a -> 'b) -> 'b
   val (%): ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
-  val ref: 'a -> 'a ref
-  val (:=): 'a ref -> 'a -> unit
-  val (!): 'a ref -> 'a
+  val ref: 'a -> 'a Pervasives.ref
+  val (:=): 'a Pervasives.ref -> 'a -> unit
+  val (!): 'a Pervasives.ref -> 'a
   val (=): 'a -> 'a -> bool
   val (<>): 'a -> 'a -> bool
   val (<): 'a -> 'a -> bool

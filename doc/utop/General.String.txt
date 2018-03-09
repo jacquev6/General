@@ -5,9 +5,9 @@ module String: sig
   val to_list: t -> char list
   val size: t -> int
   val get: t -> int -> char
-  val set: t -> int -> char -> unit
-  val of_bytes: t -> t
-  val to_bytes: t -> t
+  val set: bytes -> int -> char -> unit
+  val of_bytes: bytes -> t
+  val to_bytes: t -> bytes
   module O
   val to_string: t -> t
   val try_of_string: t -> t option
