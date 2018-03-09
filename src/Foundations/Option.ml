@@ -39,6 +39,8 @@ let value ?(exc=Failure "Option.value") x =
     | Some x -> x
     | None -> OCSP.raise exc
 
+(* @todo Why does (o |> value) complain about missing ?exc, but (ss |> StrLi.join) doesn't complain about ?sep ? *)
+
 let or_failure format =
   Format.with_result
     ~f:(fun message ->
