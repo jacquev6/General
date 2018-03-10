@@ -1194,7 +1194,25 @@ module SortedMap: sig
   end
 end
 
-(* @feature Heap *)
+(* @feature module Heap: sig
+  module Poly: sig
+    type 'a t
+
+    val empty: 'a t
+
+    val of_list: 'a list -> 'a t
+    val to_list: 'a t -> 'a list
+
+    val is_empty: 'a t -> bool
+    val size: 'a t -> int
+
+    val add: 'a t -> v:'a -> bool * 'a t
+    val replace: 'a t -> v:'a -> 'a t
+    val remove_min: 'a t -> 'a * 'a t
+    val min: 'a t -> 'a
+  end
+end *)
+
 (* @feature SortedList, UniqueList? *)
 (* @feature Double-ended queue *)
 (* @feature HashSet, HashMap *)
@@ -1633,6 +1651,7 @@ module Abbr: sig
   [@@autodoc.hide]
 end
 
+(* @todo Remove from interface, or make a functor, to avoid linking tests in client applications *)
 module Tests: sig
   val test: Testing.Test.t
 end [@@autodoc.hide]
