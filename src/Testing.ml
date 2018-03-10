@@ -281,6 +281,11 @@ let check_42 actual =
 let check_float ?precision ~expected actual =
   check ~repr:Float.repr ~equal:(Float.approx_equal ?precision) ~expected actual
 
+let check_float_in ~low ~high actual =
+  if actual < low || actual > high then
+    (* @todo Add a specific Result.Status *)
+    Exception.raise (TestFailure (Result.Status.Custom "not in"))
+
 let check_float_exact ~expected actual =
   check ~repr:Float.repr ~equal:Float.equal ~expected actual
 

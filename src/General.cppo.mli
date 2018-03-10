@@ -1299,6 +1299,8 @@ module Format: sig
   val of_string: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('a, 'b, 'c, 'd, 'e, 'f) t
 
   val concat: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('f, 'b, 'c, 'e, 'g, 'h) t -> ('a, 'b, 'c, 'd, 'g, 'h) t
+
+  val with_scan_result: ('a, Pervasives.OCamlStandard.Scanf.Scanning.scanbuf, 'b, 'c -> 'd, 'a -> 'e, 'e) t -> f:'c -> string -> 'd
 end
 
 module InChannel: sig
@@ -1437,6 +1439,8 @@ module Testing: sig
   val check_int: expected:int -> int -> unit
 
   val check_float: ?precision:float -> expected:float -> float -> unit
+
+  val check_float_in: low:float -> high:float -> float -> unit
 
   val check_float_exact: expected:float -> float -> unit
 
