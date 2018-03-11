@@ -43,6 +43,8 @@ module General: sig
   module Stream
   module SortedSet
   module SortedMap
+  module Heap
+  module PriorityQueue
   module IntRange
   module IntList
   module FloatList

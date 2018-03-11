@@ -15,6 +15,7 @@ module Abbr: sig
   module Fun3 = General.Function3
   module Fun4 = General.Function4
   module Fun5 = General.Function5
+  module Heap = General.Heap
   module InCh = General.InChannel
   module InFile = General.InFile
   module Int = General.Int
@@ -26,6 +27,7 @@ module Abbr: sig
   module Opt = General.Option
   module OutCh = General.OutChannel
   module OutFile = General.OutFile
+  module PriQu = General.PriorityQueue
   module Ref = General.Reference
   module SoMap = General.SortedMap
   module SoSet = General.SortedSet

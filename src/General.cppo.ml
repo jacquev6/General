@@ -297,6 +297,14 @@ module RedBlackTree = struct
   #include "Implementation/RedBlackTree.ml"
 end
 
+module BinaryHeap = struct
+  #include "Implementation/BinaryHeap.ml"
+end
+
+module PriorityQueue = struct
+  #include "Implementation/PriorityQueue.ml"
+end
+
 module Reference = struct
   #include "Implementation/Reference.ml"
 end
@@ -307,6 +315,10 @@ end
 
 module SortedSet = struct
   #include "Implementation/SortedSet.ml"
+end
+
+module Heap = struct
+  #include "Implementation/Heap.ml"
 end
 
 module StandardOutChannel = struct
@@ -403,6 +415,7 @@ module Standard = struct
   module Function3 = Function3
   module Function4 = Function4
   module Function5 = Function5
+  module Heap = Heap
   module InChannel = InChannel
   module InFile = InFile
   module Int = Int
@@ -414,6 +427,7 @@ module Standard = struct
   module Option = Option
   module OutChannel = OutChannel
   module OutFile = OutFile
+  module PriorityQueue = PriorityQueue
   module Reference = Reference
   module SortedMap = SortedMap
   module SortedSet = SortedSet
@@ -485,6 +499,7 @@ module Abbr = struct
   module Fun3 = Function3
   module Fun4 = Function4
   module Fun5 = Function5
+  module Heap = Heap
   module InCh = InChannel
   module InFile = InFile
   module Int = Int
@@ -496,6 +511,7 @@ module Abbr = struct
   module Opt = Option
   module OutCh = OutChannel
   module OutFile = OutFile
+  module PriQu = PriorityQueue
   module Ref = Reference
   module SoMap = SortedMap
   module SoSet = SortedSet
@@ -546,6 +562,7 @@ module Tests = struct
 
   let test = "General" >:: [
     BigInt.Tests.test;
+    BinaryHeap.Tests.test;
     Bool.Tests.test;
     CallStack.Tests.test;
     Exception.Tests.test;

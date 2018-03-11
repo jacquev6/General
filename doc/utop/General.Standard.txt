@@ -15,6 +15,7 @@ module Standard: sig
   module Function3 = General.Function3
   module Function4 = General.Function4
   module Function5 = General.Function5
+  module Heap = General.Heap
   module InChannel = General.InChannel
   module InFile = General.InFile
   module Int = General.Int
@@ -26,6 +27,7 @@ module Standard: sig
   module Option = General.Option
   module OutChannel = General.OutChannel
   module OutFile = General.OutFile
+  module PriorityQueue = General.PriorityQueue
   module Reference = General.Reference
   module SortedMap = General.SortedMap
   module SortedSet = General.SortedSet

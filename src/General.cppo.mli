@@ -1194,24 +1194,55 @@ module SortedMap: sig
   end
 end
 
-(* @feature module Heap: sig
+module Heap: sig
   module Poly: sig
     type 'a t
 
     val empty: 'a t
 
-    val of_list: 'a list -> 'a t
-    val to_list: 'a t -> 'a list
+    (* val of_list: 'a list -> 'a t *)
+    (* val to_list: 'a t -> 'a list *)
 
-    val is_empty: 'a t -> bool
-    val size: 'a t -> int
+    (* val is_empty: 'a t -> bool *)
+    (* val size: 'a t -> int *)
 
-    val add: 'a t -> v:'a -> bool * 'a t
-    val replace: 'a t -> v:'a -> 'a t
-    val remove_min: 'a t -> 'a * 'a t
-    val min: 'a t -> 'a
+    val add: 'a t -> v:'a -> 'a t
+    val pop_max: 'a t -> 'a t
+    val max: 'a t -> 'a
   end
-end *)
+
+  module Make(E: Traits.Comparable.Basic.S0): sig
+    type t
+
+    val empty: t
+
+    val add: t -> v:E.t -> t
+    val pop_max: t -> t
+    val max: t -> E.t
+  end
+end
+
+module PriorityQueue: sig
+  module Poly: sig
+    type ('a, 'b) t
+
+    val empty: ('a, 'b) t
+
+    val add: ('a, 'b) t -> k:'a -> v:'b -> ('a, 'b) t
+    val pop_max: ('a, 'b) t -> ('a, 'b) t
+    val max: ('a, 'b) t -> 'a * 'b
+  end
+
+  module Make(K: Traits.Comparable.Basic.S0): sig
+    type 'a t
+
+    val empty: 'a t
+
+    val add: 'a t -> k:K.t -> v:'a -> 'a t
+    val pop_max: 'a t -> 'a t
+    val max: 'a t -> K.t * 'a
+  end
+end
 
 (* @feature SortedList, UniqueList? *)
 (* @feature Double-ended queue *)
@@ -1509,6 +1540,7 @@ module Standard: sig
   module Function3 = Function3
   module Function4 = Function4
   module Function5 = Function5
+  module Heap = Heap
   module InChannel = InChannel
   module InFile = InFile
   module Int = Int
@@ -1520,6 +1552,7 @@ module Standard: sig
   module Option = Option
   module OutChannel = OutChannel
   module OutFile = OutFile
+  module PriorityQueue = PriorityQueue
   module Reference = Reference
   module SortedMap = SortedMap
   module SortedSet = SortedSet
@@ -1594,6 +1627,7 @@ module Abbr: sig
   module Fun3 = Function3
   module Fun4 = Function4
   module Fun5 = Function5
+  module Heap = Heap
   module InCh = InChannel
   module InFile = InFile
   module Int = Int
@@ -1605,6 +1639,7 @@ module Abbr: sig
   module Opt = Option
   module OutCh = OutChannel
   module OutFile = OutFile
+  module PriQu = PriorityQueue
   module Ref = Reference
   module SoMap = SortedMap
   module SoSet = SortedSet
