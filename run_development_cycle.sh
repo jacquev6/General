@@ -22,6 +22,7 @@ jbuilder runtest --dev
 
 echo
 echo "Exporting interface as seen in utop"
+jbuilder build --dev src/General.cmi
 rm -rf doc/utop
 mkdir doc/utop
 
