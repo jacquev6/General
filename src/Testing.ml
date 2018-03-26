@@ -298,6 +298,15 @@ let check_some ~repr ~equal ~expected actual =
 let check_none ~repr ~equal actual =
   check_option ~repr ~equal ~expected:None actual
 
+let check_option_poly ~repr ~expected actual =
+  check_option ~repr ~equal:Equate.Poly.equal ~expected actual
+
+let check_some_poly ~repr ~expected actual =
+  check_option_poly ~repr ~expected:(Some expected) actual
+
+let check_none_poly ~repr actual =
+  check_option_poly ~repr ~expected:None actual
+
 let check_int_option ~expected actual =
   check_option ~repr:Int.repr ~equal:Int.equal ~expected actual
 
@@ -321,6 +330,9 @@ let check_none_string actual =
 
 let check_list ~repr ~equal ~expected actual =
   check ~repr:(List.repr ~repr_a:repr) ~equal:(List.equal ~equal_a:equal) ~expected actual
+
+let check_list_poly ~repr ~expected actual =
+  check_list ~repr ~equal:Equate.Poly.equal ~expected actual
 
 let check_string_list ~expected actual =
   check_list ~repr:String.repr ~equal:String.equal ~expected actual

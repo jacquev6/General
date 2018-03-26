@@ -1495,9 +1495,15 @@ module Testing: sig
 
   val check_option: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a option -> 'a option -> unit
 
+  val check_option_poly: repr:('a -> string) -> expected:'a option -> 'a option -> unit
+
   val check_some: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a option -> unit
 
   val check_none: repr:('a -> string) -> equal:('a -> 'a -> bool) -> 'a option -> unit
+
+  val check_some_poly: repr:('a -> string) -> expected:'a -> 'a option -> unit
+
+  val check_none_poly: repr:('a -> string) -> 'a option -> unit
 
   val check_int_option: expected:int option -> int option -> unit
 
@@ -1512,6 +1518,8 @@ module Testing: sig
   val check_none_string: string option -> unit
 
   val check_list: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a list -> 'a list -> unit
+
+  val check_list_poly: repr:('a -> string) -> expected:'a list -> 'a list -> unit
 
   val check_string_list: expected:string list -> string list -> unit
 
