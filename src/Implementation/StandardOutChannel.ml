@@ -1,8 +1,11 @@
-module Make(C: sig val channel: OutChannel.t end) = struct
+module Make(C: sig
+  val channel: OutChannel.t
+  val flush: bool
+end) = struct
   let channel = C.channel
 
-  let print format =
-    OutChannel.print channel format
+  let print ?(flush=C.flush) format =
+    OutChannel.print ~flush channel format
 
   let output x =
     OutChannel.output channel x

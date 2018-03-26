@@ -1375,7 +1375,7 @@ end
 module OutChannel: sig
   type t = Pervasives.OCamlStandard.Pervasives.out_channel
 
-  val print: t -> ('a, t, unit, unit, unit, unit) Format.t -> 'a
+  val print: ?flush:bool -> t -> ('a, t, unit, unit, unit, unit) Format.t -> 'a
   val output: t -> bytes -> unit
   val flush: t -> unit
 end
@@ -1400,14 +1400,14 @@ end
 
 module StdOut: sig
   val channel: OutChannel.t
-  val print: ('a, OutChannel.t, unit, unit, unit, unit) Format.t -> 'a
+  val print: ?flush:bool -> ('a, OutChannel.t, unit, unit, unit, unit) Format.t -> 'a
   val output: bytes -> unit
   val flush: unit -> unit
 end
 
 module StdErr: sig
   val channel: OutChannel.t
-  val print: ('a, OutChannel.t, unit, unit, unit, unit) Format.t -> 'a
+  val print: ?flush:bool -> ('a, OutChannel.t, unit, unit, unit, unit) Format.t -> 'a
   val output: bytes -> unit
   val flush: unit -> unit
 end

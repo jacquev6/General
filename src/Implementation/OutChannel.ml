@@ -3,10 +3,12 @@ module OCSPr = OCamlStandard.Printf
 
 type t = OCSP.out_channel
 
-(* @todo Add optional ?flush parameter to flush the channel after the print *)
-let print channel format =
-  OCSPr.fprintf channel format
+let flush = OCSP.flush
+
+let print ?flush:(do_flush=false) channel format =
+  OCSPr.kfprintf
+    (fun channel -> if do_flush then flush channel)
+    channel
+    format
 
 let output = OCSP.output_bytes
-
-let flush = OCSP.flush
