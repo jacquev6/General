@@ -438,6 +438,9 @@ module Exception: sig
 
   val failure: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
 
+  val failure_if: bool -> ('a, unit, string, string, string, unit) CamlinternalFormatBasics.format6 -> 'a
+  val failure_unless: bool -> ('a, unit, string, string, string, unit) CamlinternalFormatBasics.format6 -> 'a
+
   val name: exn -> string
 
   val or_none: 'a lazy_t -> 'a option

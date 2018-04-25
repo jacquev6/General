@@ -10,6 +10,16 @@ module OCSL = OCamlStandard.List
 
 include Foundations.Exception
 
+let failure_if condition format =
+  Format.with_result
+    ~f:(fun message -> if condition then raise (Failure message))
+    format
+
+let failure_unless condition format =
+  Format.with_result
+    ~f:(fun message -> if not condition then raise (Failure message))
+    format
+
 module Tests = struct
   open Testing
 
