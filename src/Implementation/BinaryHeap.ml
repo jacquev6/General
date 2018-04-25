@@ -91,7 +91,7 @@ let pop_max xs ~cmp =
     let (l, r) = children i in
     if r < len then begin
       match (cmp xs.(i) xs.(l), cmp xs.(i) xs.(r)) with
-        | Compare.((GT | EQ), (GT | EQ)) ->
+        | ((Compare.GT | Compare.EQ), (Compare.GT | Compare.EQ)) ->
           ()
         | _ ->
           let c =
@@ -104,7 +104,7 @@ let pop_max xs ~cmp =
           aux c
     end else if l < len then begin
       match cmp xs.(i) xs.(l) with
-        | Compare.(GT | EQ) ->
+        | Compare.GT | Compare.EQ ->
           ()
         | Compare.LT ->
           swap xs i l;
