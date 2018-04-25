@@ -239,7 +239,7 @@ then
 fi
 
 opam pin add --yes --no-action .
-opam reinstall --yes General
+opam reinstall --yes General --build-test
 
 # @todo build -build-dir _build/with_package -package General demo.byte demo.native
 
