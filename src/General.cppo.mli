@@ -1609,6 +1609,9 @@ module Standard: sig
   with module Array := Array
   and module Bytes := Bytes
   and module Char := Char
+  #ifdef HAS_Float
+  and module Float := Float
+  #endif
   and module Format := Format
   and module Int32 := Int32
   and module Int64 := Int64
