@@ -1,6 +1,4 @@
-module SelfA = struct
-  include Foundations.Float
-
+module SelfB = struct
   include Traits.Ringoid.Exponentiate.Make0(struct
     include Foundations.Float
 
@@ -8,17 +6,14 @@ module SelfA = struct
       exponentiate (divide 1. x) (-n)
   end)
 
-  include Traits.Comparable.Between.Make0(Foundations.Float)
-end
-
-module SelfB = struct
   module O = struct
-    include SelfA.O
+    include Foundations.Float.O
 
-    let ( ** ) = SelfA.exponentiate
+    let ( ** ) = exponentiate
   end
 
-  include (SelfA: module type of SelfA with module O := O)
+  include Traits.Comparable.Between.Make0(Foundations.Float)
+  include (Foundations.Float: module type of Foundations.Float with module O := O)
 end
 
 include SelfB

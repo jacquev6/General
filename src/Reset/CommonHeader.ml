@@ -15,3 +15,10 @@
   #define HAS_Pervasives_read_int_opt
   #define HAS_Pervasives_read_float_opt
 #endif
+
+#if OCAML_VERSION >= (4, 7, 0)
+  #define HAS_Stdlib
+  #define HAS_Bigarray
+  #define HAS_Float
+  #define HAS_Seq
+#endif
