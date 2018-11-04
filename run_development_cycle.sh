@@ -23,8 +23,9 @@ dune runtest
 echo
 echo "Exporting interface as seen in utop"
 jbuilder build --dev src/.General.objs/General.cmi
-rm -rf doc/utop
-mkdir doc/utop
+UTOP_DESTINATION=doc/utop/$(opam switch show)
+rm -rf $UTOP_DESTINATION
+mkdir -p $UTOP_DESTINATION
 
 python3 <<END
 import contextlib
@@ -218,7 +219,7 @@ with utop("-I", "_build/default/src/.General.objs") as utop:
     def show(module_name):
         # print(module_name)
         module = utop.show_module(module_name)
-        with open("doc/utop/{}.txt".format(module_name), "w") as f:
+        with open("$UTOP_DESTINATION/{}.txt".format(module_name), "w") as f:
             f.write(module.text().replace("( ", "(").replace(" )", ")").replace(" :", ":"))
 
         if module_name not in [
