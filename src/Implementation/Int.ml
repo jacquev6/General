@@ -1,18 +1,22 @@
-module SelfB = struct
+module SelfA = struct
+  include Foundations.Int
+
   include Traits.Ringoid.Exponentiate.Make0(struct
     include Foundations.Int
 
     let exponentiate_negative_exponent ~exponentiate:_ _ n =
       Exception.invalid_argument "Int.exponentiate: Negative exponent: %i" n
   end)
+end
 
+module SelfB = struct
   module O = struct
-    include Foundations.Int.O
+    include SelfA.O
 
-    let ( ** ) = exponentiate
+    let ( ** ) = SelfA.exponentiate
   end
 
-  include (Foundations.Int: module type of Foundations.Int with module O := O)
+  include (SelfA: module type of SelfA[@remove_aliases] with module O := O)
 end
 
 include SelfB

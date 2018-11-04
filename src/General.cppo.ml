@@ -466,10 +466,8 @@ module Standard = struct
   module IntSortedMap = IntSortedMap
   module StringSortedMap = StringSortedMap
 
-  include Reset.ResetPervasives
   include (
-    (* Ubiquitous: module type of Ubiquitous *)
-    Reset.ResetStandardLibrary: module type of Reset.ResetStandardLibrary
+    Ubiquitous: module type of Ubiquitous[@remove_aliases]
     with module Array := Array
     and module Bytes := Bytes
     and module Char := Char
@@ -484,7 +482,6 @@ module Standard = struct
     and module Stream := Stream
     and module String := String
   )
-  include Foundations.PervasivesWhitelist
 end
 
 module Abbr = struct
@@ -556,14 +553,11 @@ module Abbr = struct
   module IntSoMap = IntSortedMap
   module StrSoMap = StringSortedMap
 
-  include Reset.ResetPervasives
   include (
-    (* Ubiquitous: module type of Ubiquitous *)
-    Reset.ResetStandardLibrary: module type of Reset.ResetStandardLibrary
+    Ubiquitous: module type of Ubiquitous[@remove_aliases]
     with module Int32 := Int32
     and module Int64 := Int64
   )
-  include Foundations.PervasivesWhitelist
 end
 
 module Tests = struct

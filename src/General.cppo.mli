@@ -1605,7 +1605,7 @@ module Standard: sig
 
   (** It also includes :mod:`General.Pervasives`. *)
 
-  include module type of Pervasives
+  include module type of Pervasives[@remove_aliases]
   with module Array := Array
   and module Bytes := Bytes
   and module Char := Char
@@ -1695,7 +1695,7 @@ module Abbr: sig
 
   (** It also includes :mod:`General.Pervasives`. *)
 
-  include module type of Pervasives
+  include module type of Pervasives[@remove_aliases]
   with module Int32 := Int32
   and module Int64 := Int64
   [@@autodoc.hide]
