@@ -3,7 +3,7 @@
 set -o errexit
 
 eval `opam config env`
-opam install --yes utop cppo jbuilder num js_of_ocaml-compiler
+opam install --yes utop cppo dune num js_of_ocaml-compiler
 clear
 
 # @todo Integrate validation of ResetPervasives with jbuild:
@@ -13,16 +13,16 @@ clear
 # Symbols: modules, types, exceptions, values, externals
 
 echo
-echo "Running unit tests in byte code using jbuilder"
+echo "Running unit tests in byte code using dune"
 # @todo Measure test coverage. If possible, module by module.
-jbuilder runtest --dev
+dune runtest
 
 # @todo build -build-dir _build/with_lib  -package num -lib General demo.native demo_pervasives.native demo_syntactic_sugar.native
 # @todo demo/_build/with_lib/demo.native
 
 echo
 echo "Exporting interface as seen in utop"
-jbuilder build --dev src/General.cmi
+jbuilder build --dev src/.General.objs/General.cmi
 rm -rf doc/utop
 mkdir doc/utop
 
@@ -214,7 +214,7 @@ def utop(*options):
     yield UTop(process)
     process.communicate()
 
-with utop("-I", "_build/default/src") as utop:
+with utop("-I", "_build/default/src/.General.objs") as utop:
     def show(module_name):
         # print(module_name)
         module = utop.show_module(module_name)
@@ -238,7 +238,7 @@ then
     exit
 fi
 
-opam pin add --yes --no-action .
+opam pin add --yes --no-action --kind=path .
 opam reinstall --yes General --build-test
 
 # @todo build -build-dir _build/with_package -package General demo.byte demo.native
