@@ -6,6 +6,6 @@
 
 #define ALIAS_MODULE(m) module m = m
 
-#define EMPTY_MODULE(m) module m:sig end
+#define EMPTY_MODULE(m) module m: sig end
 
 #define ALIAS_VALUE(name, t, v) val name: t

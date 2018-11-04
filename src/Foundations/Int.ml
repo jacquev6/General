@@ -19,7 +19,6 @@ let repr = OCSP.string_of_int
 let add = OCSP.(+)
 let substract = OCSP.(-)
 let negate = OCSP.(~-)
-let posate = OCSP.(~+)
 let multiply = OCSP.( * )
 let divide = OCSP.(/)
 let square x = multiply x x

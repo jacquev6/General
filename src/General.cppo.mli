@@ -535,6 +535,7 @@ module Bool: sig
     val not: t -> t
     val (&&): t -> t -> t (* Lazy *)
     val (||): t -> t -> t (* Lazy *)
+    val xor: t -> t -> t
   end
 
   include Concepts.Able.S0 with type t := t and module O := O
