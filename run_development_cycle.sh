@@ -2,7 +2,7 @@
 
 set -o errexit
 
-for OCAML_VERSION in 4.02 4.07
+for OCAML_VERSION in ${OCAML_VERSIONS:-4.02 4.03 4.04 4.05 4.06 4.07 4.08}
 do
     echo "OCaml $OCAML_VERSION"
     echo "=========="

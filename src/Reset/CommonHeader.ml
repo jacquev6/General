@@ -1,3 +1,5 @@
+#define HAS_Sort
+
 #if OCAML_VERSION >= (4, 3, 0)
   #define HAS_Pervasives_result
   #define HAS_Ephemeron
@@ -21,4 +23,9 @@
   #define HAS_Bigarray
   #define HAS_Float
   #define HAS_Seq
+#endif
+
+#if OCAML_VERSION >= (4, 8, 0)
+  #define DEPRECATES_Pervasives
+  #undef HAS_Sort
 #endif

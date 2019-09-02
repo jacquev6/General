@@ -1,6 +1,10 @@
 RESET_MODULE(OCamlStandard)
   (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/core.html *)
+  #ifdef DEPRECATES_Pervasives
+  module Pervasives = Stdlib
+  #else
   ALIAS_STDLIB_MODULE(Pervasives)
+  #endif
 
   (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/stdlib.html *)
   ALIAS_STDLIB_MODULE(Arg)
@@ -48,7 +52,9 @@ RESET_MODULE(OCamlStandard)
   ALIAS_STDLIB_MODULE(Seq)
   #endif
   ALIAS_STDLIB_MODULE(Set)
+  #ifdef HAS_Sort
   ALIAS_STDLIB_MODULE(Sort)
+  #endif
   #ifdef HAS_Spacetime
   ALIAS_STDLIB_MODULE(Spacetime)
   #endif
