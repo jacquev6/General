@@ -2,26 +2,64 @@
 
 set -o errexit
 
-eval `opam config env`
-opam install --yes utop cppo dune num js_of_ocaml-compiler
-clear
+for OCAML_VERSION in 4.02 4.07
+do
+    echo "OCaml $OCAML_VERSION"
+    echo "=========="
 
-# @todo Integrate validation of ResetPervasives with jbuild:
-# in a demo app, check that:
-#  - all symbols in OCamlStandard.Pervasives are reset in ResetPervasives
-#  - all symbols in ResetPervasives do exist in OCamlStandard.Pervasives
-# Symbols: modules, types, exceptions, values, externals
+    echo
+    echo "Building docker image"
+    echo "---------------------"
+
+    # Uncomment next line if you're too anxious to wait for the quiet build :)
+    # docker build --build-arg OCAML_VERSION=$OCAML_VERSION .
+    IMAGE=$(docker build --quiet --build-arg OCAML_VERSION=$OCAML_VERSION .)
+    RUN="docker run --rm --volume $PWD:/project --workdir /project $IMAGE"
+
+    mkdir -p _builds/$OCAML_VERSION
+    rm -f _build
+    ln -sf _builds/$OCAML_VERSION _build
+
+    echo
+    echo "Running tests"
+    echo "-------------"
+
+    # @todo Measure test coverage. If possible, module by module.
+    $RUN dune runtest
+
+    rm _build
+
+    echo
+    echo "Testing package install"
+    echo "-----------------------"
+
+    $RUN opam install General
+
+    # @todo Build demo apps (as native, byte code, and js)
+
+    # @todo Integrate validation of ResetPervasives with dune:
+    # in a demo app, check that:
+    #  - all symbols in OCamlStandard.Pervasives are reset in ResetPervasives
+    #  - all symbols in ResetPervasives do exist in OCamlStandard.Pervasives
+    # Symbols: modules, types, exceptions, values, externals
+
+    echo
+done
 
 echo
-echo "Running unit tests in byte code using dune"
-# @todo Measure test coverage. If possible, module by module.
-dune runtest
+echo "Development cycle OK"
 
-# @todo build -build-dir _build/with_lib  -package num -lib General demo.native demo_pervasives.native demo_syntactic_sugar.native
-# @todo demo/_build/with_lib/demo.native
 
-echo
-echo "Exporting interface as seen in utop"
+
+
+
+
+
+
+exit
+
+
+# @todo "Exporting interface as seen in utop"
 jbuilder build --dev src/.General.objs/General.cmi
 UTOP_DESTINATION=doc/utop/$(opam switch show)
 rm -rf $UTOP_DESTINATION
@@ -234,34 +272,22 @@ with utop("-I", "_build/default/src/.General.objs") as utop:
     show("General")
 END
 
-if [ "x$1" == "x--quick" ]
-then
-    exit
-fi
+# @todo Build doc
+# if (which sphinxcontrib-ocaml-autodoc && which sphinx-build) >/dev/null
+# then
+#     echo
+#     echo "Building doc"
+#     echo
 
-opam pin add --yes --no-action --kind=path .
-opam reinstall --yes General --build-test
-
-# @todo build -build-dir _build/with_package -package General demo.byte demo.native
-
-if (which sphinxcontrib-ocaml-autodoc && which sphinx-build) >/dev/null
-then
-    echo
-    echo "Building doc"
-    echo
-
-    rm -rf _build/sphinx  # Keep while we're developing the Sphinx extension
-    sphinx-build doc _build/sphinx/html -d _build/sphinx/doctrees
-    rm -rf docs
-    cp -r _build/sphinx/html docs
-    touch docs/.nojekyll
-    rm -f docs/.buildinfo
-    echo
-    echo "See documentation in $(pwd)/docs/index.html"
-else
-    echo
-    echo "Not trying to build doc because autoocamldoc or sphinx-build is missing"
-fi
-
-echo
-echo "Development cycle OK"
+#     rm -rf _build/sphinx  # Keep while we're developing the Sphinx extension
+#     sphinx-build doc _build/sphinx/html -d _build/sphinx/doctrees
+#     rm -rf docs
+#     cp -r _build/sphinx/html docs
+#     touch docs/.nojekyll
+#     rm -f docs/.buildinfo
+#     echo
+#     echo "See documentation in $(pwd)/docs/index.html"
+# else
+#     echo
+#     echo "Not trying to build doc because autoocamldoc or sphinx-build is missing"
+# fi
