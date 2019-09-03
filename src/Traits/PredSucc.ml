@@ -1,6 +1,6 @@
 #include "PredSucc.signatures.ml"
 
-(* module Make0(M: sig
+module Make0(M: sig
   type t
 
   val one: t
@@ -15,7 +15,7 @@ end) = struct
 
   let succ x =
     add x one
-end *)
+end
 
 module Tests = struct
   open Testing

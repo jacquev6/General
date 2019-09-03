@@ -210,13 +210,19 @@ module Traits: sig
 
     module Operators: sig
       #include "Traits/Ringoid.signatures.Operators.ml"
+
+      #include "Traits/Ringoid.makers.Operators.mli"
     end
 
     #include "Traits/Ringoid.signatures.ml"
+
+    #include "Traits/Ringoid.makers.mli"
   end
 
   module PredSucc: sig
     #include "Traits/PredSucc.signatures.ml"
+
+    #include "Traits/PredSucc.makers.mli"
   end
 
   module FilterMapable: sig
