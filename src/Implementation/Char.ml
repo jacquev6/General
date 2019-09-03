@@ -12,4 +12,9 @@ let repeat c ~len =
 let to_string c =
   OCSS.make 1 c
 
+let repr c =
+  to_string c
+
+(* @todo include Equate.Poly *)
+let equal = Equate.Poly.equal
 include Compare.Poly

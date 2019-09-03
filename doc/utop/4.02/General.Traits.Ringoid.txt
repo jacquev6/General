@@ -22,4 +22,7 @@ module Ringoid: sig
       val (**): t -> int -> t
     end
   end
+  module Substract
+  module Square
+  module Exponentiate
 end

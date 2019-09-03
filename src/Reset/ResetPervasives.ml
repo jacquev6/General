@@ -165,6 +165,7 @@ RESET_VALUE(prerr_newline, StdErr__print)
 (* Input functions on standard input *)
 RESET_VALUE(read_line, todo)
 RESET_VALUE(read_int, todo)
+(* @todo Remove "ifdef" in this module: put everything in our Pervasives even if it's not in OCamlStandard.Pervasives *)
 #ifdef HAS_Pervasives_read_int_opt
 RESET_VALUE(read_int_opt, todo)
 #endif

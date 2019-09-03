@@ -586,5 +586,41 @@ module Tests = struct
     IntRange.Tests.test;
 
     TestingTests.Tests.test;
+
+    "Syntactic sugar" >:: [
+      "Standard" >:: Standard.[
+        "array" >:: [
+          "get" >: (let a: int array = [|42|] in lazy (check_int ~expected:42 a.(0)));
+          "set" >: (let a: int array = [|42|] in lazy (check_int ~expected:42 (Array.get a 0); a.(0) <- 37; check_int ~expected:37 (Array.get a 0)));
+        ];
+        (* @todo Use check_char *)
+        "string" >:: [
+          "get" >: (let a: string = "a" in lazy (Char.(check ~repr ~equal ~expected:'a' a.[0])));
+          #ifdef STRINGS_ARE_MUTABLE
+          (* @todo Fix that test in node.js *)
+          (* "set" >: (let a: string = "a" in lazy (Char.(check ~repr ~equal ~expected:'a' (String.get a 0)); a.[0] <- 'z'; Char.(check ~repr ~equal ~expected:'z' (String.get a 0)))); *)
+          #endif
+        ];
+        "bytes" >:: [
+          "set" >: (let a: bytes = Bytes.of_string "a" in lazy (Char.(check ~repr ~equal ~expected:'a' (Bytes.get a 0)); a.[0] <- 'z'; Char.(check ~repr ~equal ~expected:'z' (Bytes.get a 0))));
+        ];
+      ];
+      "Abbr" >:: Abbr.[
+        "array" >:: [
+          "get" >: (let a: int array = [|42|] in lazy (check_int ~expected:42 a.(0)));
+          "set" >: (let a: int array = [|42|] in lazy (check_int ~expected:42 (Ar.get a 0); a.(0) <- 37; check_int ~expected:37 (Ar.get a 0)));
+        ];
+        (* @todo Use check_char *)
+        "string" >:: [
+          "get" >: (let a: string = "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' a.[0])));
+          #ifdef STRINGS_ARE_MUTABLE
+          (* "set" >: (let a: string = "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' (Str.get a 0)); a.[0] <- 'z'; Ch.(check ~repr ~equal ~expected:'z' (Str.get a 0)))); *)
+          #endif
+        ];
+        "bytes" >:: [
+          "set" >: (let a: bytes = By.of_string "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' (By.get a 0)); a.[0] <- 'z'; Ch.(check ~repr ~equal ~expected:'z' (By.get a 0))));
+        ];
+      ];
+    ];
   ]
 end

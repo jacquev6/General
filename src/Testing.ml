@@ -272,6 +272,8 @@ let check_false actual =
 let check_string ~expected actual =
   check ~repr:String.repr ~equal:String.equal ~expected actual
 
+(* @todo check_char (difficulty: Char is in Implementation, not Foundation) *)
+
 let check_int ~expected actual =
   check ~repr:Int.repr ~equal:Int.equal ~expected actual
 

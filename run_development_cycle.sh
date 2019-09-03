@@ -2,6 +2,19 @@
 
 set -o errexit
 
+(
+    grep "RESET_TYPE(" src/Reset/ResetPervasives.ml | grep -v "'" | sed "s/ *RESET_TYPE(.*, \(.*\)).*/let (_: General.\1 option) = None/" | sed "s/__/./g" | sort -u | grep -v "\.todo option) = None$";
+    grep "RESET_TYPE(.*'" src/Reset/ResetPervasives.ml | sed "s/ *RESET_TYPE(.*, \(.*\)).*/let (_: _ General.\1 option) = None/" | sed "s/__/./g" | sort -u | grep -v "\.todo option) = None$";
+    grep "RESET_VALUE" src/Reset/ResetPervasives.ml | sed "s/ *RESET_VALUE(.*, \(.*\)).*/let _ = General.\1/" | sed "s/__/./g" | sort -u | grep -v "\.todo$";
+    echo "";
+    echo "open General.Abbr";
+    echo "";
+    echo "let () =";
+    echo "  let argv = Li.of_array OCamlStandard.Sys.argv in";
+    echo "  Exit.exit (Tst.command_line_main ~argv General.Tests.test)";
+) > unit_tests.ml
+
+
 for OCAML_VERSION in ${OCAML_VERSIONS:-4.02 4.03 4.04 4.05 4.06 4.07 4.08}
 do
     echo "OCaml $OCAML_VERSION"
