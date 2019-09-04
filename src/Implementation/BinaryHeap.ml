@@ -4,6 +4,10 @@ type 'a t = 'a array
 
 let (empty: 'a t) = [||]
 
+let is_empty = function
+  | [||] -> true
+  | _ -> false
+
 let parent i =
   (i - 1) / 2
 

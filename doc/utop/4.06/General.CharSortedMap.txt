@@ -1,8 +1,10 @@
 module CharSortedMap: sig
   type 'a t = 'a General.CharSortedMap.t
   val empty: 'a t
+  val singleton: k:char -> v:'a -> 'a t
   val of_list_first: (char * 'a) list -> 'a t
   val of_list_last: (char * 'a) list -> 'a t
+  val of_list_reduce: (char * 'a) list -> f:(char -> 'a -> 'a -> 'a) -> 'a t
   val to_list: 'a t -> (char * 'a) list
   val is_empty: 'a t -> bool
   val size: 'a t -> int

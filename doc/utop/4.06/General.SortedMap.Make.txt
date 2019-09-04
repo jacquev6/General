@@ -1,8 +1,10 @@
 module Make(K: General.Traits.Comparable.Basic.S0): sig
   type 'a t
   val empty: 'a t
+  val singleton: k:K.t -> v:'a -> 'a t
   val of_list_first: (K.t * 'a) list -> 'a t
   val of_list_last: (K.t * 'a) list -> 'a t
+  val of_list_reduce: (K.t * 'a) list -> f:(K.t -> 'a -> 'a -> 'a) -> 'a t
   val to_list: 'a t -> (K.t * 'a) list
   val is_empty: 'a t -> bool
   val size: 'a t -> int

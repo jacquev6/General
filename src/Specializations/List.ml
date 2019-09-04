@@ -1,8 +1,10 @@
 module Int = struct
   include List.Specialize(Int)
   module Equa = List.SpecializeEquatable(Int)
+  module Repr = List.SpecializeRepresentable(Int)
 
   include (Equa: module type of Equa with type t := t)
+  include (Repr: module type of Repr with type t := t)
 end
 
 module Float = struct

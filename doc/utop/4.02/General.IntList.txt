@@ -81,4 +81,5 @@ module IntList: sig
   val scan_short_acc: acc:'acc -> init:int -> t -> f:(acc:'acc -> int -> int -> 'acc * General.Shorten.t * int) -> t
   module ToList
   val contains: t -> int -> bool
+  val repr: t -> bytes
 end

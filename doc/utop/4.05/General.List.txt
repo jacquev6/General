@@ -18,6 +18,9 @@ module List: sig
   val prepend: 'a -> 'a t -> 'a t
   val reverse: 'a t -> 'a t
   val concat: 'a t -> 'a t -> 'a t
+  val repr: 'a t -> repr_a:('a -> string) -> string
+  val equal: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+  val different: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
   val map: 'a t -> f:('a -> 'b) -> 'b t
   val map_i: 'a t -> f:(i:int -> 'a -> 'b) -> 'b t
   val map_acc: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b) -> 'b t
@@ -84,4 +87,5 @@ module List: sig
   module Two
   module Specialize
   module SpecializeEquatable
+  module SpecializeRepresentable
 end

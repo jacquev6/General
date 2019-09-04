@@ -1,8 +1,10 @@
 module IntSortedMap: sig
   type 'a t = 'a General.IntSortedMap.t
   val empty: 'a t
+  val singleton: k:int -> v:'a -> 'a t
   val of_list_first: (int * 'a) list -> 'a t
   val of_list_last: (int * 'a) list -> 'a t
+  val of_list_reduce: (int * 'a) list -> f:(int -> 'a -> 'a -> 'a) -> 'a t
   val to_list: 'a t -> (int * 'a) list
   val is_empty: 'a t -> bool
   val size: 'a t -> int

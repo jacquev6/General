@@ -1,8 +1,10 @@
 module StringSortedMap: sig
   type 'a t = 'a General.StringSortedMap.t
   val empty: 'a t
+  val singleton: k:string -> v:'a -> 'a t
   val of_list_first: (string * 'a) list -> 'a t
   val of_list_last: (string * 'a) list -> 'a t
+  val of_list_reduce: (string * 'a) list -> f:(string -> 'a -> 'a -> 'a) -> 'a t
   val to_list: 'a t -> (string * 'a) list
   val is_empty: 'a t -> bool
   val size: 'a t -> int

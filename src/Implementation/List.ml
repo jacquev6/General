@@ -39,6 +39,13 @@ module SpecializeEquatable(A: Traits.Equatable.Basic.S0) = struct
     Self.contains xs x ~equal_a:A.equal
 end
 
+module SpecializeRepresentable(A: Traits.Representable.S0) = struct
+  type t = A.t list
+
+  let repr xs =
+    Self.repr xs ~repr_a:A.repr
+end
+
 module Examples = struct
   module A = Foundations.Int
 

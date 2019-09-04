@@ -6,6 +6,8 @@ module Poly = struct
 
   let empty = BinaryHeap.empty
 
+  let is_empty xs = BinaryHeap.is_empty xs
+
   let add xs ~k ~v =
     BinaryHeap.add xs ~cmp (k, v)
 
@@ -23,6 +25,8 @@ module Make(E: Traits.Comparable.Basic.S0) = struct
   type 'a t = (E.t * 'a) BinaryHeap.t
 
   let empty = BinaryHeap.empty
+
+  let is_empty xs = BinaryHeap.is_empty xs
 
   let add xs ~k ~v =
     BinaryHeap.add xs ~cmp (k, v)

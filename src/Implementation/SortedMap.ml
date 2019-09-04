@@ -29,6 +29,9 @@ module Poly = struct
   let replace t ~k ~v =
     Tree.replace t ~cmp (k, v)
 
+  let singleton ~k ~v =
+    replace empty ~k ~v
+
   let of_list_last vs =
     vs
     |> List.fold ~init:empty ~f:(fun t (k, v) ->
@@ -48,6 +51,14 @@ module Poly = struct
   let get t ~k =
     try_get t ~k
     |> Option.or_failure ""
+
+  let of_list_reduce vs ~f =
+    vs
+    |> List.fold ~init:empty ~f:(fun t (k, v) ->
+      match try_get t ~k with
+        | None -> replace t ~k ~v
+        | Some v2 -> replace t ~k ~v:(f k v2 v)
+    )
 end
 
 module Make(K: Traits.Comparable.Basic.S0) = struct
@@ -79,6 +90,9 @@ module Make(K: Traits.Comparable.Basic.S0) = struct
   let replace t ~k ~v =
     Tree.replace t ~cmp (k, v)
 
+  let singleton ~k ~v =
+    replace empty ~k ~v
+
   let of_list_last vs =
     vs
     |> List.fold ~init:empty ~f:(fun t (k, v) ->
@@ -98,4 +112,12 @@ module Make(K: Traits.Comparable.Basic.S0) = struct
   let get t ~k =
     try_get t ~k
     |> Option.or_failure ""
+
+  let of_list_reduce vs ~f =
+    vs
+    |> List.fold ~init:empty ~f:(fun t (k, v) ->
+      match try_get t ~k with
+        | None -> replace t ~k ~v
+        | Some v2 -> replace t ~k ~v:(f k v2 v)
+    )
 end
