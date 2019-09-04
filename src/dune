@@ -1,56 +1,54 @@
-; @todo Generate cppo dependencies to #included file instead of listing them manually. Handle recursive inclusions
-
 (rule
   (targets General.mli)
   (deps
     (:src General.cppo.mli)
-    Concepts/Able.signatures.ml
     Concepts/Able.signatures.Operators.ml
+    Concepts/Able.signatures.ml
     Concepts/Identifiable.signatures.ml
     Concepts/Integer.signatures.ml
-    Concepts/Number.signatures.ml
     Concepts/Number.signatures.Operators.ml
-    Concepts/RealNumber.signatures.ml
+    Concepts/Number.signatures.ml
     Concepts/RealNumber.signatures.Operators.ml
+    Concepts/RealNumber.signatures.ml
     Reset/CommonHeader.ml
     Reset/Footer.ml
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml
     Reset/SignatureHeader.ml
     Traits/Comparable.signatures.Basic.ml
-    Traits/Comparable.signatures.ml
     Traits/Comparable.signatures.Operators.ml
+    Traits/Comparable.signatures.ml
     Traits/Displayable.signatures.ml
     Traits/Equatable.signatures.Basic.ml
-    Traits/Equatable.signatures.ml
     Traits/Equatable.signatures.Operators.ml
-    Traits/FilterMapable.signatures.ml
+    Traits/Equatable.signatures.ml
     Traits/FilterMapable.signatures.ToContainer.ml
+    Traits/FilterMapable.signatures.ml
     Traits/Foldable.signatures.Basic.ml
-    Traits/Foldable.signatures.ml
     Traits/Foldable.signatures.Right.Basic.ml
     Traits/Foldable.signatures.Right.ml
     Traits/Foldable.signatures.Short.Basic.ml
-    Traits/Foldable.signatures.Short.ml
     Traits/Foldable.signatures.Short.Right.Basic.ml
     Traits/Foldable.signatures.Short.Right.ml
+    Traits/Foldable.signatures.Short.ml
+    Traits/Foldable.signatures.ml
     Traits/Parsable.signatures.ml
     Traits/PredSucc.makers.mli
     Traits/PredSucc.signatures.ml
     Traits/Representable.signatures.ml
-    Traits/Ringoid.makers.mli
     Traits/Ringoid.makers.Operators.mli
+    Traits/Ringoid.makers.mli
     Traits/Ringoid.signatures.Basic.ml
-    Traits/Ringoid.signatures.ml
     Traits/Ringoid.signatures.Operators.ml
-    Traits/Scanable.signatures.ml
-    Traits/Scanable.signatures.Right.ml
+    Traits/Ringoid.signatures.ml
     Traits/Scanable.signatures.Right.ToContainer.ml
-    Traits/Scanable.signatures.Short.ml
-    Traits/Scanable.signatures.Short.Right.ml
+    Traits/Scanable.signatures.Right.ml
     Traits/Scanable.signatures.Short.Right.ToContainer.ml
+    Traits/Scanable.signatures.Short.Right.ml
     Traits/Scanable.signatures.Short.ToContainer.ml
+    Traits/Scanable.signatures.Short.ml
     Traits/Scanable.signatures.ToContainer.ml
+    Traits/Scanable.signatures.ml
  )
   (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
 )
@@ -61,18 +59,18 @@
     (:src General.cppo.ml)
     Compare.ml
     Concepts/Able.ml
-    Concepts/Able.signatures.ml
     Concepts/Able.signatures.Operators.ml
+    Concepts/Able.signatures.ml
     Concepts/Identifiable.ml
     Concepts/Identifiable.signatures.ml
     Concepts/Integer.ml
     Concepts/Integer.signatures.ml
     Concepts/Number.ml
-    Concepts/Number.signatures.ml
     Concepts/Number.signatures.Operators.ml
+    Concepts/Number.signatures.ml
     Concepts/RealNumber.ml
-    Concepts/RealNumber.signatures.ml
     Concepts/RealNumber.signatures.Operators.ml
+    Concepts/RealNumber.signatures.ml
     Equate.ml
     Foundations/Bool.ml
     Foundations/CallStack.ml
@@ -146,26 +144,26 @@
     Testing.ml
     Traits/Comparable.ml
     Traits/Comparable.signatures.Basic.ml
-    Traits/Comparable.signatures.ml
     Traits/Comparable.signatures.Operators.ml
+    Traits/Comparable.signatures.ml
     Traits/Displayable.ml
     Traits/Displayable.signatures.ml
     Traits/Equatable.ml
     Traits/Equatable.signatures.Basic.ml
-    Traits/Equatable.signatures.ml
     Traits/Equatable.signatures.Operators.ml
+    Traits/Equatable.signatures.ml
     Traits/FilterMapable.ml
-    Traits/FilterMapable.signatures.ml
     Traits/FilterMapable.signatures.ToContainer.ml
+    Traits/FilterMapable.signatures.ml
     Traits/Foldable.ml
     Traits/Foldable.signatures.Basic.ml
-    Traits/Foldable.signatures.ml
     Traits/Foldable.signatures.Right.Basic.ml
     Traits/Foldable.signatures.Right.ml
     Traits/Foldable.signatures.Short.Basic.ml
-    Traits/Foldable.signatures.Short.ml
     Traits/Foldable.signatures.Short.Right.Basic.ml
     Traits/Foldable.signatures.Short.Right.ml
+    Traits/Foldable.signatures.Short.ml
+    Traits/Foldable.signatures.ml
     Traits/Parsable.ml
     Traits/Parsable.signatures.ml
     Traits/PredSucc.ml
@@ -174,17 +172,17 @@
     Traits/Representable.signatures.ml
     Traits/Ringoid.ml
     Traits/Ringoid.signatures.Basic.ml
-    Traits/Ringoid.signatures.ml
     Traits/Ringoid.signatures.Operators.ml
+    Traits/Ringoid.signatures.ml
     Traits/Scanable.ml
-    Traits/Scanable.signatures.ml
-    Traits/Scanable.signatures.Right.ml
     Traits/Scanable.signatures.Right.ToContainer.ml
-    Traits/Scanable.signatures.Short.ml
-    Traits/Scanable.signatures.Short.Right.ml
+    Traits/Scanable.signatures.Right.ml
     Traits/Scanable.signatures.Short.Right.ToContainer.ml
+    Traits/Scanable.signatures.Short.Right.ml
     Traits/Scanable.signatures.Short.ToContainer.ml
+    Traits/Scanable.signatures.Short.ml
     Traits/Scanable.signatures.ToContainer.ml
+    Traits/Scanable.signatures.ml
   )
   (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
 )

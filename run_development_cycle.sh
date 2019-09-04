@@ -15,6 +15,38 @@ set -o errexit
 ) > unit_tests.ml
 
 
+(
+    echo "(rule";
+    echo "  (targets General.mli)";
+    echo "  (deps";
+    echo "    (:src General.cppo.mli)";
+    (
+        find src -type f -name "*.signatures*.ml" -or -name "*.makers*.mli";
+        find src/Reset -type f -not -name "DefinitionHeader.ml";
+    ) | sed "s|src/|    |" | sort -u
+    echo " )";
+    echo "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))";
+    echo ")";
+    echo "";
+    echo "(rule";
+    echo "  (targets General.ml)";
+    echo "  (deps";
+    echo "    (:src General.cppo.ml)";
+    (
+        find src -type f -name "*.ml" -not -name "SignatureHeader.ml" -not -name "General.cppo.ml";
+    ) | sed "s|src/|    |" | sort -u
+    echo "  )";
+    echo "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))";
+    echo ")";
+    echo "";
+    echo "(library";
+    echo "  (name General)";
+    echo "  (public_name General)";
+    echo "  (modules General)";
+    echo "  (libraries num)";
+    echo "  (flags (:standard -nopervasives -w @A-4-33-44-45-48))";
+    echo ")";
+) > src/dune
 for OCAML_VERSION in ${OCAML_VERSIONS:-4.02 4.03 4.04 4.05 4.06 4.07 4.08}
 do
     echo "OCaml $OCAML_VERSION"
