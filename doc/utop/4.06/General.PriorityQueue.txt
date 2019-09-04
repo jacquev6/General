@@ -1,4 +1,4 @@
 module PriorityQueue: sig
-  module Poly
   module Make
+  module Poly
 end

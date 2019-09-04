@@ -1,13 +1,13 @@
 module Array: sig
   type 'a t = 'a array
   val empty: 'a array
-  val singleton: 'a -> 'a array
-  val repeat: 'a -> size:int -> 'a array
-  val of_list: 'a list -> 'a array
-  val to_list: 'a array -> 'a list
-  val of_array: 'a array -> 'a array
-  val to_array: 'a array -> 'a array
-  val size: 'a array -> int
   val get: 'a array -> int -> 'a
+  val of_array: 'a array -> 'a array
+  val of_list: 'a list -> 'a array
+  val repeat: 'a -> size:int -> 'a array
   val set: 'a array -> int -> 'a -> unit
+  val singleton: 'a -> 'a array
+  val size: 'a array -> int
+  val to_array: 'a array -> 'a array
+  val to_list: 'a array -> 'a list
 end

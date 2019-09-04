@@ -2,7 +2,7 @@ module SpecializeOperators(A: sig
   type t
 end): sig
   type nonrec t = A.t ref
-  val ref: A.t -> t
   val (!): t -> A.t
   val (:=): t -> A.t -> unit
+  val ref: A.t -> t
 end

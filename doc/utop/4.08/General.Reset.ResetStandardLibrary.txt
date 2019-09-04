@@ -1,9 +1,9 @@
 module ResetStandardLibrary: sig
-  module OCamlStandard
-  module Pervasives
   module Arg
+  module Arith_status
   module Array
   module ArrayLabels
+  module Big_int
   module Bigarray
   module Buffer
   module Bytes
@@ -29,8 +29,11 @@ module ResetStandardLibrary: sig
   module Marshal
   module MoreLabels
   module Nativeint
+  module Num
+  module OCamlStandard
   module Oo
   module Parsing
+  module Pervasives
   module Printexc
   module Printf
   module Queue
@@ -48,7 +51,4 @@ module ResetStandardLibrary: sig
   module Sys
   module Uchar
   module Weak
-  module Num
-  module Big_int
-  module Arith_status
 end

@@ -1,72 +1,72 @@
 module General: sig
-  module Reset
-  module Pervasives
-  module Shorten
-  module Compare
-  module Equate
-  module Traits
-  module Concepts
+  module Abbr
+  module Array
+  module BigInt
+  module Bool
+  module Bytes
   module CallStack
+  module Char
+  module CharSortedMap
+  module CharSortedSet
+  module Compare
+  module Concepts
+  module Equate
   module Exception
   module Exit
+  module Float
+  module FloatList
+  module FloatOption
+  module FloatReference
+  module FloatSortedMap
+  module FloatSortedSet
+  module Format
   module Function1
   module Function2
   module Function3
   module Function4
   module Function5
-  module Unit
-  module Bool
-  module Char
+  module Heap
+  module InChannel
+  module InFile
   module Int
   module Int32
   module Int64
-  module NativeInt
-  module BigInt
-  module Float
-  module String
-  module Bytes
-  module Option
+  module IntList
+  module IntOption
+  module IntRange
+  module IntReference
+  module IntSortedMap
+  module IntSortedSet
   module Lazy
+  module List
+  module NativeInt
+  module Option
+  module OutChannel
+  module OutFile
+  module Pervasives
+  module PriorityQueue
   module Reference
+  module Reset
+  module Shorten
+  module SortedMap
+  module SortedSet
+  module Standard
+  module StdErr
+  module StdIn
+  module StdOut
+  module Stream
+  module String
+  module StringList
+  module StringOption
+  module StringReference
+  module StringSortedMap
+  module StringSortedSet
+  module Testing
+  module Tests
+  module Traits
   module Tuple2
   module Tuple3
   module Tuple4
   module Tuple5
-  module IntOption
-  module FloatOption
-  module StringOption
-  module IntReference
-  module FloatReference
-  module StringReference
-  module List
-  module Array
-  module Stream
-  module SortedSet
-  module SortedMap
-  module Heap
-  module PriorityQueue
-  module IntRange
-  module IntList
-  module FloatList
-  module StringList
-  module IntSortedSet
-  module FloatSortedSet
-  module StringSortedSet
-  module CharSortedSet
-  module IntSortedMap
-  module FloatSortedMap
-  module StringSortedMap
-  module CharSortedMap
-  module Format
-  module InChannel
-  module InFile
-  module OutChannel
-  module OutFile
-  module StdIn
-  module StdOut
-  module StdErr
-  module Testing
-  module Standard
-  module Abbr
-  module Tests
+  module Unit
 end

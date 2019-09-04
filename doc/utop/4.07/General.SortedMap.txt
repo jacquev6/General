@@ -1,4 +1,4 @@
 module SortedMap: sig
-  module Poly
   module Make
+  module Poly
 end

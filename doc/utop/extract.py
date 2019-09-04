@@ -58,7 +58,7 @@ class Signature:
         return not self.elements
 
     def text(self, indent):
-        return "sig\n{}{}end".format("".join(element.text("  " + indent) for element in self.elements), indent)
+        return "sig\n{}{}end".format("".join(sorted(element.text("  " + indent) for element in self.elements)), indent)
 
 
 class ModuleType:

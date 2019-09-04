@@ -1,8 +1,8 @@
 module Poly: sig
   type ('a, 'b) t
+  val add: ('a, 'b) t -> k:'a -> v:'b -> ('a, 'b) t
   val empty: ('a, 'b) t
   val is_empty: ('a, 'b) t -> bool
-  val add: ('a, 'b) t -> k:'a -> v:'b -> ('a, 'b) t
-  val pop_max: ('a, 'b) t -> ('a, 'b) t
   val max: ('a, 'b) t -> 'a * 'b
+  val pop_max: ('a, 'b) t -> ('a, 'b) t
 end

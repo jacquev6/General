@@ -1,4 +1,4 @@
 module Compare: sig
-  type t = LT | EQ | GT
   module Poly
+  type t = LT | EQ | GT
 end

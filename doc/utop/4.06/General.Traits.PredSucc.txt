@@ -1,8 +1,8 @@
 module PredSucc: sig
+  module Make0
   module type S0 = sig
     type t
-    val succ: t -> t
     val pred: t -> t
+    val succ: t -> t
   end
-  module Make0
 end

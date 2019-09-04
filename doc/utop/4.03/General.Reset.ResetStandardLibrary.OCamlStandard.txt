@@ -1,8 +1,9 @@
 module OCamlStandard: sig
-  module Pervasives = Pervasives
   module Arg = Arg
+  module Arith_status = Arith_status
   module Array = Array
   module ArrayLabels = ArrayLabels
+  module Big_int = Big_int
   module Buffer = Buffer
   module Bytes = Bytes
   module BytesLabels = BytesLabels
@@ -26,8 +27,10 @@ module OCamlStandard: sig
   module Marshal = Marshal
   module MoreLabels = MoreLabels
   module Nativeint = Nativeint
+  module Num = Num
   module Oo = Oo
   module Parsing = Parsing
+  module Pervasives = Pervasives
   module Printexc = Printexc
   module Printf = Printf
   module Queue = Queue
@@ -43,7 +46,4 @@ module OCamlStandard: sig
   module Sys = Sys
   module Uchar = Uchar
   module Weak = Weak
-  module Num = Num
-  module Big_int = Big_int
-  module Arith_status = Arith_status
 end
