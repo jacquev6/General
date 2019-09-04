@@ -134,6 +134,8 @@ module Compare: sig
       val (>=): 'a -> 'a -> bool
     end
   end
+
+  (* @feature: functors to revert comparison (i.e. "descending order") *)
 end
 
 module Equate: sig
@@ -573,6 +575,7 @@ module Int: sig
   include Concepts.Integer.S0 with type t := t
 
   (* @feature Traits.Bounded? Concept.FixedWidthInteger? *)
+  (* @feature width: int  Like OCS.Nativeint.size and Sys.int_size *)
   val smallest: t
   val greatest: t
 
@@ -1177,6 +1180,8 @@ module SortedMap: sig
     val try_get: ('a, 'b) t -> k:'a -> 'b option
     val get: ('a, 'b) t -> k:'a -> 'b
 
+    (* @feature [try_](smallest|largest): ('a, 'b) t -> ('a, 'b) [option] returning (k, v) with smallest (largest) k *)
+
     (* @feature Traits *)
   end
 
@@ -1496,6 +1501,10 @@ module Testing: sig
   val check_false: bool -> unit
 
   val check_int: expected:int -> int -> unit
+
+  (* @feature val check_int32: expected:int32 -> int32 -> unit *)
+
+  (* @feature val check_int64: expected:int64 -> int64 -> unit *)
 
   val check_float: ?precision:float -> expected:float -> float -> unit
 
