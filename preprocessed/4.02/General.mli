@@ -1017,6 +1017,36 @@ module Traits: sig
       end): sig
         val different: M.t -> M.t -> bool
       end
+      module Make1(M: sig
+        type 'a t
+        val equal: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+      end): sig
+        val different: 'a M.t -> 'a M.t -> equal_a:('a -> 'a -> bool) -> bool
+      end
+      module Make2(M: sig
+        type ('a, 'b) t
+        val equal: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+      end): sig
+        val different: ('a, 'b) M.t -> ('a, 'b) M.t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+      end
+      module Make3(M: sig
+        type ('a, 'b, 'c) t
+        val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+      end): sig
+        val different: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+      end
+      module Make4(M: sig
+        type ('a, 'b, 'c, 'd) t
+        val equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+      end): sig
+        val different: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+      end
+      module Make5(M: sig
+        type ('a, 'b, 'c, 'd, 'e) t
+        val equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+      end): sig
+        val different: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+      end
     end
   end
   module Comparable: sig
@@ -1145,6 +1175,51 @@ module Traits: sig
         val greater_than: M.t -> M.t -> bool
         val greater_or_equal: M.t -> M.t -> bool
       end
+      module Make1(M: sig
+        type 'a t
+        val compare: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> Compare.t
+      end): sig
+        val less_than: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Compare.t) -> bool
+        val less_or_equal: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Compare.t) -> bool
+        val greater_than: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Compare.t) -> bool
+        val greater_or_equal: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Compare.t) -> bool
+      end
+      module Make2(M: sig
+        type ('a, 'b) t
+        val compare: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> Compare.t
+      end): sig
+        val less_than: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+        val less_or_equal: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+        val greater_than: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+        val greater_or_equal: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+      end
+      module Make3(M: sig
+        type ('a, 'b, 'c) t
+        val compare: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> Compare.t
+      end): sig
+        val less_than: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+        val less_or_equal: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+        val greater_than: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+        val greater_or_equal: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+      end
+      module Make4(M: sig
+        type ('a, 'b, 'c, 'd) t
+        val compare: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> Compare.t
+      end): sig
+        val less_than: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+        val less_or_equal: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+        val greater_than: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+        val greater_or_equal: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+      end
+      module Make5(M: sig
+        type ('a, 'b, 'c, 'd, 'e) t
+        val compare: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> Compare.t
+      end): sig
+        val less_than: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+        val less_or_equal: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+        val greater_than: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+        val greater_or_equal: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+      end
     end
     module Between: sig
       module Make0(M: sig
@@ -1157,6 +1232,56 @@ module Traits: sig
         val between: M.t -> low:(M.t) -> high:(M.t) -> bool
         val between_or_equal: M.t -> low:(M.t) -> high:(M.t) -> bool
       end
+      module Make1(M: sig
+        type 'a t
+        val less_than: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> bool
+        val less_or_equal: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> bool
+        val greater_than: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> bool
+        val greater_or_equal: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> bool
+      end): sig
+        val between: 'a M.t -> low:('a M.t) -> high:('a M.t) -> compare_a:('a -> 'a -> Compare.t) -> bool
+        val between_or_equal: 'a M.t -> low:('a M.t) -> high:('a M.t) -> compare_a:('a -> 'a -> Compare.t) -> bool
+      end
+      module Make2(M: sig
+        type ('a, 'b) t
+        val less_than: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+        val less_or_equal: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+        val greater_than: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+        val greater_or_equal: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+      end): sig
+        val between: ('a, 'b) M.t -> low:(('a, 'b) M.t) -> high:(('a, 'b) M.t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+        val between_or_equal: ('a, 'b) M.t -> low:(('a, 'b) M.t) -> high:(('a, 'b) M.t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+      end
+      module Make3(M: sig
+        type ('a, 'b, 'c) t
+        val less_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+        val less_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+        val greater_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+        val greater_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+      end): sig
+        val between: ('a, 'b, 'c) M.t -> low:(('a, 'b, 'c) M.t) -> high:(('a, 'b, 'c) M.t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+        val between_or_equal: ('a, 'b, 'c) M.t -> low:(('a, 'b, 'c) M.t) -> high:(('a, 'b, 'c) M.t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+      end
+      module Make4(M: sig
+        type ('a, 'b, 'c, 'd) t
+        val less_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+        val less_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+        val greater_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+        val greater_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+      end): sig
+        val between: ('a, 'b, 'c, 'd) M.t -> low:(('a, 'b, 'c, 'd) M.t) -> high:(('a, 'b, 'c, 'd) M.t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+        val between_or_equal: ('a, 'b, 'c, 'd) M.t -> low:(('a, 'b, 'c, 'd) M.t) -> high:(('a, 'b, 'c, 'd) M.t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+      end
+      module Make5(M: sig
+        type ('a, 'b, 'c, 'd, 'e) t
+        val less_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+        val less_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+        val greater_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+        val greater_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+      end): sig
+        val between: ('a, 'b, 'c, 'd, 'e) M.t -> low:(('a, 'b, 'c, 'd, 'e) M.t) -> high:(('a, 'b, 'c, 'd, 'e) M.t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+        val between_or_equal: ('a, 'b, 'c, 'd, 'e) M.t -> low:(('a, 'b, 'c, 'd, 'e) M.t) -> high:(('a, 'b, 'c, 'd, 'e) M.t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+      end
     end
     module MinMax: sig
       module Make0(M: sig
@@ -1166,6 +1291,46 @@ module Traits: sig
         val min: M.t -> M.t -> M.t
         val max: M.t -> M.t -> M.t
         val min_max: M.t -> M.t -> M.t * M.t
+      end
+      module Make1(M: sig
+        type 'a t
+        val compare: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> Compare.t
+      end): sig
+        val min: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Compare.t) -> 'a M.t
+        val max: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Compare.t) -> 'a M.t
+        val min_max: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> Compare.t) -> 'a M.t * 'a M.t
+      end
+      module Make2(M: sig
+        type ('a, 'b) t
+        val compare: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> Compare.t
+      end): sig
+        val min: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> ('a, 'b) M.t
+        val max: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> ('a, 'b) M.t
+        val min_max: ('a, 'b) M.t -> ('a, 'b) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> ('a, 'b) M.t * ('a, 'b) M.t
+      end
+      module Make3(M: sig
+        type ('a, 'b, 'c) t
+        val compare: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> Compare.t
+      end): sig
+        val min: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> ('a, 'b, 'c) M.t
+        val max: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> ('a, 'b, 'c) M.t
+        val min_max: ('a, 'b, 'c) M.t -> ('a, 'b, 'c) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> ('a, 'b, 'c) M.t * ('a, 'b, 'c) M.t
+      end
+      module Make4(M: sig
+        type ('a, 'b, 'c, 'd) t
+        val compare: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> Compare.t
+      end): sig
+        val min: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> ('a, 'b, 'c, 'd) M.t
+        val max: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> ('a, 'b, 'c, 'd) M.t
+        val min_max: ('a, 'b, 'c, 'd) M.t -> ('a, 'b, 'c, 'd) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> ('a, 'b, 'c, 'd) M.t * ('a, 'b, 'c, 'd) M.t
+      end
+      module Make5(M: sig
+        type ('a, 'b, 'c, 'd, 'e) t
+        val compare: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> Compare.t
+      end): sig
+        val min: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) M.t
+        val max: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) M.t
+        val min_max: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) M.t * ('a, 'b, 'c, 'd, 'e) M.t
       end
     end
   end

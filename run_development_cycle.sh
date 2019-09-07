@@ -77,7 +77,6 @@ do
     mkdir -p preprocessed/$OCAML_VERSION
     cp _builds/$OCAML_VERSION/default/src/General.ml{,i} preprocessed/$OCAML_VERSION
     git diff --ignore-all-space preprocessed/$OCAML_VERSION | head -n 50
-    git diff --exit-code --ignore-all-space preprocessed/$OCAML_VERSION >/dev/null
 
     echo
     echo "Running tests"
@@ -100,7 +99,13 @@ do
     echo "Testing package install"
     echo "-----------------------"
 
-    $RUN opam install General
+    # $RUN opam install General
+
+    echo
+    echo "Adding generated files"
+    echo "----------------------"
+
+    git add preprocessed doc/utop src/dune unit_tests.ml
 
     # @todo Build demo apps (as native, byte code, and js)
 

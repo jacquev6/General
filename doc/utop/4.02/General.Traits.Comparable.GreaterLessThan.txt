@@ -1,3 +1,8 @@
 module GreaterLessThan: sig
   module Make0
+  module Make1
+  module Make2
+  module Make3
+  module Make4
+  module Make5
 end

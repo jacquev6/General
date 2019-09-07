@@ -109,24 +109,24 @@ class Trait:
         for extension in self.extensions:
             if len(extension.requirements) != 0:
                 yield f"module {extension.name}: sig"
-                # @todo Make{arity}
-                yield "  module Make0(M: sig"
-                yield "    type t"
-                for req in extension.requirements:
-                    if isinstance(req, str):
+                for arity in range(self.max_arity):
+                    yield f"  module Make{arity}(M: sig"
+                    yield f"    type {type_params(arity)}t"
+                    for req in extension.requirements:
+                        if isinstance(req, str):
+                            for item in self.all_items:
+                                if item.name == req:
+                                    yield indent(item.make_signature(self.basics, arity), levels=2)
+                        else:
+                            yield indent(req.make_signature(self.basics, arity), levels=2)
+                    yield "  end): sig"
+                    for item in extension.members:
+                        yield indent(item.make_signature(self.basics, arity, t=f"{type_params(arity)}M.t"), levels=2)
+                    for prod in extension.basic_production:
                         for item in self.all_items:
-                            if item.name == req:
-                                yield indent(item.make_signature(self.basics, 0), levels=2)
-                    else:
-                        yield indent(req.make_signature(self.basics, 0), levels=2)
-                yield "  end): sig"
-                for item in extension.members:
-                    yield indent(item.make_signature(self.basics, 0, t="M.t"), levels=2)
-                for prod in extension.basic_production:
-                    for item in self.all_items:
-                        if item.name == prod:
-                            yield indent(item.make_signature(self.basics, 0, t="M.t"), levels=2)
-                yield "  end"
+                            if item.name == prod:
+                                yield indent(item.make_signature(self.basics, arity, t=f"{type_params(arity)}M.t"), levels=2)
+                    yield "  end"
                 yield "end"
 
     @property
