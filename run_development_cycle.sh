@@ -47,6 +47,8 @@ set -o errexit
     echo "  (flags (:standard -nopervasives -w @A-4-33-44-45-48))";
     echo ")";
 ) > src/dune
+
+
 for OCAML_VERSION in ${OCAML_VERSIONS:-4.02 4.03 4.04 4.05 4.06 4.07 4.08}
 do
     echo "OCaml $OCAML_VERSION"
@@ -64,6 +66,16 @@ do
     mkdir -p _builds/$OCAML_VERSION
     rm -f _build
     ln -sf _builds/$OCAML_VERSION _build
+
+    echo
+    echo "Generating code"
+    echo "---------------"
+
+    $RUN dune build src/General.ml src/General.mli
+    mkdir -p preprocessed/$OCAML_VERSION
+    cp _builds/$OCAML_VERSION/default/src/General.ml{,i} preprocessed/$OCAML_VERSION
+    git diff --ignore-all-space preprocessed/$OCAML_VERSION | head -n 50
+    git diff --exit-code --ignore-all-space preprocessed/$OCAML_VERSION >/dev/null
 
     echo
     echo "Running tests"
