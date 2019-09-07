@@ -5861,139 +5861,96 @@ module type S5 = sig
   include Traits.Equatable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
   include Traits.Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
 end
-
-# 6 "Concepts/Identifiable.ml"
 module Tests = struct
   open Testing
-
   module Examples = struct
-    module type S0 = sig
-      type t
-
-      include Traits.Equatable.Tests.Examples.S0 with type t := t
-      include Traits.Representable.Tests.Examples.S0 with type t := t
-    end
-
     module type Element = sig
       type t
-
       include Traits.Equatable.Tests.Examples.Element with type t := t
       include Traits.Representable.Tests.Examples.Element with type t := t
     end
-
+    module type S0 = sig
+      type t
+      include Traits.Equatable.Tests.Examples.S0 with type t := t
+      include Traits.Representable.Tests.Examples.S0 with type t := t
+    end
     module type S1 = sig
       type 'a t
-
       module A: Element
-
       include Traits.Equatable.Tests.Examples.S1 with type 'a t := 'a t and module A := A
       include Traits.Representable.Tests.Examples.S1 with type 'a t := 'a t and module A := A
     end
-
     module type S2 = sig
       type ('a, 'b) t
-
       module A: Element
       module B: Element
-
       include Traits.Equatable.Tests.Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
       include Traits.Representable.Tests.Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
     end
-
     module type S3 = sig
       type ('a, 'b, 'c) t
-
       module A: Element
       module B: Element
       module C: Element
-
       include Traits.Equatable.Tests.Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
       include Traits.Representable.Tests.Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
     end
-
     module type S4 = sig
       type ('a, 'b, 'c, 'd) t
-
       module A: Element
       module B: Element
       module C: Element
       module D: Element
-
       include Traits.Equatable.Tests.Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
       include Traits.Representable.Tests.Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
     end
-
     module type S5 = sig
       type ('a, 'b, 'c, 'd, 'e) t
-
       module A: Element
       module B: Element
       module C: Element
       module D: Element
       module E: Element
-
       include Traits.Equatable.Tests.Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
       include Traits.Representable.Tests.Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
     end
   end
-
-
-  
-# 88 "Concepts/Identifiable.ml"
-   
-  module  Make0 (M:  S0 )(E: Examples. S0  with type   t :=   M.t) = struct 
-    let test = "Able" >:: [ 
-      (let module T = Traits.Equatable.Tests. Make0 (M)(E) in T.test); 
-      (let module T = Traits.Representable.Tests. Make0 (M)(E) in T.test); 
-    ] 
-  end 
-  
-# 89 "Concepts/Identifiable.ml"
-   
-  module  Make1 (M:  S1 )(E: Examples. S1  with type  'a t :=  'a M.t) = struct 
-    let test = "Able" >:: [ 
-      (let module T = Traits.Equatable.Tests. Make1 (M)(E) in T.test); 
-      (let module T = Traits.Representable.Tests. Make1 (M)(E) in T.test); 
-    ] 
-  end 
-  
-# 90 "Concepts/Identifiable.ml"
-   
-  module  Make2 (M:  S2 )(E: Examples. S2  with type  ('a, 'b) t :=  ('a, 'b) M.t) = struct 
-    let test = "Able" >:: [ 
-      (let module T = Traits.Equatable.Tests. Make2 (M)(E) in T.test); 
-      (let module T = Traits.Representable.Tests. Make2 (M)(E) in T.test); 
-    ] 
-  end 
-  
-# 91 "Concepts/Identifiable.ml"
-   
-  module  Make3 (M:  S3 )(E: Examples. S3  with type  ('a, 'b, 'c) t :=  ('a, 'b, 'c) M.t) = struct 
-    let test = "Able" >:: [ 
-      (let module T = Traits.Equatable.Tests. Make3 (M)(E) in T.test); 
-      (let module T = Traits.Representable.Tests. Make3 (M)(E) in T.test); 
-    ] 
-  end 
-  
-# 92 "Concepts/Identifiable.ml"
-   
-  module  Make4 (M:  S4 )(E: Examples. S4  with type  ('a, 'b, 'c, 'd) t :=  ('a, 'b, 'c, 'd) M.t) = struct 
-    let test = "Able" >:: [ 
-      (let module T = Traits.Equatable.Tests. Make4 (M)(E) in T.test); 
-      (let module T = Traits.Representable.Tests. Make4 (M)(E) in T.test); 
-    ] 
-  end 
-  
-# 93 "Concepts/Identifiable.ml"
-   
-  module  Make5 (M:  S5 )(E: Examples. S5  with type  ('a, 'b, 'c, 'd, 'e) t :=  ('a, 'b, 'c, 'd, 'e) M.t) = struct 
-    let test = "Able" >:: [ 
-      (let module T = Traits.Equatable.Tests. Make5 (M)(E) in T.test); 
-      (let module T = Traits.Representable.Tests. Make5 (M)(E) in T.test); 
-    ] 
-  end 
-
-# 96 "Concepts/Identifiable.ml"
+  module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
+    let test = "Identifiable" >:: [
+      (let module T = Traits.Equatable.Tests.Make0(M)(E) in T.test);
+      (let module T = Traits.Representable.Tests.Make0(M)(E) in T.test);
+    ]
+  end
+  module Make1(M: S1)(E: Examples.S1 with type 'a t := 'a M.t) = struct
+    let test = "Identifiable" >:: [
+      (let module T = Traits.Equatable.Tests.Make1(M)(E) in T.test);
+      (let module T = Traits.Representable.Tests.Make1(M)(E) in T.test);
+    ]
+  end
+  module Make2(M: S2)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t) = struct
+    let test = "Identifiable" >:: [
+      (let module T = Traits.Equatable.Tests.Make2(M)(E) in T.test);
+      (let module T = Traits.Representable.Tests.Make2(M)(E) in T.test);
+    ]
+  end
+  module Make3(M: S3)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t) = struct
+    let test = "Identifiable" >:: [
+      (let module T = Traits.Equatable.Tests.Make3(M)(E) in T.test);
+      (let module T = Traits.Representable.Tests.Make3(M)(E) in T.test);
+    ]
+  end
+  module Make4(M: S4)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t) = struct
+    let test = "Identifiable" >:: [
+      (let module T = Traits.Equatable.Tests.Make4(M)(E) in T.test);
+      (let module T = Traits.Representable.Tests.Make4(M)(E) in T.test);
+    ]
+  end
+  module Make5(M: S5)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t) = struct
+    let test = "Identifiable" >:: [
+      (let module T = Traits.Equatable.Tests.Make5(M)(E) in T.test);
+      (let module T = Traits.Representable.Tests.Make5(M)(E) in T.test);
+    ]
+  end
 end
   
 # 176 "General.cppo.ml"
@@ -6038,139 +5995,96 @@ module type S5 = sig
   include Identifiable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
   include Traits.Comparable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
 end
-
-# 6 "Concepts/Able.ml"
 module Tests = struct
   open Testing
-
   module Examples = struct
-    module type S0 = sig
-      type t
-
-      include Identifiable.Tests.Examples.S0 with type t := t
-      include Traits.Comparable.Tests.Examples.S0 with type t := t
-    end
-
     module type Element = sig
       type t
-
       include Identifiable.Tests.Examples.Element with type t := t
       include Traits.Comparable.Tests.Examples.Element with type t := t
     end
-
+    module type S0 = sig
+      type t
+      include Identifiable.Tests.Examples.S0 with type t := t
+      include Traits.Comparable.Tests.Examples.S0 with type t := t
+    end
     module type S1 = sig
       type 'a t
-
       module A: Element
-
       include Identifiable.Tests.Examples.S1 with type 'a t := 'a t and module A := A
       include Traits.Comparable.Tests.Examples.S1 with type 'a t := 'a t and module A := A
     end
-
     module type S2 = sig
       type ('a, 'b) t
-
       module A: Element
       module B: Element
-
       include Identifiable.Tests.Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
       include Traits.Comparable.Tests.Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
     end
-
     module type S3 = sig
       type ('a, 'b, 'c) t
-
       module A: Element
       module B: Element
       module C: Element
-
       include Identifiable.Tests.Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
       include Traits.Comparable.Tests.Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
     end
-
     module type S4 = sig
       type ('a, 'b, 'c, 'd) t
-
       module A: Element
       module B: Element
       module C: Element
       module D: Element
-
       include Identifiable.Tests.Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
       include Traits.Comparable.Tests.Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
     end
-
     module type S5 = sig
       type ('a, 'b, 'c, 'd, 'e) t
-
       module A: Element
       module B: Element
       module C: Element
       module D: Element
       module E: Element
-
       include Identifiable.Tests.Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
       include Traits.Comparable.Tests.Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
     end
   end
-
-
-  
-# 88 "Concepts/Able.ml"
-   
-  module  Make0 (M:  S0 )(E: Examples. S0  with type   t :=   M.t) = struct 
-    let test = "Able" >:: [ 
-      (let module T = Identifiable.Tests. Make0 (M)(E) in T.test); 
-      (let module T = Traits.Comparable.Tests. Make0 (M)(E) in T.test); 
-    ] 
-  end 
-  
-# 89 "Concepts/Able.ml"
-   
-  module  Make1 (M:  S1 )(E: Examples. S1  with type  'a t :=  'a M.t) = struct 
-    let test = "Able" >:: [ 
-      (let module T = Identifiable.Tests. Make1 (M)(E) in T.test); 
-      (let module T = Traits.Comparable.Tests. Make1 (M)(E) in T.test); 
-    ] 
-  end 
-  
-# 90 "Concepts/Able.ml"
-   
-  module  Make2 (M:  S2 )(E: Examples. S2  with type  ('a, 'b) t :=  ('a, 'b) M.t) = struct 
-    let test = "Able" >:: [ 
-      (let module T = Identifiable.Tests. Make2 (M)(E) in T.test); 
-      (let module T = Traits.Comparable.Tests. Make2 (M)(E) in T.test); 
-    ] 
-  end 
-  
-# 91 "Concepts/Able.ml"
-   
-  module  Make3 (M:  S3 )(E: Examples. S3  with type  ('a, 'b, 'c) t :=  ('a, 'b, 'c) M.t) = struct 
-    let test = "Able" >:: [ 
-      (let module T = Identifiable.Tests. Make3 (M)(E) in T.test); 
-      (let module T = Traits.Comparable.Tests. Make3 (M)(E) in T.test); 
-    ] 
-  end 
-  
-# 92 "Concepts/Able.ml"
-   
-  module  Make4 (M:  S4 )(E: Examples. S4  with type  ('a, 'b, 'c, 'd) t :=  ('a, 'b, 'c, 'd) M.t) = struct 
-    let test = "Able" >:: [ 
-      (let module T = Identifiable.Tests. Make4 (M)(E) in T.test); 
-      (let module T = Traits.Comparable.Tests. Make4 (M)(E) in T.test); 
-    ] 
-  end 
-  
-# 93 "Concepts/Able.ml"
-   
-  module  Make5 (M:  S5 )(E: Examples. S5  with type  ('a, 'b, 'c, 'd, 'e) t :=  ('a, 'b, 'c, 'd, 'e) M.t) = struct 
-    let test = "Able" >:: [ 
-      (let module T = Identifiable.Tests. Make5 (M)(E) in T.test); 
-      (let module T = Traits.Comparable.Tests. Make5 (M)(E) in T.test); 
-    ] 
-  end 
-
-# 96 "Concepts/Able.ml"
+  module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
+    let test = "Able" >:: [
+      (let module T = Identifiable.Tests.Make0(M)(E) in T.test);
+      (let module T = Traits.Comparable.Tests.Make0(M)(E) in T.test);
+    ]
+  end
+  module Make1(M: S1)(E: Examples.S1 with type 'a t := 'a M.t) = struct
+    let test = "Able" >:: [
+      (let module T = Identifiable.Tests.Make1(M)(E) in T.test);
+      (let module T = Traits.Comparable.Tests.Make1(M)(E) in T.test);
+    ]
+  end
+  module Make2(M: S2)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t) = struct
+    let test = "Able" >:: [
+      (let module T = Identifiable.Tests.Make2(M)(E) in T.test);
+      (let module T = Traits.Comparable.Tests.Make2(M)(E) in T.test);
+    ]
+  end
+  module Make3(M: S3)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t) = struct
+    let test = "Able" >:: [
+      (let module T = Identifiable.Tests.Make3(M)(E) in T.test);
+      (let module T = Traits.Comparable.Tests.Make3(M)(E) in T.test);
+    ]
+  end
+  module Make4(M: S4)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t) = struct
+    let test = "Able" >:: [
+      (let module T = Identifiable.Tests.Make4(M)(E) in T.test);
+      (let module T = Traits.Comparable.Tests.Make4(M)(E) in T.test);
+    ]
+  end
+  module Make5(M: S5)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t) = struct
+    let test = "Able" >:: [
+      (let module T = Identifiable.Tests.Make5(M)(E) in T.test);
+      (let module T = Traits.Comparable.Tests.Make5(M)(E) in T.test);
+    ]
+  end
 end
   
 # 180 "General.cppo.ml"
@@ -6194,15 +6108,11 @@ module type S0 = sig
   include Traits.Ringoid.S0 with type t := t and module O := O
   include Traits.OfStandardNumbers.S0 with type t := t
 end
-
-# 6 "Concepts/Number.ml"
 module Tests = struct
   open Testing
-
   module Examples = struct
     module type S0 = sig
       type t
-
       include Traits.Displayable.Tests.Examples.S0 with type t := t
       include Traits.Equatable.Tests.Examples.S0 with type t := t
       include Traits.Parsable.Tests.Examples.S0 with type t := t
@@ -6210,23 +6120,17 @@ module Tests = struct
       include Traits.Ringoid.Tests.Examples.S0 with type t := t
     end
   end
-
-  module Make0(M: S0)(E: Examples.S0 with type t := M.t): sig val test: Test.t end = struct
-    open M
-
+  module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
     module E = struct
       include E
-
       let equal = equal @ [
-        [zero; of_int 0; of_float 0.; M.of_string "0"];
-        [one; of_int 1; of_float 1.; M.of_string "1"];
+          [M.zero; M.of_int 0; M.of_float 0.; M.of_string "0"];
+          [M.one; M.of_int 1; M.of_float 1.; M.of_string "1"];
       ]
-
       let different = different @ [
-        (zero, one);
+          (M.zero, M.one);
       ]
     end
-
     let test = "Number" >:: [
       (let module T = Traits.Displayable.Tests.Make0(M)(E) in T.test);
       (let module T = Traits.Equatable.Tests.Make0(M)(E) in T.test);
@@ -6258,52 +6162,43 @@ module type S0 = sig
   val abs: t -> t
   val modulo: t -> t -> t
 end
-
-# 6 "Concepts/RealNumber.ml"
 module Tests = struct
   open Testing
-
   module Examples = struct
     module type S0 = sig
       type t
-
       include Number.Tests.Examples.S0 with type t := t
       include Traits.Comparable.Tests.Examples.S0 with type t := t
     end
   end
-
-  module Make0(M: S0)(E: Examples.S0 with type t := M.t): sig val test: Test.t end = struct
-    open M
-
+  module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
     module E = struct
       include E
-
       let ordered = ordered @ [
-        [zero; one];
+          [M.zero; M.one];
       ]
     end
-
-    let check = check ~repr ~equal
-
     let test = "RealNumber" >:: [
       (let module T = Number.Tests.Make0(M)(E) in T.test);
       (let module T = Traits.Comparable.Tests.Make0(M)(E) in T.test);
     ] @ (
-      E.negate
-      |> List.flat_map ~f:(fun (x, y) ->
-        let abs_x = if greater_or_equal x zero then x else y
-        and abs_y = if greater_or_equal y zero then y else x in
-        [
-          ~: "abs %s" (repr x) (lazy (check ~expected:abs_x (abs x)));
-          ~: "abs %s" (repr y) (lazy (check ~expected:abs_y (abs y)));
-        ]
-      )
-    ) @ [
-      "to_int zero" >: (lazy (check_int ~expected:0 (to_int zero)));
-      "to_float zero" >: (lazy (check_float_exact ~expected:0. (to_float zero)));
-      "to_int one" >: (lazy (check_int ~expected:1 (to_int one)));
-      "to_float one" >: (lazy (check_float_exact ~expected:1. (to_float one)));
-    ]
+      (
+          E.negate
+          |> List.flat_map ~f:(fun (x, y) ->
+              let abs_x = M.(if greater_or_equal x zero then x else y)
+              and abs_y = M.(if greater_or_equal y zero then y else x) in
+              [
+                  ~: "abs %s" (M.repr x) (lazy M.(check ~repr ~equal ~expected:abs_x (abs x)));
+                  ~: "abs %s" (M.repr y) (lazy M.(check ~repr ~equal ~expected:abs_y (abs y)));
+              ]
+          )
+      ) @ [
+          "to_int zero" >: (lazy (check_int ~expected:0 M.(to_int zero)));
+          "to_float zero" >: (lazy (check_float_exact ~expected:0. M.(to_float zero)));
+          "to_int one" >: (lazy (check_int ~expected:1 M.(to_int one)));
+          "to_float one" >: (lazy (check_float_exact ~expected:1. M.(to_float one)));
+      ]
+    )
   end
 end
   
@@ -6323,25 +6218,22 @@ module type S0 = sig
   include RealNumber.S0 with type t := t and module O := O
   include Traits.PredSucc.S0 with type t := t
 end
-
-# 6 "Concepts/Integer.ml"
 module Tests = struct
   open Testing
-
-  module Make0(M: S0)(E: sig
-    include RealNumber.Tests.Examples.S0 with type t := M.t
-    include Traits.PredSucc.Tests.Examples.S0 with type t := M.t
-  end): sig val test: Test.t end = struct
-    open M
-
+  module Examples = struct
+    module type S0 = sig
+      type t
+      include RealNumber.Tests.Examples.S0 with type t := t
+      include Traits.PredSucc.Tests.Examples.S0 with type t := t
+    end
+  end
+  module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
     module E = struct
       include E
-
       let succ = succ @ [
-        (zero, one);
+          (M.zero, M.one);
       ]
     end
-
     let test = "Integer" >:: [
       (let module T = RealNumber.Tests.Make0(M)(E) in T.test);
       (let module T = Traits.PredSucc.Tests.Make0(M)(E) in T.test);

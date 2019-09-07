@@ -1,5 +1,6 @@
 import itertools
 import sys
+import textwrap
 
 
 max_arity = 6
@@ -21,7 +22,7 @@ def indent(element, levels=1):
 class Trait:
     all = []
 
-    def __init__(self, name, *, variadic, basics, extensions=[]):
+    def __init__(self, name, *, variadic, basics, extensions=[], has_tests=True):
         Trait.all.append(self)
         self.name = name
         self.max_arity = max_arity if variadic else 1
@@ -32,6 +33,7 @@ class Trait:
             itertools.chain.from_iterable(extension.members for extension in self.extensions),
         ))
         self.operators = [item for item in self.all_items if item.operator is not None]
+        self.has_tests = has_tests
 
     @property
     def full_name(self):
@@ -185,13 +187,15 @@ class Trait:
 class Concept:
     all = []
 
-    def __init__(self, name, *, inherited, basics=[]):
+    def __init__(self, name, *, inherited, basics=[], examples=None, tests=None):
         Concept.all.append(self)
         self.name = name
         self.inherited = list(inherited)
         self.basics = list(basics)
         self.max_arity = min(i.max_arity for i in self.inherited)
         self.operators = [item for item in self.basics if item.operator is not None]
+        self.examples = examples
+        self.tests = tests
 
     @property
     def full_name(self):
@@ -200,6 +204,10 @@ class Concept:
     @property
     def has_operators(self):
         return any(base.has_operators for base in self.inherited)
+
+    @property
+    def has_tests(self):
+        return any(base.has_tests for base in self.inherited)
 
     @property
     def declaration(self):
@@ -221,6 +229,13 @@ class Concept:
 
     @property
     def __signatures(self):
+        yield self.__basic_signatures
+        # @todo Publish Tests (examples and makers)
+        # if self.has_tests:
+        #     yield self.__test_signatures
+
+    @property
+    def __basic_signatures(self):
         for arity in range(self.max_arity):
             yield f"module type S{arity} = sig"
             yield f"  type {type_params(arity)}t"
@@ -248,7 +263,54 @@ class Concept:
             yield indent(operator.make_signature(self.basics, 0, operator=True), levels=2)
         yield "  end"
         yield "end"
-        yield self.__signatures
+        yield self.__basic_signatures
+        if self.has_tests:
+            yield self.__test_module_items
+
+    @property
+    def __test_module_items(self):
+        yield "module Tests = struct"
+        yield "  open Testing"
+        yield "  module Examples = struct"
+        if self.max_arity > 1:
+            yield "    module type Element = sig"
+            yield "      type t"
+            for base in self.inherited:
+                if base.has_tests:
+                    yield f"      include {base.full_name}.Tests.Examples.Element with type t := t"
+            yield "    end"
+        for arity in range(self.max_arity):
+            yield f"    module type S{arity} = sig"
+            yield f"      type {type_params(arity)}t"
+            for a in abcd(arity):
+                yield f"      module {a.upper()}: Element"
+            for base in self.inherited:
+                if base.has_tests:
+                    yield (
+                        f"      include {base.full_name}.Tests.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
+                        + "".join(f" and module {a.upper()} := {a.upper()}" for a in abcd(arity))
+                    )
+            yield "    end"
+        yield "  end"
+        for arity in range(self.max_arity):
+            yield f"  module Make{arity}(M: S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t) = struct"
+            if self.examples is not None:
+                yield "    module E = struct"
+                yield "      include E"
+                yield indent(textwrap.dedent(self.examples).splitlines(), levels=3)
+                yield "    end"
+            yield f'    let test = "{self.name}" >:: ['
+            for base in self.inherited:
+                if base.has_tests:
+                    yield f"      (let module T = {base.full_name}.Tests.Make{arity}(M)(E) in T.test);"
+            if self.tests is not None:
+                yield "    ] @ ("
+                yield from indent(textwrap.dedent(self.tests).splitlines(), levels=3)
+                yield "    )"
+            else:
+                yield "    ]"
+            yield "  end"
+        yield "end"
 
 
 class Extension:
@@ -486,7 +548,7 @@ ringoid = Trait(
             [val("exponentiate", params=[variadic_type, "int"], return_=variadic_type, operator="**")],
             requirements=["one", "square", "multiply", val("exponentiate_negative_exponent", params=[named("exponentiate", "t -> int -> t"), variadic_type, "int"], return_=variadic_type)],
         ),
-    ]
+    ],
 )
 
 of_standard_numbers = Trait(
@@ -496,6 +558,7 @@ of_standard_numbers = Trait(
         val("of_int", params=["int"], return_=variadic_type),
         val("of_float", params=["float"], return_=variadic_type),
     ],
+    has_tests=False,
 )
 
 to_standard_numbers = Trait(
@@ -505,6 +568,7 @@ to_standard_numbers = Trait(
         val("to_int", params=[variadic_type], return_="int"),
         val("to_float", params=[variadic_type], return_="float"),
     ],
+    has_tests=False,
 )
 
 pred_succ = Trait(
@@ -542,6 +606,15 @@ able = Concept(
 number = Concept(
     "Number",
     inherited=[displayable, equatable, parsable, representable, ringoid, of_standard_numbers],
+    examples="""\
+        let equal = equal @ [
+            [M.zero; M.of_int 0; M.of_float 0.; M.of_string "0"];
+            [M.one; M.of_int 1; M.of_float 1.; M.of_string "1"];
+        ]
+        let different = different @ [
+            (M.zero, M.one);
+        ]
+    """,
 )
 
 real_number = Concept(
@@ -552,6 +625,29 @@ real_number = Concept(
         val("abs", params=[variadic_type], return_=variadic_type),
         val("modulo", params=[variadic_type, variadic_type], return_=variadic_type, operator="mod"),
     ],
+    examples="""\
+        let ordered = ordered @ [
+            [M.zero; M.one];
+        ]
+    """,
+    tests="""\
+        (
+            E.negate
+            |> List.flat_map ~f:(fun (x, y) ->
+                let abs_x = M.(if greater_or_equal x zero then x else y)
+                and abs_y = M.(if greater_or_equal y zero then y else x) in
+                [
+                    ~: "abs %s" (M.repr x) (lazy M.(check ~repr ~equal ~expected:abs_x (abs x)));
+                    ~: "abs %s" (M.repr y) (lazy M.(check ~repr ~equal ~expected:abs_y (abs y)));
+                ]
+            )
+        ) @ [
+            "to_int zero" >: (lazy (check_int ~expected:0 M.(to_int zero)));
+            "to_float zero" >: (lazy (check_float_exact ~expected:0. M.(to_float zero)));
+            "to_int one" >: (lazy (check_int ~expected:1 M.(to_int one)));
+            "to_float one" >: (lazy (check_float_exact ~expected:1. M.(to_float one)));
+        ]
+    """,
 )
 
 integer = Concept(
@@ -559,4 +655,9 @@ integer = Concept(
     # @feature Bitwise?
     # @feature gcd, lcm, quomod
     inherited=[real_number, pred_succ],
+    examples="""\
+        let succ = succ @ [
+            (M.zero, M.one);
+        ]
+    """,
 )

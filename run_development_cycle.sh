@@ -101,12 +101,6 @@ do
 
     # $RUN opam install General
 
-    echo
-    echo "Adding generated files"
-    echo "----------------------"
-
-    git add preprocessed doc/utop src/dune unit_tests.ml
-
     # @todo Build demo apps (as native, byte code, and js)
 
     # @todo Integrate validation of ResetPervasives with dune:
