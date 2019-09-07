@@ -21,9 +21,6 @@
     Traits/PredSucc.signatures.ml
     Traits/Ringoid.makers.Operators.mli
     Traits/Ringoid.makers.mli
-    Traits/Ringoid.signatures.Basic.ml
-    Traits/Ringoid.signatures.Operators.ml
-    Traits/Ringoid.signatures.ml
     Traits/Scanable.signatures.Right.ToContainer.ml
     Traits/Scanable.signatures.Right.ml
     Traits/Scanable.signatures.Short.Right.ToContainer.ml
@@ -139,9 +136,6 @@
     Traits/PredSucc.signatures.ml
     Traits/Representable.ml
     Traits/Ringoid.ml
-    Traits/Ringoid.signatures.Basic.ml
-    Traits/Ringoid.signatures.Operators.ml
-    Traits/Ringoid.signatures.ml
     Traits/Scanable.ml
     Traits/Scanable.signatures.Right.ToContainer.ml
     Traits/Scanable.signatures.Right.ml
