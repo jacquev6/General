@@ -4,6 +4,7 @@ module Traits: sig
   module Equatable
   module FilterMapable
   module Foldable
+  module OfStandardNumbers
   module Parsable
   module PredSucc
   module Representable

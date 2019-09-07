@@ -4,8 +4,6 @@
     (:src General.cppo.mli)
     geni.py
     Concepts/Integer.signatures.ml
-    Concepts/Number.signatures.Operators.ml
-    Concepts/Number.signatures.ml
     Concepts/RealNumber.signatures.Operators.ml
     Concepts/RealNumber.signatures.ml
     Reset/CommonHeader.ml
@@ -53,8 +51,6 @@
     Concepts/Integer.ml
     Concepts/Integer.signatures.ml
     Concepts/Number.ml
-    Concepts/Number.signatures.Operators.ml
-    Concepts/Number.signatures.ml
     Concepts/RealNumber.ml
     Concepts/RealNumber.signatures.Operators.ml
     Concepts/RealNumber.signatures.ml
@@ -144,6 +140,7 @@
     Traits/Foldable.signatures.Short.Right.ml
     Traits/Foldable.signatures.Short.ml
     Traits/Foldable.signatures.ml
+    Traits/OfStandardNumbers.ml
     Traits/Parsable.ml
     Traits/PredSucc.ml
     Traits/PredSucc.signatures.ml

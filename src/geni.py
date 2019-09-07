@@ -188,7 +188,8 @@ class Concept:
     def __init__(self, name, *, inherited):
         Concept.all.append(self)
         self.name = name
-        self.inherited = inherited
+        self.inherited = list(inherited)
+        self.max_arity = min(i.max_arity for i in self.inherited)
 
     @property
     def full_name(self):
@@ -215,7 +216,7 @@ class Concept:
 
     @property
     def __signatures(self):
-        for arity in range(max_arity):
+        for arity in range(self.max_arity):
             yield f"module type S{arity} = sig"
             yield f"  type {type_params(arity)}t"
             if arity == 0:
@@ -479,6 +480,14 @@ ringoid = Trait(
     ]
 )
 
+of_standard_numbers = Trait(
+    "OfStandardNumbers",
+    variadic=False,
+    basics=[
+        val("of_int", params=["int"], return_=variadic_type),
+        val("of_float", params=["float"], return_=variadic_type),
+    ],
+)
 
 identifiable = Concept(
     "Identifiable",
@@ -490,7 +499,7 @@ able = Concept(
     inherited=[identifiable, comparable],
 )
 
-# number = Concept(
-#     "Number",
-#     inherited=[],
-# )
+number = Concept(
+    "Number",
+    inherited=[displayable, equatable, parsable, representable, ringoid, of_standard_numbers],
+)

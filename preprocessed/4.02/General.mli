@@ -1402,6 +1402,13 @@ module Traits: sig
       end
     end
   end
+  module OfStandardNumbers: sig
+    module type S0 = sig
+      type t
+      val of_int: int -> t
+      val of_float: float -> t
+    end
+  end
 
   
 # 179 "General.cppo.mli"
@@ -2102,43 +2109,28 @@ module Concepts: sig
       include Traits.Comparable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
     end
   end
+  module Number: sig
+    module Operators: sig
+      module type S0 = sig
+        type t
+        include Traits.Equatable.Operators.S0 with type t := t
+        include Traits.Ringoid.Operators.S0 with type t := t
+      end
+    end
+    module type S0 = sig
+      type t
+      module O: Operators.S0 with type t := t
+      include Traits.Displayable.S0 with type t := t
+      include Traits.Equatable.S0 with type t := t and module O := O
+      include Traits.Parsable.S0 with type t := t
+      include Traits.Representable.S0 with type t := t
+      include Traits.Ringoid.S0 with type t := t and module O := O
+      include Traits.OfStandardNumbers.S0 with type t := t
+    end
+  end
 
   
 # 296 "General.cppo.mli"
-  module Number: sig
-    module Operators: sig
-# 1 "Concepts/Number.signatures.Operators.ml"
-module type S0 = sig
-  type t
-
-  include Traits.Equatable.Operators.S0 with type t := t
-  include Traits.Ringoid.Operators.S0 with type t := t
-end
-    
-# 299 "General.cppo.mli"
-    end
-
-# 1 "Concepts/Number.signatures.ml"
-module type S0 = sig
-  type t
-
-  module O: Operators.S0 with type t := t
-
-  include Traits.Displayable.S0 with type t := t
-  include Traits.Equatable.S0 with type t := t and module O := O
-  include Traits.Parsable.S0 with type t := t
-  include Traits.Representable.S0 with type t := t
-  include Traits.Ringoid.S0 with type t := t and module O := O
-
-  (* @feature Traits.OfStandardNumbers? *)
-  (* @feature of_int32, of_int64, of_nativeint *)
-  val of_int: int -> t
-  val of_float: float -> t
-end
-  
-# 302 "General.cppo.mli"
-  end
-
   module RealNumber: sig
     module Operators: sig
 # 1 "Concepts/RealNumber.signatures.Operators.ml"
@@ -2151,7 +2143,7 @@ module type S0 = sig
   val (mod): t -> t -> t
 end
     
-# 307 "General.cppo.mli"
+# 299 "General.cppo.mli"
     end
 
 
@@ -2174,7 +2166,7 @@ module type S0 = sig
   (* @feature sign *)
 end
   
-# 310 "General.cppo.mli"
+# 302 "General.cppo.mli"
   end
 
   module Integer: sig
@@ -2189,7 +2181,7 @@ module type S0 = sig
   (* @feature gcd, lcm, quomod *)
 end
   
-# 314 "General.cppo.mli"
+# 306 "General.cppo.mli"
   end
 end
 
@@ -3473,7 +3465,7 @@ module Standard: sig
   and module Bytes := Bytes
   and module Char := Char
   
-# 1599 "General.cppo.mli"
+# 1591 "General.cppo.mli"
   and module Format := Format
   and module Int32 := Int32
   and module Int64 := Int64

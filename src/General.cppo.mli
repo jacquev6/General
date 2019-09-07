@@ -293,14 +293,6 @@ for concept in Concept.all:
     generate(concept.declaration, indent=1)
 #endext
 
-  module Number: sig
-    module Operators: sig
-      #include "Concepts/Number.signatures.Operators.ml"
-    end
-
-    #include "Concepts/Number.signatures.ml"
-  end
-
   module RealNumber: sig
     module Operators: sig
       #include "Concepts/RealNumber.signatures.Operators.ml"

@@ -145,6 +145,10 @@ module Traits = struct
     #include "Traits/PredSucc.ml"
   end
 
+  module OfStandardNumbers = struct
+    #include "Traits/OfStandardNumbers.ml"
+  end
+
   module Ringoid = struct
     #include "Traits/Ringoid.ml"
   end
