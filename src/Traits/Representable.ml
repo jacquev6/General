@@ -1,39 +1,7 @@
-#include "Representable.signatures.ml"
-
-module Specialize1(M: S1)(A: S0): S0 with type t = A.t M.t = struct
-  type t = A.t M.t
-
-  let repr x =
-    M.repr x ~repr_a:A.repr
-end
-
-module Specialize2(M: S2)(A: S0)(B: S0): S0 with type t = (A.t, B.t) M.t = struct
-  type t = (A.t, B.t) M.t
-
-  let repr x =
-    M.repr x ~repr_a:A.repr ~repr_b:B.repr
-end
-
-module Specialize3(M: S3)(A: S0)(B: S0)(C: S0): S0 with type t = (A.t, B.t, C.t) M.t = struct
-  type t = (A.t, B.t, C.t) M.t
-
-  let repr x =
-    M.repr x ~repr_a:A.repr ~repr_b:B.repr ~repr_c:C.repr
-end
-
-module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0): S0 with type t = (A.t, B.t, C.t, D.t) M.t = struct
-  type t = (A.t, B.t, C.t, D.t) M.t
-
-  let repr x =
-    M.repr x ~repr_a:A.repr ~repr_b:B.repr ~repr_c:C.repr ~repr_d:D.repr
-end
-
-module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0): S0 with type t = (A.t, B.t, C.t, D.t, E.t) M.t = struct
-  type t = (A.t, B.t, C.t, D.t, E.t) M.t
-
-  let repr x =
-    M.repr x ~repr_a:A.repr ~repr_b:B.repr ~repr_c:C.repr ~repr_d:D.repr ~repr_e:E.repr
-end
+#ext python3
+from geni import *
+generate(representable.module_items)
+#endext
 
 module Tests = struct
   open Testing

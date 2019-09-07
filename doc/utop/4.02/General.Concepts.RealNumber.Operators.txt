@@ -13,7 +13,6 @@ module Operators: sig
     val (>): t -> t -> bool
     val (>=): t -> t -> bool
     val (mod): t -> t -> t
-    val (~+): t -> t
     val (~-): t -> t
   end
 end

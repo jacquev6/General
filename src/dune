@@ -2,9 +2,7 @@
   (targets General.mli)
   (deps
     (:src General.cppo.mli)
-    Concepts/Able.signatures.Operators.ml
-    Concepts/Able.signatures.ml
-    Concepts/Identifiable.signatures.ml
+    geni.py
     Concepts/Integer.signatures.ml
     Concepts/Number.signatures.Operators.ml
     Concepts/Number.signatures.ml
@@ -15,13 +13,6 @@
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml
     Reset/SignatureHeader.ml
-    Traits/Comparable.signatures.Basic.ml
-    Traits/Comparable.signatures.Operators.ml
-    Traits/Comparable.signatures.ml
-    Traits/Displayable.signatures.ml
-    Traits/Equatable.signatures.Basic.ml
-    Traits/Equatable.signatures.Operators.ml
-    Traits/Equatable.signatures.ml
     Traits/FilterMapable.signatures.ToContainer.ml
     Traits/FilterMapable.signatures.ml
     Traits/Foldable.signatures.Basic.ml
@@ -32,10 +23,8 @@
     Traits/Foldable.signatures.Short.Right.ml
     Traits/Foldable.signatures.Short.ml
     Traits/Foldable.signatures.ml
-    Traits/Parsable.signatures.ml
     Traits/PredSucc.makers.mli
     Traits/PredSucc.signatures.ml
-    Traits/Representable.signatures.ml
     Traits/Ringoid.makers.Operators.mli
     Traits/Ringoid.makers.mli
     Traits/Ringoid.signatures.Basic.ml
@@ -50,19 +39,17 @@
     Traits/Scanable.signatures.ToContainer.ml
     Traits/Scanable.signatures.ml
  )
-  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
+  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} -x python3:python3 %{src} -o %{targets}))
 )
 
 (rule
   (targets General.ml)
   (deps
     (:src General.cppo.ml)
+    geni.py
     Compare.ml
     Concepts/Able.ml
-    Concepts/Able.signatures.Operators.ml
-    Concepts/Able.signatures.ml
     Concepts/Identifiable.ml
-    Concepts/Identifiable.signatures.ml
     Concepts/Integer.ml
     Concepts/Integer.signatures.ml
     Concepts/Number.ml
@@ -143,15 +130,8 @@
     Specializations/SortedSet.ml
     Testing.ml
     Traits/Comparable.ml
-    Traits/Comparable.signatures.Basic.ml
-    Traits/Comparable.signatures.Operators.ml
-    Traits/Comparable.signatures.ml
     Traits/Displayable.ml
-    Traits/Displayable.signatures.ml
     Traits/Equatable.ml
-    Traits/Equatable.signatures.Basic.ml
-    Traits/Equatable.signatures.Operators.ml
-    Traits/Equatable.signatures.ml
     Traits/FilterMapable.ml
     Traits/FilterMapable.signatures.ToContainer.ml
     Traits/FilterMapable.signatures.ml
@@ -165,11 +145,9 @@
     Traits/Foldable.signatures.Short.ml
     Traits/Foldable.signatures.ml
     Traits/Parsable.ml
-    Traits/Parsable.signatures.ml
     Traits/PredSucc.ml
     Traits/PredSucc.signatures.ml
     Traits/Representable.ml
-    Traits/Representable.signatures.ml
     Traits/Ringoid.ml
     Traits/Ringoid.signatures.Basic.ml
     Traits/Ringoid.signatures.Operators.ml
@@ -184,7 +162,7 @@
     Traits/Scanable.signatures.ToContainer.ml
     Traits/Scanable.signatures.ml
   )
-  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
+  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} -x python3:python3 %{src} -o %{targets}))
 )
 
 (library

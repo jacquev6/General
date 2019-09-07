@@ -20,23 +20,25 @@ set -o errexit
     echo "  (targets General.mli)";
     echo "  (deps";
     echo "    (:src General.cppo.mli)";
+    echo "    geni.py";
     (
         find src -type f -name "*.signatures*.ml" -or -name "*.makers*.mli";
         find src/Reset -type f -not -name "DefinitionHeader.ml";
     ) | sed "s|src/|    |" | sort -u
     echo " )";
-    echo "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))";
+    echo "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} -x python3:python3 %{src} -o %{targets}))";
     echo ")";
     echo "";
     echo "(rule";
     echo "  (targets General.ml)";
     echo "  (deps";
     echo "    (:src General.cppo.ml)";
+    echo "    geni.py";
     (
         find src -type f -name "*.ml" -not -name "SignatureHeader.ml" -not -name "General.cppo.ml";
     ) | sed "s|src/|    |" | sort -u
     echo "  )";
-    echo "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))";
+    echo "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} -x python3:python3 %{src} -o %{targets}))";
     echo ")";
     echo "";
     echo "(library";

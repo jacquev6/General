@@ -1,4 +1,7 @@
-#include "Parsable.signatures.ml"
+#ext python3
+from geni import *
+generate(parsable.module_items)
+#endext
 
 module Tests = struct
   open Testing

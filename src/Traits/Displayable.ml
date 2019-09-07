@@ -1,4 +1,7 @@
-#include "Displayable.signatures.ml"
+#ext python3
+from geni import *
+generate(displayable.module_items)
+#endext
 
 module Tests = struct
   open Testing

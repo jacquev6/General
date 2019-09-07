@@ -1,47 +1,7 @@
-module Basic = struct
-  #include "Ringoid.signatures.Basic.ml"
-end
-
-module Operators = struct
-  #include "Ringoid.signatures.Operators.ml"
-
-  module Make0(M: sig
-    type t
-
-    val negate: t -> t
-    val add: t -> t -> t
-    val substract: t -> t -> t
-    val multiply: t -> t -> t
-    val divide: t -> t -> t
-
-    val exponentiate: t -> int -> t
-  end) = struct
-    open M
-
-    let (~+) x =
-      identity x
-
-    let (~-) x =
-      negate x
-
-    let (+) x y =
-      add x y
-
-    let (-) x y =
-      substract x y
-
-    let ( * ) x y =
-      multiply x y
-
-    let (/) x y =
-      divide x y
-
-    let ( ** ) x n =
-      exponentiate x n
-  end
-end
-
-#include "Ringoid.signatures.ml"
+#ext python3
+from geni import *
+generate(ringoid.module_items)
+#endext
 
 (* @todo Fix spelling of 'subtract' *)
 module Substract = struct

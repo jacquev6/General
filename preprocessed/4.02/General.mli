@@ -898,718 +898,307 @@ module Equate: sig
   end
 end
 
-(** Traits are isolated capabilities associated with a type. *)
+(** Traits are isolated capabilities associated to a type. *)
 module Traits: sig
   (* @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
   (* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
   (* @feature Publish helper functors (Specialize, Ringoid.Exponentiate.Make, Tests.Make, etc.) *)
 
   (** A *representation* is a string representing a value for a software developer audience.
-  When possible, it should a valid OCaml expression for the value. *)
+  When possible, it should be a valid OCaml expression for the value. *)
+
   module Representable: sig
-# 1 "Traits/Representable.signatures.ml"
-module type S0 = sig
-  type t
-
-  val repr: t
-    -> string
-end
-
-module type S1 = sig
-  type 'a t
-
-  val repr: 'a t
-    -> repr_a:('a -> string)
-    -> string
-end
-
-module type S2 = sig
-  type ('a, 'b) t
-
-  val repr: ('a, 'b) t
-    -> repr_a:('a -> string)
-    -> repr_b:('b -> string)
-    -> string
-end
-
-module type S3 = sig
-  type ('a, 'b, 'c) t
-
-  val repr: ('a, 'b, 'c) t
-    -> repr_a:('a -> string)
-    -> repr_b:('b -> string)
-    -> repr_c:('c -> string)
-    -> string
-end
-
-module type S4 = sig
-  type ('a, 'b, 'c, 'd) t
-
-  val repr: ('a, 'b, 'c, 'd) t
-    -> repr_a:('a -> string)
-    -> repr_b:('b -> string)
-    -> repr_c:('c -> string)
-    -> repr_d:('d -> string)
-    -> string
-end
-
-module type S5 = sig
-  type ('a, 'b, 'c, 'd, 'e) t
-
-  val repr: ('a, 'b, 'c, 'd, 'e) t
-    -> repr_a:('a -> string)
-    -> repr_b:('b -> string)
-    -> repr_c:('c -> string)
-    -> repr_d:('d -> string)
-    -> repr_e:('e -> string)
-    -> string
-end
-  
-# 174 "General.cppo.mli"
+    module type S0 = sig
+      type t
+      val repr: t -> string
+    end
+    module type S1 = sig
+      type 'a t
+      val repr: 'a t -> repr_a:('a -> string) -> string
+    end
+    module type S2 = sig
+      type ('a, 'b) t
+      val repr: ('a, 'b) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> string
+    end
+    module type S3 = sig
+      type ('a, 'b, 'c) t
+      val repr: ('a, 'b, 'c) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> string
+    end
+    module type S4 = sig
+      type ('a, 'b, 'c, 'd) t
+      val repr: ('a, 'b, 'c, 'd) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> string
+    end
+    module type S5 = sig
+      type ('a, 'b, 'c, 'd, 'e) t
+      val repr: ('a, 'b, 'c, 'd, 'e) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> repr_e:('e -> string) -> string
+    end
   end
-
   module Displayable: sig
-# 1 "Traits/Displayable.signatures.ml"
-module type S0 = sig
-  type t
-
-  val to_string: t -> string
-end
-  
-# 178 "General.cppo.mli"
+    module type S0 = sig
+      type t
+      val to_string: t -> string
+    end
   end
-
   module Parsable: sig
-# 1 "Traits/Parsable.signatures.ml"
-module type S0 = sig
-  type t
-
-  val try_of_string: string -> t option
-  val of_string: string -> t
-end
-  
-# 182 "General.cppo.mli"
+    module type S0 = sig
+      type t
+      val try_of_string: string -> t option
+      val of_string: string -> t
+    end
   end
-
   module Equatable: sig
     module Basic: sig
-# 1 "Traits/Equatable.signatures.Basic.ml"
-module type S0 = sig
-  type t
-
-  val equal: t -> t
-    -> bool
-end
-
-module type S1 = sig
-  type 'a t
-
-  val equal: 'a t -> 'a t
-    -> equal_a:('a -> 'a -> bool)
-    -> bool
-end
-
-module type S2 = sig
-  type ('a, 'b) t
-
-  val equal: ('a, 'b) t -> ('a, 'b) t
-    -> equal_a:('a -> 'a -> bool)
-    -> equal_b:('b -> 'b -> bool)
-    -> bool
-end
-
-module type S3 = sig
-  type ('a, 'b, 'c) t
-
-  val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> equal_a:('a -> 'a -> bool)
-    -> equal_b:('b -> 'b -> bool)
-    -> equal_c:('c -> 'c -> bool)
-    -> bool
-end
-
-module type S4 = sig
-  type ('a, 'b, 'c, 'd) t
-
-  val equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> equal_a:('a -> 'a -> bool)
-    -> equal_b:('b -> 'b -> bool)
-    -> equal_c:('c -> 'c -> bool)
-    -> equal_d:('d -> 'd -> bool)
-    -> bool
-end
-
-module type S5 = sig
-  type ('a, 'b, 'c, 'd, 'e) t
-
-  val equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> equal_a:('a -> 'a -> bool)
-    -> equal_b:('b -> 'b -> bool)
-    -> equal_c:('c -> 'c -> bool)
-    -> equal_d:('d -> 'd -> bool)
-    -> equal_e:('e -> 'e -> bool)
-    -> bool
-end
-    
-# 187 "General.cppo.mli"
+      module type S0 = sig
+        type t
+        val equal: t -> t -> bool
+      end
+      module type S1 = sig
+        type 'a t
+        val equal: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+      end
+      module type S2 = sig
+        type ('a, 'b) t
+        val equal: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+      end
+      module type S3 = sig
+        type ('a, 'b, 'c) t
+        val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+      end
+      module type S4 = sig
+        type ('a, 'b, 'c, 'd) t
+        val equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+      end
+      module type S5 = sig
+        type ('a, 'b, 'c, 'd, 'e) t
+        val equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+      end
     end
-
     module Operators: sig
-# 1 "Traits/Equatable.signatures.Operators.ml"
-module type S0 = sig
-  type t
-
-  val (=): t -> t
-    -> bool
-  val (<>): t -> t
-    -> bool
-end
-    
-# 191 "General.cppo.mli"
+      module type S0 = sig
+        type t
+        val ( = ): t -> t -> bool
+        val ( <> ): t -> t -> bool
+      end
+      module Make0(M: sig
+        type t
+        val equal: t -> t -> bool
+        val different: t -> t -> bool
+      end): S0 with type t := M.t
     end
-
-# 1 "Traits/Equatable.signatures.ml"
-module type S0 = sig
-  include Basic.S0
-
-  val different: t -> t
-    -> bool
-
-  module O: Operators.S0 with type t := t
-end
-
-module type S1 = sig
-  include Basic.S1
-
-  val different: 'a t -> 'a t
-    -> equal_a:('a -> 'a -> bool)
-    -> bool
-end
-
-module type S2 = sig
-  include Basic.S2
-
-  val different: ('a, 'b) t -> ('a, 'b) t
-    -> equal_a:('a -> 'a -> bool)
-    -> equal_b:('b -> 'b -> bool)
-    -> bool
-end
-
-module type S3 = sig
-  include Basic.S3
-
-  val different: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> equal_a:('a -> 'a -> bool)
-    -> equal_b:('b -> 'b -> bool)
-    -> equal_c:('c -> 'c -> bool)
-    -> bool
-end
-
-module type S4 = sig
-  include Basic.S4
-
-  val different: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> equal_a:('a -> 'a -> bool)
-    -> equal_b:('b -> 'b -> bool)
-    -> equal_c:('c -> 'c -> bool)
-    -> equal_d:('d -> 'd -> bool)
-    -> bool
-end
-
-module type S5 = sig
-  include Basic.S5
-
-  val different: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> equal_a:('a -> 'a -> bool)
-    -> equal_b:('b -> 'b -> bool)
-    -> equal_c:('c -> 'c -> bool)
-    -> equal_d:('d -> 'd -> bool)
-    -> equal_e:('e -> 'e -> bool)
-    -> bool
-end
-  
-# 194 "General.cppo.mli"
+    module type S0 = sig
+      include Basic.S0
+      val different: t -> t -> bool
+      module O: Operators.S0 with type t := t
+    end
+    module type S1 = sig
+      include Basic.S1
+      val different: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+    end
+    module type S2 = sig
+      include Basic.S2
+      val different: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+    end
+    module type S3 = sig
+      include Basic.S3
+      val different: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+    end
+    module type S4 = sig
+      include Basic.S4
+      val different: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+    end
+    module type S5 = sig
+      include Basic.S5
+      val different: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+    end
   end
-
   module Comparable: sig
     module Basic: sig
-# 1 "Traits/Comparable.signatures.Basic.ml"
-module type S0 = sig
-  type t
-
-  val compare: t -> t
-    -> Compare.t
-end
-
-module type S1 = sig
-  type 'a t
-
-  val compare: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> Compare.t
-end
-
-module type S2 = sig
-  type ('a, 'b) t
-
-  val compare: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> Compare.t
-end
-
-module type S3 = sig
-  type ('a, 'b, 'c) t
-
-  val compare: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> Compare.t
-end
-
-module type S4 = sig
-  type ('a, 'b, 'c, 'd) t
-
-  val compare: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> Compare.t
-end
-
-module type S5 = sig
-  type ('a, 'b, 'c, 'd, 'e) t
-
-  val compare: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> Compare.t
-end
-    
-# 199 "General.cppo.mli"
+      module type S0 = sig
+        type t
+        val compare: t -> t -> Compare.t
+      end
+      module type S1 = sig
+        type 'a t
+        val compare: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> Compare.t
+      end
+      module type S2 = sig
+        type ('a, 'b) t
+        val compare: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> Compare.t
+      end
+      module type S3 = sig
+        type ('a, 'b, 'c) t
+        val compare: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> Compare.t
+      end
+      module type S4 = sig
+        type ('a, 'b, 'c, 'd) t
+        val compare: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> Compare.t
+      end
+      module type S5 = sig
+        type ('a, 'b, 'c, 'd, 'e) t
+        val compare: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> Compare.t
+      end
     end
-
     module Operators: sig
-# 1 "Traits/Comparable.signatures.Operators.ml"
-module type S0 = sig
-  type t
-
-  val (<): t -> t
-    -> bool
-  val (<=): t -> t
-    -> bool
-  val (>): t -> t
-    -> bool
-  val (>=): t -> t
-    -> bool
-end
-    
-# 203 "General.cppo.mli"
+      module type S0 = sig
+        type t
+        val ( < ): t -> t -> bool
+        val ( <= ): t -> t -> bool
+        val ( > ): t -> t -> bool
+        val ( >= ): t -> t -> bool
+      end
+      module Make0(M: sig
+        type t
+        val less_than: t -> t -> bool
+        val less_or_equal: t -> t -> bool
+        val greater_than: t -> t -> bool
+        val greater_or_equal: t -> t -> bool
+      end): S0 with type t := M.t
     end
-
-# 1 "Traits/Comparable.signatures.ml"
-module type S0 = sig
-  include Basic.S0
-
-  val less_than: t -> t
-    -> bool
-  val less_or_equal: t -> t
-    -> bool
-  val greater_than: t -> t
-    -> bool
-  val greater_or_equal: t -> t
-    -> bool
-
-  val between: t -> low:t -> high:t
-    -> bool
-  val between_or_equal: t -> low:t -> high:t
-    -> bool
-
-  val min: t -> t
-    -> t
-  val max: t -> t
-    -> t
-  val min_max: t -> t
-    -> t * t
-
-  module O: Operators.S0 with type t := t
-end
-
-module type S1 = sig
-  include Basic.S1
-
-  val less_than: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> bool
-  val less_or_equal: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> bool
-  val greater_than: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> bool
-  val greater_or_equal: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> bool
-
-  val between: 'a t -> low:'a t -> high:'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> bool
-  val between_or_equal: 'a t -> low:'a t -> high:'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> bool
-
-  val min: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> 'a t
-  val max: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> 'a t
-  val min_max: 'a t -> 'a t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> 'a t * 'a t
-end
-
-module type S2 = sig
-  include Basic.S2
-
-  val less_than: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> bool
-  val less_or_equal: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> bool
-  val greater_than: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> bool
-  val greater_or_equal: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> bool
-
-  val between: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> bool
-  val between_or_equal: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> bool
-
-  val min: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> ('a, 'b) t
-  val max: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> ('a, 'b) t
-  val min_max: ('a, 'b) t -> ('a, 'b) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> ('a, 'b) t * ('a, 'b) t
-end
-
-module type S3 = sig
-  include Basic.S3
-
-  val less_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> bool
-  val less_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> bool
-  val greater_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> bool
-  val greater_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> bool
-
-  val between: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> bool
-  val between_or_equal: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> bool
-
-  val min: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> ('a, 'b, 'c) t
-  val max: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> ('a, 'b, 'c) t
-  val min_max: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> ('a, 'b, 'c) t * ('a, 'b, 'c) t
-end
-
-module type S4 = sig
-  include Basic.S4
-
-  val less_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> bool
-  val less_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> bool
-  val greater_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> bool
-  val greater_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> bool
-
-  val between: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> bool
-  val between_or_equal: ('a, 'b, 'c, 'd) t -> low:('a, 'b, 'c, 'd) t -> high:('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> bool
-
-  val min: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> ('a, 'b, 'c, 'd) t
-  val max: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> ('a, 'b, 'c, 'd) t
-  val min_max: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> ('a, 'b, 'c, 'd) t * ('a, 'b, 'c, 'd) t
-end
-
-module type S5 = sig
-  include Basic.S5
-
-  val less_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> bool
-  val less_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> bool
-  val greater_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> bool
-  val greater_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> bool
-
-  val between: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> bool
-  val between_or_equal: ('a, 'b, 'c, 'd, 'e) t -> low:('a, 'b, 'c, 'd, 'e) t -> high:('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> bool
-
-  val min: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> ('a, 'b, 'c, 'd, 'e) t
-  val max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> ('a, 'b, 'c, 'd, 'e) t
-  val min_max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-    -> compare_a:('a -> 'a -> Compare.t)
-    -> compare_b:('b -> 'b -> Compare.t)
-    -> compare_c:('c -> 'c -> Compare.t)
-    -> compare_d:('d -> 'd -> Compare.t)
-    -> compare_e:('e -> 'e -> Compare.t)
-    -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
-end
-  
-# 206 "General.cppo.mli"
+    module type S0 = sig
+      include Basic.S0
+      val less_than: t -> t -> bool
+      val less_or_equal: t -> t -> bool
+      val greater_than: t -> t -> bool
+      val greater_or_equal: t -> t -> bool
+      val between: t -> low:(t) -> high:(t) -> bool
+      val between_or_equal: t -> low:(t) -> high:(t) -> bool
+      val min: t -> t -> t
+      val max: t -> t -> t
+      val min_max: t -> t -> t * t
+      module O: Operators.S0 with type t := t
+    end
+    module type S1 = sig
+      include Basic.S1
+      val less_than: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> bool
+      val less_or_equal: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> bool
+      val greater_than: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> bool
+      val greater_or_equal: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> bool
+      val between: 'a t -> low:('a t) -> high:('a t) -> compare_a:('a -> 'a -> Compare.t) -> bool
+      val between_or_equal: 'a t -> low:('a t) -> high:('a t) -> compare_a:('a -> 'a -> Compare.t) -> bool
+      val min: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> 'a t
+      val max: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> 'a t
+      val min_max: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> 'a t * 'a t
+    end
+    module type S2 = sig
+      include Basic.S2
+      val less_than: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+      val less_or_equal: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+      val greater_than: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+      val greater_or_equal: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+      val between: ('a, 'b) t -> low:(('a, 'b) t) -> high:(('a, 'b) t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+      val between_or_equal: ('a, 'b) t -> low:(('a, 'b) t) -> high:(('a, 'b) t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
+      val min: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> ('a, 'b) t
+      val max: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> ('a, 'b) t
+      val min_max: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> ('a, 'b) t * ('a, 'b) t
+    end
+    module type S3 = sig
+      include Basic.S3
+      val less_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+      val less_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+      val greater_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+      val greater_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+      val between: ('a, 'b, 'c) t -> low:(('a, 'b, 'c) t) -> high:(('a, 'b, 'c) t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+      val between_or_equal: ('a, 'b, 'c) t -> low:(('a, 'b, 'c) t) -> high:(('a, 'b, 'c) t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
+      val min: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> ('a, 'b, 'c) t
+      val max: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> ('a, 'b, 'c) t
+      val min_max: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> ('a, 'b, 'c) t * ('a, 'b, 'c) t
+    end
+    module type S4 = sig
+      include Basic.S4
+      val less_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+      val less_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+      val greater_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+      val greater_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+      val between: ('a, 'b, 'c, 'd) t -> low:(('a, 'b, 'c, 'd) t) -> high:(('a, 'b, 'c, 'd) t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+      val between_or_equal: ('a, 'b, 'c, 'd) t -> low:(('a, 'b, 'c, 'd) t) -> high:(('a, 'b, 'c, 'd) t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
+      val min: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> ('a, 'b, 'c, 'd) t
+      val max: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> ('a, 'b, 'c, 'd) t
+      val min_max: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> ('a, 'b, 'c, 'd) t * ('a, 'b, 'c, 'd) t
+    end
+    module type S5 = sig
+      include Basic.S5
+      val less_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+      val less_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+      val greater_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+      val greater_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+      val between: ('a, 'b, 'c, 'd, 'e) t -> low:(('a, 'b, 'c, 'd, 'e) t) -> high:(('a, 'b, 'c, 'd, 'e) t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+      val between_or_equal: ('a, 'b, 'c, 'd, 'e) t -> low:(('a, 'b, 'c, 'd, 'e) t) -> high:(('a, 'b, 'c, 'd, 'e) t) -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
+      val min: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
+      val max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
+      val min_max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
+    end
   end
-
   module Ringoid: sig
     module Basic: sig
-# 1 "Traits/Ringoid.signatures.Basic.ml"
-module type S0 = sig
-  type t
-
-  val zero: t
-  val one: t
-
-  val negate: t -> t
-  val add: t -> t -> t
-  val substract: t -> t -> t
-  val multiply: t -> t -> t
-  val divide: t -> t -> t
-end
-    
-# 211 "General.cppo.mli"
+      module type S0 = sig
+        type t
+        val zero: t
+        val one: t
+        val negate: t -> t
+        val add: t -> t -> t
+        val substract: t -> t -> t
+        val multiply: t -> t -> t
+        val divide: t -> t -> t
+      end
     end
-
     module Operators: sig
-# 1 "Traits/Ringoid.signatures.Operators.ml"
-module type S0 = sig
-  type t
-
-  val (~+): t -> t
-  val (~-): t -> t
-  val (+): t -> t -> t
-  val (-): t -> t -> t
-  val ( * ): t -> t -> t
-  val (/): t -> t -> t
-
-  val ( ** ): t -> int -> t
-end
-
-# 1 "Traits/Ringoid.makers.Operators.mli"
-module Make0(M: sig
-  type t
-
-  val negate: t -> t
-  val add: t -> t -> t
-  val substract: t -> t -> t
-  val multiply: t -> t -> t
-  val divide: t -> t -> t
-  val exponentiate: t -> int -> t
-end): sig
-  val (~+): M.t -> M.t
-  val (~-): M.t -> M.t
-  val (+): M.t -> M.t -> M.t
-  val (-): M.t -> M.t -> M.t
-  val ( * ): M.t -> M.t -> M.t
-  val (/): M.t -> M.t -> M.t
-  val ( ** ): M.t -> int -> M.t
-end
-    
-# 217 "General.cppo.mli"
+      module type S0 = sig
+        type t
+        val ( ~- ): t -> t
+        val ( + ): t -> t -> t
+        val ( - ): t -> t -> t
+        val ( * ): t -> t -> t
+        val ( / ): t -> t -> t
+        val ( ** ): t -> int -> t
+      end
+      module Make0(M: sig
+        type t
+        val negate: t -> t
+        val add: t -> t -> t
+        val substract: t -> t -> t
+        val multiply: t -> t -> t
+        val divide: t -> t -> t
+        val exponentiate: t -> int -> t
+      end): S0 with type t := M.t
     end
-
-# 1 "Traits/Ringoid.signatures.ml"
-module type S0 = sig
-  include Basic.S0
-
-  val square: t -> t
-  val exponentiate: t -> int -> t
-
-  module O: Operators.S0 with type t := t
-end
-
-# 1 "Traits/Ringoid.makers.mli"
-module Substract: sig
-  module Make0(M: sig
-    type t
-
-    val negate: t -> t
-    val add: t -> t -> t
-  end): sig
-    val substract: M.t -> M.t -> M.t
+    module type S0 = sig
+      include Basic.S0
+      val square: t -> t
+      val exponentiate: t -> int -> t
+      module O: Operators.S0 with type t := t
+    end
+    module Substract: sig
+      module Make0(M: sig
+        type t
+      val negate: t -> t
+      val add: t -> t -> t
+      end): sig
+      val substract: M.t -> M.t -> M.t
+      end
+    end
+    module Square: sig
+      module Make0(M: sig
+        type t
+      val multiply: t -> t -> t
+      end): sig
+      val square: M.t -> M.t
+      end
+    end
+    module Exponentiate: sig
+      module Make0(M: sig
+        type t
+      val one: t
+      val square: t -> t
+      val multiply: t -> t -> t
+      val exponentiate_negative_exponent: exponentiate:(t -> int -> t) -> t -> int -> t
+      end): sig
+      val exponentiate: M.t -> int -> M.t
+      end
+    end
   end
-end
 
-module Square: sig
-  module Make0(M: sig
-    type t
-
-    val multiply: t -> t -> t
-  end): sig
-    val square: M.t -> M.t
-  end
-end
-
-module Exponentiate: sig
-  module Make0(M: sig
-    type t
-
-    val one: t
-
-    val square: t -> t
-    val multiply: t -> t -> t
-
-    val exponentiate_negative_exponent: exponentiate:(t -> int -> t) -> t -> int -> t
-  end): sig
-    val exponentiate: M.t -> int -> M.t
-  end
-end
   
-# 222 "General.cppo.mli"
-  end
-
+# 179 "General.cppo.mli"
   module PredSucc: sig
 # 1 "Traits/PredSucc.signatures.ml"
 module type S0 = sig
@@ -1632,7 +1221,7 @@ end): sig
   val succ: M.t -> M.t
 end
   
-# 228 "General.cppo.mli"
+# 183 "General.cppo.mli"
   end
 
   module FilterMapable: sig
@@ -1679,7 +1268,7 @@ module type S1 = sig
 end
 
     
-# 233 "General.cppo.mli"
+# 188 "General.cppo.mli"
     module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/FilterMapable.signatures.ToContainer.ml"
 module type S0 = sig
@@ -1723,7 +1312,7 @@ module type S1 = sig
   val flat_map_acc: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b C.t) -> 'b C.t
 end
     
-# 235 "General.cppo.mli"
+# 190 "General.cppo.mli"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -1751,7 +1340,7 @@ module type S1 = sig
   val fold_acc: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b
 end
     
-# 245 "General.cppo.mli"
+# 200 "General.cppo.mli"
     end
 
 # 1 "Traits/Foldable.signatures.ml"
@@ -1796,7 +1385,7 @@ module type S1 = sig
 end
 
     
-# 249 "General.cppo.mli"
+# 204 "General.cppo.mli"
     module Right: sig
       module Basic: sig
 # 1 "Traits/Foldable.signatures.Right.Basic.ml"
@@ -1817,7 +1406,7 @@ module type S1 = sig
   val fold_right_acc: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * 'b) -> 'b
 end
       
-# 252 "General.cppo.mli"
+# 207 "General.cppo.mli"
       end
 
 # 1 "Traits/Foldable.signatures.Right.ml"
@@ -1853,7 +1442,7 @@ module type S1 = sig
   val iter_right_acc: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * unit) -> unit
 end
     
-# 255 "General.cppo.mli"
+# 210 "General.cppo.mli"
     end
 
     module Short: sig
@@ -1876,7 +1465,7 @@ module type S1 = sig
   val fold_short_acc: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Shorten.t * 'b) -> 'b
 end
       
-# 260 "General.cppo.mli"
+# 215 "General.cppo.mli"
       end
 
 # 1 "Traits/Foldable.signatures.Short.ml"
@@ -1961,7 +1550,7 @@ module type S1 = sig
 end
 
       
-# 264 "General.cppo.mli"
+# 219 "General.cppo.mli"
       module Right: sig
         module Basic: sig
 # 1 "Traits/Foldable.signatures.Short.Right.Basic.ml"
@@ -1982,7 +1571,7 @@ module type S1 = sig
   val fold_short_right_acc: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * Shorten.t * 'b) -> 'b
 end
         
-# 267 "General.cppo.mli"
+# 222 "General.cppo.mli"
         end
 
 # 1 "Traits/Foldable.signatures.Short.Right.ml"
@@ -2018,7 +1607,7 @@ module type S1 = sig
   val iter_short_right_acc: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * Shorten.t) -> unit
 end
       
-# 270 "General.cppo.mli"
+# 225 "General.cppo.mli"
       end
     end
   end
@@ -2043,7 +1632,7 @@ module type S1 = sig
 end
 
     
-# 277 "General.cppo.mli"
+# 232 "General.cppo.mli"
     module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/Scanable.signatures.ToContainer.ml"
 module type S0 = sig
@@ -2063,7 +1652,7 @@ module type S1 = sig
   val scan_acc: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b C.t
 end
     
-# 279 "General.cppo.mli"
+# 234 "General.cppo.mli"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -2090,7 +1679,7 @@ module type S1 = sig
 end
 
       
-# 288 "General.cppo.mli"
+# 243 "General.cppo.mli"
       module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/Scanable.signatures.Right.ToContainer.ml"
 module type S0 = sig
@@ -2110,7 +1699,7 @@ module type S1 = sig
   val scan_right_acc: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * 'b) -> 'b C.t
 end
       
-# 290 "General.cppo.mli"
+# 245 "General.cppo.mli"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -2138,7 +1727,7 @@ module type S1 = sig
 end
 
       
-# 300 "General.cppo.mli"
+# 255 "General.cppo.mli"
       module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/Scanable.signatures.Short.ToContainer.ml"
 module type S0 = sig
@@ -2158,7 +1747,7 @@ module type S1 = sig
   val scan_short_acc: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Shorten.t * 'b) -> 'b C.t
 end
       
-# 302 "General.cppo.mli"
+# 257 "General.cppo.mli"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -2185,7 +1774,7 @@ module type S1 = sig
 end
 
         
-# 311 "General.cppo.mli"
+# 266 "General.cppo.mli"
         module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/Scanable.signatures.Short.Right.ToContainer.ml"
 module type S0 = sig
@@ -2205,7 +1794,7 @@ module type S1 = sig
   val scan_short_right_acc: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * Shorten.t * 'b) -> 'b C.t
 end
         
-# 313 "General.cppo.mli"
+# 268 "General.cppo.mli"
         end
 
         module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -2229,115 +1818,87 @@ module Concepts: sig
   (* @feature Concepts.Stringable including Parsable and Displayable *)
 
   module Identifiable: sig
-# 1 "Concepts/Identifiable.signatures.ml"
-module Operators = Traits.Equatable.Operators
-
-module type S0 = sig
-  type t
-
-  include Traits.Equatable.S0 with type t := t
-  include Traits.Representable.S0 with type t := t
-end
-
-module type S1 = sig
-  type 'a t
-
-  include Traits.Equatable.S1 with type 'a t := 'a t
-  include Traits.Representable.S1 with type 'a t := 'a t
-end
-
-module type S2 = sig
-  type ('a, 'b) t
-
-  include Traits.Equatable.S2 with type ('a, 'b) t := ('a, 'b) t
-  include Traits.Representable.S2 with type ('a, 'b) t := ('a, 'b) t
-end
-
-module type S3 = sig
-  type ('a, 'b, 'c) t
-
-  include Traits.Equatable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-  include Traits.Representable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-end
-
-module type S4 = sig
-  type ('a, 'b, 'c, 'd) t
-
-  include Traits.Equatable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-  include Traits.Representable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-end
-
-module type S5 = sig
-  type ('a, 'b, 'c, 'd, 'e) t
-
-  include Traits.Equatable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-  include Traits.Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-end
-  
-# 337 "General.cppo.mli"
+    module Operators: sig
+      module type S0 = sig
+        type t
+        include Traits.Equatable.Operators.S0 with type t := t
+      end
+    end
+    module type S0 = sig
+      type t
+      module O: Operators.S0 with type t := t
+      include Traits.Equatable.S0 with type t := t and module O := O
+      include Traits.Representable.S0 with type t := t
+    end
+    module type S1 = sig
+      type 'a t
+      include Traits.Equatable.S1 with type 'a t := 'a t
+      include Traits.Representable.S1 with type 'a t := 'a t
+    end
+    module type S2 = sig
+      type ('a, 'b) t
+      include Traits.Equatable.S2 with type ('a, 'b) t := ('a, 'b) t
+      include Traits.Representable.S2 with type ('a, 'b) t := ('a, 'b) t
+    end
+    module type S3 = sig
+      type ('a, 'b, 'c) t
+      include Traits.Equatable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+      include Traits.Representable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+    end
+    module type S4 = sig
+      type ('a, 'b, 'c, 'd) t
+      include Traits.Equatable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+      include Traits.Representable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+    end
+    module type S5 = sig
+      type ('a, 'b, 'c, 'd, 'e) t
+      include Traits.Equatable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+      include Traits.Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+    end
   end
-
   module Able: sig
     module Operators: sig
-# 1 "Concepts/Able.signatures.Operators.ml"
-module type S0 = sig
-  type t
-
-  include Identifiable.Operators.S0 with type t := t
-  include Traits.Comparable.Operators.S0 with type t := t
-end
-    
-# 342 "General.cppo.mli"
+      module type S0 = sig
+        type t
+        include Identifiable.Operators.S0 with type t := t
+        include Traits.Comparable.Operators.S0 with type t := t
+      end
     end
-
-# 1 "Concepts/Able.signatures.ml"
-module type S0 = sig
-  type t
-
-  module O: Operators.S0 with type t := t
-
-  include Identifiable.S0 with type t := t and module O := O
-  include Traits.Comparable.S0 with type t := t and module O := O
-end
-
-module type S1 = sig
-  type 'a t
-
-  include Identifiable.S1 with type 'a t := 'a t
-  include Traits.Comparable.S1 with type 'a t := 'a t
-end
-
-module type S2 = sig
-  type ('a, 'b) t
-
-  include Identifiable.S2 with type ('a, 'b) t := ('a, 'b) t
-  include Traits.Comparable.S2 with type ('a, 'b) t := ('a, 'b) t
-end
-
-module type S3 = sig
-  type ('a, 'b, 'c) t
-
-  include Identifiable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-  include Traits.Comparable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-end
-
-module type S4 = sig
-  type ('a, 'b, 'c, 'd) t
-
-  include Identifiable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-  include Traits.Comparable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-end
-
-module type S5 = sig
-  type ('a, 'b, 'c, 'd, 'e) t
-
-  include Identifiable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-  include Traits.Comparable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-end
-  
-# 345 "General.cppo.mli"
+    module type S0 = sig
+      type t
+      module O: Operators.S0 with type t := t
+      include Identifiable.S0 with type t := t and module O := O
+      include Traits.Comparable.S0 with type t := t and module O := O
+    end
+    module type S1 = sig
+      type 'a t
+      include Identifiable.S1 with type 'a t := 'a t
+      include Traits.Comparable.S1 with type 'a t := 'a t
+    end
+    module type S2 = sig
+      type ('a, 'b) t
+      include Identifiable.S2 with type ('a, 'b) t := ('a, 'b) t
+      include Traits.Comparable.S2 with type ('a, 'b) t := ('a, 'b) t
+    end
+    module type S3 = sig
+      type ('a, 'b, 'c) t
+      include Identifiable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+      include Traits.Comparable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+    end
+    module type S4 = sig
+      type ('a, 'b, 'c, 'd) t
+      include Identifiable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+      include Traits.Comparable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+    end
+    module type S5 = sig
+      type ('a, 'b, 'c, 'd, 'e) t
+      include Identifiable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+      include Traits.Comparable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+    end
   end
 
+  
+# 296 "General.cppo.mli"
   module Number: sig
     module Operators: sig
 # 1 "Concepts/Number.signatures.Operators.ml"
@@ -2348,7 +1909,7 @@ module type S0 = sig
   include Traits.Ringoid.Operators.S0 with type t := t
 end
     
-# 350 "General.cppo.mli"
+# 299 "General.cppo.mli"
     end
 
 # 1 "Concepts/Number.signatures.ml"
@@ -2369,7 +1930,7 @@ module type S0 = sig
   val of_float: float -> t
 end
   
-# 353 "General.cppo.mli"
+# 302 "General.cppo.mli"
   end
 
   module RealNumber: sig
@@ -2384,7 +1945,7 @@ module type S0 = sig
   val (mod): t -> t -> t
 end
     
-# 358 "General.cppo.mli"
+# 307 "General.cppo.mli"
     end
 
 
@@ -2407,7 +1968,7 @@ module type S0 = sig
   (* @feature sign *)
 end
   
-# 361 "General.cppo.mli"
+# 310 "General.cppo.mli"
   end
 
   module Integer: sig
@@ -2422,7 +1983,7 @@ module type S0 = sig
   (* @feature gcd, lcm, quomod *)
 end
   
-# 365 "General.cppo.mli"
+# 314 "General.cppo.mli"
   end
 end
 
@@ -3706,7 +3267,7 @@ module Standard: sig
   and module Bytes := Bytes
   and module Char := Char
   
-# 1650 "General.cppo.mli"
+# 1599 "General.cppo.mli"
   and module Format := Format
   and module Int32 := Int32
   and module Int64 := Int64

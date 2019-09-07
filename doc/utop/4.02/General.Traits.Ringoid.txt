@@ -11,7 +11,6 @@ module Ringoid: sig
       val (+): t -> t -> t
       val (-): t -> t -> t
       val (/): t -> t -> t
-      val (~+): t -> t
       val (~-): t -> t
     end
     type t

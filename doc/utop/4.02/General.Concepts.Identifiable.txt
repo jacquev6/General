@@ -1,5 +1,5 @@
 module Identifiable: sig
-  module Operators = General.Traits.Equatable.Operators
+  module Operators
   module type S0 = sig
     module O: sig
       val (<>): t -> t -> bool

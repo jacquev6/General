@@ -1,64 +1,7 @@
-module Basic = struct
-  #include "Equatable.signatures.Basic.ml"
-
-  module Specialize1(M: S1)(A: S0): S0 with type t = A.t M.t = struct
-    type t = A.t M.t
-
-    let equal x y =
-      M.equal x y ~equal_a:A.equal
-  end
-
-  module Specialize2(M: S2)(A: S0)(B: S0): S0 with type t = (A.t, B.t) M.t = struct
-    type t = (A.t, B.t) M.t
-
-    let equal x y =
-      M.equal x y ~equal_a:A.equal ~equal_b:B.equal
-  end
-
-  module Specialize3(M: S3)(A: S0)(B: S0)(C: S0): S0 with type t = (A.t, B.t, C.t) M.t = struct
-    type t = (A.t, B.t, C.t) M.t
-
-    let equal x y =
-      M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal
-  end
-
-  module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0): S0 with type t = (A.t, B.t, C.t, D.t) M.t = struct
-    type t = (A.t, B.t, C.t, D.t) M.t
-
-    let equal x y =
-      M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal
-  end
-
-  module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0): S0 with type t = (A.t, B.t, C.t, D.t, E.t) M.t = struct
-    type t = (A.t, B.t, C.t, D.t, E.t) M.t
-
-    let equal x y =
-      M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal ~equal_e:E.equal
-  end
-end
-
-module Operators = struct
-  #include "Equatable.signatures.Operators.ml"
-
-  module Make0(M: sig
-    type t
-
-    val equal: t -> t
-      -> bool
-    val different: t -> t
-      -> bool
-  end) = struct
-    open M
-
-    let (=) x y =
-      equal x y
-
-    let (<>) x y =
-      different x y
-  end
-end
-
-#include "Equatable.signatures.ml"
+#ext python3
+from geni import *
+generate(equatable.module_items)
+#endext
 
 module Different = struct
   module Make0(M: sig
@@ -147,71 +90,6 @@ module Different = struct
     let different x y ~equal_a ~equal_b ~equal_c ~equal_d ~equal_e =
       not (equal x y ~equal_a ~equal_b ~equal_c ~equal_d ~equal_e)
   end
-end
-
-module Specialize1(M: S1)(A: Basic.S0): S0 with type t = A.t M.t = struct
-  module Self = struct
-    include Basic.Specialize1(M)(A)
-
-    let different x y =
-      M.different x y ~equal_a:A.equal
-  end
-
-  module O = Operators.Make0(Self)
-
-  include Self
-end
-
-module Specialize2(M: S2)(A: Basic.S0)(B: Basic.S0): S0 with type t = (A.t, B.t) M.t = struct
-  module Self = struct
-    include Basic.Specialize2(M)(A)(B)
-
-    let different x y =
-      M.different x y ~equal_a:A.equal ~equal_b:B.equal
-  end
-
-  module O = Operators.Make0(Self)
-
-  include Self
-end
-
-module Specialize3(M: S3)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0): S0 with type t = (A.t, B.t, C.t) M.t = struct
-  module Self = struct
-    include Basic.Specialize3(M)(A)(B)(C)
-
-    let different x y =
-      M.different x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal
-  end
-
-  module O = Operators.Make0(Self)
-
-  include Self
-end
-
-module Specialize4(M: S4)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0): S0 with type t = (A.t, B.t, C.t, D.t) M.t = struct
-  module Self = struct
-    include Basic.Specialize4(M)(A)(B)(C)(D)
-
-    let different x y =
-      M.different x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal
-  end
-
-  module O = Operators.Make0(Self)
-
-  include Self
-end
-
-module Specialize5(M: S5)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0)(E: Basic.S0): S0 with type t = (A.t, B.t, C.t, D.t, E.t) M.t = struct
-  module Self = struct
-    include Basic.Specialize5(M)(A)(B)(C)(D)(E)
-
-    let different x y =
-      M.different x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal ~equal_e:E.equal
-  end
-
-  module O = Operators.Make0(Self)
-
-  include Self
 end
 
 module Tests = struct
