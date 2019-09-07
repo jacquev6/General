@@ -109,22 +109,23 @@ class Trait:
         for extension in self.extensions:
             if len(extension.requirements) != 0:
                 yield f"module {extension.name}: sig"
+                # @todo Make{arity}
                 yield "  module Make0(M: sig"
                 yield "    type t"
                 for req in extension.requirements:
                     if isinstance(req, str):
                         for item in self.all_items:
                             if item.name == req:
-                                yield indent(item.make_signature(self.basics, 0))
+                                yield indent(item.make_signature(self.basics, 0), levels=2)
                     else:
-                        yield indent(req.make_signature(self.basics, 0))
+                        yield indent(req.make_signature(self.basics, 0), levels=2)
                 yield "  end): sig"
                 for item in extension.members:
-                    yield indent(item.make_signature(self.basics, 0, t="M.t"))
+                    yield indent(item.make_signature(self.basics, 0, t="M.t"), levels=2)
                 for prod in extension.basic_production:
                     for item in self.all_items:
                         if item.name == prod:
-                            yield indent(item.make_signature(self.basics, 0, t="M.t"))
+                            yield indent(item.make_signature(self.basics, 0, t="M.t"), levels=2)
                 yield "  end"
                 yield "end"
 
@@ -409,6 +410,7 @@ equatable = Trait(
         Extension(
             "Different",
             [val("different", params=[variadic_type, variadic_type], delegate="equal", return_="bool", operator="<>")],
+            requirements=["equal"],
         )
     ],
 )
@@ -430,6 +432,7 @@ comparable = Trait(
                 val(name, params=[variadic_type, variadic_type], delegate="compare", return_="bool", operator=operator)
                 for (name, operator) in [("less_than", "<"), ("less_or_equal", "<="), ("greater_than", ">"), ("greater_or_equal", ">=")]
             ],
+            requirements=["compare"],
         ),
         Extension(
             "Between",
@@ -437,6 +440,7 @@ comparable = Trait(
                 val(name, params=[variadic_type, named("low", variadic_type), named("high", variadic_type)], delegate="compare", return_="bool")
                 for name in ["between", "between_or_equal"]
             ],
+            requirements=["less_than", "less_or_equal", "greater_than", "greater_or_equal"],
         ),
         Extension(
             "MinMax",
@@ -445,6 +449,7 @@ comparable = Trait(
                 val("max", params=[variadic_type, variadic_type], delegate="compare", return_=variadic_type),
                 val("min_max", params=[variadic_type, variadic_type], delegate="compare", return_=lambda *args: f"{variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}"),
             ],
+            requirements=["compare"],
         ),
     ],
 )

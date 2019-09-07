@@ -1010,6 +1010,14 @@ module Traits: sig
       include Basic.S5
       val different: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
     end
+    module Different: sig
+      module Make0(M: sig
+        type t
+        val equal: t -> t -> bool
+      end): sig
+        val different: M.t -> M.t -> bool
+      end
+    end
   end
   module Comparable: sig
     module Basic: sig
@@ -1127,6 +1135,39 @@ module Traits: sig
       val max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
       val min_max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
     end
+    module GreaterLessThan: sig
+      module Make0(M: sig
+        type t
+        val compare: t -> t -> Compare.t
+      end): sig
+        val less_than: M.t -> M.t -> bool
+        val less_or_equal: M.t -> M.t -> bool
+        val greater_than: M.t -> M.t -> bool
+        val greater_or_equal: M.t -> M.t -> bool
+      end
+    end
+    module Between: sig
+      module Make0(M: sig
+        type t
+        val less_than: t -> t -> bool
+        val less_or_equal: t -> t -> bool
+        val greater_than: t -> t -> bool
+        val greater_or_equal: t -> t -> bool
+      end): sig
+        val between: M.t -> low:(M.t) -> high:(M.t) -> bool
+        val between_or_equal: M.t -> low:(M.t) -> high:(M.t) -> bool
+      end
+    end
+    module MinMax: sig
+      module Make0(M: sig
+        type t
+        val compare: t -> t -> Compare.t
+      end): sig
+        val min: M.t -> M.t -> M.t
+        val max: M.t -> M.t -> M.t
+        val min_max: M.t -> M.t -> M.t * M.t
+      end
+    end
   end
   module Ringoid: sig
     module Basic: sig
@@ -1170,29 +1211,29 @@ module Traits: sig
     module Substract: sig
       module Make0(M: sig
         type t
-      val negate: t -> t
-      val add: t -> t -> t
+        val negate: t -> t
+        val add: t -> t -> t
       end): sig
-      val substract: M.t -> M.t -> M.t
+        val substract: M.t -> M.t -> M.t
       end
     end
     module Square: sig
       module Make0(M: sig
         type t
-      val multiply: t -> t -> t
+        val multiply: t -> t -> t
       end): sig
-      val square: M.t -> M.t
+        val square: M.t -> M.t
       end
     end
     module Exponentiate: sig
       module Make0(M: sig
         type t
-      val one: t
-      val square: t -> t
-      val multiply: t -> t -> t
-      val exponentiate_negative_exponent: exponentiate:(t -> int -> t) -> t -> int -> t
+        val one: t
+        val square: t -> t
+        val multiply: t -> t -> t
+        val exponentiate_negative_exponent: exponentiate:(t -> int -> t) -> t -> int -> t
       end): sig
-      val exponentiate: M.t -> int -> M.t
+        val exponentiate: M.t -> int -> M.t
       end
     end
   end

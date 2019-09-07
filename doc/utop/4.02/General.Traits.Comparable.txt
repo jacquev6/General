@@ -1,5 +1,8 @@
 module Comparable: sig
   module Basic
+  module Between
+  module GreaterLessThan
+  module MinMax
   module Operators
   module type S0 = sig
     module O: sig

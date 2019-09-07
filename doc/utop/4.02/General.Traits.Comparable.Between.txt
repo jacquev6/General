@@ -1,0 +1,3 @@
+module Between: sig
+  module Make0
+end

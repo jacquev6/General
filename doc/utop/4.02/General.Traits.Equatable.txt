@@ -1,5 +1,6 @@
 module Equatable: sig
   module Basic
+  module Different
   module Operators
   module type S0 = sig
     module O: sig
