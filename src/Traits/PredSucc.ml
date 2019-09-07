@@ -1,20 +1,19 @@
-#include "PredSucc.signatures.ml"
+#ext python3
+from geni import *
+generate(pred_succ.module_items)
+#endext
 
-module Make0(M: sig
-  type t
-
-  val one: t
-
-  val add: t -> t -> t
-  val substract: t -> t -> t
-end) = struct
-  open M
-
-  let pred x =
-    substract x one
-
-  let succ x =
-    add x one
+module PredSucc = struct
+  module Make0(M: sig
+    type t
+    val one: t
+    val add: t -> t -> t
+    val substract: t -> t -> t
+  end) = struct
+    open M
+    let pred x = substract x one
+    let succ x = add x one
+  end
 end
 
 module Tests = struct

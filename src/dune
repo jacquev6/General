@@ -3,7 +3,6 @@
   (deps
     (:src General.cppo.mli)
     geni.py
-    Concepts/Integer.signatures.ml
     Reset/CommonHeader.ml
     Reset/Footer.ml
     Reset/ResetPervasives.ml
@@ -19,7 +18,6 @@
     Traits/Foldable.signatures.Short.Right.ml
     Traits/Foldable.signatures.Short.ml
     Traits/Foldable.signatures.ml
-    Traits/PredSucc.makers.mli
     Traits/PredSucc.signatures.ml
     Traits/Ringoid.makers.Operators.mli
     Traits/Ringoid.makers.mli
@@ -47,7 +45,6 @@
     Concepts/Able.ml
     Concepts/Identifiable.ml
     Concepts/Integer.ml
-    Concepts/Integer.signatures.ml
     Concepts/Number.ml
     Concepts/RealNumber.ml
     Equate.ml

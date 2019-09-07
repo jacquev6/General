@@ -4833,30 +4833,24 @@ end
   end
 
   module PredSucc = struct
-# 1 "Traits/PredSucc.signatures.ml"
 module type S0 = sig
   type t
-
-  val succ: t -> t
   val pred: t -> t
+  val succ: t -> t
 end
 
-# 3 "Traits/PredSucc.ml"
-module Make0(M: sig
-  type t
-
-  val one: t
-
-  val add: t -> t -> t
-  val substract: t -> t -> t
-end) = struct
-  open M
-
-  let pred x =
-    substract x one
-
-  let succ x =
-    add x one
+# 6 "Traits/PredSucc.ml"
+module PredSucc = struct
+  module Make0(M: sig
+    type t
+    val one: t
+    val add: t -> t -> t
+    val substract: t -> t -> t
+  end) = struct
+    open M
+    let pred x = substract x one
+    let succ x = add x one
+  end
 end
 
 module Tests = struct
@@ -6317,18 +6311,20 @@ end
   end
 
   module Integer = struct
-# 1 "Concepts/Integer.signatures.ml"
+module Operators = struct
+  module type S0 = sig
+    type t
+    include RealNumber.Operators.S0 with type t := t
+  end
+end
 module type S0 = sig
   type t
-
-  include RealNumber.S0 with type t := t
+  module O: Operators.S0 with type t := t
+  include RealNumber.S0 with type t := t and module O := O
   include Traits.PredSucc.S0 with type t := t
-
-  (* @feature Bitwise? *)
-  (* @feature gcd, lcm, quomod *)
 end
 
-# 3 "Concepts/Integer.ml"
+# 6 "Concepts/Integer.ml"
 module Tests = struct
   open Testing
 

@@ -1,4 +1,7 @@
-#include "Integer.signatures.ml"
+#ext python3
+from geni import *
+generate(integer.module_items)
+#endext
 
 module Tests = struct
   open Testing

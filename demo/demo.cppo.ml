@@ -88,7 +88,7 @@ module IntMod3 = struct
 
   module SelfC = struct
     include General.Traits.Ringoid.Exponentiate.Make0(SelfB)
-    include General.Traits.PredSucc.Make0(SelfB)
+    include General.Traits.PredSucc.PredSucc.Make0(SelfB)
     include SelfB
   end
 

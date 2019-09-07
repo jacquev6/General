@@ -176,12 +176,6 @@ for trait in Trait.all:
     generate(trait.declaration, indent=1)
 #endext
 
-  module PredSucc: sig
-    #include "Traits/PredSucc.signatures.ml"
-
-    #include "Traits/PredSucc.makers.mli"
-  end
-
   module FilterMapable: sig
     #include "Traits/FilterMapable.signatures.ml"
 
@@ -292,10 +286,6 @@ from geni import *
 for concept in Concept.all:
     generate(concept.declaration, indent=1)
 #endext
-
-  module Integer: sig
-    #include "Concepts/Integer.signatures.ml"
-  end
 end
 
 (* Technical, utility modules *)

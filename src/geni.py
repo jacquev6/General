@@ -43,7 +43,7 @@ class Trait:
 
     @property
     def is_basic(self):
-        return len(self.extensions) == 0 and len(self.operators) == 0
+        return len(list(itertools.chain.from_iterable(extension.members for extension in self.extensions))) == 0 and len(self.operators) == 0
 
     @property
     def declaration(self):
@@ -54,6 +54,7 @@ class Trait:
     def __declaration(self):
         if self.is_basic:
             yield self.__basic_signatures
+            yield self.__extensions_makers_signatures
         else:
             yield "module Basic: sig"
             yield indent(self.__basic_signatures)
@@ -506,6 +507,27 @@ to_standard_numbers = Trait(
     ],
 )
 
+pred_succ = Trait(
+    "PredSucc",
+    variadic=False,
+    basics=[
+        val("pred", params=[variadic_type], return_=variadic_type),
+        val("succ", params=[variadic_type], return_=variadic_type),
+    ],
+    extensions=[
+        Extension(
+            "PredSucc",
+            [],
+            requirements=[
+                val("one", params=[], return_=variadic_type),
+                val("add", params=[variadic_type, variadic_type], return_=variadic_type),
+                val("substract", params=[variadic_type, variadic_type], return_=variadic_type),
+            ],
+            basic_production=["pred", "succ"],
+        ),
+    ],
+)
+
 
 identifiable = Concept(
     "Identifiable",
@@ -530,4 +552,11 @@ real_number = Concept(
         val("abs", params=[variadic_type], return_=variadic_type),
         val("modulo", params=[variadic_type, variadic_type], return_=variadic_type, operator="mod"),
     ],
+)
+
+integer = Concept(
+    "Integer",
+    # @feature Bitwise?
+    # @feature gcd, lcm, quomod
+    inherited=[real_number, pred_succ],
 )

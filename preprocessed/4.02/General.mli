@@ -1416,34 +1416,27 @@ module Traits: sig
       val to_float: t -> float
     end
   end
+  module PredSucc: sig
+    module type S0 = sig
+      type t
+      val pred: t -> t
+      val succ: t -> t
+    end
+    module PredSucc: sig
+      module Make0(M: sig
+        type t
+        val one: t
+        val add: t -> t -> t
+        val substract: t -> t -> t
+      end): sig
+        val pred: M.t -> M.t
+        val succ: M.t -> M.t
+      end
+    end
+  end
 
   
 # 179 "General.cppo.mli"
-  module PredSucc: sig
-# 1 "Traits/PredSucc.signatures.ml"
-module type S0 = sig
-  type t
-
-  val succ: t -> t
-  val pred: t -> t
-end
-
-# 1 "Traits/PredSucc.makers.mli"
-module Make0(M: sig
-  type t
-
-  val one: t
-
-  val add: t -> t -> t
-  val substract: t -> t -> t
-end): sig
-  val pred: M.t -> M.t
-  val succ: M.t -> M.t
-end
-  
-# 183 "General.cppo.mli"
-  end
-
   module FilterMapable: sig
 # 1 "Traits/FilterMapable.signatures.ml"
 module type S0 = sig
@@ -1488,7 +1481,7 @@ module type S1 = sig
 end
 
     
-# 188 "General.cppo.mli"
+# 182 "General.cppo.mli"
     module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/FilterMapable.signatures.ToContainer.ml"
 module type S0 = sig
@@ -1532,7 +1525,7 @@ module type S1 = sig
   val flat_map_acc: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b C.t) -> 'b C.t
 end
     
-# 190 "General.cppo.mli"
+# 184 "General.cppo.mli"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -1560,7 +1553,7 @@ module type S1 = sig
   val fold_acc: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b
 end
     
-# 200 "General.cppo.mli"
+# 194 "General.cppo.mli"
     end
 
 # 1 "Traits/Foldable.signatures.ml"
@@ -1605,7 +1598,7 @@ module type S1 = sig
 end
 
     
-# 204 "General.cppo.mli"
+# 198 "General.cppo.mli"
     module Right: sig
       module Basic: sig
 # 1 "Traits/Foldable.signatures.Right.Basic.ml"
@@ -1626,7 +1619,7 @@ module type S1 = sig
   val fold_right_acc: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * 'b) -> 'b
 end
       
-# 207 "General.cppo.mli"
+# 201 "General.cppo.mli"
       end
 
 # 1 "Traits/Foldable.signatures.Right.ml"
@@ -1662,7 +1655,7 @@ module type S1 = sig
   val iter_right_acc: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * unit) -> unit
 end
     
-# 210 "General.cppo.mli"
+# 204 "General.cppo.mli"
     end
 
     module Short: sig
@@ -1685,7 +1678,7 @@ module type S1 = sig
   val fold_short_acc: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Shorten.t * 'b) -> 'b
 end
       
-# 215 "General.cppo.mli"
+# 209 "General.cppo.mli"
       end
 
 # 1 "Traits/Foldable.signatures.Short.ml"
@@ -1770,7 +1763,7 @@ module type S1 = sig
 end
 
       
-# 219 "General.cppo.mli"
+# 213 "General.cppo.mli"
       module Right: sig
         module Basic: sig
 # 1 "Traits/Foldable.signatures.Short.Right.Basic.ml"
@@ -1791,7 +1784,7 @@ module type S1 = sig
   val fold_short_right_acc: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * Shorten.t * 'b) -> 'b
 end
         
-# 222 "General.cppo.mli"
+# 216 "General.cppo.mli"
         end
 
 # 1 "Traits/Foldable.signatures.Short.Right.ml"
@@ -1827,7 +1820,7 @@ module type S1 = sig
   val iter_short_right_acc: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * Shorten.t) -> unit
 end
       
-# 225 "General.cppo.mli"
+# 219 "General.cppo.mli"
       end
     end
   end
@@ -1852,7 +1845,7 @@ module type S1 = sig
 end
 
     
-# 232 "General.cppo.mli"
+# 226 "General.cppo.mli"
     module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/Scanable.signatures.ToContainer.ml"
 module type S0 = sig
@@ -1872,7 +1865,7 @@ module type S1 = sig
   val scan_acc: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b C.t
 end
     
-# 234 "General.cppo.mli"
+# 228 "General.cppo.mli"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -1899,7 +1892,7 @@ module type S1 = sig
 end
 
       
-# 243 "General.cppo.mli"
+# 237 "General.cppo.mli"
       module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/Scanable.signatures.Right.ToContainer.ml"
 module type S0 = sig
@@ -1919,7 +1912,7 @@ module type S1 = sig
   val scan_right_acc: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * 'b) -> 'b C.t
 end
       
-# 245 "General.cppo.mli"
+# 239 "General.cppo.mli"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -1947,7 +1940,7 @@ module type S1 = sig
 end
 
       
-# 255 "General.cppo.mli"
+# 249 "General.cppo.mli"
       module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/Scanable.signatures.Short.ToContainer.ml"
 module type S0 = sig
@@ -1967,7 +1960,7 @@ module type S1 = sig
   val scan_short_acc: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Shorten.t * 'b) -> 'b C.t
 end
       
-# 257 "General.cppo.mli"
+# 251 "General.cppo.mli"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -1994,7 +1987,7 @@ module type S1 = sig
 end
 
         
-# 266 "General.cppo.mli"
+# 260 "General.cppo.mli"
         module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/Scanable.signatures.Short.Right.ToContainer.ml"
 module type S0 = sig
@@ -2014,7 +2007,7 @@ module type S1 = sig
   val scan_short_right_acc: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * Shorten.t * 'b) -> 'b C.t
 end
         
-# 268 "General.cppo.mli"
+# 262 "General.cppo.mli"
         end
 
         module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -2154,23 +2147,21 @@ module Concepts: sig
       val modulo: t -> t -> t
     end
   end
-
-  
-# 296 "General.cppo.mli"
   module Integer: sig
-# 1 "Concepts/Integer.signatures.ml"
-module type S0 = sig
-  type t
-
-  include RealNumber.S0 with type t := t
-  include Traits.PredSucc.S0 with type t := t
-
-  (* @feature Bitwise? *)
-  (* @feature gcd, lcm, quomod *)
-end
-  
-# 298 "General.cppo.mli"
+    module Operators: sig
+      module type S0 = sig
+        type t
+        include RealNumber.Operators.S0 with type t := t
+      end
+    end
+    module type S0 = sig
+      type t
+      module O: Operators.S0 with type t := t
+      include RealNumber.S0 with type t := t and module O := O
+      include Traits.PredSucc.S0 with type t := t
+    end
   end
+# 289 "General.cppo.mli"
 end
 
 (* Technical, utility modules *)
@@ -3453,7 +3444,7 @@ module Standard: sig
   and module Bytes := Bytes
   and module Char := Char
   
-# 1583 "General.cppo.mli"
+# 1573 "General.cppo.mli"
   and module Format := Format
   and module Int32 := Int32
   and module Int64 := Int64

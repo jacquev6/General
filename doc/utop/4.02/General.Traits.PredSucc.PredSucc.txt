@@ -1,0 +1,3 @@
+module PredSucc: sig
+  module Make0
+end
