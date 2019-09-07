@@ -149,6 +149,10 @@ module Traits = struct
     #include "Traits/OfStandardNumbers.ml"
   end
 
+  module ToStandardNumbers = struct
+    #include "Traits/ToStandardNumbers.ml"
+  end
+
   module Ringoid = struct
     #include "Traits/Ringoid.ml"
   end

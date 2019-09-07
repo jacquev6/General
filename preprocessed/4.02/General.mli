@@ -1409,6 +1409,13 @@ module Traits: sig
       val of_float: float -> t
     end
   end
+  module ToStandardNumbers: sig
+    module type S0 = sig
+      type t
+      val to_int: t -> int
+      val to_float: t -> float
+    end
+  end
 
   
 # 179 "General.cppo.mli"
@@ -2128,47 +2135,28 @@ module Concepts: sig
       include Traits.OfStandardNumbers.S0 with type t := t
     end
   end
+  module RealNumber: sig
+    module Operators: sig
+      module type S0 = sig
+        type t
+        include Number.Operators.S0 with type t := t
+        include Traits.Comparable.Operators.S0 with type t := t
+        val ( mod ): t -> t -> t
+      end
+    end
+    module type S0 = sig
+      type t
+      module O: Operators.S0 with type t := t
+      include Number.S0 with type t := t and module O := O
+      include Traits.Comparable.S0 with type t := t and module O := O
+      include Traits.ToStandardNumbers.S0 with type t := t
+      val abs: t -> t
+      val modulo: t -> t -> t
+    end
+  end
 
   
 # 296 "General.cppo.mli"
-  module RealNumber: sig
-    module Operators: sig
-# 1 "Concepts/RealNumber.signatures.Operators.ml"
-module type S0 = sig
-  type t
-
-  include Number.Operators.S0 with type t := t
-  include Traits.Comparable.Operators.S0 with type t := t
-
-  val (mod): t -> t -> t
-end
-    
-# 299 "General.cppo.mli"
-    end
-
-
-# 2 "Concepts/RealNumber.signatures.ml"
-module type S0 = sig
-  type t
-
-  module O: Operators.S0 with type t := t
-
-  include Number.S0 with type t := t and module O := O
-  include Traits.Comparable.S0 with type t := t and module O := O
-
-  val abs: t -> t
-  val modulo: t -> t -> t
-
-  (* @feature Traits.ToStandardNumbers? *)
-  val to_int: t -> int
-  val to_float: t -> float
-
-  (* @feature sign *)
-end
-  
-# 302 "General.cppo.mli"
-  end
-
   module Integer: sig
 # 1 "Concepts/Integer.signatures.ml"
 module type S0 = sig
@@ -2181,7 +2169,7 @@ module type S0 = sig
   (* @feature gcd, lcm, quomod *)
 end
   
-# 306 "General.cppo.mli"
+# 298 "General.cppo.mli"
   end
 end
 
@@ -3465,7 +3453,7 @@ module Standard: sig
   and module Bytes := Bytes
   and module Char := Char
   
-# 1591 "General.cppo.mli"
+# 1583 "General.cppo.mli"
   and module Format := Format
   and module Int32 := Int32
   and module Int64 := Int64

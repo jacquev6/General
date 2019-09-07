@@ -1,8 +1,7 @@
-module Operators = struct
-  #include "RealNumber.signatures.Operators.ml"
-end
-
-#include "RealNumber.signatures.ml"
+#ext python3
+from geni import *
+generate(real_number.module_items)
+#endext
 
 module Tests = struct
   open Testing

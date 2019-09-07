@@ -4,8 +4,6 @@
     (:src General.cppo.mli)
     geni.py
     Concepts/Integer.signatures.ml
-    Concepts/RealNumber.signatures.Operators.ml
-    Concepts/RealNumber.signatures.ml
     Reset/CommonHeader.ml
     Reset/Footer.ml
     Reset/ResetPervasives.ml
@@ -52,8 +50,6 @@
     Concepts/Integer.signatures.ml
     Concepts/Number.ml
     Concepts/RealNumber.ml
-    Concepts/RealNumber.signatures.Operators.ml
-    Concepts/RealNumber.signatures.ml
     Equate.ml
     Foundations/Bool.ml
     Foundations/CallStack.ml
@@ -158,6 +154,7 @@
     Traits/Scanable.signatures.Short.ml
     Traits/Scanable.signatures.ToContainer.ml
     Traits/Scanable.signatures.ml
+    Traits/ToStandardNumbers.ml
   )
   (action (run %{bin:cppo} -V OCAML:%{ocaml_version} -x python3:python3 %{src} -o %{targets}))
 )

@@ -10,4 +10,5 @@ module Traits: sig
   module Representable
   module Ringoid
   module Scanable
+  module ToStandardNumbers
 end

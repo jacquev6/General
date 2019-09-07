@@ -32,7 +32,6 @@ class Trait:
             itertools.chain.from_iterable(extension.members for extension in self.extensions),
         ))
         self.operators = [item for item in self.all_items if item.operator is not None]
-        # print([op.operator for op in self.operators], file=sys.stderr)
 
     @property
     def full_name(self):
@@ -185,11 +184,13 @@ class Trait:
 class Concept:
     all = []
 
-    def __init__(self, name, *, inherited):
+    def __init__(self, name, *, inherited, basics=[]):
         Concept.all.append(self)
         self.name = name
         self.inherited = list(inherited)
+        self.basics = list(basics)
         self.max_arity = min(i.max_arity for i in self.inherited)
+        self.operators = [item for item in self.basics if item.operator is not None]
 
     @property
     def full_name(self):
@@ -209,6 +210,9 @@ class Concept:
             for base in self.inherited:
                 if base.has_operators:
                     yield f"      include {base.full_name}.Operators.S0 with type t := t"
+            for operator in self.operators:
+                yield indent(operator.make_signature(self.basics, 0, operator=True), levels=3)
+            # @todo operators makers
             yield "    end"
             yield "  end"
         yield indent(self.__signatures)
@@ -227,6 +231,8 @@ class Concept:
                 else:
                     operators_constraint = ""
                 yield f"  include {base.full_name}.S{arity} with type {type_params(arity)}t := {type_params(arity)}t{operators_constraint}"
+            for v in self.basics:
+                yield indent(v.make_signature(self.basics, arity))
             yield "end"
 
     @property
@@ -237,6 +243,8 @@ class Concept:
         for base in self.inherited:
             if base.has_operators:
                 yield f"    include {base.full_name}.Operators.S0 with type t := t"
+        for operator in self.operators:
+            yield indent(operator.make_signature(self.basics, 0, operator=True), levels=2)
         yield "  end"
         yield "end"
         yield self.__signatures
@@ -489,6 +497,16 @@ of_standard_numbers = Trait(
     ],
 )
 
+to_standard_numbers = Trait(
+    "ToStandardNumbers",
+    variadic=False,
+    basics=[
+        val("to_int", params=[variadic_type], return_="int"),
+        val("to_float", params=[variadic_type], return_="float"),
+    ],
+)
+
+
 identifiable = Concept(
     "Identifiable",
     inherited=[equatable, representable],
@@ -502,4 +520,14 @@ able = Concept(
 number = Concept(
     "Number",
     inherited=[displayable, equatable, parsable, representable, ringoid, of_standard_numbers],
+)
+
+real_number = Concept(
+    "RealNumber",
+    # @feature sign
+    inherited=[number, comparable, to_standard_numbers],
+    basics=[
+        val("abs", params=[variadic_type], return_=variadic_type),
+        val("modulo", params=[variadic_type, variadic_type], return_=variadic_type, operator="mod"),
+    ],
 )
