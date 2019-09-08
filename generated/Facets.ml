@@ -863,6 +863,12 @@ module Concepts = struct
         include Traits.Comparable.Operators.S0 with type t := t
         val ( mod ): t -> t -> t
       end
+      module Make0(M: sig
+        type t
+        val modulo: t -> t -> t
+      end) = struct
+        let ( mod ) = M.modulo
+      end
     end
     module type S0 = sig
       type t

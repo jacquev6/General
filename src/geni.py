@@ -64,8 +64,7 @@ class Facets:
     def __operators_signature(self):
         return mod_spec("Operators",
             self.__operators_s0_signature(),
-            # @todo Homogenize
-            self.__operators_makers_signatures() if self.prefix == "Traits" and len(self.operators) > 0 else [],
+            self.__operators_makers_signatures() if len(self.operators) > 0 else [],
         )
 
     def __operators_s0_signature(self):
@@ -78,7 +77,6 @@ class Facets:
                 yield f"include {base.__contextualized_name(self.prefix)}.Operators.S0 with type t := t"
         for operator in self.operators:
             yield operator.make_signature(self.base_values, 0, operator=True)
-        # @todo Publish operators makers
 
     def __operators_makers_signatures(self):
         yield "module Make0(M: sig"
@@ -204,7 +202,7 @@ class Facets:
                 yield self.__extended_module_items()
 
     def __operators_implementation(self):
-        return mod_impl("Operators", self.__operators_s0_signature())
+        return mod_impl("Operators", self.__operators_module_items())
 
     def __test_module_items(self):
         yield "module Tests = struct"
@@ -262,14 +260,15 @@ class Facets:
 
     def __operators_module_items(self):
         yield self.__operators_s0_signature()
-        yield "module Make0(M: sig"
-        yield "  type t"
-        for operator in self.operators:
-            yield indent(operator.make_signature(self.base_values, 0))
-        yield "end) = struct"
-        for operator in self.operators:
-            yield f"  let ( {operator.operator} ) = M.{operator.name}"
-        yield "end"
+        if len(self.operators) > 0:
+            yield "module Make0(M: sig"
+            yield "  type t"
+            for operator in self.operators:
+                yield indent(operator.make_signature(self.base_values, 0))
+            yield "end) = struct"
+            for operator in self.operators:
+                yield f"  let ( {operator.operator} ) = M.{operator.name}"
+            yield "end"
 
     def __extended_module_items(self):
         yield self.__extended_signatures()
