@@ -24,6 +24,26 @@ module Traits: sig
       type ('a, 'b, 'c, 'd, 'e) t
       val repr: ('a, 'b, 'c, 'd, 'e) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> repr_e:('e -> string) -> string
     end
+    module Specialize1(M: S1)(A: S0): sig
+      type t = A.t M.t
+      include S0 with type t := t
+    end
+    module Specialize2(M: S2)(A: S0)(B: S0): sig
+      type t = (A.t, B.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize3(M: S3)(A: S0)(B: S0)(C: S0): sig
+      type t = (A.t, B.t, C.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0): sig
+      type t = (A.t, B.t, C.t, D.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0): sig
+      type t = (A.t, B.t, C.t, D.t, E.t) M.t
+      include S0 with type t := t
+    end
     module Tests: sig
       module Examples: sig
         module type Element = sig
@@ -148,6 +168,26 @@ module Traits: sig
         type ('a, 'b, 'c, 'd, 'e) t
         val equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
       end
+      module Specialize1(M: S1)(A: S0): sig
+        type t = A.t M.t
+        include S0 with type t := t
+      end
+      module Specialize2(M: S2)(A: S0)(B: S0): sig
+        type t = (A.t, B.t) M.t
+        include S0 with type t := t
+      end
+      module Specialize3(M: S3)(A: S0)(B: S0)(C: S0): sig
+        type t = (A.t, B.t, C.t) M.t
+        include S0 with type t := t
+      end
+      module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0): sig
+        type t = (A.t, B.t, C.t, D.t) M.t
+        include S0 with type t := t
+      end
+      module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0): sig
+        type t = (A.t, B.t, C.t, D.t, E.t) M.t
+        include S0 with type t := t
+      end
     end
     module type S0 = sig
       include Basic.S0
@@ -173,6 +213,26 @@ module Traits: sig
     module type S5 = sig
       include Basic.S5
       val different: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+    end
+    module Specialize1(M: S1)(A: Basic.S0): sig
+      type t = A.t M.t
+      include S0 with type t := t
+    end
+    module Specialize2(M: S2)(A: Basic.S0)(B: Basic.S0): sig
+      type t = (A.t, B.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize3(M: S3)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0): sig
+      type t = (A.t, B.t, C.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize4(M: S4)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0): sig
+      type t = (A.t, B.t, C.t, D.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize5(M: S5)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0)(E: Basic.S0): sig
+      type t = (A.t, B.t, C.t, D.t, E.t) M.t
+      include S0 with type t := t
     end
     module Different: sig
       module Make0(M: sig
@@ -282,6 +342,26 @@ module Traits: sig
         type ('a, 'b, 'c, 'd, 'e) t
         val compare: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> Compare.t
       end
+      module Specialize1(M: S1)(A: S0): sig
+        type t = A.t M.t
+        include S0 with type t := t
+      end
+      module Specialize2(M: S2)(A: S0)(B: S0): sig
+        type t = (A.t, B.t) M.t
+        include S0 with type t := t
+      end
+      module Specialize3(M: S3)(A: S0)(B: S0)(C: S0): sig
+        type t = (A.t, B.t, C.t) M.t
+        include S0 with type t := t
+      end
+      module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0): sig
+        type t = (A.t, B.t, C.t, D.t) M.t
+        include S0 with type t := t
+      end
+      module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0): sig
+        type t = (A.t, B.t, C.t, D.t, E.t) M.t
+        include S0 with type t := t
+      end
     end
     module type S0 = sig
       include Basic.S0
@@ -355,6 +435,26 @@ module Traits: sig
       val min: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
       val max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
       val min_max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
+    end
+    module Specialize1(M: S1)(A: Basic.S0): sig
+      type t = A.t M.t
+      include S0 with type t := t
+    end
+    module Specialize2(M: S2)(A: Basic.S0)(B: Basic.S0): sig
+      type t = (A.t, B.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize3(M: S3)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0): sig
+      type t = (A.t, B.t, C.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize4(M: S4)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0): sig
+      type t = (A.t, B.t, C.t, D.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize5(M: S5)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0)(E: Basic.S0): sig
+      type t = (A.t, B.t, C.t, D.t, E.t) M.t
+      include S0 with type t := t
     end
     module GreaterLessThan: sig
       module Make0(M: sig

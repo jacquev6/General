@@ -26,6 +26,7 @@ class Facets:
         self.inherited = list(inherited)
         self.max_arity = min(itertools.chain([max_arity], (i.max_arity for i in self.inherited))) if variadic else 1
         self.arities = list(range(self.max_arity))
+        self.non_zero_arities = list(range(1, self.max_arity))
         self.base_values = list(base_values)
         self.extensions = list(extensions)
         self.all_items = list(itertools.chain(
@@ -50,10 +51,11 @@ class Facets:
         if self.__has_operators():
             yield self.__operators_signature()
         if self.__is_basic():
-            yield self.__basic_signatures()
+            yield self.__basic_specification_items()
         else:
-            yield mod_spec("Basic", self.__basic_signatures())
+            yield mod_spec("Basic", self.__basic_specification_items())
             yield self.__extended_signatures()
+            yield self.__extended_specialize_signatures()
         yield self.__extensions_makers_signatures()
         if self.gen_tests:
             yield self.__test_signatures()
@@ -91,6 +93,10 @@ class Facets:
     def __is_basic(self):
         return len(list(itertools.chain.from_iterable(extension.members for extension in self.extensions))) == 0
 
+    def __basic_specification_items(self):
+        yield self.__basic_signatures()
+        yield self.__basic_specialize_signatures()
+
     def __basic_signatures(self):
         for arity in self.arities:
             yield mod_type(f"S{arity}", self.__basic_signature_items(arity))
@@ -111,6 +117,16 @@ class Facets:
             # @todo (?) Remove arity parameter, always pass t
             yield value.make_signature(self.base_values, arity, t=t)
 
+    def __basic_specialize_signatures(self):
+        # @todo Homogenize
+        if self.prefix == "Traits":
+            for arity in self.non_zero_arities:
+                functor_params = "".join(f"({a.upper()}: S0)" for a in abcd(arity))
+                yield f"module Specialize{arity}(M: S{arity}){functor_params}: sig"
+                yield f"  type t = {type_args(arity)}M.t"
+                yield "  include S0 with type t := t"
+                yield "end"
+
     def __extended_signatures(self):
         for arity in self.arities:
             yield f"module type S{arity} = sig"
@@ -121,6 +137,16 @@ class Facets:
             if arity == 0:
                 yield "  module O: Operators.S0 with type t := t"
             yield "end"
+
+    def __extended_specialize_signatures(self):
+        # @todo Homogenize
+        if self.prefix == "Traits":
+            for arity in self.non_zero_arities:
+                functor_params = "".join(f"({a.upper()}: Basic.S0)" for a in abcd(arity))
+                yield f"module Specialize{arity}(M: S{arity}){functor_params}: sig"
+                yield f"  type t = {type_args(arity)}M.t"
+                yield "  include S0 with type t := t"
+                yield "end"
 
     def __extensions_makers_signatures(self):
         for extension in self.extensions:
@@ -182,25 +208,34 @@ class Facets:
 
     @property
     def implementation_items(self):
+        if self.__has_operators():
+            yield self.__operators_implementation()
         # @todo Homogenize
         if self.prefix == "Concepts":
-            if self.__has_operators():
-                yield self.__operators_implementation()
-            yield self.__basic_signatures()
+            yield self.__basic_module_items()
             if self.has_tests:
                 yield self.__test_module_items()
         else:
             if self.__is_basic():
                 yield self.__basic_module_items()
             else:
-                yield self.__operators_implementation()
-                yield "module Basic = struct"
-                yield indent(self.__basic_module_items())
-                yield "end"
+                yield mod_impl("Basic", self.__basic_module_items())
                 yield self.__extended_module_items()
 
     def __operators_implementation(self):
         return mod_impl("Operators", self.__operators_module_items())
+
+    def __operators_module_items(self):
+        yield self.__operators_s0_signature()
+        if len(self.operators) > 0:
+            yield "module Make0(M: sig"
+            yield "  type t"
+            for operator in self.operators:
+                yield indent(operator.make_signature(self.base_values, 0))
+            yield "end) = struct"
+            for operator in self.operators:
+                yield f"  let ( {operator.operator} ) = M.{operator.name}"
+            yield "end"
 
     def __test_module_items(self):
         yield "module Tests = struct"
@@ -248,29 +283,29 @@ class Facets:
 
     def __basic_module_items(self):
         yield self.__basic_signatures()
-        for arity in range(1, self.max_arity):
-            functor_params = "".join(f"({a.upper()}: S0)" for a in abcd(arity))
-            yield f"module Specialize{arity}(M: S{arity}){functor_params} = struct"
-            yield f"  type t = {type_args(arity)}M.t"
-            for v in self.base_values:
-                yield indent(v.make_specialization(self.base_values, arity))
-            yield "end"
-
-    def __operators_module_items(self):
-        yield self.__operators_s0_signature()
-        if len(self.operators) > 0:
-            yield "module Make0(M: sig"
-            yield "  type t"
-            for operator in self.operators:
-                yield indent(operator.make_signature(self.base_values, 0))
-            yield "end) = struct"
-            for operator in self.operators:
-                yield f"  let ( {operator.operator} ) = M.{operator.name}"
-            yield "end"
+        # @todo Homogenize
+        if self.prefix == "Traits":
+            for arity in self.non_zero_arities:
+                functor_params = "".join(f"({a.upper()}: S0)" for a in abcd(arity))
+                # functor_args = "".join(f"({a.upper()})" for a in abcd(arity))
+                yield f"module Specialize{arity}(M: S{arity}){functor_params} = struct"
+                yield f"  type t = {type_args(arity)}M.t"
+                # for base in self.inherited:
+                #     yield f"  module {base.name} = {base.__contextualized_name(self.prefix)}.Specialize{arity}(M){functor_args}"
+                #     # yield f"  include ({base.__contextualized_name(self.prefix)}.Specialize{arity}(M){functor_args}: (module type of {base.__contextualized_name(self.prefix)}.Specialize{arity}(M){functor_args}) with type t := t and module O := O)"
+                # if self.__has_operators():
+                #     yield "  module O = struct"
+                #     for base in self.inherited:
+                #         if base.__has_operators():
+                #             yield f"    include {base.name}.O"
+                #     yield "  end"
+                for v in self.base_values:
+                    yield indent(v.make_specialization(self.base_values, arity))
+                yield "end"
 
     def __extended_module_items(self):
         yield self.__extended_signatures()
-        for arity in range(1, self.max_arity):
+        for arity in self.non_zero_arities:
             functor_params = "".join(f"({a.upper()}: Basic.S0)" for a in abcd(arity))
             yield f"module Specialize{arity}(M: S{arity}){functor_params} = struct"
             yield "  module Self = struct"
