@@ -898,6 +898,47 @@ module Equate: sig
   end
 end
 
+(* Testing base *)
+module Test: sig
+  module Result: sig
+    module Status: sig
+      type failure
+
+      type t =
+        | Success
+        | Failure of failure
+        | Error of exn * Pervasives.OCamlStandard.Printexc.raw_backtrace option
+
+      val to_string: t -> string
+    end
+
+    type single = {
+      label: string;
+      status: Status.t;
+    }
+
+    module Counts: sig
+      type t = {
+        successes: int;
+        failures: int;
+        errors: int;
+      }
+    end
+
+    type group = {
+      name: string;
+      children: t list;
+      counts: Counts.t;
+    }
+
+    and t =
+      | Single of single
+      | Group of group
+  end
+
+  type t
+end
+
 (** Traits are isolated capabilities associated to a type. *)
 module Traits: sig
   (* @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
@@ -932,18 +973,87 @@ module Traits: sig
       type ('a, 'b, 'c, 'd, 'e) t
       val repr: ('a, 'b, 'c, 'd, 'e) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> repr_e:('e -> string) -> string
     end
+    module Tests: sig
+      module Examples: sig
+        module type Element = sig
+          type t
+          include S0 with type t := t
+        end
+        module type S0 = sig
+          type t
+          val repr: (t * string) list
+        end
+        module type S1 = sig
+          type 'a t
+          module A: Element
+          val repr: (A.t t * string) list
+        end
+        module type S2 = sig
+          type ('a, 'b) t
+          module A: Element
+          module B: Element
+          val repr: ((A.t, B.t) t * string) list
+        end
+        module type S3 = sig
+          type ('a, 'b, 'c) t
+          module A: Element
+          module B: Element
+          module C: Element
+          val repr: ((A.t, B.t, C.t) t * string) list
+        end
+        module type S4 = sig
+          type ('a, 'b, 'c, 'd) t
+          module A: Element
+          module B: Element
+          module C: Element
+          module D: Element
+          val repr: ((A.t, B.t, C.t, D.t) t * string) list
+        end
+        module type S5 = sig
+          type ('a, 'b, 'c, 'd, 'e) t
+          module A: Element
+          module B: Element
+          module C: Element
+          module D: Element
+          module E: Element
+          val repr: ((A.t, B.t, C.t, D.t, E.t) t * string) list
+        end
+      end
+      module Make0(M: S0)(E: Examples.S0 with type t := M.t): sig
+         val test: Test.t
+      end
+      module Make1(M: S1)(E: Examples.S1 with type 'a t := 'a M.t): sig
+         val test: Test.t
+      end
+      module Make2(M: S2)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t): sig
+         val test: Test.t
+      end
+      module Make3(M: S3)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t): sig
+         val test: Test.t
+      end
+      module Make4(M: S4)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t): sig
+         val test: Test.t
+      end
+      module Make5(M: S5)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t): sig
+         val test: Test.t
+      end
+    end
   end
   module Displayable: sig
     module type S0 = sig
       type t
       val to_string: t -> string
     end
-  end
-  module Parsable: sig
-    module type S0 = sig
-      type t
-      val try_of_string: string -> t option
-      val of_string: string -> t
+    module Tests: sig
+      module Examples: sig
+        module type S0 = sig
+          type t
+          val to_string: (t * string) list
+        end
+      end
+      module Make0(M: S0)(E: Examples.S0 with type t := M.t): sig
+         val test: Test.t
+      end
     end
   end
   module Equatable: sig
@@ -1046,6 +1156,28 @@ module Traits: sig
         val equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
       end): sig
         val different: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+      end
+    end
+  end
+  module Parsable: sig
+    module type S0 = sig
+      type t
+      val try_of_string: string -> t option
+      val of_string: string -> t
+    end
+    module Tests: sig
+      module Examples: sig
+        module type S0 = sig
+          type t
+          val of_string: (string * t) list
+        end
+      end
+      module Make0(M: sig
+        include S0
+        include Equatable.S0 with type t := t
+        include Representable.S0 with type t := t
+      end)(E: Examples.S0 with type t := M.t): sig
+         val test: Test.t
       end
     end
   end
@@ -1436,7 +1568,7 @@ module Traits: sig
   end
 
   
-# 179 "General.cppo.mli"
+# 220 "General.cppo.mli"
   module FilterMapable: sig
 # 1 "Traits/FilterMapable.signatures.ml"
 module type S0 = sig
@@ -1481,7 +1613,7 @@ module type S1 = sig
 end
 
     
-# 182 "General.cppo.mli"
+# 223 "General.cppo.mli"
     module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/FilterMapable.signatures.ToContainer.ml"
 module type S0 = sig
@@ -1525,7 +1657,7 @@ module type S1 = sig
   val flat_map_acc: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * 'b C.t) -> 'b C.t
 end
     
-# 184 "General.cppo.mli"
+# 225 "General.cppo.mli"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -1553,7 +1685,7 @@ module type S1 = sig
   val fold_acc: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b
 end
     
-# 194 "General.cppo.mli"
+# 235 "General.cppo.mli"
     end
 
 # 1 "Traits/Foldable.signatures.ml"
@@ -1598,7 +1730,7 @@ module type S1 = sig
 end
 
     
-# 198 "General.cppo.mli"
+# 239 "General.cppo.mli"
     module Right: sig
       module Basic: sig
 # 1 "Traits/Foldable.signatures.Right.Basic.ml"
@@ -1619,7 +1751,7 @@ module type S1 = sig
   val fold_right_acc: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * 'b) -> 'b
 end
       
-# 201 "General.cppo.mli"
+# 242 "General.cppo.mli"
       end
 
 # 1 "Traits/Foldable.signatures.Right.ml"
@@ -1655,7 +1787,7 @@ module type S1 = sig
   val iter_right_acc: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * unit) -> unit
 end
     
-# 204 "General.cppo.mli"
+# 245 "General.cppo.mli"
     end
 
     module Short: sig
@@ -1678,7 +1810,7 @@ module type S1 = sig
   val fold_short_acc: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Shorten.t * 'b) -> 'b
 end
       
-# 209 "General.cppo.mli"
+# 250 "General.cppo.mli"
       end
 
 # 1 "Traits/Foldable.signatures.Short.ml"
@@ -1763,7 +1895,7 @@ module type S1 = sig
 end
 
       
-# 213 "General.cppo.mli"
+# 254 "General.cppo.mli"
       module Right: sig
         module Basic: sig
 # 1 "Traits/Foldable.signatures.Short.Right.Basic.ml"
@@ -1784,7 +1916,7 @@ module type S1 = sig
   val fold_short_right_acc: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * Shorten.t * 'b) -> 'b
 end
         
-# 216 "General.cppo.mli"
+# 257 "General.cppo.mli"
         end
 
 # 1 "Traits/Foldable.signatures.Short.Right.ml"
@@ -1820,7 +1952,7 @@ module type S1 = sig
   val iter_short_right_acc: acc:'acc -> 'a t -> f:(acc:'acc -> 'a -> 'acc * Shorten.t) -> unit
 end
       
-# 219 "General.cppo.mli"
+# 260 "General.cppo.mli"
       end
     end
   end
@@ -1845,7 +1977,7 @@ module type S1 = sig
 end
 
     
-# 226 "General.cppo.mli"
+# 267 "General.cppo.mli"
     module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/Scanable.signatures.ToContainer.ml"
 module type S0 = sig
@@ -1865,7 +1997,7 @@ module type S1 = sig
   val scan_acc: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * 'b) -> 'b C.t
 end
     
-# 228 "General.cppo.mli"
+# 269 "General.cppo.mli"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -1892,7 +2024,7 @@ module type S1 = sig
 end
 
       
-# 237 "General.cppo.mli"
+# 278 "General.cppo.mli"
       module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/Scanable.signatures.Right.ToContainer.ml"
 module type S0 = sig
@@ -1912,7 +2044,7 @@ module type S1 = sig
   val scan_right_acc: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * 'b) -> 'b C.t
 end
       
-# 239 "General.cppo.mli"
+# 280 "General.cppo.mli"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -1940,7 +2072,7 @@ module type S1 = sig
 end
 
       
-# 249 "General.cppo.mli"
+# 290 "General.cppo.mli"
       module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/Scanable.signatures.Short.ToContainer.ml"
 module type S0 = sig
@@ -1960,7 +2092,7 @@ module type S1 = sig
   val scan_short_acc: acc:'acc -> init:'b -> 'a t -> f:(acc:'acc -> 'b -> 'a -> 'acc * Shorten.t * 'b) -> 'b C.t
 end
       
-# 251 "General.cppo.mli"
+# 292 "General.cppo.mli"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -1987,7 +2119,7 @@ module type S1 = sig
 end
 
         
-# 260 "General.cppo.mli"
+# 301 "General.cppo.mli"
         module ToContainer(C: sig type 'a t end): sig
 # 1 "Traits/Scanable.signatures.Short.Right.ToContainer.ml"
 module type S0 = sig
@@ -2007,7 +2139,7 @@ module type S1 = sig
   val scan_short_right_acc: acc:'acc -> 'a t -> init:'b -> f:(acc:'acc -> 'a -> 'b -> 'acc * Shorten.t * 'b) -> 'b C.t
 end
         
-# 262 "General.cppo.mli"
+# 303 "General.cppo.mli"
         end
 
         module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -2161,7 +2293,7 @@ module Concepts: sig
       include Traits.PredSucc.S0 with type t := t
     end
   end
-# 289 "General.cppo.mli"
+# 330 "General.cppo.mli"
 end
 
 (* Technical, utility modules *)
@@ -3246,50 +3378,10 @@ module StdErr: sig
   val flush: unit -> unit
 end
 
-(* Testing *)
+(* Testing utilities *)
 
 module Testing: sig
-  module Result: sig
-    module Status: sig
-      type failure
-
-      type t =
-        | Success
-        | Failure of failure
-        | Error of exn * CallStack.t option
-
-      val to_string: t -> string
-    end
-
-    type single = {
-      label: string;
-      status: Status.t;
-    }
-
-    module Counts: sig
-      type t = {
-        successes: int;
-        failures: int;
-        errors: int;
-      }
-    end
-
-    type group = {
-      name: string;
-      children: t list;
-      counts: Counts.t;
-    }
-
-    and t =
-      | Single of single
-      | Group of group
-  end
-
-  module Test: sig
-    type t
-
-    val run: ?record_backtrace:bool -> t -> Result.t
-  end
+  val run: ?record_backtrace:bool -> Test.t -> Test.Result.t
 
   val command_line_main: argv:string list -> Test.t -> Exit.t
 
@@ -3444,7 +3536,7 @@ module Standard: sig
   and module Bytes := Bytes
   and module Char := Char
   
-# 1573 "General.cppo.mli"
+# 1574 "General.cppo.mli"
   and module Format := Format
   and module Int32 := Int32
   and module Int64 := Int64
@@ -3536,5 +3628,5 @@ end
 
 (* @todo Remove from interface, or make a functor, to avoid linking tests in client applications *)
 module Tests: sig
-  val test: Testing.Test.t
+  val test: Test.t
 end [@@autodoc.hide]

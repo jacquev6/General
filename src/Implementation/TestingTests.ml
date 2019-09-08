@@ -18,7 +18,7 @@ module Tests = struct
   )
 
   module ResultExamples = struct
-    open Result
+    open Test.Result
     open Status
     open Counts
 
@@ -37,18 +37,18 @@ module Tests = struct
 
   let test = "Testing" >:: [
     "Result" >:: [
-      (let module T = Traits.Representable.Tests.Make0(Result)(ResultExamples) in T.test);
+      (let module T = Traits.Representable.Tests.Make0(Test.Result)(ResultExamples) in T.test);
       "to_indented_strings" >:: (
         let make ?(verbose=false) expected result =
           (expected |> Foundations.List.join_string_list ~sep:"\n") >: (lazy (
             let actual =
               result
-              |> Result.to_indented_strings ~verbose
+              |> Test.Result.to_indented_strings ~verbose
             in
             check_string_list ~expected actual
           ))
         in
-        Result.(Status.(Counts.[
+        Test.Result.(Status.(Counts.[
           make ~verbose:true
             ["\"foo\": OK"]
             (Single {label="foo"; status=Success});
@@ -141,9 +141,9 @@ module Tests = struct
             | Test.Single {Test.label; _} -> label
             | Test.Group {Test.name; _} -> name
           in
-          name >: (lazy (check ~repr:Result.repr ~equal:Result.equal ~expected (Test.run ~record_backtrace:false test)))
+          name >: (lazy Test.Result.(check ~repr ~equal ~expected (run ~record_backtrace:false test)))
         in
-        Result.(Status.(Counts.[
+        Test.Result.(Status.(Counts.[
           make (Single {label="single success"; status=Success}) ("single success" >: (lazy ()));
           make
             (Group {name="group success"; children=[Single {label="child"; status=Success}]; counts={successes=1; failures=0; errors=0}})

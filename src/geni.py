@@ -22,7 +22,7 @@ def indent(element, levels=1):
 class Trait:
     all = []
 
-    def __init__(self, name, *, variadic, basics, extensions=[], has_tests=True):
+    def __init__(self, name, *, variadic, basics, extensions=[], has_tests=True, examples=[], gen_tests=False, test_requirements=[]):
         Trait.all.append(self)
         self.name = name
         self.max_arity = max_arity if variadic else 1
@@ -34,6 +34,9 @@ class Trait:
         ))
         self.operators = [item for item in self.all_items if item.operator is not None]
         self.has_tests = has_tests
+        self.examples = list(examples)
+        self.gen_tests = gen_tests
+        self.test_requirements = list(test_requirements)
 
     @property
     def full_name(self):
@@ -56,7 +59,6 @@ class Trait:
     def __declaration(self):
         if self.is_basic:
             yield self.__basic_signatures
-            yield self.__extensions_makers_signatures
         else:
             yield "module Basic: sig"
             yield indent(self.__basic_signatures)
@@ -67,7 +69,9 @@ class Trait:
                 yield indent(self.__operators_makers_signatures)
                 yield "end"
             yield self.__extended_signatures
-            yield self.__extensions_makers_signatures
+        yield self.__extensions_makers_signatures
+        if self.gen_tests:
+            yield self.__test_signatures
 
     @property
     def __basic_signatures(self):
@@ -130,6 +134,37 @@ class Trait:
                                 yield indent(item.make_signature(self.basics, arity, t=f"{type_params(arity)}M.t"), levels=2)
                     yield "  end"
                 yield "end"
+
+    @property
+    def __test_signatures(self):
+        yield "module Tests: sig"
+        yield "  module Examples: sig"
+        if self.max_arity > 1:
+            yield "    module type Element = sig"
+            yield "      type t"
+            yield "      include S0 with type t := t"
+            yield "    end"
+        for arity in range(self.max_arity):
+            yield f"    module type S{arity} = sig"
+            yield f"      type {type_params(arity)}t"
+            for a in abcd(arity):
+                yield f"      module {a.upper()}: Element"
+            for item in self.examples:
+                yield indent(item.make_signature(self.basics, 0, t=f"{type_args(arity)}t"), levels=3)
+            yield "    end"
+        yield "  end"
+        for arity in range(self.max_arity):
+            if len(self.test_requirements) == 0:
+                yield f"  module Make{arity}(M: S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t): sig"
+            else:
+                yield f"  module Make{arity}(M: sig"
+                yield "    include S0"
+                for req in self.test_requirements:
+                    yield f"    include {req.name}.S0 with type t := t"
+                yield f"  end)(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t): sig"
+            yield "     val test: Test.t"
+            yield "  end"
+        yield "end"
 
     @property
     def module_items(self):
@@ -446,6 +481,7 @@ def abcd(arity):
     return list("abcdefghijkl"[:arity])
 
 
+# @todo (?) Add trait Testable with val test: Test.t
 
 representable = Trait(
     "Representable",
@@ -453,6 +489,10 @@ representable = Trait(
     basics=[
         val("repr", params=[variadic_type], return_="string"),
     ],
+    gen_tests=True,
+    examples=[
+        val("repr", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * string) list"),
+    ]
 )
 
 displayable = Trait(
@@ -461,15 +501,10 @@ displayable = Trait(
     basics=[
         val("to_string", params=[variadic_type], return_="string"),
     ],
-)
-
-parsable = Trait(
-    "Parsable",
-    variadic=False,
-    basics=[
-        val("try_of_string", params=["string"], return_="t option"),
-        val("of_string", params=["string"], return_="t"),
-    ],
+    gen_tests=True,
+    examples=[
+        val("to_string", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * string) list"),
+    ]
 )
 
 equatable = Trait(
@@ -485,6 +520,20 @@ equatable = Trait(
             requirements=["equal"],
         )
     ],
+)
+
+parsable = Trait(
+    "Parsable",
+    variadic=False,
+    basics=[
+        val("try_of_string", params=["string"], return_="t option"),
+        val("of_string", params=["string"], return_="t"),
+    ],
+    gen_tests=True,
+    examples=[
+        val("of_string", params=[], return_=lambda *args: f"(string * {variadic_type.make_type(*args)}) list"),
+    ],
+    test_requirements=[equatable, representable],
 )
 
 comparable = Trait(

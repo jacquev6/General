@@ -114,7 +114,8 @@
     Specializations/Reference.ml
     Specializations/SortedMap.ml
     Specializations/SortedSet.ml
-    Testing.ml
+    Testing/Test.ml
+    Testing/Testing.ml
     Traits/Comparable.ml
     Traits/Displayable.ml
     Traits/Equatable.ml

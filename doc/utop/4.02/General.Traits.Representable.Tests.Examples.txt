@@ -1,0 +1,45 @@
+module Examples: sig
+  module type Element = sig
+    type t
+    val repr: t -> bytes
+  end
+  module type S0 = sig
+    type t
+    val repr: (t * bytes) list
+  end
+  module type S1 = sig
+    module A: Element
+    type 'a t
+    val repr: (A.t t * bytes) list
+  end
+  module type S2 = sig
+    module A: Element
+    module B: Element
+    type ('a, 'b) t
+    val repr: ((A.t, B.t) t * bytes) list
+  end
+  module type S3 = sig
+    module A: Element
+    module B: Element
+    module C: Element
+    type ('a, 'b, 'c) t
+    val repr: ((A.t, B.t, C.t) t * bytes) list
+  end
+  module type S4 = sig
+    module A: Element
+    module B: Element
+    module C: Element
+    module D: Element
+    type ('a, 'b, 'c, 'd) t
+    val repr: ((A.t, B.t, C.t, D.t) t * bytes) list
+  end
+  module type S5 = sig
+    module A: Element
+    module B: Element
+    module C: Element
+    module D: Element
+    module E: Element
+    type ('a, 'b, 'c, 'd, 'e) t
+    val repr: ((A.t, B.t, C.t, D.t, E.t) t * bytes) list
+  end
+end

@@ -2801,13 +2801,9 @@ open Ubiquitous
 
 open Foundations
 
-module Testing = struct
-# 1 "Testing.ml"
-open Foundations
+module Test = struct
 
-module OCSS = OCamlStandard.Sys
-module OCSPf = OCamlStandard.Printf (* @todo Put StdOut in Foundations *)
-
+# 2 "testing/Test.ml"
 module Result = struct
   module Status = struct
     type failure =
@@ -2948,53 +2944,60 @@ module Result = struct
       |> aux ""
 end
 
-exception TestFailure of Result.Status.failure
+type single = {
+label: string;
+check: unit lazy_t;
+}
 
-module Test = struct
-  type single = {
-    label: string;
-    check: unit lazy_t;
-  }
+type group = {
+name: string;
+tests: t list;
+}
 
-  type group = {
-    name: string;
-    tests: t list;
-  }
-
-  and t =
-    | Single of single
-    | Group of group
-
-  let run ?(record_backtrace=true) test =
-    Exception.record_backtraces record_backtrace;
-    let rec aux = function
-      | Group {name; tests} ->
-        let children = List.map ~f:aux tests in
-        let counts =
-          children
-          |> List.fold ~init:Result.Counts.zero ~f:(fun counts result ->
-            let counts' = match result with
-              | Result.Single {Result.status; _} -> Result.Counts.of_status status
-              | Result.Group {Result.counts; _} -> counts
-            in
-            Result.Counts.add counts counts'
-          )
-        in
-        Result.Group {Result.name; children; counts}
-      | Single {label; check} ->
-        try
-          Lazy.value check;
-          Result.Single {Result.label; status=Result.Status.Success}
-        with
-          | TestFailure reason ->
-            Result.Single {Result.label; status=Result.Status.Failure reason}
-          | exc ->
-            Result.Single {Result.label; status=Result.Status.Error (exc, Exception.most_recent_backtrace ())}
-    in
-    aux test
+and t =
+| Single of single
+| Group of group
+# 121 "General.cppo.ml"
 end
 
+module Testing = struct
+# 1 "Testing/Testing.ml"
+open Foundations
+
+module OCSS = OCamlStandard.Sys
+module OCSPf = OCamlStandard.Printf (* @todo Put StdOut in Foundations *)
+
 (* Running *)
+
+exception TestFailure of Test.Result.Status.failure
+
+let run ?(record_backtrace=true) test =
+Exception.record_backtraces record_backtrace;
+let rec aux = Test.(function
+    | Group {name; tests} ->
+    let children = List.map ~f:aux tests in
+    let counts =
+        children
+        |> List.fold ~init:Result.Counts.zero ~f:(fun counts result ->
+        let counts' = match result with
+            | Result.Single {Result.status; _} -> Result.Counts.of_status status
+            | Result.Group {Result.counts; _} -> counts
+        in
+        Result.Counts.add counts counts'
+        )
+    in
+    Result.Group {Result.name; children; counts}
+    | Single {label; check} ->
+    try
+        Lazy.value check;
+        Result.Single {Result.label; status=Result.Status.Success}
+    with
+        | TestFailure reason ->
+        Result.Single {Result.label; status=Result.Status.Failure reason}
+        | exc ->
+        Result.Single {Result.label; status=Result.Status.Error (exc, Exception.most_recent_backtrace ())}
+) in
+aux test
 
 (*BISECT-IGNORE-BEGIN*) (* Test code *)
 let command_line_main ~argv test =
@@ -3003,13 +3006,13 @@ let command_line_main ~argv test =
       | [_; "--verbose"] -> true
       | _ -> false
   in
-  let result = Test.run test in
+  let result = run test in
   result
-  |> Result.to_indented_strings ~verbose
+  |> Test.Result.to_indented_strings ~verbose
   |> List.iter ~f:(OCSPf.printf "%s\n");
   match result with
-    | Result.Single {Result.status=Result.Status.Success; _}
-    | Result.Group {Result.counts={Result.Counts.failures=0; errors=0; _}; _} ->
+    | Test.Result.Single {Test.Result.status=Test.Result.Status.Success; _}
+    | Test.Result.Group {Test.Result.counts={Test.Result.Counts.failures=0; errors=0; _}; _} ->
       Exit.Success
     | _ -> Exit.Failure 1
 (*BISECT-IGNORE-END*)
@@ -3035,7 +3038,7 @@ let javascript = String.has_suffix OCSS.argv.(0) ~suf:".js"
 let fail format =
   Format.with_result
     ~f:(fun message ->
-      Exception.raise (TestFailure (Result.Status.Custom message))
+      Exception.raise (TestFailure (Test.Result.Status.Custom message))
     )
     format
 
@@ -3045,22 +3048,22 @@ let expect_exception ~expected x =
     ignore (Lazy.value x);
     Exception.raise NoExceptionRaised
   with
-    | NoExceptionRaised -> Exception.raise (TestFailure (Result.Status.NoException expected))
+    | NoExceptionRaised -> Exception.raise (TestFailure (Test.Result.Status.NoException expected))
     | actual when Exception.equal actual expected -> ()
-    | exc -> Exception.raise (TestFailure (Result.Status.WrongException (expected, exc, Exception.most_recent_backtrace ())))
+    | exc -> Exception.raise (TestFailure (Test.Result.Status.WrongException (expected, exc, Exception.most_recent_backtrace ())))
 
 let expect_exception_named ~expected x =
   try
     ignore (Lazy.value x);
     Exception.raise NoExceptionRaised
   with
-    | NoExceptionRaised -> Exception.raise (TestFailure (Result.Status.NoExceptionNamed expected))
+    | NoExceptionRaised -> Exception.raise (TestFailure (Test.Result.Status.NoExceptionNamed expected))
     | actual when String.equal (Exception.name actual) expected -> ()
-    | exc -> Exception.raise (TestFailure (Result.Status.WrongExceptionNamed (expected, exc, Exception.most_recent_backtrace ())))
+    | exc -> Exception.raise (TestFailure (Test.Result.Status.WrongExceptionNamed (expected, exc, Exception.most_recent_backtrace ())))
 
 let check ~repr ~equal ~expected actual =
   if not (equal expected actual) then
-    Exception.raise (TestFailure (Result.Status.NotEqual (repr expected, repr actual)))
+    Exception.raise (TestFailure (Test.Result.Status.NotEqual (repr expected, repr actual)))
 
 let check_poly ~repr ~expected actual =
   check ~repr ~equal:Equate.Poly.equal ~expected actual
@@ -3091,7 +3094,7 @@ let check_float ?precision ~expected actual =
 let check_float_in ~low ~high actual =
   if actual < low || actual > high then
     (* @todo Add a specific Result.Status *)
-    Exception.raise (TestFailure (Result.Status.Custom "not in"))
+    Exception.raise (TestFailure (Test.Result.Status.Custom "not in"))
 
 let check_float_exact ~expected actual =
   check ~repr:Float.repr ~equal:Float.equal ~expected actual
@@ -3194,7 +3197,7 @@ let check_int_tuple5 ~expected actual =
     ~repr_a:Int.repr ~repr_b:Int.repr ~repr_c:Int.repr ~repr_d:Int.repr ~repr_e:Int.repr
     ~equal_a:Int.equal ~equal_b:Int.equal ~equal_c:Int.equal ~equal_d:Int.equal ~equal_e:Int.equal
     ~expected actual
-# 121 "General.cppo.ml"
+# 125 "General.cppo.ml"
 end
 
 module Traits = struct
@@ -3340,7 +3343,7 @@ module Tests = struct
     Make0(Specialize5(M)(E.A)(E.B)(E.C)(E.D)(E.E))(E)
 end
   
-# 126 "General.cppo.ml"
+# 130 "General.cppo.ml"
   end
 
   module Equatable = struct
@@ -3729,7 +3732,7 @@ module Tests = struct
   end)(E)
 end
   
-# 130 "General.cppo.ml"
+# 134 "General.cppo.ml"
   end
 
   module Comparable = struct
@@ -4755,7 +4758,7 @@ module Tests = struct
   end)(E)
 end
   
-# 134 "General.cppo.ml"
+# 138 "General.cppo.ml"
   end
 
   module Displayable = struct
@@ -4788,7 +4791,7 @@ module Tests = struct
   end
 end
   
-# 138 "General.cppo.ml"
+# 142 "General.cppo.ml"
   end
 
   module Parsable = struct
@@ -4829,7 +4832,7 @@ module Tests = struct
   end
 end
   
-# 142 "General.cppo.ml"
+# 146 "General.cppo.ml"
   end
 
   module PredSucc = struct
@@ -4884,7 +4887,7 @@ module Tests = struct
   end
 end
   
-# 146 "General.cppo.ml"
+# 150 "General.cppo.ml"
   end
 
   module OfStandardNumbers = struct
@@ -4894,7 +4897,7 @@ module type S0 = sig
   val of_float: float -> t
 end
   
-# 150 "General.cppo.ml"
+# 154 "General.cppo.ml"
   end
 
   module ToStandardNumbers = struct
@@ -4904,7 +4907,7 @@ module type S0 = sig
   val to_float: t -> float
 end
   
-# 154 "General.cppo.ml"
+# 158 "General.cppo.ml"
   end
 
   module Ringoid = struct
@@ -5138,7 +5141,7 @@ module Tests = struct
   end
 end
   
-# 158 "General.cppo.ml"
+# 162 "General.cppo.ml"
   end
 
   module FilterMapable = struct
@@ -5326,7 +5329,7 @@ module Tests = struct
   end
 end
   
-# 162 "General.cppo.ml"
+# 166 "General.cppo.ml"
   end
 
   module Foldable = struct
@@ -5621,7 +5624,7 @@ end
   end
 end
   
-# 166 "General.cppo.ml"
+# 170 "General.cppo.ml"
   end
 
   module Scanable = struct
@@ -5818,7 +5821,7 @@ end
   end
 end
   
-# 170 "General.cppo.ml"
+# 174 "General.cppo.ml"
   end
 end
 
@@ -5953,7 +5956,7 @@ module Tests = struct
   end
 end
   
-# 176 "General.cppo.ml"
+# 180 "General.cppo.ml"
   end
 
   module Able = struct
@@ -6087,7 +6090,7 @@ module Tests = struct
   end
 end
   
-# 180 "General.cppo.ml"
+# 184 "General.cppo.ml"
   end
 
   module Number = struct
@@ -6141,7 +6144,7 @@ module Tests = struct
   end
 end
   
-# 184 "General.cppo.ml"
+# 188 "General.cppo.ml"
   end
 
   module RealNumber = struct
@@ -6202,7 +6205,7 @@ module Tests = struct
   end
 end
   
-# 188 "General.cppo.ml"
+# 192 "General.cppo.ml"
   end
 
   module Integer = struct
@@ -6241,7 +6244,7 @@ module Tests = struct
   end
 end
   
-# 192 "General.cppo.ml"
+# 196 "General.cppo.ml"
   end
 end
 
@@ -6272,7 +6275,7 @@ let get = OCSA.get
 let set = OCSA.set
 
 let size = OCSA.length
-# 197 "General.cppo.ml"
+# 201 "General.cppo.ml"
 end
 
 module Exception = struct
@@ -6346,13 +6349,13 @@ module Tests = struct
     ]
   ]
 end
-# 201 "General.cppo.ml"
+# 205 "General.cppo.ml"
 end
 
 module Format = struct
 # 1 "Implementation/Format.ml"
 include Foundations.Format
-# 205 "General.cppo.ml"
+# 209 "General.cppo.ml"
 end
 
 module StandardInt = struct
@@ -6472,7 +6475,7 @@ end = struct
 
   include Self
 end
-# 209 "General.cppo.ml"
+# 213 "General.cppo.ml"
 end
 
 module Int32 = struct
@@ -6576,7 +6579,7 @@ module Tests = struct
     "exponentiate 2l (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "Int32.exponentiate: Negative exponent: -4") (lazy (exponentiate 2l (-4)))));
   ]
 end
-# 213 "General.cppo.ml"
+# 217 "General.cppo.ml"
 end
 
 module Int64 = struct
@@ -6680,7 +6683,7 @@ module Tests = struct
     "exponentiate 2L (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "Int64.exponentiate: Negative exponent: -4") (lazy (exponentiate 2L (-4)))));
   ]
 end
-# 217 "General.cppo.ml"
+# 221 "General.cppo.ml"
 end
 
 module Float = struct
@@ -6855,7 +6858,7 @@ module Tests = struct
     ];
   ]
 end
-# 221 "General.cppo.ml"
+# 225 "General.cppo.ml"
 end
 
 module BigInt = struct
@@ -7261,7 +7264,7 @@ module Tests = struct
     );
   ]
 end
-# 225 "General.cppo.ml"
+# 229 "General.cppo.ml"
 end
 
 module Bool = struct
@@ -7327,7 +7330,7 @@ module Tests = struct
     "xor false false" >: (lazy (check_false (xor false false)));
   ]
 end
-# 229 "General.cppo.ml"
+# 233 "General.cppo.ml"
 end
 
 module Bytes = struct
@@ -7348,7 +7351,7 @@ let empty = OCSB.empty
 
 let make ~len =
   OCSB.create len
-# 233 "General.cppo.ml"
+# 237 "General.cppo.ml"
 end
 
 module Int = struct
@@ -7455,7 +7458,7 @@ module Tests = struct
     "exponentiate 2 (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "Int.exponentiate: Negative exponent: -4") (lazy (exponentiate 2 (-4)))));
   ]
 end
-# 237 "General.cppo.ml"
+# 241 "General.cppo.ml"
 end
 
 module List = struct
@@ -7558,7 +7561,7 @@ module Tests = struct
     "iter" >: (lazy (check_int ~expected:4096 (let p = ref 2 in iter ~f:(fun n -> p := Int.exponentiate !p n) [3; 4]; !p)));
   ]
 end
-# 241 "General.cppo.ml"
+# 245 "General.cppo.ml"
 end
 
 module CallStack = struct
@@ -7625,7 +7628,7 @@ module Tests = struct
     );
   ]
 end
-# 245 "General.cppo.ml"
+# 249 "General.cppo.ml"
 end
 
 module Char = struct
@@ -7650,13 +7653,13 @@ let repr c =
 (* @todo include Equate.Poly *)
 let equal = Equate.Poly.equal
 include Compare.Poly
-# 249 "General.cppo.ml"
+# 253 "General.cppo.ml"
 end
 
 module Exit = struct
 # 1 "Implementation/Exit.ml"
 include Foundations.Exit
-# 253 "General.cppo.ml"
+# 257 "General.cppo.ml"
 end
 
 module Functions = struct
@@ -7695,7 +7698,7 @@ module Tests = struct
     ];
   ]
 end
-# 257 "General.cppo.ml"
+# 261 "General.cppo.ml"
 end
 module Function1 = Functions.Function1
 module Function2 = Functions.Function2
@@ -7710,7 +7713,7 @@ module OCSP = OCamlStandard.Pervasives
 type t = OCSP.in_channel
 
 (* @todo Alias for type P.open_flag *)
-# 266 "General.cppo.ml"
+# 270 "General.cppo.ml"
 end
 
 module InFile = struct
@@ -7739,7 +7742,7 @@ let with_file s ~f =
 
 let with_channel s ~f =
   with_file s ~f:(f % channel)
-# 270 "General.cppo.ml"
+# 274 "General.cppo.ml"
 end
 
 module IntRange = struct
@@ -7800,7 +7803,7 @@ module Tests = struct
     ];
   ]
 end
-# 274 "General.cppo.ml"
+# 278 "General.cppo.ml"
 end
 
 module Lazy = struct
@@ -7827,7 +7830,7 @@ module Tests = struct
     ));
   ]
 end
-# 278 "General.cppo.ml"
+# 282 "General.cppo.ml"
 end
 
 module NativeInt = struct
@@ -7931,7 +7934,7 @@ module Tests = struct
     "exponentiate 2n (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "NativeInt.exponentiate: Negative exponent: -4") (lazy (exponentiate 2n (-4)))));
   ]
 end
-# 282 "General.cppo.ml"
+# 286 "General.cppo.ml"
 end
 
 module Option = struct
@@ -8012,7 +8015,7 @@ module Tests = struct
     "filter_map Some false" >: (lazy (check_none_int (filter_map ~f:(fun _ -> None) (Some 42))));
   ]
 end
-# 286 "General.cppo.ml"
+# 290 "General.cppo.ml"
 end
 
 module OutChannel = struct
@@ -8031,7 +8034,7 @@ let print ?flush:(do_flush=false) channel format =
     format
 
 let output = OCSP.output_bytes
-# 290 "General.cppo.ml"
+# 294 "General.cppo.ml"
 end
 
 module OutFile = struct
@@ -8060,7 +8063,7 @@ let with_file s ~f =
 
 let with_channel s ~f =
   with_file s ~f:(f % channel)
-# 294 "General.cppo.ml"
+# 298 "General.cppo.ml"
 end
 
 module Tuples = struct
@@ -8278,7 +8281,7 @@ module Tests = struct
     ];
   ]
 end
-# 298 "General.cppo.ml"
+# 302 "General.cppo.ml"
 end
 module Tuple2 = Tuples.Tuple2
 module Tuple3 = Tuples.Tuple3
@@ -9492,7 +9495,7 @@ module Tests = struct
     );
   ]
 end
-# 306 "General.cppo.ml"
+# 310 "General.cppo.ml"
 end
 
 module BinaryHeap = struct
@@ -9674,7 +9677,7 @@ module Tests = struct
     );
   ]
 end
-# 310 "General.cppo.ml"
+# 314 "General.cppo.ml"
 end
 
 module PriorityQueue = struct
@@ -9718,7 +9721,7 @@ module Make(E: Traits.Comparable.Basic.S0) = struct
   let pop_max xs =
     BinaryHeap.pop_max ~cmp xs
 end
-# 314 "General.cppo.ml"
+# 318 "General.cppo.ml"
 end
 
 module Reference = struct
@@ -9774,7 +9777,7 @@ module SpecializeRingoid(A: Traits.Ringoid.Basic.S0) = struct
 
   module O = (SpecializeRingoidOperators(A): module type of SpecializeRingoidOperators(A) with type t := t)
 end
-# 318 "General.cppo.ml"
+# 322 "General.cppo.ml"
 end
 
 module SortedMap = struct
@@ -9902,7 +9905,7 @@ module Make(K: Traits.Comparable.Basic.S0) = struct
         | Some v2 -> replace t ~k ~v:(f k v2 v)
     )
 end
-# 322 "General.cppo.ml"
+# 326 "General.cppo.ml"
 end
 
 module SortedSet = struct
@@ -9984,7 +9987,7 @@ module Make(E: Traits.Comparable.Basic.S0) = struct
     Tree.try_get t ~cmp ~cmp_k v
     |> Option.is_some
 end
-# 326 "General.cppo.ml"
+# 330 "General.cppo.ml"
 end
 
 module Heap = struct
@@ -10024,7 +10027,7 @@ module Make(E: Traits.Comparable.Basic.S0) = struct
   let pop_max xs =
     BinaryHeap.pop_max ~cmp xs
 end
-# 330 "General.cppo.ml"
+# 334 "General.cppo.ml"
 end
 
 module StandardOutChannel = struct
@@ -10044,7 +10047,7 @@ end) = struct
   let flush () =
     OutChannel.flush channel
 end
-# 334 "General.cppo.ml"
+# 338 "General.cppo.ml"
 end
 
 module StdErr = struct
@@ -10055,7 +10058,7 @@ include StandardOutChannel.Make(struct
   let channel = OCSP.stderr
   let flush = true
 end)
-# 338 "General.cppo.ml"
+# 342 "General.cppo.ml"
 end
 
 module StdIn = struct
@@ -10063,7 +10066,7 @@ module StdIn = struct
 module OCSP = OCamlStandard.Pervasives
 
 let channel = OCSP.stdin
-# 342 "General.cppo.ml"
+# 346 "General.cppo.ml"
 end
 
 module StdOut = struct
@@ -10074,7 +10077,7 @@ include StandardOutChannel.Make(struct
   let channel = OCSP.stdout
   let flush = false
 end)
-# 346 "General.cppo.ml"
+# 350 "General.cppo.ml"
 end
 
 module Stream = struct
@@ -10091,7 +10094,7 @@ module Tests = struct
     (let module T = Traits.FilterMapable.ToList.Tests.Make1(Self)(Self.ToList)(List) in T.test);
   ]
 end
-# 350 "General.cppo.ml"
+# 354 "General.cppo.ml"
 end
 
 module String = struct
@@ -10151,7 +10154,7 @@ module Tests = struct
     );
   ]
 end
-# 354 "General.cppo.ml"
+# 358 "General.cppo.ml"
 end
 
 module TestingTests = struct
@@ -10176,7 +10179,7 @@ module Tests = struct
   )
 
   module ResultExamples = struct
-    open Result
+    open Test.Result
     open Status
     open Counts
 
@@ -10195,18 +10198,18 @@ module Tests = struct
 
   let test = "Testing" >:: [
     "Result" >:: [
-      (let module T = Traits.Representable.Tests.Make0(Result)(ResultExamples) in T.test);
+      (let module T = Traits.Representable.Tests.Make0(Test.Result)(ResultExamples) in T.test);
       "to_indented_strings" >:: (
         let make ?(verbose=false) expected result =
           (expected |> Foundations.List.join_string_list ~sep:"\n") >: (lazy (
             let actual =
               result
-              |> Result.to_indented_strings ~verbose
+              |> Test.Result.to_indented_strings ~verbose
             in
             check_string_list ~expected actual
           ))
         in
-        Result.(Status.(Counts.[
+        Test.Result.(Status.(Counts.[
           make ~verbose:true
             ["\"foo\": OK"]
             (Single {label="foo"; status=Success});
@@ -10299,9 +10302,9 @@ module Tests = struct
             | Test.Single {Test.label; _} -> label
             | Test.Group {Test.name; _} -> name
           in
-          name >: (lazy (check ~repr:Result.repr ~equal:Result.equal ~expected (Test.run ~record_backtrace:false test)))
+          name >: (lazy Test.Result.(check ~repr ~equal ~expected (run ~record_backtrace:false test)))
         in
-        Result.(Status.(Counts.[
+        Test.Result.(Status.(Counts.[
           make (Single {label="single success"; status=Success}) ("single success" >: (lazy ()));
           make
             (Group {name="group success"; children=[Single {label="child"; status=Success}]; counts={successes=1; failures=0; errors=0}})
@@ -10326,13 +10329,13 @@ module Tests = struct
     ];
   ]
 end
-# 358 "General.cppo.ml"
+# 362 "General.cppo.ml"
 end
 
 module Unit = struct
 # 1 "Implementation/Unit.ml"
 include Foundations.Unit
-# 362 "General.cppo.ml"
+# 366 "General.cppo.ml"
 end
 
 module Specializations = struct
@@ -10363,7 +10366,7 @@ module String = struct
   let join = List.join_string_list
 end
   
-# 367 "General.cppo.ml"
+# 371 "General.cppo.ml"
   end
 
   module Option = struct
@@ -10380,7 +10383,7 @@ module String = struct
   include Option.Specialize(String)
 end
   
-# 371 "General.cppo.ml"
+# 375 "General.cppo.ml"
   end
 
   module Reference = struct
@@ -10427,7 +10430,7 @@ module String = struct
   include (Spe: module type of Spe with module O := O)
 end
   
-# 375 "General.cppo.ml"
+# 379 "General.cppo.ml"
   end
 
   module SortedMap = struct
@@ -10440,7 +10443,7 @@ module String = SortedMap.Make(String)
 
 module Char = SortedMap.Make(Char)
   
-# 379 "General.cppo.ml"
+# 383 "General.cppo.ml"
   end
 
   module SortedSet = struct
@@ -10453,7 +10456,7 @@ module String = SortedSet.Make(String)
 
 module Char = SortedSet.Make(Char)
   
-# 383 "General.cppo.ml"
+# 387 "General.cppo.ml"
   end
 end
 
@@ -10554,7 +10557,7 @@ module Standard = struct
     and module Bytes := Bytes
     and module Char := Char
     
-# 485 "General.cppo.ml"
+# 489 "General.cppo.ml"
     and module Format := Format
     and module Int32 := Int32
     and module Int64 := Int64
@@ -10678,11 +10681,11 @@ module Tests = struct
         "string" >:: [
           "get" >: (let a: string = "a" in lazy (Char.(check ~repr ~equal ~expected:'a' a.[0])));
           
-# 608 "General.cppo.ml"
+# 612 "General.cppo.ml"
           (* @todo Fix that test in node.js *)
           (* "set" >: (let a: string = "a" in lazy (Char.(check ~repr ~equal ~expected:'a' (String.get a 0)); a.[0] <- 'z'; Char.(check ~repr ~equal ~expected:'z' (String.get a 0)))); *)
         
-# 611 "General.cppo.ml"
+# 615 "General.cppo.ml"
         ];
         "bytes" >:: [
           "set" >: (let a: bytes = Bytes.of_string "a" in lazy (Char.(check ~repr ~equal ~expected:'a' (Bytes.get a 0)); a.[0] <- 'z'; Char.(check ~repr ~equal ~expected:'z' (Bytes.get a 0))));
@@ -10697,10 +10700,10 @@ module Tests = struct
         "string" >:: [
           "get" >: (let a: string = "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' a.[0])));
           
-# 625 "General.cppo.ml"
+# 629 "General.cppo.ml"
           (* "set" >: (let a: string = "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' (Str.get a 0)); a.[0] <- 'z'; Ch.(check ~repr ~equal ~expected:'z' (Str.get a 0)))); *)
         
-# 627 "General.cppo.ml"
+# 631 "General.cppo.ml"
         ];
         "bytes" >:: [
           "set" >: (let a: bytes = By.of_string "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' (By.get a 0)); a.[0] <- 'z'; Ch.(check ~repr ~equal ~expected:'z' (By.get a 0))));

@@ -161,6 +161,47 @@ module Equate: sig
   end
 end
 
+(* Testing base *)
+module Test: sig
+  module Result: sig
+    module Status: sig
+      type failure
+
+      type t =
+        | Success
+        | Failure of failure
+        | Error of exn * Pervasives.OCamlStandard.Printexc.raw_backtrace option
+
+      val to_string: t -> string
+    end
+
+    type single = {
+      label: string;
+      status: Status.t;
+    }
+
+    module Counts: sig
+      type t = {
+        successes: int;
+        failures: int;
+        errors: int;
+      }
+    end
+
+    type group = {
+      name: string;
+      children: t list;
+      counts: Counts.t;
+    }
+
+    and t =
+      | Single of single
+      | Group of group
+  end
+
+  type t
+end
+
 (** Traits are isolated capabilities associated to a type. *)
 module Traits: sig
   (* @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
@@ -1370,50 +1411,10 @@ module StdErr: sig
   val flush: unit -> unit
 end
 
-(* Testing *)
+(* Testing utilities *)
 
 module Testing: sig
-  module Result: sig
-    module Status: sig
-      type failure
-
-      type t =
-        | Success
-        | Failure of failure
-        | Error of exn * CallStack.t option
-
-      val to_string: t -> string
-    end
-
-    type single = {
-      label: string;
-      status: Status.t;
-    }
-
-    module Counts: sig
-      type t = {
-        successes: int;
-        failures: int;
-        errors: int;
-      }
-    end
-
-    type group = {
-      name: string;
-      children: t list;
-      counts: Counts.t;
-    }
-
-    and t =
-      | Single of single
-      | Group of group
-  end
-
-  module Test: sig
-    type t
-
-    val run: ?record_backtrace:bool -> t -> Result.t
-  end
+  val run: ?record_backtrace:bool -> Test.t -> Test.Result.t
 
   val command_line_main: argv:string list -> Test.t -> Exit.t
 
@@ -1661,5 +1662,5 @@ end
 
 (* @todo Remove from interface, or make a functor, to avoid linking tests in client applications *)
 module Tests: sig
-  val test: Testing.Test.t
+  val test: Test.t
 end [@@autodoc.hide]
