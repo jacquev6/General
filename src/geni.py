@@ -193,11 +193,9 @@ class Facets:
             if self.__is_basic():
                 yield self.__basic_module_items()
             else:
+                yield self.__operators_implementation()
                 yield "module Basic = struct"
                 yield indent(self.__basic_module_items())
-                yield "end"
-                yield "module Operators = struct"
-                yield indent(self.__operators_module_items())
                 yield "end"
                 yield self.__extended_module_items()
 

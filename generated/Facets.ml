@@ -57,6 +57,21 @@ module Traits = struct
     end
   end
   module Equatable = struct
+    module Operators = struct
+      module type S0 = sig
+        type t
+        val ( = ): t -> t -> bool
+        val ( <> ): t -> t -> bool
+      end
+      module Make0(M: sig
+        type t
+        val equal: t -> t -> bool
+        val different: t -> t -> bool
+      end) = struct
+        let ( = ) = M.equal
+        let ( <> ) = M.different
+      end
+    end
     module Basic = struct
       module type S0 = sig
         type t
@@ -106,21 +121,6 @@ module Traits = struct
         type t = (A.t, B.t, C.t, D.t, E.t) M.t
         let equal x y =
           M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal ~equal_e:E.equal
-      end
-    end
-    module Operators = struct
-      module type S0 = sig
-        type t
-        val ( = ): t -> t -> bool
-        val ( <> ): t -> t -> bool
-      end
-      module Make0(M: sig
-        type t
-        val equal: t -> t -> bool
-        val different: t -> t -> bool
-      end) = struct
-        let ( = ) = M.equal
-        let ( <> ) = M.different
       end
     end
     module type S0 = sig
@@ -202,6 +202,27 @@ module Traits = struct
     end
   end
   module Comparable = struct
+    module Operators = struct
+      module type S0 = sig
+        type t
+        val ( < ): t -> t -> bool
+        val ( <= ): t -> t -> bool
+        val ( > ): t -> t -> bool
+        val ( >= ): t -> t -> bool
+      end
+      module Make0(M: sig
+        type t
+        val less_than: t -> t -> bool
+        val less_or_equal: t -> t -> bool
+        val greater_than: t -> t -> bool
+        val greater_or_equal: t -> t -> bool
+      end) = struct
+        let ( < ) = M.less_than
+        let ( <= ) = M.less_or_equal
+        let ( > ) = M.greater_than
+        let ( >= ) = M.greater_or_equal
+      end
+    end
     module Basic = struct
       module type S0 = sig
         type t
@@ -251,27 +272,6 @@ module Traits = struct
         type t = (A.t, B.t, C.t, D.t, E.t) M.t
         let compare x y =
           M.compare x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare ~compare_e:E.compare
-      end
-    end
-    module Operators = struct
-      module type S0 = sig
-        type t
-        val ( < ): t -> t -> bool
-        val ( <= ): t -> t -> bool
-        val ( > ): t -> t -> bool
-        val ( >= ): t -> t -> bool
-      end
-      module Make0(M: sig
-        type t
-        val less_than: t -> t -> bool
-        val less_or_equal: t -> t -> bool
-        val greater_than: t -> t -> bool
-        val greater_or_equal: t -> t -> bool
-      end) = struct
-        let ( < ) = M.less_than
-        let ( <= ) = M.less_or_equal
-        let ( > ) = M.greater_than
-        let ( >= ) = M.greater_or_equal
       end
     end
     module type S0 = sig
@@ -474,18 +474,6 @@ module Traits = struct
     end
   end
   module Ringoid = struct
-    module Basic = struct
-      module type S0 = sig
-        type t
-        val zero: t
-        val one: t
-        val negate: t -> t
-        val add: t -> t -> t
-        val substract: t -> t -> t
-        val multiply: t -> t -> t
-        val divide: t -> t -> t
-      end
-    end
     module Operators = struct
       module type S0 = sig
         type t
@@ -511,6 +499,18 @@ module Traits = struct
         let ( * ) = M.multiply
         let ( / ) = M.divide
         let ( ** ) = M.exponentiate
+      end
+    end
+    module Basic = struct
+      module type S0 = sig
+        type t
+        val zero: t
+        val one: t
+        val negate: t -> t
+        val add: t -> t -> t
+        val substract: t -> t -> t
+        val multiply: t -> t -> t
+        val divide: t -> t -> t
       end
     end
     module type S0 = sig
