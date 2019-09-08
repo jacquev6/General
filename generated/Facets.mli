@@ -772,6 +772,26 @@ module Concepts: sig
       include Traits.Equatable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
       include Traits.Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
     end
+    module Specialize1(M: S1)(A: S0): sig
+      type t = A.t M.t
+      include S0 with type t := t
+    end
+    module Specialize2(M: S2)(A: S0)(B: S0): sig
+      type t = (A.t, B.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize3(M: S3)(A: S0)(B: S0)(C: S0): sig
+      type t = (A.t, B.t, C.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0): sig
+      type t = (A.t, B.t, C.t, D.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0): sig
+      type t = (A.t, B.t, C.t, D.t, E.t) M.t
+      include S0 with type t := t
+    end
   end
   module Able: sig
     module Operators: sig
@@ -811,6 +831,26 @@ module Concepts: sig
       type ('a, 'b, 'c, 'd, 'e) t
       include Identifiable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
       include Traits.Comparable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+    end
+    module Specialize1(M: S1)(A: S0): sig
+      type t = A.t M.t
+      include S0 with type t := t
+    end
+    module Specialize2(M: S2)(A: S0)(B: S0): sig
+      type t = (A.t, B.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize3(M: S3)(A: S0)(B: S0)(C: S0): sig
+      type t = (A.t, B.t, C.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0): sig
+      type t = (A.t, B.t, C.t, D.t) M.t
+      include S0 with type t := t
+    end
+    module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0): sig
+      type t = (A.t, B.t, C.t, D.t, E.t) M.t
+      include S0 with type t := t
     end
   end
   module Number: sig

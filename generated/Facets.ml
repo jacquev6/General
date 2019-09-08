@@ -581,6 +581,56 @@ module Concepts = struct
       include Traits.Equatable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
       include Traits.Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
     end
+    module Specialize1(M: S1)(A: S0) = struct
+      type t = A.t M.t
+      module Equatable_ = Traits.Equatable.Specialize1(M)(A)
+      module Representable_ = Traits.Representable.Specialize1(M)(A)
+      module O = struct
+        include Equatable_.O
+      end
+      include (Equatable_: Traits.Equatable.S0 with type t := t and module O := O)
+      include (Representable_: Traits.Representable.S0 with type t := t)
+    end
+    module Specialize2(M: S2)(A: S0)(B: S0) = struct
+      type t = (A.t, B.t) M.t
+      module Equatable_ = Traits.Equatable.Specialize2(M)(A)(B)
+      module Representable_ = Traits.Representable.Specialize2(M)(A)(B)
+      module O = struct
+        include Equatable_.O
+      end
+      include (Equatable_: Traits.Equatable.S0 with type t := t and module O := O)
+      include (Representable_: Traits.Representable.S0 with type t := t)
+    end
+    module Specialize3(M: S3)(A: S0)(B: S0)(C: S0) = struct
+      type t = (A.t, B.t, C.t) M.t
+      module Equatable_ = Traits.Equatable.Specialize3(M)(A)(B)(C)
+      module Representable_ = Traits.Representable.Specialize3(M)(A)(B)(C)
+      module O = struct
+        include Equatable_.O
+      end
+      include (Equatable_: Traits.Equatable.S0 with type t := t and module O := O)
+      include (Representable_: Traits.Representable.S0 with type t := t)
+    end
+    module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0) = struct
+      type t = (A.t, B.t, C.t, D.t) M.t
+      module Equatable_ = Traits.Equatable.Specialize4(M)(A)(B)(C)(D)
+      module Representable_ = Traits.Representable.Specialize4(M)(A)(B)(C)(D)
+      module O = struct
+        include Equatable_.O
+      end
+      include (Equatable_: Traits.Equatable.S0 with type t := t and module O := O)
+      include (Representable_: Traits.Representable.S0 with type t := t)
+    end
+    module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
+      type t = (A.t, B.t, C.t, D.t, E.t) M.t
+      module Equatable_ = Traits.Equatable.Specialize5(M)(A)(B)(C)(D)(E)
+      module Representable_ = Traits.Representable.Specialize5(M)(A)(B)(C)(D)(E)
+      module O = struct
+        include Equatable_.O
+      end
+      include (Equatable_: Traits.Equatable.S0 with type t := t and module O := O)
+      include (Representable_: Traits.Representable.S0 with type t := t)
+    end
     module Tests = struct
       open Testing
       module Examples = struct
@@ -711,6 +761,61 @@ module Concepts = struct
       type ('a, 'b, 'c, 'd, 'e) t
       include Identifiable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
       include Traits.Comparable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+    end
+    module Specialize1(M: S1)(A: S0) = struct
+      type t = A.t M.t
+      module Identifiable_ = Identifiable.Specialize1(M)(A)
+      module Comparable_ = Traits.Comparable.Specialize1(M)(A)
+      module O = struct
+        include Identifiable_.O
+        include Comparable_.O
+      end
+      include (Identifiable_: Identifiable.S0 with type t := t and module O := O)
+      include (Comparable_: Traits.Comparable.S0 with type t := t and module O := O)
+    end
+    module Specialize2(M: S2)(A: S0)(B: S0) = struct
+      type t = (A.t, B.t) M.t
+      module Identifiable_ = Identifiable.Specialize2(M)(A)(B)
+      module Comparable_ = Traits.Comparable.Specialize2(M)(A)(B)
+      module O = struct
+        include Identifiable_.O
+        include Comparable_.O
+      end
+      include (Identifiable_: Identifiable.S0 with type t := t and module O := O)
+      include (Comparable_: Traits.Comparable.S0 with type t := t and module O := O)
+    end
+    module Specialize3(M: S3)(A: S0)(B: S0)(C: S0) = struct
+      type t = (A.t, B.t, C.t) M.t
+      module Identifiable_ = Identifiable.Specialize3(M)(A)(B)(C)
+      module Comparable_ = Traits.Comparable.Specialize3(M)(A)(B)(C)
+      module O = struct
+        include Identifiable_.O
+        include Comparable_.O
+      end
+      include (Identifiable_: Identifiable.S0 with type t := t and module O := O)
+      include (Comparable_: Traits.Comparable.S0 with type t := t and module O := O)
+    end
+    module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0) = struct
+      type t = (A.t, B.t, C.t, D.t) M.t
+      module Identifiable_ = Identifiable.Specialize4(M)(A)(B)(C)(D)
+      module Comparable_ = Traits.Comparable.Specialize4(M)(A)(B)(C)(D)
+      module O = struct
+        include Identifiable_.O
+        include Comparable_.O
+      end
+      include (Identifiable_: Identifiable.S0 with type t := t and module O := O)
+      include (Comparable_: Traits.Comparable.S0 with type t := t and module O := O)
+    end
+    module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
+      type t = (A.t, B.t, C.t, D.t, E.t) M.t
+      module Identifiable_ = Identifiable.Specialize5(M)(A)(B)(C)(D)(E)
+      module Comparable_ = Traits.Comparable.Specialize5(M)(A)(B)(C)(D)(E)
+      module O = struct
+        include Identifiable_.O
+        include Comparable_.O
+      end
+      include (Identifiable_: Identifiable.S0 with type t := t and module O := O)
+      include (Comparable_: Traits.Comparable.S0 with type t := t and module O := O)
     end
     module Tests = struct
       open Testing
