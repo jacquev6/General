@@ -108,6 +108,18 @@ module Traits: sig
     end
   end
   module Equatable: sig
+    module Operators: sig
+      module type S0 = sig
+        type t
+        val ( = ): t -> t -> bool
+        val ( <> ): t -> t -> bool
+      end
+      module Make0(M: sig
+        type t
+        val equal: t -> t -> bool
+        val different: t -> t -> bool
+      end): S0 with type t := M.t
+    end
     module Basic: sig
       module type S0 = sig
         type t
@@ -133,18 +145,6 @@ module Traits: sig
         type ('a, 'b, 'c, 'd, 'e) t
         val equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
       end
-    end
-    module Operators: sig
-      module type S0 = sig
-        type t
-        val ( = ): t -> t -> bool
-        val ( <> ): t -> t -> bool
-      end
-      module Make0(M: sig
-        type t
-        val equal: t -> t -> bool
-        val different: t -> t -> bool
-      end): S0 with type t := M.t
     end
     module type S0 = sig
       include Basic.S0
@@ -233,6 +233,22 @@ module Traits: sig
     end
   end
   module Comparable: sig
+    module Operators: sig
+      module type S0 = sig
+        type t
+        val ( < ): t -> t -> bool
+        val ( <= ): t -> t -> bool
+        val ( > ): t -> t -> bool
+        val ( >= ): t -> t -> bool
+      end
+      module Make0(M: sig
+        type t
+        val less_than: t -> t -> bool
+        val less_or_equal: t -> t -> bool
+        val greater_than: t -> t -> bool
+        val greater_or_equal: t -> t -> bool
+      end): S0 with type t := M.t
+    end
     module Basic: sig
       module type S0 = sig
         type t
@@ -258,22 +274,6 @@ module Traits: sig
         type ('a, 'b, 'c, 'd, 'e) t
         val compare: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> Compare.t
       end
-    end
-    module Operators: sig
-      module type S0 = sig
-        type t
-        val ( < ): t -> t -> bool
-        val ( <= ): t -> t -> bool
-        val ( > ): t -> t -> bool
-        val ( >= ): t -> t -> bool
-      end
-      module Make0(M: sig
-        type t
-        val less_than: t -> t -> bool
-        val less_or_equal: t -> t -> bool
-        val greater_than: t -> t -> bool
-        val greater_or_equal: t -> t -> bool
-      end): S0 with type t := M.t
     end
     module type S0 = sig
       include Basic.S0
@@ -518,18 +518,6 @@ module Traits: sig
     end
   end
   module Ringoid: sig
-    module Basic: sig
-      module type S0 = sig
-        type t
-        val zero: t
-        val one: t
-        val negate: t -> t
-        val add: t -> t -> t
-        val substract: t -> t -> t
-        val multiply: t -> t -> t
-        val divide: t -> t -> t
-      end
-    end
     module Operators: sig
       module type S0 = sig
         type t
@@ -549,6 +537,18 @@ module Traits: sig
         val divide: t -> t -> t
         val exponentiate: t -> int -> t
       end): S0 with type t := M.t
+    end
+    module Basic: sig
+      module type S0 = sig
+        type t
+        val zero: t
+        val one: t
+        val negate: t -> t
+        val add: t -> t -> t
+        val substract: t -> t -> t
+        val multiply: t -> t -> t
+        val divide: t -> t -> t
+      end
     end
     module type S0 = sig
       include Basic.S0
