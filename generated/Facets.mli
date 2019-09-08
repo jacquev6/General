@@ -118,7 +118,10 @@ module Traits: sig
         type t
         val equal: t -> t -> bool
         val different: t -> t -> bool
-      end): S0 with type t := M.t
+      end): sig
+        val ( = ): M.t -> M.t -> bool
+        val ( <> ): M.t -> M.t -> bool
+      end
     end
     module Basic: sig
       module type S0 = sig
@@ -247,7 +250,12 @@ module Traits: sig
         val less_or_equal: t -> t -> bool
         val greater_than: t -> t -> bool
         val greater_or_equal: t -> t -> bool
-      end): S0 with type t := M.t
+      end): sig
+        val ( < ): M.t -> M.t -> bool
+        val ( <= ): M.t -> M.t -> bool
+        val ( > ): M.t -> M.t -> bool
+        val ( >= ): M.t -> M.t -> bool
+      end
     end
     module Basic: sig
       module type S0 = sig
@@ -536,7 +544,14 @@ module Traits: sig
         val multiply: t -> t -> t
         val divide: t -> t -> t
         val exponentiate: t -> int -> t
-      end): S0 with type t := M.t
+      end): sig
+        val ( ~- ): M.t -> M.t
+        val ( + ): M.t -> M.t -> M.t
+        val ( - ): M.t -> M.t -> M.t
+        val ( * ): M.t -> M.t -> M.t
+        val ( / ): M.t -> M.t -> M.t
+        val ( ** ): M.t -> int -> M.t
+      end
     end
     module Basic: sig
       module type S0 = sig

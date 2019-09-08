@@ -65,7 +65,7 @@ class Facets:
         return mod_spec("Operators",
             self.__operators_s0_signature(),
             # @todo Homogenize
-            [] if self.prefix == "Concepts" else self.__operators_makers_signatures(),
+            self.__operators_makers_signatures() if self.prefix == "Traits" and len(self.operators) > 0 else [],
         )
 
     def __operators_s0_signature(self):
@@ -85,8 +85,10 @@ class Facets:
         yield "  type t"
         for operator in self.operators:
             yield indent(operator.make_signature(self.base_values, 0))
-        # @todo Explicit result signature: the generated module does *not* contain operators for base modules. Cf. modulo and (mod) operator.
-        yield "end): S0 with type t := M.t"
+        yield "end): sig"
+        for operator in self.operators:
+            yield indent(operator.make_signature(self.base_values, 0, operator=True, t="M.t"))
+        yield "end"
 
     def __is_basic(self):
         return len(list(itertools.chain.from_iterable(extension.members for extension in self.extensions))) == 0
