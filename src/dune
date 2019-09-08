@@ -18,7 +18,6 @@
     Traits/Foldable.signatures.Short.Right.ml
     Traits/Foldable.signatures.Short.ml
     Traits/Foldable.signatures.ml
-    Traits/PredSucc.signatures.ml
     Traits/Scanable.signatures.Right.ToContainer.ml
     Traits/Scanable.signatures.Right.ml
     Traits/Scanable.signatures.Short.Right.ToContainer.ml
@@ -132,7 +131,6 @@
     Traits/OfStandardNumbers.ml
     Traits/Parsable.ml
     Traits/PredSucc.ml
-    Traits/PredSucc.signatures.ml
     Traits/Representable.ml
     Traits/Ringoid.ml
     Traits/Scanable.ml
