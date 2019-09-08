@@ -214,7 +214,7 @@ module Traits: sig
 #ext python3
 from geni import *
 for trait in Trait.all:
-    generate(trait.declaration, indent=1)
+    generate(trait.specification, indent=1)
 #endext
 
   module FilterMapable: sig
@@ -325,7 +325,7 @@ module Concepts: sig
 #ext python3
 from geni import *
 for concept in Concept.all:
-    generate(concept.declaration, indent=1)
+    generate(concept.specification, indent=1)
 #endext
 end
 

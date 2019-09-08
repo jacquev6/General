@@ -73,10 +73,11 @@ do
     echo "Generating code"
     echo "---------------"
 
-    $RUN dune build src/General.ml src/General.mli
-    mkdir -p preprocessed/$OCAML_VERSION
-    cp _builds/$OCAML_VERSION/default/src/General.ml{,i} preprocessed/$OCAML_VERSION
-    git diff --ignore-all-space preprocessed/$OCAML_VERSION | head -n 50
+    rm -rf generated
+    mkdir generated
+    python3 src/geni.py specification >generated/Facets.mli
+    python3 src/geni.py implementation >generated/Facets.ml
+    git diff --exit-code --ignore-all-space --ignore-blank-lines generated
 
     echo
     echo "Running tests"

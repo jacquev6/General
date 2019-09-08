@@ -51,7 +51,7 @@ class Trait:
         return len(list(itertools.chain.from_iterable(extension.members for extension in self.extensions))) == 0 and len(self.operators) == 0
 
     @property
-    def declaration(self):
+    def specification(self):
         yield f"module {self.name}: sig"
         yield indent(self.__declaration())
         yield "end"
@@ -167,6 +167,12 @@ class Trait:
         yield "end"
 
     @property
+    def implementation(self):
+        yield f"module {self.name} = struct"
+        yield indent(self.module_items)
+        yield "end"
+
+    @property
     def module_items(self):
         if self.is_basic:
             yield self.__basic_module_items
@@ -245,7 +251,7 @@ class Concept:
         return any(base.has_tests for base in self.inherited)
 
     @property
-    def declaration(self):
+    def specification(self):
         yield f"module {self.name}: sig"
         if self.has_operators:
             yield "  module Operators: sig"
@@ -285,6 +291,12 @@ class Concept:
             for v in self.basics:
                 yield indent(v.make_signature(self.basics, arity))
             yield "end"
+
+    @property
+    def implementation(self):
+        yield f"module {self.name} = struct"
+        yield indent(self.module_items)
+        yield "end"
 
     @property
     def module_items(self):
@@ -710,3 +722,25 @@ integer = Concept(
         ]
     """,
 )
+
+
+if __name__ == "__main__":
+    if sys.argv[1] == "specification":
+        generate([
+            "module Traits: sig",
+            indent(trait.specification for trait in Trait.all),
+            "end",
+            "module Concepts: sig",
+            indent(concept.specification for concept in Concept.all),
+            "end",
+        ])
+    else:
+        assert sys.argv[1] == "implementation"
+        generate([
+            "module Traits = struct",
+            indent(trait.implementation for trait in Trait.all),
+            "end",
+            "module Concepts = struct",
+            indent(concept.implementation for concept in Concept.all),
+            "end",
+        ])
