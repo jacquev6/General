@@ -19,8 +19,6 @@
     Traits/Foldable.signatures.Short.ml
     Traits/Foldable.signatures.ml
     Traits/PredSucc.signatures.ml
-    Traits/Ringoid.makers.Operators.mli
-    Traits/Ringoid.makers.mli
     Traits/Scanable.signatures.Right.ToContainer.ml
     Traits/Scanable.signatures.Right.ml
     Traits/Scanable.signatures.Short.Right.ToContainer.ml
