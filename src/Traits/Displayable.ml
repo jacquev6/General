@@ -1,6 +1,6 @@
 #ext python3
 from geni import *
-generate(displayable.module_items)
+generate(displayable.implementation_items)
 #endext
 
 module Tests = struct

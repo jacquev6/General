@@ -1,6 +1,6 @@
 #ext python3
 from geni import *
-generate(ringoid.module_items)
+generate(ringoid.implementation_items)
 #endext
 
 (* @todo Fix spelling of 'subtract' *)

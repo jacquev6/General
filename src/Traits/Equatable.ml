@@ -1,6 +1,6 @@
 #ext python3
 from geni import *
-generate(equatable.module_items)
+generate(equatable.implementation_items)
 #endext
 
 module Different = struct

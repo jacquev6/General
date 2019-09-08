@@ -6,7 +6,7 @@ import textwrap
 max_arity = 6
 
 
-def generate(element, **kwds):
+def generate(*element, **kwds):
     for line in indent(element, kwds.get("indent", 0)):
         print(line)
 
@@ -19,123 +19,149 @@ def indent(element, levels=1):
             yield from indent(sub, levels)
 
 
-class Trait:
-    all = []
-
-    def __init__(self, name, *, variadic, basics, extensions=[], has_tests=True, examples=[], gen_tests=False, test_requirements=[]):
-        Trait.all.append(self)
+class Facets:
+    def __init__(self, *, prefix, name, variadic, inherited, base_values, extensions, examples_implementation, tests, has_tests, gen_tests, examples, test_requirements):
+        self.prefix = prefix
         self.name = name
-        self.max_arity = max_arity if variadic else 1
-        self.basics = list(basics)
+        self.inherited = list(inherited)
+        self.max_arity = min(itertools.chain([max_arity], (i.max_arity for i in self.inherited))) if variadic else 1
+        self.arities = list(range(self.max_arity))
+        self.base_values = list(base_values)
         self.extensions = list(extensions)
         self.all_items = list(itertools.chain(
-            self.basics,
+            self.base_values,
             itertools.chain.from_iterable(extension.members for extension in self.extensions),
         ))
         self.operators = [item for item in self.all_items if item.operator is not None]
+        # @todo Implement tests using a sub object
+        self.examples_implementation = examples_implementation
+        self.tests = tests
         self.has_tests = has_tests
-        self.examples = list(examples)
         self.gen_tests = gen_tests
+        self.examples = list(examples)
         self.test_requirements = list(test_requirements)
 
-    @property
-    def full_name(self):
-        return f"Traits.{self.name}"
-
-    @property
-    def has_operators(self):
-        return len(self.operators) > 0
+    def contextualized_name(self, prefix):
+        if prefix == self.prefix:
+            return self.name
+        else:
+            return f"{self.prefix}.{self.name}"
 
     @property
     def is_basic(self):
-        return len(list(itertools.chain.from_iterable(extension.members for extension in self.extensions))) == 0 and len(self.operators) == 0
+        return len(list(itertools.chain.from_iterable(extension.members for extension in self.extensions))) == 0
+
+    @property
+    def has_operators(self):
+        return len(self.operators) > 0 or any(base.has_operators for base in self.inherited)
 
     @property
     def specification(self):
-        yield f"module {self.name}: sig"
-        yield indent(self.__declaration())
-        yield "end"
+        return mod_spec(self.name, self.specification_items)
 
-    def __declaration(self):
-        if self.is_basic:
-            yield self.__basic_signatures
+    @property
+    def specification_items(self):
+        # @todo Homogenize
+        if self.prefix == "Concepts":
+            if self.has_operators:
+                yield self.__operators_signature()
+            yield self.__basic_signatures()
         else:
-            yield "module Basic: sig"
-            yield indent(self.__basic_signatures)
-            yield "end"
-            if len(self.operators) != 0:
-                yield "module Operators: sig"
-                yield indent(self.__operators_signatures)
-                yield indent(self.__operators_makers_signatures)
+            if self.is_basic:
+                yield self._Facets__basic_signatures()
+            else:
+                yield "module Basic: sig"
+                yield indent(self._Facets__basic_signatures())
                 yield "end"
-            yield self.__extended_signatures
-        yield self.__extensions_makers_signatures
-        if self.gen_tests:
-            yield self.__test_signatures
+                if len(self.operators) != 0:
+                    yield self._Facets__operators_signature()
+                yield self._Facets__extended_signatures()
+            yield self._Facets__extensions_makers_signatures()
+            if self.gen_tests:
+                yield self._Facets__test_signatures()
 
-    @property
-    def __basic_signatures(self):
-        for arity in range(self.max_arity):
-            yield f"module type S{arity} = sig"
-            yield f"  type {type_params(arity)}t"
-            for v in self.basics:
-                yield indent(v.make_signature(self.basics, arity))
-            yield "end"
+    def __operators_signature(self):
+        return mod_spec("Operators",
+            self.__operators_s0_signature(),
+            # @todo Homogenize
+            [] if self.prefix == "Concepts" else self.__operators_makers_signatures(),
+        )
 
-    @property
-    def __operators_signatures(self):
-        yield "module type S0 = sig"
-        yield "  type t"
+    def __operators_s0_signature(self):
+        return mod_type("S0", self.__operators_signature_items())
+
+    def __operators_signature_items(self):
+        yield "type t"
+        for base in self.inherited:
+            if base.has_operators:
+                yield f"include {base.contextualized_name(self.prefix)}.Operators.S0 with type t := t"
         for operator in self.operators:
-            yield indent(operator.make_signature(self.basics, 0, operator=True))
-        yield "end"
+            yield operator.make_signature(self.base_values, 0, operator=True)
+        # @todo Publish operators makers
 
-    @property
     def __operators_makers_signatures(self):
         yield "module Make0(M: sig"
         yield "  type t"
         for operator in self.operators:
-            yield indent(operator.make_signature(self.basics, 0))
+            yield indent(operator.make_signature(self.base_values, 0))
+        # @todo Explicit result signature: the generated module does *not* contain operators for base modules. Cf. modulo and (mod) operator.
         yield "end): S0 with type t := M.t"
 
-    @property
+    def __basic_signatures(self):
+        for arity in self.arities:
+            yield mod_type(f"S{arity}", self.__basic_signature_items(arity))
+
+    def __basic_signature_items(self, arity):
+        t = f"{type_params(arity)}t"
+        yield f"type {t}"
+        # @todo Homogenize
+        if arity == 0 and self.has_operators and self.prefix == "Concepts":
+            yield "module O: Operators.S0 with type t := t"
+        for base in self.inherited:
+            if arity == 0 and base.has_operators:
+                operators_constraint = " and module O := O"
+            else:
+                operators_constraint = ""
+            yield f"include {base.contextualized_name(self.prefix)}.S{arity} with type {t} := {t}{operators_constraint}"
+        for value in self.base_values:
+            # @todo (?) Remove arity parameter, always pass t
+            yield value.make_signature(self.base_values, arity, t=t)
+
     def __extended_signatures(self):
-        for arity in range(self.max_arity):
+        for arity in self.arities:
             yield f"module type S{arity} = sig"
             yield f"  include Basic.S{arity}"
             for extension in self.extensions:
                 for item in extension.members:
-                    yield indent(item.make_signature(self.basics, arity))
+                    yield indent(item.make_signature(self.base_values, arity))
             if arity == 0:
                 yield "  module O: Operators.S0 with type t := t"
             yield "end"
 
-    @property
     def __extensions_makers_signatures(self):
         for extension in self.extensions:
             if len(extension.requirements) != 0:
                 yield f"module {extension.name}: sig"
-                for arity in range(self.max_arity):
+                for arity in self.arities:
                     yield f"  module Make{arity}(M: sig"
                     yield f"    type {type_params(arity)}t"
                     for req in extension.requirements:
                         if isinstance(req, str):
                             for item in self.all_items:
                                 if item.name == req:
-                                    yield indent(item.make_signature(self.basics, arity), levels=2)
+                                    yield indent(item.make_signature(self.base_values, arity), levels=2)
                         else:
-                            yield indent(req.make_signature(self.basics, arity), levels=2)
+                            yield indent(req.make_signature(self.base_values, arity), levels=2)
                     yield "  end): sig"
                     for item in extension.members:
-                        yield indent(item.make_signature(self.basics, arity, t=f"{type_params(arity)}M.t"), levels=2)
+                        yield indent(item.make_signature(self.base_values, arity, t=f"{type_params(arity)}M.t"), levels=2)
                     for prod in extension.basic_production:
                         for item in self.all_items:
                             if item.name == prod:
-                                yield indent(item.make_signature(self.basics, arity, t=f"{type_params(arity)}M.t"), levels=2)
+                                yield indent(item.make_signature(self.base_values, arity, t=f"{type_params(arity)}M.t"), levels=2)
                     yield "  end"
                 yield "end"
 
-    @property
     def __test_signatures(self):
         yield "module Tests: sig"
         yield "  module Examples: sig"
@@ -144,16 +170,16 @@ class Trait:
             yield "      type t"
             yield "      include S0 with type t := t"
             yield "    end"
-        for arity in range(self.max_arity):
+        for arity in self.arities:
             yield f"    module type S{arity} = sig"
             yield f"      type {type_params(arity)}t"
             for a in abcd(arity):
                 yield f"      module {a.upper()}: Element"
             for item in self.examples:
-                yield indent(item.make_signature(self.basics, 0, t=f"{type_args(arity)}t"), levels=3)
+                yield indent(item.make_signature(self.base_values, 0, t=f"{type_args(arity)}t"), levels=3)
             yield "    end"
         yield "  end"
-        for arity in range(self.max_arity):
+        for arity in self.arities:
             if len(self.test_requirements) == 0:
                 yield f"  module Make{arity}(M: S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t): sig"
             else:
@@ -168,151 +194,31 @@ class Trait:
 
     @property
     def implementation(self):
-        yield f"module {self.name} = struct"
-        yield indent(self.module_items)
-        yield "end"
+        return mod_impl(self.name, self.implementation_items)
 
     @property
-    def module_items(self):
-        if self.is_basic:
-            yield self.__basic_module_items
+    def implementation_items(self):
+        # @todo Homogenize
+        if self.prefix == "Concepts":
+            if self.has_operators:
+                yield self.__operators_implementation()
+            yield self.__basic_signatures()
+            if self.has_tests:
+                yield self.__test_module_items
         else:
-            yield "module Basic = struct"
-            yield indent(self.__basic_module_items)
-            yield "end"
-            yield "module Operators = struct"
-            yield indent(self.__operators_module_items)
-            yield "end"
-            yield self.__extended_module_items
+            if self.is_basic:
+                yield self.__basic_module_items
+            else:
+                yield "module Basic = struct"
+                yield indent(self.__basic_module_items)
+                yield "end"
+                yield "module Operators = struct"
+                yield indent(self.__operators_module_items)
+                yield "end"
+                yield self.__extended_module_items
 
-    @property
-    def __basic_module_items(self):
-        yield self.__basic_signatures
-        for arity in range(1, self.max_arity):
-            functor_params = "".join(f"({a.upper()}: S0)" for a in abcd(arity))
-            yield f"module Specialize{arity}(M: S{arity}){functor_params}: S0 with type t = {type_args(arity)}M.t = struct"
-            yield f"  type t = {type_args(arity)}M.t"
-            for v in self.basics:
-                yield indent(v.make_specialization(self.basics, arity))
-            yield "end"
-
-    @property
-    def __operators_module_items(self):
-        yield self.__operators_signatures
-        yield "module Make0(M: sig"
-        yield "  type t"
-        for operator in self.operators:
-            yield indent(operator.make_signature(self.basics, 0))
-        yield "end) = struct"
-        for operator in self.operators:
-            yield f"  let ( {operator.operator} ) = M.{operator.name}"
-        yield "end"
-
-    @property
-    def __extended_module_items(self):
-        yield self.__extended_signatures
-        for arity in range(1, self.max_arity):
-            functor_params = "".join(f"({a.upper()}: Basic.S0)" for a in abcd(arity))
-            yield f"module Specialize{arity}(M: S{arity}){functor_params}: S0 with type t = {type_args(arity)}M.t = struct"
-            yield "  module Self = struct"
-            yield f"    include Basic.Specialize{arity}(M)" + "".join(f"({a.upper()})" for a in abcd(arity))
-            for extension in self.extensions:
-                for item in extension.members:
-                    yield indent(item.make_specialization(self.basics, arity), levels=2)
-            yield "  end"
-            yield "  module O = Operators.Make0(Self)"
-            yield "  include Self"
-            yield "end"
-
-
-class Concept:
-    all = []
-
-    def __init__(self, name, *, inherited, basics=[], examples=None, tests=None):
-        Concept.all.append(self)
-        self.name = name
-        self.inherited = list(inherited)
-        self.basics = list(basics)
-        self.max_arity = min(i.max_arity for i in self.inherited)
-        self.operators = [item for item in self.basics if item.operator is not None]
-        self.examples = examples
-        self.tests = tests
-
-    @property
-    def full_name(self):
-        return self.name
-
-    @property
-    def has_operators(self):
-        return any(base.has_operators for base in self.inherited)
-
-    @property
-    def has_tests(self):
-        return any(base.has_tests for base in self.inherited)
-
-    @property
-    def specification(self):
-        yield f"module {self.name}: sig"
-        if self.has_operators:
-            yield "  module Operators: sig"
-            yield "    module type S0 = sig"
-            yield "      type t"
-            for base in self.inherited:
-                if base.has_operators:
-                    yield f"      include {base.full_name}.Operators.S0 with type t := t"
-            for operator in self.operators:
-                yield indent(operator.make_signature(self.basics, 0, operator=True), levels=3)
-            # @todo operators makers
-            yield "    end"
-            yield "  end"
-        yield indent(self.__signatures)
-        yield "end"
-
-    @property
-    def __signatures(self):
-        yield self.__basic_signatures
-        # @todo Publish Tests (examples and makers)
-        # if self.has_tests:
-        #     yield self.__test_signatures
-
-    @property
-    def __basic_signatures(self):
-        for arity in range(self.max_arity):
-            yield f"module type S{arity} = sig"
-            yield f"  type {type_params(arity)}t"
-            if arity == 0:
-                yield "  module O: Operators.S0 with type t := t"
-            for base in self.inherited:
-                if arity == 0 and base.has_operators:
-                    operators_constraint = " and module O := O"
-                else:
-                    operators_constraint = ""
-                yield f"  include {base.full_name}.S{arity} with type {type_params(arity)}t := {type_params(arity)}t{operators_constraint}"
-            for v in self.basics:
-                yield indent(v.make_signature(self.basics, arity))
-            yield "end"
-
-    @property
-    def implementation(self):
-        yield f"module {self.name} = struct"
-        yield indent(self.module_items)
-        yield "end"
-
-    @property
-    def module_items(self):
-        yield "module Operators = struct"
-        yield "  module type S0 = sig"
-        yield "    type t"
-        for base in self.inherited:
-            if base.has_operators:
-                yield f"    include {base.full_name}.Operators.S0 with type t := t"
-        for operator in self.operators:
-            yield indent(operator.make_signature(self.basics, 0, operator=True), levels=2)
-        yield "  end"
-        yield "end"
-        yield self.__basic_signatures
-        if self.has_tests:
-            yield self.__test_module_items
+    def __operators_implementation(self):
+        return mod_impl("Operators", self.__operators_s0_signature())
 
     @property
     def __test_module_items(self):
@@ -324,9 +230,9 @@ class Concept:
             yield "      type t"
             for base in self.inherited:
                 if base.has_tests:
-                    yield f"      include {base.full_name}.Tests.Examples.Element with type t := t"
+                    yield f"      include {base.contextualized_name(self.prefix)}.Tests.Examples.Element with type t := t"
             yield "    end"
-        for arity in range(self.max_arity):
+        for arity in self.arities:
             yield f"    module type S{arity} = sig"
             yield f"      type {type_params(arity)}t"
             for a in abcd(arity):
@@ -334,22 +240,22 @@ class Concept:
             for base in self.inherited:
                 if base.has_tests:
                     yield (
-                        f"      include {base.full_name}.Tests.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
+                        f"      include {base.contextualized_name(self.prefix)}.Tests.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
                         + "".join(f" and module {a.upper()} := {a.upper()}" for a in abcd(arity))
                     )
             yield "    end"
         yield "  end"
-        for arity in range(self.max_arity):
+        for arity in self.arities:
             yield f"  module Make{arity}(M: S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t) = struct"
-            if self.examples is not None:
+            if self.examples_implementation is not None:
                 yield "    module E = struct"
                 yield "      include E"
-                yield indent(textwrap.dedent(self.examples).splitlines(), levels=3)
+                yield indent(textwrap.dedent(self.examples_implementation).splitlines(), levels=3)
                 yield "    end"
             yield f'    let test = "{self.name}" >:: ['
             for base in self.inherited:
                 if base.has_tests:
-                    yield f"      (let module T = {base.full_name}.Tests.Make{arity}(M)(E) in T.test);"
+                    yield f"      (let module T = {base.contextualized_name(self.prefix)}.Tests.Make{arity}(M)(E) in T.test);"
             if self.tests is not None:
                 yield "    ] @ ("
                 yield from indent(textwrap.dedent(self.tests).splitlines(), levels=3)
@@ -358,6 +264,63 @@ class Concept:
                 yield "    ]"
             yield "  end"
         yield "end"
+
+    @property
+    def __basic_module_items(self):
+        yield self._Facets__basic_signatures()
+        for arity in range(1, self.max_arity):
+            functor_params = "".join(f"({a.upper()}: S0)" for a in abcd(arity))
+            yield f"module Specialize{arity}(M: S{arity}){functor_params}: S0 with type t = {type_args(arity)}M.t = struct"
+            yield f"  type t = {type_args(arity)}M.t"
+            for v in self.base_values:
+                yield indent(v.make_specialization(self.base_values, arity))
+            yield "end"
+
+    @property
+    def __operators_module_items(self):
+        yield self._Facets__operators_s0_signature()
+        yield "module Make0(M: sig"
+        yield "  type t"
+        for operator in self.operators:
+            yield indent(operator.make_signature(self.base_values, 0))
+        yield "end) = struct"
+        for operator in self.operators:
+            yield f"  let ( {operator.operator} ) = M.{operator.name}"
+        yield "end"
+
+    @property
+    def __extended_module_items(self):
+        yield self._Facets__extended_signatures()
+        for arity in range(1, self.max_arity):
+            functor_params = "".join(f"({a.upper()}: Basic.S0)" for a in abcd(arity))
+            yield f"module Specialize{arity}(M: S{arity}){functor_params}: S0 with type t = {type_args(arity)}M.t = struct"
+            yield "  module Self = struct"
+            yield f"    include Basic.Specialize{arity}(M)" + "".join(f"({a.upper()})" for a in abcd(arity))
+            for extension in self.extensions:
+                for item in extension.members:
+                    yield indent(item.make_specialization(self.base_values, arity), levels=2)
+            yield "  end"
+            yield "  module O = Operators.Make0(Self)"
+            yield "  include Self"
+            yield "end"
+
+
+def mod_spec(name, *items):
+    yield f"module {name}: sig"
+    yield indent(items)
+    yield "end"
+
+
+def mod_impl(name, *items):
+    yield f"module {name} = struct"
+    yield indent(items)
+    yield "end"
+
+
+def mod_type(name, *items):
+    yield f"module type {name} = sig"
+    yield indent(items)
+    yield "end"
 
 
 class Extension:
@@ -493,9 +456,29 @@ def abcd(arity):
     return list("abcdefghijkl"[:arity])
 
 
+traits = []
+
+def trait(name, *, variadic, basics, extensions=[], has_tests=True, examples=[], gen_tests=False, test_requirements=[]):
+    trait = Facets(
+        prefix="Traits",
+        name=name,
+        variadic=variadic,
+        inherited=[],
+        base_values=basics,
+        extensions=extensions,
+        examples_implementation=None,
+        tests=None,
+        has_tests=has_tests,
+        gen_tests=gen_tests,
+        examples=examples,
+        test_requirements=test_requirements,
+    )
+    traits.append(trait)
+    return trait
+
 # @todo (?) Add trait Testable with val test: Test.t
 
-representable = Trait(
+representable = trait(
     "Representable",
     variadic=True,
     basics=[
@@ -507,7 +490,7 @@ representable = Trait(
     ]
 )
 
-displayable = Trait(
+displayable = trait(
     "Displayable",
     variadic=False,
     basics=[
@@ -519,7 +502,7 @@ displayable = Trait(
     ]
 )
 
-equatable = Trait(
+equatable = trait(
     "Equatable",
     variadic=True,
     basics=[
@@ -534,7 +517,7 @@ equatable = Trait(
     ],
 )
 
-parsable = Trait(
+parsable = trait(
     "Parsable",
     variadic=False,
     basics=[
@@ -548,7 +531,7 @@ parsable = Trait(
     test_requirements=[equatable, representable],
 )
 
-comparable = Trait(
+comparable = trait(
     "Comparable",
     variadic=True,
     basics=[
@@ -587,7 +570,7 @@ comparable = Trait(
     ],
 )
 
-ringoid = Trait(
+ringoid = trait(
     "Ringoid",
     variadic=False,
     basics=itertools.chain(
@@ -612,7 +595,7 @@ ringoid = Trait(
     ],
 )
 
-of_standard_numbers = Trait(
+of_standard_numbers = trait(
     "OfStandardNumbers",
     variadic=False,
     basics=[
@@ -622,7 +605,7 @@ of_standard_numbers = Trait(
     has_tests=False,
 )
 
-to_standard_numbers = Trait(
+to_standard_numbers = trait(
     "ToStandardNumbers",
     variadic=False,
     basics=[
@@ -632,7 +615,7 @@ to_standard_numbers = Trait(
     has_tests=False,
 )
 
-pred_succ = Trait(
+pred_succ = trait(
     "PredSucc",
     variadic=False,
     basics=[
@@ -654,17 +637,38 @@ pred_succ = Trait(
 )
 
 
-identifiable = Concept(
+concepts = []
+
+def concept(name, *, inherited, basics=[], examples=None, tests=None):
+    concept = Facets(
+        prefix="Concepts",
+        name=name,
+        variadic=True,
+        inherited=inherited,
+        base_values=basics,
+        extensions=[],
+        examples_implementation=examples,
+        tests=tests,
+        has_tests=True,
+        gen_tests=True,
+        examples=[],
+        test_requirements=[],
+    )
+    concepts.append(concept)
+    return concept
+
+
+identifiable = concept(
     "Identifiable",
     inherited=[equatable, representable],
 )
 
-able = Concept(
+able = concept(
     "Able",
     inherited=[identifiable, comparable],
 )
 
-number = Concept(
+number = concept(
     "Number",
     inherited=[displayable, equatable, parsable, representable, ringoid, of_standard_numbers],
     examples="""\
@@ -678,7 +682,7 @@ number = Concept(
     """,
 )
 
-real_number = Concept(
+real_number = concept(
     "RealNumber",
     # @feature sign
     inherited=[number, comparable, to_standard_numbers],
@@ -711,7 +715,7 @@ real_number = Concept(
     """,
 )
 
-integer = Concept(
+integer = concept(
     "Integer",
     # @feature Bitwise?
     # @feature gcd, lcm, quomod
@@ -726,21 +730,13 @@ integer = Concept(
 
 if __name__ == "__main__":
     if sys.argv[1] == "specification":
-        generate([
-            "module Traits: sig",
-            indent(trait.specification for trait in Trait.all),
-            "end",
-            "module Concepts: sig",
-            indent(concept.specification for concept in Concept.all),
-            "end",
-        ])
+        generate(
+            mod_spec("Traits", (trait.specification for trait in traits)),
+            mod_spec("Concepts", (concept.specification for concept in concepts)),
+        )
     else:
         assert sys.argv[1] == "implementation"
-        generate([
-            "module Traits = struct",
-            indent(trait.implementation for trait in Trait.all),
-            "end",
-            "module Concepts = struct",
-            indent(concept.implementation for concept in Concept.all),
-            "end",
-        ])
+        generate(
+            mod_impl("Traits", (trait.implementation for trait in traits)),
+            mod_impl("Concepts", (concept.implementation for concept in concepts)),
+        )

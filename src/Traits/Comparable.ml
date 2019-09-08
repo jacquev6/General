@@ -1,6 +1,6 @@
 #ext python3
 from geni import *
-generate(comparable.module_items)
+generate(comparable.implementation_items)
 #endext
 
 (* @feature Descending, ascending *)

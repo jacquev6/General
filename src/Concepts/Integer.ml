@@ -1,4 +1,4 @@
 #ext python3
 from geni import *
-generate(integer.module_items)
+generate(integer.implementation_items)
 #endext

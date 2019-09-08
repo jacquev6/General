@@ -1,6 +1,6 @@
 #ext python3
 from geni import *
-generate(pred_succ.module_items)
+generate(pred_succ.implementation_items)
 #endext
 
 module PredSucc = struct

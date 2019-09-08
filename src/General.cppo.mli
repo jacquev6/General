@@ -213,7 +213,7 @@ module Traits: sig
 
 #ext python3
 from geni import *
-for trait in Trait.all:
+for trait in traits:
     generate(trait.specification, indent=1)
 #endext
 
@@ -324,7 +324,7 @@ module Concepts: sig
 
 #ext python3
 from geni import *
-for concept in Concept.all:
+for concept in concepts:
     generate(concept.specification, indent=1)
 #endext
 end
