@@ -250,7 +250,7 @@ class Facets:
         yield self.__basic_signatures()
         for arity in range(1, self.max_arity):
             functor_params = "".join(f"({a.upper()}: S0)" for a in abcd(arity))
-            yield f"module Specialize{arity}(M: S{arity}){functor_params}: S0 with type t = {type_args(arity)}M.t = struct"
+            yield f"module Specialize{arity}(M: S{arity}){functor_params} = struct"
             yield f"  type t = {type_args(arity)}M.t"
             for v in self.base_values:
                 yield indent(v.make_specialization(self.base_values, arity))
@@ -272,7 +272,7 @@ class Facets:
         yield self.__extended_signatures()
         for arity in range(1, self.max_arity):
             functor_params = "".join(f"({a.upper()}: Basic.S0)" for a in abcd(arity))
-            yield f"module Specialize{arity}(M: S{arity}){functor_params}: S0 with type t = {type_args(arity)}M.t = struct"
+            yield f"module Specialize{arity}(M: S{arity}){functor_params} = struct"
             yield "  module Self = struct"
             yield f"    include Basic.Specialize{arity}(M)" + "".join(f"({a.upper()})" for a in abcd(arity))
             for extension in self.extensions:

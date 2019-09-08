@@ -24,27 +24,27 @@ module Traits = struct
       type ('a, 'b, 'c, 'd, 'e) t
       val repr: ('a, 'b, 'c, 'd, 'e) t -> repr_a:('a -> string) -> repr_b:('b -> string) -> repr_c:('c -> string) -> repr_d:('d -> string) -> repr_e:('e -> string) -> string
     end
-    module Specialize1(M: S1)(A: S0): S0 with type t = A.t M.t = struct
+    module Specialize1(M: S1)(A: S0) = struct
       type t = A.t M.t
       let repr x =
         M.repr x ~repr_a:A.repr
     end
-    module Specialize2(M: S2)(A: S0)(B: S0): S0 with type t = (A.t, B.t) M.t = struct
+    module Specialize2(M: S2)(A: S0)(B: S0) = struct
       type t = (A.t, B.t) M.t
       let repr x =
         M.repr x ~repr_a:A.repr ~repr_b:B.repr
     end
-    module Specialize3(M: S3)(A: S0)(B: S0)(C: S0): S0 with type t = (A.t, B.t, C.t) M.t = struct
+    module Specialize3(M: S3)(A: S0)(B: S0)(C: S0) = struct
       type t = (A.t, B.t, C.t) M.t
       let repr x =
         M.repr x ~repr_a:A.repr ~repr_b:B.repr ~repr_c:C.repr
     end
-    module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0): S0 with type t = (A.t, B.t, C.t, D.t) M.t = struct
+    module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0) = struct
       type t = (A.t, B.t, C.t, D.t) M.t
       let repr x =
         M.repr x ~repr_a:A.repr ~repr_b:B.repr ~repr_c:C.repr ~repr_d:D.repr
     end
-    module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0): S0 with type t = (A.t, B.t, C.t, D.t, E.t) M.t = struct
+    module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
       type t = (A.t, B.t, C.t, D.t, E.t) M.t
       let repr x =
         M.repr x ~repr_a:A.repr ~repr_b:B.repr ~repr_c:C.repr ~repr_d:D.repr ~repr_e:E.repr
@@ -97,27 +97,27 @@ module Traits = struct
         type ('a, 'b, 'c, 'd, 'e) t
         val equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
       end
-      module Specialize1(M: S1)(A: S0): S0 with type t = A.t M.t = struct
+      module Specialize1(M: S1)(A: S0) = struct
         type t = A.t M.t
         let equal x y =
           M.equal x y ~equal_a:A.equal
       end
-      module Specialize2(M: S2)(A: S0)(B: S0): S0 with type t = (A.t, B.t) M.t = struct
+      module Specialize2(M: S2)(A: S0)(B: S0) = struct
         type t = (A.t, B.t) M.t
         let equal x y =
           M.equal x y ~equal_a:A.equal ~equal_b:B.equal
       end
-      module Specialize3(M: S3)(A: S0)(B: S0)(C: S0): S0 with type t = (A.t, B.t, C.t) M.t = struct
+      module Specialize3(M: S3)(A: S0)(B: S0)(C: S0) = struct
         type t = (A.t, B.t, C.t) M.t
         let equal x y =
           M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal
       end
-      module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0): S0 with type t = (A.t, B.t, C.t, D.t) M.t = struct
+      module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0) = struct
         type t = (A.t, B.t, C.t, D.t) M.t
         let equal x y =
           M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal
       end
-      module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0): S0 with type t = (A.t, B.t, C.t, D.t, E.t) M.t = struct
+      module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
         type t = (A.t, B.t, C.t, D.t, E.t) M.t
         let equal x y =
           M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal ~equal_e:E.equal
@@ -148,7 +148,7 @@ module Traits = struct
       include Basic.S5
       val different: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
     end
-    module Specialize1(M: S1)(A: Basic.S0): S0 with type t = A.t M.t = struct
+    module Specialize1(M: S1)(A: Basic.S0) = struct
       module Self = struct
         include Basic.Specialize1(M)(A)
         let different x y =
@@ -157,7 +157,7 @@ module Traits = struct
       module O = Operators.Make0(Self)
       include Self
     end
-    module Specialize2(M: S2)(A: Basic.S0)(B: Basic.S0): S0 with type t = (A.t, B.t) M.t = struct
+    module Specialize2(M: S2)(A: Basic.S0)(B: Basic.S0) = struct
       module Self = struct
         include Basic.Specialize2(M)(A)(B)
         let different x y =
@@ -166,7 +166,7 @@ module Traits = struct
       module O = Operators.Make0(Self)
       include Self
     end
-    module Specialize3(M: S3)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0): S0 with type t = (A.t, B.t, C.t) M.t = struct
+    module Specialize3(M: S3)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0) = struct
       module Self = struct
         include Basic.Specialize3(M)(A)(B)(C)
         let different x y =
@@ -175,7 +175,7 @@ module Traits = struct
       module O = Operators.Make0(Self)
       include Self
     end
-    module Specialize4(M: S4)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0): S0 with type t = (A.t, B.t, C.t, D.t) M.t = struct
+    module Specialize4(M: S4)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0) = struct
       module Self = struct
         include Basic.Specialize4(M)(A)(B)(C)(D)
         let different x y =
@@ -184,7 +184,7 @@ module Traits = struct
       module O = Operators.Make0(Self)
       include Self
     end
-    module Specialize5(M: S5)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0)(E: Basic.S0): S0 with type t = (A.t, B.t, C.t, D.t, E.t) M.t = struct
+    module Specialize5(M: S5)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0)(E: Basic.S0) = struct
       module Self = struct
         include Basic.Specialize5(M)(A)(B)(C)(D)(E)
         let different x y =
@@ -248,27 +248,27 @@ module Traits = struct
         type ('a, 'b, 'c, 'd, 'e) t
         val compare: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> Compare.t
       end
-      module Specialize1(M: S1)(A: S0): S0 with type t = A.t M.t = struct
+      module Specialize1(M: S1)(A: S0) = struct
         type t = A.t M.t
         let compare x y =
           M.compare x y ~compare_a:A.compare
       end
-      module Specialize2(M: S2)(A: S0)(B: S0): S0 with type t = (A.t, B.t) M.t = struct
+      module Specialize2(M: S2)(A: S0)(B: S0) = struct
         type t = (A.t, B.t) M.t
         let compare x y =
           M.compare x y ~compare_a:A.compare ~compare_b:B.compare
       end
-      module Specialize3(M: S3)(A: S0)(B: S0)(C: S0): S0 with type t = (A.t, B.t, C.t) M.t = struct
+      module Specialize3(M: S3)(A: S0)(B: S0)(C: S0) = struct
         type t = (A.t, B.t, C.t) M.t
         let compare x y =
           M.compare x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare
       end
-      module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0): S0 with type t = (A.t, B.t, C.t, D.t) M.t = struct
+      module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0) = struct
         type t = (A.t, B.t, C.t, D.t) M.t
         let compare x y =
           M.compare x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare
       end
-      module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0): S0 with type t = (A.t, B.t, C.t, D.t, E.t) M.t = struct
+      module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
         type t = (A.t, B.t, C.t, D.t, E.t) M.t
         let compare x y =
           M.compare x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare ~compare_e:E.compare
@@ -347,7 +347,7 @@ module Traits = struct
       val max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) t
       val min_max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
     end
-    module Specialize1(M: S1)(A: Basic.S0): S0 with type t = A.t M.t = struct
+    module Specialize1(M: S1)(A: Basic.S0) = struct
       module Self = struct
         include Basic.Specialize1(M)(A)
         let less_than x y =
@@ -372,7 +372,7 @@ module Traits = struct
       module O = Operators.Make0(Self)
       include Self
     end
-    module Specialize2(M: S2)(A: Basic.S0)(B: Basic.S0): S0 with type t = (A.t, B.t) M.t = struct
+    module Specialize2(M: S2)(A: Basic.S0)(B: Basic.S0) = struct
       module Self = struct
         include Basic.Specialize2(M)(A)(B)
         let less_than x y =
@@ -397,7 +397,7 @@ module Traits = struct
       module O = Operators.Make0(Self)
       include Self
     end
-    module Specialize3(M: S3)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0): S0 with type t = (A.t, B.t, C.t) M.t = struct
+    module Specialize3(M: S3)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0) = struct
       module Self = struct
         include Basic.Specialize3(M)(A)(B)(C)
         let less_than x y =
@@ -422,7 +422,7 @@ module Traits = struct
       module O = Operators.Make0(Self)
       include Self
     end
-    module Specialize4(M: S4)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0): S0 with type t = (A.t, B.t, C.t, D.t) M.t = struct
+    module Specialize4(M: S4)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0) = struct
       module Self = struct
         include Basic.Specialize4(M)(A)(B)(C)(D)
         let less_than x y =
@@ -447,7 +447,7 @@ module Traits = struct
       module O = Operators.Make0(Self)
       include Self
     end
-    module Specialize5(M: S5)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0)(E: Basic.S0): S0 with type t = (A.t, B.t, C.t, D.t, E.t) M.t = struct
+    module Specialize5(M: S5)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0)(E: Basic.S0) = struct
       module Self = struct
         include Basic.Specialize5(M)(A)(B)(C)(D)(E)
         let less_than x y =
