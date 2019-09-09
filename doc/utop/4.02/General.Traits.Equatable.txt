@@ -7,6 +7,7 @@ module Equatable: sig
   module Specialize3
   module Specialize4
   module Specialize5
+  module Tests
   module type S0 = sig
     module O: sig
       val (<>): t -> t -> bool

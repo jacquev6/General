@@ -25,7 +25,7 @@ class Facets:
             prefix, name,
             variadic,
             inherited, base_values, extensions,
-            examples_implementation, tests, has_tests, publish_tests, generate_tests, examples, test_requirements,
+            examples_implementation, tests, has_tests, publish_tests, generate_tests, examples, test_requirements, test_element_requirements,
         ):
         self.prefix = prefix
         self.name = name
@@ -47,6 +47,7 @@ class Facets:
         self.generate_tests = generate_tests
         self.examples = list(examples)
         self.test_requirements = list(test_requirements)
+        self.test_element_requirements = list(test_element_requirements)
 
     @property
     def specification(self):
@@ -307,9 +308,16 @@ class Facets:
 
     def __tests_examples_items(self):
         if self.max_arity > 1:
-            yield mod_type("Element", ["type t", "include S0 with type t := t"])
+            yield mod_type("Element", self.__tests_examples_element_mod_type_items())
         for arity in self.arities:
             yield mod_type(f"S{arity}", self.__tests_examples_mod_type_items(arity))
+
+    def __tests_examples_element_mod_type_items(self):
+        yield "type t"
+        basic = "" if self.__is_basic() else "Basic."
+        yield f"include {basic}S0 with type t := t"
+        for req in self.test_element_requirements:
+            yield f"include {req.name}.S0 with type t := t"
 
     def __tests_examples_mod_type_items(self, arity):
         yield f"type {type_params(arity)}t"
@@ -331,9 +339,9 @@ class Facets:
                 yield f"module Make{arity}(M: S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t): sig"
             else:
                 yield f"module Make{arity}(M: sig"
-                yield "  include S0"
+                yield f"  include S{arity}"
                 for req in self.test_requirements:
-                    yield f"  include {req.name}.S0 with type t := t"
+                    yield f"  include {req.name}.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
                 yield f"end)(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t): sig"
             yield "   val test: Test.t"
             yield "end"
@@ -512,7 +520,7 @@ def abcd(arity):
 
 traits = []
 
-def trait(name, *, variadic, basics, extensions=[], has_tests=True, publish_tests=False, examples=[], test_requirements=[]):
+def trait(name, *, variadic, basics, extensions=[], has_tests=True, publish_tests=False, examples=[], test_requirements=[], test_element_requirements=[]):
     trait = Facets(
         prefix="Traits",
         name=name,
@@ -527,6 +535,7 @@ def trait(name, *, variadic, basics, extensions=[], has_tests=True, publish_test
         generate_tests=False,
         examples=examples,
         test_requirements=test_requirements,
+        test_element_requirements=test_element_requirements,
     )
     traits.append(trait)
     return trait
@@ -569,6 +578,17 @@ equatable = trait(
             [val("different", params=[variadic_type, variadic_type], delegate="equal", return_="bool", operator="<>")],
             requirements=["equal"],
         )
+    ],
+    publish_tests=True,
+    examples=[
+        val("equal", params=[], return_=lambda *args: f"{variadic_type.make_type(*args)} list list"),
+        val("different", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
+    ],
+    test_requirements=[
+        representable,
+    ],
+    test_element_requirements=[
+        representable,
     ],
 )
 
@@ -709,6 +729,7 @@ def concept(name, *, inherited, basics=[], examples=None, tests=None):
         generate_tests=True,
         examples=[],
         test_requirements=[],
+        test_element_requirements=[],
     )
     concepts.append(concept)
     return concept

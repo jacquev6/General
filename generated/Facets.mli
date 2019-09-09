@@ -272,6 +272,96 @@ module Traits: sig
         val different: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
       end
     end
+    module Tests: sig
+      module Examples: sig
+        module type Element = sig
+          type t
+          include Basic.S0 with type t := t
+          include Representable.S0 with type t := t
+        end
+        module type S0 = sig
+          type t
+          val equal: t list list
+          val different: (t * t) list
+        end
+        module type S1 = sig
+          type 'a t
+          module A: Element
+          val equal: A.t t list list
+          val different: (A.t t * A.t t) list
+        end
+        module type S2 = sig
+          type ('a, 'b) t
+          module A: Element
+          module B: Element
+          val equal: (A.t, B.t) t list list
+          val different: ((A.t, B.t) t * (A.t, B.t) t) list
+        end
+        module type S3 = sig
+          type ('a, 'b, 'c) t
+          module A: Element
+          module B: Element
+          module C: Element
+          val equal: (A.t, B.t, C.t) t list list
+          val different: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
+        end
+        module type S4 = sig
+          type ('a, 'b, 'c, 'd) t
+          module A: Element
+          module B: Element
+          module C: Element
+          module D: Element
+          val equal: (A.t, B.t, C.t, D.t) t list list
+          val different: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
+        end
+        module type S5 = sig
+          type ('a, 'b, 'c, 'd, 'e) t
+          module A: Element
+          module B: Element
+          module C: Element
+          module D: Element
+          module E: Element
+          val equal: (A.t, B.t, C.t, D.t, E.t) t list list
+          val different: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
+        end
+      end
+      module Make0(M: sig
+        include S0
+        include Representable.S0 with type t := t
+      end)(E: Examples.S0 with type t := M.t): sig
+         val test: Test.t
+      end
+      module Make1(M: sig
+        include S1
+        include Representable.S1 with type 'a t := 'a t
+      end)(E: Examples.S1 with type 'a t := 'a M.t): sig
+         val test: Test.t
+      end
+      module Make2(M: sig
+        include S2
+        include Representable.S2 with type ('a, 'b) t := ('a, 'b) t
+      end)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t): sig
+         val test: Test.t
+      end
+      module Make3(M: sig
+        include S3
+        include Representable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+      end)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t): sig
+         val test: Test.t
+      end
+      module Make4(M: sig
+        include S4
+        include Representable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+      end)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t): sig
+         val test: Test.t
+      end
+      module Make5(M: sig
+        include S5
+        include Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+      end)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t): sig
+         val test: Test.t
+      end
+    end
   end
   module Parsable: sig
     module type S0 = sig

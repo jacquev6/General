@@ -1,0 +1,14 @@
+module Make3(M: sig
+  type ('a, 'b, 'c) t
+  val different: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+  val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+  val repr: ('a, 'b, 'c) t -> repr_a:('a -> bytes) -> repr_b:('b -> bytes) -> repr_c:('c -> bytes) -> bytes
+end)(E: sig
+  module A: General.Traits.Equatable.Tests.Examples.Element
+  module B: General.Traits.Equatable.Tests.Examples.Element
+  module C: General.Traits.Equatable.Tests.Examples.Element
+  val different: ((A.t, B.t, C.t) M.t * (A.t, B.t, C.t) M.t) list
+  val equal: (A.t, B.t, C.t) M.t list list
+end): sig
+  val test: General.Test.t
+end
