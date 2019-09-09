@@ -20,7 +20,13 @@ def indent(element, levels=1):
 
 
 class Facets:
-    def __init__(self, *, prefix, name, variadic, inherited, base_values, extensions, examples_implementation, tests, has_tests, publish_tests, generate_tests, examples, test_requirements):
+    def __init__(
+            self, *,
+            prefix, name,
+            variadic,
+            inherited, base_values, extensions,
+            examples_implementation, tests, has_tests, publish_tests, generate_tests, examples, test_requirements,
+        ):
         self.prefix = prefix
         self.name = name
         self.inherited = list(inherited)
@@ -295,39 +301,31 @@ class Facets:
         yield self.__tests_makers_implementations()
 
     def __tests_examples_specification(self):
-        yield mod_spec("Examples", self.__tests_examples_specification_items())
+        yield mod_spec("Examples", self.__tests_examples_items())
 
     def __tests_examples_implementation(self):
-        yield mod_impl("Examples", self.__tests_examples_implementation_items())
+        yield mod_impl("Examples", self.__tests_examples_items())
 
-    def __tests_examples_specification_items(self):
+    def __tests_examples_items(self):
         if self.max_arity > 1:
             yield mod_type("Element", ["type t", "include S0 with type t := t"])
         for arity in self.arities:
-            yield f"module type S{arity} = sig"
-            yield f"  type {type_params(arity)}t"
-            for a in abcd(arity):
-                yield f"  module {a.upper()}: Element"
-            for item in self.examples:
-                yield indent(item.make_signature(self.base_values, 0, t=f"{type_args(arity)}t"))
-            yield "end"
-    
-    def __tests_examples_implementation_items(self):
-        if self.max_arity > 1:
-            yield mod_type("Element", ["type t", "include S0 with type t := t"])
-        for arity in self.arities:
-            yield f"module type S{arity} = sig"
-            yield f"  type {type_params(arity)}t"
-            for a in abcd(arity):
-                yield f"  module {a.upper()}: Element"
-            for base in self.inherited:
-                if base.has_tests:
-                    yield (
-                        f"  include {base.__contextualized_name(self.prefix)}.Tests.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
-                        + "".join(f" and module {a.upper()} := {a.upper()}" for a in abcd(arity))
-                    )
-            yield "end"
-    
+            yield mod_type(f"S{arity}", self.__tests_examples_mod_type_items(arity))
+
+    def __tests_examples_mod_type_items(self, arity):
+        yield f"type {type_params(arity)}t"
+        for a in abcd(arity):
+            yield f"module {a.upper()}: Element"
+        for base in self.inherited:
+            if base.has_tests:
+                yield (
+                    f"include {base.__contextualized_name(self.prefix)}.Tests.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
+                    + "".join(f" and module {a.upper()} := {a.upper()}" for a in abcd(arity))
+                )
+        for item in self.examples:
+            yield item.make_signature(self.base_values, 0, t=f"{type_args(arity)}t")
+
+    # @todo Homogenize spec and implem of tests makers
     def __tests_makers_specifications(self):
         for arity in self.arities:
             if len(self.test_requirements) == 0:
