@@ -25,7 +25,7 @@ class Facets:
             prefix, name,
             variadic,
             inherited, base_values, extensions,
-            examples_implementation, tests, has_tests, publish_tests, generate_tests, examples, test_requirements, test_element_requirements,
+            examples_implementation, tests, publish_tests, generate_tests, examples, test_requirements, test_element_requirements,
         ):
         self.prefix = prefix
         self.name = name
@@ -42,7 +42,6 @@ class Facets:
         self.operators = [item for item in self.all_items if item.operator is not None]
         self.examples_implementation = examples_implementation
         self.tests = tests
-        self.has_tests = has_tests
         self.publish_tests = publish_tests
         self.generate_tests = generate_tests
         self.examples = list(examples)
@@ -329,7 +328,7 @@ class Facets:
         for a in abcd(arity):
             yield f"module {a.upper()}: Element"
         for base in self.inherited:
-            if base.has_tests:
+            if base.publish_tests:
                 yield (
                     f"include {base.__contextualized_name(self.prefix)}.Tests.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
                     + "".join(f" and module {a.upper()} := {a.upper()}" for a in abcd(arity))
@@ -362,7 +361,7 @@ class Facets:
                 yield "  end"
             yield f'  let test = "{self.name}" >:: ['
             for base in self.inherited:
-                if base.has_tests:
+                if base.publish_tests:
                     yield f"    (let module T = {base.__contextualized_name(self.prefix)}.Tests.Make{arity}(M)(E) in T.test);"
             if self.tests is not None:
                 yield "  ] @ ("
@@ -536,7 +535,6 @@ def trait(name, *, variadic, basics, extensions=[], has_tests=True, examples=[],
         extensions=extensions,
         examples_implementation=None,
         tests=None,
-        has_tests=has_tests,
         publish_tests=has_tests,
         generate_tests=False,
         examples=examples,
@@ -756,8 +754,7 @@ def concept(name, *, inherited, basics=[], examples=None, tests=None):
         extensions=[],
         examples_implementation=examples,
         tests=tests,
-        has_tests=True,
-        publish_tests=False,
+        publish_tests=True,
         generate_tests=True,
         examples=[],
         test_requirements=[],

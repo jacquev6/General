@@ -1013,6 +1013,77 @@ module Concepts: sig
       type t = (A.t, B.t, C.t, D.t, E.t) M.t
       include S0 with type t := t
     end
+    module Tests: sig
+      module Examples: sig
+        module type Element = sig
+          type t
+          include S0 with type t := t
+        end
+        module type S0 = sig
+          type t
+          include Traits.Equatable.Tests.Examples.S0 with type t := t
+          include Traits.Representable.Tests.Examples.S0 with type t := t
+        end
+        module type S1 = sig
+          type 'a t
+          module A: Element
+          include Traits.Equatable.Tests.Examples.S1 with type 'a t := 'a t and module A := A
+          include Traits.Representable.Tests.Examples.S1 with type 'a t := 'a t and module A := A
+        end
+        module type S2 = sig
+          type ('a, 'b) t
+          module A: Element
+          module B: Element
+          include Traits.Equatable.Tests.Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
+          include Traits.Representable.Tests.Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
+        end
+        module type S3 = sig
+          type ('a, 'b, 'c) t
+          module A: Element
+          module B: Element
+          module C: Element
+          include Traits.Equatable.Tests.Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
+          include Traits.Representable.Tests.Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
+        end
+        module type S4 = sig
+          type ('a, 'b, 'c, 'd) t
+          module A: Element
+          module B: Element
+          module C: Element
+          module D: Element
+          include Traits.Equatable.Tests.Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
+          include Traits.Representable.Tests.Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
+        end
+        module type S5 = sig
+          type ('a, 'b, 'c, 'd, 'e) t
+          module A: Element
+          module B: Element
+          module C: Element
+          module D: Element
+          module E: Element
+          include Traits.Equatable.Tests.Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
+          include Traits.Representable.Tests.Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
+        end
+      end
+      module Make0(M: S0)(E: Examples.S0 with type t := M.t): sig
+         val test: Test.t
+      end
+      module Make1(M: S1)(E: Examples.S1 with type 'a t := 'a M.t): sig
+         val test: Test.t
+      end
+      module Make2(M: S2)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t): sig
+         val test: Test.t
+      end
+      module Make3(M: S3)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t): sig
+         val test: Test.t
+      end
+      module Make4(M: S4)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t): sig
+         val test: Test.t
+      end
+      module Make5(M: S5)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t): sig
+         val test: Test.t
+      end
+    end
   end
   module Able: sig
     module Operators: sig
@@ -1073,6 +1144,77 @@ module Concepts: sig
       type t = (A.t, B.t, C.t, D.t, E.t) M.t
       include S0 with type t := t
     end
+    module Tests: sig
+      module Examples: sig
+        module type Element = sig
+          type t
+          include S0 with type t := t
+        end
+        module type S0 = sig
+          type t
+          include Identifiable.Tests.Examples.S0 with type t := t
+          include Traits.Comparable.Tests.Examples.S0 with type t := t
+        end
+        module type S1 = sig
+          type 'a t
+          module A: Element
+          include Identifiable.Tests.Examples.S1 with type 'a t := 'a t and module A := A
+          include Traits.Comparable.Tests.Examples.S1 with type 'a t := 'a t and module A := A
+        end
+        module type S2 = sig
+          type ('a, 'b) t
+          module A: Element
+          module B: Element
+          include Identifiable.Tests.Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
+          include Traits.Comparable.Tests.Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
+        end
+        module type S3 = sig
+          type ('a, 'b, 'c) t
+          module A: Element
+          module B: Element
+          module C: Element
+          include Identifiable.Tests.Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
+          include Traits.Comparable.Tests.Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
+        end
+        module type S4 = sig
+          type ('a, 'b, 'c, 'd) t
+          module A: Element
+          module B: Element
+          module C: Element
+          module D: Element
+          include Identifiable.Tests.Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
+          include Traits.Comparable.Tests.Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
+        end
+        module type S5 = sig
+          type ('a, 'b, 'c, 'd, 'e) t
+          module A: Element
+          module B: Element
+          module C: Element
+          module D: Element
+          module E: Element
+          include Identifiable.Tests.Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
+          include Traits.Comparable.Tests.Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
+        end
+      end
+      module Make0(M: S0)(E: Examples.S0 with type t := M.t): sig
+         val test: Test.t
+      end
+      module Make1(M: S1)(E: Examples.S1 with type 'a t := 'a M.t): sig
+         val test: Test.t
+      end
+      module Make2(M: S2)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t): sig
+         val test: Test.t
+      end
+      module Make3(M: S3)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t): sig
+         val test: Test.t
+      end
+      module Make4(M: S4)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t): sig
+         val test: Test.t
+      end
+      module Make5(M: S5)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t): sig
+         val test: Test.t
+      end
+    end
   end
   module Number: sig
     module Operators: sig
@@ -1091,6 +1233,21 @@ module Concepts: sig
       include Traits.Representable.S0 with type t := t
       include Traits.Ringoid.S0 with type t := t and module O := O
       include Traits.OfStandardNumbers.S0 with type t := t
+    end
+    module Tests: sig
+      module Examples: sig
+        module type S0 = sig
+          type t
+          include Traits.Displayable.Tests.Examples.S0 with type t := t
+          include Traits.Equatable.Tests.Examples.S0 with type t := t
+          include Traits.Parsable.Tests.Examples.S0 with type t := t
+          include Traits.Representable.Tests.Examples.S0 with type t := t
+          include Traits.Ringoid.Tests.Examples.S0 with type t := t
+        end
+      end
+      module Make0(M: S0)(E: Examples.S0 with type t := M.t): sig
+         val test: Test.t
+      end
     end
   end
   module RealNumber: sig
@@ -1117,6 +1274,18 @@ module Concepts: sig
       val abs: t -> t
       val modulo: t -> t -> t
     end
+    module Tests: sig
+      module Examples: sig
+        module type S0 = sig
+          type t
+          include Number.Tests.Examples.S0 with type t := t
+          include Traits.Comparable.Tests.Examples.S0 with type t := t
+        end
+      end
+      module Make0(M: S0)(E: Examples.S0 with type t := M.t): sig
+         val test: Test.t
+      end
+    end
   end
   module Integer: sig
     module Operators: sig
@@ -1130,6 +1299,18 @@ module Concepts: sig
       module O: Operators.S0 with type t := t
       include RealNumber.S0 with type t := t and module O := O
       include Traits.PredSucc.S0 with type t := t
+    end
+    module Tests: sig
+      module Examples: sig
+        module type S0 = sig
+          type t
+          include RealNumber.Tests.Examples.S0 with type t := t
+          include Traits.PredSucc.Tests.Examples.S0 with type t := t
+        end
+      end
+      module Make0(M: S0)(E: Examples.S0 with type t := M.t): sig
+         val test: Test.t
+      end
     end
   end
 end

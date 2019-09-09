@@ -1,5 +1,6 @@
 module Number: sig
   module Operators
+  module Tests
   module type S0 = sig
     module O: sig
       val (*): t -> t -> t
