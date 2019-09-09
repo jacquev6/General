@@ -1220,17 +1220,16 @@ module Concepts: sig
     module Operators: sig
       module type S0 = sig
         type t
-        include Traits.Equatable.Operators.S0 with type t := t
+        include Identifiable.Operators.S0 with type t := t
         include Traits.Ringoid.Operators.S0 with type t := t
       end
     end
     module type S0 = sig
       type t
       module O: Operators.S0 with type t := t
+      include Identifiable.S0 with type t := t and module O := O
       include Traits.Displayable.S0 with type t := t
-      include Traits.Equatable.S0 with type t := t and module O := O
       include Traits.Parsable.S0 with type t := t
-      include Traits.Representable.S0 with type t := t
       include Traits.Ringoid.S0 with type t := t and module O := O
       include Traits.OfStandardNumbers.S0 with type t := t
     end
@@ -1238,10 +1237,9 @@ module Concepts: sig
       module Examples: sig
         module type S0 = sig
           type t
+          include Identifiable.Tests.Examples.S0 with type t := t
           include Traits.Displayable.Tests.Examples.S0 with type t := t
-          include Traits.Equatable.Tests.Examples.S0 with type t := t
           include Traits.Parsable.Tests.Examples.S0 with type t := t
-          include Traits.Representable.Tests.Examples.S0 with type t := t
           include Traits.Ringoid.Tests.Examples.S0 with type t := t
         end
       end

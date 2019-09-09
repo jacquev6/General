@@ -776,7 +776,7 @@ able = concept(
 
 number = concept(
     "Number",
-    inherited=[displayable, equatable, parsable, representable, ringoid, of_standard_numbers],
+    inherited=[identifiable, displayable, parsable, ringoid, of_standard_numbers],
     examples="""\
         let equal = equal @ [
             [M.zero; M.of_int 0; M.of_float 0.; M.of_string "0"];
