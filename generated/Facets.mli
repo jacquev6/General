@@ -191,8 +191,8 @@ module Traits: sig
     end
     module type S0 = sig
       include Basic.S0
-      val different: t -> t -> bool
       module O: Operators.S0 with type t := t
+      val different: t -> t -> bool
     end
     module type S1 = sig
       include Basic.S1
@@ -365,6 +365,7 @@ module Traits: sig
     end
     module type S0 = sig
       include Basic.S0
+      module O: Operators.S0 with type t := t
       val less_than: t -> t -> bool
       val less_or_equal: t -> t -> bool
       val greater_than: t -> t -> bool
@@ -374,7 +375,6 @@ module Traits: sig
       val min: t -> t -> t
       val max: t -> t -> t
       val min_max: t -> t -> t * t
-      module O: Operators.S0 with type t := t
     end
     module type S1 = sig
       include Basic.S1
@@ -667,9 +667,9 @@ module Traits: sig
     end
     module type S0 = sig
       include Basic.S0
+      module O: Operators.S0 with type t := t
       val square: t -> t
       val exponentiate: t -> int -> t
-      module O: Operators.S0 with type t := t
     end
     module Substract: sig
       module Make0(M: sig

@@ -229,12 +229,11 @@ class Facets:
 
     def __extended_signature_mod_type_items(self, arity):
         yield f"include Basic.S{arity}"
+        if arity == 0:
+            yield "module O: Operators.S0 with type t := t"
         for extension in self.extensions:
             for item in extension.members:
                 yield item.make_signature(self.base_values, arity)
-        # @todo Move above extensions
-        if arity == 0:
-            yield "module O: Operators.S0 with type t := t"
 
     def __extended_specialize_specifications(self):
         for arity in self.non_zero_arities:
