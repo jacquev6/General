@@ -636,8 +636,7 @@ module Concepts = struct
       module Examples = struct
         module type Element = sig
           type t
-          include Traits.Equatable.Tests.Examples.Element with type t := t
-          include Traits.Representable.Tests.Examples.Element with type t := t
+          include S0 with type t := t
         end
         module type S0 = sig
           type t
@@ -822,8 +821,7 @@ module Concepts = struct
       module Examples = struct
         module type Element = sig
           type t
-          include Identifiable.Tests.Examples.Element with type t := t
-          include Traits.Comparable.Tests.Examples.Element with type t := t
+          include S0 with type t := t
         end
         module type S0 = sig
           type t

@@ -314,12 +314,7 @@ class Facets:
     
     def __tests_examples_implementation_items(self):
         if self.max_arity > 1:
-            yield "module type Element = sig"
-            yield "  type t"
-            for base in self.inherited:
-                if base.has_tests:
-                    yield f"  include {base.__contextualized_name(self.prefix)}.Tests.Examples.Element with type t := t"
-            yield "end"
+            yield mod_type("Element", ["type t", "include S0 with type t := t"])
         for arity in self.arities:
             yield f"module type S{arity} = sig"
             yield f"  type {type_params(arity)}t"
