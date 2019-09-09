@@ -346,14 +346,22 @@ class Facets:
                 yield f"  include S{arity}"
                 for req in self.test_requirements:
                     basic = "" if req.__is_basic() else "Basic."
-                    yield f"  include {req.name}.{basic}S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
+                    yield f"  include {req.__contextualized_name(self.prefix)}.{basic}S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
                 yield f"end)(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t): sig"
             yield "   val test: Test.t"
             yield "end"
 
     def __tests_makers_implementations(self):
         for arity in self.arities:
-            yield f"module Make{arity}(M: S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t) = struct"
+            if len(self.test_requirements) == 0:
+                yield f"module Make{arity}(M: S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t) = struct"
+            else:
+                yield f"module Make{arity}(M: sig"
+                yield f"  include S{arity}"
+                for req in self.test_requirements:
+                    basic = "" if req.__is_basic() else "Basic."
+                    yield f"  include {req.__contextualized_name(self.prefix)}.{basic}S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
+                yield f"end)(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t) = struct"
             if self.examples_implementation is not None:
                 yield "  module E = struct"
                 yield "    include E"
@@ -744,7 +752,7 @@ pred_succ = trait(
 
 concepts = []
 
-def concept(name, *, inherited, basics=[], examples=None, tests=None):
+def concept(name, *, inherited, basics=[], examples=None, tests=None, test_requirements=[]):
     concept = Facets(
         prefix="Concepts",
         name=name,
@@ -757,7 +765,7 @@ def concept(name, *, inherited, basics=[], examples=None, tests=None):
         publish_tests=True,
         generate_tests=True,
         examples=[],
-        test_requirements=[],
+        test_requirements=test_requirements,
         test_element_requirements=[],
     )
     concepts.append(concept)
@@ -774,9 +782,15 @@ able = concept(
     inherited=[identifiable, comparable],
 )
 
+stringable = concept(
+    "Stringable",
+    inherited=[displayable, parsable],
+    test_requirements=[representable, equatable],
+)
+
 number = concept(
     "Number",
-    inherited=[identifiable, displayable, parsable, ringoid, of_standard_numbers],
+    inherited=[identifiable, stringable, ringoid, of_standard_numbers],
     examples="""\
         let equal = equal @ [
             [M.zero; M.of_int 0; M.of_float 0.; M.of_string "0"];

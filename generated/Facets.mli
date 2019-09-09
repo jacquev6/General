@@ -1216,6 +1216,29 @@ module Concepts: sig
       end
     end
   end
+  module Stringable: sig
+    module type S0 = sig
+      type t
+      include Traits.Displayable.S0 with type t := t
+      include Traits.Parsable.S0 with type t := t
+    end
+    module Tests: sig
+      module Examples: sig
+        module type S0 = sig
+          type t
+          include Traits.Displayable.Tests.Examples.S0 with type t := t
+          include Traits.Parsable.Tests.Examples.S0 with type t := t
+        end
+      end
+      module Make0(M: sig
+        include S0
+        include Traits.Representable.S0 with type t := t
+        include Traits.Equatable.Basic.S0 with type t := t
+      end)(E: Examples.S0 with type t := M.t): sig
+         val test: Test.t
+      end
+    end
+  end
   module Number: sig
     module Operators: sig
       module type S0 = sig
@@ -1228,8 +1251,7 @@ module Concepts: sig
       type t
       module O: Operators.S0 with type t := t
       include Identifiable.S0 with type t := t and module O := O
-      include Traits.Displayable.S0 with type t := t
-      include Traits.Parsable.S0 with type t := t
+      include Stringable.S0 with type t := t
       include Traits.Ringoid.S0 with type t := t and module O := O
       include Traits.OfStandardNumbers.S0 with type t := t
     end
@@ -1238,8 +1260,7 @@ module Concepts: sig
         module type S0 = sig
           type t
           include Identifiable.Tests.Examples.S0 with type t := t
-          include Traits.Displayable.Tests.Examples.S0 with type t := t
-          include Traits.Parsable.Tests.Examples.S0 with type t := t
+          include Stringable.Tests.Examples.S0 with type t := t
           include Traits.Ringoid.Tests.Examples.S0 with type t := t
         end
       end
