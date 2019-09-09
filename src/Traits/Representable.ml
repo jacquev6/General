@@ -6,65 +6,10 @@ generate(representable.implementation_items)
 module Tests = struct
   open Testing
 
-  module Examples = struct
-    module type Element = S0
-
-    module type S0 = sig
-      type t
-
-      val repr: (t * string) list
-    end
-
-    module type S1 = sig
-      module A: Element
-
-      type 'a t
-
-      val repr: (A.t t * string) list
-    end
-
-    module type S2 = sig
-      module A: Element
-      module B: Element
-
-      type ('a, 'b) t
-
-      val repr: ((A.t, B.t) t * string) list
-    end
-
-    module type S3 = sig
-      module A: Element
-      module B: Element
-      module C: Element
-
-      type ('a, 'b, 'c) t
-
-      val repr: ((A.t, B.t, C.t) t * string) list
-    end
-
-    module type S4 = sig
-      module A: Element
-      module B: Element
-      module C: Element
-      module D: Element
-
-      type ('a, 'b, 'c, 'd) t
-
-      val repr: ((A.t, B.t, C.t, D.t) t * string) list
-    end
-
-    module type S5 = sig
-      module A: Element
-      module B: Element
-      module C: Element
-      module D: Element
-      module E: Element
-
-      type ('a, 'b, 'c, 'd, 'e) t
-
-      val repr: ((A.t, B.t, C.t, D.t, E.t) t * string) list
-    end
-  end
+#ext python3
+from geni import *
+generate(representable.tests_examples_implementation, indent=1)
+#endext
 
   module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
     open M

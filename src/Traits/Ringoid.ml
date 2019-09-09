@@ -65,17 +65,10 @@ end
 module Tests = struct
   open Testing
 
-  module Examples = struct
-    module type S0 = sig
-      type t
-
-      val add_substract: (t * t * t) list
-      val negate: (t * t) list
-      val multiply: (t * t * t) list
-      val divide: (t * t * t) list
-      val exponentiate: (t * int * t) list
-    end
-  end
+#ext python3
+from geni import *
+generate(ringoid.tests_examples_implementation, indent=1)
+#endext
 
   module Make0(M: sig
     include S0

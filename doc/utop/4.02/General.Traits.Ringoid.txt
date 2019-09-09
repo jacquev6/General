@@ -4,6 +4,7 @@ module Ringoid: sig
   module Operators
   module Square
   module Substract
+  module Tests
   module type S0 = sig
     module O: sig
       val (*): t -> t -> t

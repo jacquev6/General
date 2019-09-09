@@ -1,0 +1,26 @@
+module Make0(M: sig
+  module O: sig
+    val (<): t -> t -> bool
+    val (<=): t -> t -> bool
+    val (>): t -> t -> bool
+    val (>=): t -> t -> bool
+  end
+  type t
+  val between: t -> low:t -> high:t -> bool
+  val between_or_equal: t -> low:t -> high:t -> bool
+  val compare: t -> t -> General.Compare.t
+  val equal: t -> t -> bool
+  val greater_or_equal: t -> t -> bool
+  val greater_than: t -> t -> bool
+  val less_or_equal: t -> t -> bool
+  val less_than: t -> t -> bool
+  val max: t -> t -> t
+  val min: t -> t -> t
+  val min_max: t -> t -> t * t
+  val repr: t -> bytes
+end)(E: sig
+  val equal: M.t list list
+  val ordered: M.t list list
+end): sig
+  val test: General.Test.t
+end

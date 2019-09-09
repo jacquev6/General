@@ -19,13 +19,10 @@ end
 module Tests = struct
   open Testing
 
-  module Examples = struct
-    module type S0 = sig
-      type t
-      
-      val succ: (t * t) list
-    end
-  end
+#ext python3
+from geni import *
+generate(pred_succ.tests_examples_implementation, indent=1)
+#endext
 
   module Make0(M: sig
     include S0

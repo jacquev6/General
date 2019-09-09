@@ -378,7 +378,7 @@ module Traits: sig
       end
       module Make0(M: sig
         include S0
-        include Equatable.S0 with type t := t
+        include Equatable.Basic.S0 with type t := t
         include Representable.S0 with type t := t
       end)(E: Examples.S0 with type t := M.t): sig
          val test: Test.t
@@ -714,6 +714,103 @@ module Traits: sig
         val min_max: ('a, 'b, 'c, 'd, 'e) M.t -> ('a, 'b, 'c, 'd, 'e) M.t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) M.t * ('a, 'b, 'c, 'd, 'e) M.t
       end
     end
+    module Tests: sig
+      module Examples: sig
+        module type Element = sig
+          type t
+          include Basic.S0 with type t := t
+          include Equatable.Basic.S0 with type t := t
+          include Representable.S0 with type t := t
+        end
+        module type S0 = sig
+          type t
+          val ordered: t list list
+          val equal: t list list
+        end
+        module type S1 = sig
+          type 'a t
+          module A: Element
+          val ordered: A.t t list list
+          val equal: A.t t list list
+        end
+        module type S2 = sig
+          type ('a, 'b) t
+          module A: Element
+          module B: Element
+          val ordered: (A.t, B.t) t list list
+          val equal: (A.t, B.t) t list list
+        end
+        module type S3 = sig
+          type ('a, 'b, 'c) t
+          module A: Element
+          module B: Element
+          module C: Element
+          val ordered: (A.t, B.t, C.t) t list list
+          val equal: (A.t, B.t, C.t) t list list
+        end
+        module type S4 = sig
+          type ('a, 'b, 'c, 'd) t
+          module A: Element
+          module B: Element
+          module C: Element
+          module D: Element
+          val ordered: (A.t, B.t, C.t, D.t) t list list
+          val equal: (A.t, B.t, C.t, D.t) t list list
+        end
+        module type S5 = sig
+          type ('a, 'b, 'c, 'd, 'e) t
+          module A: Element
+          module B: Element
+          module C: Element
+          module D: Element
+          module E: Element
+          val ordered: (A.t, B.t, C.t, D.t, E.t) t list list
+          val equal: (A.t, B.t, C.t, D.t, E.t) t list list
+        end
+      end
+      module Make0(M: sig
+        include S0
+        include Equatable.Basic.S0 with type t := t
+        include Representable.S0 with type t := t
+      end)(E: Examples.S0 with type t := M.t): sig
+         val test: Test.t
+      end
+      module Make1(M: sig
+        include S1
+        include Equatable.Basic.S1 with type 'a t := 'a t
+        include Representable.S1 with type 'a t := 'a t
+      end)(E: Examples.S1 with type 'a t := 'a M.t): sig
+         val test: Test.t
+      end
+      module Make2(M: sig
+        include S2
+        include Equatable.Basic.S2 with type ('a, 'b) t := ('a, 'b) t
+        include Representable.S2 with type ('a, 'b) t := ('a, 'b) t
+      end)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t): sig
+         val test: Test.t
+      end
+      module Make3(M: sig
+        include S3
+        include Equatable.Basic.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+        include Representable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+      end)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t): sig
+         val test: Test.t
+      end
+      module Make4(M: sig
+        include S4
+        include Equatable.Basic.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+        include Representable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+      end)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t): sig
+         val test: Test.t
+      end
+      module Make5(M: sig
+        include S5
+        include Equatable.Basic.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+        include Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+      end)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t): sig
+         val test: Test.t
+      end
+    end
   end
   module Ringoid: sig
     module Operators: sig
@@ -789,6 +886,25 @@ module Traits: sig
         val exponentiate: M.t -> int -> M.t
       end
     end
+    module Tests: sig
+      module Examples: sig
+        module type S0 = sig
+          type t
+          val add_substract: (t * t * t) list
+          val negate: (t * t) list
+          val multiply: (t * t * t) list
+          val divide: (t * t * t) list
+          val exponentiate: (t * int * t) list
+        end
+      end
+      module Make0(M: sig
+        include S0
+        include Equatable.Basic.S0 with type t := t
+        include Representable.S0 with type t := t
+      end)(E: Examples.S0 with type t := M.t): sig
+         val test: Test.t
+      end
+    end
   end
   module OfStandardNumbers: sig
     module type S0 = sig
@@ -819,6 +935,21 @@ module Traits: sig
       end): sig
         val pred: M.t -> M.t
         val succ: M.t -> M.t
+      end
+    end
+    module Tests: sig
+      module Examples: sig
+        module type S0 = sig
+          type t
+          val succ: (t * t) list
+        end
+      end
+      module Make0(M: sig
+        include S0
+        include Representable.S0 with type t := t
+        include Equatable.Basic.S0 with type t := t
+      end)(E: Examples.S0 with type t := M.t): sig
+         val test: Test.t
       end
     end
   end

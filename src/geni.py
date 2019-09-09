@@ -303,6 +303,10 @@ class Facets:
     def __tests_examples_specification(self):
         yield mod_spec("Examples", self.__tests_examples_items())
 
+    @property
+    def tests_examples_implementation(self):
+        return self.__tests_examples_implementation()
+
     def __tests_examples_implementation(self):
         yield mod_impl("Examples", self.__tests_examples_items())
 
@@ -317,7 +321,8 @@ class Facets:
         basic = "" if self.__is_basic() else "Basic."
         yield f"include {basic}S0 with type t := t"
         for req in self.test_element_requirements:
-            yield f"include {req.name}.S0 with type t := t"
+            basic = "" if req.__is_basic() else "Basic."
+            yield f"include {req.name}.{basic}S0 with type t := t"
 
     def __tests_examples_mod_type_items(self, arity):
         yield f"type {type_params(arity)}t"
@@ -341,7 +346,8 @@ class Facets:
                 yield f"module Make{arity}(M: sig"
                 yield f"  include S{arity}"
                 for req in self.test_requirements:
-                    yield f"  include {req.name}.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
+                    basic = "" if req.__is_basic() else "Basic."
+                    yield f"  include {req.name}.{basic}S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
                 yield f"end)(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t): sig"
             yield "   val test: Test.t"
             yield "end"
@@ -520,7 +526,7 @@ def abcd(arity):
 
 traits = []
 
-def trait(name, *, variadic, basics, extensions=[], has_tests=True, publish_tests=False, examples=[], test_requirements=[], test_element_requirements=[]):
+def trait(name, *, variadic, basics, extensions=[], has_tests=True, examples=[], test_requirements=[], test_element_requirements=[]):
     trait = Facets(
         prefix="Traits",
         name=name,
@@ -531,7 +537,7 @@ def trait(name, *, variadic, basics, extensions=[], has_tests=True, publish_test
         examples_implementation=None,
         tests=None,
         has_tests=has_tests,
-        publish_tests=publish_tests,
+        publish_tests=has_tests,
         generate_tests=False,
         examples=examples,
         test_requirements=test_requirements,
@@ -551,7 +557,6 @@ representable = trait(
     examples=[
         val("repr", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * string) list"),
     ],
-    publish_tests=True,
 )
 
 displayable = trait(
@@ -563,7 +568,6 @@ displayable = trait(
     examples=[
         val("to_string", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * string) list"),
     ],
-    publish_tests=True,
 )
 
 equatable = trait(
@@ -579,7 +583,6 @@ equatable = trait(
             requirements=["equal"],
         )
     ],
-    publish_tests=True,
     examples=[
         val("equal", params=[], return_=lambda *args: f"{variadic_type.make_type(*args)} list list"),
         val("different", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
@@ -603,7 +606,6 @@ parsable = trait(
         val("of_string", params=[], return_=lambda *args: f"(string * {variadic_type.make_type(*args)}) list"),
     ],
     test_requirements=[equatable, representable],
-    publish_tests=True,
 )
 
 comparable = trait(
@@ -643,6 +645,18 @@ comparable = trait(
             requirements=["compare"],
         ),
     ],
+    examples=[
+        val("ordered", params=[], return_=lambda *args: f"{variadic_type.make_type(*args)} list list"),
+        val("equal", params=[], return_=lambda *args: f"{variadic_type.make_type(*args)} list list"),
+    ],
+    test_requirements=[
+        equatable,
+        representable,
+    ],
+    test_element_requirements=[
+        equatable,
+        representable,
+    ],
 )
 
 ringoid = trait(
@@ -667,6 +681,17 @@ ringoid = trait(
             [val("exponentiate", params=[variadic_type, "int"], return_=variadic_type, operator="**")],
             requirements=["one", "square", "multiply", val("exponentiate_negative_exponent", params=[named("exponentiate", "t -> int -> t"), variadic_type, "int"], return_=variadic_type)],
         ),
+    ],
+    examples=[
+        val("add_substract", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
+        val("negate", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
+        val("multiply", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
+        val("divide", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
+        val("exponentiate", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * int * {variadic_type.make_type(*args)}) list"),
+    ],
+    test_requirements=[
+        equatable,
+        representable,
     ],
 )
 
@@ -708,6 +733,13 @@ pred_succ = trait(
             ],
             basic_production=["pred", "succ"],
         ),
+    ],
+    examples=[
+        val("succ", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
+    ],
+    test_requirements=[
+        representable,
+        equatable,
     ],
 )
 

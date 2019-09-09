@@ -6,13 +6,10 @@ generate(parsable.implementation_items)
 module Tests = struct
   open Testing
 
-  module Examples = struct
-    module type S0 = sig
-      type t
-
-      val of_string: (string * t) list
-    end
-  end
+#ext python3
+from geni import *
+generate(parsable.tests_examples_implementation, indent=1)
+#endext
 
   module Make0(M: sig
     include S0

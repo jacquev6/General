@@ -6,13 +6,10 @@ generate(displayable.implementation_items)
 module Tests = struct
   open Testing
 
-  module Examples = struct
-    module type S0 = sig
-      type t
-
-      val to_string: (t * string) list
-    end
-  end
+#ext python3
+from geni import *
+generate(displayable.tests_examples_implementation, indent=1)
+#endext
 
   module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
     open M
