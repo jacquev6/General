@@ -36,11 +36,6 @@
     (:src General.cppo.ml)
     geni.py
     Compare.ml
-    Concepts/Able.ml
-    Concepts/Identifiable.ml
-    Concepts/Integer.ml
-    Concepts/Number.ml
-    Concepts/RealNumber.ml
     Equate.ml
     Foundations/Bool.ml
     Foundations/CallStack.ml
