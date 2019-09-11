@@ -38,6 +38,12 @@
     (:src General.cppo.ml)
     geni.py
     Compare.ml
+    Concepts/Able.ml
+    Concepts/Identifiable.ml
+    Concepts/Integer.ml
+    Concepts/Number.ml
+    Concepts/RealNumber.ml
+    Concepts/Stringable.ml
     Equate.ml
     Foundations/Bool.ml
     Foundations/CallStack.ml
@@ -57,7 +63,12 @@
     Foundations/String.ml
     Foundations/Tuples.ml
     Foundations/Unit.ml
-    Generated/Concepts.ml
+    Generated/Concepts/Able.ml
+    Generated/Concepts/Identifiable.ml
+    Generated/Concepts/Integer.ml
+    Generated/Concepts/Number.ml
+    Generated/Concepts/RealNumber.ml
+    Generated/Concepts/Stringable.ml
     Generated/Traits/Comparable.ml
     Generated/Traits/Displayable.ml
     Generated/Traits/Equatable.ml

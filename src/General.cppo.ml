@@ -175,7 +175,29 @@ module Traits = struct
 end
 
 module Concepts = struct
-  #include "Generated/Concepts.ml"
+  module Identifiable = struct
+    #include "Concepts/Identifiable.ml"
+  end
+
+  module Able = struct
+    #include "Concepts/Able.ml"
+  end
+
+  module Stringable = struct
+    #include "Concepts/Stringable.ml"
+  end
+
+  module Number = struct
+    #include "Concepts/Number.ml"
+  end
+
+  module RealNumber = struct
+    #include "Concepts/RealNumber.ml"
+  end
+
+  module Integer = struct
+    #include "Concepts/Integer.ml"
+  end
 end
 
 module Array = struct

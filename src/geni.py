@@ -863,10 +863,15 @@ if __name__ == "__main__":
 
     gen("Traits.mli", (trait.specification for trait in traits))
     gen("Concepts.mli", (concept.specification for concept in concepts))
-    gen("Concepts.ml", (concept.implementation for concept in concepts))
 
-    destination = os.path.join(destination, "Traits")
+    destination = os.path.join(sys.argv[1], "Traits")
     os.mkdir(destination)
 
     for trait in traits:
         gen(f"{trait.name}.ml", trait.implementation_items)
+
+    destination = os.path.join(sys.argv[1], "Concepts")
+    os.mkdir(destination)
+
+    for concept in concepts:
+        gen(f"{concept.name}.ml", concept.implementation_items)
