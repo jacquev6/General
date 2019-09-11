@@ -309,8 +309,6 @@ class Facets:
         yield self.__tests_makers_specifications()
 
     def __tests_implementation_items(self):
-        if self.generate_tests:
-            yield "open Testing"
         yield self.__tests_examples_implementation()
         yield mod_impl("Testable", self.__tests_testable_mod_types())
         if self.generate_tests:
@@ -374,6 +372,7 @@ class Facets:
             )
 
     def __tests_makers_implementations_items(self, arity):
+        yield "open Testing"
         if self.examples_implementation is not None:
             yield mod_impl("E",
                 "include E",

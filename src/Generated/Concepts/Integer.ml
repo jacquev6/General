@@ -11,7 +11,6 @@ module type S0 = sig
   include Traits.PredSucc.S0 with type t := t
 end
 module Tests = struct
-  open Testing
   module Examples = struct
     module type S0 = sig
       type t
@@ -25,6 +24,7 @@ module Tests = struct
     end
   end
   module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+    open Testing
     module E = struct
       include E
       let succ = succ @ [

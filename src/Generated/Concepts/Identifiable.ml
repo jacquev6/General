@@ -86,7 +86,6 @@ module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
   include (Representable_: Traits.Representable.S0 with type t := t)
 end
 module Tests = struct
-  open Testing
   module Examples = struct
     module type Element = sig
       type t
@@ -159,36 +158,42 @@ module Tests = struct
     end
   end
   module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+    open Testing
     let test = "Identifiable" >:: [
       (let module T = Traits.Equatable.Tests.Make0(M)(E) in T.test);
       (let module T = Traits.Representable.Tests.Make0(M)(E) in T.test);
     ]
   end
   module Make1(M: Testable.S1)(E: Examples.S1 with type 'a t := 'a M.t) = struct
+    open Testing
     let test = "Identifiable" >:: [
       (let module T = Traits.Equatable.Tests.Make1(M)(E) in T.test);
       (let module T = Traits.Representable.Tests.Make1(M)(E) in T.test);
     ]
   end
   module Make2(M: Testable.S2)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t) = struct
+    open Testing
     let test = "Identifiable" >:: [
       (let module T = Traits.Equatable.Tests.Make2(M)(E) in T.test);
       (let module T = Traits.Representable.Tests.Make2(M)(E) in T.test);
     ]
   end
   module Make3(M: Testable.S3)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t) = struct
+    open Testing
     let test = "Identifiable" >:: [
       (let module T = Traits.Equatable.Tests.Make3(M)(E) in T.test);
       (let module T = Traits.Representable.Tests.Make3(M)(E) in T.test);
     ]
   end
   module Make4(M: Testable.S4)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t) = struct
+    open Testing
     let test = "Identifiable" >:: [
       (let module T = Traits.Equatable.Tests.Make4(M)(E) in T.test);
       (let module T = Traits.Representable.Tests.Make4(M)(E) in T.test);
     ]
   end
   module Make5(M: Testable.S5)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t) = struct
+    open Testing
     let test = "Identifiable" >:: [
       (let module T = Traits.Equatable.Tests.Make5(M)(E) in T.test);
       (let module T = Traits.Representable.Tests.Make5(M)(E) in T.test);

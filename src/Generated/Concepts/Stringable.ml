@@ -4,7 +4,6 @@ module type S0 = sig
   include Traits.Parsable.S0 with type t := t
 end
 module Tests = struct
-  open Testing
   module Examples = struct
     module type S0 = sig
       type t
@@ -20,6 +19,7 @@ module Tests = struct
     end
   end
   module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+    open Testing
     let test = "Stringable" >:: [
       (let module T = Traits.Displayable.Tests.Make0(M)(E) in T.test);
       (let module T = Traits.Parsable.Tests.Make0(M)(E) in T.test);
