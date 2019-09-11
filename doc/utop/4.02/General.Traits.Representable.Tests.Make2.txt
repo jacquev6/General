@@ -1,4 +1,4 @@
-module Make2(M: General.Traits.Representable.S2)(E: sig
+module Make2(M: General.Traits.Representable.Tests.Testable.S2)(E: sig
   module A: General.Traits.Representable.Tests.Examples.Element
   module B: General.Traits.Representable.Tests.Examples.Element
   val repr: ((A.t, B.t) M.t * bytes) list

@@ -187,4 +187,30 @@ module Tests_ = struct
       val different: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
     end
   end
+  module Testable = struct
+    module type S0 = sig
+      include S0
+      include Representable.S0 with type t := t
+    end
+    module type S1 = sig
+      include S1
+      include Representable.S1 with type 'a t := 'a t
+    end
+    module type S2 = sig
+      include S2
+      include Representable.S2 with type ('a, 'b) t := ('a, 'b) t
+    end
+    module type S3 = sig
+      include S3
+      include Representable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+    end
+    module type S4 = sig
+      include S4
+      include Representable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+    end
+    module type S5 = sig
+      include S5
+      include Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+    end
+  end
 end

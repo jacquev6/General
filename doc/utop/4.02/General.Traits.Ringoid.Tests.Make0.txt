@@ -1,25 +1,4 @@
-module Make0(M: sig
-  module O: sig
-    val (*): t -> t -> t
-    val (**): t -> int -> t
-    val (+): t -> t -> t
-    val (-): t -> t -> t
-    val (/): t -> t -> t
-    val (~-): t -> t
-  end
-  type t
-  val add: t -> t -> t
-  val divide: t -> t -> t
-  val equal: t -> t -> bool
-  val exponentiate: t -> int -> t
-  val multiply: t -> t -> t
-  val negate: t -> t
-  val one: t
-  val repr: t -> bytes
-  val square: t -> t
-  val substract: t -> t -> t
-  val zero: t
-end)(E: sig
+module Make0(M: General.Traits.Ringoid.Tests.Testable.S0)(E: sig
   val add_substract: (M.t * M.t * M.t) list
   val divide: (M.t * M.t * M.t) list
   val exponentiate: (M.t * int * M.t) list

@@ -10,4 +10,11 @@ module Tests_ = struct
       val succ: (t * t) list
     end
   end
+  module Testable = struct
+    module type S0 = sig
+      include S0
+      include Representable.S0 with type t := t
+      include Equatable.Basic.S0 with type t := t
+    end
+  end
 end

@@ -1,4 +1,5 @@
 module Tests: sig
   module Examples
   module Make0
+  module Testable
 end

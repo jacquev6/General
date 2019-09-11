@@ -1,9 +1,4 @@
-module Make4(M: sig
-  type ('a, 'b, 'c, 'd) t
-  val different: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
-  val equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
-  val repr: ('a, 'b, 'c, 'd) t -> repr_a:('a -> bytes) -> repr_b:('b -> bytes) -> repr_c:('c -> bytes) -> repr_d:('d -> bytes) -> bytes
-end)(E: sig
+module Make4(M: General.Traits.Equatable.Tests.Testable.S4)(E: sig
   module A: General.Traits.Equatable.Tests.Examples.Element
   module B: General.Traits.Equatable.Tests.Examples.Element
   module C: General.Traits.Equatable.Tests.Examples.Element

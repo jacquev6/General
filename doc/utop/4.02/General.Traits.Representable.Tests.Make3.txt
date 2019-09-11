@@ -1,4 +1,4 @@
-module Make3(M: General.Traits.Representable.S3)(E: sig
+module Make3(M: General.Traits.Representable.Tests.Testable.S3)(E: sig
   module A: General.Traits.Representable.Tests.Examples.Element
   module B: General.Traits.Representable.Tests.Examples.Element
   module C: General.Traits.Representable.Tests.Examples.Element

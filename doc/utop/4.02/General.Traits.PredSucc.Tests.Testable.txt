@@ -1,0 +1,9 @@
+module Testable: sig
+  module type S0 = sig
+    type t
+    val equal: t -> t -> bool
+    val pred: t -> t
+    val repr: t -> bytes
+    val succ: t -> t
+  end
+end

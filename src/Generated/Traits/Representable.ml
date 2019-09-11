@@ -93,4 +93,24 @@ module Tests_ = struct
       val repr: ((A.t, B.t, C.t, D.t, E.t) t * string) list
     end
   end
+  module Testable = struct
+    module type S0 = sig
+      include S0
+    end
+    module type S1 = sig
+      include S1
+    end
+    module type S2 = sig
+      include S2
+    end
+    module type S3 = sig
+      include S3
+    end
+    module type S4 = sig
+      include S4
+    end
+    module type S5 = sig
+      include S5
+    end
+  end
 end

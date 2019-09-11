@@ -89,22 +89,42 @@ module Representable: sig
         val repr: ((A.t, B.t, C.t, D.t, E.t) t * string) list
       end
     end
-    module Make0(M: S0)(E: Examples.S0 with type t := M.t): sig
+    module Testable: sig
+      module type S0 = sig
+        include S0
+      end
+      module type S1 = sig
+        include S1
+      end
+      module type S2 = sig
+        include S2
+      end
+      module type S3 = sig
+        include S3
+      end
+      module type S4 = sig
+        include S4
+      end
+      module type S5 = sig
+        include S5
+      end
+    end
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
        val test: Test.t
     end
-    module Make1(M: S1)(E: Examples.S1 with type 'a t := 'a M.t): sig
+    module Make1(M: Testable.S1)(E: Examples.S1 with type 'a t := 'a M.t): sig
        val test: Test.t
     end
-    module Make2(M: S2)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t): sig
+    module Make2(M: Testable.S2)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t): sig
        val test: Test.t
     end
-    module Make3(M: S3)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t): sig
+    module Make3(M: Testable.S3)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t): sig
        val test: Test.t
     end
-    module Make4(M: S4)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t): sig
+    module Make4(M: Testable.S4)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t): sig
        val test: Test.t
     end
-    module Make5(M: S5)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t): sig
+    module Make5(M: Testable.S5)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t): sig
        val test: Test.t
     end
   end
@@ -121,7 +141,12 @@ module Displayable: sig
         val to_string: (t * string) list
       end
     end
-    module Make0(M: S0)(E: Examples.S0 with type t := M.t): sig
+    module Testable: sig
+      module type S0 = sig
+        include S0
+      end
+    end
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
        val test: Test.t
     end
   end
@@ -324,40 +349,48 @@ module Equatable: sig
         val different: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
       end
     end
-    module Make0(M: sig
-      include S0
-      include Representable.S0 with type t := t
-    end)(E: Examples.S0 with type t := M.t): sig
+    module Testable: sig
+      module type S0 = sig
+        include S0
+        include Representable.S0 with type t := t
+      end
+      module type S1 = sig
+        include S1
+        include Representable.S1 with type 'a t := 'a t
+      end
+      module type S2 = sig
+        include S2
+        include Representable.S2 with type ('a, 'b) t := ('a, 'b) t
+      end
+      module type S3 = sig
+        include S3
+        include Representable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+      end
+      module type S4 = sig
+        include S4
+        include Representable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+      end
+      module type S5 = sig
+        include S5
+        include Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+      end
+    end
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
        val test: Test.t
     end
-    module Make1(M: sig
-      include S1
-      include Representable.S1 with type 'a t := 'a t
-    end)(E: Examples.S1 with type 'a t := 'a M.t): sig
+    module Make1(M: Testable.S1)(E: Examples.S1 with type 'a t := 'a M.t): sig
        val test: Test.t
     end
-    module Make2(M: sig
-      include S2
-      include Representable.S2 with type ('a, 'b) t := ('a, 'b) t
-    end)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t): sig
+    module Make2(M: Testable.S2)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t): sig
        val test: Test.t
     end
-    module Make3(M: sig
-      include S3
-      include Representable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-    end)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t): sig
+    module Make3(M: Testable.S3)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t): sig
        val test: Test.t
     end
-    module Make4(M: sig
-      include S4
-      include Representable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-    end)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t): sig
+    module Make4(M: Testable.S4)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t): sig
        val test: Test.t
     end
-    module Make5(M: sig
-      include S5
-      include Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-    end)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t): sig
+    module Make5(M: Testable.S5)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t): sig
        val test: Test.t
     end
   end
@@ -375,11 +408,14 @@ module Parsable: sig
         val of_string: (string * t) list
       end
     end
-    module Make0(M: sig
-      include S0
-      include Equatable.Basic.S0 with type t := t
-      include Representable.S0 with type t := t
-    end)(E: Examples.S0 with type t := M.t): sig
+    module Testable: sig
+      module type S0 = sig
+        include S0
+        include Equatable.Basic.S0 with type t := t
+        include Representable.S0 with type t := t
+      end
+    end
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
        val test: Test.t
     end
   end
@@ -767,46 +803,54 @@ module Comparable: sig
         val equal: (A.t, B.t, C.t, D.t, E.t) t list list
       end
     end
-    module Make0(M: sig
-      include S0
-      include Equatable.Basic.S0 with type t := t
-      include Representable.S0 with type t := t
-    end)(E: Examples.S0 with type t := M.t): sig
+    module Testable: sig
+      module type S0 = sig
+        include S0
+        include Equatable.Basic.S0 with type t := t
+        include Representable.S0 with type t := t
+      end
+      module type S1 = sig
+        include S1
+        include Equatable.Basic.S1 with type 'a t := 'a t
+        include Representable.S1 with type 'a t := 'a t
+      end
+      module type S2 = sig
+        include S2
+        include Equatable.Basic.S2 with type ('a, 'b) t := ('a, 'b) t
+        include Representable.S2 with type ('a, 'b) t := ('a, 'b) t
+      end
+      module type S3 = sig
+        include S3
+        include Equatable.Basic.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+        include Representable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+      end
+      module type S4 = sig
+        include S4
+        include Equatable.Basic.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+        include Representable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+      end
+      module type S5 = sig
+        include S5
+        include Equatable.Basic.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+        include Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+      end
+    end
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
        val test: Test.t
     end
-    module Make1(M: sig
-      include S1
-      include Equatable.Basic.S1 with type 'a t := 'a t
-      include Representable.S1 with type 'a t := 'a t
-    end)(E: Examples.S1 with type 'a t := 'a M.t): sig
+    module Make1(M: Testable.S1)(E: Examples.S1 with type 'a t := 'a M.t): sig
        val test: Test.t
     end
-    module Make2(M: sig
-      include S2
-      include Equatable.Basic.S2 with type ('a, 'b) t := ('a, 'b) t
-      include Representable.S2 with type ('a, 'b) t := ('a, 'b) t
-    end)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t): sig
+    module Make2(M: Testable.S2)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t): sig
        val test: Test.t
     end
-    module Make3(M: sig
-      include S3
-      include Equatable.Basic.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-      include Representable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-    end)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t): sig
+    module Make3(M: Testable.S3)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t): sig
        val test: Test.t
     end
-    module Make4(M: sig
-      include S4
-      include Equatable.Basic.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-      include Representable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-    end)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t): sig
+    module Make4(M: Testable.S4)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t): sig
        val test: Test.t
     end
-    module Make5(M: sig
-      include S5
-      include Equatable.Basic.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-      include Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-    end)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t): sig
+    module Make5(M: Testable.S5)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t): sig
        val test: Test.t
     end
   end
@@ -896,11 +940,14 @@ module Ringoid: sig
         val exponentiate: (t * int * t) list
       end
     end
-    module Make0(M: sig
-      include S0
-      include Equatable.Basic.S0 with type t := t
-      include Representable.S0 with type t := t
-    end)(E: Examples.S0 with type t := M.t): sig
+    module Testable: sig
+      module type S0 = sig
+        include S0
+        include Equatable.Basic.S0 with type t := t
+        include Representable.S0 with type t := t
+      end
+    end
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
        val test: Test.t
     end
   end
@@ -943,11 +990,14 @@ module PredSucc: sig
         val succ: (t * t) list
       end
     end
-    module Make0(M: sig
-      include S0
-      include Representable.S0 with type t := t
-      include Equatable.Basic.S0 with type t := t
-    end)(E: Examples.S0 with type t := M.t): sig
+    module Testable: sig
+      module type S0 = sig
+        include S0
+        include Representable.S0 with type t := t
+        include Equatable.Basic.S0 with type t := t
+      end
+    end
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
        val test: Test.t
     end
   end

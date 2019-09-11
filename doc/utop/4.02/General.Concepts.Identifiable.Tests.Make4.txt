@@ -1,4 +1,4 @@
-module Make4(M: General.Concepts.Identifiable.S4)(E: sig
+module Make4(M: General.Concepts.Identifiable.Tests.Testable.S4)(E: sig
   module A: General.Concepts.Identifiable.Tests.Examples.Element
   module B: General.Concepts.Identifiable.Tests.Examples.Element
   module C: General.Concepts.Identifiable.Tests.Examples.Element

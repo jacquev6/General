@@ -9,4 +9,9 @@ module Tests_ = struct
       val to_string: (t * string) list
     end
   end
+  module Testable = struct
+    module type S0 = sig
+      include S0
+    end
+  end
 end

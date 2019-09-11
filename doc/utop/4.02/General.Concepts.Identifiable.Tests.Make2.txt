@@ -1,4 +1,4 @@
-module Make2(M: General.Concepts.Identifiable.S2)(E: sig
+module Make2(M: General.Concepts.Identifiable.Tests.Testable.S2)(E: sig
   module A: General.Concepts.Identifiable.Tests.Examples.Element
   module B: General.Concepts.Identifiable.Tests.Examples.Element
   val different: ((A.t, B.t) M.t * (A.t, B.t) M.t) list

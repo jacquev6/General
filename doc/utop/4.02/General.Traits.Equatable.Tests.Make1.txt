@@ -1,9 +1,4 @@
-module Make1(M: sig
-  type 'a t
-  val different: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
-  val equal: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
-  val repr: 'a t -> repr_a:('a -> bytes) -> bytes
-end)(E: sig
+module Make1(M: General.Traits.Equatable.Tests.Testable.S1)(E: sig
   module A: General.Traits.Equatable.Tests.Examples.Element
   val different: (A.t M.t * A.t M.t) list
   val equal: A.t M.t list list

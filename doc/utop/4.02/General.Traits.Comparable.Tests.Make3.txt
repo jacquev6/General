@@ -1,18 +1,4 @@
-module Make3(M: sig
-  type ('a, 'b, 'c) t
-  val between: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> bool
-  val between_or_equal: ('a, 'b, 'c) t -> low:('a, 'b, 'c) t -> high:('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> bool
-  val compare: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> General.Compare.t
-  val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
-  val greater_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> bool
-  val greater_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> bool
-  val less_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> bool
-  val less_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> bool
-  val max: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> ('a, 'b, 'c) t
-  val min: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> ('a, 'b, 'c) t
-  val min_max: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> compare_c:('c -> 'c -> General.Compare.t) -> ('a, 'b, 'c) t * ('a, 'b, 'c) t
-  val repr: ('a, 'b, 'c) t -> repr_a:('a -> bytes) -> repr_b:('b -> bytes) -> repr_c:('c -> bytes) -> bytes
-end)(E: sig
+module Make3(M: General.Traits.Comparable.Tests.Testable.S3)(E: sig
   module A: General.Traits.Comparable.Tests.Examples.Element
   module B: General.Traits.Comparable.Tests.Examples.Element
   module C: General.Traits.Comparable.Tests.Examples.Element

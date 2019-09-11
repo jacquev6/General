@@ -1,4 +1,4 @@
-module Make3(M: General.Concepts.Identifiable.S3)(E: sig
+module Make3(M: General.Concepts.Identifiable.Tests.Testable.S3)(E: sig
   module A: General.Concepts.Identifiable.Tests.Examples.Element
   module B: General.Concepts.Identifiable.Tests.Examples.Element
   module C: General.Concepts.Identifiable.Tests.Examples.Element

@@ -1,9 +1,4 @@
-module Make3(M: sig
-  type ('a, 'b, 'c) t
-  val different: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
-  val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
-  val repr: ('a, 'b, 'c) t -> repr_a:('a -> bytes) -> repr_b:('b -> bytes) -> repr_c:('c -> bytes) -> bytes
-end)(E: sig
+module Make3(M: General.Traits.Equatable.Tests.Testable.S3)(E: sig
   module A: General.Traits.Equatable.Tests.Examples.Element
   module B: General.Traits.Equatable.Tests.Examples.Element
   module C: General.Traits.Equatable.Tests.Examples.Element

@@ -7,9 +7,9 @@ include Generated
 module Tests = struct
   open Testing
 
-  module Examples = Tests_.Examples
+  include Tests_
 
-  module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
+  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
     open M
 
     let test = "Displayable" >:: (

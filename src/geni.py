@@ -96,10 +96,8 @@ class Facets:
 
         # @todo Generate extension makers: yield self.__extensions_makers_implementation_items()
 
-        if self.generate_tests:  # @todo Homogenize self.publish_tests and self.generate_tests
+        if self.publish_tests:
             yield self.__tests_implementation()
-        elif self.publish_tests:
-            yield mod_impl("Tests_", self.__tests_examples_implementation())
 
     def __contextualized_name(self, prefix):
         if prefix == self.prefix:
@@ -303,23 +301,24 @@ class Facets:
         yield mod_spec("Tests", self.__tests_specification_items())
 
     def __tests_implementation(self):
-        yield mod_impl("Tests", self.__tests_implementation_items())
+        name = "Tests" if self.generate_tests else "Tests_"
+        yield mod_impl(name, self.__tests_implementation_items())
 
     def __tests_specification_items(self):
         yield self.__tests_examples_specification()
+        yield mod_spec("Testable", self.__tests_testable_mod_types())
         yield self.__tests_makers_specifications()
 
     def __tests_implementation_items(self):
-        yield "open Testing"
+        if self.generate_tests:
+            yield "open Testing"
         yield self.__tests_examples_implementation()
-        yield self.__tests_makers_implementations()
+        yield mod_impl("Testable", self.__tests_testable_mod_types())
+        if self.generate_tests:
+            yield self.__tests_makers_implementations()
 
     def __tests_examples_specification(self):
         yield mod_spec("Examples", self.__tests_examples_items())
-
-    @property
-    def tests_examples_implementation(self):
-        return self.__tests_examples_implementation()
 
     def __tests_examples_implementation(self):
         yield mod_impl("Examples", self.__tests_examples_items())
@@ -351,32 +350,24 @@ class Facets:
         for item in self.examples:
             yield item.make_signature(self.base_values, 0, t=f"{type_args(arity)}t")
 
-    # @todo Homogenize spec and implem of tests makers
+    def __tests_testable_mod_types(self):
+        for arity in self.arities:
+            yield f"module type S{arity} = sig"
+            yield f"  include S{arity}"
+            for req in self.test_requirements:
+                basic = "" if req.__is_basic() else "Basic."
+                yield f"  include {req.__contextualized_name(self.prefix)}.{basic}S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
+            yield "end"
+
     def __tests_makers_specifications(self):
         for arity in self.arities:
-            if len(self.test_requirements) == 0:
-                yield f"module Make{arity}(M: S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t): sig"
-            else:
-                yield f"module Make{arity}(M: sig"
-                yield f"  include S{arity}"
-                for req in self.test_requirements:
-                    basic = "" if req.__is_basic() else "Basic."
-                    yield f"  include {req.__contextualized_name(self.prefix)}.{basic}S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
-                yield f"end)(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t): sig"
+            yield f"module Make{arity}(M: Testable.S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t): sig"
             yield "   val test: Test.t"
             yield "end"
 
     def __tests_makers_implementations(self):
         for arity in self.arities:
-            if len(self.test_requirements) == 0:
-                yield f"module Make{arity}(M: S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t) = struct"
-            else:
-                yield f"module Make{arity}(M: sig"
-                yield f"  include S{arity}"
-                for req in self.test_requirements:
-                    basic = "" if req.__is_basic() else "Basic."
-                    yield f"  include {req.__contextualized_name(self.prefix)}.{basic}S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
-                yield f"end)(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t) = struct"
+            yield f"module Make{arity}(M: Testable.S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t) = struct"
             if self.examples_implementation is not None:
                 yield "  module E = struct"
                 yield "    include E"

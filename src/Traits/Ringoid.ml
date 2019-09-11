@@ -66,13 +66,9 @@ end
 module Tests = struct
   open Testing
 
-  module Examples = Tests_.Examples
+  include Tests_
 
-  module Make0(M: sig
-    include S0
-    include Representable.S0 with type t := t
-    include Equatable.Basic.S0 with type t := t
-  end)(E: Examples.S0 with type t := M.t): sig val test: Test.t end = struct
+  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig val test: Test.t end = struct
     open M
     open M.O
 

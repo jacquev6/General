@@ -1,18 +1,4 @@
-module Make2(M: sig
-  type ('a, 'b) t
-  val between: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> bool
-  val between_or_equal: ('a, 'b) t -> low:('a, 'b) t -> high:('a, 'b) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> bool
-  val compare: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> General.Compare.t
-  val equal: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
-  val greater_or_equal: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> bool
-  val greater_than: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> bool
-  val less_or_equal: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> bool
-  val less_than: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> bool
-  val max: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> ('a, 'b) t
-  val min: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> ('a, 'b) t
-  val min_max: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> General.Compare.t) -> compare_b:('b -> 'b -> General.Compare.t) -> ('a, 'b) t * ('a, 'b) t
-  val repr: ('a, 'b) t -> repr_a:('a -> bytes) -> repr_b:('b -> bytes) -> bytes
-end)(E: sig
+module Make2(M: General.Traits.Comparable.Tests.Testable.S2)(E: sig
   module A: General.Traits.Comparable.Tests.Examples.Element
   module B: General.Traits.Comparable.Tests.Examples.Element
   val equal: (A.t, B.t) M.t list list

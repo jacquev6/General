@@ -1,4 +1,4 @@
-module Make4(M: General.Concepts.Able.S4)(E: sig
+module Make4(M: General.Concepts.Able.Tests.Testable.S4)(E: sig
   module A: General.Concepts.Able.Tests.Examples.Element
   module B: General.Concepts.Able.Tests.Examples.Element
   module C: General.Concepts.Able.Tests.Examples.Element

@@ -96,12 +96,9 @@ end
 module Tests = struct
   open Testing
 
-  module Examples = Tests_.Examples
+  include Tests_
 
-  module Make0(M: sig
-    include S0
-    include Representable.S0 with type t := t
-  end)(E: Examples.S0 with type t := M.t) = struct
+  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
     open M
     open M.O
 
@@ -143,42 +140,27 @@ module Tests = struct
     )
   end
 
-  module Make1(M: sig
-    include S1
-    include Representable.S1 with type 'a t := 'a t
-  end)(E: Examples.S1 with type 'a t := 'a M.t) = Make0(struct
+  module Make1(M: Testable.S1)(E: Examples.S1 with type 'a t := 'a M.t) = Make0(struct
     include Specialize1(M)(E.A)
     include (Representable.Specialize1(M)(E.A): Representable.S0 with type t := t)
   end)(E)
 
-  module Make2(M: sig
-    include S2
-    include Representable.S2 with type ('a, 'b) t := ('a, 'b) t
-  end)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t) = Make0(struct
+  module Make2(M: Testable.S2)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t) = Make0(struct
     include Specialize2(M)(E.A)(E.B)
     include (Representable.Specialize2(M)(E.A)(E.B): Representable.S0 with type t := t)
   end)(E)
 
-  module Make3(M: sig
-    include S3
-    include Representable.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-  end)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t) = Make0(struct
+  module Make3(M: Testable.S3)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t) = Make0(struct
     include Specialize3(M)(E.A)(E.B)(E.C)
     include (Representable.Specialize3(M)(E.A)(E.B)(E.C): Representable.S0 with type t := t)
   end)(E)
 
-  module Make4(M: sig
-    include S4
-    include Representable.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-  end)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t) = Make0(struct
+  module Make4(M: Testable.S4)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t) = Make0(struct
     include Specialize4(M)(E.A)(E.B)(E.C)(E.D)
     include (Representable.Specialize4(M)(E.A)(E.B)(E.C)(E.D): Representable.S0 with type t := t)
   end)(E)
 
-  module Make5(M: sig
-    include S5
-    include Representable.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-  end)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t) = Make0(struct
+  module Make5(M: Testable.S5)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t) = Make0(struct
     include Specialize5(M)(E.A)(E.B)(E.C)(E.D)(E.E)
     include (Representable.Specialize5(M)(E.A)(E.B)(E.C)(E.D)(E.E): Representable.S0 with type t := t)
   end)(E)

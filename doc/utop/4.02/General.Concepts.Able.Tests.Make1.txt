@@ -1,4 +1,4 @@
-module Make1(M: General.Concepts.Able.S1)(E: sig
+module Make1(M: General.Concepts.Able.Tests.Testable.S1)(E: sig
   module A: General.Concepts.Able.Tests.Examples.Element
   val different: (A.t M.t * A.t M.t) list
   val equal: A.t M.t list list

@@ -9,6 +9,8 @@ do
     echo "OCaml $OCAML_VERSION"
     echo "=========="
 
+    date
+
     echo
     echo "Building docker image"
     echo "---------------------"
@@ -99,7 +101,6 @@ do
     mkdir -p doc/utop/$OCAML_VERSION
     $RUN python3 doc/utop/extract.py doc/utop/$OCAML_VERSION
 
-    rm _build
 
     echo
     echo "Testing package install"
@@ -114,6 +115,8 @@ do
     #  - all symbols in OCamlStandard.Pervasives are reset in ResetPervasives
     #  - all symbols in ResetPervasives do exist in OCamlStandard.Pervasives
     # Symbols: modules, types, exceptions, values, externals
+
+    rm _build
 
     echo
 done
