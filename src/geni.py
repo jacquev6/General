@@ -49,6 +49,18 @@ class Facets:
         self.test_element_requirements = list(test_element_requirements)
 
     @property
+    def graphviz_label(self):
+        parts = [self.name]
+        if len(self.base_values) > 0:
+            parts.append("")
+            parts += [val.name for val in self.base_values]
+        exts = [val.name for extension in self.extensions for val in extension.members]
+        if len(exts) > 0:
+            parts.append("")
+            parts += exts
+        return "\\n".join(parts)
+
+    @property
     def specification(self):
         return mod_spec(self.name, self.specification_items)
 
@@ -247,10 +259,10 @@ class Facets:
 
     def __extended_specialize_implementation_items(self, arity):
         functor_args = "".join(f"({a.upper()})" for a in abcd(arity))
-        yield mod_impl("Self", itertools.chain(
-            [f"include Basic.Specialize{arity}(M){functor_args}"],
+        yield mod_impl("Self",
+            f"include Basic.Specialize{arity}(M){functor_args}",
             (item.make_specialization(self.base_values, arity) for extension in self.extensions for item in extension.members)
-        ))
+        )
         yield "module O = Operators.Make0(Self)"
         yield "include Self"
 
@@ -854,9 +866,26 @@ if __name__ == "__main__":
             mod_spec("Traits", (trait.specification for trait in traits)),
             mod_spec("Concepts", (concept.specification for concept in concepts)),
         )
-    else:
-        assert sys.argv[1] == "implementation"
+    elif sys.argv[1] == "implementation":
         generate(
             mod_impl("Traits", (trait.implementation for trait in traits)),
             mod_impl("Concepts", (concept.implementation for concept in concepts)),
         )
+    elif sys.argv[1] == "graph":
+        generate(
+            'digraph {',
+            '  rankdir="BT"',
+            '  node [shape="box"]',
+            '  subgraph cluster_Traits {',
+            '    label="Traits";',
+            (f'    {trait.name.lower()} [label="{trait.graphviz_label}"];' for trait in traits),
+            '  }',
+            '  subgraph cluster_Concepts {',
+            '    label="Concepts";',
+            (f'    {concept.name.lower()} [label="{concept.graphviz_label}"];' for concept in concepts),
+            '  }',
+            (f'  {concept.name.lower()} -> {base.name.lower()}' for concept in concepts for base in concept.inherited),
+            '}',
+        )
+    else:
+        assert False

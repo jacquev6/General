@@ -77,6 +77,7 @@ do
     mkdir generated
     python3 src/geni.py specification >generated/Facets.mli
     python3 src/geni.py implementation >generated/Facets.ml
+    python3 src/geni.py graph | tee generated/Facets.dot | dot -Tpng -ogenerated/Facets.png
     git diff --exit-code --ignore-all-space --ignore-blank-lines generated
 
     echo
