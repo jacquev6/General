@@ -105,7 +105,7 @@ do
     echo "Testing package install"
     echo "-----------------------"
 
-    # $RUN opam install General
+    $RUN opam install General
 
     # @todo Build demo apps (as native, byte code, and js)
 
