@@ -129,28 +129,6 @@ module Representable: sig
     end
   end
 end
-module Displayable: sig
-  module type S0 = sig
-    type t
-    val to_string: t -> string
-  end
-  module Tests: sig
-    module Examples: sig
-      module type S0 = sig
-        type t
-        val to_string: (t * string) list
-      end
-    end
-    module Testable: sig
-      module type S0 = sig
-        include S0
-      end
-    end
-    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
-      val test: Test.t
-    end
-  end
-end
 module Equatable: sig
   module Operators: sig
     module type S0 = sig
@@ -391,6 +369,28 @@ module Equatable: sig
       val test: Test.t
     end
     module Make5(M: Testable.S5)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t): sig
+      val test: Test.t
+    end
+  end
+end
+module Displayable: sig
+  module type S0 = sig
+    type t
+    val to_string: t -> string
+  end
+  module Tests: sig
+    module Examples: sig
+      module type S0 = sig
+        type t
+        val to_string: (t * string) list
+      end
+    end
+    module Testable: sig
+      module type S0 = sig
+        include S0
+      end
+    end
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
       val test: Test.t
     end
   end

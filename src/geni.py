@@ -574,17 +574,6 @@ representable = trait(
     ],
 )
 
-displayable = trait(
-    "Displayable",
-    variadic=False,
-    basics=[
-        val("to_string", params=[variadic_type], return_="string"),
-    ],
-    examples=[
-        val("to_string", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * string) list"),
-    ],
-)
-
 equatable = trait(
     "Equatable",
     basics=[
@@ -602,6 +591,17 @@ equatable = trait(
         val("different", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
     ],
     test_requirements=[representable],
+)
+
+displayable = trait(
+    "Displayable",
+    variadic=False,
+    basics=[
+        val("to_string", params=[variadic_type], return_="string"),
+    ],
+    examples=[
+        val("to_string", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * string) list"),
+    ],
 )
 
 parsable = trait(
