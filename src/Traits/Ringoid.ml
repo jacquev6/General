@@ -1,7 +1,8 @@
-#ext python3
-from geni import *
-generate(ringoid.implementation_items)
-#endext
+module Generated = struct
+  #include "../Generated/Traits/Ringoid.ml"
+end
+
+include Generated
 
 (* @todo Fix spelling of 'subtract' *)
 module Substract = struct
@@ -65,10 +66,7 @@ end
 module Tests = struct
   open Testing
 
-#ext python3
-from geni import *
-generate(ringoid.tests_examples_implementation, indent=1)
-#endext
+  module Examples = Tests_.Examples
 
   module Make0(M: sig
     include S0

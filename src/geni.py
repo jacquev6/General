@@ -1,4 +1,5 @@
 import itertools
+import os
 import sys
 import textwrap
 
@@ -8,7 +9,7 @@ max_arity = 6
 
 def generate(*element, **kwds):
     for line in indent(element, kwds.get("indent", 0)):
-        print(line)
+        print(line, file=kwds.get("file"))
 
 
 def indent(element, levels=1):
@@ -97,6 +98,8 @@ class Facets:
 
         if self.generate_tests:  # @todo Homogenize self.publish_tests and self.generate_tests
             yield self.__tests_implementation()
+        elif self.publish_tests:
+            yield mod_impl("Tests_", self.__tests_examples_implementation())
 
     def __contextualized_name(self, prefix):
         if prefix == self.prefix:
@@ -861,31 +864,36 @@ integer = concept(
 
 
 if __name__ == "__main__":
-    if sys.argv[1] == "specification":
-        generate(
-            mod_spec("Traits", (trait.specification for trait in traits)),
-            mod_spec("Concepts", (concept.specification for concept in concepts)),
-        )
-    elif sys.argv[1] == "implementation":
-        generate(
-            mod_impl("Traits", (trait.implementation for trait in traits)),
-            mod_impl("Concepts", (concept.implementation for concept in concepts)),
-        )
-    elif sys.argv[1] == "graph":
-        generate(
-            'digraph {',
-            '  rankdir="BT"',
-            '  node [shape="box"]',
-            '  subgraph cluster_Traits {',
-            '    label="Traits";',
-            (f'    {trait.name.lower()} [label="{trait.graphviz_label}"];' for trait in traits),
-            '  }',
-            '  subgraph cluster_Concepts {',
-            '    label="Concepts";',
-            (f'    {concept.name.lower()} [label="{concept.graphviz_label}"];' for concept in concepts),
-            '  }',
-            (f'  {concept.name.lower()} -> {base.name.lower()}' for concept in concepts for base in concept.inherited),
-            '}',
-        )
-    else:
-        assert False
+    destination = sys.argv[1]
+    assert os.path.isdir(destination)
+
+    def gen(name, *items):
+        with open(os.path.join(destination, name), "w") as f:
+            generate(items, file = f)
+
+    gen(
+        "Facets.dot",
+        'digraph {',
+        '  rankdir="BT"',
+        '  node [shape="box"]',
+        '  subgraph cluster_Traits {',
+        '    label="Traits";',
+        (f'    {trait.name.lower()} [label="{trait.graphviz_label}"];' for trait in traits),
+        '  }',
+        '  subgraph cluster_Concepts {',
+        '    label="Concepts";',
+        (f'    {concept.name.lower()} [label="{concept.graphviz_label}"];' for concept in concepts),
+        '  }',
+        (f'  {concept.name.lower()} -> {base.name.lower()}' for concept in concepts for base in concept.inherited),
+        '}',
+    )
+
+    gen("Traits.mli", (trait.specification for trait in traits))
+    gen("Concepts.mli", (concept.specification for concept in concepts))
+    gen("Concepts.ml", (concept.implementation for concept in concepts))
+
+    destination = os.path.join(destination, "Traits")
+    os.mkdir(destination)
+
+    for trait in traits:
+        gen(f"{trait.name}.ml", trait.implementation_items)

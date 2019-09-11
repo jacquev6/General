@@ -1,15 +1,13 @@
-#ext python3
-from geni import *
-generate(representable.implementation_items)
-#endext
+module Generated = struct
+  #include "../Generated/Traits/Representable.ml"
+end
+
+include Generated
 
 module Tests = struct
   open Testing
 
-#ext python3
-from geni import *
-generate(representable.tests_examples_implementation, indent=1)
-#endext
+  module Examples = Tests_.Examples
 
   module Make0(M: S0)(E: Examples.S0 with type t := M.t) = struct
     open M

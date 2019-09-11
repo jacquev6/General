@@ -3,6 +3,8 @@
   (deps
     (:src General.cppo.mli)
     geni.py
+    Generated/Concepts.mli
+    Generated/Traits.mli
     Reset/CommonHeader.ml
     Reset/Footer.ml
     Reset/ResetPervasives.ml
@@ -27,7 +29,7 @@
     Traits/Scanable.signatures.ToContainer.ml
     Traits/Scanable.signatures.ml
   )
-  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} -x python3:python3 %{src} -o %{targets}))
+  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
 )
 
 (rule
@@ -55,6 +57,16 @@
     Foundations/String.ml
     Foundations/Tuples.ml
     Foundations/Unit.ml
+    Generated/Concepts.ml
+    Generated/Traits/Comparable.ml
+    Generated/Traits/Displayable.ml
+    Generated/Traits/Equatable.ml
+    Generated/Traits/OfStandardNumbers.ml
+    Generated/Traits/Parsable.ml
+    Generated/Traits/PredSucc.ml
+    Generated/Traits/Representable.ml
+    Generated/Traits/Ringoid.ml
+    Generated/Traits/ToStandardNumbers.ml
     Implementation/Array.ml
     Implementation/BigInt.ml
     Implementation/BinaryHeap.ml
@@ -139,7 +151,7 @@
     Traits/Scanable.signatures.ml
     Traits/ToStandardNumbers.ml
   )
-  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} -x python3:python3 %{src} -o %{targets}))
+  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
 )
 
 (library

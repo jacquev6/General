@@ -175,11 +175,7 @@ module Traits = struct
 end
 
 module Concepts = struct
-#ext python3
-from geni import *
-for concept in concepts:
-    generate(concept.implementation, indent=1)
-#endext
+  #include "Generated/Concepts.ml"
 end
 
 module Array = struct

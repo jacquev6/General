@@ -1,7 +1,8 @@
-#ext python3
-from geni import *
-generate(pred_succ.implementation_items)
-#endext
+module Generated = struct
+  #include "../Generated/Traits/PredSucc.ml"
+end
+
+include Generated
 
 module PredSucc = struct
   module Make0(M: sig
@@ -19,10 +20,7 @@ end
 module Tests = struct
   open Testing
 
-#ext python3
-from geni import *
-generate(pred_succ.tests_examples_implementation, indent=1)
-#endext
+  module Examples = Tests_.Examples
 
   module Make0(M: sig
     include S0

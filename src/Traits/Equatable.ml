@@ -1,7 +1,8 @@
-#ext python3
-from geni import *
-generate(equatable.implementation_items)
-#endext
+module Generated = struct
+  #include "../Generated/Traits/Equatable.ml"
+end
+
+include Generated
 
 module Different = struct
   module Make0(M: sig
@@ -95,10 +96,7 @@ end
 module Tests = struct
   open Testing
 
-#ext python3
-from geni import *
-generate(equatable.tests_examples_implementation, indent=1)
-#endext
+  module Examples = Tests_.Examples
 
   module Make0(M: sig
     include S0

@@ -211,11 +211,7 @@ module Traits: sig
   (** A *representation* is a string representing a value for a software developer audience.
   When possible, it should be a valid OCaml expression for the value. *)
 
-#ext python3
-from geni import *
-for trait in traits:
-    generate(trait.specification, indent=1)
-#endext
+  #include "Generated/Traits.mli"
 
   module FilterMapable: sig
     #include "Traits/FilterMapable.signatures.ml"
@@ -322,11 +318,7 @@ module Concepts: sig
   (* @feature Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer *)
   (* @feature Concepts.Stringable including Parsable and Displayable *)
 
-#ext python3
-from geni import *
-for concept in concepts:
-    generate(concept.specification, indent=1)
-#endext
+  #include "Generated/Concepts.mli"
 end
 
 (* Technical, utility modules *)

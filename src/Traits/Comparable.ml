@@ -1,7 +1,8 @@
-#ext python3
-from geni import *
-generate(comparable.implementation_items)
-#endext
+module Generated = struct
+  #include "../Generated/Traits/Comparable.ml"
+end
+
+include Generated
 
 (* @feature Descending, ascending *)
 
@@ -537,10 +538,7 @@ end
 module Tests = struct
   open Testing
 
-#ext python3
-from geni import *
-generate(comparable.tests_examples_implementation, indent=1)
-#endext
+  module Examples = Tests_.Examples
 
   module Make0(M: sig
     include S0
