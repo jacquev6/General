@@ -548,7 +548,7 @@ def abcd(arity):
 
 traits = []
 
-def trait(name, *, variadic, basics, extensions=[], has_tests=True, examples=[], test_requirements=[], test_element_requirements=[]):
+def trait(name, *, variadic=True, basics, extensions=[], has_tests=True, examples=[], test_requirements=[], test_element_requirements=[]):
     trait = Facets(
         prefix="Traits",
         name=name,
@@ -571,7 +571,6 @@ def trait(name, *, variadic, basics, extensions=[], has_tests=True, examples=[],
 
 representable = trait(
     "Representable",
-    variadic=True,
     basics=[
         val("repr", params=[variadic_type], return_="string"),
     ],
@@ -593,7 +592,6 @@ displayable = trait(
 
 equatable = trait(
     "Equatable",
-    variadic=True,
     basics=[
         val("equal", params=[variadic_type, variadic_type], return_="bool", operator="="),
     ],
@@ -631,7 +629,6 @@ parsable = trait(
 
 comparable = trait(
     "Comparable",
-    variadic=True,
     basics=[
         val(
             "compare",
