@@ -352,38 +352,44 @@ class Facets:
 
     def __tests_testable_mod_types(self):
         for arity in self.arities:
-            yield f"module type S{arity} = sig"
-            yield f"  include S{arity}"
+            yield mod_type(f"S{arity}", self.__tests_testable_mod_types_items(arity))
+
+    def __tests_testable_mod_types_items(self, arity):
+            yield f"include S{arity}"
             for req in self.test_requirements:
                 basic = "" if req.__is_basic() else "Basic."
-                yield f"  include {req.__contextualized_name(self.prefix)}.{basic}S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
-            yield "end"
+                yield f"include {req.__contextualized_name(self.prefix)}.{basic}S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
 
     def __tests_makers_specifications(self):
         for arity in self.arities:
-            yield f"module Make{arity}(M: Testable.S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t): sig"
-            yield "   val test: Test.t"
-            yield "end"
+            yield mod_spec(
+                f"Make{arity}(M: Testable.S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t)",
+                "val test: Test.t",
+            )
 
     def __tests_makers_implementations(self):
         for arity in self.arities:
-            yield f"module Make{arity}(M: Testable.S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t) = struct"
-            if self.examples_implementation is not None:
-                yield "  module E = struct"
-                yield "    include E"
-                yield indent(textwrap.dedent(self.examples_implementation).splitlines(), levels=2)
-                yield "  end"
-            yield f'  let test = "{self.name}" >:: ['
-            for base in self.inherited:
-                if base.publish_tests:
-                    yield f"    (let module T = {base.__contextualized_name(self.prefix)}.Tests.Make{arity}(M)(E) in T.test);"
-            if self.tests is not None:
-                yield "  ] @ ("
-                yield from indent(textwrap.dedent(self.tests).splitlines(), levels=2)
-                yield "  )"
-            else:
-                yield "  ]"
-            yield "end"
+            yield mod_impl(
+                f"Make{arity}(M: Testable.S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t)",
+                self.__tests_makers_implementations_items(arity),
+            )
+
+    def __tests_makers_implementations_items(self, arity):
+        if self.examples_implementation is not None:
+            yield mod_impl("E",
+                "include E",
+                textwrap.dedent(self.examples_implementation).splitlines(),
+            )
+        yield f'let test = "{self.name}" >:: ['
+        for base in self.inherited:
+            if base.publish_tests:
+                yield f"  (let module T = {base.__contextualized_name(self.prefix)}.Tests.Make{arity}(M)(E) in T.test);"
+        if self.tests is not None:
+            yield "] @ ("
+            yield from indent(textwrap.dedent(self.tests).splitlines())
+            yield ")"
+        else:
+            yield "]"
 
 
 def mod_spec(name, *items):
