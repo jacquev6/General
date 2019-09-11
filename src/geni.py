@@ -26,7 +26,7 @@ class Facets:
             prefix, name,
             variadic,
             inherited, base_values, extensions,
-            examples_implementation, tests, publish_tests, generate_tests, examples, test_requirements, test_element_requirements,
+            examples_implementation, tests, publish_tests, generate_tests, examples, test_requirements,
         ):
         self.prefix = prefix
         self.name = name
@@ -47,7 +47,6 @@ class Facets:
         self.generate_tests = generate_tests
         self.examples = list(examples)
         self.test_requirements = list(test_requirements)
-        self.test_element_requirements = list(test_element_requirements)
 
     @property
     def graphviz_label(self):
@@ -333,7 +332,7 @@ class Facets:
         yield "type t"
         basic = "" if self.__is_basic() else "Basic."
         yield f"include {basic}S0 with type t := t"
-        for req in self.test_element_requirements:
+        for req in self.test_requirements:
             basic = "" if req.__is_basic() else "Basic."
             yield f"include {req.name}.{basic}S0 with type t := t"
 
@@ -545,7 +544,7 @@ def abcd(arity):
 
 traits = []
 
-def trait(name, *, variadic=True, basics, extensions=[], has_tests=True, examples=[], test_requirements=[], test_element_requirements=[]):
+def trait(name, *, variadic=True, basics, extensions=[], has_tests=True, examples=[], test_requirements=[]):
     trait = Facets(
         prefix="Traits",
         name=name,
@@ -559,7 +558,6 @@ def trait(name, *, variadic=True, basics, extensions=[], has_tests=True, example
         generate_tests=False,
         examples=examples,
         test_requirements=test_requirements,
-        test_element_requirements=test_element_requirements,
     )
     traits.append(trait)
     return trait
@@ -603,12 +601,7 @@ equatable = trait(
         val("equal", params=[], return_=lambda *args: f"{variadic_type.make_type(*args)} list list"),
         val("different", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
     ],
-    test_requirements=[
-        representable,
-    ],
-    test_element_requirements=[
-        representable,
-    ],
+    test_requirements=[representable],
 )
 
 parsable = trait(
@@ -664,14 +657,7 @@ comparable = trait(
         val("ordered", params=[], return_=lambda *args: f"{variadic_type.make_type(*args)} list list"),
         val("equal", params=[], return_=lambda *args: f"{variadic_type.make_type(*args)} list list"),
     ],
-    test_requirements=[
-        equatable,
-        representable,
-    ],
-    test_element_requirements=[
-        equatable,
-        representable,
-    ],
+    test_requirements=[equatable, representable],
 )
 
 ringoid = trait(
@@ -704,10 +690,7 @@ ringoid = trait(
         val("divide", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
         val("exponentiate", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * int * {variadic_type.make_type(*args)}) list"),
     ],
-    test_requirements=[
-        equatable,
-        representable,
-    ],
+    test_requirements=[equatable, representable],
 )
 
 of_standard_numbers = trait(
@@ -752,10 +735,7 @@ pred_succ = trait(
     examples=[
         val("succ", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
     ],
-    test_requirements=[
-        representable,
-        equatable,
-    ],
+    test_requirements=[equatable, representable],
 )
 
 
@@ -775,7 +755,6 @@ def concept(name, *, inherited, basics=[], examples=None, tests=None, test_requi
         generate_tests=True,
         examples=[],
         test_requirements=test_requirements,
-        test_element_requirements=[],
     )
     concepts.append(concept)
     return concept

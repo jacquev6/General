@@ -993,8 +993,8 @@ module PredSucc: sig
     module Testable: sig
       module type S0 = sig
         include S0
-        include Representable.S0 with type t := t
         include Equatable.Basic.S0 with type t := t
+        include Representable.S0 with type t := t
       end
     end
     module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
