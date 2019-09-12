@@ -5,14 +5,15 @@ end
 include Generated
 
 module Tests = struct
-  open Testing
-
   include Tests_
 
-  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = E
+
+  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+    open Testing
     open M
 
-    let test = "Parsable" >:: (
+    let tests = (
       E.of_string
       |> List.flat_map ~f:(fun (s, expected) ->
         [
@@ -22,4 +23,6 @@ module Tests = struct
       )
     )
   end
+
+  include MakeMakers(MakeExamples)(MakeTests)
 end

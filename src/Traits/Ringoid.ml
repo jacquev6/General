@@ -64,49 +64,50 @@ module Exponentiate = struct
 end
 
 module Tests = struct
-  open Testing
-
   include Tests_
 
-  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig val test: Test.t end = struct
+  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+    open M
+
+    include E
+
+    let add_substract = add_substract @ [
+      (zero, zero, zero);
+      (one, zero, one);
+    ]
+
+    let negate = negate @ [
+      (zero, zero);
+    ]
+
+    let multiply = multiply @ [
+      (zero, zero, zero);
+      (one, zero, zero);
+    ]
+
+    let divide = divide @ [
+      (zero, one, zero);
+      (one, one, one);
+    ]
+
+    let exponentiate = exponentiate @ [
+      (zero, 0, one);
+      (zero, 1, zero);
+      (zero, 7, zero);
+      (one, 0, one);
+      (one, 1, one);
+      (one, 7, one);
+    ]
+  end
+
+  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+    open Testing
     open M
     open M.O
 
-    module E = struct
-      include E
-
-      let add_substract = add_substract @ [
-        (zero, zero, zero);
-        (one, zero, one);
-      ]
-
-      let negate = negate @ [
-        (zero, zero);
-      ]
-
-      let multiply = multiply @ [
-        (zero, zero, zero);
-        (one, zero, zero);
-      ]
-
-      let divide = divide @ [
-        (zero, one, zero);
-        (one, one, one);
-      ]
-
-      let exponentiate = exponentiate @ [
-        (zero, 0, one);
-        (zero, 1, zero);
-        (zero, 7, zero);
-        (one, 0, one);
-        (one, 1, one);
-        (one, 7, one);
-      ]
-    end
-
     let check = check ~repr ~equal
 
-    let test = "Ringoid" >:: (
+    let tests = (
       E.add_substract
       |> List.flat_map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y and rz = repr z in
@@ -171,4 +172,6 @@ module Tests = struct
       )
     )
   end
+
+  include MakeMakers(MakeExamples)(MakeTests)
 end

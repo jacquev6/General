@@ -18,14 +18,15 @@ module PredSucc = struct
 end
 
 module Tests = struct
-  open Testing
-
   include Tests_
 
-  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = E
+
+  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+    open Testing
     open M
 
-    let test = "PredSucc" >:: (
+    let tests = (
       E.succ
       |> List.flat_map ~f:(fun (p, s) ->
         let rp = repr p and rs = repr s in
@@ -36,4 +37,6 @@ module Tests = struct
       )
     )
   end
+
+  include MakeMakers(MakeExamples)(MakeTests)
 end

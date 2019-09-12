@@ -536,11 +536,12 @@ module MinMax = struct
 end
 
 module Tests = struct
-  open Testing
-
   include Tests_
 
-  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = E
+
+  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+    open Testing
     open M
     open M.O
 
@@ -551,7 +552,7 @@ module Tests = struct
 
     let check = check ~repr ~equal
 
-    let test = "Comparable" >:: (
+    let tests = (
       E.ordered
       |> List.flat_map ~f:(fun xs ->
         List.fold ~init:(List.head xs, []) (List.tail xs) ~f:(fun (x, tests) y ->
@@ -631,33 +632,5 @@ module Tests = struct
     )
   end
 
-  module Make1(M: Testable.S1)(E: Examples.S1 with type 'a t := 'a M.t) = Make0(struct
-    include Specialize1(M)(E.A)
-    include (Representable.Specialize1(M)(E.A): Representable.S0 with type t := t)
-    include (Equatable.Basic.Specialize1(M)(E.A): Equatable.Basic.S0 with type t := t)
-  end)(E)
-
-  module Make2(M: Testable.S2)(E: Examples.S2 with type ('a, 'b) t := ('a, 'b) M.t) = Make0(struct
-    include Specialize2(M)(E.A)(E.B)
-    include (Representable.Specialize2(M)(E.A)(E.B): Representable.S0 with type t := t)
-    include (Equatable.Basic.Specialize2(M)(E.A)(E.B): Equatable.Basic.S0 with type t := t)
-  end)(E)
-
-  module Make3(M: Testable.S3)(E: Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) M.t) = Make0(struct
-    include Specialize3(M)(E.A)(E.B)(E.C)
-    include (Representable.Specialize3(M)(E.A)(E.B)(E.C): Representable.S0 with type t := t)
-    include (Equatable.Basic.Specialize3(M)(E.A)(E.B)(E.C): Equatable.Basic.S0 with type t := t)
-  end)(E)
-
-  module Make4(M: Testable.S4)(E: Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) M.t) = Make0(struct
-    include Specialize4(M)(E.A)(E.B)(E.C)(E.D)
-    include (Representable.Specialize4(M)(E.A)(E.B)(E.C)(E.D): Representable.S0 with type t := t)
-    include (Equatable.Basic.Specialize4(M)(E.A)(E.B)(E.C)(E.D): Equatable.Basic.S0 with type t := t)
-  end)(E)
-
-  module Make5(M: Testable.S5)(E: Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) M.t) = Make0(struct
-    include Specialize5(M)(E.A)(E.B)(E.C)(E.D)(E.E)
-    include (Representable.Specialize5(M)(E.A)(E.B)(E.C)(E.D)(E.E): Representable.S0 with type t := t)
-    include (Equatable.Basic.Specialize5(M)(E.A)(E.B)(E.C)(E.D)(E.E): Equatable.Basic.S0 with type t := t)
-  end)(E)
+  include MakeMakers(MakeExamples)(MakeTests)
 end

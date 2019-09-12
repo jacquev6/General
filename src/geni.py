@@ -362,22 +362,23 @@ class Facets:
             )
 
     def __tests_makers_implementations(self):
-        yield "module MakeMakers(MakeExamples: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> Examples.S0 with type t := M.t)(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct"
-        yield indent(mod_impl(
-            "Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t)",
-            self.__tests_make0_implementations_items(),
-        ))
-        for arity in self.non_zero_arities:
-            functor_args = "".join(f"(E.{a.upper()})" for a in abcd(arity))
-            yield indent(mod_impl(
-                f"Make{arity}(M: Testable.S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t)",
-                "include Make0(struct",
-                indent(f"include Specialize{arity}(M){functor_args}"),
-                "end)(E)",
-            ))
-        yield "end"
+        yield mod_impl(
+            "MakeMakers(MakeExamples: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> Examples.S0 with type t := M.t)(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end)",
+            self.__tests_makers_implementations_items(),
+        )
 
-    def __tests_make0_implementations_items(self):
+    def __tests_makers_implementations_items(self):
+        yield mod_impl(
+            "Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t)",
+            self.__tests_make0_implementation_items(),
+        )
+        for arity in self.non_zero_arities:
+            yield mod_impl(
+                f"Make{arity}(M: Testable.S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t)",
+                self.__tests_maker_implementation_items(arity),
+            )
+
+    def __tests_make0_implementation_items(self):
         yield "open Testing"
         yield "module E = MakeExamples(M)(E)"
         yield f'let test = "{self.name}" >:: ['
@@ -385,6 +386,15 @@ class Facets:
             if base.publish_tests:  # @todo Ensure all traits do publish tests, then remove this condition
                 yield f"  (let module T = {base.__contextualized_name(self.prefix)}.Tests.Make0(M)(E) in T.test);"
         yield "] @ (let module T = MakeTests(M)(E) in T.tests)"
+
+    def __tests_maker_implementation_items(self, arity):
+        yield "include Make0(struct",
+        functor_args = "".join(f"(E.{a.upper()})" for a in abcd(arity))
+        yield indent(f"include Specialize{arity}(M){functor_args}"),
+        for req in self.test_requirements:
+            basic = "" if req.__is_basic() else "Basic."
+            yield indent(f"include ({req.__contextualized_name(self.prefix)}.{basic}Specialize{arity}(M){functor_args}: {req.__contextualized_name(self.prefix)}.{basic}S0 with type t := t)")
+        yield "end)(E)",
 
 
 def mod_spec(name, *items):
@@ -549,7 +559,7 @@ def trait(name, *, variadic=True, basics, extensions=[], has_tests=True, example
         base_values=basics,
         extensions=extensions,
         publish_tests=has_tests,
-        generate_tests=False,
+        generate_tests=has_tests,
         examples=examples,
         test_requirements=test_requirements,
     )
