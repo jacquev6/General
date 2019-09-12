@@ -3,532 +3,60 @@
 (* @feature Descending, ascending *)
 
 module GreaterLessThan = struct
-  module Make0(M: sig
-    type t
-
-    val compare: t -> t
-      -> Compare.t
-  end) = struct
-    open M
+  include GreaterLessThan_.MakeMakers(struct
     open Compare
 
-    let less_than x y =
+    let less_than ~compare x y =
       match compare x y with
         | LT -> true
         | _ -> false
 
-    let less_or_equal x y =
+    let less_or_equal ~compare x y =
       match compare x y with
         | GT -> false
         | _ -> true
 
-    let greater_than x y =
+    let greater_than ~compare x y =
       match compare x y with
         | GT -> true
         | _ -> false
 
-    let greater_or_equal x y =
+    let greater_or_equal ~compare x y =
       match compare x y with
         | LT -> false
         | _ -> true
-  end
-
-  module Make1(M: sig
-    type 'a t
-
-    val compare: 'a t -> 'a t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> Compare.t
-  end) = struct
-    open M
-    open Compare
-
-    let less_than x y ~compare_a =
-      match compare x y ~compare_a with
-        | LT -> true
-        | _ -> false
-
-    let less_or_equal x y ~compare_a =
-      match compare x y ~compare_a with
-        | GT -> false
-        | _ -> true
-
-    let greater_than x y ~compare_a =
-      match compare x y ~compare_a with
-        | GT -> true
-        | _ -> false
-
-    let greater_or_equal x y ~compare_a =
-      match compare x y ~compare_a with
-        | LT -> false
-        | _ -> true
-  end
-
-  module Make2(M: sig
-    type ('a, 'b) t
-
-    val compare: ('a, 'b) t -> ('a, 'b) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> Compare.t
-  end) = struct
-    open M
-    open Compare
-
-    let less_than x y ~compare_a ~compare_b =
-      match compare x y ~compare_a ~compare_b with
-        | LT -> true
-        | _ -> false
-
-    let less_or_equal x y ~compare_a ~compare_b =
-      match compare x y ~compare_a ~compare_b with
-        | GT -> false
-        | _ -> true
-
-    let greater_than x y ~compare_a ~compare_b =
-      match compare x y ~compare_a ~compare_b with
-        | GT -> true
-        | _ -> false
-
-    let greater_or_equal x y ~compare_a ~compare_b =
-      match compare x y ~compare_a ~compare_b with
-        | LT -> false
-        | _ -> true
-  end
-
-  module Make3(M: sig
-    type ('a, 'b, 'c) t
-
-    val compare: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> Compare.t
-  end) = struct
-    open M
-    open Compare
-
-    let less_than x y ~compare_a ~compare_b ~compare_c =
-      match compare x y ~compare_a ~compare_b ~compare_c with
-        | LT -> true
-        | _ -> false
-
-    let less_or_equal x y ~compare_a ~compare_b ~compare_c =
-      match compare x y ~compare_a ~compare_b ~compare_c with
-        | GT -> false
-        | _ -> true
-
-    let greater_than x y ~compare_a ~compare_b ~compare_c =
-      match compare x y ~compare_a ~compare_b ~compare_c with
-        | GT -> true
-        | _ -> false
-
-    let greater_or_equal x y ~compare_a ~compare_b ~compare_c =
-      match compare x y ~compare_a ~compare_b ~compare_c with
-        | LT -> false
-        | _ -> true
-  end
-
-  module Make4(M: sig
-    type ('a, 'b, 'c, 'd) t
-
-    val compare: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> Compare.t
-  end) = struct
-    open M
-    open Compare
-
-    let less_than x y ~compare_a ~compare_b ~compare_c ~compare_d =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d with
-        | LT -> true
-        | _ -> false
-
-    let less_or_equal x y ~compare_a ~compare_b ~compare_c ~compare_d =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d with
-        | GT -> false
-        | _ -> true
-
-    let greater_than x y ~compare_a ~compare_b ~compare_c ~compare_d =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d with
-        | GT -> true
-        | _ -> false
-
-    let greater_or_equal x y ~compare_a ~compare_b ~compare_c ~compare_d =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d with
-        | LT -> false
-        | _ -> true
-  end
-
-  module Make5(M: sig
-    type ('a, 'b, 'c, 'd, 'e) t
-
-    val compare: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> compare_e:('e -> 'e -> Compare.t)
-      -> Compare.t
-  end) = struct
-    open M
-    open Compare
-
-    let less_than x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e with
-        | LT -> true
-        | _ -> false
-
-    let less_or_equal x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e with
-        | GT -> false
-        | _ -> true
-
-    let greater_than x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e with
-        | GT -> true
-        | _ -> false
-
-    let greater_or_equal x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e with
-        | LT -> false
-        | _ -> true
-  end
+  end)
 end
 
 module Between = struct
-  module Make0(M: sig
-    type t
+  include Between_.MakeMakers(struct
+    let between ~less_than ~less_or_equal:_ ~greater_than ~greater_or_equal:_ x ~low ~high =
+      less_than low x && greater_than high x
 
-    val less_than: t -> t
-      -> bool
-    val less_or_equal: t -> t
-      -> bool
-    val greater_than: t -> t
-      -> bool
-    val greater_or_equal: t -> t
-      -> bool
-  end) = struct
-    open M
-
-    let between x ~low ~high =
-      less_than low x
-      && greater_than high x
-
-    let between_or_equal x ~low ~high =
-      less_or_equal low x
-      && greater_or_equal high x
-  end
-
-  module Make1(M: sig
-    type 'a t
-
-    val less_than: 'a t -> 'a t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> bool
-    val less_or_equal: 'a t -> 'a t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> bool
-    val greater_than: 'a t -> 'a t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> bool
-    val greater_or_equal: 'a t -> 'a t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> bool
-  end) = struct
-    open M
-    open Compare
-
-    let between x ~low ~high ~compare_a =
-      less_than low x ~compare_a
-      && greater_than high x ~compare_a
-
-    let between_or_equal x ~low ~high ~compare_a =
-      less_or_equal low x ~compare_a
-      && greater_or_equal high x ~compare_a
-  end
-
-  module Make2(M: sig
-    type ('a, 'b) t
-
-    val less_than: ('a, 'b) t -> ('a, 'b) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> bool
-    val less_or_equal: ('a, 'b) t -> ('a, 'b) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> bool
-    val greater_than: ('a, 'b) t -> ('a, 'b) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> bool
-    val greater_or_equal: ('a, 'b) t -> ('a, 'b) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> bool
-  end) = struct
-    open M
-
-    let between x ~low ~high ~compare_a ~compare_b =
-      less_than low x ~compare_a ~compare_b
-      && greater_than high x ~compare_a ~compare_b
-
-    let between_or_equal x ~low ~high ~compare_a ~compare_b =
-      less_or_equal low x ~compare_a ~compare_b
-      && greater_or_equal high x ~compare_a ~compare_b
-  end
-
-  module Make3(M: sig
-    type ('a, 'b, 'c) t
-
-    val less_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> bool
-    val less_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> bool
-    val greater_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> bool
-    val greater_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> bool
-  end) = struct
-    open M
-
-    let between x ~low ~high ~compare_a ~compare_b ~compare_c =
-      less_than low x ~compare_a ~compare_b ~compare_c
-      && greater_than high x ~compare_a ~compare_b ~compare_c
-
-    let between_or_equal x ~low ~high ~compare_a ~compare_b ~compare_c =
-      less_or_equal low x ~compare_a ~compare_b ~compare_c
-      && greater_or_equal high x ~compare_a ~compare_b ~compare_c
-  end
-
-  module Make4(M: sig
-    type ('a, 'b, 'c, 'd) t
-
-    val less_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> bool
-    val less_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> bool
-    val greater_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> bool
-    val greater_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> bool
-  end) = struct
-    open M
-
-    let between x ~low ~high ~compare_a ~compare_b ~compare_c ~compare_d =
-      less_than low x ~compare_a ~compare_b ~compare_c ~compare_d
-      && greater_than high x ~compare_a ~compare_b ~compare_c ~compare_d
-
-    let between_or_equal x ~low ~high ~compare_a ~compare_b ~compare_c ~compare_d =
-      less_or_equal low x ~compare_a ~compare_b ~compare_c ~compare_d
-      && greater_or_equal high x ~compare_a ~compare_b ~compare_c ~compare_d
-  end
-
-  module Make5(M: sig
-    type ('a, 'b, 'c, 'd, 'e) t
-
-    val less_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> compare_e:('e -> 'e -> Compare.t)
-      -> bool
-    val less_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> compare_e:('e -> 'e -> Compare.t)
-      -> bool
-    val greater_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> compare_e:('e -> 'e -> Compare.t)
-      -> bool
-    val greater_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> compare_e:('e -> 'e -> Compare.t)
-      -> bool
-  end) = struct
-    open M
-
-    let between x ~low ~high ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e =
-      less_than low x ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e
-      && greater_than high x ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e
-
-    let between_or_equal x ~low ~high ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e =
-      less_or_equal low x ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e
-      && greater_or_equal high x ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e
-  end
+    let between_or_equal ~less_than:_ ~less_or_equal ~greater_than:_ ~greater_or_equal x ~low ~high =
+      less_or_equal low x && greater_or_equal high x
+  end)
 end
 
 module MinMax = struct
-  module Make0(M: sig
-    type t
-
-    val compare: t -> t
-      -> Compare.t
-  end) = struct
-    open M
+  include MinMax_.MakeMakers(struct
     open Compare
 
-    let min x y =
-      match compare x y with LT -> x | GT | EQ -> y
+    let min ~compare x y =
+      match compare x y with
+        | LT -> x
+        | GT | EQ -> y
 
-    let max x y =
-      match compare x y with GT -> x | LT | EQ -> y
+    let max ~compare x y =
+      match compare x y with
+        | GT -> x
+        | LT | EQ -> y
 
-    let min_max x y =
-      match compare x y with LT -> (x, y) | GT | EQ -> (y, x)
-  end
-
-  module Make1(M: sig
-    type 'a t
-
-    val compare: 'a t -> 'a t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> Compare.t
-  end) = struct
-    open M
-    open Compare
-
-    let min x y ~compare_a =
-      match compare x y ~compare_a with LT -> x | GT | EQ -> y
-
-    let max x y ~compare_a =
-      match compare x y ~compare_a with GT -> x | LT | EQ -> y
-
-    let min_max x y ~compare_a =
-      match compare x y ~compare_a with LT -> (x, y) | GT | EQ -> (y, x)
-  end
-
-  module Make2(M: sig
-    type ('a, 'b) t
-
-    val compare: ('a, 'b) t -> ('a, 'b) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> Compare.t
-  end) = struct
-    open M
-    open Compare
-
-    let min x y ~compare_a ~compare_b =
-      match compare x y ~compare_a ~compare_b with LT -> x | GT | EQ -> y
-
-    let max x y ~compare_a ~compare_b =
-      match compare x y ~compare_a ~compare_b with GT -> x | LT | EQ -> y
-
-    let min_max x y ~compare_a ~compare_b =
-      match compare x y ~compare_a ~compare_b with LT -> (x, y) | GT | EQ -> (y, x)
-  end
-
-  module Make3(M: sig
-    type ('a, 'b, 'c) t
-
-    val compare: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> Compare.t
-  end) = struct
-    open M
-    open Compare
-
-    let min x y ~compare_a ~compare_b ~compare_c =
-      match compare x y ~compare_a ~compare_b ~compare_c with LT -> x | GT | EQ -> y
-
-    let max x y ~compare_a ~compare_b ~compare_c =
-      match compare x y ~compare_a ~compare_b ~compare_c with GT -> x | LT | EQ -> y
-
-    let min_max x y ~compare_a ~compare_b ~compare_c =
-      match compare x y ~compare_a ~compare_b ~compare_c with LT -> (x, y) | GT | EQ -> (y, x)
-  end
-
-  module Make4(M: sig
-    type ('a, 'b, 'c, 'd) t
-
-    val compare: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> Compare.t
-  end) = struct
-    open M
-    open Compare
-
-    let min x y ~compare_a ~compare_b ~compare_c ~compare_d =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d with LT -> x | GT | EQ -> y
-
-    let max x y ~compare_a ~compare_b ~compare_c ~compare_d =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d with GT -> x | LT | EQ -> y
-
-    let min_max x y ~compare_a ~compare_b ~compare_c ~compare_d =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d with LT -> (x, y) | GT | EQ -> (y, x)
-  end
-
-  module Make5(M: sig
-    type ('a, 'b, 'c, 'd, 'e) t
-
-    val compare: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-      -> compare_a:('a -> 'a -> Compare.t)
-      -> compare_b:('b -> 'b -> Compare.t)
-      -> compare_c:('c -> 'c -> Compare.t)
-      -> compare_d:('d -> 'd -> Compare.t)
-      -> compare_e:('e -> 'e -> Compare.t)
-      -> Compare.t
-  end) = struct
-    open M
-    open Compare
-
-    let min x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e with LT -> x | GT | EQ -> y
-
-    let max x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e with GT -> x | LT | EQ -> y
-
-    let min_max x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e =
-      match compare x y ~compare_a ~compare_b ~compare_c ~compare_d ~compare_e with LT -> (x, y) | GT | EQ -> (y, x)
-  end
+    let min_max ~compare x y =
+      match compare x y with
+        | LT -> (x, y)
+        | GT | EQ -> (y, x)
+  end)
 end
 
 module Tests = struct

@@ -88,7 +88,9 @@ class Facets:
         else:
             yield self.__extended_implementation_items()
 
-        # @todo Generate extension makers: yield self.__extensions_makers_implementation_items()
+        # @todo Generate extension makers for all facets
+        if self.name == "Comparable":
+            yield self.__extensions_makers_implementation_items()
 
         yield self.__tests_implementation()
 
@@ -265,7 +267,11 @@ class Facets:
     def __extension_makers_specification_items(self):
         for extension in self.extensions:
             yield mod_spec(extension.name, (self.__extension_maker_specification(extension, arity) for arity in self.arities))
-                
+
+    def __extensions_makers_implementation_items(self):
+        for extension in self.extensions:
+            yield mod_impl(f"{extension.name}_", self.__extensions_makers_implementation(extension))
+
     def __extension_maker_specification(self, extension, arity):
         yield f"module Make{arity}(M: sig"
         yield f"  type {type_params(arity)}t"
@@ -286,6 +292,36 @@ class Facets:
                 if item.name == prod:  # @todo Resolve this search when constructing the object
                     yield indent(item.make_signature(self.base_values, arity, t=f"{type_params(arity)}M.t"))
                     break
+        yield "end"
+
+    def __extensions_makers_implementation(self, extension):
+        yield "module MakeMakers(Implementation: sig"
+        additional_prefix_params = []
+        for req in extension.requirements:
+            assert isinstance(req, str)
+            for item in self.all_items:
+                if item.name == req:  # @todo Resolve this search when constructing the object
+                    additional_prefix_params.append(named(req, item.make_type(self.base_values, 0, t="'a")).make_type(self.base_values, 0))
+                    break
+        for item in extension.members:
+            yield indent(item.make_signature(self.base_values, 0, t=f"'a", additional_prefix_params=additional_prefix_params))  # @todo (?) Use 't instead of 'a
+        yield "end) = struct"
+        for arity in self.arities:
+            yield f"  module Make{arity}(M: sig"
+            yield f"    type {type_params(arity)}t"
+            for req in extension.requirements:
+                if isinstance(req, str):
+                    for item in self.all_items:
+                        if item.name == req:  # @todo Resolve this search when constructing the object
+                            yield indent(item.make_signature(self.base_values, arity), levels=2)
+                            break
+                else:
+                    assert False
+                    yield indent(req.make_signature(self.base_values, arity))
+            yield "  end) = struct"
+            for item in extension.members:
+                yield indent(item.make_extension(extension.requirements, self.base_values, arity), levels=2)
+            yield "  end"
         yield "end"
 
     # Tests
@@ -469,12 +505,16 @@ class VariadicFunction:
         self.return_ = return_
         self.operator = operator
     
-    def make_signature(self, basics, arity, operator=False, t=None):
+    def make_signature(self, basics, arity, operator=False, t=None, additional_prefix_params=[]):
         if operator:
             name = f"( {self.operator} )"
         else:
             name = self.name
-        return f"val {name}: " + " -> ".join(itertools.chain(
+        return f"val {name}: " + self.make_type(basics, arity, t=t, additional_prefix_params=additional_prefix_params)
+
+    def make_type(self, basics, arity, t=None, additional_prefix_params=[]):
+        return " -> ".join(itertools.chain(
+            additional_prefix_params,
             (p.make_type(arity, t) for p in self.params),
             (f"{self.delegate}_{a}:({self.__make_delegate_type(basics, a)})" for a in abcd(arity)),
             [self.return_.make_type(arity, t)],
@@ -497,6 +537,19 @@ class VariadicFunction:
             (p.make_pattern(i) for (i, p) in enumerate(self.params)),
             (f"~{self.delegate}_{a}:{a.upper()}.{self.delegate}" for a in abcd(arity))
         ))
+
+    def make_extension(self, requirements, basics, arity):
+        return f"let {self.name} " + " ".join(itertools.chain(
+            (p.make_pattern(i) for (i, p) in enumerate(self.params)),
+            (f"~{self.delegate}_{a}" for a in abcd(arity)),
+        )) + (
+            f" = Implementation.{self.name} "
+            + "".join(
+                f"~{req}:(M.{req}" + "".join(f" ~{self.delegate}_{a}" for a in abcd(arity)) + ") "
+                for req in requirements
+            )
+            + " ".join(p.make_pattern(i) for (i, p) in enumerate(self.params))
+        )
 
 
 def val(name, *, params, delegate=None, return_, operator=None):
