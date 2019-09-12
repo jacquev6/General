@@ -3,6 +3,22 @@ module type S0 = sig
   val pred: t -> t
   val succ: t -> t
 end
+module PredSucc_ = struct
+  module MakeMakers(Implementation: sig
+    val pred: one:('a) -> add:('a -> 'a -> 'a) -> substract:('a -> 'a -> 'a) -> 'a -> 'a
+    val succ: one:('a) -> add:('a -> 'a -> 'a) -> substract:('a -> 'a -> 'a) -> 'a -> 'a
+  end) = struct
+    module Make0(M: sig
+      type t
+      val one: t
+      val add: t -> t -> t
+      val substract: t -> t -> t
+    end) = struct
+      let pred x = Implementation.pred ~one:(M.one) ~add:(M.add) ~substract:(M.substract) x
+      let succ x = Implementation.succ ~one:(M.one) ~add:(M.add) ~substract:(M.substract) x
+    end
+  end
+end
 module Tests_ = struct
   module Examples = struct
     module type S0 = sig

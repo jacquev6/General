@@ -2,47 +2,22 @@
 
 (* @todo Fix spelling of 'subtract' *)
 module Substract = struct
-  module Make0(M: sig
-    type t
-
-    val negate: t -> t
-    val add: t -> t -> t
-  end) = struct
-    open M
-
-    let substract x y =
+  include Substract_.MakeMakers(struct
+    let substract ~negate ~add x y =
       add x (negate y)
-  end
+  end)
 end
 
 module Square = struct
-  module Make0(M: sig
-    type t
-
-    val multiply: t -> t -> t
-  end) = struct
-    open M
-
-    let square x =
+  include Square_.MakeMakers(struct
+    let square ~multiply x =
       multiply x x
-  end
+  end)
 end
 
 module Exponentiate = struct
-  module Make0(M: sig
-    type t
-
-    val one: t
-
-    val square: t -> t
-    val multiply: t -> t -> t
-
-    val exponentiate_negative_exponent: exponentiate:(t -> int -> t) -> t -> int -> t
-  end) = struct
-    open M
-    open Int.O
-
-    let exponentiate x n =
+  include Exponentiate_.MakeMakers(struct
+    let exponentiate ~one ~square ~multiply ~exponentiate_negative_exponent x n =
       let rec aux y x n =
         if n < 0 then
           exponentiate_negative_exponent ~exponentiate:(aux one) x n
@@ -56,7 +31,7 @@ module Exponentiate = struct
           aux (multiply x y) (square x) ((n - 1) / 2)
       in
       aux one x n
-  end
+  end)
 end
 
 module Tests = struct

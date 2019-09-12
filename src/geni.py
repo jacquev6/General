@@ -88,9 +88,7 @@ class Facets:
         else:
             yield self.__extended_implementation_items()
 
-        # @todo Generate extension makers for all facets
-        if self.name == "Comparable":
-            yield self.__extensions_makers_implementation_items()
+        yield self.__extensions_makers_implementation_items()
 
         yield self.__tests_implementation()
 
@@ -298,29 +296,40 @@ class Facets:
         yield "module MakeMakers(Implementation: sig"
         additional_prefix_params = []
         for req in extension.requirements:
-            assert isinstance(req, str)
-            for item in self.all_items:
-                if item.name == req:  # @todo Resolve this search when constructing the object
-                    additional_prefix_params.append(named(req, item.make_type(self.base_values, 0, t="'a")).make_type(self.base_values, 0))
-                    break
+            if isinstance(req, str):
+                for item in self.all_items:
+                    if item.name == req:  # @todo Resolve this search when constructing the object
+                        break
+            else:
+                item = req
+            additional_prefix_params.append(named(item.name, item.make_type(self.base_values, 0, t="'a")).make_type(self.base_values, 0))
         for item in extension.members:
             yield indent(item.make_signature(self.base_values, 0, t=f"'a", additional_prefix_params=additional_prefix_params))  # @todo (?) Use 't instead of 'a
+        for prod in extension.basic_production:
+            for item in self.base_values:
+                if item.name == prod:  # @todo Resolve this search when constructing the object
+                    yield indent(item.make_signature(self.base_values, 0, t=f"'a", additional_prefix_params=additional_prefix_params))  # @todo (?) Use 't instead of 'a
         yield "end) = struct"
         for arity in self.arities:
             yield f"  module Make{arity}(M: sig"
             yield f"    type {type_params(arity)}t"
+            requirement_names = []
             for req in extension.requirements:
                 if isinstance(req, str):
                     for item in self.all_items:
                         if item.name == req:  # @todo Resolve this search when constructing the object
-                            yield indent(item.make_signature(self.base_values, arity), levels=2)
                             break
                 else:
-                    assert False
-                    yield indent(req.make_signature(self.base_values, arity))
+                    item = req
+                yield indent(item.make_signature(self.base_values, arity), levels=2)
+                requirement_names.append(item.name)
             yield "  end) = struct"
             for item in extension.members:
-                yield indent(item.make_extension(extension.requirements, self.base_values, arity), levels=2)
+                yield indent(item.make_extension(requirement_names, self.base_values, arity), levels=2)
+            for prod in extension.basic_production:
+                for item in self.base_values:
+                    if item.name == prod:  # @todo Resolve this search when constructing the object
+                        yield indent(item.make_extension(requirement_names, self.base_values, arity), levels=2)
             yield "  end"
         yield "end"
 
@@ -728,7 +737,7 @@ ringoid = trait(
         Extension(
             "Exponentiate",
             [val("exponentiate", params=[variadic_type, "int"], return_=variadic_type, operator="**")],
-            requirements=["one", "square", "multiply", val("exponentiate_negative_exponent", params=[named("exponentiate", "t -> int -> t"), variadic_type, "int"], return_=variadic_type)],
+            requirements=["one", "square", "multiply", val("exponentiate_negative_exponent", params=[named("exponentiate", CustomReturn(lambda *args: f"{variadic_type.make_type(*args)} -> int -> {variadic_type.make_type(*args)}")), variadic_type, "int"], return_=variadic_type)],
         ),
     ],
     examples=[

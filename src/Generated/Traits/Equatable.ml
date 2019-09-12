@@ -134,6 +134,48 @@ module Specialize5(M: S5)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0)(E:
   module O = Operators.Make0(Self)
   include Self
 end
+module Different_ = struct
+  module MakeMakers(Implementation: sig
+    val different: equal:('a -> 'a -> bool) -> 'a -> 'a -> bool
+  end) = struct
+    module Make0(M: sig
+      type t
+      val equal: t -> t -> bool
+    end) = struct
+      let different x y = Implementation.different ~equal:(M.equal) x y
+    end
+    module Make1(M: sig
+      type 'a t
+      val equal: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+    end) = struct
+      let different x y ~equal_a = Implementation.different ~equal:(M.equal ~equal_a) x y
+    end
+    module Make2(M: sig
+      type ('a, 'b) t
+      val equal: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
+    end) = struct
+      let different x y ~equal_a ~equal_b = Implementation.different ~equal:(M.equal ~equal_a ~equal_b) x y
+    end
+    module Make3(M: sig
+      type ('a, 'b, 'c) t
+      val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
+    end) = struct
+      let different x y ~equal_a ~equal_b ~equal_c = Implementation.different ~equal:(M.equal ~equal_a ~equal_b ~equal_c) x y
+    end
+    module Make4(M: sig
+      type ('a, 'b, 'c, 'd) t
+      val equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
+    end) = struct
+      let different x y ~equal_a ~equal_b ~equal_c ~equal_d = Implementation.different ~equal:(M.equal ~equal_a ~equal_b ~equal_c ~equal_d) x y
+    end
+    module Make5(M: sig
+      type ('a, 'b, 'c, 'd, 'e) t
+      val equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
+    end) = struct
+      let different x y ~equal_a ~equal_b ~equal_c ~equal_d ~equal_e = Implementation.different ~equal:(M.equal ~equal_a ~equal_b ~equal_c ~equal_d ~equal_e) x y
+    end
+  end
+end
 module Tests_ = struct
   module Examples = struct
     module type Element = sig

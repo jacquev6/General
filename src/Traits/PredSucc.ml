@@ -1,16 +1,10 @@
 #include "../Generated/Traits/PredSucc.ml"
 
 module PredSucc = struct
-  module Make0(M: sig
-    type t
-    val one: t
-    val add: t -> t -> t
-    val substract: t -> t -> t
-  end) = struct
-    open M
-    let pred x = substract x one
-    let succ x = add x one
-  end
+  include PredSucc_.MakeMakers(struct
+    let pred ~one ~add:_ ~substract x = substract x one
+    let succ ~one ~add ~substract:_ x = add x one
+  end)
 end
 
 module Tests = struct

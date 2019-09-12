@@ -43,6 +43,46 @@ module type S0 = sig
   val square: t -> t
   val exponentiate: t -> int -> t
 end
+module Substract_ = struct
+  module MakeMakers(Implementation: sig
+    val substract: negate:('a -> 'a) -> add:('a -> 'a -> 'a) -> 'a -> 'a -> 'a
+  end) = struct
+    module Make0(M: sig
+      type t
+      val negate: t -> t
+      val add: t -> t -> t
+    end) = struct
+      let substract x y = Implementation.substract ~negate:(M.negate) ~add:(M.add) x y
+    end
+  end
+end
+module Square_ = struct
+  module MakeMakers(Implementation: sig
+    val square: multiply:('a -> 'a -> 'a) -> 'a -> 'a
+  end) = struct
+    module Make0(M: sig
+      type t
+      val multiply: t -> t -> t
+    end) = struct
+      let square x = Implementation.square ~multiply:(M.multiply) x
+    end
+  end
+end
+module Exponentiate_ = struct
+  module MakeMakers(Implementation: sig
+    val exponentiate: one:('a) -> square:('a -> 'a) -> multiply:('a -> 'a -> 'a) -> exponentiate_negative_exponent:(exponentiate:('a -> int -> 'a) -> 'a -> int -> 'a) -> 'a -> int -> 'a
+  end) = struct
+    module Make0(M: sig
+      type t
+      val one: t
+      val square: t -> t
+      val multiply: t -> t -> t
+      val exponentiate_negative_exponent: exponentiate:(t -> int -> t) -> t -> int -> t
+    end) = struct
+      let exponentiate x y = Implementation.exponentiate ~one:(M.one) ~square:(M.square) ~multiply:(M.multiply) ~exponentiate_negative_exponent:(M.exponentiate_negative_exponent) x y
+    end
+  end
+end
 module Tests_ = struct
   module Examples = struct
     module type S0 = sig

@@ -1,92 +1,9 @@
 #include "../Generated/Traits/Equatable.ml"
 
 module Different = struct
-  module Make0(M: sig
-    type t
-
-    val equal: t -> t
-      -> bool
-  end) = struct
-    open M
-
-    let different x y =
-      not (equal x y)
-  end
-
-  module Make1(M: sig
-    type 'a t
-
-    val equal: 'a t -> 'a t
-      -> equal_a:('a -> 'a -> bool)
-      -> bool
-  end) = struct
-    open M
-
-    let different x y ~equal_a =
-      not (equal x y ~equal_a)
-  end
-
-  module Make2(M: sig
-    type ('a, 'b) t
-
-    val equal: ('a, 'b) t -> ('a, 'b) t
-      -> equal_a:('a -> 'a -> bool)
-      -> equal_b:('b -> 'b -> bool)
-      -> bool
-  end) = struct
-    open M
-
-    let different x y ~equal_a ~equal_b =
-      not (equal x y ~equal_a ~equal_b)
-  end
-
-  module Make3(M: sig
-    type ('a, 'b, 'c) t
-
-    val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t
-      -> equal_a:('a -> 'a -> bool)
-      -> equal_b:('b -> 'b -> bool)
-      -> equal_c:('c -> 'c -> bool)
-      -> bool
-  end) = struct
-    open M
-
-    let different x y ~equal_a ~equal_b ~equal_c =
-      not (equal x y ~equal_a ~equal_b ~equal_c)
-  end
-
-  module Make4(M: sig
-    type ('a, 'b, 'c, 'd) t
-
-    val equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t
-      -> equal_a:('a -> 'a -> bool)
-      -> equal_b:('b -> 'b -> bool)
-      -> equal_c:('c -> 'c -> bool)
-      -> equal_d:('d -> 'd -> bool)
-      -> bool
-  end) = struct
-    open M
-
-    let different x y ~equal_a ~equal_b ~equal_c ~equal_d =
-      not (equal x y ~equal_a ~equal_b ~equal_c ~equal_d)
-  end
-
-  module Make5(M: sig
-    type ('a, 'b, 'c, 'd, 'e) t
-
-    val equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t
-      -> equal_a:('a -> 'a -> bool)
-      -> equal_b:('b -> 'b -> bool)
-      -> equal_c:('c -> 'c -> bool)
-      -> equal_d:('d -> 'd -> bool)
-      -> equal_e:('e -> 'e -> bool)
-      -> bool
-  end) = struct
-    open M
-
-    let different x y ~equal_a ~equal_b ~equal_c ~equal_d ~equal_e =
-      not (equal x y ~equal_a ~equal_b ~equal_c ~equal_d ~equal_e)
-  end
+  include Different_.MakeMakers(struct
+    let different ~equal x y = not (equal x y)
+  end)
 end
 
 module Tests = struct
