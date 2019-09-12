@@ -1,8 +1,4 @@
-module Generated = struct
-  #include "../Generated/Traits/Comparable.ml"
-end
-
-include Generated
+#include "../Generated/Traits/Comparable.ml"
 
 (* @feature Descending, ascending *)
 

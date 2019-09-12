@@ -1,8 +1,4 @@
-module Generated = struct
-  #include "../Generated/Traits/Ringoid.ml"
-end
-
-include Generated
+#include "../Generated/Traits/Ringoid.ml"
 
 (* @todo Fix spelling of 'subtract' *)
 module Substract = struct

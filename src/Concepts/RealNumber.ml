@@ -1,8 +1,4 @@
-module Generated = struct
-  #include "../Generated/Concepts/RealNumber.ml"
-end
-
-include Generated
+#include "../Generated/Concepts/RealNumber.ml"
 
 module Tests = struct
   include Tests_

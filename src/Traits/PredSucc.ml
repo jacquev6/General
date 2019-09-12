@@ -1,8 +1,4 @@
-module Generated = struct
-  #include "../Generated/Traits/PredSucc.ml"
-end
-
-include Generated
+#include "../Generated/Traits/PredSucc.ml"
 
 module PredSucc = struct
   module Make0(M: sig

@@ -1,8 +1,4 @@
-module Generated = struct
-  #include "../Generated/Traits/Parsable.ml"
-end
-
-include Generated
+#include "../Generated/Traits/Parsable.ml"
 
 module Tests = struct
   include Tests_

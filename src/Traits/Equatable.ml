@@ -1,8 +1,4 @@
-module Generated = struct
-  #include "../Generated/Traits/Equatable.ml"
-end
-
-include Generated
+#include "../Generated/Traits/Equatable.ml"
 
 module Different = struct
   module Make0(M: sig

@@ -1,8 +1,4 @@
-module Generated = struct
-  #include "../Generated/Traits/Representable.ml"
-end
-
-include Generated
+#include "../Generated/Traits/Representable.ml"
 
 module Tests = struct
   include Tests_
