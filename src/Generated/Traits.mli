@@ -958,12 +958,42 @@ module OfStandardNumbers: sig
     val of_int: int -> t
     val of_float: float -> t
   end
+  module Tests: sig
+    module Examples: sig
+      module type S0 = sig
+        type t
+      end
+    end
+    module Testable: sig
+      module type S0 = sig
+        include S0
+      end
+    end
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
+      val test: Test.t
+    end
+  end
 end
 module ToStandardNumbers: sig
   module type S0 = sig
     type t
     val to_int: t -> int
     val to_float: t -> float
+  end
+  module Tests: sig
+    module Examples: sig
+      module type S0 = sig
+        type t
+      end
+    end
+    module Testable: sig
+      module type S0 = sig
+        include S0
+      end
+    end
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
+      val test: Test.t
+    end
   end
 end
 module PredSucc: sig

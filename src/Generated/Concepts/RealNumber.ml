@@ -27,6 +27,7 @@ module Tests_ = struct
       type t
       include Number.Tests.Examples.S0 with type t := t
       include Traits.Comparable.Tests.Examples.S0 with type t := t
+      include Traits.ToStandardNumbers.Tests.Examples.S0 with type t := t
     end
   end
   module Testable = struct
@@ -41,6 +42,7 @@ module Tests_ = struct
       let test = "RealNumber" >:: [
         (let module T = Number.Tests.Make0(M)(E) in T.test);
         (let module T = Traits.Comparable.Tests.Make0(M)(E) in T.test);
+        (let module T = Traits.ToStandardNumbers.Tests.Make0(M)(E) in T.test);
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
   end

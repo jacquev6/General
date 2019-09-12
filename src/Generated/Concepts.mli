@@ -348,6 +348,7 @@ module Number: sig
         include Identifiable.Tests.Examples.S0 with type t := t
         include Stringable.Tests.Examples.S0 with type t := t
         include Traits.Ringoid.Tests.Examples.S0 with type t := t
+        include Traits.OfStandardNumbers.Tests.Examples.S0 with type t := t
       end
     end
     module Testable: sig
@@ -390,6 +391,7 @@ module RealNumber: sig
         type t
         include Number.Tests.Examples.S0 with type t := t
         include Traits.Comparable.Tests.Examples.S0 with type t := t
+        include Traits.ToStandardNumbers.Tests.Examples.S0 with type t := t
       end
     end
     module Testable: sig

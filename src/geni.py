@@ -26,7 +26,7 @@ class Facets:
             prefix, name,
             variadic,
             inherited, base_values, extensions,
-            publish_tests, generate_tests, examples, test_requirements,
+            examples, test_requirements,
         ):
         self.prefix = prefix
         self.name = name
@@ -41,8 +41,6 @@ class Facets:
             itertools.chain.from_iterable(extension.members for extension in self.extensions),
         ))
         self.operators = [item for item in self.all_items if item.operator is not None]
-        self.publish_tests = publish_tests
-        self.generate_tests = generate_tests
         self.examples = list(examples)
         self.test_requirements = list(test_requirements)
 
@@ -78,8 +76,7 @@ class Facets:
 
         yield self.__extension_makers_specification_items()
 
-        if self.publish_tests:
-            yield self.__tests_specification()
+        yield self.__tests_specification()
 
     @property
     def implementation_items(self):
@@ -93,8 +90,7 @@ class Facets:
 
         # @todo Generate extension makers: yield self.__extensions_makers_implementation_items()
 
-        if self.publish_tests:
-            yield self.__tests_implementation()
+        yield self.__tests_implementation()
 
     def __contextualized_name(self, prefix):
         if prefix == self.prefix:
@@ -308,8 +304,7 @@ class Facets:
     def __tests_implementation_items(self):
         yield self.__tests_examples_implementation()
         yield mod_impl("Testable", self.__tests_testable_mod_types())
-        if self.generate_tests:
-            yield self.__tests_makers_implementations()
+        yield self.__tests_makers_implementations()
 
     def __tests_examples_specification(self):
         yield mod_spec("Examples", self.__tests_examples_items())
@@ -336,11 +331,10 @@ class Facets:
         for a in abcd(arity):
             yield f"module {a.upper()}: Element"
         for base in self.inherited:
-            if base.publish_tests:
-                yield (
-                    f"include {base.__contextualized_name(self.prefix)}.Tests.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
-                    + "".join(f" and module {a.upper()} := {a.upper()}" for a in abcd(arity))
-                )
+            yield (
+                f"include {base.__contextualized_name(self.prefix)}.Tests.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
+                + "".join(f" and module {a.upper()} := {a.upper()}" for a in abcd(arity))
+            )
         for item in self.examples:
             yield item.make_signature(self.base_values, 0, t=f"{type_args(arity)}t")
 
@@ -383,8 +377,7 @@ class Facets:
         yield "module E = MakeExamples(M)(E)"
         yield f'let test = "{self.name}" >:: ['
         for base in self.inherited:
-            if base.publish_tests:  # @todo Ensure all traits do publish tests, then remove this condition
-                yield f"  (let module T = {base.__contextualized_name(self.prefix)}.Tests.Make0(M)(E) in T.test);"
+            yield f"  (let module T = {base.__contextualized_name(self.prefix)}.Tests.Make0(M)(E) in T.test);"
         yield "] @ (let module T = MakeTests(M)(E) in T.tests)"
 
     def __tests_maker_implementation_items(self, arity):
@@ -550,7 +543,7 @@ def abcd(arity):
 
 traits = []
 
-def trait(name, *, variadic=True, basics, extensions=[], has_tests=True, examples=[], test_requirements=[]):
+def trait(name, *, variadic=True, basics, extensions=[], examples=[], test_requirements=[]):
     trait = Facets(
         prefix="Traits",
         name=name,
@@ -558,8 +551,6 @@ def trait(name, *, variadic=True, basics, extensions=[], has_tests=True, example
         inherited=[],
         base_values=basics,
         extensions=extensions,
-        publish_tests=has_tests,
-        generate_tests=has_tests,
         examples=examples,
         test_requirements=test_requirements,
     )
@@ -704,7 +695,6 @@ of_standard_numbers = trait(
         val("of_int", params=["int"], return_=variadic_type),
         val("of_float", params=["float"], return_=variadic_type),
     ],
-    has_tests=False,
 )
 
 to_standard_numbers = trait(
@@ -714,7 +704,6 @@ to_standard_numbers = trait(
         val("to_int", params=[variadic_type], return_="int"),
         val("to_float", params=[variadic_type], return_="float"),
     ],
-    has_tests=False,
 )
 
 pred_succ = trait(
@@ -745,7 +734,7 @@ pred_succ = trait(
 
 concepts = []
 
-def concept(name, *, inherited, basics=[], generate_tests=True, test_requirements=[]):
+def concept(name, *, inherited, basics=[], test_requirements=[]):
     concept = Facets(
         prefix="Concepts",
         name=name,
@@ -753,8 +742,6 @@ def concept(name, *, inherited, basics=[], generate_tests=True, test_requirement
         inherited=inherited,
         base_values=basics,
         extensions=[],
-        publish_tests=True,
-        generate_tests=generate_tests,
         examples=[],
         test_requirements=test_requirements,
     )

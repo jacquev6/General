@@ -1,5 +1,4 @@
-module ToStandardNumbers: sig
-  module Tests
+module Testable: sig
   module type S0 = sig
     type t
     val to_float: t -> float
