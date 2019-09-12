@@ -10,7 +10,7 @@ module type S0 = sig
   include RealNumber.S0 with type t := t and module O := O
   include Traits.PredSucc.S0 with type t := t
 end
-module Tests = struct
+module Tests_ = struct
   module Examples = struct
     module type S0 = sig
       type t
@@ -23,17 +23,14 @@ module Tests = struct
       include S0
     end
   end
-  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
-    open Testing
-    module E = struct
-      include E
-      let succ = succ @ [
-          (M.zero, M.one);
-      ]
+  module MakeMakers(MakeExamples: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> Examples.S0 with type t := M.t)(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+      open Testing
+      module E = MakeExamples(M)(E)
+      let test = "Integer" >:: [
+        (let module T = RealNumber.Tests.Make0(M)(E) in T.test);
+        (let module T = Traits.PredSucc.Tests.Make0(M)(E) in T.test);
+      ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
-    let test = "Integer" >:: [
-      (let module T = RealNumber.Tests.Make0(M)(E) in T.test);
-      (let module T = Traits.PredSucc.Tests.Make0(M)(E) in T.test);
-    ]
   end
 end

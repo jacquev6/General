@@ -21,7 +21,7 @@ module type S0 = sig
   val abs: t -> t
   val modulo: t -> t -> t
 end
-module Tests = struct
+module Tests_ = struct
   module Examples = struct
     module type S0 = sig
       type t
@@ -34,34 +34,14 @@ module Tests = struct
       include S0
     end
   end
-  module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
-    open Testing
-    module E = struct
-      include E
-      let ordered = ordered @ [
-          [M.zero; M.one];
-      ]
+  module MakeMakers(MakeExamples: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> Examples.S0 with type t := M.t)(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+      open Testing
+      module E = MakeExamples(M)(E)
+      let test = "RealNumber" >:: [
+        (let module T = Number.Tests.Make0(M)(E) in T.test);
+        (let module T = Traits.Comparable.Tests.Make0(M)(E) in T.test);
+      ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
-    let test = "RealNumber" >:: [
-      (let module T = Number.Tests.Make0(M)(E) in T.test);
-      (let module T = Traits.Comparable.Tests.Make0(M)(E) in T.test);
-    ] @ (
-      (
-          E.negate
-          |> List.flat_map ~f:(fun (x, y) ->
-              let abs_x = M.(if greater_or_equal x zero then x else y)
-              and abs_y = M.(if greater_or_equal y zero then y else x) in
-              [
-                  ~: "abs %s" (M.repr x) (lazy M.(check ~repr ~equal ~expected:abs_x (abs x)));
-                  ~: "abs %s" (M.repr y) (lazy M.(check ~repr ~equal ~expected:abs_y (abs y)));
-              ]
-          )
-      ) @ [
-          "to_int zero" >: (lazy (check_int ~expected:0 M.(to_int zero)));
-          "to_float zero" >: (lazy (check_float_exact ~expected:0. M.(to_float zero)));
-          "to_int one" >: (lazy (check_int ~expected:1 M.(to_int one)));
-          "to_float one" >: (lazy (check_float_exact ~expected:1. M.(to_float one)));
-      ]
-    )
   end
 end

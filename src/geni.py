@@ -26,7 +26,7 @@ class Facets:
             prefix, name,
             variadic,
             inherited, base_values, extensions,
-            examples_implementation, tests, publish_tests, generate_tests, examples, test_requirements,
+            publish_tests, generate_tests, examples, test_requirements,
         ):
         self.prefix = prefix
         self.name = name
@@ -41,8 +41,6 @@ class Facets:
             itertools.chain.from_iterable(extension.members for extension in self.extensions),
         ))
         self.operators = [item for item in self.all_items if item.operator is not None]
-        self.examples_implementation = examples_implementation
-        self.tests = tests
         self.publish_tests = publish_tests
         self.generate_tests = generate_tests
         self.examples = list(examples)
@@ -300,8 +298,7 @@ class Facets:
         yield mod_spec("Tests", self.__tests_specification_items())
 
     def __tests_implementation(self):
-        name = "Tests" if self.generate_tests else "Tests_"
-        yield mod_impl(name, self.__tests_implementation_items())
+        yield mod_impl("Tests_", self.__tests_implementation_items())
 
     def __tests_specification_items(self):
         yield self.__tests_examples_specification()
@@ -365,29 +362,29 @@ class Facets:
             )
 
     def __tests_makers_implementations(self):
-        for arity in self.arities:
-            yield mod_impl(
+        yield "module MakeMakers(MakeExamples: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> Examples.S0 with type t := M.t)(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct"
+        yield indent(mod_impl(
+            "Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t)",
+            self.__tests_make0_implementations_items(),
+        ))
+        for arity in self.non_zero_arities:
+            functor_args = "".join(f"(E.{a.upper()})" for a in abcd(arity))
+            yield indent(mod_impl(
                 f"Make{arity}(M: Testable.S{arity})(E: Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}M.t)",
-                self.__tests_makers_implementations_items(arity),
-            )
+                "include Make0(struct",
+                indent(f"include Specialize{arity}(M){functor_args}"),
+                "end)(E)",
+            ))
+        yield "end"
 
-    def __tests_makers_implementations_items(self, arity):
+    def __tests_make0_implementations_items(self):
         yield "open Testing"
-        if self.examples_implementation is not None:
-            yield mod_impl("E",
-                "include E",
-                textwrap.dedent(self.examples_implementation).splitlines(),
-            )
+        yield "module E = MakeExamples(M)(E)"
         yield f'let test = "{self.name}" >:: ['
         for base in self.inherited:
-            if base.publish_tests:
-                yield f"  (let module T = {base.__contextualized_name(self.prefix)}.Tests.Make{arity}(M)(E) in T.test);"
-        if self.tests is not None:
-            yield "] @ ("
-            yield from indent(textwrap.dedent(self.tests).splitlines())
-            yield ")"
-        else:
-            yield "]"
+            if base.publish_tests:  # @todo Ensure all traits do publish tests, then remove this condition
+                yield f"  (let module T = {base.__contextualized_name(self.prefix)}.Tests.Make0(M)(E) in T.test);"
+        yield "] @ (let module T = MakeTests(M)(E) in T.tests)"
 
 
 def mod_spec(name, *items):
@@ -551,8 +548,6 @@ def trait(name, *, variadic=True, basics, extensions=[], has_tests=True, example
         inherited=[],
         base_values=basics,
         extensions=extensions,
-        examples_implementation=None,
-        tests=None,
         publish_tests=has_tests,
         generate_tests=False,
         examples=examples,
@@ -740,7 +735,7 @@ pred_succ = trait(
 
 concepts = []
 
-def concept(name, *, inherited, basics=[], examples=None, tests=None, test_requirements=[]):
+def concept(name, *, inherited, basics=[], generate_tests=True, test_requirements=[]):
     concept = Facets(
         prefix="Concepts",
         name=name,
@@ -748,10 +743,8 @@ def concept(name, *, inherited, basics=[], examples=None, tests=None, test_requi
         inherited=inherited,
         base_values=basics,
         extensions=[],
-        examples_implementation=examples,
-        tests=tests,
         publish_tests=True,
-        generate_tests=True,
+        generate_tests=generate_tests,
         examples=[],
         test_requirements=test_requirements,
     )
@@ -778,15 +771,6 @@ stringable = concept(
 number = concept(
     "Number",
     inherited=[identifiable, stringable, ringoid, of_standard_numbers],
-    examples="""\
-        let equal = equal @ [
-            [M.zero; M.of_int 0; M.of_float 0.; M.of_string "0"];
-            [M.one; M.of_int 1; M.of_float 1.; M.of_string "1"];
-        ]
-        let different = different @ [
-            (M.zero, M.one);
-        ]
-    """,
 )
 
 real_number = concept(
@@ -797,29 +781,6 @@ real_number = concept(
         val("abs", params=[variadic_type], return_=variadic_type),
         val("modulo", params=[variadic_type, variadic_type], return_=variadic_type, operator="mod"),
     ],
-    examples="""\
-        let ordered = ordered @ [
-            [M.zero; M.one];
-        ]
-    """,
-    tests="""\
-        (
-            E.negate
-            |> List.flat_map ~f:(fun (x, y) ->
-                let abs_x = M.(if greater_or_equal x zero then x else y)
-                and abs_y = M.(if greater_or_equal y zero then y else x) in
-                [
-                    ~: "abs %s" (M.repr x) (lazy M.(check ~repr ~equal ~expected:abs_x (abs x)));
-                    ~: "abs %s" (M.repr y) (lazy M.(check ~repr ~equal ~expected:abs_y (abs y)));
-                ]
-            )
-        ) @ [
-            "to_int zero" >: (lazy (check_int ~expected:0 M.(to_int zero)));
-            "to_float zero" >: (lazy (check_float_exact ~expected:0. M.(to_float zero)));
-            "to_int one" >: (lazy (check_int ~expected:1 M.(to_int one)));
-            "to_float one" >: (lazy (check_float_exact ~expected:1. M.(to_float one)));
-        ]
-    """,
 )
 
 integer = concept(
@@ -827,11 +788,6 @@ integer = concept(
     # @feature Bitwise?
     # @feature gcd, lcm, quomod
     inherited=[real_number, pred_succ],
-    examples="""\
-        let succ = succ @ [
-            (M.zero, M.one);
-        ]
-    """,
 )
 
 
