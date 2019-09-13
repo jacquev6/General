@@ -3,6 +3,7 @@ module type S0 = sig
   val pred: t -> t
   val succ: t -> t
 end
+
 module PredSucc_ = struct
   module MakeMakers(Implementation: sig
     val pred: one:('a) -> add:('a -> 'a -> 'a) -> substract:('a -> 'a -> 'a) -> 'a -> 'a
@@ -19,6 +20,7 @@ module PredSucc_ = struct
     end
   end
 end
+
 module Tests_ = struct
   module Examples = struct
     module type S0 = sig
@@ -26,6 +28,7 @@ module Tests_ = struct
       val succ: (t * t) list
     end
   end
+
   module Testable = struct
     module type S0 = sig
       include S0
@@ -33,6 +36,7 @@ module Tests_ = struct
       include Representable.S0 with type t := t
     end
   end
+
   module MakeMakers(MakeExamples: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> Examples.S0 with type t := M.t)(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct
     module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
       open Testing

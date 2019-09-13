@@ -1,4 +1,5 @@
 import itertools
+import functools
 import os
 import sys
 import textwrap
@@ -8,8 +9,14 @@ max_arity = 6
 
 
 def generate(*element, **kwds):
+    p = functools.partial(print, file=kwds.get("file"))
+    previous_line_was_end = False
     for line in indent(element, kwds.get("indent", 0)):
-        print(line, file=kwds.get("file"))
+        line_is_end = line.strip() == "end"
+        if previous_line_was_end and not line_is_end:
+            p("")
+        p(line)
+        previous_line_was_end = line_is_end
 
 
 def indent(element, levels=1):
@@ -550,8 +557,12 @@ class Value:
         return " -> ".join(filter(None, (param.param_type(arity, t) for param in self.__type_chain)))
 
     def value_specialization(self, arity):
-        yield f"let {self.name} " + " ".join(filter(None, (p.param_pattern(0, i) for (i, p) in enumerate(self.__parameters)))) + " ="
-        yield f"  M.{self.name} " + " ".join(p.param_specialization(arity, i) for (i, p) in enumerate(self.__parameters))
+        yield (
+            f"let {self.name} "
+            + " ".join(filter(None, (p.param_pattern(0, i) for (i, p) in enumerate(self.__parameters))))
+            + f" = M.{self.name} "
+            + " ".join(p.param_specialization(arity, i) for (i, p) in enumerate(self.__parameters))
+        )
 
     def value_extension(self, requirements, arity):
         for param in self.__parameters:
@@ -563,14 +574,12 @@ class Value:
         yield (
             f"let {self.name} "
             + " ".join(filter(None, (p.param_pattern(arity, i) for (i, p) in enumerate(self.__parameters))))
-            + (
-                f" = Implementation.{self.name} "
-                + "".join(
-                    f"~{req}:(M.{req}" + "".join([] if delegate_ is None else (f" ~{delegate_.name}_{a}" for a in abcd(arity))) + ") "
-                    for req in requirements
-                )
-                + " ".join(filter(None, (p.param_extension(arity, i) for (i, p) in enumerate(self.__parameters))))
+            + f" = Implementation.{self.name} "
+            + "".join(
+                f"~{req}:(M.{req}" + "".join([] if delegate_ is None else (f" ~{delegate_.name}_{a}" for a in abcd(arity))) + ") "
+                for req in requirements
             )
+            + " ".join(filter(None, (p.param_extension(arity, i) for (i, p) in enumerate(self.__parameters))))
         )
 
 

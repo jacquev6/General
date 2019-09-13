@@ -8,6 +8,7 @@ module Operators = struct
     val ( / ): t -> t -> t
     val ( ** ): t -> int -> t
   end
+
   module Make0(M: sig
     type t
     val negate: t -> t
@@ -25,6 +26,7 @@ module Operators = struct
     let ( ** ) = M.exponentiate
   end
 end
+
 module Basic = struct
   module type S0 = sig
     type t
@@ -37,12 +39,14 @@ module Basic = struct
     val divide: t -> t -> t
   end
 end
+
 module type S0 = sig
   include Basic.S0
   module O: Operators.S0 with type t := t
   val square: t -> t
   val exponentiate: t -> int -> t
 end
+
 module Substract_ = struct
   module MakeMakers(Implementation: sig
     val substract: negate:('a -> 'a) -> add:('a -> 'a -> 'a) -> 'a -> 'a -> 'a
@@ -56,6 +60,7 @@ module Substract_ = struct
     end
   end
 end
+
 module Square_ = struct
   module MakeMakers(Implementation: sig
     val square: multiply:('a -> 'a -> 'a) -> 'a -> 'a
@@ -68,6 +73,7 @@ module Square_ = struct
     end
   end
 end
+
 module Exponentiate_ = struct
   module MakeMakers(Implementation: sig
     val exponentiate: one:('a) -> square:('a -> 'a) -> multiply:('a -> 'a -> 'a) -> exponentiate_negative_exponent:(exponentiate:('a -> int -> 'a) -> 'a -> int -> 'a) -> 'a -> int -> 'a
@@ -83,6 +89,7 @@ module Exponentiate_ = struct
     end
   end
 end
+
 module Tests_ = struct
   module Examples = struct
     module type S0 = sig
@@ -94,6 +101,7 @@ module Tests_ = struct
       val exponentiate: (t * int * t) list
     end
   end
+
   module Testable = struct
     module type S0 = sig
       include S0
@@ -101,6 +109,7 @@ module Tests_ = struct
       include Representable.S0 with type t := t
     end
   end
+
   module MakeMakers(MakeExamples: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> Examples.S0 with type t := M.t)(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct
     module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
       open Testing
