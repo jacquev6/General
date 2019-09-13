@@ -25,31 +25,31 @@ class Facets:
             self, *,
             prefix, name,
             variadic,
-            inherited, base_values, extensions,
-            examples, test_requirements,
+            bases, values, extensions,
+            test_examples, test_requirements,
         ):
         self.prefix = prefix
         self.name = name
-        self.inherited = list(inherited)
-        self.max_arity = min(itertools.chain([max_arity], (i.max_arity for i in self.inherited))) if variadic else 1
+        self.bases = list(bases)
+        self.max_arity = min(itertools.chain([max_arity], (i.max_arity for i in self.bases))) if variadic else 1
         self.arities = list(range(self.max_arity))
         self.non_zero_arities = list(range(1, self.max_arity))
-        self.base_values = list(base_values)
+        self.values = list(values)
         self.extensions = list(extensions)
         self.all_items = list(itertools.chain(
-            self.base_values,
+            self.values,
             itertools.chain.from_iterable(extension.members for extension in self.extensions),
         ))
         self.operators = [item for item in self.all_items if item.operator is not None]
-        self.examples = list(examples)
+        self.test_examples = list(test_examples)
         self.test_requirements = list(test_requirements)
 
     @property
     def graphviz_label(self):
         parts = [self.name]
-        if len(self.base_values) > 0:
+        if len(self.values) > 0:
             parts.append("")
-            parts += [val.name for val in self.base_values]
+            parts += [val.name for val in self.values]
         exts = [val.name for extension in self.extensions for val in extension.members]
         if len(exts) > 0:
             parts.append("")
@@ -107,7 +107,7 @@ class Facets:
         return len(self.operators) > 0
 
     def __inherits_operators(self):
-        return any(base.__has_operators() for base in self.inherited)
+        return any(base.__has_operators() for base in self.bases)
 
     def __operators_specification(self):
         return mod_spec("Operators", self.__operators_specification_items())
@@ -130,27 +130,27 @@ class Facets:
 
     def __operators_s0_mod_type_items(self):
         yield "type t"
-        for base in self.inherited:
+        for base in self.bases:
             if base.__has_operators():
                 yield f"include {base.__contextualized_name(self.prefix)}.Operators.S0 with type t := t"
         for operator in self.operators:
-            yield operator.make_signature(self.base_values, 0, operator=True)
+            yield f"val ( {operator.operator} ): { operator.value_type(0, 't')}"
 
     def __operators_make0_specification(self):
         yield "module Make0(M: sig"
         yield "  type t"
         for operator in self.operators:
-            yield indent(operator.make_signature(self.base_values, 0))
+            yield f"  val {operator.name}: {operator.value_type(0, 't')}"
         yield "end): sig"
         for operator in self.operators:
-            yield indent(operator.make_signature(self.base_values, 0, operator=True, t="M.t"))
+            yield f"  val ( {operator.operator} ): {operator.value_type(0, 'M.t')}"
         yield "end"
 
     def __operators_make0_implementation(self):
         yield "module Make0(M: sig"
         yield "  type t"
         for operator in self.operators:
-            yield indent(operator.make_signature(self.base_values, 0))
+            yield f"  val {operator.name}: {operator.value_type(0, f'{type_params(0)}t')}"
         yield "end) = struct"
         for operator in self.operators:
             yield f"  let ( {operator.operator} ) = M.{operator.name}"
@@ -178,14 +178,14 @@ class Facets:
         yield f"type {t}"
         if arity == 0 and self.__has_operators() and self.__is_basic():
             yield "module O: Operators.S0 with type t := t"
-        for base in self.inherited:
+        for base in self.bases:
             if arity == 0 and base.__has_operators():
                 operators_constraint = " and module O := O"
             else:
                 operators_constraint = ""
             yield f"include {base.__contextualized_name(self.prefix)}.S{arity} with type {t} := {t}{operators_constraint}"
-        for value in self.base_values:
-            yield value.make_signature(self.base_values, arity, t=t)
+        for value in self.values:
+            yield f"val {value.name}: {value.value_type(arity, t)}"
 
     def __basic_specialize_specifications(self):
         for arity in self.non_zero_arities:
@@ -204,18 +204,18 @@ class Facets:
     def __basic_specialize_implementation_items(self, arity):
         yield f"type t = {type_args(arity)}M.t"
         functor_args = "".join(f"({a.upper()})" for a in abcd(arity))
-        for base in self.inherited:
+        for base in self.bases:
             yield f"module {base.name}_ = {base.__contextualized_name(self.prefix)}.Specialize{arity}(M){functor_args}"
         if self.__inherits_operators():
-            yield mod_impl("O", (f"include {base.name}_.O" for base in self.inherited if base.__has_operators()))
-        for base in self.inherited:
+            yield mod_impl("O", (f"include {base.name}_.O" for base in self.bases if base.__has_operators()))
+        for base in self.bases:
             if base.__has_operators():
                 operators_constraint = " and module O := O"
             else:
                 operators_constraint = ""
             yield f"include ({base.name}_: {base.__contextualized_name(self.prefix)}.S0 with type t := t{operators_constraint})"
-        for v in self.base_values:
-            yield v.make_specialization(self.base_values, arity)
+        for value in self.values:
+            yield value.value_specialization(arity)
 
     # Core contents: extended
 
@@ -238,8 +238,8 @@ class Facets:
         if arity == 0:
             yield "module O: Operators.S0 with type t := t"
         for extension in self.extensions:
-            for item in extension.members:
-                yield item.make_signature(self.base_values, arity)
+            for value in extension.members:
+                yield f"val {value.name}: {value.value_type(arity, f'{type_params(arity)}t')}"
 
     def __extended_specialize_specifications(self):
         for arity in self.non_zero_arities:
@@ -255,7 +255,7 @@ class Facets:
         functor_args = "".join(f"({a.upper()})" for a in abcd(arity))
         yield mod_impl("Self",
             f"include Basic.Specialize{arity}(M){functor_args}",
-            (item.make_specialization(self.base_values, arity) for extension in self.extensions for item in extension.members)
+            (value.value_specialization(arity) for extension in self.extensions for value in extension.members)
         )
         yield "module O = Operators.Make0(Self)"
         yield "include Self"
@@ -264,74 +264,11 @@ class Facets:
 
     def __extension_makers_specification_items(self):
         for extension in self.extensions:
-            yield mod_spec(extension.name, (self.__extension_maker_specification(extension, arity) for arity in self.arities))
+            yield mod_spec(extension.name, extension.extension_makers_specification(self.arities))
 
     def __extensions_makers_implementation_items(self):
         for extension in self.extensions:
-            yield mod_impl(f"{extension.name}_", self.__extensions_makers_implementation(extension))
-
-    def __extension_maker_specification(self, extension, arity):
-        yield f"module Make{arity}(M: sig"
-        yield f"  type {type_params(arity)}t"
-        for req in extension.requirements:
-            # @todo Take this decision when constructing the req object
-            if isinstance(req, str):
-                for item in self.all_items:
-                    if item.name == req:  # @todo Resolve this search when constructing the object
-                        yield indent(item.make_signature(self.base_values, arity))
-                        break
-            else:
-                yield indent(req.make_signature(self.base_values, arity))
-        yield "end): sig"
-        for item in extension.members:
-            yield indent(item.make_signature(self.base_values, arity, t=f"{type_params(arity)}M.t"))
-        for prod in extension.basic_production:
-            for item in self.base_values:
-                if item.name == prod:  # @todo Resolve this search when constructing the object
-                    yield indent(item.make_signature(self.base_values, arity, t=f"{type_params(arity)}M.t"))
-                    break
-        yield "end"
-
-    def __extensions_makers_implementation(self, extension):
-        yield "module MakeMakers(Implementation: sig"
-        additional_prefix_params = []
-        for req in extension.requirements:
-            if isinstance(req, str):
-                for item in self.all_items:
-                    if item.name == req:  # @todo Resolve this search when constructing the object
-                        break
-            else:
-                item = req
-            additional_prefix_params.append(named(item.name, item.make_type(self.base_values, 0, t="'a")).make_type(self.base_values, 0))
-        for item in extension.members:
-            yield indent(item.make_signature(self.base_values, 0, t=f"'a", additional_prefix_params=additional_prefix_params))  # @todo (?) Use 't instead of 'a
-        for prod in extension.basic_production:
-            for item in self.base_values:
-                if item.name == prod:  # @todo Resolve this search when constructing the object
-                    yield indent(item.make_signature(self.base_values, 0, t=f"'a", additional_prefix_params=additional_prefix_params))  # @todo (?) Use 't instead of 'a
-        yield "end) = struct"
-        for arity in self.arities:
-            yield f"  module Make{arity}(M: sig"
-            yield f"    type {type_params(arity)}t"
-            requirement_names = []
-            for req in extension.requirements:
-                if isinstance(req, str):
-                    for item in self.all_items:
-                        if item.name == req:  # @todo Resolve this search when constructing the object
-                            break
-                else:
-                    item = req
-                yield indent(item.make_signature(self.base_values, arity), levels=2)
-                requirement_names.append(item.name)
-            yield "  end) = struct"
-            for item in extension.members:
-                yield indent(item.make_extension(requirement_names, self.base_values, arity), levels=2)
-            for prod in extension.basic_production:
-                for item in self.base_values:
-                    if item.name == prod:  # @todo Resolve this search when constructing the object
-                        yield indent(item.make_extension(requirement_names, self.base_values, arity), levels=2)
-            yield "  end"
-        yield "end"
+            yield mod_impl(f"{extension.name}_", extension.extension_makers_implementation(self.arities))
 
     # Tests
 
@@ -343,12 +280,12 @@ class Facets:
 
     def __tests_specification_items(self):
         yield self.__tests_examples_specification()
-        yield mod_spec("Testable", self.__tests_testable_mod_types())
+        yield mod_spec("Testable", self.__tests_testable_items())
         yield self.__tests_makers_specifications()
 
     def __tests_implementation_items(self):
         yield self.__tests_examples_implementation()
-        yield mod_impl("Testable", self.__tests_testable_mod_types())
+        yield mod_impl("Testable", self.__tests_testable_items())
         yield self.__tests_makers_implementations()
 
     def __tests_examples_specification(self):
@@ -375,19 +312,20 @@ class Facets:
         yield f"type {type_params(arity)}t"
         for a in abcd(arity):
             yield f"module {a.upper()}: Element"
-        for base in self.inherited:
+        for base in self.bases:
             yield (
                 f"include {base.__contextualized_name(self.prefix)}.Tests.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
                 + "".join(f" and module {a.upper()} := {a.upper()}" for a in abcd(arity))
             )
-        for item in self.examples:
-            yield item.make_signature(self.base_values, 0, t=f"{type_args(arity)}t")
+        t = f"{type_args(arity)}t"
+        for item in self.test_examples:
+            yield f"val {item.name}: {item.value_type(0, t)}"
 
-    def __tests_testable_mod_types(self):
+    def __tests_testable_items(self):
         for arity in self.arities:
-            yield mod_type(f"S{arity}", self.__tests_testable_mod_types_items(arity))
+            yield mod_type(f"S{arity}", self.__tests_testable_mod_type_items(arity))
 
-    def __tests_testable_mod_types_items(self, arity):
+    def __tests_testable_mod_type_items(self, arity):
             yield f"include S{arity}"
             for req in self.test_requirements:
                 basic = "" if req.__is_basic() else "Basic."
@@ -421,7 +359,7 @@ class Facets:
         yield "open Testing"
         yield "module E = MakeExamples(M)(E)"
         yield f'let test = "{self.name}" >:: ['
-        for base in self.inherited:
+        for base in self.bases:
             yield f"  (let module T = {base.__contextualized_name(self.prefix)}.Tests.Make0(M)(E) in T.test);"
         yield "] @ (let module T = MakeTests(M)(E) in T.tests)"
 
@@ -453,134 +391,6 @@ def mod_type(name, *items):
     yield "end"
 
 
-class Extension:
-    def __init__(self, name, members, requirements=[], basic_production=[]):
-        self.name = name
-        self.members = list(members)
-        self.requirements = list(requirements)
-        self.basic_production = list(basic_production)
-
-
-class VariadicType:
-    def make_type(self, arity, t):
-        if t is None:
-            return f"{type_params(arity)}t"
-        else:
-            return t
-
-    def make_pattern(self, index):
-        return "xyzuvw"[index]
-
-
-variadic_type = VariadicType()
-
-
-class FixedType:
-    def __init__(self, name):
-        self.name = name
-
-    def make_type(self, *_):
-        return self.name
-
-    def make_pattern(self, index):
-        return "xyzuvw"[index]
-
-
-class Named:
-    def __init__(self, name, type_):
-        self.name = name
-        self.type = type_
-
-    def make_type(self, arity, t):
-        return f"{self.name}:({self.type.make_type(arity, t)})"
-
-    def make_pattern(self, _index):
-        return f"~{self.name}"
-
-
-class CustomReturn:
-    def __init__(self, return_):
-        self.return_ = return_
-
-    def make_type(self, arity, t):
-        return self.return_(arity, t)
-
-
-class VariadicFunction:
-    def __init__(self, name, params, delegate, return_, operator):
-        self.name = name
-        self.params = params
-        self.delegate = delegate
-        self.return_ = return_
-        self.operator = operator
-    
-    def make_signature(self, basics, arity, operator=False, t=None, additional_prefix_params=[]):
-        if operator:
-            name = f"( {self.operator} )"
-        else:
-            name = self.name
-        return f"val {name}: " + self.make_type(basics, arity, t=t, additional_prefix_params=additional_prefix_params)
-
-    def make_type(self, basics, arity, t=None, additional_prefix_params=[]):
-        return " -> ".join(itertools.chain(
-            additional_prefix_params,
-            (p.make_type(arity, t) for p in self.params),
-            (f"{self.delegate}_{a}:({self.__make_delegate_type(basics, a)})" for a in abcd(arity)),
-            [self.return_.make_type(arity, t)],
-        ))
-
-    def __make_delegate_type(self, basics, a):
-        for basic in basics:
-            if basic.name == self.delegate:
-                return " -> ".join(itertools.chain(
-                    (f"'{a}" for _ in basic.params),
-                    [basic.return_.make_type(0)],
-                ))
-        print(f"Unknown delegate {self.delegate} for {self.name}", file=sys.stderr)
-
-    def make_specialization(self, basics, arity):
-        yield f"let {self.name} " + " ".join(itertools.chain(
-            (p.make_pattern(i) for (i, p) in enumerate(self.params)),
-        )) + " ="
-        yield f"  M.{self.name} " + " ".join(itertools.chain(
-            (p.make_pattern(i) for (i, p) in enumerate(self.params)),
-            (f"~{self.delegate}_{a}:{a.upper()}.{self.delegate}" for a in abcd(arity))
-        ))
-
-    def make_extension(self, requirements, basics, arity):
-        return f"let {self.name} " + " ".join(itertools.chain(
-            (p.make_pattern(i) for (i, p) in enumerate(self.params)),
-            (f"~{self.delegate}_{a}" for a in abcd(arity)),
-        )) + (
-            f" = Implementation.{self.name} "
-            + "".join(
-                f"~{req}:(M.{req}" + "".join(f" ~{self.delegate}_{a}" for a in abcd(arity)) + ") "
-                for req in requirements
-            )
-            + " ".join(p.make_pattern(i) for (i, p) in enumerate(self.params))
-        )
-
-
-def val(name, *, params, delegate=None, return_, operator=None):
-    params = [
-        FixedType(param) if isinstance(param, str) else param
-        for param in params
-    ]
-    if callable(return_):
-        return_ = CustomReturn(return_)
-    elif isinstance(return_, str):
-        return_ = FixedType(return_)
-    if delegate is None:
-        delegate = name
-    return VariadicFunction(name, params, delegate, return_, operator)
-
-
-def named(name, type_):
-    if isinstance(type_, str):
-        type_ = FixedType(type_)
-    return Named(name, type_)
-
-
 def type_params(arity):
     if arity == 0:
         return ""
@@ -603,49 +413,290 @@ def abcd(arity):
     return list("abcdefghijkl"[:arity])
 
 
+class Extension:
+    def __init__(self, *, name, members, requirements, basic_production):
+        self.__name = name
+        self.__members = list(members)
+        self.__requirements = list(requirements)
+        self.__basic_production = list(basic_production)
+
+    @property
+    def name(self):
+        return self.__name
+
+    @property
+    def members(self):
+        return list(self.__members)
+
+    def extension_makers_specification(self, arities):
+        for arity in arities:
+            yield f"module Make{arity}(M: sig"
+            yield f"  type {type_params(arity)}t"
+            for requirement in self.__requirements:
+                yield f"  val {requirement.name}: {requirement.value_type(arity, f'{type_params(arity)}t')}"
+            yield "end): sig"
+            for value in itertools.chain(self.members, self.__basic_production):
+                yield f"  val {value.name}: {value.value_type(arity, f'{type_params(arity)}M.t')}"
+            yield "end"
+
+    def extension_makers_implementation(self, arities):
+        yield "module MakeMakers(Implementation: sig"
+        additional_prefix_params = ""
+        for requirement in self.__requirements:
+            additional_prefix_params += LabelledParameter(requirement.name, requirement.value_type(0, "'a")).param_type(0, "t") + " -> "
+        t = "'a"
+        for value in itertools.chain(self.members, self.__basic_production):
+            yield f"  val {value.name}: {additional_prefix_params}{value.value_type(0, t)}"
+        yield "end) = struct"
+        for arity in arities:
+            yield f"  module Make{arity}(M: sig"
+            yield f"    type {type_params(arity)}t"
+            requirement_names = []
+            for requirement in self.__requirements:
+                yield f"    val {requirement.name}: {requirement.value_type(arity, f'{type_params(arity)}t')}"
+                requirement_names.append(requirement.name)
+            yield "  end) = struct"
+            for value in itertools.chain(self.members, self.__basic_production):
+                yield indent(value.value_extension(requirement_names, arity), levels=2)
+            yield "  end"
+        yield "end"
+
+
+variadic_type_marker = "THIS_VARIADIC_TYPE_MARKER_SHOULD_NEVER_APPEAR_IN_GENERATED_CODE"
+
+
+class UnlabelledParameter:
+    def __init__(self, type_):
+        self.__type = type_
+
+    def param_type(self, _arity, t):
+        return self.__type.replace(variadic_type_marker, t)
+
+    def param_pattern(self, _arity, index):
+        return "xyzuvw"[index]
+
+    param_specialization = param_pattern
+
+    param_extension = param_pattern
+
+
+class LabelledParameter:
+    def __init__(self, label, type_):
+        self.__label = label
+        self.__type = type_
+
+    def param_type(self, _arity, t):
+        return f"{self.__label}:({self.__type.replace(variadic_type_marker, t)})"
+
+    def param_pattern(self, _arity, _index):
+        return f"~{self.__label}"
+
+    param_specialization = param_pattern
+
+    param_extension = param_pattern
+
+
+class DelegateParameter:
+    def __init__(self, values, delegate_name):
+        self.__values = values
+        self.__delegate_name = delegate_name
+
+    @property
+    def name(self):
+        return self.__delegate_name
+
+    def param_type(self, arity, t):
+        if arity == 0:
+            return None
+        else:
+            return " -> ".join(
+                f"{self.name}_{a}:(" + self.__values[self.__delegate_name].value_type(0, f"'{a}") + ")"
+                for a in abcd(arity)
+            )
+
+    def param_pattern(self, arity, _index):
+        if arity == 0:
+            return None
+        else:
+            return " ".join(f"~{self.name}_{a}" for a in abcd(arity))
+
+    def param_specialization(self, arity, _index):
+        if arity == 0:
+            return None
+        else:
+            return " ".join(f"~{self.name}_{a}:{a.upper()}.{self.name}" for a in abcd(arity))
+
+    def param_extension(self, _arity, _index):
+        return None
+
+
+class Value:
+    def __init__(self, *, name, type_chain, operator):
+        self.__name = name
+        self.__type_chain = list(type_chain)
+        assert len(self.__type_chain) > 0
+        self.__parameters = self.__type_chain[:-1]
+        self.__operator = operator
+
+    @property
+    def name(self):
+        return self.__name
+
+    @property
+    def operator(self):
+        return self.__operator
+
+    def value_type(self, arity, t):
+        return " -> ".join(filter(None, (param.param_type(arity, t) for param in self.__type_chain)))
+
+    def value_specialization(self, arity):
+        yield f"let {self.name} " + " ".join(filter(None, (p.param_pattern(0, i) for (i, p) in enumerate(self.__parameters)))) + " ="
+        yield f"  M.{self.name} " + " ".join(p.param_specialization(arity, i) for (i, p) in enumerate(self.__parameters))
+
+    def value_extension(self, requirements, arity):
+        for param in self.__parameters:
+            if isinstance(param, DelegateParameter):
+                delegate_ = param
+                break
+        else:
+            delegate_ = None
+        yield (
+            f"let {self.name} "
+            + " ".join(filter(None, (p.param_pattern(arity, i) for (i, p) in enumerate(self.__parameters))))
+            + (
+                f" = Implementation.{self.name} "
+                + "".join(
+                    f"~{req}:(M.{req}" + "".join([] if delegate_ is None else (f" ~{delegate_.name}_{a}" for a in abcd(arity))) + ") "
+                    for req in requirements
+                )
+                + " ".join(filter(None, (p.param_extension(arity, i) for (i, p) in enumerate(self.__parameters))))
+            )
+        )
+
+
+values = {}
+
+def val(name, *type_chain, operator=None):
+    def make_param(param):
+        if isinstance(param, str):
+            return UnlabelledParameter(param)
+        elif isinstance(param, dict):
+            [(label, type_)] = param.items()
+            return LabelledParameter(label, type_)
+        elif isinstance(param, tuple):
+            if param[0] is DelegateParameter:
+                return DelegateParameter(values, param[1])
+            else:
+                assert False
+        else:
+            assert False
+
+    value = Value(
+        name=name,
+        type_chain=(make_param(param) for param in type_chain),
+        operator=operator,
+    )
+    # @todo Rename examples differently, to never have two values with the same name
+    if name not in values:
+        values[name] = value
+    return value
+
+
+def ext(name, *, members, requirements):
+    def make_requirement(req):
+        if isinstance(req, str):
+            return values[req]
+        elif isinstance(req, Value):
+            return req
+        else:
+            assert False
+
+    members = list(members)
+
+    return Extension(
+        name=name,
+        members=(member for member in members if isinstance(member, Value)),
+        requirements=(make_requirement(requirement) for requirement in requirements),
+        basic_production=(values[member] for member in members if isinstance(member, str)),
+    )
+
+
+def deleg(name):
+    return (DelegateParameter, name)
+
+
+t = variadic_type_marker
+
+
 traits = []
 
-def trait(name, *, variadic=True, basics, extensions=[], examples=[], test_requirements=[]):
+def trait(
+        name,
+        variadic=True,
+        values=[],
+        extensions=[],
+        test_examples=[],
+        test_requirements=[],
+):
     trait = Facets(
         prefix="Traits",
         name=name,
         variadic=variadic,
-        inherited=[],
-        base_values=basics,
+        bases=[],
+        values=values,
         extensions=extensions,
-        examples=examples,
+        test_examples=test_examples,
         test_requirements=test_requirements,
     )
     traits.append(trait)
     return trait
 
-# @todo (?) Add trait Testable with val test: Test.t
+
+concepts = []
+
+def concept(
+        name,
+        bases,
+        values=[],
+        test_requirements=[],
+):
+    concept = Facets(
+        prefix="Concepts",
+        name=name,
+        variadic=True,
+        bases=bases,
+        values=values,
+        extensions=[],
+        test_examples=[],
+        test_requirements=test_requirements,
+    )
+    concepts.append(concept)
+    return concept
+
+
+###### TRAITS ######
+
+# @feature (?) Add trait Testable with val test: Test.t
 
 representable = trait(
     "Representable",
-    basics=[
-        val("repr", params=[variadic_type], return_="string"),
-    ],
-    examples=[
-        val("repr", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * string) list"),
-    ],
+    values=[val("repr", t, deleg("repr"), "string")],
+    test_examples=[val("repr", f"({t} * string) list")],
 )
 
 equatable = trait(
     "Equatable",
-    basics=[
-        val("equal", params=[variadic_type, variadic_type], return_="bool", operator="="),
-    ],
+    values=[val("equal", t, t, deleg("equal"), "bool", operator="=")],
     extensions=[
-        Extension(
+        ext(
             "Different",
-            [val("different", params=[variadic_type, variadic_type], delegate="equal", return_="bool", operator="<>")],
+            members=[val("different", t, t, deleg("equal"), "bool", operator="<>")],
             requirements=["equal"],
-        )
+        ),
     ],
-    examples=[
-        val("equal", params=[], return_=lambda *args: f"{variadic_type.make_type(*args)} list list"),
-        val("different", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
+    test_examples=[
+        val("equal", f"{t} list list"),
+        val("different", f"({t} * {t}) list"),
     ],
     test_requirements=[representable],
 )
@@ -653,66 +704,56 @@ equatable = trait(
 displayable = trait(
     "Displayable",
     variadic=False,
-    basics=[
-        val("to_string", params=[variadic_type], return_="string"),
-    ],
-    examples=[
-        val("to_string", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * string) list"),
-    ],
+    values=[val("to_string", t, "string")],
+    test_examples=[val("to_string", f"({t} * string) list")],
 )
 
 parsable = trait(
     "Parsable",
     variadic=False,
-    basics=[
-        val("try_of_string", params=["string"], return_="t option"),
-        val("of_string", params=["string"], return_="t"),
+    values=[
+        val("try_of_string", "string", f"{t} option"),
+        val("of_string", "string", t),
     ],
-    examples=[
-        val("of_string", params=[], return_=lambda *args: f"(string * {variadic_type.make_type(*args)}) list"),
-    ],
+    test_examples=[val("of_string", f"(string * {t}) list")],
     test_requirements=[equatable, representable],
 )
 
 comparable = trait(
     "Comparable",
-    basics=[
-        val(
-            "compare",
-            params=[variadic_type, variadic_type],
-            return_="Compare.t",
-        )
-    ],
+    values=[val("compare", t, t, deleg("compare"), "Compare.t")],
     extensions=[
-        Extension(
+        ext(
             "GreaterLessThan",
-            [
-                val(name, params=[variadic_type, variadic_type], delegate="compare", return_="bool", operator=operator)
-                for (name, operator) in [("less_than", "<"), ("less_or_equal", "<="), ("greater_than", ">"), ("greater_or_equal", ">=")]
+            members=[
+                val("less_than", t, t, deleg("compare"), "bool", operator="<"),
+                val("less_or_equal", t, t, deleg("compare"), "bool", operator="<="),
+                val("greater_than", t, t, deleg("compare"), "bool", operator=">"),
+                val("greater_or_equal", t, t, deleg("compare"), "bool", operator=">="),
             ],
             requirements=["compare"],
         ),
-        Extension(
+        ext(
             "Between",
-            [
-                val(name, params=[variadic_type, named("low", variadic_type), named("high", variadic_type)], delegate="compare", return_="bool")
-                for name in ["between", "between_or_equal"]
+            members=[
+                val("between", t, {"low": t}, {"high": t}, deleg("compare"), "bool"),
+                val("between_or_equal", t, {"low": t}, {"high": t}, deleg("compare"), "bool")
             ],
             requirements=["less_than", "less_or_equal", "greater_than", "greater_or_equal"],
         ),
-        Extension(
+        ext(
             "MinMax",
-            [
-                val("min", params=[variadic_type, variadic_type], delegate="compare", return_=variadic_type),
-                val("max", params=[variadic_type, variadic_type], delegate="compare", return_=variadic_type),
-                val("min_max", params=[variadic_type, variadic_type], delegate="compare", return_=lambda *args: f"{variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}"),
+            members=[
+                val("min", t, t, deleg("compare"), t),
+                val("max", t, t, deleg("compare"), t),
+                val("min_max", t, t, deleg("compare"), f"{t} * {t}"),
             ],
             requirements=["compare"],
         ),
     ],
-    examples=[
-        val("ordered", params=[], return_=lambda *args: f"{variadic_type.make_type(*args)} list list"),
-        val("equal", params=[], return_=lambda *args: f"{variadic_type.make_type(*args)} list list"),
+    test_examples=[
+        val("ordered", f"{t} list list"),
+        val("equal", f"{t} list list"),
     ],
     test_requirements=[equatable, representable],
 )
@@ -720,32 +761,44 @@ comparable = trait(
 ringoid = trait(
     "Ringoid",
     variadic=False,
-    basics=itertools.chain(
-        (val(name, params=[], return_=variadic_type) for name in ["zero", "one"]),
-        [
-            # val("posate", params=[variadic_type], return_=variadic_type, operator="~+"),
-            val("negate", params=[variadic_type], return_=variadic_type, operator="~-"),
-        ],
-        (
-            val(name, params=[variadic_type, variadic_type], return_=variadic_type, operator=operator)
-            for (name, operator) in [("add", "+"), ("substract", "-"), ("multiply", "*"), ("divide", "/")]
-        ),
-    ),
+    values=[
+        val("zero", t),
+        val("one", t),
+        # val("posate", t, t, operator="~+"),
+        val("negate", t, t, operator="~-"),
+        val("add", t, t, t, operator="+"),
+        val("substract", t, t, t, operator="-"),
+        val("multiply", t, t, t, operator="*"),
+        val("divide", t, t, t, operator="/"),
+    ],
     extensions=[
-        Extension("Substract", [], requirements=["negate", "add"], basic_production=["substract"]),
-        Extension("Square", [val("square", params=[variadic_type], return_=variadic_type)], requirements=["multiply"]),
-        Extension(
+        ext(
+            "Substract",
+            members=["substract"],
+            requirements=["negate", "add"],
+        ),
+        ext(
+            "Square",
+            members=[val("square", t, t)],
+            requirements=["multiply"],
+        ),
+        ext(
             "Exponentiate",
-            [val("exponentiate", params=[variadic_type, "int"], return_=variadic_type, operator="**")],
-            requirements=["one", "square", "multiply", val("exponentiate_negative_exponent", params=[named("exponentiate", CustomReturn(lambda *args: f"{variadic_type.make_type(*args)} -> int -> {variadic_type.make_type(*args)}")), variadic_type, "int"], return_=variadic_type)],
+            members=[val("exponentiate", t, "int", t, operator="**")],
+            requirements=[
+                "one",
+                "square",
+                "multiply",
+                val("exponentiate_negative_exponent", {"exponentiate": f"{t} -> int -> {t}"}, t, "int", t),
+            ],
         ),
     ],
-    examples=[
-        val("add_substract", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
-        val("negate", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
-        val("multiply", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
-        val("divide", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
-        val("exponentiate", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * int * {variadic_type.make_type(*args)}) list"),
+    test_examples=[
+        val("add_substract", f"({t} * {t} * {t}) list"),
+        val("negate", f"({t} * {t}) list"),
+        val("multiply", f"({t} * {t} * {t}) list"),
+        val("divide", f"({t} * {t} * {t}) list"),
+        val("exponentiate", f"({t} * int * {t}) list"),
     ],
     test_requirements=[equatable, representable],
 )
@@ -753,92 +806,71 @@ ringoid = trait(
 of_standard_numbers = trait(
     "OfStandardNumbers",
     variadic=False,
-    basics=[
-        val("of_int", params=["int"], return_=variadic_type),
-        val("of_float", params=["float"], return_=variadic_type),
+    values=[
+        val("of_int", "int", t),
+        val("of_float", "float", t),
     ],
 )
 
 to_standard_numbers = trait(
     "ToStandardNumbers",
     variadic=False,
-    basics=[
-        val("to_int", params=[variadic_type], return_="int"),
-        val("to_float", params=[variadic_type], return_="float"),
+    values=[
+        val("to_int", t, "int"),
+        val("to_float", t, "float"),
     ],
 )
 
 pred_succ = trait(
     "PredSucc",
     variadic=False,
-    basics=[
-        val("pred", params=[variadic_type], return_=variadic_type),
-        val("succ", params=[variadic_type], return_=variadic_type),
+    values=[
+        val("pred", t, t),
+        val("succ", t, t),
     ],
     extensions=[
-        Extension(
+        ext(
             "PredSucc",
-            [],
-            requirements=[
-                val("one", params=[], return_=variadic_type),
-                val("add", params=[variadic_type, variadic_type], return_=variadic_type),
-                val("substract", params=[variadic_type, variadic_type], return_=variadic_type),
-            ],
-            basic_production=["pred", "succ"],
+            members=["pred", "succ"],
+            requirements=["one", "add", "substract"],
         ),
     ],
-    examples=[
-        val("succ", params=[], return_=lambda *args: f"({variadic_type.make_type(*args)} * {variadic_type.make_type(*args)}) list"),
-    ],
+    test_examples=[val("succ", f"({t} * {t}) list")],
     test_requirements=[equatable, representable],
 )
 
 
-concepts = []
-
-def concept(name, *, inherited, basics=[], test_requirements=[]):
-    concept = Facets(
-        prefix="Concepts",
-        name=name,
-        variadic=True,
-        inherited=inherited,
-        base_values=basics,
-        extensions=[],
-        examples=[],
-        test_requirements=test_requirements,
-    )
-    concepts.append(concept)
-    return concept
+###### CONCEPTS ######
 
 
 identifiable = concept(
     "Identifiable",
-    inherited=[equatable, representable],
+    bases=[equatable, representable],
 )
 
 able = concept(
     "Able",
-    inherited=[identifiable, comparable],
+    bases=[identifiable, comparable],
 )
 
 stringable = concept(
     "Stringable",
-    inherited=[displayable, parsable],
-    test_requirements=[representable, equatable],
+    bases=[displayable, parsable],
+    test_requirements=[representable, equatable],  # @todo Deduce from parsable's test requirements
 )
 
 number = concept(
     "Number",
-    inherited=[identifiable, stringable, ringoid, of_standard_numbers],
+    bases=[identifiable, stringable, ringoid, of_standard_numbers],
 )
 
 real_number = concept(
     "RealNumber",
     # @feature sign
-    inherited=[number, comparable, to_standard_numbers],
-    basics=[
-        val("abs", params=[variadic_type], return_=variadic_type),
-        val("modulo", params=[variadic_type, variadic_type], return_=variadic_type, operator="mod"),
+    bases=[number, comparable, to_standard_numbers],
+    values=[
+        val("abs", t, t),
+        val("modulo", t, t, t, operator="mod"),
     ],
 )
 
@@ -846,7 +878,8 @@ integer = concept(
     "Integer",
     # @feature Bitwise?
     # @feature gcd, lcm, quomod
-    inherited=[real_number, pred_succ],
+    # @feature width: like Sys.int_size
+    bases=[real_number, pred_succ],
 )
 
 
@@ -871,7 +904,7 @@ if __name__ == "__main__":
         '    label="Concepts";',
         (f'    {concept.name.lower()} [label="{concept.graphviz_label}"];' for concept in concepts),
         '  }',
-        (f'  {concept.name.lower()} -> {base.name.lower()}' for concept in concepts for base in concept.inherited),
+        (f'  {concept.name.lower()} -> {base.name.lower()}' for concept in concepts for base in concept.bases),
         '}',
     )
 
