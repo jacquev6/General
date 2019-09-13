@@ -1,4 +1,5 @@
 module Parsable: sig
+  module Tests
   module type S0 = sig
     type t
     val of_string: bytes -> t

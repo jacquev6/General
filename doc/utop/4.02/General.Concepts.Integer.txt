@@ -1,4 +1,6 @@
 module Integer: sig
+  module Operators
+  module Tests
   module type S0 = sig
     module O: sig
       val (*): t -> t -> t
@@ -13,7 +15,6 @@ module Integer: sig
       val (>): t -> t -> bool
       val (>=): t -> t -> bool
       val (mod): t -> t -> t
-      val (~+): t -> t
       val (~-): t -> t
     end
     type t

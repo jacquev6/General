@@ -1,8 +1,0 @@
-module type S0 = sig
-  type t
-
-  val (=): t -> t
-    -> bool
-  val (<>): t -> t
-    -> bool
-end

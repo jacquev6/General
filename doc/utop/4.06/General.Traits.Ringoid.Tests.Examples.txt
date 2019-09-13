@@ -1,0 +1,10 @@
+module Examples: sig
+  module type S0 = sig
+    type t
+    val add_substract: (t * t * t) list
+    val divide: (t * t * t) list
+    val exponentiate: (t * int * t) list
+    val multiply: (t * t * t) list
+    val negate: (t * t) list
+  end
+end

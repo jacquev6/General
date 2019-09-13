@@ -116,8 +116,12 @@ open Ubiquitous
 
 open Foundations
 
+module Test = struct
+  #include "testing/Test.ml"
+end
+
 module Testing = struct
-  #include "Testing.ml"
+  #include "Testing/Testing.ml"
 end
 
 module Traits = struct
@@ -145,6 +149,14 @@ module Traits = struct
     #include "Traits/PredSucc.ml"
   end
 
+  module OfStandardNumbers = struct
+    #include "Traits/OfStandardNumbers.ml"
+  end
+
+  module ToStandardNumbers = struct
+    #include "Traits/ToStandardNumbers.ml"
+  end
+
   module Ringoid = struct
     #include "Traits/Ringoid.ml"
   end
@@ -169,6 +181,10 @@ module Concepts = struct
 
   module Able = struct
     #include "Concepts/Able.ml"
+  end
+
+  module Stringable = struct
+    #include "Concepts/Stringable.ml"
   end
 
   module Number = struct

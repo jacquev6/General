@@ -1,0 +1,9 @@
+module Make4(M: General.Traits.Representable.Tests.Testable.S4)(E: sig
+  module A: General.Traits.Representable.Tests.Examples.Element
+  module B: General.Traits.Representable.Tests.Examples.Element
+  module C: General.Traits.Representable.Tests.Examples.Element
+  module D: General.Traits.Representable.Tests.Examples.Element
+  val repr: ((A.t, B.t, C.t, D.t) M.t * bytes) list
+end): sig
+  val test: General.Test.t
+end

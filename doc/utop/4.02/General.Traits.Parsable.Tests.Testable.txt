@@ -1,0 +1,9 @@
+module Testable: sig
+  module type S0 = sig
+    type t
+    val equal: t -> t -> bool
+    val of_string: bytes -> t
+    val repr: t -> bytes
+    val try_of_string: bytes -> t option
+  end
+end

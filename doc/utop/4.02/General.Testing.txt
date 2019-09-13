@@ -1,10 +1,8 @@
 module Testing: sig
-  module Result
-  module Test
-  val (>:): bytes -> unit lazy_t -> Test.t
-  val (>::): bytes -> Test.t list -> Test.t
-  val (~:): ('a, unit, bytes, bytes, bytes, unit lazy_t -> Test.t) format6 -> 'a
-  val (~::): ('a, unit, bytes, bytes, bytes, Test.t list -> Test.t) format6 -> 'a
+  val (>:): bytes -> unit lazy_t -> General.Test.t
+  val (>::): bytes -> General.Test.t list -> General.Test.t
+  val (~:): ('a, unit, bytes, bytes, bytes, unit lazy_t -> General.Test.t) format6 -> 'a
+  val (~::): ('a, unit, bytes, bytes, bytes, General.Test.t list -> General.Test.t) format6 -> 'a
   val check: repr:('a -> bytes) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
   val check_bool: expected:bool -> bool -> unit
   val check_false: bool -> unit
@@ -31,8 +29,9 @@ module Testing: sig
   val check_string_list: expected:bytes list -> bytes list -> unit
   val check_string_option: expected:bytes option -> bytes option -> unit
   val check_true: bool -> unit
-  val command_line_main: argv:bytes list -> Test.t -> General.Exit.t
+  val command_line_main: argv:bytes list -> General.Test.t -> General.Exit.t
   val expect_exception: expected:exn -> 'a lazy_t -> unit
   val expect_exception_named: expected:bytes -> 'a lazy_t -> unit
   val fail: ('a, unit, bytes, bytes, bytes, 'b) format6 -> 'a
+  val run: ?record_backtrace:bool -> General.Test.t -> General.Test.Result.t
 end

@@ -1,4 +1,5 @@
 module Displayable: sig
+  module Tests
   module type S0 = sig
     type t
     val to_string: t -> string

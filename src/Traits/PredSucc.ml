@@ -1,41 +1,22 @@
-#include "PredSucc.signatures.ml"
+#include "../Generated/Traits/PredSucc.ml"
 
-module Make0(M: sig
-  type t
-
-  val one: t
-
-  val add: t -> t -> t
-  val substract: t -> t -> t
-end) = struct
-  open M
-
-  let pred x =
-    substract x one
-
-  let succ x =
-    add x one
+module PredSucc = struct
+  include PredSucc_.MakeMakers(struct
+    let pred ~one ~add:_ ~substract x = substract x one
+    let succ ~one ~add ~substract:_ x = add x one
+  end)
 end
 
 module Tests = struct
-  open Testing
+  include Tests_
 
-  module Examples = struct
-    module type S0 = sig
-      type t
-      
-      val succ: (t * t) list
-    end
-  end
+  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = E
 
-  module Make0(M: sig
-    include S0
-    include Equatable.Basic.S0 with type t := t
-    include Representable.S0 with type t := t
-  end)(E: Examples.S0 with type t := M.t) = struct
+  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+    open Testing
     open M
 
-    let test = "PredSucc" >:: (
+    let tests = (
       E.succ
       |> List.flat_map ~f:(fun (p, s) ->
         let rp = repr p and rs = repr s in
@@ -46,4 +27,6 @@ module Tests = struct
       )
     )
   end
+
+  include MakeMakers(MakeExamples)(MakeTests)
 end

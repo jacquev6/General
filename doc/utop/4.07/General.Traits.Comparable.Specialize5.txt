@@ -1,0 +1,19 @@
+module Specialize5(M: General.Traits.Comparable.S5)(A: General.Traits.Comparable.Basic.S0)(B: General.Traits.Comparable.Basic.S0)(C: General.Traits.Comparable.Basic.S0)(D: General.Traits.Comparable.Basic.S0)(E: General.Traits.Comparable.Basic.S0): sig
+  module O: sig
+    val (<): t -> t -> bool
+    val (<=): t -> t -> bool
+    val (>): t -> t -> bool
+    val (>=): t -> t -> bool
+  end
+  type t = (A.t, B.t, C.t, D.t, E.t) M.t
+  val between: t -> low:t -> high:t -> bool
+  val between_or_equal: t -> low:t -> high:t -> bool
+  val compare: t -> t -> General.Compare.t
+  val greater_or_equal: t -> t -> bool
+  val greater_than: t -> t -> bool
+  val less_or_equal: t -> t -> bool
+  val less_than: t -> t -> bool
+  val max: t -> t -> t
+  val min: t -> t -> t
+  val min_max: t -> t -> t * t
+end

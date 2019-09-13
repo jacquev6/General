@@ -3,7 +3,7 @@ ARG OCAML_VERSION=4.02
 FROM ocaml/opam2:debian-10-ocaml-${OCAML_VERSION}
 
 RUN sudo apt-get update && \
-    sudo apt-get install --yes m4 npm python3 && \
+    sudo apt-get install --yes m4 npm python3 graphviz && \
     sudo rm -rf /var/lib/apt/lists/*
 
 WORKDIR /project

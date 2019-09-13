@@ -1,0 +1,11 @@
+module Make5(M: General.Traits.Comparable.Tests.Testable.S5)(E: sig
+  module A: General.Traits.Comparable.Tests.Examples.Element
+  module B: General.Traits.Comparable.Tests.Examples.Element
+  module C: General.Traits.Comparable.Tests.Examples.Element
+  module D: General.Traits.Comparable.Tests.Examples.Element
+  module E: General.Traits.Comparable.Tests.Examples.Element
+  val equal: (A.t, B.t, C.t, D.t, E.t) M.t list list
+  val ordered: (A.t, B.t, C.t, D.t, E.t) M.t list list
+end): sig
+  val test: General.Test.t
+end

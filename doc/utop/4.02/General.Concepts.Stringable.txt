@@ -1,0 +1,9 @@
+module Stringable: sig
+  module Tests
+  module type S0 = sig
+    type t
+    val of_string: bytes -> t
+    val to_string: t -> bytes
+    val try_of_string: bytes -> t option
+  end
+end

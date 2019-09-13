@@ -2,55 +2,14 @@
 
 set -o errexit
 
-(
-    grep "RESET_TYPE(" src/Reset/ResetPervasives.ml | grep -v "'" | sed "s/ *RESET_TYPE(.*, \(.*\)).*/let (_: General.\1 option) = None/" | sed "s/__/./g" | sort -u | grep -v "\.todo option) = None$";
-    grep "RESET_TYPE(.*'" src/Reset/ResetPervasives.ml | sed "s/ *RESET_TYPE(.*, \(.*\)).*/let (_: _ General.\1 option) = None/" | sed "s/__/./g" | sort -u | grep -v "\.todo option) = None$";
-    grep "RESET_VALUE" src/Reset/ResetPervasives.ml | sed "s/ *RESET_VALUE(.*, \(.*\)).*/let _ = General.\1/" | sed "s/__/./g" | sort -u | grep -v "\.todo$";
-    echo "";
-    echo "open General.Abbr";
-    echo "";
-    echo "let () =";
-    echo "  let argv = Li.of_array OCamlStandard.Sys.argv in";
-    echo "  Exit.exit (Tst.command_line_main ~argv General.Tests.test)";
-) > unit_tests.ml
+GENERATE_CODE=true
 
-
-(
-    echo "(rule";
-    echo "  (targets General.mli)";
-    echo "  (deps";
-    echo "    (:src General.cppo.mli)";
-    (
-        find src -type f -name "*.signatures*.ml" -or -name "*.makers*.mli";
-        find src/Reset -type f -not -name "DefinitionHeader.ml";
-    ) | sed "s|src/|    |" | sort -u
-    echo " )";
-    echo "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))";
-    echo ")";
-    echo "";
-    echo "(rule";
-    echo "  (targets General.ml)";
-    echo "  (deps";
-    echo "    (:src General.cppo.ml)";
-    (
-        find src -type f -name "*.ml" -not -name "SignatureHeader.ml" -not -name "General.cppo.ml";
-    ) | sed "s|src/|    |" | sort -u
-    echo "  )";
-    echo "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))";
-    echo ")";
-    echo "";
-    echo "(library";
-    echo "  (name General)";
-    echo "  (public_name General)";
-    echo "  (modules General)";
-    echo "  (libraries num)";
-    echo "  (flags (:standard -nopervasives -w @A-4-33-44-45-48))";
-    echo ")";
-) > src/dune
 for OCAML_VERSION in ${OCAML_VERSIONS:-4.02 4.03 4.04 4.05 4.06 4.07 4.08}
 do
     echo "OCaml $OCAML_VERSION"
     echo "=========="
+
+    date
 
     echo
     echo "Building docker image"
@@ -64,6 +23,68 @@ do
     mkdir -p _builds/$OCAML_VERSION
     rm -f _build
     ln -sf _builds/$OCAML_VERSION _build
+
+    if $GENERATE_CODE
+    then
+        echo
+        echo "Generating code"
+        echo "---------------"
+
+        GENERATE_CODE=false
+
+        rm -rf src/Generated
+        mkdir src/Generated
+        $RUN python3 src/geni.py src/Generated
+        $RUN dot src/Generated/Facets.dot -Tpng -odocs/Facets.png
+
+        (
+            grep "RESET_TYPE(" src/Reset/ResetPervasives.ml | grep -v "'" | sed "s/ *RESET_TYPE(.*, \(.*\)).*/let (_: General.\1 option) = None/" | sed "s/__/./g" | sort -u | grep -v "\.todo option) = None$";
+            grep "RESET_TYPE(.*'" src/Reset/ResetPervasives.ml | sed "s/ *RESET_TYPE(.*, \(.*\)).*/let (_: _ General.\1 option) = None/" | sed "s/__/./g" | sort -u | grep -v "\.todo option) = None$";
+            grep "RESET_VALUE" src/Reset/ResetPervasives.ml | sed "s/ *RESET_VALUE(.*, \(.*\)).*/let _ = General.\1/" | sed "s/__/./g" | sort -u | grep -v "\.todo$";
+            echo "";
+            echo "open General.Abbr";
+            echo "";
+            echo "let () =";
+            echo "  let argv = Li.of_array OCamlStandard.Sys.argv in";
+            echo "  Exit.exit (Tst.command_line_main ~argv General.Tests.test)";
+        ) > unit_tests.ml
+
+        (
+            echo "(rule";
+            echo "  (targets General.mli)";
+            echo "  (deps";
+            echo "    (:src General.cppo.mli)";
+            echo "    geni.py";
+            (
+                find src -type f -name "*.signatures*.ml" -or -name "*.makers*.mli";
+                find src/Reset -type f -not -name "DefinitionHeader.ml";
+                find src/Generated -type f -name "*.mli";
+            ) | sed "s|src/|    |" | sort -u
+            echo "  )";
+            echo "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))";
+            echo ")";
+            echo "";
+            echo "(rule";
+            echo "  (targets General.ml)";
+            echo "  (deps";
+            echo "    (:src General.cppo.ml)";
+            echo "    geni.py";
+            (
+                find src -type f -name "*.ml" -not -name "SignatureHeader.ml" -not -name "General.cppo.ml";
+            ) | sed "s|src/|    |" | sort -u
+            echo "  )";
+            echo "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))";
+            echo ")";
+            echo "";
+            echo "(library";
+            echo "  (name General)";
+            echo "  (public_name General)";
+            echo "  (modules General)";
+            echo "  (libraries num)";
+            echo "  (flags (:standard -nopervasives -w @A-4-33-44-45-48))";
+            echo ")";
+        ) > src/dune
+    fi
 
     echo
     echo "Running tests"
@@ -80,7 +101,6 @@ do
     mkdir -p doc/utop/$OCAML_VERSION
     $RUN python3 doc/utop/extract.py doc/utop/$OCAML_VERSION
 
-    rm _build
 
     echo
     echo "Testing package install"
@@ -95,6 +115,8 @@ do
     #  - all symbols in OCamlStandard.Pervasives are reset in ResetPervasives
     #  - all symbols in ResetPervasives do exist in OCamlStandard.Pervasives
     # Symbols: modules, types, exceptions, values, externals
+
+    rm _build
 
     echo
 done

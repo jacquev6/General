@@ -1,0 +1,10 @@
+module Specialize4(M: General.Concepts.Identifiable.S4)(A: General.Concepts.Identifiable.S0)(B: General.Concepts.Identifiable.S0)(C: General.Concepts.Identifiable.S0)(D: General.Concepts.Identifiable.S0): sig
+  module O: sig
+    val (<>): t -> t -> bool
+    val (=): t -> t -> bool
+  end
+  type t = (A.t, B.t, C.t, D.t) M.t
+  val different: t -> t -> bool
+  val equal: t -> t -> bool
+  val repr: t -> bytes
+end

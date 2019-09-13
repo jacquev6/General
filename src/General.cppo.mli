@@ -161,71 +161,57 @@ module Equate: sig
   end
 end
 
-(** Traits are isolated capabilities associated with a type. *)
+(* Testing base *)
+module Test: sig
+  module Result: sig
+    module Status: sig
+      type failure
+
+      type t =
+        | Success
+        | Failure of failure
+        | Error of exn * Pervasives.OCamlStandard.Printexc.raw_backtrace option
+
+      val to_string: t -> string
+    end
+
+    type single = {
+      label: string;
+      status: Status.t;
+    }
+
+    module Counts: sig
+      type t = {
+        successes: int;
+        failures: int;
+        errors: int;
+      }
+    end
+
+    type group = {
+      name: string;
+      children: t list;
+      counts: Counts.t;
+    }
+
+    and t =
+      | Single of single
+      | Group of group
+  end
+
+  type t
+end
+
+(** Traits are isolated capabilities associated to a type. *)
 module Traits: sig
   (* @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
   (* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
   (* @feature Publish helper functors (Specialize, Ringoid.Exponentiate.Make, Tests.Make, etc.) *)
 
   (** A *representation* is a string representing a value for a software developer audience.
-  When possible, it should a valid OCaml expression for the value. *)
-  module Representable: sig
-    #include "Traits/Representable.signatures.ml"
-  end
+  When possible, it should be a valid OCaml expression for the value. *)
 
-  module Displayable: sig
-    #include "Traits/Displayable.signatures.ml"
-  end
-
-  module Parsable: sig
-    #include "Traits/Parsable.signatures.ml"
-  end
-
-  module Equatable: sig
-    module Basic: sig
-      #include "Traits/Equatable.signatures.Basic.ml"
-    end
-
-    module Operators: sig
-      #include "Traits/Equatable.signatures.Operators.ml"
-    end
-
-    #include "Traits/Equatable.signatures.ml"
-  end
-
-  module Comparable: sig
-    module Basic: sig
-      #include "Traits/Comparable.signatures.Basic.ml"
-    end
-
-    module Operators: sig
-      #include "Traits/Comparable.signatures.Operators.ml"
-    end
-
-    #include "Traits/Comparable.signatures.ml"
-  end
-
-  module Ringoid: sig
-    module Basic: sig
-      #include "Traits/Ringoid.signatures.Basic.ml"
-    end
-
-    module Operators: sig
-      #include "Traits/Ringoid.signatures.Operators.ml"
-
-      #include "Traits/Ringoid.makers.Operators.mli"
-    end
-
-    #include "Traits/Ringoid.signatures.ml"
-
-    #include "Traits/Ringoid.makers.mli"
-  end
-
-  module PredSucc: sig
-    #include "Traits/PredSucc.signatures.ml"
-
-    #include "Traits/PredSucc.makers.mli"
-  end
+  #include "Generated/Traits.mli"
 
   module FilterMapable: sig
     #include "Traits/FilterMapable.signatures.ml"
@@ -332,37 +318,7 @@ module Concepts: sig
   (* @feature Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer *)
   (* @feature Concepts.Stringable including Parsable and Displayable *)
 
-  module Identifiable: sig
-    #include "Concepts/Identifiable.signatures.ml"
-  end
-
-  module Able: sig
-    module Operators: sig
-      #include "Concepts/Able.signatures.Operators.ml"
-    end
-
-    #include "Concepts/Able.signatures.ml"
-  end
-
-  module Number: sig
-    module Operators: sig
-      #include "Concepts/Number.signatures.Operators.ml"
-    end
-
-    #include "Concepts/Number.signatures.ml"
-  end
-
-  module RealNumber: sig
-    module Operators: sig
-      #include "Concepts/RealNumber.signatures.Operators.ml"
-    end
-
-    #include "Concepts/RealNumber.signatures.ml"
-  end
-
-  module Integer: sig
-    #include "Concepts/Integer.signatures.ml"
-  end
+  #include "Generated/Concepts.mli"
 end
 
 (* Technical, utility modules *)
@@ -1447,50 +1403,10 @@ module StdErr: sig
   val flush: unit -> unit
 end
 
-(* Testing *)
+(* Testing utilities *)
 
 module Testing: sig
-  module Result: sig
-    module Status: sig
-      type failure
-
-      type t =
-        | Success
-        | Failure of failure
-        | Error of exn * CallStack.t option
-
-      val to_string: t -> string
-    end
-
-    type single = {
-      label: string;
-      status: Status.t;
-    }
-
-    module Counts: sig
-      type t = {
-        successes: int;
-        failures: int;
-        errors: int;
-      }
-    end
-
-    type group = {
-      name: string;
-      children: t list;
-      counts: Counts.t;
-    }
-
-    and t =
-      | Single of single
-      | Group of group
-  end
-
-  module Test: sig
-    type t
-
-    val run: ?record_backtrace:bool -> t -> Result.t
-  end
+  val run: ?record_backtrace:bool -> Test.t -> Test.Result.t
 
   val command_line_main: argv:string list -> Test.t -> Exit.t
 
@@ -1738,5 +1654,5 @@ end
 
 (* @todo Remove from interface, or make a functor, to avoid linking tests in client applications *)
 module Tests: sig
-  val test: Testing.Test.t
+  val test: Test.t
 end [@@autodoc.hide]

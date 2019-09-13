@@ -12,6 +12,5 @@ end): sig
   val (+): M.t -> M.t -> M.t
   val (-): M.t -> M.t -> M.t
   val (/): M.t -> M.t -> M.t
-  val (~+): M.t -> M.t
   val (~-): M.t -> M.t
 end
