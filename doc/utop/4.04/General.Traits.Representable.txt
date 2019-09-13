@@ -1,4 +1,10 @@
 module Representable: sig
+  module Specialize1
+  module Specialize2
+  module Specialize3
+  module Specialize4
+  module Specialize5
+  module Tests
   module type S0 = sig
     type t
     val repr: t -> string

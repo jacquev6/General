@@ -7,7 +7,6 @@ module Operators: sig
     val (+): t -> t -> t
     val (-): t -> t -> t
     val (/): t -> t -> t
-    val (~+): t -> t
     val (~-): t -> t
   end
 end

@@ -1,0 +1,6 @@
+module Make0(M: sig
+  type t
+  val modulo: t -> t -> t
+end): sig
+  val (mod): M.t -> M.t -> M.t
+end

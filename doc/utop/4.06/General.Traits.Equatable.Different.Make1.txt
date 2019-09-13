@@ -1,0 +1,6 @@
+module Make1(M: sig
+  type 'a t
+  val equal: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
+end): sig
+  val different: 'a M.t -> 'a M.t -> equal_a:('a -> 'a -> bool) -> bool
+end

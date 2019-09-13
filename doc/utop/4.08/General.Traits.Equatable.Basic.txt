@@ -1,4 +1,9 @@
 module Basic: sig
+  module Specialize1
+  module Specialize2
+  module Specialize3
+  module Specialize4
+  module Specialize5
   module type S0 = sig
     type t
     val equal: t -> t -> bool

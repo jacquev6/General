@@ -1,0 +1,4 @@
+module Specialize1(M: General.Traits.Representable.S1)(A: General.Traits.Representable.S0): sig
+  type t = A.t M.t
+  val repr: t -> string
+end

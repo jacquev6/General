@@ -1,4 +1,5 @@
 module Operators: sig
+  module Make0
   module type S0 = sig
     type t
     val (<>): t -> t -> bool

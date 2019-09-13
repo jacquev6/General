@@ -1,0 +1,8 @@
+module ToStandardNumbers: sig
+  module Tests
+  module type S0 = sig
+    type t
+    val to_float: t -> float
+    val to_int: t -> int
+  end
+end

@@ -1,0 +1,9 @@
+module Make1(M: sig
+  type 'a t
+  val compare: 'a t -> 'a t -> compare_a:('a -> 'a -> General.Compare.t) -> General.Compare.t
+end): sig
+  val greater_or_equal: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+  val greater_than: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+  val less_or_equal: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+  val less_than: 'a M.t -> 'a M.t -> compare_a:('a -> 'a -> General.Compare.t) -> bool
+end

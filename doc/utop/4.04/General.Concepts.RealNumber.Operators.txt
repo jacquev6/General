@@ -1,4 +1,5 @@
 module Operators: sig
+  module Make0
   module type S0 = sig
     type t
     val (*): t -> t -> t
@@ -13,7 +14,6 @@ module Operators: sig
     val (>): t -> t -> bool
     val (>=): t -> t -> bool
     val (mod): t -> t -> t
-    val (~+): t -> t
     val (~-): t -> t
   end
 end

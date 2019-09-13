@@ -1,6 +1,15 @@
 module Comparable: sig
   module Basic
+  module Between
+  module GreaterLessThan
+  module MinMax
   module Operators
+  module Specialize1
+  module Specialize2
+  module Specialize3
+  module Specialize4
+  module Specialize5
+  module Tests
   module type S0 = sig
     module O: sig
       val (<): t -> t -> bool
