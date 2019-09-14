@@ -117,7 +117,7 @@ open Ubiquitous
 open Foundations
 
 module Test = struct
-  #include "testing/Test.ml"
+  #include "Testing/Test.ml"
 end
 
 module Testing = struct
