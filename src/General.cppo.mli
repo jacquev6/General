@@ -163,6 +163,7 @@ end
 
 (* Testing base *)
 module Test: sig
+  (* @todo Move back to Testing *)
   module Result: sig
     module Status: sig
       type failure
@@ -204,14 +205,9 @@ end
 
 (** Traits are isolated capabilities associated to a type. *)
 module Traits: sig
-  (* @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash *)
-  (* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
-  (* @feature Publish helper functors (Specialize, Ringoid.Exponentiate.Make, Tests.Make, etc.) *)
-
-  (** A *representation* is a string representing a value for a software developer audience.
-  When possible, it should be a valid OCaml expression for the value. *)
-
   #include "Generated/Traits.mli"
+
+  (* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
 
   module FilterMapable: sig
     #include "Traits/FilterMapable.signatures.ml"
@@ -315,9 +311,6 @@ end
 and we need a generic function in each category. *)
 
 module Concepts: sig
-  (* @feature Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer *)
-  (* @feature Concepts.Stringable including Parsable and Displayable *)
-
   #include "Generated/Concepts.mli"
 end
 
@@ -503,8 +496,7 @@ module Bool: sig
   end
 
   include Concepts.Able.S0 with type t := t and module O := O
-  include Traits.Displayable.S0 with type t := t
-  include Traits.Parsable.S0 with type t := t
+  include Concepts.Stringable.S0 with type t := t
 
   val not: t -> t
   val and_: t -> t -> t (* Not lazy *)
@@ -656,8 +648,7 @@ module String: sig
     val (^): t -> t -> t
   end
 
-  include Traits.Displayable.S0 with type t := t
-  include Traits.Parsable.S0 with type t := t
+  include Concepts.Stringable.S0 with type t := t
   include Concepts.Able.S0 with type t := t and module O := O
 
   val concat: t -> t -> t

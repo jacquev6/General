@@ -687,6 +687,8 @@ def concept(
 
 # @feature (?) Add trait Testable with val test: Test.t
 
+# A *representation* is a string representing a value for a software developer audience.
+# When possible, it should be a valid OCaml expression for the value.
 representable = trait(
     "Representable",
     values=[val("repr", t, deleg("repr"), "string")],
@@ -716,6 +718,8 @@ displayable = trait(
     values=[val("to_string", t, "string")],
     test_examples=[val("to_string", f"({t} * string) list")],
 )
+
+# @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash
 
 parsable = trait(
     "Parsable",
@@ -851,6 +855,7 @@ pred_succ = trait(
 
 ###### CONCEPTS ######
 
+# @feature Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer
 
 identifiable = concept(
     "Identifiable",
