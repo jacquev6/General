@@ -86,53 +86,53 @@ module Examples = struct
   let i = OCSB.big_int_of_int
   let s = OCSB.big_int_of_string
 
-  let succ = [
+  let successions = [
     (i 4, i 5);
     (i (-6), i (-5));
   ]
 
-  let equal = [
+  let equalities = [
     [i 4];
     [i (-10)];
   ]
 
-  let ordered = [
+  let orders = [
     [i (-3); i (-1); zero; one; i 5];
   ]
 
-  let exponentiate = [
+  let exponentiations = [
     (i 10, 10, s "10000000000");
     (i 10, 40, s "10000000000000000000000000000000000000000");
   ]
 
-  let divide = [
+  let divisions = [
     (i 45, i 9, i 5);
   ]
 
-  let multiply = [
+  let multiplications = [
     (i 7, i 3, i 21);
   ]
 
-  let negate = [
+  let negations = [
     (i (-12), i 12);
   ]
 
-  let add_subtract = [
+  let additions = [
     (i 100, i 27, i 127);
   ]
 
-  let repr = [
+  let representations = [
     (i 10, "10");
     (s "10000000000000000000000000000000000000000", "10000000000000000000000000000000000000000");
   ]
 
-  let to_string = repr
+  let displays = representations
 
-  let different = [
+  let differences = [
     (i 10, i 11);
   ]
 
-  let of_string = [
+  let literals = [
     ("100000", i 100000);
   ]
 end

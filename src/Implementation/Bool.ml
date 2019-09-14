@@ -4,28 +4,28 @@ module Tests = struct
   open Testing
 
   module Examples = struct
-    let repr = [
+    let representations = [
       (false, "false");
       (true, "true");
     ]
 
-    let to_string = repr
+    let displays = representations
 
-    let of_string = [
+    let literals = [
       ("false", false);
       ("true", true);
     ]
 
-    let equal = [
+    let equalities = [
       [true];
       [false];
     ]
 
-    let different = [
+    let differences = [
       (true, false);
     ]
 
-    let ordered = [
+    let orders = [
       [false; true];
     ]
   end

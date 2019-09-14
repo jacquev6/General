@@ -15,7 +15,7 @@ module Tests = struct
   open Testing
 
   module Examples = struct
-    let to_string = [
+    let displays = [
       (
         stack,
         if javascript then
@@ -28,11 +28,11 @@ module Tests = struct
       );
     ]
 
-    let repr = to_string
+    let representations = displays
   end
 
   module LocationExamples = struct
-    let repr = [
+    let representations = [
       (
         {Location.filename="Implementation/CallStack.ml"; line_number=3; start_char=15; end_char=49},
         "{filename=\"Implementation/CallStack.ml\"; line_number=3; start_char=15; end_char=49}"

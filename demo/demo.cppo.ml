@@ -110,47 +110,47 @@ module DemoIntMod3 = DemoInteger(struct let name = "IntMod3" end)(IntMod3)
 module IntMod3Examples = struct
   open IntMod3
 
-  let equal = [
+  let equalities = [
     [of_int 0; of_int 3];
   ]
 
-  let ordered = []
+  let orders = []
 
-  let different = []
+  let differences = []
 
-  let repr = []
+  let representations = []
 
-  let to_string = []
+  let displays = []
 
-  let of_string = []
+  let literals = []
 
-  let add_subtract = [
+  let additions = [
     (1, 2, 0);
     (2, 2, 1);
   ]
 
-  let negate = [
+  let negations = [
     (0, 0);
     (1, 2);
   ]
 
-  let multiply = [
+  let multiplications = [
     (2, 2, 1);
   ]
 
-  let divide = [
+  let divisions = [
     (2, 1, 2);
     (2, 2, 1);
     (1, 2, 0);
   ]
 
-  let exponentiate = [
+  let exponentiations = [
     (2, 2, 1);
     (2, 3, 2);
     (2, 4, 1);
   ]
 
-  let succ = [
+  let successions = [
     (0, 1);
     (1, 2);
     (2, 0);

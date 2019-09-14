@@ -10,7 +10,7 @@ module Tests = struct
     open M
 
     let tests = (
-      E.of_string
+      E.literals
       |> List.flat_map ~f:(fun (s, expected) ->
         [
           ~: "of_string %S" s (lazy (check ~repr ~equal ~expected (of_string s)));

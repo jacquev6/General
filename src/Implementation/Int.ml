@@ -22,7 +22,7 @@ end
 include SelfB
 
 module Examples = struct
-  let repr = [
+  let representations = [
     (-3, "-3");
     (-0, "0");
     (0, "0");
@@ -30,48 +30,48 @@ module Examples = struct
     (15, "15");
   ]
 
-  let to_string = repr
+  let displays = representations
 
-  let of_string = [
+  let literals = [
     ("0", 0);
     ("1", 1);
     ("-1", -1);
     ("1_000", 1000);
   ]
 
-  let equal = [
+  let equalities = [
     [0];
     [1];
     [2];
   ]
 
-  let different = [
+  let differences = [
     (0, 1);
     (1, -1);
   ]
 
-  let ordered = [
+  let orders = [
     [-10; -5; -1; 0; 1; 2; 5];
   ]
 
-  let add_subtract = [
+  let additions = [
     (4, 3, 7);
     (4, -2, 2);
     (5, -7, -2);
   ]
 
-  let negate = [
+  let negations = [
     (4, -4);
     (-7, 7);
   ]
 
-  let multiply = [
+  let multiplications = [
     (4, 3, 12);
     (4, -3, -12);
     (-4, -3, 12);
   ]
 
-  let divide = [
+  let divisions = [
     (5, 2, 2);
     (4, 2, 2);
     (4, 3, 1);
@@ -79,12 +79,12 @@ module Examples = struct
     (4, 5, 0);
   ]
 
-  let exponentiate = [
+  let exponentiations = [
     (3, 3, 27);
     (2, 7, 128);
   ]
 
-  let succ = [
+  let successions = [
     (1, 2);
     (42, 43);
     (-121, -120);

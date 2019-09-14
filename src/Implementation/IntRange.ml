@@ -8,7 +8,7 @@ module Tests = struct
   (* @feature Comparable: compare ranges as equal if to_list produces the same integers in the same order, not if they have the same start, stop and step. Poly.equal wouldn't work. *)
 
   module Examples = struct
-    let repr = [
+    let representations = [
       (make 0, "[]");
       (make (-5), "[]");
       (make 5, "[0 to 4 step 1]");
@@ -16,13 +16,13 @@ module Tests = struct
       (make ~start:3 ~step:4 25, "[3 to 23 step 4]");
     ]
 
-    let equal = [
+    let equalities = [
       [make 0; make ~step:2 0; make (-4); make 10 ~step:0; make 10 ~step:(-1); make ~start:5 3; empty];
       [make 10; make ~start:0 ~step:1 10];
       [make ~start:5 ~step:3 9; make ~start:5 ~step:3 10; make ~start:5 ~step:3 11]
     ]
 
-    let different = [
+    let differences = [
       (make 0, make 1);
       (make ~start:5 ~step:3 11, make ~start:5 ~step:3 12);
     ]

@@ -10,7 +10,7 @@ module Tests = struct
     open M
 
     let tests = (
-      E.to_string
+      E.displays
       |> List.map ~f:(fun (v, expected) ->
         ~: "to_string %s" expected (lazy (check_string ~expected (to_string v)))
       )

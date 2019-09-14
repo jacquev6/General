@@ -8,7 +8,7 @@ module Tests_ = struct
   module Examples = struct
     module type S0 = sig
       type t
-      val of_string: (string * t) list
+      val literals: (string * t) list
     end
   end
 

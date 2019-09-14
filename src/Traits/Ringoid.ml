@@ -42,26 +42,26 @@ module Tests = struct
 
     include E
 
-    let add_subtract = add_subtract @ [
+    let additions = additions @ [
       (zero, zero, zero);
       (one, zero, one);
     ]
 
-    let negate = negate @ [
+    let negations = negations @ [
       (zero, zero);
     ]
 
-    let multiply = multiply @ [
+    let multiplications = multiplications @ [
       (zero, zero, zero);
       (one, zero, zero);
     ]
 
-    let divide = divide @ [
+    let divisions = divisions @ [
       (zero, one, zero);
       (one, one, one);
     ]
 
-    let exponentiate = exponentiate @ [
+    let exponentiations = exponentiations @ [
       (zero, 0, one);
       (zero, 1, zero);
       (zero, 7, zero);
@@ -79,7 +79,7 @@ module Tests = struct
     let check = check ~repr ~equal
 
     let tests = (
-      E.add_subtract
+      E.additions
       |> List.flat_map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y and rz = repr z in
         [
@@ -94,7 +94,7 @@ module Tests = struct
         ]
       )
     ) @ (
-      E.negate
+      E.negations
       |> List.flat_map ~f:(fun (x, y) ->
         let rx = repr x and ry = repr y in
         [
@@ -115,7 +115,7 @@ module Tests = struct
         ]
       )
     ) @ (
-      E.multiply
+      E.multiplications
       |> List.flat_map ~f:(fun (x, y, expected) ->
         let rx = repr x and ry = repr y in
         [
@@ -124,7 +124,7 @@ module Tests = struct
         ]
       )
     ) @ (
-      E.divide
+      E.divisions
       |> List.flat_map ~f:(fun (x, y, expected) ->
         let rx = repr x and ry = repr y in
         [
@@ -133,7 +133,7 @@ module Tests = struct
         ]
       )
     ) @ (
-      E.exponentiate
+      E.exponentiations
       |> List.flat_map ~f:(fun (x, n, expected) ->
         let rx = repr x in
         [

@@ -14,12 +14,12 @@ end)
 include Self
 
 module Examples = struct
-  let of_string = [
+  let literals = [
     ("43", 43L);
     ("-12", -12L);
   ]
 
-  let repr = [
+  let representations = [
     (-3L, "-3L");
     (-0L, "0L");
     (0L, "0L");
@@ -27,7 +27,7 @@ module Examples = struct
     (15L, "15L");
   ]
 
-  let to_string = [
+  let displays = [
     (-3L, "-3");
     (-0L, "0");
     (0L, "0");
@@ -35,39 +35,39 @@ module Examples = struct
     (15L, "15");
   ]
 
-  let equal = [
+  let equalities = [
     [0L];
     [1L];
     [2L];
   ]
 
-  let different = [
+  let differences = [
     (0L, 1L);
     (1L, -1L);
   ]
 
-  let ordered = [
+  let orders = [
     [-10L; -5L; -1L; 0L; 1L; 2L; 5L];
   ]
 
-  let add_subtract = [
+  let additions = [
     (4L, 3L, 7L);
     (4L, -2L, 2L);
     (5L, -7L, -2L);
   ]
 
-  let negate = [
+  let negations = [
     (4L, -4L);
     (-7L, 7L);
   ]
 
-  let multiply = [
+  let multiplications = [
     (4L, 3L, 12L);
     (4L, -3L, -12L);
     (-4L, -3L, 12L);
   ]
 
-  let divide = [
+  let divisions = [
     (5L, 2L, 2L);
     (4L, 2L, 2L);
     (4L, 3L, 1L);
@@ -75,12 +75,12 @@ module Examples = struct
     (4L, 5L, 0L);
   ]
 
-  let exponentiate = [
+  let exponentiations = [
     (3L, 3, 27L);
     (2L, 7, 128L);
   ]
 
-  let succ = [
+  let successions = [
     (1L, 2L);
     (42L, 43L);
     (-121L, -120L);

@@ -77,7 +77,7 @@ module Tests = struct
     let check = check ~repr ~equal
 
     let tests = (
-      E.ordered
+      E.orders
       |> List.flat_map ~f:(fun xs ->
         List.fold ~init:(List.head xs, []) (List.tail xs) ~f:(fun (x, tests) y ->
           let rx = repr x and ry = repr y in
@@ -111,7 +111,7 @@ module Tests = struct
         |> Tuples.Tuple2.get_1
       )
     ) @ (
-      E.equal
+      E.equalities
       |> List.flat_map ~f:(fun xs ->
         List.cartesian_product xs xs
         |> List.flat_map ~f:(fun (x, y) ->

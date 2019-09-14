@@ -20,20 +20,20 @@ module Tests = struct
   open Testing
 
   module Examples = struct
-    let repr = [
+    let representations = [
       ("foo", "\"foo\"");
       ("bar\"baz", "\"bar\\\"baz\"");
     ]
 
-    let equal = [
+    let equalities = [
       ["foo"];
     ]
 
-    let different = [
+    let differences = [
       ("foo", "bar");
     ]
 
-    let ordered = [
+    let orders = [
       ["aaaa"; "aaaaa"; "aaaab"; "ab"; "b"];
     ]
   end

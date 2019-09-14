@@ -211,23 +211,23 @@ module Tests_ = struct
 
     module type S0 = sig
       type t
-      val equal: t list list
-      val different: (t * t) list
+      val equalities: t list list
+      val differences: (t * t) list
     end
 
     module type S1 = sig
       type 'a t
       module A: Element
-      val equal: A.t t list list
-      val different: (A.t t * A.t t) list
+      val equalities: A.t t list list
+      val differences: (A.t t * A.t t) list
     end
 
     module type S2 = sig
       type ('a, 'b) t
       module A: Element
       module B: Element
-      val equal: (A.t, B.t) t list list
-      val different: ((A.t, B.t) t * (A.t, B.t) t) list
+      val equalities: (A.t, B.t) t list list
+      val differences: ((A.t, B.t) t * (A.t, B.t) t) list
     end
 
     module type S3 = sig
@@ -235,8 +235,8 @@ module Tests_ = struct
       module A: Element
       module B: Element
       module C: Element
-      val equal: (A.t, B.t, C.t) t list list
-      val different: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
+      val equalities: (A.t, B.t, C.t) t list list
+      val differences: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
     end
 
     module type S4 = sig
@@ -245,8 +245,8 @@ module Tests_ = struct
       module B: Element
       module C: Element
       module D: Element
-      val equal: (A.t, B.t, C.t, D.t) t list list
-      val different: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
+      val equalities: (A.t, B.t, C.t, D.t) t list list
+      val differences: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
     end
 
     module type S5 = sig
@@ -256,8 +256,8 @@ module Tests_ = struct
       module C: Element
       module D: Element
       module E: Element
-      val equal: (A.t, B.t, C.t, D.t, E.t) t list list
-      val different: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
+      val equalities: (A.t, B.t, C.t, D.t, E.t) t list list
+      val differences: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
     end
   end
 

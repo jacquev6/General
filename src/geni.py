@@ -605,9 +605,8 @@ def val(name, *type_chain, operator=None):
         type_chain=(make_param(param) for param in type_chain),
         operator=operator,
     )
-    # @todo Rename examples differently, to never have two values with the same name
-    if name not in values:
-        values[name] = value
+    assert name not in values
+    values[name] = value
     return value
 
 
@@ -692,8 +691,10 @@ def concept(
 representable = trait(
     "Representable",
     values=[val("repr", t, deleg("repr"), "string")],
-    test_examples=[val("repr", f"({t} * string) list")],
+    test_examples=[val("representations", f"({t} * string) list")],
 )
+
+equalities = val("equalities", f"{t} list list")
 
 equatable = trait(
     "Equatable",
@@ -706,8 +707,8 @@ equatable = trait(
         ),
     ],
     test_examples=[
-        val("equal", f"{t} list list"),
-        val("different", f"({t} * {t}) list"),
+        equalities,
+        val("differences", f"({t} * {t}) list"),
     ],
     test_requirements=[representable],
 )
@@ -716,7 +717,7 @@ displayable = trait(
     "Displayable",
     variadic=False,
     values=[val("to_string", t, "string")],
-    test_examples=[val("to_string", f"({t} * string) list")],
+    test_examples=[val("displays", f"({t} * string) list")],
 )
 
 # @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash
@@ -728,7 +729,7 @@ parsable = trait(
         val("try_of_string", "string", f"{t} option"),
         val("of_string", "string", t),
     ],
-    test_examples=[val("of_string", f"(string * {t}) list")],
+    test_examples=[val("literals", f"(string * {t}) list")],
     test_requirements=[equatable, representable],
 )
 
@@ -765,8 +766,8 @@ comparable = trait(
         ),
     ],
     test_examples=[
-        val("ordered", f"{t} list list"),
-        val("equal", f"{t} list list"),
+        val("orders", f"{t} list list"),
+        equalities,
     ],
     test_requirements=[equatable, representable],
 )
@@ -807,11 +808,11 @@ ringoid = trait(
         ),
     ],
     test_examples=[
-        val("add_subtract", f"({t} * {t} * {t}) list"),
-        val("negate", f"({t} * {t}) list"),
-        val("multiply", f"({t} * {t} * {t}) list"),
-        val("divide", f"({t} * {t} * {t}) list"),
-        val("exponentiate", f"({t} * int * {t}) list"),
+        val("additions", f"({t} * {t} * {t}) list"),
+        val("negations", f"({t} * {t}) list"),
+        val("multiplications", f"({t} * {t} * {t}) list"),
+        val("divisions", f"({t} * {t} * {t}) list"),
+        val("exponentiations", f"({t} * int * {t}) list"),
     ],
     test_requirements=[equatable, representable],
 )
@@ -848,7 +849,7 @@ pred_succ = trait(
             requirements=["one", "add", "subtract"],
         ),
     ],
-    test_examples=[val("succ", f"({t} * {t}) list")],
+    test_examples=[val("successions", f"({t} * {t}) list")],
     test_requirements=[equatable, representable],
 )
 

@@ -22,7 +22,7 @@ module Tests = struct
     open Status
     open Counts
 
-    let repr = [
+    let representations = [
       (Single {label="foo"; status=Success}, "Single {label=\"foo\"; status=Success}");
       (Single {label="foo"; status=Failure (NotEqual ("a", "b"))}, "Single {label=\"foo\"; status=Failure (NotEqual (\"a\", \"b\"))}");
       (Single {label="foo"; status=Failure (NoException TestException0)}, "Single {label=\"foo\"; status=Failure (NoException TestingTests.Tests.TestException0)}");

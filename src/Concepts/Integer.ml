@@ -6,7 +6,7 @@ module Tests = struct
   module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
     include E
 
-    let succ = succ @ [
+    let successions = successions @ [
       (M.zero, M.one);
     ]
   end

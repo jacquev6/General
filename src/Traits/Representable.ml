@@ -9,7 +9,7 @@ module Tests = struct
     open Testing
 
     let tests = (
-      E.repr
+      E.representations
       |> List.map ~f:(fun (v, expected) ->
         ~: "repr %s" expected (lazy (check_string ~expected (M.repr v)))
       )

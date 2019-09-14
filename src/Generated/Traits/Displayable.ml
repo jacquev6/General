@@ -7,7 +7,7 @@ module Tests_ = struct
   module Examples = struct
     module type S0 = sig
       type t
-      val to_string: (t * string) list
+      val displays: (t * string) list
     end
   end
 

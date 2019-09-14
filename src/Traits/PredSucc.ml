@@ -17,7 +17,7 @@ module Tests = struct
     open M
 
     let tests = (
-      E.succ
+      E.successions
       |> List.flat_map ~f:(fun (p, s) ->
         let rp = repr p and rs = repr s in
         [

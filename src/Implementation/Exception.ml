@@ -26,20 +26,20 @@ module Tests = struct
   exception TestException
 
   module Examples = struct
-    let equal = [
+    let equalities = [
       [Failure "foo"];
     ]
 
-    let different = [
+    let differences = [
       (Failure "foo", Failure "bar");
       (Failure "foo", InvalidArgument "foo");
     ]
 
-    let repr = [
+    let representations = [
       (DivisionByZero, "Division_by_zero");
     ]
 
-    let to_string = repr
+    let displays = representations
   end
 
   let test = "Exception" >:: [

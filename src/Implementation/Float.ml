@@ -24,7 +24,7 @@ end
 include SelfB
 
 module Examples = struct
-  let repr = [
+  let representations = [
     (-3., "-3.");
     (-0., "-0.");
     (0., "0.");
@@ -32,9 +32,9 @@ module Examples = struct
     (15., "15.");
   ]
 
-  let to_string = repr
+  let displays = representations
 
-  let of_string = [
+  let literals = [
     ("0", 0.);
     ("1", 1.);
     ("1.0", 1.);
@@ -42,7 +42,7 @@ module Examples = struct
     ("1_000", 1000.);
   ]
 
-  let equal = [
+  let equalities = [
     [0.];
     [1.];
     [2.];
@@ -50,7 +50,7 @@ module Examples = struct
     [negative_infinity];
   ]
 
-  let different = [
+  let differences = [
     (0., 1.);
     (1., -1.);
     (not_a_number, infinity);
@@ -60,28 +60,28 @@ module Examples = struct
     (not_a_number, not_a_number);
   ]
 
-  let ordered = [
+  let orders = [
     [-10.; -5.; -1.; -0.2; 0.; 0.7; 1.; 2.; 5.];
   ]
 
-  let add_subtract = [
+  let additions = [
     (4., 3., 7.);
     (4., -2., 2.);
     (5., -7., -2.);
   ]
 
-  let negate = [
+  let negations = [
     (4., -4.);
     (-7., 7.);
   ]
 
-  let multiply = [
+  let multiplications = [
     (4., 3., 12.);
     (4., -3., -12.);
     (-4., -3., 12.);
   ]
 
-  let divide = [
+  let divisions = [
     (5., 2., 2.5);
     (4., 2., 2.);
     (1., 4., 0.25);
@@ -89,7 +89,7 @@ module Examples = struct
     (4., 5., 0.8);
   ]
 
-  let exponentiate = [
+  let exponentiations = [
     (3., 3, 27.);
     (2., 7, 128.);
     (0.5, 4, 0.0625);
@@ -100,7 +100,7 @@ end
 module ClassExamples = struct
   open SelfB.Class
 
-  let repr = [
+  let representations = [
     (Normal, "Normal");
     (SubNormal, "SubNormal");
     (Zero, "Zero");
@@ -108,7 +108,7 @@ module ClassExamples = struct
     (NotANumber, "NotANumber");
   ]
 
-  let equal = [
+  let equalities = [
     [Normal];
     [SubNormal];
     [Zero];
@@ -116,11 +116,11 @@ module ClassExamples = struct
     [NotANumber];
   ]
 
-  let different = [
+  let differences = [
     (Normal, SubNormal);
   ]
 
-  let ordered = [
+  let orders = [
     [Normal; SubNormal; Zero; Infinite; NotANumber];
   ]
 end

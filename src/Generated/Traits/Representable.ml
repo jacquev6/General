@@ -62,20 +62,20 @@ module Tests_ = struct
 
     module type S0 = sig
       type t
-      val repr: (t * string) list
+      val representations: (t * string) list
     end
 
     module type S1 = sig
       type 'a t
       module A: Element
-      val repr: (A.t t * string) list
+      val representations: (A.t t * string) list
     end
 
     module type S2 = sig
       type ('a, 'b) t
       module A: Element
       module B: Element
-      val repr: ((A.t, B.t) t * string) list
+      val representations: ((A.t, B.t) t * string) list
     end
 
     module type S3 = sig
@@ -83,7 +83,7 @@ module Tests_ = struct
       module A: Element
       module B: Element
       module C: Element
-      val repr: ((A.t, B.t, C.t) t * string) list
+      val representations: ((A.t, B.t, C.t) t * string) list
     end
 
     module type S4 = sig
@@ -92,7 +92,7 @@ module Tests_ = struct
       module B: Element
       module C: Element
       module D: Element
-      val repr: ((A.t, B.t, C.t, D.t) t * string) list
+      val representations: ((A.t, B.t, C.t, D.t) t * string) list
     end
 
     module type S5 = sig
@@ -102,7 +102,7 @@ module Tests_ = struct
       module C: Element
       module D: Element
       module E: Element
-      val repr: ((A.t, B.t, C.t, D.t, E.t) t * string) list
+      val representations: ((A.t, B.t, C.t, D.t, E.t) t * string) list
     end
   end
 

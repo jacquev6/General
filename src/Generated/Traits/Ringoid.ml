@@ -94,11 +94,11 @@ module Tests_ = struct
   module Examples = struct
     module type S0 = sig
       type t
-      val add_subtract: (t * t * t) list
-      val negate: (t * t) list
-      val multiply: (t * t * t) list
-      val divide: (t * t * t) list
-      val exponentiate: (t * int * t) list
+      val additions: (t * t * t) list
+      val negations: (t * t) list
+      val multiplications: (t * t * t) list
+      val divisions: (t * t * t) list
+      val exponentiations: (t * int * t) list
     end
   end
 

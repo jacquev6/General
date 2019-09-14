@@ -6,12 +6,12 @@ module Tests = struct
   module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
     include E
 
-    let equal = equal @ [
+    let equalities = equalities @ [
       [M.zero; M.of_int 0; M.of_float 0.; M.of_string "0"];
       [M.one; M.of_int 1; M.of_float 1.; M.of_string "1"];
     ]
 
-    let different = different @ [
+    let differences = differences @ [
       (M.zero, M.one);
     ]
   end

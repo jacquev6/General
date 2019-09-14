@@ -49,19 +49,19 @@ end
 module Examples = struct
   module A = Foundations.Int
 
-  let repr = [
+  let representations = [
     ([], "[]");
     ([1], "[1]");
     ([1; 2; 3], "[1; 2; 3]");
   ]
 
-  let equal = [
+  let equalities = [
     [empty; []];
     [[1]];
     [[1; 2; 3]];
   ]
 
-  let different = [
+  let differences = [
     ([], [1]);
     ([1], [2]);
     ([1; 1; 1], [1; 1; 2]);

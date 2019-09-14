@@ -6,7 +6,7 @@ module Tests = struct
   module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
     include E
 
-    let ordered = ordered @ [
+    let orders = orders @ [
       [M.zero; M.one];
     ]
   end
@@ -15,7 +15,7 @@ module Tests = struct
     open Testing
 
     let tests = (
-      E.negate
+      E.negations
       |> List.flat_map ~f:(fun (x, y) ->
         let abs_x = M.(if greater_or_equal x zero then x else y)
         and abs_y = M.(if greater_or_equal y zero then y else x) in

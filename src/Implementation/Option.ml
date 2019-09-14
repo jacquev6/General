@@ -24,22 +24,22 @@ module Tests = struct
   module Examples = struct
     module A = Int
 
-    let repr = [
+    let representations = [
       (None, "None");
       (Some 42, "Some 42");
     ]
 
-    let equal = [
+    let equalities = [
       [None];
       [Some 42];
     ]
 
-    let different = [
+    let differences = [
       (None, Some 42);
       (Some 42, Some 43);
     ]
 
-    let ordered = [
+    let orders = [
       [None; Some 0; Some 1];
     ]
   end

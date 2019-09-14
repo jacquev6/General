@@ -22,20 +22,20 @@ module Tests = struct
     module A = Foundations.Int
     module B = Foundations.String
 
-    let repr = [
+    let representations = [
       ((1, "a"), "(1, \"a\")");
     ]
 
-    let equal = [
+    let equalities = [
       [(1, "a")];
     ]
 
-    let different = [
+    let differences = [
       ((1, "a"), (1, "b"));
       ((1, "a"), (2, "a"));
     ]
 
-    let ordered = [
+    let orders = [
       [(0, "a"); (0, "b"); (1, "a")]
     ]
   end
@@ -45,21 +45,21 @@ module Tests = struct
     module B = Foundations.String
     module C = Foundations.Float
 
-    let repr = [
+    let representations = [
       ((1, "a", 2.), "(1, \"a\", 2.)");
     ]
 
-    let equal = [
+    let equalities = [
       [(1, "a", 2.)];
     ]
 
-    let different = [
+    let differences = [
       ((1, "a", 2.), (1, "a", 3.));
       ((1, "a", 2.), (1, "b", 2.));
       ((1, "a", 2.), (2, "a", 2.));
     ]
 
-    let ordered = [
+    let orders = [
       [(0, "a", 0.); (0, "a", 1.); (0, "b", 0.); (1, "a", 0.)]
     ]
   end
@@ -70,22 +70,22 @@ module Tests = struct
     module C = Foundations.Float
     module D = Foundations.Int
 
-    let repr = [
+    let representations = [
       ((1, "a", 2., 3), "(1, \"a\", 2., 3)");
     ]
 
-    let equal = [
+    let equalities = [
       [(1, "a", 2., 3)];
     ]
 
-    let different = [
+    let differences = [
       ((1, "a", 2., 3), (1, "a", 2., 4));
       ((1, "a", 2., 3), (1, "a", 3., 3));
       ((1, "a", 2., 3), (1, "b", 2., 3));
       ((1, "a", 2., 3), (0, "a", 2., 3));
     ]
 
-    let ordered = [
+    let orders = [
       [(1, "a", 2., 3); (1, "a", 2., 4); (1, "a", 3., 3); (1, "b", 2., 3); (2, "a", 2., 3)]
     ]
   end
@@ -97,15 +97,15 @@ module Tests = struct
     module D = Foundations.Int
     module E = Foundations.Int
 
-    let repr = [
+    let representations = [
       ((1, "a", 2., 3, 4), "(1, \"a\", 2., 3, 4)");
     ]
 
-    let equal = [
+    let equalities = [
       [(1, "a", 2., 3, 4)];
     ]
 
-    let different = [
+    let differences = [
       ((1, "a", 2., 3, 4), (1, "a", 2., 3, 5));
       ((1, "a", 2., 3, 4), (1, "a", 2., 4, 4));
       ((1, "a", 2., 3, 4), (1, "a", 3., 3, 4));
@@ -113,7 +113,7 @@ module Tests = struct
       ((1, "a", 2., 3, 4), (0, "a", 2., 3, 4));
     ]
 
-    let ordered = [
+    let orders = [
       [(1, "a", 2., 3, 4); (1, "a", 2., 3, 5); (1, "a", 2., 4, 4); (1, "a", 3., 3, 4); (1, "b", 2., 3, 4); (2, "a", 2., 3, 4)]
     ]
   end

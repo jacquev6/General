@@ -63,20 +63,20 @@ module Representable: sig
 
       module type S0 = sig
         type t
-        val repr: (t * string) list
+        val representations: (t * string) list
       end
 
       module type S1 = sig
         type 'a t
         module A: Element
-        val repr: (A.t t * string) list
+        val representations: (A.t t * string) list
       end
 
       module type S2 = sig
         type ('a, 'b) t
         module A: Element
         module B: Element
-        val repr: ((A.t, B.t) t * string) list
+        val representations: ((A.t, B.t) t * string) list
       end
 
       module type S3 = sig
@@ -84,7 +84,7 @@ module Representable: sig
         module A: Element
         module B: Element
         module C: Element
-        val repr: ((A.t, B.t, C.t) t * string) list
+        val representations: ((A.t, B.t, C.t) t * string) list
       end
 
       module type S4 = sig
@@ -93,7 +93,7 @@ module Representable: sig
         module B: Element
         module C: Element
         module D: Element
-        val repr: ((A.t, B.t, C.t, D.t) t * string) list
+        val representations: ((A.t, B.t, C.t, D.t) t * string) list
       end
 
       module type S5 = sig
@@ -103,7 +103,7 @@ module Representable: sig
         module C: Element
         module D: Element
         module E: Element
-        val repr: ((A.t, B.t, C.t, D.t, E.t) t * string) list
+        val representations: ((A.t, B.t, C.t, D.t, E.t) t * string) list
       end
     end
 
@@ -344,23 +344,23 @@ module Equatable: sig
 
       module type S0 = sig
         type t
-        val equal: t list list
-        val different: (t * t) list
+        val equalities: t list list
+        val differences: (t * t) list
       end
 
       module type S1 = sig
         type 'a t
         module A: Element
-        val equal: A.t t list list
-        val different: (A.t t * A.t t) list
+        val equalities: A.t t list list
+        val differences: (A.t t * A.t t) list
       end
 
       module type S2 = sig
         type ('a, 'b) t
         module A: Element
         module B: Element
-        val equal: (A.t, B.t) t list list
-        val different: ((A.t, B.t) t * (A.t, B.t) t) list
+        val equalities: (A.t, B.t) t list list
+        val differences: ((A.t, B.t) t * (A.t, B.t) t) list
       end
 
       module type S3 = sig
@@ -368,8 +368,8 @@ module Equatable: sig
         module A: Element
         module B: Element
         module C: Element
-        val equal: (A.t, B.t, C.t) t list list
-        val different: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
+        val equalities: (A.t, B.t, C.t) t list list
+        val differences: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
       end
 
       module type S4 = sig
@@ -378,8 +378,8 @@ module Equatable: sig
         module B: Element
         module C: Element
         module D: Element
-        val equal: (A.t, B.t, C.t, D.t) t list list
-        val different: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
+        val equalities: (A.t, B.t, C.t, D.t) t list list
+        val differences: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
       end
 
       module type S5 = sig
@@ -389,8 +389,8 @@ module Equatable: sig
         module C: Element
         module D: Element
         module E: Element
-        val equal: (A.t, B.t, C.t, D.t, E.t) t list list
-        val different: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
+        val equalities: (A.t, B.t, C.t, D.t, E.t) t list list
+        val differences: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
       end
     end
 
@@ -462,7 +462,7 @@ module Displayable: sig
     module Examples: sig
       module type S0 = sig
         type t
-        val to_string: (t * string) list
+        val displays: (t * string) list
       end
     end
 
@@ -489,7 +489,7 @@ module Parsable: sig
     module Examples: sig
       module type S0 = sig
         type t
-        val of_string: (string * t) list
+        val literals: (string * t) list
       end
     end
 
@@ -889,23 +889,23 @@ module Comparable: sig
 
       module type S0 = sig
         type t
-        val ordered: t list list
-        val equal: t list list
+        val orders: t list list
+        val equalities: t list list
       end
 
       module type S1 = sig
         type 'a t
         module A: Element
-        val ordered: A.t t list list
-        val equal: A.t t list list
+        val orders: A.t t list list
+        val equalities: A.t t list list
       end
 
       module type S2 = sig
         type ('a, 'b) t
         module A: Element
         module B: Element
-        val ordered: (A.t, B.t) t list list
-        val equal: (A.t, B.t) t list list
+        val orders: (A.t, B.t) t list list
+        val equalities: (A.t, B.t) t list list
       end
 
       module type S3 = sig
@@ -913,8 +913,8 @@ module Comparable: sig
         module A: Element
         module B: Element
         module C: Element
-        val ordered: (A.t, B.t, C.t) t list list
-        val equal: (A.t, B.t, C.t) t list list
+        val orders: (A.t, B.t, C.t) t list list
+        val equalities: (A.t, B.t, C.t) t list list
       end
 
       module type S4 = sig
@@ -923,8 +923,8 @@ module Comparable: sig
         module B: Element
         module C: Element
         module D: Element
-        val ordered: (A.t, B.t, C.t, D.t) t list list
-        val equal: (A.t, B.t, C.t, D.t) t list list
+        val orders: (A.t, B.t, C.t, D.t) t list list
+        val equalities: (A.t, B.t, C.t, D.t) t list list
       end
 
       module type S5 = sig
@@ -934,8 +934,8 @@ module Comparable: sig
         module C: Element
         module D: Element
         module E: Element
-        val ordered: (A.t, B.t, C.t, D.t, E.t) t list list
-        val equal: (A.t, B.t, C.t, D.t, E.t) t list list
+        val orders: (A.t, B.t, C.t, D.t, E.t) t list list
+        val equalities: (A.t, B.t, C.t, D.t, E.t) t list list
       end
     end
 
@@ -1088,11 +1088,11 @@ module Ringoid: sig
     module Examples: sig
       module type S0 = sig
         type t
-        val add_subtract: (t * t * t) list
-        val negate: (t * t) list
-        val multiply: (t * t * t) list
-        val divide: (t * t * t) list
-        val exponentiate: (t * int * t) list
+        val additions: (t * t * t) list
+        val negations: (t * t) list
+        val multiplications: (t * t * t) list
+        val divisions: (t * t * t) list
+        val exponentiations: (t * int * t) list
       end
     end
 
@@ -1185,7 +1185,7 @@ module PredSucc: sig
     module Examples: sig
       module type S0 = sig
         type t
-        val succ: (t * t) list
+        val successions: (t * t) list
       end
     end
 
