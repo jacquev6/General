@@ -780,14 +780,14 @@ ringoid = trait(
         # val("posate", t, t, operator="~+"),
         val("negate", t, t, operator="~-"),
         val("add", t, t, t, operator="+"),
-        val("substract", t, t, t, operator="-"),
+        val("subtract", t, t, t, operator="-"),
         val("multiply", t, t, t, operator="*"),
         val("divide", t, t, t, operator="/"),
     ],
     extensions=[
         ext(
-            "Substract",
-            members=["substract"],
+            "Subtract",
+            members=["subtract"],
             requirements=["negate", "add"],
         ),
         ext(
@@ -807,7 +807,7 @@ ringoid = trait(
         ),
     ],
     test_examples=[
-        val("add_substract", f"({t} * {t} * {t}) list"),
+        val("add_subtract", f"({t} * {t} * {t}) list"),
         val("negate", f"({t} * {t}) list"),
         val("multiply", f"({t} * {t} * {t}) list"),
         val("divide", f"({t} * {t} * {t}) list"),
@@ -845,7 +845,7 @@ pred_succ = trait(
         ext(
             "PredSucc",
             members=["pred", "succ"],
-            requirements=["one", "add", "substract"],
+            requirements=["one", "add", "subtract"],
         ),
     ],
     test_examples=[val("succ", f"({t} * {t}) list")],

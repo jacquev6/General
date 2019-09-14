@@ -43,7 +43,7 @@ module RealNumber: sig
     val one: t
     val repr: t -> bytes
     val square: t -> t
-    val substract: t -> t -> t
+    val subtract: t -> t -> t
     val to_float: t -> float
     val to_int: t -> int
     val to_string: t -> bytes

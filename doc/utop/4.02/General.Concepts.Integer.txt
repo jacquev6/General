@@ -44,7 +44,7 @@ module Integer: sig
     val pred: t -> t
     val repr: t -> bytes
     val square: t -> t
-    val substract: t -> t -> t
+    val subtract: t -> t -> t
     val succ: t -> t
     val to_float: t -> float
     val to_int: t -> int

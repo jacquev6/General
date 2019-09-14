@@ -1019,7 +1019,7 @@ module Ringoid: sig
       type t
       val negate: t -> t
       val add: t -> t -> t
-      val substract: t -> t -> t
+      val subtract: t -> t -> t
       val multiply: t -> t -> t
       val divide: t -> t -> t
       val exponentiate: t -> int -> t
@@ -1040,7 +1040,7 @@ module Ringoid: sig
       val one: t
       val negate: t -> t
       val add: t -> t -> t
-      val substract: t -> t -> t
+      val subtract: t -> t -> t
       val multiply: t -> t -> t
       val divide: t -> t -> t
     end
@@ -1053,13 +1053,13 @@ module Ringoid: sig
     val exponentiate: t -> int -> t
   end
 
-  module Substract: sig
+  module Subtract: sig
     module Make0(M: sig
       type t
       val negate: t -> t
       val add: t -> t -> t
     end): sig
-      val substract: M.t -> M.t -> M.t
+      val subtract: M.t -> M.t -> M.t
     end
   end
 
@@ -1088,7 +1088,7 @@ module Ringoid: sig
     module Examples: sig
       module type S0 = sig
         type t
-        val add_substract: (t * t * t) list
+        val add_subtract: (t * t * t) list
         val negate: (t * t) list
         val multiply: (t * t * t) list
         val divide: (t * t * t) list
@@ -1174,7 +1174,7 @@ module PredSucc: sig
       type t
       val one: t
       val add: t -> t -> t
-      val substract: t -> t -> t
+      val subtract: t -> t -> t
     end): sig
       val pred: M.t -> M.t
       val succ: M.t -> M.t

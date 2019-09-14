@@ -1,9 +1,9 @@
 #include "../Generated/Traits/Ringoid.ml"
 
 (* @todo Fix spelling of 'subtract' *)
-module Substract = struct
-  include Substract_.MakeMakers(struct
-    let substract ~negate ~add x y =
+module Subtract = struct
+  include Subtract_.MakeMakers(struct
+    let subtract ~negate ~add x y =
       add x (negate y)
   end)
 end
@@ -42,7 +42,7 @@ module Tests = struct
 
     include E
 
-    let add_substract = add_substract @ [
+    let add_subtract = add_subtract @ [
       (zero, zero, zero);
       (one, zero, one);
     ]
@@ -79,7 +79,7 @@ module Tests = struct
     let check = check ~repr ~equal
 
     let tests = (
-      E.add_substract
+      E.add_subtract
       |> List.flat_map ~f:(fun (x, y, z) ->
         let rx = repr x and ry = repr y and rz = repr z in
         [
@@ -87,9 +87,9 @@ module Tests = struct
           ~: "add %s %s" ry rx (lazy (check ~expected:z (add y x)));
           ~: "%s + %s" rx ry (lazy (check ~expected:z (x + y)));
           ~: "%s + %s" ry rx (lazy (check ~expected:z (y + x)));
-          ~: "sub %s %s" rz ry (lazy (check ~expected:x (substract z y)));
+          ~: "sub %s %s" rz ry (lazy (check ~expected:x (subtract z y)));
           ~: "%s - %s" rz ry (lazy (check ~expected:x (z - y)));
-          ~: "sub %s %s" rz rx (lazy (check ~expected:y (substract z x)));
+          ~: "sub %s %s" rz rx (lazy (check ~expected:y (subtract z x)));
           ~: "%s - %s" rz rx (lazy (check ~expected:y (z - x)));
         ]
       )
@@ -102,8 +102,8 @@ module Tests = struct
           ~: "negate %s" ry (lazy (check ~expected:x (negate y)));
           ~: "-%s" rx (lazy (check ~expected:y (-x)));
           ~: "-%s" ry (lazy (check ~expected:x (-y)));
-          ~: "substract zero %s" rx (lazy (check ~expected:y (substract zero x)));
-          ~: "substract zero %s" ry (lazy (check ~expected:x (substract zero y)));
+          ~: "subtract zero %s" rx (lazy (check ~expected:y (subtract zero x)));
+          ~: "subtract zero %s" ry (lazy (check ~expected:x (subtract zero y)));
           ~: "zero - %s" rx (lazy (check ~expected:y (zero - x)));
           ~: "zero - %s" ry (lazy (check ~expected:x (zero - y)));
           ~: "add %s %s" rx ry (lazy (check ~expected:zero (add x y)));

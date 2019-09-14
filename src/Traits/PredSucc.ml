@@ -2,8 +2,8 @@
 
 module PredSucc = struct
   include PredSucc_.MakeMakers(struct
-    let pred ~one ~add:_ ~substract x = substract x one
-    let succ ~one ~add ~substract:_ x = add x one
+    let pred ~one ~add:_ ~subtract x = subtract x one
+    let succ ~one ~add ~subtract:_ x = add x one
   end)
 end
 

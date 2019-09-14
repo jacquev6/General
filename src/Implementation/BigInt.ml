@@ -37,7 +37,7 @@ module SelfA = struct
 
   let negate = OCSB.minus_big_int
   let add = OCSB.add_big_int
-  let substract = OCSB.sub_big_int
+  let subtract = OCSB.sub_big_int
   let multiply = OCSB.mult_big_int
   let divide = OCSB.div_big_int
   let modulo = OCSB.mod_big_int
@@ -117,7 +117,7 @@ module Examples = struct
     (i (-12), i 12);
   ]
 
-  let add_substract = [
+  let add_subtract = [
     (i 100, i 27, i 127);
   ]
 

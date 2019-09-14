@@ -17,7 +17,7 @@ let to_string = OCSP.string_of_int
 let repr = OCSP.string_of_int
 
 let add = OCSP.(+)
-let substract = OCSP.(-)
+let subtract = OCSP.(-)
 let negate = OCSP.(~-)
 let multiply = OCSP.( * )
 let divide = OCSP.(/)

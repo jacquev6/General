@@ -6,17 +6,17 @@ end
 
 module PredSucc_ = struct
   module MakeMakers(Implementation: sig
-    val pred: one:('a) -> add:('a -> 'a -> 'a) -> substract:('a -> 'a -> 'a) -> 'a -> 'a
-    val succ: one:('a) -> add:('a -> 'a -> 'a) -> substract:('a -> 'a -> 'a) -> 'a -> 'a
+    val pred: one:('a) -> add:('a -> 'a -> 'a) -> subtract:('a -> 'a -> 'a) -> 'a -> 'a
+    val succ: one:('a) -> add:('a -> 'a -> 'a) -> subtract:('a -> 'a -> 'a) -> 'a -> 'a
   end) = struct
     module Make0(M: sig
       type t
       val one: t
       val add: t -> t -> t
-      val substract: t -> t -> t
+      val subtract: t -> t -> t
     end) = struct
-      let pred x = Implementation.pred ~one:(M.one) ~add:(M.add) ~substract:(M.substract) x
-      let succ x = Implementation.succ ~one:(M.one) ~add:(M.add) ~substract:(M.substract) x
+      let pred x = Implementation.pred ~one:(M.one) ~add:(M.add) ~subtract:(M.subtract) x
+      let succ x = Implementation.succ ~one:(M.one) ~add:(M.add) ~subtract:(M.subtract) x
     end
   end
 end

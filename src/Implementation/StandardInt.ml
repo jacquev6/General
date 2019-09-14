@@ -69,7 +69,7 @@ end = struct
 
     let negate = neg
     let add = add
-    let substract = sub
+    let subtract = sub
     let multiply = mul
     let divide = div
     let modulo = rem

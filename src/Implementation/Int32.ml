@@ -50,7 +50,7 @@ module Examples = struct
     [-10l; -5l; -1l; 0l; 1l; 2l; 5l];
   ]
 
-  let add_substract = [
+  let add_subtract = [
     (4l, 3l, 7l);
     (4l, -2l, 2l);
     (5l, -7l, -2l);

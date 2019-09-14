@@ -13,14 +13,14 @@ module Operators = struct
     type t
     val negate: t -> t
     val add: t -> t -> t
-    val substract: t -> t -> t
+    val subtract: t -> t -> t
     val multiply: t -> t -> t
     val divide: t -> t -> t
     val exponentiate: t -> int -> t
   end) = struct
     let ( ~- ) = M.negate
     let ( + ) = M.add
-    let ( - ) = M.substract
+    let ( - ) = M.subtract
     let ( * ) = M.multiply
     let ( / ) = M.divide
     let ( ** ) = M.exponentiate
@@ -34,7 +34,7 @@ module Basic = struct
     val one: t
     val negate: t -> t
     val add: t -> t -> t
-    val substract: t -> t -> t
+    val subtract: t -> t -> t
     val multiply: t -> t -> t
     val divide: t -> t -> t
   end
@@ -47,16 +47,16 @@ module type S0 = sig
   val exponentiate: t -> int -> t
 end
 
-module Substract_ = struct
+module Subtract_ = struct
   module MakeMakers(Implementation: sig
-    val substract: negate:('a -> 'a) -> add:('a -> 'a -> 'a) -> 'a -> 'a -> 'a
+    val subtract: negate:('a -> 'a) -> add:('a -> 'a -> 'a) -> 'a -> 'a -> 'a
   end) = struct
     module Make0(M: sig
       type t
       val negate: t -> t
       val add: t -> t -> t
     end) = struct
-      let substract x y = Implementation.substract ~negate:(M.negate) ~add:(M.add) x y
+      let subtract x y = Implementation.subtract ~negate:(M.negate) ~add:(M.add) x y
     end
   end
 end
@@ -94,7 +94,7 @@ module Tests_ = struct
   module Examples = struct
     module type S0 = sig
       type t
-      val add_substract: (t * t * t) list
+      val add_subtract: (t * t * t) list
       val negate: (t * t) list
       val multiply: (t * t * t) list
       val divide: (t * t * t) list

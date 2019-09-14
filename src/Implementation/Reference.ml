@@ -35,7 +35,7 @@ module SpecializeRingoidOperators(A: Traits.Ringoid.Basic.S0) = struct
     r := A.add !r v
 
   let (=-) r v =
-    r := A.substract !r v
+    r := A.subtract !r v
 
   let (=*) r v =
     r := A.multiply !r v

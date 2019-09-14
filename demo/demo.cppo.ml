@@ -81,7 +81,7 @@ module IntMod3 = struct
   end
 
   module SelfB = struct
-    include General.Traits.Ringoid.Substract.Make0(SelfA)
+    include General.Traits.Ringoid.Subtract.Make0(SelfA)
     include General.Traits.Ringoid.Square.Make0(SelfA)
     include SelfA
   end
@@ -124,7 +124,7 @@ module IntMod3Examples = struct
 
   let of_string = []
 
-  let add_substract = [
+  let add_subtract = [
     (1, 2, 0);
     (2, 2, 1);
   ]
