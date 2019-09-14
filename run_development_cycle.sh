@@ -2,6 +2,23 @@
 
 set -o errexit
 
+DO_UTOP_INTERFACE=true
+DO_TEST_INSTALL=true
+
+while [[ "$#" > 0 ]]
+do
+  case $1 in
+    -q|--quick)
+      DO_UTOP_INTERFACE=false
+      DO_TEST_INSTALL=false
+      ;;
+    *)
+      echo "Unknown parameter passed: $1"
+      exit 1;;
+  esac
+  shift
+done
+
 GENERATE_CODE=true
 
 for OCAML_VERSION in ${OCAML_VERSIONS:-4.02 4.03 4.04 4.05 4.06 4.07 4.08}
@@ -93,20 +110,25 @@ do
     # @todo Measure test coverage. If possible, module by module.
     $RUN dune runtest
 
-    echo
-    echo "Extracting interface as seen in utop"
-    echo "------------------------------------"
+    if $DO_UTOP_INTERFACE
+    then
+        echo
+        echo "Extracting interface as seen in utop"
+        echo "------------------------------------"
 
-    rm -rf doc/utop/$OCAML_VERSION
-    mkdir -p doc/utop/$OCAML_VERSION
-    $RUN python3 doc/utop/extract.py doc/utop/$OCAML_VERSION
+        rm -rf doc/utop/$OCAML_VERSION
+        mkdir -p doc/utop/$OCAML_VERSION
+        $RUN python3 doc/utop/extract.py doc/utop/$OCAML_VERSION
+    fi
 
+    if $DO_TEST_INSTALL
+    then
+        echo
+        echo "Testing package install"
+        echo "-----------------------"
 
-    echo
-    echo "Testing package install"
-    echo "-----------------------"
-
-    $RUN opam install General
+        $RUN opam install General
+    fi
 
     # @todo Build demo apps (as native, byte code, and js)
 
