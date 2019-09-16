@@ -1,38 +1,36 @@
+#include "../Generated/Atoms/Bool.ml"
+
 include Foundations.Bool
 
-module Tests = struct
+module Tests = Tests_.Make(Foundations.Bool)(struct
+  let representations = [
+    (false, "false");
+    (true, "true");
+  ]
+
+  let displays = representations
+
+  let literals = [
+    ("false", false);
+    ("true", true);
+  ]
+
+  let equalities = [
+    [true];
+    [false];
+  ]
+
+  let differences = [
+    (true, false);
+  ]
+
+  let orders = [
+    [false; true];
+  ]
+end)(struct
   open Testing
 
-  module Examples = struct
-    let representations = [
-      (false, "false");
-      (true, "true");
-    ]
-
-    let displays = representations
-
-    let literals = [
-      ("false", false);
-      ("true", true);
-    ]
-
-    let equalities = [
-      [true];
-      [false];
-    ]
-
-    let differences = [
-      (true, false);
-    ]
-
-    let orders = [
-      [false; true];
-    ]
-  end
-
-  let test = "Bool" >:: [
-    (let module T = Concepts.Able.Tests.Make0(Foundations.Bool)(Examples) in T.test);
-    (let module T = Concepts.Stringable.Tests.Make0(Foundations.Bool)(Examples) in T.test);
+  let tests = [
     "not true" >: (lazy (check_false (not true)));
     "not false" >: (lazy (check_true (not false)));
 
@@ -57,4 +55,4 @@ module Tests = struct
     "xor true false" >: (lazy (check_true (xor true false)));
     "xor false false" >: (lazy (check_false (xor false false)));
   ]
-end
+end)

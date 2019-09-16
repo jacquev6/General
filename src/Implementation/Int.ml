@@ -1,3 +1,5 @@
+#include "../Generated/Atoms/Int.ml"
+
 module SelfA = struct
   include Foundations.Int
 
@@ -21,7 +23,7 @@ end
 
 include SelfB
 
-module Examples = struct
+module Tests = Tests_.Make(SelfB)(struct
   let representations = [
     (-3, "-3");
     (-0, "0");
@@ -89,14 +91,10 @@ module Examples = struct
     (42, 43);
     (-121, -120);
   ]
-end
-
-module Tests = struct
+end)(struct
   open Testing
 
-  let test = "Int" >:: [
-    (let module T = Concepts.Integer.Tests.Make0(SelfB)(Examples) in T.test);
-    (let module T = Traits.Parsable.Tests.Make0(SelfB)(Examples) in T.test);
+  let tests = [
     "exponentiate 2 (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "Int.exponentiate: Negative exponent: -4") (lazy (exponentiate 2 (-4)))));
   ]
-end
+end)

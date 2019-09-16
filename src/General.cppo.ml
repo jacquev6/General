@@ -583,7 +583,9 @@ module Tests = struct
     BigInt.Tests.test;
     BinaryHeap.Tests.test;
     Bool.Tests.test;
+    Bytes.Tests.test;
     CallStack.Tests.test;
+    Char.Tests.test;
     Exception.Tests.test;
     Float.Tests.test;
     Functions.Tests.test;
@@ -598,6 +600,7 @@ module Tests = struct
     Stream.Tests.test;
     String.Tests.test;
     Tuples.Tests.test;
+    Unit.Tests.test;
 
     IntRange.Tests.test;
 

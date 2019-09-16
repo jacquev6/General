@@ -1,5 +1,6 @@
-import itertools
+import contextlib
 import functools
+import itertools
 import os
 import sys
 import textwrap
@@ -99,7 +100,7 @@ class Facets:
 
         yield self.__tests_implementation()
 
-    def __contextualized_name(self, prefix):
+    def contextualized_name(self, prefix):
         if prefix == self.prefix:
             return self.name
         else:
@@ -139,7 +140,7 @@ class Facets:
         yield "type t"
         for base in self.bases:
             if base.__has_operators():
-                yield f"include {base.__contextualized_name(self.prefix)}.Operators.S0 with type t := t"
+                yield f"include {base.contextualized_name(self.prefix)}.Operators.S0 with type t := t"
         for operator in self.operators:
             yield f"val ( {operator.operator} ): { operator.value_type(0, 't')}"
 
@@ -190,7 +191,7 @@ class Facets:
                 operators_constraint = " and module O := O"
             else:
                 operators_constraint = ""
-            yield f"include {base.__contextualized_name(self.prefix)}.S{arity} with type {t} := {t}{operators_constraint}"
+            yield f"include {base.contextualized_name(self.prefix)}.S{arity} with type {t} := {t}{operators_constraint}"
         for value in self.values:
             yield f"val {value.name}: {value.value_type(arity, t)}"
 
@@ -212,7 +213,7 @@ class Facets:
         yield f"type t = {type_args(arity)}M.t"
         functor_args = "".join(f"({a.upper()})" for a in abcd(arity))
         for base in self.bases:
-            yield f"module {base.name}_ = {base.__contextualized_name(self.prefix)}.Specialize{arity}(M){functor_args}"
+            yield f"module {base.name}_ = {base.contextualized_name(self.prefix)}.Specialize{arity}(M){functor_args}"
         if self.__inherits_operators():
             yield mod_impl("O", (f"include {base.name}_.O" for base in self.bases if base.__has_operators()))
         for base in self.bases:
@@ -220,7 +221,7 @@ class Facets:
                 operators_constraint = " and module O := O"
             else:
                 operators_constraint = ""
-            yield f"include ({base.name}_: {base.__contextualized_name(self.prefix)}.S0 with type t := t{operators_constraint})"
+            yield f"include ({base.name}_: {base.contextualized_name(self.prefix)}.S0 with type t := t{operators_constraint})"
         for value in self.values:
             yield value.value_specialization(arity)
 
@@ -321,7 +322,7 @@ class Facets:
             yield f"module {a.upper()}: Element"
         for base in self.bases:
             yield (
-                f"include {base.__contextualized_name(self.prefix)}.Tests.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
+                f"include {base.contextualized_name(self.prefix)}.Tests.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
                 + "".join(f" and module {a.upper()} := {a.upper()}" for a in abcd(arity))
             )
         t = f"{type_args(arity)}t"
@@ -336,7 +337,7 @@ class Facets:
             yield f"include S{arity}"
             for req in self.test_requirements:
                 basic = "" if req.__is_basic() else "Basic."
-                yield f"include {req.__contextualized_name(self.prefix)}.{basic}S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
+                yield f"include {req.contextualized_name(self.prefix)}.{basic}S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
 
     def __tests_makers_specifications(self):
         for arity in self.arities:
@@ -367,7 +368,7 @@ class Facets:
         yield "module E = MakeExamples(M)(E)"
         yield f'let test = "{self.name}" >:: ['
         for base in self.bases:
-            yield f"  (let module T = {base.__contextualized_name(self.prefix)}.Tests.Make0(M)(E) in T.test);"
+            yield f"  (let module T = {base.contextualized_name(self.prefix)}.Tests.Make0(M)(E) in T.test);"
         yield "] @ (let module T = MakeTests(M)(E) in T.tests)"
 
     def __tests_maker_implementation_items(self, arity):
@@ -376,8 +377,50 @@ class Facets:
         yield indent(f"include Specialize{arity}(M){functor_args}"),
         for req in self.test_requirements:
             basic = "" if req.__is_basic() else "Basic."
-            yield indent(f"include ({req.__contextualized_name(self.prefix)}.{basic}Specialize{arity}(M){functor_args}: {req.__contextualized_name(self.prefix)}.{basic}S0 with type t := t)")
+            yield indent(f"include ({req.contextualized_name(self.prefix)}.{basic}Specialize{arity}(M){functor_args}: {req.contextualized_name(self.prefix)}.{basic}S0 with type t := t)")
         yield "end)(E)",
+
+
+class Type:
+    def __init__(
+            self, *,
+            prefix, name,
+            type,
+            arity,
+            bases,
+    ):
+        self.prefix = prefix
+        self.name = name
+        self.type = type
+        self.arity = arity
+        self.bases = list(bases)
+
+    @property
+    def graphviz_label(self):
+        return self.name
+
+    @property
+    def specification(self):
+        return mod_spec(self.name)
+
+    @property
+    def implementation_items(self):
+        yield mod_impl("Tests_", self.__tests_implementation_items())
+
+    def __tests_implementation_items(self):
+        yield mod_type("Examples",
+            (f"include {base.contextualized_name(self.prefix)}.Tests.Examples.S{self.arity} with type t := {self.type}" for base in self.bases),
+        )
+        yield mod_type("Testable",
+            f"type t = {self.type}",
+            (f"include {base.contextualized_name(self.prefix)}.Tests.Testable.S{self.arity} with type t := t" for base in self.bases),
+        )
+        yield mod_impl("Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end)",
+            "open Testing",
+            f'let test = "{self.name}" >:: [',
+            indent(f"(let module T = {base.contextualized_name(self.prefix)}.Tests.Make{self.arity}(M)(E) in T.test);" for base in self.bases),
+            "] @ Tests.tests",
+        )
 
 
 def mod_spec(name, *items):
@@ -640,6 +683,7 @@ traits = []
 
 def trait(
         name,
+        *,
         variadic=True,
         values=[],
         extensions=[],
@@ -664,6 +708,7 @@ concepts = []
 
 def concept(
         name,
+        *,
         bases,
         values=[],
         test_requirements=[],
@@ -680,6 +725,25 @@ def concept(
     )
     concepts.append(concept)
     return concept
+
+
+atoms = []
+
+def atom(
+    name,
+    *,
+    type,
+    bases=[],
+):
+    atom = Type(
+        prefix="Atoms",
+        name=name,
+        type=type,
+        arity=0,
+        bases=bases,
+    )
+    atoms.append(atom)
+    return atom
 
 
 ###### TRAITS ######
@@ -898,42 +962,107 @@ integer = concept(
 )
 
 
-if __name__ == "__main__":
-    destination = sys.argv[1]
-    assert os.path.isdir(destination)
+###### TYPES ######
 
-    def gen(name, *items):
-        with open(os.path.join(destination, name), "w") as f:
-            generate(items, file = f)
+unit = atom(
+    "Unit",
+    type="unit",
+    bases=[able],
+)
+
+bool_ = atom(
+    "Bool",
+    type="bool",
+    bases=[able, stringable],
+)
+
+char = atom(
+    "Char",
+    type="char",
+    bases=[able],
+)
+
+int_ = atom(
+    "Int",
+    type="int",
+    bases=[integer],
+)
+
+int32 = atom(
+    "Int32",
+    type="OCamlStandard.Int32.t",
+    bases=[integer],
+)
+
+int64 = atom(
+    "Int64",
+    type="OCamlStandard.Int64.t",
+    bases=[integer],
+)
+
+native_int = atom(
+    "NativeInt",
+    type="OCamlStandard.Nativeint.t",
+    bases=[integer],
+)
+
+big_int = atom(
+    "BigInt",
+    type="OCamlStandard.Big_int.big_int",
+    bases=[integer],
+)
+
+float_ = atom(
+    "Float",
+    type="float",
+    bases=[real_number],
+)
+
+string = atom(
+    "String",
+    type="string",
+    bases=[able, displayable],
+)
+
+bytes_ = atom(
+    "Bytes",
+    type="bytes",
+    bases=[able, displayable],
+)
+
+
+if __name__ == "__main__":
+    all_items = [traits, concepts, atoms]
+
+    def gen(path, *items):
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w") as f:
+            generate(items, file=f)
 
     gen(
-        "Facets.dot",
+        "src/Generated/Facets.dot",
         'digraph {',
         '  rankdir="BT"',
         '  node [shape="box"]',
-        '  subgraph cluster_Traits {',
-        '    label="Traits";',
-        (f'    {trait.name.lower()} [label="{trait.graphviz_label}"];' for trait in traits),
-        '  }',
-        '  subgraph cluster_Concepts {',
-        '    label="Concepts";',
-        (f'    {concept.name.lower()} [label="{concept.graphviz_label}"];' for concept in concepts),
-        '  }',
-        (f'  {concept.name.lower()} -> {base.name.lower()}' for concept in concepts for base in concept.bases),
+        (
+            (
+                f'  subgraph cluster_{items[0].prefix} {{',
+                f'    label="{items[0].prefix}";',
+                (f'    {item.name.lower()} [label="{item.graphviz_label}"];' for item in items),
+                '  }',
+            )
+            for items in all_items
+        ),
+        (
+            f'  {item.name.lower()} -> {base.name.lower()}'
+            for item in itertools.chain.from_iterable(all_items)
+            for base in item.bases
+        ),
         '}',
     )
 
-    gen("Traits.mli", (trait.specification for trait in traits))
-    gen("Concepts.mli", (concept.specification for concept in concepts))
+    for items in all_items:
+        gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
 
-    destination = os.path.join(sys.argv[1], "Traits")
-    os.mkdir(destination)
-
-    for trait in traits:
-        gen(f"{trait.name}.ml", trait.implementation_items)
-
-    destination = os.path.join(sys.argv[1], "Concepts")
-    os.mkdir(destination)
-
-    for concept in concepts:
-        gen(f"{concept.name}.ml", concept.implementation_items)
+    for item in itertools.chain.from_iterable(all_items):
+        gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)

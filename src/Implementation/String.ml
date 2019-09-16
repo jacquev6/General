@@ -1,45 +1,53 @@
-include Foundations.String
+#include "../Generated/Atoms/String.ml"
 
-let split' s ~seps =
-  let seps = SortedSet.Poly.of_list seps in
-  let (parts, last_part) =
-    s
-    |> fold ~init:([], []) ~f:(fun (parts, current_part) c ->
-      if SortedSet.Poly.contains seps ~v:c then
-        (current_part::parts, [])
-      else
-        (parts, c::current_part)
-    )
-  in
-  last_part::parts
-  |> List.map ~f:List.reverse
-  |> List.map ~f:of_list
-  |> List.reverse
+module Self = struct
+  include Foundations.String
 
-module Tests = struct
+  let split' s ~seps =
+    let seps = SortedSet.Poly.of_list seps in
+    let (parts, last_part) =
+      s
+      |> fold ~init:([], []) ~f:(fun (parts, current_part) c ->
+        if SortedSet.Poly.contains seps ~v:c then
+          (current_part::parts, [])
+        else
+          (parts, c::current_part)
+      )
+    in
+    last_part::parts
+    |> List.map ~f:List.reverse
+    |> List.map ~f:of_list
+    |> List.reverse
+end
+
+include Self
+
+module Tests = Tests_.Make(Self)(struct
+  let representations = [
+    ("foo", "\"foo\"");
+    ("bar\"baz", "\"bar\\\"baz\"");
+  ]
+
+  let displays = [
+    ("foo", "foo");
+    ("bar\"baz", "bar\"baz");
+  ]
+
+  let equalities = [
+    ["foo"];
+  ]
+
+  let differences = [
+    ("foo", "bar");
+  ]
+
+  let orders = [
+    ["aaaa"; "aaaaa"; "aaaab"; "ab"; "b"];
+  ]
+end)(struct
   open Testing
 
-  module Examples = struct
-    let representations = [
-      ("foo", "\"foo\"");
-      ("bar\"baz", "\"bar\\\"baz\"");
-    ]
-
-    let equalities = [
-      ["foo"];
-    ]
-
-    let differences = [
-      ("foo", "bar");
-    ]
-
-    let orders = [
-      ["aaaa"; "aaaaa"; "aaaab"; "ab"; "b"];
-    ]
-  end
-
-  let test = "String" >:: [
-    (let module T = Concepts.Able.Tests.Make0(Foundations.String)(Examples) in T.test);
+  let tests = [
     "split'" >:: (
       let make s seps expected =
         ~: "%S %S" s (of_list seps) (lazy (
@@ -52,4 +60,4 @@ module Tests = struct
       ]
     );
   ]
-end
+end)

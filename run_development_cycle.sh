@@ -50,8 +50,7 @@ do
         GENERATE_CODE=false
 
         rm -rf src/Generated
-        mkdir src/Generated
-        $RUN python3 src/geni.py src/Generated
+        $RUN python3 src/geni.py
         $RUN dot src/Generated/Facets.dot -Tpng -odocs/Facets.png
 
         (

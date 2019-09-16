@@ -623,6 +623,7 @@ module Float: sig
       | Infinite
       | NotANumber
 
+    (* @todo include Concepts.Able *)
     include Traits.Representable.S0 with type t := t
 
     val of_float: float -> t

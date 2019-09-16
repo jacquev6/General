@@ -1,3 +1,5 @@
+#include "../Generated/Atoms/BigInt.ml"
+
 module OCSB = OCamlStandard.Big_int
 
 module SelfA = struct
@@ -82,7 +84,7 @@ end
 
 include Self
 
-module Examples = struct
+module Tests = Tests_.Make(Self)(struct
   let i = OCSB.big_int_of_int
   let s = OCSB.big_int_of_string
 
@@ -135,14 +137,10 @@ module Examples = struct
   let literals = [
     ("100000", i 100000);
   ]
-end
-
-module Tests = struct
+end)(struct
   open Testing
 
-  let test = "BigInt" >:: [
-    (let module T = Concepts.Integer.Tests.Make0(Self)(Examples) in T.test);
-    (let module T = Traits.Parsable.Tests.Make0(Self)(Examples) in T.test);
+  let tests = [
     "exponentiate (of_int 2) (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "BigInt.exponentiate: Negative exponent: -4") (lazy (exponentiate (of_int 2) (-4)))));
     "of_float" >:: (
       let check ~expected x =
@@ -398,4 +396,4 @@ module Tests = struct
       ]
     );
   ]
-end
+end)

@@ -1,3 +1,5 @@
+#include "../Generated/Atoms/Float.ml"
+
 module SelfA = struct
   include Foundations.Float
 
@@ -23,7 +25,7 @@ end
 
 include SelfB
 
-module Examples = struct
+module Tests = Tests_.Make(SelfB)(struct
   let representations = [
     (-3., "-3.");
     (-0., "-0.");
@@ -95,42 +97,38 @@ module Examples = struct
     (0.5, 4, 0.0625);
     (2., -4, 0.0625);
   ]
-end
-
-module ClassExamples = struct
-  open SelfB.Class
-
-  let representations = [
-    (Normal, "Normal");
-    (SubNormal, "SubNormal");
-    (Zero, "Zero");
-    (Infinite, "Infinite");
-    (NotANumber, "NotANumber");
-  ]
-
-  let equalities = [
-    [Normal];
-    [SubNormal];
-    [Zero];
-    [Infinite];
-    [NotANumber];
-  ]
-
-  let differences = [
-    (Normal, SubNormal);
-  ]
-
-  let orders = [
-    [Normal; SubNormal; Zero; Infinite; NotANumber];
-  ]
-end
-
-module Tests = struct
+end)(struct
   open Testing
 
-  let test = "Float" >:: [
-    (let module T = Concepts.RealNumber.Tests.Make0(SelfB)(Examples) in T.test);
-    (let module T = Traits.Parsable.Tests.Make0(SelfB)(Examples) in T.test);
+  module ClassExamples = struct
+    open SelfB.Class
+
+    let representations = [
+      (Normal, "Normal");
+      (SubNormal, "SubNormal");
+      (Zero, "Zero");
+      (Infinite, "Infinite");
+      (NotANumber, "NotANumber");
+    ]
+
+    let equalities = [
+      [Normal];
+      [SubNormal];
+      [Zero];
+      [Infinite];
+      [NotANumber];
+    ]
+
+    let differences = [
+      (Normal, SubNormal);
+    ]
+
+    let orders = [
+      [Normal; SubNormal; Zero; Infinite; NotANumber];
+    ]
+  end
+
+  let tests = [
     "ceil" >:: (
       let make x expected =
         ~: "%f" x (lazy (check_float_exact ~expected (ceil x)))
@@ -167,4 +165,4 @@ module Tests = struct
       );
     ];
   ]
-end
+end)

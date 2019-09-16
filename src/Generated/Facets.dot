@@ -22,6 +22,20 @@ digraph {
     realnumber [label="RealNumber\n\nabs\nmodulo"];
     integer [label="Integer"];
   }
+  subgraph cluster_Atoms {
+    label="Atoms";
+    unit [label="Unit"];
+    bool [label="Bool"];
+    char [label="Char"];
+    int [label="Int"];
+    int32 [label="Int32"];
+    int64 [label="Int64"];
+    nativeint [label="NativeInt"];
+    bigint [label="BigInt"];
+    float [label="Float"];
+    string [label="String"];
+    bytes [label="Bytes"];
+  }
   identifiable -> equatable
   identifiable -> representable
   able -> identifiable
@@ -37,4 +51,18 @@ digraph {
   realnumber -> tostandardnumbers
   integer -> realnumber
   integer -> predsucc
+  unit -> able
+  bool -> able
+  bool -> stringable
+  char -> able
+  int -> integer
+  int32 -> integer
+  int64 -> integer
+  nativeint -> integer
+  bigint -> integer
+  float -> realnumber
+  string -> able
+  string -> displayable
+  bytes -> able
+  bytes -> displayable
 }

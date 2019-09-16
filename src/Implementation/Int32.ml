@@ -1,3 +1,5 @@
+#include "../Generated/Atoms/Int32.ml"
+
 module OCSI = OCamlStandard.Int32
 
 module Self = StandardInt.Make(struct
@@ -13,7 +15,7 @@ end)
 
 include Self
 
-module Examples = struct
+module Tests = Tests_.Make(Self)(struct
   let literals = [
     ("43", 43l);
     ("-12", -12l);
@@ -85,14 +87,10 @@ module Examples = struct
     (42l, 43l);
     (-121l, -120l);
   ]
-end
-
-module Tests = struct
+end)(struct
   open Testing
 
-  let test = "Int32" >:: [
-    (let module T = Concepts.Integer.Tests.Make0(Self)(Examples) in T.test);
-    (let module T = Traits.Parsable.Tests.Make0(Self)(Examples) in T.test);
+  let tests = [
     "exponentiate 2l (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "Int32.exponentiate: Negative exponent: -4") (lazy (exponentiate 2l (-4)))));
   ]
-end
+end)
