@@ -1,6 +1,6 @@
 module Make1(M: General.Traits.Representable.Tests.Testable.S1)(E: sig
   module A: General.Traits.Representable.Tests.Examples.Element
-  val repr: (A.t M.t * string) list
+  val representations: (A.t M.t * string) list
 end): sig
   val test: General.Test.t
 end

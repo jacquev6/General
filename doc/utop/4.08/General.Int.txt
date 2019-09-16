@@ -30,7 +30,7 @@ module Int: sig
   val repr: int -> string
   val smallest: int
   val square: int -> int
-  val substract: int -> int -> int
+  val subtract: int -> int -> int
   val succ: int -> int
   val to_float: int -> float
   val to_int: int -> int

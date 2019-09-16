@@ -55,7 +55,7 @@ module Float: sig
   val smallest: float
   val sqrt: float -> float
   val square: float -> float
-  val substract: float -> float -> float
+  val subtract: float -> float -> float
   val tan: float -> float
   val tanh: float -> float
   val to_float: float -> float

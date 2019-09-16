@@ -1,15 +1,15 @@
 module Make0(M: General.Concepts.RealNumber.Tests.Testable.S0)(E: sig
-  val add_subtract: (M.t * M.t * M.t) list
-  val different: (M.t * M.t) list
-  val divide: (M.t * M.t * M.t) list
-  val equal: M.t list list
-  val exponentiate: (M.t * int * M.t) list
-  val multiply: (M.t * M.t * M.t) list
-  val negate: (M.t * M.t) list
-  val of_string: (bytes * M.t) list
-  val ordered: M.t list list
-  val repr: (M.t * bytes) list
-  val to_string: (M.t * bytes) list
+  val additions: (M.t * M.t * M.t) list
+  val differences: (M.t * M.t) list
+  val displays: (M.t * bytes) list
+  val divisions: (M.t * M.t * M.t) list
+  val equalities: M.t list list
+  val exponentiations: (M.t * int * M.t) list
+  val literals: (bytes * M.t) list
+  val multiplications: (M.t * M.t * M.t) list
+  val negations: (M.t * M.t) list
+  val orders: M.t list list
+  val representations: (M.t * bytes) list
 end): sig
   val test: General.Test.t
 end

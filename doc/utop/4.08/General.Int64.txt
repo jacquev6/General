@@ -29,7 +29,7 @@ module Int64: sig
   val repr: int64 -> string
   val smallest: int64
   val square: int64 -> int64
-  val substract: int64 -> int64 -> int64
+  val subtract: int64 -> int64 -> int64
   val succ: int64 -> int64
   val to_float: int64 -> float
   val to_int: int64 -> int

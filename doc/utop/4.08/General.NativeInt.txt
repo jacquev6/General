@@ -29,7 +29,7 @@ module NativeInt: sig
   val repr: nativeint -> string
   val smallest: nativeint
   val square: nativeint -> nativeint
-  val substract: nativeint -> nativeint -> nativeint
+  val subtract: nativeint -> nativeint -> nativeint
   val succ: nativeint -> nativeint
   val to_float: nativeint -> float
   val to_int: nativeint -> int

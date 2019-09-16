@@ -3,7 +3,7 @@ module Ringoid: sig
   module Exponentiate
   module Operators
   module Square
-  module Substract
+  module Subtract
   module Tests
   module type S0 = sig
     module O: sig
@@ -22,7 +22,7 @@ module Ringoid: sig
     val negate: t -> t
     val one: t
     val square: t -> t
-    val substract: t -> t -> t
+    val subtract: t -> t -> t
     val zero: t
   end
 end

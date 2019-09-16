@@ -4,8 +4,8 @@ module Make5(M: General.Traits.Equatable.Tests.Testable.S5)(E: sig
   module C: General.Traits.Equatable.Tests.Examples.Element
   module D: General.Traits.Equatable.Tests.Examples.Element
   module E: General.Traits.Equatable.Tests.Examples.Element
-  val different: ((A.t, B.t, C.t, D.t, E.t) M.t * (A.t, B.t, C.t, D.t, E.t) M.t) list
-  val equal: (A.t, B.t, C.t, D.t, E.t) M.t list list
+  val differences: ((A.t, B.t, C.t, D.t, E.t) M.t * (A.t, B.t, C.t, D.t, E.t) M.t) list
+  val equalities: (A.t, B.t, C.t, D.t, E.t) M.t list list
 end): sig
   val test: General.Test.t
 end

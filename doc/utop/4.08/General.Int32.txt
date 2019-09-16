@@ -29,7 +29,7 @@ module Int32: sig
   val repr: int32 -> string
   val smallest: int32
   val square: int32 -> int32
-  val substract: int32 -> int32 -> int32
+  val subtract: int32 -> int32 -> int32
   val succ: int32 -> int32
   val to_float: int32 -> float
   val to_int: int32 -> int

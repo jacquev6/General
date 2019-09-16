@@ -1,0 +1,3 @@
+module Subtract: sig
+  module Make0
+end
