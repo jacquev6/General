@@ -1,10 +1,10 @@
 module Tests_ = struct
   module type Examples = sig
-    include Concepts.Integer.Tests.Examples.S0 with type t := OCamlStandard.Big_int.big_int
+    include Concepts.Integer.Tests.Examples.S0 with type t := Pervasives.OCamlStandard.Big_int.big_int
   end
 
   module type Testable = sig
-    type t = OCamlStandard.Big_int.big_int
+    type t = Pervasives.OCamlStandard.Big_int.big_int
     include Concepts.Integer.Tests.Testable.S0 with type t := t
   end
 

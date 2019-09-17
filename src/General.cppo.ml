@@ -110,11 +110,11 @@ module Ubiquitous = struct
   include Foundations.PervasivesWhitelist
 end
 
-module Pervasives = Ubiquitous
-
 open Ubiquitous
 
 open Foundations
+
+module Pervasives = Ubiquitous
 
 module Test = struct
   #include "Testing/Test.ml"

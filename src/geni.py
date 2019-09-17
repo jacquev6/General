@@ -400,8 +400,8 @@ class Type:
         return self.name
 
     @property
-    def specification(self):
-        return mod_spec(self.name)
+    def specification_items(self):
+        yield f"type t = {self.type}"
 
     @property
     def implementation_items(self):
@@ -990,25 +990,25 @@ int_ = atom(
 
 int32 = atom(
     "Int32",
-    type="OCamlStandard.Int32.t",
+    type="Pervasives.OCamlStandard.Int32.t",
     bases=[integer],
 )
 
 int64 = atom(
     "Int64",
-    type="OCamlStandard.Int64.t",
+    type="Pervasives.OCamlStandard.Int64.t",
     bases=[integer],
 )
 
 native_int = atom(
     "NativeInt",
-    type="OCamlStandard.Nativeint.t",
+    type="Pervasives.OCamlStandard.Nativeint.t",
     bases=[integer],
 )
 
 big_int = atom(
     "BigInt",
-    type="OCamlStandard.Big_int.big_int",
+    type="Pervasives.OCamlStandard.Big_int.big_int",
     bases=[integer],
 )
 
@@ -1032,8 +1032,6 @@ bytes_ = atom(
 
 
 if __name__ == "__main__":
-    all_items = [traits, concepts, atoms]
-
     def gen(path, *items):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w") as f:
@@ -1051,18 +1049,21 @@ if __name__ == "__main__":
                 (f'    {item.name.lower()} [label="{item.graphviz_label}"];' for item in items),
                 '  }',
             )
-            for items in all_items
+            for items in (traits, concepts, atoms)
         ),
         (
             f'  {item.name.lower()} -> {base.name.lower()}'
-            for item in itertools.chain.from_iterable(all_items)
+            for item in itertools.chain(traits, concepts, atoms)
             for base in item.bases
         ),
         '}',
     )
 
-    for items in all_items:
+    for items in (traits, concepts):
         gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
 
-    for item in itertools.chain.from_iterable(all_items):
+    for item in itertools.chain(traits, concepts, atoms):
         gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)
+
+    for item in atoms:
+        gen(f"src/Generated/{item.prefix}/{item.name}.mli", item.specification_items)

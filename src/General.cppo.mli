@@ -476,7 +476,7 @@ end
 (* Atomic values *)
 
 module Unit: sig
-  type t = unit
+  #include "Generated/Atoms/Unit.mli"
 
   (* @feature Able *)
 
@@ -484,7 +484,7 @@ module Unit: sig
 end
 
 module Bool: sig
-  type t = bool
+  #include "Generated/Atoms/Bool.mli"
 
   module O: sig
     include Concepts.Able.Operators.S0 with type t := t
@@ -505,7 +505,7 @@ module Bool: sig
 end
 
 module Char: sig
-  type t = char
+  #include "Generated/Atoms/Char.mli"
 
   (* @feature Integer, smallest, greatest *)
   include Traits.Comparable.S0 with type t := t
@@ -518,7 +518,7 @@ module Char: sig
 end
 
 module Int: sig
-  type t = int
+  #include "Generated/Atoms/Int.mli"
 
   include Concepts.Integer.S0 with type t := t
 
@@ -539,7 +539,7 @@ module Int: sig
 end
 
 module Int32: sig
-  type t = int32
+  #include "Generated/Atoms/Int32.mli"
 
   include Concepts.Integer.S0 with type t := t
 
@@ -548,7 +548,7 @@ module Int32: sig
 end
 
 module Int64: sig
-  type t = int64
+  #include "Generated/Atoms/Int64.mli"
 
   include Concepts.Integer.S0 with type t := t
 
@@ -557,7 +557,7 @@ module Int64: sig
 end
 
 module NativeInt: sig
-  type t = nativeint
+  #include "Generated/Atoms/NativeInt.mli"
 
   include Concepts.Integer.S0 with type t := t
 
@@ -566,13 +566,13 @@ module NativeInt: sig
 end
 
 module BigInt: sig
-  type t = Pervasives.OCamlStandard.Big_int.big_int
+  #include "Generated/Atoms/BigInt.mli"
 
   include Concepts.Integer.S0 with type t := t
 end
 
 module Float: sig
-  type t = float
+  #include "Generated/Atoms/Float.mli"
 
   include Concepts.RealNumber.S0 with type t := t
 
@@ -631,7 +631,7 @@ module Float: sig
 end
 
 module String: sig
-  type t = string
+  #include "Generated/Atoms/String.mli"
 
   val of_char: char -> t
   val of_list: char list -> t
@@ -679,7 +679,7 @@ module String: sig
 end
 
 module Bytes: sig
-  type t = bytes
+  #include "Generated/Atoms/Bytes.mli"
 
   val size: t -> int
 
