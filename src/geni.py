@@ -460,6 +460,10 @@ class Type:
             yield type_.graphviz_links
 
     @property
+    def specification(self):
+        return mod_spec(self.name, self.specification_items)
+
+    @property
     def specification_items(self):
         yield f"type t = {self.type}"
         if len(self.operators) > 0:
@@ -1313,10 +1317,14 @@ if __name__ == "__main__":
         '}',
     )
 
-    for items in (traits, concepts):
+    for items in (traits, concepts, atoms):
         gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
         for item in items:
-            path = f"src/{item.prefix}/{item.name}.ml"
+            if item.prefix == "Atoms":
+                prefix = "Implementation"
+            else:
+                prefix = item.prefix
+            path = f"src/{prefix}/{item.name}.ml"
             if os.path.exists(path):
                 with open(path) as f:
                     first_line = f.readlines()[0]
@@ -1324,16 +1332,6 @@ if __name__ == "__main__":
             else:
                 with open(path, "w") as f:
                     f.write(f'#include "../Generated/{item.prefix}/{item.name}.ml"\n\n#include "empty_{item.prefix[:-1].lower()}.ml"\n')
-
-    for item in atoms:
-        gen(f"src/Generated/{item.prefix}/{item.name}.mli", item.specification_items)
-        path = f"src/Implementation/{item.name}.ml"
-        if os.path.exists(path):
-            with open(path) as f:
-                first_line = f.readlines()[0]
-            assert first_line == f'#include "../Generated/{item.prefix}/{item.name}.ml"\n', (path, first_line)
-        else:
-            assert False, item.name
 
     for item in itertools.chain(traits, concepts, atoms):
         gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)

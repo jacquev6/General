@@ -3,17 +3,7 @@
   (deps
     (:src General.cppo.mli)
     geni.py
-    Generated/Atoms/BigInt.mli
-    Generated/Atoms/Bool.mli
-    Generated/Atoms/Bytes.mli
-    Generated/Atoms/Char.mli
-    Generated/Atoms/Float.mli
-    Generated/Atoms/Int.mli
-    Generated/Atoms/Int32.mli
-    Generated/Atoms/Int64.mli
-    Generated/Atoms/NativeInt.mli
-    Generated/Atoms/String.mli
-    Generated/Atoms/Unit.mli
+    Generated/Atoms.mli
     Generated/Concepts.mli
     Generated/Traits.mli
     Reset/CommonHeader.ml

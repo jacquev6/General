@@ -475,49 +475,7 @@ end
 
 (* Atomic values *)
 
-module Unit: sig
-  #include "Generated/Atoms/Unit.mli"
-end
-
-module Bool: sig
-  #include "Generated/Atoms/Bool.mli"
-end
-
-module Char: sig
-  #include "Generated/Atoms/Char.mli"
-end
-
-module Int: sig
-  #include "Generated/Atoms/Int.mli"
-end
-
-module Int32: sig
-  #include "Generated/Atoms/Int32.mli"
-end
-
-module Int64: sig
-  #include "Generated/Atoms/Int64.mli"
-end
-
-module NativeInt: sig
-  #include "Generated/Atoms/NativeInt.mli"
-end
-
-module BigInt: sig
-  #include "Generated/Atoms/BigInt.mli"
-end
-
-module Float: sig
-  #include "Generated/Atoms/Float.mli"
-end
-
-module String: sig
-  #include "Generated/Atoms/String.mli"
-end
-
-module Bytes: sig
-  #include "Generated/Atoms/Bytes.mli"
-end
+#include "Generated/Atoms.mli"
 
 (* @feature Rational, Complex, Quaternion, Matrix *)
 
