@@ -50,11 +50,15 @@
     geni.py
     Compare.ml
     Concepts/Able.ml
+    Concepts/FixedWidthInteger.ml
     Concepts/Identifiable.ml
     Concepts/Integer.ml
     Concepts/Number.ml
+    Concepts/OfStandardNumber.ml
     Concepts/RealNumber.ml
     Concepts/Stringable.ml
+    Concepts/ToStandardNumber.ml
+    Concepts/empty_concept.ml
     Equate.ml
     Foundations/Bool.ml
     Foundations/CallStack.ml
@@ -86,20 +90,26 @@
     Generated/Atoms/String.ml
     Generated/Atoms/Unit.ml
     Generated/Concepts/Able.ml
+    Generated/Concepts/FixedWidthInteger.ml
     Generated/Concepts/Identifiable.ml
     Generated/Concepts/Integer.ml
     Generated/Concepts/Number.ml
+    Generated/Concepts/OfStandardNumber.ml
     Generated/Concepts/RealNumber.ml
     Generated/Concepts/Stringable.ml
+    Generated/Concepts/ToStandardNumber.ml
+    Generated/Traits/Bounded.ml
     Generated/Traits/Comparable.ml
     Generated/Traits/Displayable.ml
     Generated/Traits/Equatable.ml
-    Generated/Traits/OfStandardNumbers.ml
+    Generated/Traits/OfFloat.ml
+    Generated/Traits/OfInt.ml
     Generated/Traits/Parsable.ml
     Generated/Traits/PredSucc.ml
     Generated/Traits/Representable.ml
     Generated/Traits/Ringoid.ml
-    Generated/Traits/ToStandardNumbers.ml
+    Generated/Traits/ToFloat.ml
+    Generated/Traits/ToInt.ml
     Implementation/Array.ml
     Implementation/BigInt.ml
     Implementation/BinaryHeap.ml
@@ -153,6 +163,7 @@
     Specializations/SortedSet.ml
     Testing/Test.ml
     Testing/Testing.ml
+    Traits/Bounded.ml
     Traits/Comparable.ml
     Traits/Displayable.ml
     Traits/Equatable.ml
@@ -168,7 +179,8 @@
     Traits/Foldable.signatures.Short.Right.ml
     Traits/Foldable.signatures.Short.ml
     Traits/Foldable.signatures.ml
-    Traits/OfStandardNumbers.ml
+    Traits/OfFloat.ml
+    Traits/OfInt.ml
     Traits/Parsable.ml
     Traits/PredSucc.ml
     Traits/Representable.ml
@@ -182,7 +194,9 @@
     Traits/Scanable.signatures.Short.ml
     Traits/Scanable.signatures.ToContainer.ml
     Traits/Scanable.signatures.ml
-    Traits/ToStandardNumbers.ml
+    Traits/ToFloat.ml
+    Traits/ToInt.ml
+    Traits/empty_trait.ml
   )
   (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
 )

@@ -33,6 +33,11 @@ module Tests = Tests_.Make(Self)(struct
     ("bar\"baz", "bar\"baz");
   ]
 
+  let literals = [
+    ("foo", "foo");
+    ("bar\"baz", "bar\"baz");
+  ]
+
   let equalities = [
     ["foo"];
   ]

@@ -12,7 +12,7 @@ module type S0 = sig
   include Identifiable.S0 with type t := t and module O := O
   include Stringable.S0 with type t := t
   include Traits.Ringoid.S0 with type t := t and module O := O
-  include Traits.OfStandardNumbers.S0 with type t := t
+  include OfStandardNumber.S0 with type t := t
 end
 
 module Tests_ = struct
@@ -22,7 +22,7 @@ module Tests_ = struct
       include Identifiable.Tests.Examples.S0 with type t := t
       include Stringable.Tests.Examples.S0 with type t := t
       include Traits.Ringoid.Tests.Examples.S0 with type t := t
-      include Traits.OfStandardNumbers.Tests.Examples.S0 with type t := t
+      include OfStandardNumber.Tests.Examples.S0 with type t := t
     end
   end
 
@@ -40,7 +40,7 @@ module Tests_ = struct
         (let module T = Identifiable.Tests.Make0(M)(E) in T.test);
         (let module T = Stringable.Tests.Make0(M)(E) in T.test);
         (let module T = Traits.Ringoid.Tests.Make0(M)(E) in T.test);
-        (let module T = Traits.OfStandardNumbers.Tests.Make0(M)(E) in T.test);
+        (let module T = OfStandardNumber.Tests.Make0(M)(E) in T.test);
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
   end

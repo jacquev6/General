@@ -42,6 +42,8 @@ module Tests = Tests_.Make(Self)(struct
     ('a', "a");
   ]
 
+  let displays = representations
+
   let orders = [
     ['a'; 'b'; 'c'; 'z'];
     ['A'; 'a'];

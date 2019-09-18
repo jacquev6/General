@@ -1,5 +1,3 @@
-#include "../Generated/Traits/OfStandardNumbers.ml"
-
 module Tests = struct
   include Tests_
 

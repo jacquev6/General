@@ -1,13 +1,15 @@
 module type S0 = sig
   type t
-  val to_int: t -> int
-  val to_float: t -> float
+  include Traits.ToInt.S0 with type t := t
+  include Traits.ToFloat.S0 with type t := t
 end
 
 module Tests_ = struct
   module Examples = struct
     module type S0 = sig
       type t
+      include Traits.ToInt.Tests.Examples.S0 with type t := t
+      include Traits.ToFloat.Tests.Examples.S0 with type t := t
     end
   end
 
@@ -21,7 +23,9 @@ module Tests_ = struct
     module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
       open Testing
       module E = MakeExamples(M)(E)
-      let test = "ToStandardNumbers" >:: [
+      let test = "ToStandardNumber" >:: [
+        (let module T = Traits.ToInt.Tests.Make0(M)(E) in T.test);
+        (let module T = Traits.ToFloat.Tests.Make0(M)(E) in T.test);
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
   end

@@ -387,21 +387,40 @@ class Type:
             prefix, name,
             type,
             arity,
-            bases,
+            bases, values, operators,
     ):
         self.prefix = prefix
         self.name = name
         self.type = type
         self.arity = arity
         self.bases = list(bases)
+        self.values = list(values)
+        self.operators = list(operators)
 
     @property
     def graphviz_label(self):
-        return self.name
+        parts = [self.name]
+        if len(self.values) > 0:
+            parts.append("")
+            parts += [val.name for val in self.values]
+        return "\\n".join(parts)
 
     @property
     def specification_items(self):
         yield f"type t = {self.type}"
+        if len(self.operators) > 0:
+            yield mod_spec("O",
+                (f"include {base.contextualized_name(self.prefix)}.Operators.S{self.arity} with type t := t" for base in self.bases if base._Facets__has_operators()),
+                (f"val {value.name}: {value.value_type(self.arity, 't')}" for value in self.operators)
+            )
+        for base in self.bases:
+            if len(self.operators) > 0 and base._Facets__has_operators():
+                operators_constraint = " and module O := O"
+            else:
+                operators_constraint = ""
+            yield f"include {base.contextualized_name(self.prefix)}.S{self.arity} with type t := t{operators_constraint}"
+        for value in self.values:
+            yield f"val {value.name}: {value.value_type(self.arity, 't')}"
 
     @property
     def implementation_items(self):
@@ -648,8 +667,10 @@ def val(name, *type_chain, operator=None):
         type_chain=(make_param(param) for param in type_chain),
         operator=operator,
     )
-    assert name not in values
-    values[name] = value
+    if name in values:
+        print("WARNING: duplicated value", name)
+    else:
+        values[name] = value
     return value
 
 
@@ -734,6 +755,8 @@ def atom(
     *,
     type,
     bases=[],
+    values=[],
+    operators=[],
 ):
     atom = Type(
         prefix="Atoms",
@@ -741,6 +764,8 @@ def atom(
         type=type,
         arity=0,
         bases=bases,
+        values=values,
+        operators=operators,
     )
     atoms.append(atom)
     return atom
@@ -881,20 +906,34 @@ ringoid = trait(
     test_requirements=[equatable, representable],
 )
 
-of_standard_numbers = trait(
-    "OfStandardNumbers",
+of_int = trait(
+    "OfInt",
     variadic=False,
     values=[
         val("of_int", "int", t),
+    ],
+)
+
+to_int = trait(
+    "ToInt",
+    variadic=False,
+    values=[
+        val("to_int", t, "int"),
+    ],
+)
+
+of_float = trait(
+    "OfFloat",
+    variadic=False,
+    values=[
         val("of_float", "float", t),
     ],
 )
 
-to_standard_numbers = trait(
-    "ToStandardNumbers",
+to_float = trait(
+    "ToFloat",
     variadic=False,
     values=[
-        val("to_int", t, "int"),
         val("to_float", t, "float"),
     ],
 )
@@ -917,6 +956,14 @@ pred_succ = trait(
     test_requirements=[equatable, representable],
 )
 
+bounded = trait(
+    "Bounded",
+    variadic=False,
+    values=[
+        val("smallest", t),
+        val("greatest", t),
+    ],
+)
 
 ###### CONCEPTS ######
 
@@ -938,9 +985,19 @@ stringable = concept(
     test_requirements=[representable, equatable],  # @todo Deduce from parsable's test requirements
 )
 
+of_standard_numbers = concept(
+    "OfStandardNumber",
+    bases=[of_int, of_float],
+)
+
 number = concept(
     "Number",
     bases=[identifiable, stringable, ringoid, of_standard_numbers],
+)
+
+to_standard_numbers = concept(
+    "ToStandardNumber",
+    bases=[to_int, to_float],
 )
 
 real_number = concept(
@@ -961,6 +1018,11 @@ integer = concept(
     bases=[real_number, pred_succ],
 )
 
+fixed_width_integer = concept(
+    "FixedWidthInteger",
+    bases=[integer, bounded],
+    # @feature width: int  Like OCS.Nativeint.size and Sys.int_size
+)
 
 ###### TYPES ######
 
@@ -968,42 +1030,59 @@ unit = atom(
     "Unit",
     type="unit",
     bases=[able],
+    values=[val("ignore", "_", "t")],
 )
 
 bool_ = atom(
     "Bool",
     type="bool",
     bases=[able, stringable],
+    values=[
+        val("not", t, t),
+        val("and_", t, t, t),
+        val("or_", t, t, t),
+        val("xor", t, t, t),
+    ],
+    operators=[
+        val("not", t, t),
+        val("(&&)", t, t, t),
+        val("(||)", t, t, t),
+        val("xor", t, t, t),
+    ]
 )
 
 char = atom(
     "Char",
     type="char",
-    bases=[able],
+    bases=[able, displayable, of_int, to_int],
+    # @feature Integer, smallest, greatest
+    values=[
+        val("repeat", t, {"len": "int"}, "string"),
+    ],
 )
 
 int_ = atom(
     "Int",
     type="int",
-    bases=[integer],
+    bases=[fixed_width_integer],
 )
 
 int32 = atom(
     "Int32",
     type="Pervasives.OCamlStandard.Int32.t",
-    bases=[integer],
+    bases=[fixed_width_integer],
 )
 
 int64 = atom(
     "Int64",
     type="Pervasives.OCamlStandard.Int64.t",
-    bases=[integer],
+    bases=[fixed_width_integer],
 )
 
 native_int = atom(
     "NativeInt",
     type="Pervasives.OCamlStandard.Nativeint.t",
-    bases=[integer],
+    bases=[fixed_width_integer],
 )
 
 big_int = atom(
@@ -1015,19 +1094,103 @@ big_int = atom(
 float_ = atom(
     "Float",
     type="float",
-    bases=[real_number],
+    bases=[real_number, bounded],
+    values=[
+        val("approx_equal", {"?precision": t}, t, t, "bool"),
+
+        val("epsilon", t),
+        val("infinity", t),
+        val("negative_infinity", t),
+        val("not_a_number", t),
+        val("pi", t),
+        val("e", t),
+
+        val("of_parts", {"significand": t}, {"exponent": "int"}, t),
+        val("to_parts", t, "t * int"),
+        val("to_fractional_and_integral", t, "t * t"),
+
+        val("sqrt", t, t),
+
+        val("exp", t, t),
+        val("log", t, t),
+        val("log10", t, t),
+        val("expm1", t, t),
+        val("log1p", t, t),
+
+        val("cos", t, t),
+        val("sin", t, t),
+        val("tan", t, t),
+        val("acos", t, t),
+        val("asin", t, t),
+        val("atan", t, t),
+        val("atan2", {"y": t}, {"x": t}, t),
+        val("hypot", t, t, t),
+        val("cosh", t, t),
+        val("sinh", t, t),
+        val("tanh", t, t),
+
+        val("ceil", t, t),
+        val("floor", t, t),
+        val("copy_sign", t, {"sign": t}, t),
+    ],
 )
 
 string = atom(
     "String",
     type="string",
-    bases=[able, displayable],
+    bases=[able, stringable],
+    operators=[val("(^)", t, t, t)],
+    values=[
+        val("of_char", "char", t),
+        val("of_list", "char list", t),
+        val("to_list", t, "char list"),
+
+        val("size", t, "int"),
+        val("get", t, "int", "char"),
+        val("set", "bytes", "int", "char", "unit"),  # @todo (?) Remove (should be only in bytes?)
+
+        val("of_bytes", "bytes", t),
+        val("to_bytes", t, "bytes"),
+
+        val("concat", t, t, t),
+
+        #   (* @feature val try_substring: t -> pos:int -> len:int -> t option *)
+        val("substring", t, {"pos": "int"}, {"len": "int"}, t),
+        #   (* @feature val try_prefix: t -> len:int -> t option *)
+        val("prefix", t, {"len": "int"}, t),
+        #   (* @feature val try_suffix: t -> len:int -> t option *)
+        val("suffix", t, {"len": "int"}, t),
+
+        val("has_prefix", t, {"pre": t}, "bool"),
+        val("try_drop_prefix", t, {"pre": t}, "t option"),
+        val("drop_prefix", t, {"pre": t}, t),
+        val("drop_prefix'", t, {"len": "int"}, t),
+        val("has_suffix", t, {"suf": t}, "bool"),
+        val("try_drop_suffix", t, {"suf": t}, "t option"),
+        val("drop_suffix", t, {"suf": t}, t),
+        val("drop_suffix'", t, {"len": "int"}, t),
+
+        val("split", t, {"sep": t}, "t list"),
+        val("split'", t, {"seps": "char list"}, "t list"),
+
+        #   (* @feature Traits *)
+        val("fold", {"init": "'a"}, t, {"f": "'a -> char -> 'a"}, "'a"),
+        val("filter", t, {"f": "char -> bool"}, t),
+    ]
 )
 
 bytes_ = atom(
     "Bytes",
     type="bytes",
     bases=[able, displayable],
+    values=[
+        val("size", t, "int"),
+        val("of_string", "string", t),  # @todo parsable
+        val("get", t, "int", "char"),
+        val("set", t, "int", "char", "unit"),
+        val("empty", t),
+        val("make", {"len": "int"}, t),
+    ],
 )
 
 
@@ -1061,6 +1224,15 @@ if __name__ == "__main__":
 
     for items in (traits, concepts):
         gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
+        for item in items:
+            path = f"src/{item.prefix}/{item.name}.ml"
+            if os.path.exists(path):
+                with open(path) as f:
+                    first_line = f.readlines()[0]
+                assert first_line == f'#include "../Generated/{item.prefix}/{item.name}.ml"\n', (path, first_line)
+            else:
+                with open(path, "w") as f:
+                    f.write(f'#include "../Generated/{item.prefix}/{item.name}.ml"\n\n#include "empty_{item.prefix[:-1].lower()}.ml"\n')
 
     for item in itertools.chain(traits, concepts, atoms):
         gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)

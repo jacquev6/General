@@ -1,0 +1,55 @@
+module Testable: sig
+  module type S0 = sig
+    module O: sig
+      val (*): t -> t -> t
+      val (**): t -> int -> t
+      val (+): t -> t -> t
+      val (-): t -> t -> t
+      val (/): t -> t -> t
+      val (<): t -> t -> bool
+      val (<=): t -> t -> bool
+      val (<>): t -> t -> bool
+      val (=): t -> t -> bool
+      val (>): t -> t -> bool
+      val (>=): t -> t -> bool
+      val (mod): t -> t -> t
+      val (~-): t -> t
+    end
+    type t
+    val abs: t -> t
+    val add: t -> t -> t
+    val between: t -> low:t -> high:t -> bool
+    val between_or_equal: t -> low:t -> high:t -> bool
+    val compare: t -> t -> General.Compare.t
+    val different: t -> t -> bool
+    val divide: t -> t -> t
+    val equal: t -> t -> bool
+    val exponentiate: t -> int -> t
+    val greater_or_equal: t -> t -> bool
+    val greater_than: t -> t -> bool
+    val greatest: t
+    val less_or_equal: t -> t -> bool
+    val less_than: t -> t -> bool
+    val max: t -> t -> t
+    val min: t -> t -> t
+    val min_max: t -> t -> t * t
+    val modulo: t -> t -> t
+    val multiply: t -> t -> t
+    val negate: t -> t
+    val of_float: float -> t
+    val of_int: int -> t
+    val of_string: bytes -> t
+    val one: t
+    val pred: t -> t
+    val repr: t -> bytes
+    val smallest: t
+    val square: t -> t
+    val subtract: t -> t -> t
+    val succ: t -> t
+    val to_float: t -> float
+    val to_int: t -> int
+    val to_string: t -> bytes
+    val try_of_string: bytes -> t option
+    val zero: t
+  end
+end

@@ -1,7 +1,7 @@
 module type S0 = sig
   type t
-  val of_int: int -> t
-  val of_float: float -> t
+  val smallest: t
+  val greatest: t
 end
 
 module Tests_ = struct
@@ -21,7 +21,7 @@ module Tests_ = struct
     module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
       open Testing
       module E = MakeExamples(M)(E)
-      let test = "OfStandardNumbers" >:: [
+      let test = "Bounded" >:: [
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
   end

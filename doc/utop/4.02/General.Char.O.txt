@@ -1,6 +1,8 @@
 module O: sig
   val (<): char -> char -> bool
   val (<=): char -> char -> bool
+  val (<>): char -> char -> bool
+  val (=): char -> char -> bool
   val (>): char -> char -> bool
   val (>=): char -> char -> bool
 end

@@ -1,8 +1,6 @@
-module OfStandardNumbers: sig
-  module Tests
+module Testable: sig
   module type S0 = sig
     type t
     val of_float: float -> t
-    val of_int: int -> t
   end
 end

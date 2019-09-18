@@ -477,55 +477,18 @@ end
 
 module Unit: sig
   #include "Generated/Atoms/Unit.mli"
-
-  (* @feature Able *)
-
-  val ignore: 'a -> t
 end
 
 module Bool: sig
   #include "Generated/Atoms/Bool.mli"
-
-  module O: sig
-    include Concepts.Able.Operators.S0 with type t := t
-
-    val not: t -> t
-    val (&&): t -> t -> t (* Lazy *)
-    val (||): t -> t -> t (* Lazy *)
-    val xor: t -> t -> t
-  end
-
-  include Concepts.Able.S0 with type t := t and module O := O
-  include Concepts.Stringable.S0 with type t := t
-
-  val not: t -> t
-  val and_: t -> t -> t (* Not lazy *)
-  val or_: t -> t -> t (* Not lazy *)
-  val xor: t -> t -> t
 end
 
 module Char: sig
   #include "Generated/Atoms/Char.mli"
-
-  (* @feature Integer, smallest, greatest *)
-  include Traits.Comparable.S0 with type t := t
-
-  val of_int: int -> t
-  val to_int: t -> int
-
-  val to_string: t -> string
-  val repeat: t -> len:int -> string
 end
 
 module Int: sig
   #include "Generated/Atoms/Int.mli"
-
-  include Concepts.Integer.S0 with type t := t
-
-  (* @feature Traits.Bounded? Concept.FixedWidthInteger? *)
-  (* @feature width: int  Like OCS.Nativeint.size and Sys.int_size *)
-  val smallest: t
-  val greatest: t
 
   module Bitwise: sig
     val logical_and: t -> t -> t
@@ -540,80 +503,22 @@ end
 
 module Int32: sig
   #include "Generated/Atoms/Int32.mli"
-
-  include Concepts.Integer.S0 with type t := t
-
-  val smallest: t
-  val greatest: t
 end
 
 module Int64: sig
   #include "Generated/Atoms/Int64.mli"
-
-  include Concepts.Integer.S0 with type t := t
-
-  val smallest: t
-  val greatest: t
 end
 
 module NativeInt: sig
   #include "Generated/Atoms/NativeInt.mli"
-
-  include Concepts.Integer.S0 with type t := t
-
-  val smallest: t
-  val greatest: t
 end
 
 module BigInt: sig
   #include "Generated/Atoms/BigInt.mli"
-
-  include Concepts.Integer.S0 with type t := t
 end
 
 module Float: sig
   #include "Generated/Atoms/Float.mli"
-
-  include Concepts.RealNumber.S0 with type t := t
-
-  val approx_equal: ?precision:t -> t -> t -> bool
-
-  val epsilon: t
-  val smallest: t
-  val greatest: t
-  val infinity: t
-  val negative_infinity: t
-  val not_a_number: t
-  val pi: float
-  val e: float
-
-  val of_parts: significand:float -> exponent:int -> t
-  val to_parts: t -> float * int
-  val to_fractional_and_integral: t -> float * float
-
-  val sqrt: float -> float
-
-  val exp: float -> float
-  val log: float -> float
-  val log10: float -> float
-  val expm1: float -> float
-  val log1p: float -> float
-
-  val cos: float -> float
-  val sin: float -> float
-  val tan: float -> float
-  val acos: float -> float
-  val asin: float -> float
-  val atan: float -> float
-  val atan2: y:float -> x:float -> float
-  val hypot: float -> float -> float
-  val cosh: float -> float
-  val sinh: float -> float
-  val tanh: float -> float
-
-  val ceil: float -> float
-  val floor: float -> float
-  val copy_sign: t -> sign:t -> t
 
   module Class: sig
     type t =
@@ -632,65 +537,10 @@ end
 
 module String: sig
   #include "Generated/Atoms/String.mli"
-
-  val of_char: char -> t
-  val of_list: char list -> t
-  val to_list: t -> char list
-
-  val size: t -> int
-  val get: t -> int -> char
-  val set: bytes -> int -> char -> unit
-
-  val of_bytes: bytes -> t
-  val to_bytes: t -> bytes
-
-  module O: sig
-    include Concepts.Able.Operators.S0 with type t := t
-    val (^): t -> t -> t
-  end
-
-  include Concepts.Stringable.S0 with type t := t
-  include Concepts.Able.S0 with type t := t and module O := O
-
-  val concat: t -> t -> t
-
-  (* @feature val try_substring: t -> pos:int -> len:int -> t option *)
-  val substring: t -> pos:int -> len:int -> t
-  (* @feature val try_prefix: t -> len:int -> t option *)
-  val prefix: t -> len:int -> t
-  (* @feature val try_suffix: t -> len:int -> t option *)
-  val suffix: t -> len:int -> t
-
-  val has_prefix: t -> pre:t -> bool
-  val try_drop_prefix: t -> pre:t -> t option
-  val drop_prefix: t -> pre:t -> t
-  val drop_prefix': t -> len:int -> t
-  val has_suffix: t -> suf:t -> bool
-  val try_drop_suffix: t -> suf:t -> t option
-  val drop_suffix: t -> suf:t -> t
-  val drop_suffix': t -> len:int -> t
-
-  val split: t -> sep:t -> t list
-  val split': t -> seps:char list -> t list
-
-  (* @feature Traits *)
-  val fold: init:'a -> t -> f:('a -> char -> 'a) -> 'a
-  val filter: t -> f:(char -> bool) -> t
 end
 
 module Bytes: sig
   #include "Generated/Atoms/Bytes.mli"
-
-  val size: t -> int
-
-  val of_string: string -> t
-  val to_string: t -> string
-
-  val get: t -> int -> char
-  val set: t -> int -> char -> unit
-
-  val empty: t
-  val make: len:int -> t
 end
 
 (* @feature Rational, Complex, Quaternion, Matrix *)

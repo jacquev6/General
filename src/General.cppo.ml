@@ -149,16 +149,28 @@ module Traits = struct
     #include "Traits/PredSucc.ml"
   end
 
-  module OfStandardNumbers = struct
-    #include "Traits/OfStandardNumbers.ml"
+  module OfInt = struct
+    #include "Traits/OfInt.ml"
   end
 
-  module ToStandardNumbers = struct
-    #include "Traits/ToStandardNumbers.ml"
+  module ToInt = struct
+    #include "Traits/ToInt.ml"
+  end
+
+  module OfFloat = struct
+    #include "Traits/OfFloat.ml"
+  end
+
+  module ToFloat = struct
+    #include "Traits/ToFloat.ml"
   end
 
   module Ringoid = struct
     #include "Traits/Ringoid.ml"
+  end
+
+  module Bounded = struct
+    #include "Traits/Bounded.ml"
   end
 
   module FilterMapable = struct
@@ -187,8 +199,16 @@ module Concepts = struct
     #include "Concepts/Stringable.ml"
   end
 
+  module OfStandardNumber = struct
+    #include "Concepts/OfStandardNumber.ml"
+  end
+
   module Number = struct
     #include "Concepts/Number.ml"
+  end
+
+  module ToStandardNumber = struct
+    #include "Concepts/ToStandardNumber.ml"
   end
 
   module RealNumber = struct
@@ -197,6 +217,10 @@ module Concepts = struct
 
   module Integer = struct
     #include "Concepts/Integer.ml"
+  end
+
+  module FixedWidthInteger = struct
+    #include "Concepts/FixedWidthInteger.ml"
   end
 end
 
