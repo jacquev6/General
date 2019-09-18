@@ -988,10 +988,10 @@ bitwise = trait(
         val("logical_or", t, t, t),
         val("logical_xor", t, t, t),
         val("logical_not", t, t),
-        val("logical_shift_left", t, {"shift": t}, t),
-        val("logical_shift_right", t, {"shift": t}, t),
-        val("arithmetic_shift_right", t, {"shift": t}, t),
-    ]
+        val("logical_shift_left", t, {"shift": "int"}, t),
+        val("logical_shift_right", t, {"shift": "int"}, t),
+        val("arithmetic_shift_right", t, {"shift": "int"}, t),
+    ],
 )
 
 ###### CONCEPTS ######
@@ -1049,9 +1049,8 @@ integer = concept(
 
 fixed_width_integer = concept(
     "FixedWidthInteger",
-    bases=[integer, bounded],
-    # @todo bitwise
-    # @feature width: int  Like OCS.Nativeint.size and Sys.int_size
+    bases=[integer, bounded, bitwise],
+    values=[val("width", "int")],
 )
 
 ###### TYPES ######
@@ -1094,7 +1093,7 @@ char = atom(
 int_ = atom(
     "Int",
     type="int",
-    bases=[fixed_width_integer, bitwise],
+    bases=[fixed_width_integer],
 )
 
 int32 = atom(

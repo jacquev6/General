@@ -10,6 +10,8 @@ module type S0 = sig
   module O: Operators.S0 with type t := t
   include Integer.S0 with type t := t and module O := O
   include Traits.Bounded.S0 with type t := t
+  include Traits.Bitwise.S0 with type t := t
+  val width: int
 end
 
 module Tests_ = struct
@@ -18,6 +20,7 @@ module Tests_ = struct
       type t
       include Integer.Tests.Examples.S0 with type t := t
       include Traits.Bounded.Tests.Examples.S0 with type t := t
+      include Traits.Bitwise.Tests.Examples.S0 with type t := t
     end
   end
 
@@ -34,6 +37,7 @@ module Tests_ = struct
       let test = "FixedWidthInteger" >:: [
         (let module T = Integer.Tests.Make0(M)(E) in T.test);
         (let module T = Traits.Bounded.Tests.Make0(M)(E) in T.test);
+        (let module T = Traits.Bitwise.Tests.Make0(M)(E) in T.test);
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
   end

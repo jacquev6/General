@@ -1,5 +1,14 @@
 module Testable: sig
   module type S0 = sig
+    module Bitwise: sig
+      val arithmetic_shift_right: t -> shift:int -> t
+      val logical_and: t -> t -> t
+      val logical_not: t -> t
+      val logical_or: t -> t -> t
+      val logical_shift_left: t -> shift:int -> t
+      val logical_shift_right: t -> shift:int -> t
+      val logical_xor: t -> t -> t
+    end
     module O: sig
       val (*): t -> t -> t
       val (**): t -> int -> t
@@ -50,6 +59,7 @@ module Testable: sig
     val to_int: t -> int
     val to_string: t -> bytes
     val try_of_string: bytes -> t option
+    val width: int
     val zero: t
   end
 end

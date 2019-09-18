@@ -7,6 +7,7 @@ module Self = StandardInt.Make(struct
 
   let name = "Int64"
   let repr_suffix = "L"
+  let size = 64
 
 #if OCAML_VERSION < (4, 3, 0)
   let equal = Equate.Poly.equal

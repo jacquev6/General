@@ -1285,9 +1285,9 @@ module Bitwise: sig
       val logical_or: t -> t -> t
       val logical_xor: t -> t -> t
       val logical_not: t -> t
-      val logical_shift_left: t -> shift:(t) -> t
-      val logical_shift_right: t -> shift:(t) -> t
-      val arithmetic_shift_right: t -> shift:(t) -> t
+      val logical_shift_left: t -> shift:(int) -> t
+      val logical_shift_right: t -> shift:(int) -> t
+      val arithmetic_shift_right: t -> shift:(int) -> t
     end
   end
 

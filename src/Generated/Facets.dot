@@ -27,7 +27,7 @@ digraph {
     tostandardnumber [label="ToStandardNumber"];
     realnumber [label="RealNumber\n\nabs\nmodulo"];
     integer [label="Integer"];
-    fixedwidthinteger [label="FixedWidthInteger"];
+    fixedwidthinteger [label="FixedWidthInteger\n\nwidth"];
   }
   subgraph cluster_Atoms {
     label="Atoms";
@@ -64,6 +64,7 @@ digraph {
   integer -> predsucc
   fixedwidthinteger -> integer
   fixedwidthinteger -> bounded
+  fixedwidthinteger -> bitwise
   unit -> able
   bool -> able
   bool -> stringable
@@ -72,7 +73,6 @@ digraph {
   char -> ofint
   char -> toint
   int -> fixedwidthinteger
-  int -> bitwise
   int32 -> fixedwidthinteger
   int64 -> fixedwidthinteger
   nativeint -> fixedwidthinteger

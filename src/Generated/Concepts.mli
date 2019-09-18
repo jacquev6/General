@@ -586,6 +586,8 @@ module FixedWidthInteger: sig
     module O: Operators.S0 with type t := t
     include Integer.S0 with type t := t and module O := O
     include Traits.Bounded.S0 with type t := t
+    include Traits.Bitwise.S0 with type t := t
+    val width: int
   end
 
   module Tests: sig
@@ -594,6 +596,7 @@ module FixedWidthInteger: sig
         type t
         include Integer.Tests.Examples.S0 with type t := t
         include Traits.Bounded.Tests.Examples.S0 with type t := t
+        include Traits.Bitwise.Tests.Examples.S0 with type t := t
       end
     end
 

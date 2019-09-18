@@ -3,6 +3,7 @@ module Make(M: sig
 
   val name: string
   val repr_suffix: string
+  val size: int
 
   val zero: t
   val one: t
@@ -18,13 +19,13 @@ module Make(M: sig
   val abs: t -> t
   val max_int: t
   val min_int: t
-  (* val logand: t -> t -> t *)
-  (* val logor: t -> t -> t *)
-  (* val logxor: t -> t -> t *)
-  (* val lognot: t -> t *)
-  (* val shift_left: t -> int -> t *)
-  (* val shift_right: t -> int -> t *)
-  (* val shift_right_logical: t -> int -> t *)
+  val logand: t -> t -> t
+  val logor: t -> t -> t
+  val logxor: t -> t -> t
+  val lognot: t -> t
+  val shift_left: t -> int -> t
+  val shift_right: t -> int -> t
+  val shift_right_logical: t -> int -> t
   val of_int: int -> t
   val to_int: t -> int
   val of_float: float -> t
@@ -33,18 +34,13 @@ module Make(M: sig
   val to_string: t -> string
   val compare: t -> t -> int
   val equal: t -> t -> bool
-end): sig
-  type t = M.t
-
-  include Concepts.Integer.S0 with type t := t
-
-  val smallest: t
-  val greatest: t
-end = struct
+end): Concepts.FixedWidthInteger.S0 with type t = M.t = struct
   module SelfA = struct
     open M
 
     type nonrec t = t
+
+    let width = size
 
     let zero = zero
     let one = one
@@ -76,6 +72,16 @@ end = struct
 
     let compare = Compare.of_standard compare
     let equal = equal
+
+    module Bitwise = struct
+      let logical_and = logand
+      let logical_or = logor
+      let logical_xor = logxor
+      let logical_not = lognot
+      let logical_shift_left n ~shift = shift_left n shift
+      let logical_shift_right n ~shift = shift_right_logical n shift
+      let arithmetic_shift_right n ~shift = shift_right n shift
+    end
   end
 
   module SelfB = struct
