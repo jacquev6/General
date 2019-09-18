@@ -33,6 +33,7 @@ class Facets:
             self, *,
             prefix, name,
             variadic,
+            submodule,
             bases, values, extensions,
             test_examples, test_requirements,
         ):
@@ -42,6 +43,7 @@ class Facets:
         self.max_arity = min(itertools.chain([max_arity], (i.max_arity for i in self.bases))) if variadic else 1
         self.arities = list(range(self.max_arity))
         self.non_zero_arities = list(range(1, self.max_arity))
+        self.submodule = submodule
         self.values = list(values)
         self.extensions = list(extensions)
         self.all_items = list(itertools.chain(
@@ -57,7 +59,11 @@ class Facets:
         parts = [self.name]
         if len(self.values) > 0:
             parts.append("")
-            parts += [val.name for val in self.values]
+            if self.submodule is None:
+                prefix = ""
+            else:
+                prefix = f"{self.submodule}."
+            parts += [f"{prefix}{val.name}" for val in self.values]
         exts = [val.name for extension in self.extensions for val in extension.members]
         if len(exts) > 0:
             parts.append("")
@@ -192,8 +198,13 @@ class Facets:
             else:
                 operators_constraint = ""
             yield f"include {base.contextualized_name(self.prefix)}.S{arity} with type {t} := {t}{operators_constraint}"
-        for value in self.values:
-            yield f"val {value.name}: {value.value_type(arity, t)}"
+        if self.submodule is None:
+            for value in self.values:
+                yield f"val {value.name}: {value.value_type(arity, t)}"
+        else:
+            yield mod_spec(self.submodule,
+                (f"val {value.name}: {value.value_type(arity, t)}" for value in self.values),
+            )
 
     def __basic_specialize_specifications(self):
         for arity in self.non_zero_arities:
@@ -706,6 +717,7 @@ def trait(
         name,
         *,
         variadic=True,
+        submodule=None,
         values=[],
         extensions=[],
         test_examples=[],
@@ -715,6 +727,7 @@ def trait(
         prefix="Traits",
         name=name,
         variadic=variadic,
+        submodule=submodule,
         bases=[],
         values=values,
         extensions=extensions,
@@ -738,6 +751,7 @@ def concept(
         prefix="Concepts",
         name=name,
         variadic=True,
+        submodule=None,
         bases=bases,
         values=values,
         extensions=[],
@@ -965,6 +979,21 @@ bounded = trait(
     ],
 )
 
+bitwise = trait(
+    "Bitwise",
+    variadic=False,
+    submodule="Bitwise",
+    values=[
+        val("logical_and", t, t, t),
+        val("logical_or", t, t, t),
+        val("logical_xor", t, t, t),
+        val("logical_not", t, t),
+        val("logical_shift_left", t, {"shift": t}, t),
+        val("logical_shift_right", t, {"shift": t}, t),
+        val("arithmetic_shift_right", t, {"shift": t}, t),
+    ]
+)
+
 ###### CONCEPTS ######
 
 # @feature Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer
@@ -1021,6 +1050,7 @@ integer = concept(
 fixed_width_integer = concept(
     "FixedWidthInteger",
     bases=[integer, bounded],
+    # @todo bitwise
     # @feature width: int  Like OCS.Nativeint.size and Sys.int_size
 )
 
@@ -1064,7 +1094,7 @@ char = atom(
 int_ = atom(
     "Int",
     type="int",
-    bases=[fixed_width_integer],
+    bases=[fixed_width_integer, bitwise],
 )
 
 int32 = atom(

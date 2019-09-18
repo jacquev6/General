@@ -15,6 +15,7 @@ digraph {
     tofloat [label="ToFloat\n\nto_float"];
     predsucc [label="PredSucc\n\npred\nsucc"];
     bounded [label="Bounded\n\nsmallest\ngreatest"];
+    bitwise [label="Bitwise\n\nBitwise.logical_and\nBitwise.logical_or\nBitwise.logical_xor\nBitwise.logical_not\nBitwise.logical_shift_left\nBitwise.logical_shift_right\nBitwise.arithmetic_shift_right"];
   }
   subgraph cluster_Concepts {
     label="Concepts";
@@ -71,6 +72,7 @@ digraph {
   char -> ofint
   char -> toint
   int -> fixedwidthinteger
+  int -> bitwise
   int32 -> fixedwidthinteger
   int64 -> fixedwidthinteger
   nativeint -> fixedwidthinteger

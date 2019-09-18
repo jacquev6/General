@@ -98,6 +98,7 @@
     Generated/Concepts/RealNumber.ml
     Generated/Concepts/Stringable.ml
     Generated/Concepts/ToStandardNumber.ml
+    Generated/Traits/Bitwise.ml
     Generated/Traits/Bounded.ml
     Generated/Traits/Comparable.ml
     Generated/Traits/Displayable.ml
@@ -163,6 +164,7 @@
     Specializations/SortedSet.ml
     Testing/Test.ml
     Testing/Testing.ml
+    Traits/Bitwise.ml
     Traits/Bounded.ml
     Traits/Comparable.ml
     Traits/Displayable.ml

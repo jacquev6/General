@@ -1276,3 +1276,36 @@ module Bounded: sig
     end
   end
 end
+
+module Bitwise: sig
+  module type S0 = sig
+    type t
+    module Bitwise: sig
+      val logical_and: t -> t -> t
+      val logical_or: t -> t -> t
+      val logical_xor: t -> t -> t
+      val logical_not: t -> t
+      val logical_shift_left: t -> shift:(t) -> t
+      val logical_shift_right: t -> shift:(t) -> t
+      val arithmetic_shift_right: t -> shift:(t) -> t
+    end
+  end
+
+  module Tests: sig
+    module Examples: sig
+      module type S0 = sig
+        type t
+      end
+    end
+
+    module Testable: sig
+      module type S0 = sig
+        include S0
+      end
+    end
+
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
+      val test: Test.t
+    end
+  end
+end

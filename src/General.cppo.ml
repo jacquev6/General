@@ -173,6 +173,10 @@ module Traits = struct
     #include "Traits/Bounded.ml"
   end
 
+  module Bitwise = struct
+    #include "Traits/Bitwise.ml"
+  end
+
   module FilterMapable = struct
     #include "Traits/FilterMapable.ml"
   end
