@@ -1,47 +1,56 @@
 digraph {
+  compound=true
   rankdir="BT"
   node [shape="box"]
   subgraph cluster_Traits {
-    label="Traits";
-    representable [label="Representable\n\nrepr"];
-    equatable [label="Equatable\n\nequal\n\ndifferent"];
-    displayable [label="Displayable\n\nto_string"];
-    parsable [label="Parsable\n\ntry_of_string\nof_string"];
-    comparable [label="Comparable\n\ncompare\n\nless_than\nless_or_equal\ngreater_than\ngreater_or_equal\nbetween\nbetween_or_equal\nmin\nmax\nmin_max"];
-    ringoid [label="Ringoid\n\nzero\none\nnegate\nadd\nsubtract\nmultiply\ndivide\n\nsquare\nexponentiate"];
-    ofint [label="OfInt\n\nof_int"];
-    toint [label="ToInt\n\nto_int"];
-    offloat [label="OfFloat\n\nof_float"];
-    tofloat [label="ToFloat\n\nto_float"];
-    predsucc [label="PredSucc\n\npred\nsucc"];
-    bounded [label="Bounded\n\nsmallest\ngreatest"];
-    bitwise [label="Bitwise\n\nBitwise.logical_and\nBitwise.logical_or\nBitwise.logical_xor\nBitwise.logical_not\nBitwise.logical_shift_left\nBitwise.logical_shift_right\nBitwise.arithmetic_shift_right"];
+    label="Traits"
+    labelloc="b"
+    representable [label="Representable\n\nrepr"]
+    equatable [label="Equatable\n\nequal\n\ndifferent"]
+    displayable [label="Displayable\n\nto_string"]
+    parsable [label="Parsable\n\ntry_of_string\nof_string"]
+    comparable [label="Comparable\n\ncompare\n\nless_than\nless_or_equal\ngreater_than\ngreater_or_equal\nbetween\nbetween_or_equal\nmin\nmax\nmin_max"]
+    ringoid [label="Ringoid\n\nzero\none\nnegate\nadd\nsubtract\nmultiply\ndivide\n\nsquare\nexponentiate"]
+    ofint [label="OfInt\n\nof_int"]
+    toint [label="ToInt\n\nto_int"]
+    offloat [label="OfFloat\n\nof_float"]
+    tofloat [label="ToFloat\n\nto_float"]
+    predsucc [label="PredSucc\n\npred\nsucc"]
+    bounded [label="Bounded\n\nsmallest\ngreatest"]
+    bitwise [label="Bitwise\n\nBitwise.logical_and\nBitwise.logical_or\nBitwise.logical_xor\nBitwise.logical_not\nBitwise.logical_shift_left\nBitwise.logical_shift_right\nBitwise.arithmetic_shift_right"]
   }
   subgraph cluster_Concepts {
-    label="Concepts";
-    identifiable [label="Identifiable"];
-    able [label="Able"];
-    stringable [label="Stringable"];
-    ofstandardnumber [label="OfStandardNumber"];
-    number [label="Number"];
-    tostandardnumber [label="ToStandardNumber"];
-    realnumber [label="RealNumber\n\nabs\nmodulo"];
-    integer [label="Integer"];
-    fixedwidthinteger [label="FixedWidthInteger\n\nwidth"];
+    label="Concepts"
+    labelloc="b"
+    identifiable [label="Identifiable"]
+    able [label="Able"]
+    stringable [label="Stringable"]
+    ofstandardnumber [label="OfStandardNumber"]
+    number [label="Number"]
+    tostandardnumber [label="ToStandardNumber"]
+    realnumber [label="RealNumber\n\nabs\nmodulo"]
+    integer [label="Integer"]
+    fixedwidthinteger [label="FixedWidthInteger\n\nwidth"]
   }
   subgraph cluster_Atoms {
-    label="Atoms";
-    unit [label="Unit\n\nignore"];
-    bool [label="Bool\n\nnot\nand_\nor_\nxor"];
-    char [label="Char\n\nrepeat"];
-    int [label="Int"];
-    int32 [label="Int32"];
-    int64 [label="Int64"];
-    nativeint [label="NativeInt"];
-    bigint [label="BigInt"];
-    float [label="Float\n\napprox_equal\nepsilon\ninfinity\nnegative_infinity\nnot_a_number\npi\ne\nof_parts\nto_parts\nto_fractional_and_integral\nsqrt\nexp\nlog\nlog10\nexpm1\nlog1p\ncos\nsin\ntan\nacos\nasin\natan\natan2\nhypot\ncosh\nsinh\ntanh\nceil\nfloor\ncopy_sign"];
-    string [label="String\n\nof_char\nof_list\nto_list\nsize\nget\nset\nof_bytes\nto_bytes\nconcat\nsubstring\nprefix\nsuffix\nhas_prefix\ntry_drop_prefix\ndrop_prefix\ndrop_prefix'\nhas_suffix\ntry_drop_suffix\ndrop_suffix\ndrop_suffix'\nsplit\nsplit'\nfold\nfilter"];
-    bytes [label="Bytes\n\nsize\nof_string\nget\nset\nempty\nmake"];
+    label="Atoms"
+    labelloc="b"
+    unit [label="Unit\n\nignore"]
+    bool [label="Bool\n\nnot\nand_\nor_\nxor"]
+    char [label="Char\n\nrepeat"]
+    int [label="Int"]
+    int32 [label="Int32"]
+    int64 [label="Int64"]
+    nativeint [label="NativeInt"]
+    bigint [label="BigInt"]
+    subgraph cluster_Float {
+      label="Float"
+      labelloc="b"
+      float [style="dotted",label="approx_equal\nepsilon\ninfinity\nnegative_infinity\nnot_a_number\npi\ne\nof_parts\nto_parts\nto_fractional_and_integral\nsqrt\nexp\nlog\nlog10\nexpm1\nlog1p\ncos\nsin\ntan\nacos\nasin\natan\natan2\nhypot\ncosh\nsinh\ntanh\nceil\nfloor\ncopy_sign"]
+      float_class [label="Class\n\nof_float"]
+    }
+    string [label="String\n\nof_char\nof_list\nto_list\nsize\nget\nset\nof_bytes\nto_bytes\nconcat\nsubstring\nprefix\nsuffix\nhas_prefix\ntry_drop_prefix\ndrop_prefix\ndrop_prefix'\nhas_suffix\ntry_drop_suffix\ndrop_suffix\ndrop_suffix'\nsplit\nsplit'\nfold\nfilter"]
+    bytes [label="Bytes\n\nsize\nof_string\nget\nset\nempty\nmake"]
   }
   identifiable -> equatable
   identifiable -> representable
@@ -77,8 +86,9 @@ digraph {
   int64 -> fixedwidthinteger
   nativeint -> fixedwidthinteger
   bigint -> integer
-  float -> realnumber
-  float -> bounded
+  float -> realnumber [ltail="cluster_Float"]
+  float -> bounded [ltail="cluster_Float"]
+  float_class -> able
   string -> able
   string -> stringable
   bytes -> able

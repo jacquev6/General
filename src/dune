@@ -83,6 +83,7 @@
     Generated/Atoms/Bytes.ml
     Generated/Atoms/Char.ml
     Generated/Atoms/Float.ml
+    Generated/Atoms/Float/Class.ml
     Generated/Atoms/Int.ml
     Generated/Atoms/Int32.ml
     Generated/Atoms/Int64.ml

@@ -88,35 +88,3 @@ module O_dot = struct
   let (/.) = OCSP.(/.)
   let ( ** ) = OCSP.( ** )
 end
-
-module Class = struct
-  type t =
-    | Normal
-    | SubNormal
-    | Zero
-    | Infinite
-    | NotANumber
-
-  let of_float x =
-    match OCSP.classify_float x with
-      | OCSP.FP_normal -> Normal
-      | OCSP.FP_subnormal -> SubNormal
-      | OCSP.FP_zero -> Zero
-      | OCSP.FP_infinite -> Infinite
-      | OCSP.FP_nan -> NotANumber
-
-  let repr = function
-    | Normal -> "Normal"
-    | SubNormal -> "SubNormal"
-    | Zero -> "Zero"
-    | Infinite -> "Infinite"
-    | NotANumber -> "NotANumber"
-
-  module O = struct
-    include Compare.Poly.O
-    include Equate.Poly.O
-  end
-
-  include (Compare.Poly: module type of Compare.Poly with module O := O)
-  include (Equate.Poly: module type of Equate.Poly with module O := O)
-end

@@ -55,7 +55,10 @@ class Facets:
         self.test_requirements = list(test_requirements)
 
     @property
-    def graphviz_label(self):
+    def graphviz_node(self):
+        yield f'{self.name.lower()} [label="{self.__graphviz_label()}"]'
+
+    def __graphviz_label(self):
         parts = [self.name]
         if len(self.values) > 0:
             parts.append("")
@@ -69,6 +72,15 @@ class Facets:
             parts.append("")
             parts += exts
         return "\\n".join(parts)
+
+    @property
+    def graphviz_node_name(self):
+        return self.name.lower()
+
+    @property
+    def graphviz_links(self):
+        for base in self.bases:
+            yield f'{self.name.lower()} -> {base.name.lower()}'
 
     @property
     def specification(self):
@@ -398,23 +410,54 @@ class Type:
             prefix, name,
             type,
             arity,
-            bases, values, operators,
+            bases, operators, values, types,
     ):
         self.prefix = prefix
         self.name = name
         self.type = type
         self.arity = arity
         self.bases = list(bases)
-        self.values = list(values)
         self.operators = list(operators)
+        self.values = list(values)
+        self.types = list(types)
 
     @property
-    def graphviz_label(self):
+    def graphviz_node(self):
+        if len(self.types) == 0:
+            yield f'{self.graphviz_node_name} [label="{self.__graphviz_label()}"]'
+        else:
+            yield f"subgraph cluster_{self.name} {{"
+            yield f'  label="{self.name}"'
+            yield f'  labelloc="b"',
+            label = "\\n".join(val.name for val in self.values)
+            yield f'  {self.graphviz_node_name} [style="dotted",label="{label}"]'
+            yield indent(type_.graphviz_node for type_ in self.types)
+            yield "}"
+
+    def __graphviz_label(self):
         parts = [self.name]
         if len(self.values) > 0:
             parts.append("")
             parts += [val.name for val in self.values]
         return "\\n".join(parts)
+
+    @property
+    def graphviz_node_name(self):
+        if self.name == "Class":
+            return "float_class"
+        else:
+            return self.name.lower()
+
+    @property
+    def graphviz_links(self):
+        for base in self.bases:
+            if len(self.types) == 0:
+                ltail = ""
+            else:
+                ltail = f' [ltail="cluster_{self.name}"]'
+            yield f'{self.graphviz_node_name} -> {base.graphviz_node_name}{ltail}'
+        for type_ in self.types:
+            yield type_.graphviz_links
 
     @property
     def specification_items(self):
@@ -432,17 +475,24 @@ class Type:
             yield f"include {base.contextualized_name(self.prefix)}.S{self.arity} with type t := t{operators_constraint}"
         for value in self.values:
             yield f"val {value.name}: {value.value_type(self.arity, 't')}"
+        for type_ in self.types:
+            yield mod_spec(type_.name, type_.specification_items)
 
     @property
     def implementation_items(self):
         yield mod_impl("Tests_", self.__tests_implementation_items())
 
     def __tests_implementation_items(self):
+        # @todo Homogenize
+        if self.name == "Class":
+            type_ = "SelfA.t"
+        else:
+            type_ = self.type
         yield mod_type("Examples",
-            (f"include {base.contextualized_name(self.prefix)}.Tests.Examples.S{self.arity} with type t := {self.type}" for base in self.bases),
+            (f"include {base.contextualized_name(self.prefix)}.Tests.Examples.S{self.arity} with type t := {type_}" for base in self.bases),
         )
         yield mod_type("Testable",
-            f"type t = {self.type}",
+            f"type t = {type_}",
             (f"include {base.contextualized_name(self.prefix)}.Tests.Testable.S{self.arity} with type t := t" for base in self.bases),
         )
         yield mod_impl("Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end)",
@@ -769,8 +819,9 @@ def atom(
     *,
     type,
     bases=[],
-    values=[],
     operators=[],
+    values=[],
+    types=[],
 ):
     atom = Type(
         prefix="Atoms",
@@ -778,8 +829,9 @@ def atom(
         type=type,
         arity=0,
         bases=bases,
-        values=values,
         operators=operators,
+        values=values,
+        types=types,
     )
     atoms.append(atom)
     return atom
@@ -1066,18 +1118,18 @@ bool_ = atom(
     "Bool",
     type="bool",
     bases=[able, stringable],
+    operators=[
+        val("not", t, t),
+        val("(&&)", t, t, t),
+        val("(||)", t, t, t),
+        val("xor", t, t, t),
+    ],
     values=[
         val("not", t, t),
         val("and_", t, t, t),
         val("or_", t, t, t),
         val("xor", t, t, t),
     ],
-    operators=[
-        val("not", t, t),
-        val("(&&)", t, t, t),
-        val("(||)", t, t, t),
-        val("xor", t, t, t),
-    ]
 )
 
 char = atom(
@@ -1162,6 +1214,18 @@ float_ = atom(
         val("floor", t, t),
         val("copy_sign", t, {"sign": t}, t),
     ],
+    types=[
+        Type(
+            prefix="Atoms.Float",
+            name="Class",
+            type="Normal | SubNormal | Zero | Infinite | NotANumber",
+            arity=0,
+            bases=[able],
+            operators=[],
+            values=[val("of_float", "float", t)],
+            types=[],
+        ),
+    ],
 )
 
 string = atom(
@@ -1232,22 +1296,20 @@ if __name__ == "__main__":
     gen(
         "src/Generated/Facets.dot",
         'digraph {',
+        '  compound=true',
         '  rankdir="BT"',
         '  node [shape="box"]',
         (
             (
                 f'  subgraph cluster_{items[0].prefix} {{',
-                f'    label="{items[0].prefix}";',
-                (f'    {item.name.lower()} [label="{item.graphviz_label}"];' for item in items),
+                f'    label="{items[0].prefix}"',
+                f'    labelloc="b"',
+                indent((item.graphviz_node for item in items), levels=2),
                 '  }',
             )
             for items in (traits, concepts, atoms)
         ),
-        (
-            f'  {item.name.lower()} -> {base.name.lower()}'
-            for item in itertools.chain(traits, concepts, atoms)
-            for base in item.bases
-        ),
+        indent(item.graphviz_links for item in itertools.chain(traits, concepts, atoms)),
         '}',
     )
 
@@ -1263,8 +1325,18 @@ if __name__ == "__main__":
                 with open(path, "w") as f:
                     f.write(f'#include "../Generated/{item.prefix}/{item.name}.ml"\n\n#include "empty_{item.prefix[:-1].lower()}.ml"\n')
 
-    for item in itertools.chain(traits, concepts, atoms):
-        gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)
-
     for item in atoms:
         gen(f"src/Generated/{item.prefix}/{item.name}.mli", item.specification_items)
+        path = f"src/Implementation/{item.name}.ml"
+        if os.path.exists(path):
+            with open(path) as f:
+                first_line = f.readlines()[0]
+            assert first_line == f'#include "../Generated/{item.prefix}/{item.name}.ml"\n', (path, first_line)
+        else:
+            assert False, item.name
+
+    for item in itertools.chain(traits, concepts, atoms):
+        gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)
+        if hasattr(item, "types"):
+            for subtype in item.types:
+                gen(f"src/Generated/{item.prefix}/{subtype.prefix.split('.')[1]}/{subtype.name}.ml", subtype.implementation_items)

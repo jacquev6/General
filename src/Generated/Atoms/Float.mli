@@ -31,3 +31,8 @@ val tanh: t -> t
 val ceil: t -> t
 val floor: t -> t
 val copy_sign: t -> sign:(t) -> t
+module Class: sig
+  type t = Normal | SubNormal | Zero | Infinite | NotANumber
+  include Concepts.Able.S0 with type t := t
+  val of_float: float -> t
+end

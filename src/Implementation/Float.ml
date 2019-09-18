@@ -25,6 +25,90 @@ end
 
 include SelfB
 
+module Class = struct
+  module SelfA = struct
+    type t = Normal | SubNormal | Zero | Infinite | NotANumber
+  end
+
+  #include "../Generated/Atoms/Float/Class.ml"
+
+  module SelfB = struct
+    include SelfA
+
+    let of_float x =
+      match OCSP.classify_float x with
+        | OCSP.FP_normal -> Normal
+        | OCSP.FP_subnormal -> SubNormal
+        | OCSP.FP_zero -> Zero
+        | OCSP.FP_infinite -> Infinite
+        | OCSP.FP_nan -> NotANumber
+
+    let repr = function
+      | Normal -> "Normal"
+      | SubNormal -> "SubNormal"
+      | Zero -> "Zero"
+      | Infinite -> "Infinite"
+      | NotANumber -> "NotANumber"
+
+    module O = struct
+      include Compare.Poly.O
+      include Equate.Poly.O
+    end
+
+    include (Compare.Poly: module type of Compare.Poly with module O := O)
+    include (Equate.Poly: module type of Equate.Poly with module O := O)
+  end
+
+  include SelfB
+
+  module Tests = Tests_.Make(SelfB)(struct
+    let representations = [
+      (Normal, "Normal");
+      (SubNormal, "SubNormal");
+      (Zero, "Zero");
+      (Infinite, "Infinite");
+      (NotANumber, "NotANumber");
+    ]
+
+    let equalities = [
+      [Normal];
+      [SubNormal];
+      [Zero];
+      [Infinite];
+      [NotANumber];
+    ]
+
+    let differences = [
+      (Normal, SubNormal);
+    ]
+
+    let orders = [
+      [Normal; SubNormal; Zero; Infinite; NotANumber];
+    ]
+  end)(struct
+    open Testing
+
+    let tests = [
+      "of_float" >:: (
+        let check = check ~repr ~equal in
+        [
+          "Normal" >: (lazy (check ~expected:Normal (of_float 1.)));
+          "SubNormal" >: (lazy (check ~expected:SubNormal (of_float (1. /. greatest))));
+          "Zero" >: (lazy (check ~expected:Zero (of_float 0.)));
+          "Zero-" >: (lazy (check ~expected:Zero (of_float (-0.))));
+          "Infinite+" >: (lazy (check ~expected:Infinite (of_float (1. /. 0.))));
+          "Infinite+" >: (lazy (check ~expected:Infinite (of_float infinity)));
+          "Infinite-" >: (lazy (check ~expected:Infinite (of_float (-1. /. 0.))));
+          "Infinite-" >: (lazy (check ~expected:Infinite (of_float negative_infinity)));
+          "NotANumber" >: (lazy (check ~expected:NotANumber (of_float (0. /. 0.))));
+          "NotANumber" >: (lazy (check ~expected:NotANumber (of_float not_a_number)));
+          "NotANumber-" >: (lazy (check ~expected:NotANumber (of_float (-0. /. 0.))));
+        ]
+      );
+    ]
+  end)
+end
+
 module Tests = Tests_.Make(SelfB)(struct
   let representations = [
     (-3., "-3.");
@@ -100,34 +184,6 @@ module Tests = Tests_.Make(SelfB)(struct
 end)(struct
   open Testing
 
-  module ClassExamples = struct
-    open SelfB.Class
-
-    let representations = [
-      (Normal, "Normal");
-      (SubNormal, "SubNormal");
-      (Zero, "Zero");
-      (Infinite, "Infinite");
-      (NotANumber, "NotANumber");
-    ]
-
-    let equalities = [
-      [Normal];
-      [SubNormal];
-      [Zero];
-      [Infinite];
-      [NotANumber];
-    ]
-
-    let differences = [
-      (Normal, SubNormal);
-    ]
-
-    let orders = [
-      [Normal; SubNormal; Zero; Infinite; NotANumber];
-    ]
-  end
-
   let tests = [
     "ceil" >:: (
       let make x expected =
@@ -143,26 +199,6 @@ end)(struct
         make 1. 1.;
       ]
     );
-    "Class" >:: [
-      (let module T = Traits.Comparable.Tests.Make0(SelfB.Class)(ClassExamples) in T.test);
-      (let module T = Traits.Equatable.Tests.Make0(SelfB.Class)(ClassExamples) in T.test);
-      (let module T = Traits.Representable.Tests.Make0(SelfB.Class)(ClassExamples) in T.test);
-      "of_float" >:: SelfB.Class.(
-        let check = check ~repr ~equal in
-        [
-          "Normal" >: (lazy (check ~expected:Normal (of_float 1.)));
-          "SubNormal" >: (lazy (check ~expected:SubNormal (of_float (1. /. greatest))));
-          "Zero" >: (lazy (check ~expected:Zero (of_float 0.)));
-          "Zero-" >: (lazy (check ~expected:Zero (of_float (-0.))));
-          "Infinite+" >: (lazy (check ~expected:Infinite (of_float (1. /. 0.))));
-          "Infinite+" >: (lazy (check ~expected:Infinite (of_float infinity)));
-          "Infinite-" >: (lazy (check ~expected:Infinite (of_float (-1. /. 0.))));
-          "Infinite-" >: (lazy (check ~expected:Infinite (of_float negative_infinity)));
-          "NotANumber" >: (lazy (check ~expected:NotANumber (of_float (0. /. 0.))));
-          "NotANumber" >: (lazy (check ~expected:NotANumber (of_float not_a_number)));
-          "NotANumber-" >: (lazy (check ~expected:NotANumber (of_float (-0. /. 0.))));
-        ]
-      );
-    ];
+    Class.Tests.test;
   ]
 end)

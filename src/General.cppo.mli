@@ -509,20 +509,6 @@ end
 
 module Float: sig
   #include "Generated/Atoms/Float.mli"
-
-  module Class: sig
-    type t =
-      | Normal
-      | SubNormal
-      | Zero
-      | Infinite
-      | NotANumber
-
-    (* @todo include Concepts.Able *)
-    include Traits.Representable.S0 with type t := t
-
-    val of_float: float -> t
-  end
 end
 
 module String: sig
