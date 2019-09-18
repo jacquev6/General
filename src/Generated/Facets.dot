@@ -35,6 +35,7 @@ digraph {
   subgraph cluster_Atoms {
     label="Atoms"
     labelloc="b"
+    exception [label="Exception\n\nregister_printer\nrecord_backtraces\nrecording_backtraces\nmost_recent_backtrace\nraise\nraise_without_backtrace\ninvalid_argument\nfailure\nfailure_if\nfailure_unless\nname\nor_none"]
     exit [label="Exit\n\nof_int\nexit\nat_exit"]
     function1 [label="Function1\n\nidentity\napply\nrev_apply\ncompose"]
     function2 [label="Function2\n\nflip\ncurry\nuncurry"]
@@ -80,6 +81,8 @@ digraph {
   fixedwidthinteger -> integer
   fixedwidthinteger -> bounded
   fixedwidthinteger -> bitwise
+  exception -> identifiable
+  exception -> displayable
   unit -> able
   bool -> able
   bool -> stringable

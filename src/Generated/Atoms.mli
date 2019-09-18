@@ -1,3 +1,34 @@
+module Exception: sig
+  type t = exn
+  include Concepts.Identifiable.S0 with type t := t
+  include Traits.Displayable.S0 with type t := t
+  exception MatchFailure of (string * int * int)
+  exception AssertFailure of (string * int * int)
+  exception InvalidArgument of string
+  exception Failure of string
+  exception NotFound
+  exception OutOfMemory
+  exception StackOverflow
+  exception SysError of string
+  exception EndOfFile
+  exception DivisionByZero
+  exception SysBlockedIO
+  exception UndefinedRecursiveModule of (string * int * int)
+  exception Exit
+  val register_printer: (t -> string option) -> unit
+  val record_backtraces: bool -> unit
+  val recording_backtraces: unit -> bool
+  val most_recent_backtrace: unit -> CallStack.t option
+  val raise: t -> 'a
+  val raise_without_backtrace: t -> 'a
+  val invalid_argument: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
+  val failure: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
+  val failure_if: bool -> ('a, unit, string, string, string, unit) CamlinternalFormatBasics.format6 -> 'a
+  val failure_unless: bool -> ('a, unit, string, string, string, unit) CamlinternalFormatBasics.format6 -> 'a
+  val name: exn -> string
+  val or_none: 'a lazy_t -> 'a option
+end
+
 module Exit: sig
   type t = Success | Failure of int
   val of_int: int -> t

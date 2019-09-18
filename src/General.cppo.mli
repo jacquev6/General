@@ -351,58 +351,6 @@ module CallStack: sig
   val frames: t -> Frame.t list
 end
 
-module Exception: sig
-  type t = exn
-
-  include Concepts.Identifiable.S0 with type t := t
-  include Traits.Displayable.S0 with type t := t
-
-  val register_printer: (t -> string option) -> unit
-
-  val record_backtraces: bool -> unit
-  val recording_backtraces: unit -> bool
-  (* There is no way to get the call stack of a specific exception.
-  It's just possible to get the call stack of the most recent exception. *)
-  val most_recent_backtrace: unit -> CallStack.t option
-
-  (* Aliases for all predefined exceptions
-  https://caml.inria.fr/pub/docs/manual-ocaml-4.05/core.html#sec527 *)
-  exception MatchFailure of (string * int * int)
-  exception AssertFailure of (string * int * int)
-  exception InvalidArgument of string
-  exception Failure of string
-  exception NotFound
-
-  (** Raised when the system could not allocate memory *)
-  exception OutOfMemory
-
-  exception StackOverflow
-  exception SysError of string
-  exception EndOfFile
-  exception DivisionByZero
-  exception SysBlockedIO
-  exception UndefinedRecursiveModule of (string * int * int)
-
-  (* Aliases for all exceptions in Pervasives
-  https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libref/Pervasives.html *)
-  exception Exit
-
-  val raise: t -> 'a
-
-  val raise_without_backtrace: t -> 'a
-
-  val invalid_argument: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
-
-  val failure: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
-
-  val failure_if: bool -> ('a, unit, string, string, string, unit) CamlinternalFormatBasics.format6 -> 'a
-  val failure_unless: bool -> ('a, unit, string, string, string, unit) CamlinternalFormatBasics.format6 -> 'a
-
-  val name: exn -> string
-
-  val or_none: 'a lazy_t -> 'a option
-end
-
 #include "Generated/Atoms.mli"
 
 (* @feature Rational, Complex, Quaternion, Matrix *)

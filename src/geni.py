@@ -410,13 +410,14 @@ class Type:
             prefix, name,
             type_params, type,
             arity,
-            bases, operators, values, types,
+            bases, exceptions, operators, values, types,
     ):
         self.prefix = prefix
         self.name = name
         self.type = type
         self.arity = arity
         self.bases = list(bases)
+        self.exceptions = list(exceptions)
         self.operators = list(operators)
         self.values = list(values)
         self.types = list(types)
@@ -478,6 +479,14 @@ class Type:
             else:
                 operators_constraint = ""
             yield f"include {base.contextualized_name(self.prefix)}.S{self.arity} with type t := t{operators_constraint}"
+        for exn in self.exceptions:
+            if len(exn.arguments) == 0:
+                arguments = ""
+            elif len(exn.arguments) == 1:
+                arguments = f" of {exn.arguments[0]}"
+            else:
+                arguments = " of ({})".format(" * ".join(exn.arguments))
+            yield f"exception {exn.name}{arguments}"
         for value in self.values:
             yield f"val {value.name}: {value.value_type(self.arity, 't')}"
         for type_ in self.types:
@@ -711,6 +720,12 @@ class Value:
         )
 
 
+class OCamlException:
+    def __init__(self, name, arguments):
+        self.name = name
+        self.arguments = list(arguments)
+
+
 values = {}
 
 def val(name, *type_chain, operator=None):
@@ -761,6 +776,10 @@ def ext(name, *, members, requirements):
 
 def deleg(name):
     return (DelegateParameter, name)
+
+
+def exception(name, *arguments):
+    return OCamlException(name, arguments)
 
 
 t = variadic_type_marker
@@ -825,6 +844,7 @@ def atom(
     type,
     arity=0,
     bases=[],
+    exceptions=[],
     operators=[],
     values=[],
     types=[],
@@ -837,6 +857,7 @@ def atom(
         type=type,
         arity=arity,
         bases=bases,
+        exceptions=exceptions,
         operators=operators,
         values=values,
         types=types,
@@ -1115,6 +1136,48 @@ fixed_width_integer = concept(
 
 ###### TYPES ######
 
+exception = atom(
+    "Exception",
+    type="exn",
+    bases=[identifiable, displayable],
+    exceptions=[
+        # Aliases for all predefined exceptions
+        # https://caml.inria.fr/pub/docs/manual-ocaml-4.05/core.html#sec527
+        exception("MatchFailure", "string", "int", "int"),
+        exception("AssertFailure", "string", "int", "int"),
+        exception("InvalidArgument", "string"),
+        exception("Failure", "string"),
+        exception("NotFound"),
+        exception("OutOfMemory"),
+        exception("StackOverflow"),
+        exception("SysError", "string"),
+        exception("EndOfFile"),
+        exception("DivisionByZero"),
+        exception("SysBlockedIO"),
+        exception("UndefinedRecursiveModule", "string", "int", "int"),
+
+        # Aliases for all exceptions in Pervasives
+        # https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libref/Pervasives.html
+        exception("Exit"),
+    ],
+    values=[
+        val("register_printer", "(t -> string option) -> unit"),
+        val("record_backtraces", "bool -> unit"),
+        val("recording_backtraces", "unit -> bool"),
+        # There is no way to get the call stack of a specific exception.
+        # It's just possible to get the call stack of the most recent exception.
+        val("most_recent_backtrace", "unit -> CallStack.t option"),
+        val("raise", "t -> 'a"),
+        val("raise_without_backtrace", "t -> 'a"),
+        val("invalid_argument", "('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a"),
+        val("failure", "('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a"),
+        val("failure_if", "bool -> ('a, unit, string, string, string, unit) CamlinternalFormatBasics.format6 -> 'a"),
+        val("failure_unless", "bool -> ('a, unit, string, string, string, unit) CamlinternalFormatBasics.format6 -> 'a"),
+        val("name", "exn -> string"),
+        val("or_none", "'a lazy_t -> 'a option"),
+    ]
+)
+
 exit_ = atom(
     "Exit",
     type="Success | Failure of int",
@@ -1283,6 +1346,7 @@ float_ = atom(
             type="Normal | SubNormal | Zero | Infinite | NotANumber",
             arity=0,
             bases=[able],
+            exceptions=[],
             operators=[],
             values=[val("of_float", "float", t)],
             types=[],

@@ -40,7 +40,7 @@ module Foundations = struct
   end
 
   module Exception = struct
-    #include "Foundations/Exception.ml"
+    #include "Atoms/Exception.foundations.ml"
   end
 
   module Function1 = struct
@@ -233,7 +233,7 @@ module Array = struct
 end
 
 module Exception = struct
-  #include "Implementation/Exception.ml"
+  #include "Atoms/Exception.ml"
 end
 
 module Format = struct
