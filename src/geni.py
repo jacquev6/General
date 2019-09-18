@@ -1115,6 +1115,17 @@ fixed_width_integer = concept(
 
 ###### TYPES ######
 
+exit_ = atom(
+    "Exit",
+    type="Success | Failure of int",
+    # @feature Able
+    values=[
+        val("of_int", "int", t),
+        val("exit", t, "'a"),
+        val("at_exit", "(unit -> unit)", "unit"),
+    ],
+)
+
 function = [
     atom(
         "Function1",

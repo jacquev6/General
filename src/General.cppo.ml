@@ -88,7 +88,7 @@ module Foundations = struct
   end
 
   module Exit = struct
-    #include "Foundations/Exit.ml"
+    #include "Atoms/Exit.foundations.ml"
   end
 
   module Stream = struct
@@ -285,7 +285,7 @@ module Char = struct
 end
 
 module Exit = struct
-  #include "Implementation/Exit.ml"
+  #include "Atoms/Exit.ml"
 end
 
 module Function1 = struct
@@ -626,6 +626,7 @@ module Tests = struct
     CallStack.Tests.test;
     Char.Tests.test;
     Exception.Tests.test;
+    Exit.Tests.test;
     Float.Tests.test;
     Function1.Tests.test;
     Function2.Tests.test;

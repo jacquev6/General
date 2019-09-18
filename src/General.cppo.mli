@@ -403,22 +403,6 @@ module Exception: sig
   val or_none: 'a lazy_t -> 'a option
 end
 
-module Exit: sig
-  type t =
-    | Success
-    | Failure of int
-
-  (* @feature Able *)
-
-  val of_int: int -> t
-
-  val exit: t -> 'a
-
-  val at_exit: (unit -> unit) -> unit
-end
-
-(* Atomic values *)
-
 #include "Generated/Atoms.mli"
 
 (* @feature Rational, Complex, Quaternion, Matrix *)

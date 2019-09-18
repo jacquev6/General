@@ -35,6 +35,7 @@ digraph {
   subgraph cluster_Atoms {
     label="Atoms"
     labelloc="b"
+    exit [label="Exit\n\nof_int\nexit\nat_exit"]
     function1 [label="Function1\n\nidentity\napply\nrev_apply\ncompose"]
     function2 [label="Function2\n\nflip\ncurry\nuncurry"]
     function3 [label="Function3\n\nflip\ncurry\nuncurry"]

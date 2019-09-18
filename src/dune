@@ -43,6 +43,8 @@
     Atoms/Bool.ml
     Atoms/Bytes.ml
     Atoms/Char.ml
+    Atoms/Exit.foundations.ml
+    Atoms/Exit.ml
     Atoms/Float.foundations.ml
     Atoms/Float.ml
     Atoms/Function1.foundations.ml
@@ -74,7 +76,6 @@
     Equate.ml
     Foundations/CallStack.ml
     Foundations/Exception.ml
-    Foundations/Exit.ml
     Foundations/Format.ml
     Foundations/IntRange.ml
     Foundations/Lazy.ml
@@ -88,6 +89,7 @@
     Generated/Atoms/Bool.ml
     Generated/Atoms/Bytes.ml
     Generated/Atoms/Char.ml
+    Generated/Atoms/Exit.ml
     Generated/Atoms/Float.ml
     Generated/Atoms/Float/Class.ml
     Generated/Atoms/Function1.ml
@@ -127,7 +129,6 @@
     Implementation/BinaryHeap.ml
     Implementation/CallStack.ml
     Implementation/Exception.ml
-    Implementation/Exit.ml
     Implementation/Format.ml
     Implementation/Heap.ml
     Implementation/InChannel.ml

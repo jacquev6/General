@@ -1,3 +1,10 @@
+module Exit: sig
+  type t = Success | Failure of int
+  val of_int: int -> t
+  val exit: t -> 'a
+  val at_exit: (unit -> unit) -> unit
+end
+
 module Function1: sig
   type ('a, 'z) t = 'a -> 'z
   module O: sig
