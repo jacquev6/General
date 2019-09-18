@@ -48,11 +48,11 @@ module Foundations = struct
   end
 
   module Int = struct
-    #include "Foundations/Int.ml"
+    #include "Atoms/Int.foundations.ml"
   end
 
   module Bool = struct
-    #include "Foundations/Bool.ml"
+    #include "Atoms/Bool.foundations.ml"
   end
 
   module Option = struct
@@ -68,7 +68,7 @@ module Foundations = struct
   end
 
   module Float = struct
-    #include "Foundations/Float.ml"
+    #include "Atoms/Float.foundations.ml"
   end
 
   module Reference = struct
@@ -76,7 +76,7 @@ module Foundations = struct
   end
 
   module String = struct
-    #include "Foundations/String.ml"
+    #include "Atoms/String.foundations.ml"
   end
 
   module IntRange = struct
@@ -96,7 +96,7 @@ module Foundations = struct
   end
 
   module Unit = struct
-    #include "Foundations/Unit.ml"
+    #include "Atoms/Unit.foundations.ml"
   end
 
   module PervasivesWhitelist = struct
@@ -245,31 +245,31 @@ module StandardInt = struct
 end
 
 module Int32 = struct
-  #include "Implementation/Int32.ml"
+  #include "Atoms/Int32.ml"
 end
 
 module Int64 = struct
-  #include "Implementation/Int64.ml"
+  #include "Atoms/Int64.ml"
 end
 
 module Float = struct
-  #include "Implementation/Float.ml"
+  #include "Atoms/Float.ml"
 end
 
 module BigInt = struct
-  #include "Implementation/BigInt.ml"
+  #include "Atoms/BigInt.ml"
 end
 
 module Bool = struct
-  #include "Implementation/Bool.ml"
+  #include "Atoms/Bool.ml"
 end
 
 module Bytes = struct
-  #include "Implementation/Bytes.ml"
+  #include "Atoms/Bytes.ml"
 end
 
 module Int = struct
-  #include "Implementation/Int.ml"
+  #include "Atoms/Int.ml"
 end
 
 module List = struct
@@ -281,7 +281,7 @@ module CallStack = struct
 end
 
 module Char = struct
-  #include "Implementation/Char.ml"
+  #include "Atoms/Char.ml"
 end
 
 module Exit = struct
@@ -314,7 +314,7 @@ module Lazy = struct
 end
 
 module NativeInt = struct
-  #include "Implementation/NativeInt.ml"
+  #include "Atoms/NativeInt.ml"
 end
 
 module Option = struct
@@ -386,7 +386,7 @@ module Stream = struct
 end
 
 module String = struct
-  #include "Implementation/String.ml"
+  #include "Atoms/String.ml"
 end
 
 module TestingTests = struct
@@ -394,7 +394,7 @@ module TestingTests = struct
 end
 
 module Unit = struct
-  #include "Implementation/Unit.ml"
+  #include "Atoms/Unit.ml"
 end
 
 module Specializations = struct

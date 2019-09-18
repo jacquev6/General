@@ -1322,11 +1322,7 @@ if __name__ == "__main__":
     for items in all_items:
         gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
         for item in items:
-            if item.prefix == "Atoms":
-                prefix = "Implementation"
-            else:
-                prefix = item.prefix
-            path = f"src/{prefix}/{item.name}.ml"
+            path = f"src/{item.prefix}/{item.name}.ml"
             if os.path.exists(path):
                 with open(path) as f:
                     first_line = f.readlines()[0]

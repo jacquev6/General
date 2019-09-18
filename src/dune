@@ -38,6 +38,22 @@
   (deps
     (:src General.cppo.ml)
     geni.py
+    Atoms/BigInt.ml
+    Atoms/Bool.foundations.ml
+    Atoms/Bool.ml
+    Atoms/Bytes.ml
+    Atoms/Char.ml
+    Atoms/Float.foundations.ml
+    Atoms/Float.ml
+    Atoms/Int.foundations.ml
+    Atoms/Int.ml
+    Atoms/Int32.ml
+    Atoms/Int64.ml
+    Atoms/NativeInt.ml
+    Atoms/String.foundations.ml
+    Atoms/String.ml
+    Atoms/Unit.foundations.ml
+    Atoms/Unit.ml
     Compare.ml
     Concepts/Able.ml
     Concepts/FixedWidthInteger.ml
@@ -50,14 +66,11 @@
     Concepts/ToStandardNumber.ml
     Concepts/empty_concept.ml
     Equate.ml
-    Foundations/Bool.ml
     Foundations/CallStack.ml
     Foundations/Exception.ml
     Foundations/Exit.ml
-    Foundations/Float.ml
     Foundations/Format.ml
     Foundations/Functions.ml
-    Foundations/Int.ml
     Foundations/IntRange.ml
     Foundations/Lazy.ml
     Foundations/List.ml
@@ -65,9 +78,7 @@
     Foundations/PervasivesWhitelist.ml
     Foundations/Reference.ml
     Foundations/Stream.ml
-    Foundations/String.ml
     Foundations/Tuples.ml
-    Foundations/Unit.ml
     Generated/Atoms/BigInt.ml
     Generated/Atoms/Bool.ml
     Generated/Atoms/Bytes.ml
@@ -103,27 +114,18 @@
     Generated/Traits/ToFloat.ml
     Generated/Traits/ToInt.ml
     Implementation/Array.ml
-    Implementation/BigInt.ml
     Implementation/BinaryHeap.ml
-    Implementation/Bool.ml
-    Implementation/Bytes.ml
     Implementation/CallStack.ml
-    Implementation/Char.ml
     Implementation/Exception.ml
     Implementation/Exit.ml
-    Implementation/Float.ml
     Implementation/Format.ml
     Implementation/Functions.ml
     Implementation/Heap.ml
     Implementation/InChannel.ml
     Implementation/InFile.ml
-    Implementation/Int.ml
-    Implementation/Int32.ml
-    Implementation/Int64.ml
     Implementation/IntRange.ml
     Implementation/Lazy.ml
     Implementation/List.ml
-    Implementation/NativeInt.ml
     Implementation/Option.ml
     Implementation/OutChannel.ml
     Implementation/OutFile.ml
@@ -138,10 +140,8 @@
     Implementation/StdIn.ml
     Implementation/StdOut.ml
     Implementation/Stream.ml
-    Implementation/String.ml
     Implementation/TestingTests.ml
     Implementation/Tuples.ml
-    Implementation/Unit.ml
     Reset/CommonHeader.ml
     Reset/DefinitionHeader.ml
     Reset/Footer.ml
