@@ -401,7 +401,7 @@ module String = struct
 end
 
 module TestingTests = struct
-  #include "Implementation/TestingTests.ml"
+  #include "Testing/Tests.ml"
 end
 
 module Unit = struct

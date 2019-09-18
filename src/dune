@@ -154,7 +154,6 @@
     Implementation/StdIn.ml
     Implementation/StdOut.ml
     Implementation/Stream.ml
-    Implementation/TestingTests.ml
     Implementation/Tuples.ml
     Reset/CommonHeader.ml
     Reset/DefinitionHeader.ml
@@ -169,6 +168,7 @@
     Specializations/SortedSet.ml
     Testing/Test.ml
     Testing/Testing.ml
+    Testing/Tests.ml
     Traits/Bitwise.ml
     Traits/Bounded.ml
     Traits/Comparable.ml

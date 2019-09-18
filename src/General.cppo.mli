@@ -163,43 +163,6 @@ end
 
 (* Testing base *)
 module Test: sig
-  (* @todo Move back to Testing *)
-  module Result: sig
-    module Status: sig
-      type failure
-
-      type t =
-        | Success
-        | Failure of failure
-        | Error of exn * Pervasives.OCamlStandard.Printexc.raw_backtrace option
-
-      val to_string: t -> string
-    end
-
-    type single = {
-      label: string;
-      status: Status.t;
-    }
-
-    module Counts: sig
-      type t = {
-        successes: int;
-        failures: int;
-        errors: int;
-      }
-    end
-
-    type group = {
-      name: string;
-      children: t list;
-      counts: Counts.t;
-    }
-
-    and t =
-      | Single of single
-      | Group of group
-  end
-
   type t
 end
 
@@ -1021,7 +984,43 @@ end
 (* Testing utilities *)
 
 module Testing: sig
-  val run: ?record_backtrace:bool -> Test.t -> Test.Result.t
+  module Result: sig
+    module Status: sig
+      type failure
+
+      type t =
+        | Success
+        | Failure of failure
+        | Error of exn * Pervasives.OCamlStandard.Printexc.raw_backtrace option
+
+      val to_string: t -> string
+    end
+
+    type single = {
+      label: string;
+      status: Status.t;
+    }
+
+    module Counts: sig
+      type t = {
+        successes: int;
+        failures: int;
+        errors: int;
+      }
+    end
+
+    type group = {
+      name: string;
+      children: t list;
+      counts: Counts.t;
+    }
+
+    and t =
+      | Single of single
+      | Group of group
+  end
+
+  val run: ?record_backtrace:bool -> Test.t -> Result.t
 
   val command_line_main: argv:string list -> Test.t -> Exit.t
 

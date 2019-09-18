@@ -1,4 +1,5 @@
 module Testing: sig
+  module Result
   val (>:): bytes -> unit lazy_t -> General.Test.t
   val (>::): bytes -> General.Test.t list -> General.Test.t
   val (~:): ('a, unit, bytes, bytes, bytes, unit lazy_t -> General.Test.t) format6 -> 'a
@@ -33,5 +34,5 @@ module Testing: sig
   val expect_exception: expected:exn -> 'a lazy_t -> unit
   val expect_exception_named: expected:bytes -> 'a lazy_t -> unit
   val fail: ('a, unit, bytes, bytes, bytes, 'b) format6 -> 'a
-  val run: ?record_backtrace:bool -> General.Test.t -> General.Test.Result.t
+  val run: ?record_backtrace:bool -> General.Test.t -> Result.t
 end

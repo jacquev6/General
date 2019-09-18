@@ -18,7 +18,7 @@ module Tests = struct
   )
 
   module ResultExamples = struct
-    open Test.Result
+    open Result
     open Status
     open Counts
 
@@ -37,18 +37,18 @@ module Tests = struct
 
   let test = "Testing" >:: [
     "Result" >:: [
-      (let module T = Traits.Representable.Tests.Make0(Test.Result)(ResultExamples) in T.test);
+      (let module T = Traits.Representable.Tests.Make0(Result)(ResultExamples) in T.test);
       "to_indented_strings" >:: (
         let make ?(verbose=false) expected result =
           (expected |> Foundations.List.join_string_list ~sep:"\n") >: (lazy (
             let actual =
               result
-              |> Test.Result.to_indented_strings ~verbose
+              |> Result.to_indented_strings ~verbose
             in
             check_string_list ~expected actual
           ))
         in
-        Test.Result.(Status.(Counts.[
+        Result.(Status.(Counts.[
           make ~verbose:true
             ["\"foo\": OK"]
             (Single {label="foo"; status=Success});
@@ -73,7 +73,7 @@ module Tests = struct
                 "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n"
               else
                 "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
-                 Raised by primitive operation at file \"Implementation/TestingTests.ml\", line 2, characters 16-36\n"
+                 Raised by primitive operation at file \"Testing/Tests.ml\", line 2, characters 16-36\n"
             ]
             (Single {label="bar 4"; status=Failure (WrongException (TestException1 "bad", TestException1 "too bad", Some callstack))});
           make
@@ -82,7 +82,7 @@ module Tests = struct
                 "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n"
               else
                 "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
-                 Raised by primitive operation at file \"Implementation/TestingTests.ml\", line 2, characters 16-36\n"
+                 Raised by primitive operation at file \"Testing/Tests.ml\", line 2, characters 16-36\n"
             ]
             (Single {label="bar 4'"; status=Failure (WrongExceptionNamed ("Foo", TestException1 "too bad", Some callstack))});
           make
@@ -97,7 +97,7 @@ module Tests = struct
                 "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n"
               else
                 "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
-                 Raised by primitive operation at file \"Implementation/TestingTests.ml\", line 2, characters 16-36\n"
+                 Raised by primitive operation at file \"Testing/Tests.ml\", line 2, characters 16-36\n"
             ]
             (Single {label="bar 7"; status=Error (TestException1 "bad", Some callstack)});
           make ~verbose:true
@@ -141,9 +141,9 @@ module Tests = struct
             | Test.Single {Test.label; _} -> label
             | Test.Group {Test.name; _} -> name
           in
-          name >: (lazy Test.Result.(check ~repr ~equal ~expected (run ~record_backtrace:false test)))
+          name >: (lazy Result.(check ~repr ~equal ~expected (run ~record_backtrace:false test)))
         in
-        Test.Result.(Status.(Counts.[
+        Result.(Status.(Counts.[
           make (Single {label="single success"; status=Success}) ("single success" >: (lazy ()));
           make
             (Group {name="group success"; children=[Single {label="child"; status=Success}]; counts={successes=1; failures=0; errors=0}})
