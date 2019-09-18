@@ -42,6 +42,8 @@
     Atoms/Bool.foundations.ml
     Atoms/Bool.ml
     Atoms/Bytes.ml
+    Atoms/CallStack.foundations.ml
+    Atoms/CallStack.ml
     Atoms/Char.ml
     Atoms/Exception.foundations.ml
     Atoms/Exception.ml
@@ -76,7 +78,6 @@
     Concepts/ToStandardNumber.ml
     Concepts/empty_concept.ml
     Equate.ml
-    Foundations/CallStack.ml
     Foundations/Format.ml
     Foundations/IntRange.ml
     Foundations/Lazy.ml
@@ -89,6 +90,9 @@
     Generated/Atoms/BigInt.ml
     Generated/Atoms/Bool.ml
     Generated/Atoms/Bytes.ml
+    Generated/Atoms/CallStack.ml
+    Generated/Atoms/CallStack/Frame.ml
+    Generated/Atoms/CallStack/Location.ml
     Generated/Atoms/Char.ml
     Generated/Atoms/Exception.ml
     Generated/Atoms/Exit.ml
@@ -129,7 +133,6 @@
     Generated/Traits/ToInt.ml
     Implementation/Array.ml
     Implementation/BinaryHeap.ml
-    Implementation/CallStack.ml
     Implementation/Format.ml
     Implementation/Heap.ml
     Implementation/InChannel.ml

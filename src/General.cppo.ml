@@ -64,7 +64,7 @@ module Foundations = struct
   end
 
   module CallStack = struct
-    #include "Foundations/CallStack.ml"
+    #include "Atoms/CallStack.foundations.ml"
   end
 
   module Float = struct
@@ -277,7 +277,7 @@ module List = struct
 end
 
 module CallStack = struct
-  #include "Implementation/CallStack.ml"
+  #include "Atoms/CallStack.ml"
 end
 
 module Char = struct

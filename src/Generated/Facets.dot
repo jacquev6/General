@@ -35,6 +35,13 @@ digraph {
   subgraph cluster_Atoms {
     label="Atoms"
     labelloc="b"
+    subgraph cluster_CallStack {
+      label="CallStack"
+      labelloc="b"
+      callstack [style="dotted",label="current\nframes"]
+      location [label="Location"]
+      frame [label="Frame\n\nis_raise\nlocation\nformat"]
+    }
     exception [label="Exception\n\nregister_printer\nrecord_backtraces\nrecording_backtraces\nmost_recent_backtrace\nraise\nraise_without_backtrace\ninvalid_argument\nfailure\nfailure_if\nfailure_unless\nname\nor_none"]
     exit [label="Exit\n\nof_int\nexit\nat_exit"]
     function1 [label="Function1\n\nidentity\napply\nrev_apply\ncompose"]
@@ -81,6 +88,9 @@ digraph {
   fixedwidthinteger -> integer
   fixedwidthinteger -> bounded
   fixedwidthinteger -> bitwise
+  callstack -> displayable [ltail="cluster_CallStack"]
+  callstack -> representable [ltail="cluster_CallStack"]
+  location -> able
   exception -> identifiable
   exception -> displayable
   unit -> able

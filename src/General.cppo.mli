@@ -314,43 +314,6 @@ module Concepts: sig
   #include "Generated/Concepts.mli"
 end
 
-(* Technical, utility modules *)
-
-module CallStack: sig
-  type t = Pervasives.OCamlStandard.Printexc.raw_backtrace
-
-  include Traits.Displayable.S0 with type t := t
-  include Traits.Representable.S0 with type t := t
-
-  val current: ?max_size:int -> unit -> t
-
-  module Location: sig
-    type t = Pervasives.OCamlStandard.Printexc.location = {
-      filename: string;
-      line_number: int;
-      start_char: int;
-      end_char: int;
-    }
-
-    include Concepts.Able.S0 with type t := t
-  end
-
-  module Frame: sig
-    type t = Pervasives.OCamlStandard.Printexc.backtrace_slot
-
-    val is_raise: t -> bool
-    (* @feature val is_inline: t -> bool *)
-
-    val location: t -> Location.t option
-
-    val format: int -> t -> string option
-  end
-
-  (* @feature? val size: t -> int *)
-  (* @feature? val frame: t -> int -> Frame.t *)
-  val frames: t -> Frame.t list
-end
-
 #include "Generated/Atoms.mli"
 
 (* @feature Rational, Complex, Quaternion, Matrix *)

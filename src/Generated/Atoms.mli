@@ -1,3 +1,23 @@
+module CallStack: sig
+  type t = Pervasives.OCamlStandard.Printexc.raw_backtrace
+  include Traits.Displayable.S0 with type t := t
+  include Traits.Representable.S0 with type t := t
+  module Location: sig
+    type t = Pervasives.OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}
+    include Concepts.Able.S0 with type t := t
+  end
+
+  module Frame: sig
+    type t = Pervasives.OCamlStandard.Printexc.backtrace_slot
+    val is_raise: t -> bool
+    val location: t -> Location.t option
+    val format: int -> t -> string option
+  end
+
+  val current: ?max_size:(int) -> unit -> t
+  val frames: t -> Frame.t list
+end
+
 module Exception: sig
   type t = exn
   include Concepts.Identifiable.S0 with type t := t
@@ -140,6 +160,12 @@ module Float: sig
   type t = float
   include Concepts.RealNumber.S0 with type t := t
   include Traits.Bounded.S0 with type t := t
+  module Class: sig
+    type t = Normal | SubNormal | Zero | Infinite | NotANumber
+    include Concepts.Able.S0 with type t := t
+    val of_float: float -> t
+  end
+
   val approx_equal: ?precision:(t) -> t -> t -> bool
   val epsilon: t
   val infinity: t
@@ -170,11 +196,6 @@ module Float: sig
   val ceil: t -> t
   val floor: t -> t
   val copy_sign: t -> sign:(t) -> t
-  module Class: sig
-    type t = Normal | SubNormal | Zero | Infinite | NotANumber
-    include Concepts.Able.S0 with type t := t
-    val of_float: float -> t
-  end
 end
 
 module String: sig

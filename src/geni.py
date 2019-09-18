@@ -487,10 +487,10 @@ class Type:
             else:
                 arguments = " of ({})".format(" * ".join(exn.arguments))
             yield f"exception {exn.name}{arguments}"
-        for value in self.values:
-            yield f"val {value.name}: {value.value_type(self.arity, 't')}"
         for type_ in self.types:
             yield mod_spec(type_.name, type_.specification_items)
+        for value in self.values:
+            yield f"val {value.name}: {value.value_type(self.arity, 't')}"
 
     @property
     def implementation_items(self):
@@ -1135,6 +1135,49 @@ fixed_width_integer = concept(
 )
 
 ###### TYPES ######
+
+call_stack = atom(
+    "CallStack",
+    type="Pervasives.OCamlStandard.Printexc.raw_backtrace",
+    bases=[displayable, representable],
+    values=[
+        val("current", {"?max_size": "int"}, "unit", t),
+        # @feature? val size: t -> int
+        # @feature? val frame: t -> int -> Frame.t
+        val("frames", t, "Frame.t list"),
+    ],
+    types=[
+        Type(
+            prefix="Atoms.CallStack",
+            name="Location",
+            type_params="",
+            type="Pervasives.OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}",
+            arity=0,
+            bases=[able],
+            exceptions=[],
+            operators=[],
+            values=[],
+            types=[],
+        ),
+        Type(
+            prefix="Atoms.CallStack",
+            name="Frame",
+            type_params="",
+            type="Pervasives.OCamlStandard.Printexc.backtrace_slot",
+            arity=0,
+            bases=[],
+            exceptions=[],
+            operators=[],
+            values=[
+                val("is_raise", t, "bool"),
+                # @feature val is_inline: t -> bool
+                val("location", t, "Location.t option"),
+                val("format", "int", t, "string option"),
+            ],
+            types=[],
+        ),
+    ],
+)
 
 exception = atom(
     "Exception",
