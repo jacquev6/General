@@ -1,3 +1,45 @@
+module Function1: sig
+  type ('a, 'z) t = 'a -> 'z
+  module O: sig
+    val (@@): ('a, 'z) t -> 'a -> 'z
+    val (|>): 'a -> ('a, 'z) t -> 'z
+    val (%): ('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t
+  end
+
+  val identity: ('a, 'a) t
+  val apply: ('a, 'z) t -> 'a -> 'z
+  val rev_apply: 'a -> ('a, 'z) t -> 'z
+  val compose: ('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t
+end
+
+module Function2: sig
+  type ('a, 'b, 'z) t = 'a -> 'b -> 'z
+  val flip: ('a, 'b, 'z) t -> ('b, 'a, 'z) t
+  val curry: ('a * 'b, 'z) Function1.t -> ('a, 'b, 'z) t
+  val uncurry: ('a, 'b, 'z) t -> ('a * 'b, 'z) Function1.t
+end
+
+module Function3: sig
+  type ('a, 'b, 'c, 'z) t = 'a -> 'b -> 'c -> 'z
+  val flip: ('a, 'b, 'c, 'z) t -> ('c, 'b, 'a, 'z) t
+  val curry: ('a * 'b * 'c, 'z) Function1.t -> ('a, 'b, 'c, 'z) t
+  val uncurry: ('a, 'b, 'c, 'z) t -> ('a * 'b * 'c, 'z) Function1.t
+end
+
+module Function4: sig
+  type ('a, 'b, 'c, 'd, 'z) t = 'a -> 'b -> 'c -> 'd -> 'z
+  val flip: ('a, 'b, 'c, 'd, 'z) t -> ('d, 'c, 'b, 'a, 'z) t
+  val curry: ('a * 'b * 'c * 'd, 'z) Function1.t -> ('a, 'b, 'c, 'd, 'z) t
+  val uncurry: ('a, 'b, 'c, 'd, 'z) t -> ('a * 'b * 'c * 'd, 'z) Function1.t
+end
+
+module Function5: sig
+  type ('a, 'b, 'c, 'd, 'e, 'z) t = 'a -> 'b -> 'c -> 'd -> 'e -> 'z
+  val flip: ('a, 'b, 'c, 'd, 'e, 'z) t -> ('e, 'd, 'c, 'b, 'a, 'z) t
+  val curry: ('a * 'b * 'c * 'd * 'e, 'z) Function1.t -> ('a, 'b, 'c, 'd, 'e, 'z) t
+  val uncurry: ('a, 'b, 'c, 'd, 'e, 'z) t -> ('a * 'b * 'c * 'd * 'e, 'z) Function1.t
+end
+
 module Unit: sig
   type t = unit
   include Concepts.Able.S0 with type t := t

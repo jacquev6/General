@@ -14,9 +14,9 @@ let of_list = OCSA.of_list
 let to_list = OCSA.to_list
 
 (* @todo Should we copy arrays here? *)
-let of_array = Functions.Function1.identity
+let of_array = Function1.identity
 
-let to_array = Functions.Function1.identity
+let to_array = Function1.identity
 
 let get = OCSA.get
 

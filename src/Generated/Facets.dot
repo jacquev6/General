@@ -35,6 +35,11 @@ digraph {
   subgraph cluster_Atoms {
     label="Atoms"
     labelloc="b"
+    function1 [label="Function1\n\nidentity\napply\nrev_apply\ncompose"]
+    function2 [label="Function2\n\nflip\ncurry\nuncurry"]
+    function3 [label="Function3\n\nflip\ncurry\nuncurry"]
+    function4 [label="Function4\n\nflip\ncurry\nuncurry"]
+    function5 [label="Function5\n\nflip\ncurry\nuncurry"]
     unit [label="Unit\n\nignore"]
     bool [label="Bool\n\nnot\nand_\nor_\nxor"]
     char [label="Char\n\nrepeat"]

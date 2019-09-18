@@ -45,6 +45,12 @@
     Atoms/Char.ml
     Atoms/Float.foundations.ml
     Atoms/Float.ml
+    Atoms/Function1.foundations.ml
+    Atoms/Function1.ml
+    Atoms/Function2.ml
+    Atoms/Function3.ml
+    Atoms/Function4.ml
+    Atoms/Function5.ml
     Atoms/Int.foundations.ml
     Atoms/Int.ml
     Atoms/Int32.ml
@@ -70,7 +76,6 @@
     Foundations/Exception.ml
     Foundations/Exit.ml
     Foundations/Format.ml
-    Foundations/Functions.ml
     Foundations/IntRange.ml
     Foundations/Lazy.ml
     Foundations/List.ml
@@ -85,6 +90,11 @@
     Generated/Atoms/Char.ml
     Generated/Atoms/Float.ml
     Generated/Atoms/Float/Class.ml
+    Generated/Atoms/Function1.ml
+    Generated/Atoms/Function2.ml
+    Generated/Atoms/Function3.ml
+    Generated/Atoms/Function4.ml
+    Generated/Atoms/Function5.ml
     Generated/Atoms/Int.ml
     Generated/Atoms/Int32.ml
     Generated/Atoms/Int64.ml
@@ -119,7 +129,6 @@
     Implementation/Exception.ml
     Implementation/Exit.ml
     Implementation/Format.ml
-    Implementation/Functions.ml
     Implementation/Heap.ml
     Implementation/InChannel.ml
     Implementation/InFile.ml

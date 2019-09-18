@@ -2,7 +2,7 @@ module OCSA = OCamlStandard.Array
 
 type 'a t = 'a list
 
-open Functions.Function1.O
+open Function1.O
 open Bool.O
 
 (* @feature Add a 'Small' module with the same interface but non-terminal-recursive implementations *)
@@ -10,8 +10,8 @@ open Bool.O
 let empty = []
 let singleton x = [x]
 let prepend x xs = x::xs
-let of_list = Functions.Function1.identity
-let to_list = Functions.Function1.identity
+let of_list = Function1.identity
+let to_list = Function1.identity
 (* @todo Test everything for stack overflow. Including to/of_array. *)
 let of_array = OCSA.to_list
 let to_array = OCSA.of_list

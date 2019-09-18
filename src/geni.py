@@ -408,7 +408,7 @@ class Type:
     def __init__(
             self, *,
             prefix, name,
-            type,
+            type_params, type,
             arity,
             bases, operators, values, types,
     ):
@@ -420,6 +420,7 @@ class Type:
         self.operators = list(operators)
         self.values = list(values)
         self.types = list(types)
+        self.type_params = type_params
 
     @property
     def graphviz_node(self):
@@ -465,7 +466,7 @@ class Type:
 
     @property
     def specification_items(self):
-        yield f"type t = {self.type}"
+        yield f"type {self.type_params}t = {self.type}"
         if len(self.operators) > 0:
             yield mod_spec("O",
                 (f"include {base.contextualized_name(self.prefix)}.Operators.S{self.arity} with type t := t" for base in self.bases if base._Facets__has_operators()),
@@ -496,7 +497,7 @@ class Type:
             (f"include {base.contextualized_name(self.prefix)}.Tests.Examples.S{self.arity} with type t := {type_}" for base in self.bases),
         )
         yield mod_type("Testable",
-            f"type t = {type_}",
+            f"type {self.type_params}t = {type_}" if len(self.bases) > 0 else (),
             (f"include {base.contextualized_name(self.prefix)}.Tests.Testable.S{self.arity} with type t := t" for base in self.bases),
         )
         yield mod_impl("Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end)",
@@ -822,16 +823,19 @@ def atom(
     name,
     *,
     type,
-    bases,
+    arity=0,
+    bases=[],
     operators=[],
     values=[],
     types=[],
+    type_params="",
 ):
     atom = Type(
         prefix="Atoms",
         name=name,
+        type_params=type_params,
         type=type,
-        arity=0,
+        arity=arity,
         bases=bases,
         operators=operators,
         values=values,
@@ -1111,6 +1115,48 @@ fixed_width_integer = concept(
 
 ###### TYPES ######
 
+function = [
+    atom(
+        "Function1",
+        arity=2,
+        type_params="('a, 'z) ",
+        type="'a -> 'z",
+        operators=[
+            val("(@@)", "('a, 'z) t", "'a", "'z"),
+            val("(|>)", "'a", "('a, 'z) t", "'z"),
+            val("(%)", "('a, 'b) t", "('c, 'a) t", "('c, 'b) t"),
+
+        ],
+        values=[
+            val("identity", "('a, 'a) t"),
+            val("apply", "('a, 'z) t", "'a", "'z"),
+            val("rev_apply", "'a", "('a, 'z) t", "'z"),
+            val("compose", "('a, 'b) t", "('c, 'a) t", "('c, 'b) t"),
+        ],
+    )
+]
+
+def function_values(arity):
+    tuple_ = " * ".join(f"'{a}" for a in abcd(arity))
+    params = ", ".join(f"'{a}" for a in abcd(arity))
+    rev_params = ", ".join(f"'{a}" for a in reversed(abcd(arity)))
+    yield val("flip", f"({params}, 'z) t", f"({rev_params}, 'z) t")
+    yield val("curry", f"({tuple_}, 'z) Function1.t", f"({params}, 'z) t")
+    yield val("uncurry", f"({params}, 'z) t", f"({tuple_}, 'z) Function1.t")
+
+function += [
+    atom(
+        f"Function{arity}",
+        arity=arity + 1,
+        type_params="({}) ".format(", ".join(f"'{a}" for a in itertools.chain(abcd(arity), ["z"]))),
+        type=" -> ".join(f"'{a}" for a in itertools.chain(abcd(arity), ["z"])),
+        values=function_values(arity),
+    )
+    for arity in range(2, max_arity)
+]
+
+# @feature Predicate1,2,3,etc. (or BoolFunction1,2,3, more consistent with other specializations) with composition of predicates (not, and, or, xor)
+
 unit = atom(
     "Unit",
     type="unit",
@@ -1222,6 +1268,7 @@ float_ = atom(
         Type(
             prefix="Atoms.Float",
             name="Class",
+            type_params="",
             type="Normal | SubNormal | Zero | Infinite | NotANumber",
             arity=0,
             bases=[able],

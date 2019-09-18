@@ -7,8 +7,8 @@ let greatest = OCSP.max_int
 
 let width = OCSP.(OCamlStandard.Sys.word_size - 1)  (* @todo If we drop OCaml 4.02: use Sys.int_size. Until then, Int.width is wrong on Javascript *)
 
-let of_int = Functions.Function1.identity
-let to_int = Functions.Function1.identity
+let of_int = Function1.identity
+let to_int = Function1.identity
 let of_float = OCSP.int_of_float
 let to_float = OCSP.float_of_int
 let of_string = OCSP.int_of_string

@@ -43,8 +43,8 @@ module Foundations = struct
     #include "Foundations/Exception.ml"
   end
 
-  module Functions = struct
-    #include "Foundations/Functions.ml"
+  module Function1 = struct
+    #include "Atoms/Function1.foundations.ml"
   end
 
   module Int = struct
@@ -288,14 +288,25 @@ module Exit = struct
   #include "Implementation/Exit.ml"
 end
 
-module Functions = struct
-  #include "Implementation/Functions.ml"
+module Function1 = struct
+  #include "Atoms/Function1.ml"
 end
-module Function1 = Functions.Function1
-module Function2 = Functions.Function2
-module Function3 = Functions.Function3
-module Function4 = Functions.Function4
-module Function5 = Functions.Function5
+
+module Function2 = struct
+  #include "Atoms/Function2.ml"
+end
+
+module Function3 = struct
+  #include "Atoms/Function3.ml"
+end
+
+module Function4 = struct
+  #include "Atoms/Function4.ml"
+end
+
+module Function5 = struct
+  #include "Atoms/Function5.ml"
+end
 
 module InChannel = struct
   #include "Implementation/InChannel.ml"
@@ -616,7 +627,11 @@ module Tests = struct
     Char.Tests.test;
     Exception.Tests.test;
     Float.Tests.test;
-    Functions.Tests.test;
+    Function1.Tests.test;
+    Function2.Tests.test;
+    Function3.Tests.test;
+    Function4.Tests.test;
+    Function5.Tests.test;
     Int.Tests.test;
     Int32.Tests.test;
     Int64.Tests.test;

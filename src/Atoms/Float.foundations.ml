@@ -13,8 +13,8 @@ let not_a_number = OCSP.nan
 
 let of_int = OCSP.float_of_int
 let to_int = OCSP.int_of_float
-let of_float = Functions.Function1.identity
-let to_float = Functions.Function1.identity
+let of_float = Function1.identity
+let to_float = Function1.identity
 let of_string = OCSP.float_of_string
 let try_of_string s =
   Exception.or_none (lazy (of_string s))

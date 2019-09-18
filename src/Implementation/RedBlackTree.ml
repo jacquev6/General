@@ -434,7 +434,7 @@ let fold xs ~cmp ~init ~f =
   |> aux init
 
 let to_list xs ~cmp =
-  fold xs ~cmp ~init:[] ~f:(Functions.Function2.flip List.prepend)
+  fold xs ~cmp ~init:[] ~f:(Function2.flip List.prepend)
   |> List.reverse
 
 let size xs ~cmp =

@@ -4,14 +4,14 @@ module OCSS = OCamlStandard.String
 module OCSB = OCamlStandard.Bytes
 open Int.O
 open Bool.O
-open Functions.Function1.O
+open Function1.O
 open Reference.O
 
 let repr x =
   Format.apply "%S" x
 
-let to_string = Functions.Function1.identity
-let of_string = Functions.Function1.identity
+let to_string = Function1.identity
+let of_string = Function1.identity
 let try_of_string = Option.some
 
 let of_bytes = OCSB.to_string

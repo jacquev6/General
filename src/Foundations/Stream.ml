@@ -2,7 +2,7 @@ module OCSS = OCamlStandard.Stream
 
 open Reference.O
 open Int.O
-open Functions.Function1.O
+open Function1.O
 
 type 'a t = 'a OCSS.t
 

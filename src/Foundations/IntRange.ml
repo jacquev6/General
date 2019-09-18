@@ -1,6 +1,6 @@
 open Int.O
 open Bool.O
-open Functions.Function1.O
+open Function1.O
 
 type full = {
   min: int;
