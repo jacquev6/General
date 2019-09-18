@@ -822,7 +822,7 @@ def atom(
     name,
     *,
     type,
-    bases=[],
+    bases,
     operators=[],
     values=[],
     types=[],
@@ -1297,6 +1297,8 @@ if __name__ == "__main__":
         with open(path, "w") as f:
             generate(items, file=f)
 
+    all_items = (traits, concepts, atoms)
+
     gen(
         "src/Generated/Facets.dot",
         'digraph {',
@@ -1311,13 +1313,13 @@ if __name__ == "__main__":
                 indent((item.graphviz_node for item in items), levels=2),
                 '  }',
             )
-            for items in (traits, concepts, atoms)
+            for items in all_items
         ),
-        indent(item.graphviz_links for item in itertools.chain(traits, concepts, atoms)),
+        indent(item.graphviz_links for item in itertools.chain.from_iterable(all_items)),
         '}',
     )
 
-    for items in (traits, concepts, atoms):
+    for items in all_items:
         gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
         for item in items:
             if item.prefix == "Atoms":
@@ -1333,7 +1335,7 @@ if __name__ == "__main__":
                 with open(path, "w") as f:
                     f.write(f'#include "../Generated/{item.prefix}/{item.name}.ml"\n\n#include "empty_{item.prefix[:-1].lower()}.ml"\n')
 
-    for item in itertools.chain(traits, concepts, atoms):
+    for item in itertools.chain.from_iterable(all_items):
         gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)
         if hasattr(item, "types"):
             for subtype in item.types:
