@@ -1,7 +1,10 @@
 import contextlib
 import functools
+import glob
 import itertools
 import os
+import shutil
+import subprocess
 import sys
 import textwrap
 
@@ -904,6 +907,71 @@ def wrapper(
     return wrapper
 
 
+def make_unit_tests():
+    types = set()
+    values = set()
+    with open("src/Reset/ResetPervasives.ml") as f:
+        for line in f:
+            if "RESET_TYPE" in line:
+                type_ = "General." + line.split(",")[-1].strip()[:-1].replace("__", ".")
+                if "'" in line:
+                    type_ = f"_ {type_}"
+                types.add(type_)
+            if "RESET_VALUE" in line:
+                values.add("General." + line.split(",")[1].strip()[:-1].replace("__", "."))
+    types.discard("General.todo")
+    types.discard("_ General.todo")
+    values.discard("General.todo")
+    for type_ in sorted(types):
+        yield f"let (_: {type_} option) = None"
+    for value in sorted(values):
+        yield f"let _ = {value}"
+    yield ""
+    yield "open General.Abbr"
+    yield ""
+    yield "let () ="
+    yield "  let argv = Li.of_array OCamlStandard.Sys.argv in"
+    yield "  Exit.exit (Tst.command_line_main ~argv General.Tests.test)"
+
+
+def make_dune():
+    yield "(rule"
+    yield "  (targets General.mli)"
+    yield "  (deps"
+    yield "    (:src General.cppo.mli)"
+    yield "    geni.py"
+    for name in sorted(itertools.chain(
+        glob.glob("src/OldFashion/Traits/*.signatures*.ml", recursive=False),
+        glob.glob("src/Generated/*.mli", recursive=False),
+        filter(lambda path: path != "src/Reset/DefinitionHeader.ml", glob.glob("src/Reset/*.ml*", recursive=False)),
+    )):
+        yield f"    {name[4:]}"
+    yield "  )"
+    yield "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))"
+    yield ")"
+    yield ""
+    yield "(rule"
+    yield "  (targets General.ml)"
+    yield "  (deps"
+    yield "    (:src General.cppo.ml)"
+    yield "    geni.py"
+    for path in sorted(glob.glob("src/**/*.ml", recursive=True)):
+        if path in ["src/Reset/SignatureHeader.ml", "src/General.cppo.ml"]:
+            continue
+        yield f"    {path[4:]}"
+    yield "  )"
+    yield "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))"
+    yield ")"
+    yield ""
+    yield "(library"
+    yield "  (name General)"
+    yield "  (public_name General)"
+    yield "  (modules General)"
+    yield "  (libraries num)"
+    yield "  (flags (:standard -nopervasives -w @A-4-33-44-45-48))"
+    yield ")"
+
+
 ###### TRAITS ######
 
 # @feature (?) Add trait Testable with val test: Test.t
@@ -1643,14 +1711,15 @@ tuple_ = [
 
 if __name__ == "__main__":
     def gen(path, *items):
-        os.makedirs(os.path.dirname(path), exist_ok=True)
+        if os.sep in path:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w") as f:
             generate(items, file=f)
 
     all_items = (traits, concepts, atoms, wrappers)
 
     gen(
-        "src/Generated/Facets.dot",
+        "doc/Facets.dot",
         'digraph {',
         '  compound=true',
         '  rankdir="BT"',
@@ -1669,6 +1738,10 @@ if __name__ == "__main__":
         '}',
     )
 
+    subprocess.run(["dot", "doc/Facets.dot", "-Tpng", "-odocs/Facets.png"], check=True)
+
+    shutil.rmtree("src/Generated", ignore_errors=True)
+
     for items in all_items:
         gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
         for item in items:
@@ -1686,3 +1759,7 @@ if __name__ == "__main__":
         if hasattr(item, "types"):
             for subtype in item.types:
                 gen(f"src/Generated/{item.prefix}/{subtype.prefix.split('.')[1]}/{subtype.name}.ml", subtype.implementation_items)
+
+    gen("unit_tests.ml", make_unit_tests())
+
+    gen("src/dune", make_dune())
