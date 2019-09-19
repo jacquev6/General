@@ -56,7 +56,7 @@ module Foundations = struct
   end
 
   module Option = struct
-    #include "Foundations/Option.ml"
+    #include "Wrappers/Option.foundations.ml"
   end
 
   module List = struct
@@ -329,7 +329,7 @@ module NativeInt = struct
 end
 
 module Option = struct
-  #include "Implementation/Option.ml"
+  #include "Wrappers/Option.ml"
 end
 
 module OutChannel = struct

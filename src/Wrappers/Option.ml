@@ -1,3 +1,5 @@
+#include "../Generated/Wrappers/Option.ml"
+
 module SelfA = struct
   include Foundations.Option
   include Traits.Equatable.Different.Make1(Foundations.Option)
@@ -18,34 +20,31 @@ end
 
 include Self
 
-module Tests = struct
+module Tests = Tests_.Make(Self)(struct
+  module A = Int
+
+  let representations = [
+    (None, "None");
+    (Some 42, "Some 42");
+  ]
+
+  let equalities = [
+    [None];
+    [Some 42];
+  ]
+
+  let differences = [
+    (None, Some 42);
+    (Some 42, Some 43);
+  ]
+
+  let orders = [
+    [None; Some 0; Some 1];
+  ]
+end)(struct
   open Testing
 
-  module Examples = struct
-    module A = Int
-
-    let representations = [
-      (None, "None");
-      (Some 42, "Some 42");
-    ]
-
-    let equalities = [
-      [None];
-      [Some 42];
-    ]
-
-    let differences = [
-      (None, Some 42);
-      (Some 42, Some 43);
-    ]
-
-    let orders = [
-      [None; Some 0; Some 1];
-    ]
-  end
-
-  let test = "Option" >:: [
-    (let module T = Concepts.Able.Tests.Make1(Self)(Examples) in T.test);
+  let tests = [
     "some_if true" >: (lazy (check_some_42 (some_if true (lazy 42))));
     "some_if false" >: (lazy (check_none_int (some_if false (lazy (Exception.failure "Don't call me"))))); (*BISECT-IGNORE*)
     "some_if' true" >: (lazy (check_some_42 (some_if' true 42)));
@@ -73,4 +72,4 @@ module Tests = struct
     "filter_map Some true" >: (lazy (check_some_int ~expected:57 (filter_map ~f:(fun _ -> Some 57) (Some 42))));
     "filter_map Some false" >: (lazy (check_none_int (filter_map ~f:(fun _ -> None) (Some 42))));
   ]
-end
+end)

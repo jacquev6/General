@@ -66,6 +66,11 @@ digraph {
     string [label="String\n\nof_char\nof_list\nto_list\nsize\nget\nset\nof_bytes\nto_bytes\nconcat\nsubstring\nprefix\nsuffix\nhas_prefix\ntry_drop_prefix\ndrop_prefix\ndrop_prefix'\nhas_suffix\ntry_drop_suffix\ndrop_suffix\ndrop_suffix'\nsplit\nsplit'\nfold\nfilter"]
     bytes [label="Bytes\n\nsize\nof_string\nget\nset\nempty\nmake"]
   }
+  subgraph cluster_Wrappers {
+    label="Wrappers"
+    labelloc="b"
+    option [label="Option\n\nnone\nsome\nsome_if\nsome_if'\nis_some\nis_none\nvalue_def\nvalue\nor_failure\nmap\niter\nfilter\nfilter_map\nvalue_map"]
+  }
   identifiable -> equatable
   identifiable -> representable
   able -> identifiable
@@ -112,4 +117,5 @@ digraph {
   string -> stringable
   bytes -> able
   bytes -> displayable
+  option -> able
 }

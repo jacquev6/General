@@ -411,6 +411,7 @@ class Type:
             type_params, type,
             arity,
             bases, exceptions, operators, values, types,
+            specializers,
     ):
         self.prefix = prefix
         self.name = name
@@ -421,7 +422,8 @@ class Type:
         self.operators = list(operators)
         self.values = list(values)
         self.types = list(types)
-        self.type_params = type_params
+        self.type_params = "" if type_params is None else f"{type_params} "
+        self.specializers = specializers
 
     @property
     def graphviz_node(self):
@@ -478,7 +480,7 @@ class Type:
                 operators_constraint = " and module O := O"
             else:
                 operators_constraint = ""
-            yield f"include {base.contextualized_name(self.prefix)}.S{self.arity} with type t := t{operators_constraint}"
+            yield f"include {base.contextualized_name(self.prefix)}.S{self.arity} with type {self.type_params}t := {self.type_params}t{operators_constraint}"
         for exn in self.exceptions:
             if len(exn.arguments) == 0:
                 arguments = ""
@@ -491,6 +493,7 @@ class Type:
             yield mod_spec(type_.name, type_.specification_items)
         for value in self.values:
             yield f"val {value.name}: {value.value_type(self.arity, 't')}"
+        yield self.specializers
 
     @property
     def implementation_items(self):
@@ -503,11 +506,11 @@ class Type:
         else:
             type_ = self.type
         yield mod_type("Examples",
-            (f"include {base.contextualized_name(self.prefix)}.Tests.Examples.S{self.arity} with type t := {type_}" for base in self.bases),
+            (f"include {base.contextualized_name(self.prefix)}.Tests.Examples.S{self.arity} with type {self.type_params}t := {type_}" for base in self.bases),
         )
         yield mod_type("Testable",
             f"type {self.type_params}t = {type_}" if len(self.bases) > 0 else (),
-            (f"include {base.contextualized_name(self.prefix)}.Tests.Testable.S{self.arity} with type t := t" for base in self.bases),
+            (f"include {base.contextualized_name(self.prefix)}.Tests.Testable.S{self.arity} with type {self.type_params}t := {self.type_params}t" for base in self.bases),
         )
         yield mod_impl("Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end)",
             "open Testing",
@@ -848,7 +851,7 @@ def atom(
     operators=[],
     values=[],
     types=[],
-    type_params="",
+    type_params=None,
 ):
     atom = Type(
         prefix="Atoms",
@@ -861,9 +864,38 @@ def atom(
         operators=operators,
         values=values,
         types=types,
+        specializers=[],
     )
     atoms.append(atom)
     return atom
+
+
+wrappers = []
+
+def wrapper(
+    name,
+    *,
+    type_params,
+    type,
+    bases,
+    values,
+    specializers=[],
+):
+    wrapper = Type(
+        prefix="Wrappers",
+        name=name,
+        type_params=type_params,
+        type=type,
+        arity=1,
+        bases=bases,
+        operators=[],
+        values=values,
+        types=[],
+        exceptions=[],
+        specializers=specializers,
+    )
+    wrappers.append(wrapper)
+    return wrapper
 
 
 ###### TRAITS ######
@@ -1134,7 +1166,7 @@ fixed_width_integer = concept(
     values=[val("width", "int")],
 )
 
-###### TYPES ######
+###### ATOMIC TYPES ######
 
 call_stack = atom(
     "CallStack",
@@ -1150,7 +1182,7 @@ call_stack = atom(
         Type(
             prefix="Atoms.CallStack",
             name="Location",
-            type_params="",
+            type_params=None,
             type="Pervasives.OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}",
             arity=0,
             bases=[able],
@@ -1158,11 +1190,12 @@ call_stack = atom(
             operators=[],
             values=[],
             types=[],
+            specializers=[],
         ),
         Type(
             prefix="Atoms.CallStack",
             name="Frame",
-            type_params="",
+            type_params=None,
             type="Pervasives.OCamlStandard.Printexc.backtrace_slot",
             arity=0,
             bases=[],
@@ -1175,6 +1208,7 @@ call_stack = atom(
                 val("format", "int", t, "string option"),
             ],
             types=[],
+            specializers=[],
         ),
     ],
 )
@@ -1236,7 +1270,7 @@ function = [
     atom(
         "Function1",
         arity=2,
-        type_params="('a, 'z) ",
+        type_params="('a, 'z)",
         type="'a -> 'z",
         operators=[
             val("(@@)", "('a, 'z) t", "'a", "'z"),
@@ -1265,7 +1299,7 @@ function += [
     atom(
         f"Function{arity}",
         arity=arity + 1,
-        type_params="({}) ".format(", ".join(f"'{a}" for a in itertools.chain(abcd(arity), ["z"]))),
+        type_params="({})".format(", ".join(f"'{a}" for a in itertools.chain(abcd(arity), ["z"]))),
         type=" -> ".join(f"'{a}" for a in itertools.chain(abcd(arity), ["z"])),
         values=function_values(arity),
     )
@@ -1385,7 +1419,7 @@ float_ = atom(
         Type(
             prefix="Atoms.Float",
             name="Class",
-            type_params="",
+            type_params=None,
             type="Normal | SubNormal | Zero | Infinite | NotANumber",
             arity=0,
             bases=[able],
@@ -1393,6 +1427,7 @@ float_ = atom(
             operators=[],
             values=[val("of_float", "float", t)],
             types=[],
+            specializers=[],
         ),
     ],
 )
@@ -1455,6 +1490,55 @@ bytes_ = atom(
     ],
 )
 
+###### FIXED-SIZE WRAPPER TYPES ######
+
+option = wrapper(
+    "Option",
+    type_params="'a",
+    type="'a option",
+    bases=[able],
+    values=[
+        val("none", "'a t"),
+        val("some", "'a", "'a t"),
+
+        val("some_if", "bool", "'a lazy_t", "'a t"),
+        val("some_if'", "bool", "'a", "'a t"),
+
+        val("is_some", "'a t", "bool"),
+        val("is_none", "'a t", "bool"),
+
+        val("value_def", "'a t", {"def": "'a"}, "'a"),
+        val("value", {"?exc": "exn"}, "'a t", "'a"),
+        val("or_failure", "('a, unit, string, string, string, 'b t -> 'b) CamlinternalFormatBasics.format6", "'a"),
+
+        val("map", "'a t", {"f": "'a -> 'b"}, "'b t"),
+        val("iter", "'a t", {"f": "'a -> unit"}, "unit"),
+        val("filter", "'a t", {"f": "'a -> bool"}, "'a t"),
+        val("filter_map", "'a t", {"f": "'a -> 'b option"}, "'b t"),
+
+        val("value_map", "'a t", {"def": "'b"}, {"f": "'a -> 'b"}, "'b"),
+    ],
+    # @todo Structure generation of specializers
+    specializers=[
+        textwrap.dedent("""\
+            module Specialize(A: sig type t end): sig
+              type t = A.t option
+              val some_if: bool -> A.t lazy_t -> t
+              val some_if': bool -> A.t -> t
+              val is_some: t -> bool
+              val is_none: t -> bool
+              val value_def: t -> def:A.t -> A.t
+              val value: ?exc:exn -> t -> A.t
+              val or_failure: ('a, unit, string, string, string, t -> A.t) CamlinternalFormatBasics.format6 -> 'a
+              val map: t -> f:(A.t -> 'a) -> 'a option
+              val iter: t -> f:(A.t -> unit) -> unit
+              val filter: t -> f:(A.t -> bool) -> t
+              val filter_map: t -> f:(A.t -> 'a option) -> 'a option
+              val value_map: t -> def:'a -> f:(A.t -> 'a) -> 'a
+            end
+        """).splitlines(),
+    ]
+)
 
 if __name__ == "__main__":
     def gen(path, *items):
@@ -1462,7 +1546,7 @@ if __name__ == "__main__":
         with open(path, "w") as f:
             generate(items, file=f)
 
-    all_items = (traits, concepts, atoms)
+    all_items = (traits, concepts, atoms, wrappers)
 
     gen(
         "src/Generated/Facets.dot",

@@ -6,6 +6,7 @@
     Generated/Atoms.mli
     Generated/Concepts.mli
     Generated/Traits.mli
+    Generated/Wrappers.mli
     Reset/CommonHeader.ml
     Reset/Footer.ml
     Reset/ResetPervasives.ml
@@ -82,7 +83,6 @@
     Foundations/IntRange.ml
     Foundations/Lazy.ml
     Foundations/List.ml
-    Foundations/Option.ml
     Foundations/PervasivesWhitelist.ml
     Foundations/Reference.ml
     Foundations/Stream.ml
@@ -131,6 +131,7 @@
     Generated/Traits/Ringoid.ml
     Generated/Traits/ToFloat.ml
     Generated/Traits/ToInt.ml
+    Generated/Wrappers/Option.ml
     Implementation/Array.ml
     Implementation/BinaryHeap.ml
     Implementation/Format.ml
@@ -140,7 +141,6 @@
     Implementation/IntRange.ml
     Implementation/Lazy.ml
     Implementation/List.ml
-    Implementation/Option.ml
     Implementation/OutChannel.ml
     Implementation/OutFile.ml
     Implementation/PriorityQueue.ml
@@ -204,6 +204,8 @@
     Traits/ToFloat.ml
     Traits/ToInt.ml
     Traits/empty_trait.ml
+    Wrappers/Option.foundations.ml
+    Wrappers/Option.ml
   )
   (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
 )
