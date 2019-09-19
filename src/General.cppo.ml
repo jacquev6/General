@@ -32,7 +32,7 @@ end
 
 module Foundations = struct
   module Format = struct
-    #include "Foundations/Format.ml"
+    #include "OldFashion/Foundations/Format.ml"
   end
 
   module Lazy = struct
@@ -60,7 +60,7 @@ module Foundations = struct
   end
 
   module List = struct
-    #include "Foundations/List.ml"
+    #include "OldFashion/Foundations/List.ml"
   end
 
   module CallStack = struct
@@ -80,7 +80,7 @@ module Foundations = struct
   end
 
   module IntRange = struct
-    #include "Foundations/IntRange.ml"
+    #include "OldFashion/Foundations/IntRange.ml"
   end
 
   module Tuple2 = struct
@@ -104,7 +104,7 @@ module Foundations = struct
   end
 
   module Stream = struct
-    #include "Foundations/Stream.ml"
+    #include "OldFashion/Foundations/Stream.ml"
   end
 
   module Unit = struct
@@ -112,7 +112,7 @@ module Foundations = struct
   end
 
   module PervasivesWhitelist = struct
-    #include "Foundations/PervasivesWhitelist.ml"
+    #include "OldFashion/Foundations/PervasivesWhitelist.ml"
   end
 end
 
@@ -190,15 +190,15 @@ module Traits = struct
   end
 
   module FilterMapable = struct
-    #include "Traits/FilterMapable.ml"
+    #include "OldFashion/Traits/FilterMapable.ml"
   end
 
   module Foldable = struct
-    #include "Traits/Foldable.ml"
+    #include "OldFashion/Traits/Foldable.ml"
   end
 
   module Scanable = struct
-    #include "Traits/Scanable.ml"
+    #include "OldFashion/Traits/Scanable.ml"
   end
 end
 
@@ -241,7 +241,7 @@ module Concepts = struct
 end
 
 module Array = struct
-  #include "Implementation/Array.ml"
+  #include "OldFashion/Implementation/Array.ml"
 end
 
 module Exception = struct
@@ -249,11 +249,11 @@ module Exception = struct
 end
 
 module Format = struct
-  #include "Implementation/Format.ml"
+  #include "OldFashion/Implementation/Format.ml"
 end
 
 module StandardInt = struct
-  #include "Implementation/StandardInt.ml"
+  #include "OldFashion/Implementation/StandardInt.ml"
 end
 
 module Int32 = struct
@@ -285,7 +285,7 @@ module Int = struct
 end
 
 module List = struct
-  #include "Implementation/List.ml"
+  #include "OldFashion/Implementation/List.ml"
 end
 
 module CallStack = struct
@@ -321,15 +321,15 @@ module Function5 = struct
 end
 
 module InChannel = struct
-  #include "Implementation/InChannel.ml"
+  #include "OldFashion/Implementation/InChannel.ml"
 end
 
 module InFile = struct
-  #include "Implementation/InFile.ml"
+  #include "OldFashion/Implementation/InFile.ml"
 end
 
 module IntRange = struct
-  #include "Implementation/IntRange.ml"
+  #include "OldFashion/Implementation/IntRange.ml"
 end
 
 module Lazy = struct
@@ -345,11 +345,11 @@ module Option = struct
 end
 
 module OutChannel = struct
-  #include "Implementation/OutChannel.ml"
+  #include "OldFashion/Implementation/OutChannel.ml"
 end
 
 module OutFile = struct
-  #include "Implementation/OutFile.ml"
+  #include "OldFashion/Implementation/OutFile.ml"
 end
 
 module Tuple2 = struct
@@ -369,15 +369,15 @@ module Tuple5 = struct
 end
 
 module RedBlackTree = struct
-  #include "Implementation/RedBlackTree.ml"
+  #include "OldFashion/Implementation/RedBlackTree.ml"
 end
 
 module BinaryHeap = struct
-  #include "Implementation/BinaryHeap.ml"
+  #include "OldFashion/Implementation/BinaryHeap.ml"
 end
 
 module PriorityQueue = struct
-  #include "Implementation/PriorityQueue.ml"
+  #include "OldFashion/Implementation/PriorityQueue.ml"
 end
 
 module Reference = struct
@@ -385,35 +385,35 @@ module Reference = struct
 end
 
 module SortedMap = struct
-  #include "Implementation/SortedMap.ml"
+  #include "OldFashion/Implementation/SortedMap.ml"
 end
 
 module SortedSet = struct
-  #include "Implementation/SortedSet.ml"
+  #include "OldFashion/Implementation/SortedSet.ml"
 end
 
 module Heap = struct
-  #include "Implementation/Heap.ml"
+  #include "OldFashion/Implementation/Heap.ml"
 end
 
 module StandardOutChannel = struct
-  #include "Implementation/StandardOutChannel.ml"
+  #include "OldFashion/Implementation/StandardOutChannel.ml"
 end
 
 module StdErr = struct
-  #include "Implementation/StdErr.ml"
+  #include "OldFashion/Implementation/StdErr.ml"
 end
 
 module StdIn = struct
-  #include "Implementation/StdIn.ml"
+  #include "OldFashion/Implementation/StdIn.ml"
 end
 
 module StdOut = struct
-  #include "Implementation/StdOut.ml"
+  #include "OldFashion/Implementation/StdOut.ml"
 end
 
 module Stream = struct
-  #include "Implementation/Stream.ml"
+  #include "OldFashion/Implementation/Stream.ml"
 end
 
 module String = struct
@@ -430,23 +430,23 @@ end
 
 module Specializations = struct
   module List = struct
-    #include "Specializations/List.ml"
+    #include "OldFashion/Specializations/List.ml"
   end
 
   module Option = struct
-    #include "Specializations/Option.ml"
+    #include "OldFashion/Specializations/Option.ml"
   end
 
   module Reference = struct
-    #include "Specializations/Reference.ml"
+    #include "OldFashion/Specializations/Reference.ml"
   end
 
   module SortedMap = struct
-    #include "Specializations/SortedMap.ml"
+    #include "OldFashion/Specializations/SortedMap.ml"
   end
 
   module SortedSet = struct
-    #include "Specializations/SortedSet.ml"
+    #include "OldFashion/Specializations/SortedSet.ml"
   end
 end
 

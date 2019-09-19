@@ -7,29 +7,29 @@
     Generated/Concepts.mli
     Generated/Traits.mli
     Generated/Wrappers.mli
+    OldFashion/Traits/FilterMapable.signatures.ToContainer.ml
+    OldFashion/Traits/FilterMapable.signatures.ml
+    OldFashion/Traits/Foldable.signatures.Basic.ml
+    OldFashion/Traits/Foldable.signatures.Right.Basic.ml
+    OldFashion/Traits/Foldable.signatures.Right.ml
+    OldFashion/Traits/Foldable.signatures.Short.Basic.ml
+    OldFashion/Traits/Foldable.signatures.Short.Right.Basic.ml
+    OldFashion/Traits/Foldable.signatures.Short.Right.ml
+    OldFashion/Traits/Foldable.signatures.Short.ml
+    OldFashion/Traits/Foldable.signatures.ml
+    OldFashion/Traits/Scanable.signatures.Right.ToContainer.ml
+    OldFashion/Traits/Scanable.signatures.Right.ml
+    OldFashion/Traits/Scanable.signatures.Short.Right.ToContainer.ml
+    OldFashion/Traits/Scanable.signatures.Short.Right.ml
+    OldFashion/Traits/Scanable.signatures.Short.ToContainer.ml
+    OldFashion/Traits/Scanable.signatures.Short.ml
+    OldFashion/Traits/Scanable.signatures.ToContainer.ml
+    OldFashion/Traits/Scanable.signatures.ml
     Reset/CommonHeader.ml
     Reset/Footer.ml
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml
     Reset/SignatureHeader.ml
-    Traits/FilterMapable.signatures.ToContainer.ml
-    Traits/FilterMapable.signatures.ml
-    Traits/Foldable.signatures.Basic.ml
-    Traits/Foldable.signatures.Right.Basic.ml
-    Traits/Foldable.signatures.Right.ml
-    Traits/Foldable.signatures.Short.Basic.ml
-    Traits/Foldable.signatures.Short.Right.Basic.ml
-    Traits/Foldable.signatures.Short.Right.ml
-    Traits/Foldable.signatures.Short.ml
-    Traits/Foldable.signatures.ml
-    Traits/Scanable.signatures.Right.ToContainer.ml
-    Traits/Scanable.signatures.Right.ml
-    Traits/Scanable.signatures.Short.Right.ToContainer.ml
-    Traits/Scanable.signatures.Short.Right.ml
-    Traits/Scanable.signatures.Short.ToContainer.ml
-    Traits/Scanable.signatures.Short.ml
-    Traits/Scanable.signatures.ToContainer.ml
-    Traits/Scanable.signatures.ml
   )
   (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
 )
@@ -79,11 +79,6 @@
     Concepts/ToStandardNumber.ml
     Concepts/empty_concept.ml
     Equate.ml
-    Foundations/Format.ml
-    Foundations/IntRange.ml
-    Foundations/List.ml
-    Foundations/PervasivesWhitelist.ml
-    Foundations/Stream.ml
     Generated/Atoms/BigInt.ml
     Generated/Atoms/Bool.ml
     Generated/Atoms/Bytes.ml
@@ -135,37 +130,63 @@
     Generated/Wrappers/Tuple3.ml
     Generated/Wrappers/Tuple4.ml
     Generated/Wrappers/Tuple5.ml
-    Implementation/Array.ml
-    Implementation/BinaryHeap.ml
-    Implementation/Format.ml
-    Implementation/Heap.ml
-    Implementation/InChannel.ml
-    Implementation/InFile.ml
-    Implementation/IntRange.ml
-    Implementation/List.ml
-    Implementation/OutChannel.ml
-    Implementation/OutFile.ml
-    Implementation/PriorityQueue.ml
-    Implementation/RedBlackTree.ml
-    Implementation/SortedMap.ml
-    Implementation/SortedSet.ml
-    Implementation/StandardInt.ml
-    Implementation/StandardOutChannel.ml
-    Implementation/StdErr.ml
-    Implementation/StdIn.ml
-    Implementation/StdOut.ml
-    Implementation/Stream.ml
+    OldFashion/Foundations/Format.ml
+    OldFashion/Foundations/IntRange.ml
+    OldFashion/Foundations/List.ml
+    OldFashion/Foundations/PervasivesWhitelist.ml
+    OldFashion/Foundations/Stream.ml
+    OldFashion/Implementation/Array.ml
+    OldFashion/Implementation/BinaryHeap.ml
+    OldFashion/Implementation/Format.ml
+    OldFashion/Implementation/Heap.ml
+    OldFashion/Implementation/InChannel.ml
+    OldFashion/Implementation/InFile.ml
+    OldFashion/Implementation/IntRange.ml
+    OldFashion/Implementation/List.ml
+    OldFashion/Implementation/OutChannel.ml
+    OldFashion/Implementation/OutFile.ml
+    OldFashion/Implementation/PriorityQueue.ml
+    OldFashion/Implementation/RedBlackTree.ml
+    OldFashion/Implementation/SortedMap.ml
+    OldFashion/Implementation/SortedSet.ml
+    OldFashion/Implementation/StandardInt.ml
+    OldFashion/Implementation/StandardOutChannel.ml
+    OldFashion/Implementation/StdErr.ml
+    OldFashion/Implementation/StdIn.ml
+    OldFashion/Implementation/StdOut.ml
+    OldFashion/Implementation/Stream.ml
+    OldFashion/Specializations/List.ml
+    OldFashion/Specializations/Option.ml
+    OldFashion/Specializations/Reference.ml
+    OldFashion/Specializations/SortedMap.ml
+    OldFashion/Specializations/SortedSet.ml
+    OldFashion/Traits/FilterMapable.ml
+    OldFashion/Traits/FilterMapable.signatures.ToContainer.ml
+    OldFashion/Traits/FilterMapable.signatures.ml
+    OldFashion/Traits/Foldable.ml
+    OldFashion/Traits/Foldable.signatures.Basic.ml
+    OldFashion/Traits/Foldable.signatures.Right.Basic.ml
+    OldFashion/Traits/Foldable.signatures.Right.ml
+    OldFashion/Traits/Foldable.signatures.Short.Basic.ml
+    OldFashion/Traits/Foldable.signatures.Short.Right.Basic.ml
+    OldFashion/Traits/Foldable.signatures.Short.Right.ml
+    OldFashion/Traits/Foldable.signatures.Short.ml
+    OldFashion/Traits/Foldable.signatures.ml
+    OldFashion/Traits/Scanable.ml
+    OldFashion/Traits/Scanable.signatures.Right.ToContainer.ml
+    OldFashion/Traits/Scanable.signatures.Right.ml
+    OldFashion/Traits/Scanable.signatures.Short.Right.ToContainer.ml
+    OldFashion/Traits/Scanable.signatures.Short.Right.ml
+    OldFashion/Traits/Scanable.signatures.Short.ToContainer.ml
+    OldFashion/Traits/Scanable.signatures.Short.ml
+    OldFashion/Traits/Scanable.signatures.ToContainer.ml
+    OldFashion/Traits/Scanable.signatures.ml
     Reset/CommonHeader.ml
     Reset/DefinitionHeader.ml
     Reset/Footer.ml
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml
     Shorten.ml
-    Specializations/List.ml
-    Specializations/Option.ml
-    Specializations/Reference.ml
-    Specializations/SortedMap.ml
-    Specializations/SortedSet.ml
     Testing/Test.ml
     Testing/Testing.ml
     Testing/Tests.ml
@@ -174,33 +195,12 @@
     Traits/Comparable.ml
     Traits/Displayable.ml
     Traits/Equatable.ml
-    Traits/FilterMapable.ml
-    Traits/FilterMapable.signatures.ToContainer.ml
-    Traits/FilterMapable.signatures.ml
-    Traits/Foldable.ml
-    Traits/Foldable.signatures.Basic.ml
-    Traits/Foldable.signatures.Right.Basic.ml
-    Traits/Foldable.signatures.Right.ml
-    Traits/Foldable.signatures.Short.Basic.ml
-    Traits/Foldable.signatures.Short.Right.Basic.ml
-    Traits/Foldable.signatures.Short.Right.ml
-    Traits/Foldable.signatures.Short.ml
-    Traits/Foldable.signatures.ml
     Traits/OfFloat.ml
     Traits/OfInt.ml
     Traits/Parsable.ml
     Traits/PredSucc.ml
     Traits/Representable.ml
     Traits/Ringoid.ml
-    Traits/Scanable.ml
-    Traits/Scanable.signatures.Right.ToContainer.ml
-    Traits/Scanable.signatures.Right.ml
-    Traits/Scanable.signatures.Short.Right.ToContainer.ml
-    Traits/Scanable.signatures.Short.Right.ml
-    Traits/Scanable.signatures.Short.ToContainer.ml
-    Traits/Scanable.signatures.Short.ml
-    Traits/Scanable.signatures.ToContainer.ml
-    Traits/Scanable.signatures.ml
     Traits/ToFloat.ml
     Traits/ToInt.ml
     Traits/empty_trait.ml

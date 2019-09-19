@@ -173,10 +173,10 @@ module Traits: sig
   (* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
 
   module FilterMapable: sig
-    #include "Traits/FilterMapable.signatures.ml"
+    #include "OldFashion/Traits/FilterMapable.signatures.ml"
 
     module ToContainer(C: sig type 'a t end): sig
-      #include "Traits/FilterMapable.signatures.ToContainer.ml"
+      #include "OldFashion/Traits/FilterMapable.signatures.ToContainer.ml"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -186,41 +186,41 @@ module Traits: sig
 
   module Foldable: sig
     module Basic: sig
-      #include "Traits/Foldable.signatures.Basic.ml"
+      #include "OldFashion/Traits/Foldable.signatures.Basic.ml"
     end
 
-    #include "Traits/Foldable.signatures.ml"
+    #include "OldFashion/Traits/Foldable.signatures.ml"
 
     module Right: sig
       module Basic: sig
-        #include "Traits/Foldable.signatures.Right.Basic.ml"
+        #include "OldFashion/Traits/Foldable.signatures.Right.Basic.ml"
       end
 
-      #include "Traits/Foldable.signatures.Right.ml"
+      #include "OldFashion/Traits/Foldable.signatures.Right.ml"
     end
 
     module Short: sig
       module Basic: sig
-        #include "Traits/Foldable.signatures.Short.Basic.ml"
+        #include "OldFashion/Traits/Foldable.signatures.Short.Basic.ml"
       end
 
-      #include "Traits/Foldable.signatures.Short.ml"
+      #include "OldFashion/Traits/Foldable.signatures.Short.ml"
 
       module Right: sig
         module Basic: sig
-          #include "Traits/Foldable.signatures.Short.Right.Basic.ml"
+          #include "OldFashion/Traits/Foldable.signatures.Short.Right.Basic.ml"
         end
 
-        #include "Traits/Foldable.signatures.Short.Right.ml"
+        #include "OldFashion/Traits/Foldable.signatures.Short.Right.ml"
       end
     end
   end
 
   module Scanable: sig
-    #include "Traits/Scanable.signatures.ml"
+    #include "OldFashion/Traits/Scanable.signatures.ml"
 
     module ToContainer(C: sig type 'a t end): sig
-      #include "Traits/Scanable.signatures.ToContainer.ml"
+      #include "OldFashion/Traits/Scanable.signatures.ToContainer.ml"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -228,10 +228,10 @@ module Traits: sig
     module ToArray: module type of ToContainer(struct type 'a t = 'a array end)
 
     module Right: sig
-      #include "Traits/Scanable.signatures.Right.ml"
+      #include "OldFashion/Traits/Scanable.signatures.Right.ml"
 
       module ToContainer(C: sig type 'a t end): sig
-        #include "Traits/Scanable.signatures.Right.ToContainer.ml"
+        #include "OldFashion/Traits/Scanable.signatures.Right.ToContainer.ml"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -240,10 +240,10 @@ module Traits: sig
     end
 
     module Short: sig
-      #include "Traits/Scanable.signatures.Short.ml"
+      #include "OldFashion/Traits/Scanable.signatures.Short.ml"
 
       module ToContainer(C: sig type 'a t end): sig
-        #include "Traits/Scanable.signatures.Short.ToContainer.ml"
+        #include "OldFashion/Traits/Scanable.signatures.Short.ToContainer.ml"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -251,10 +251,10 @@ module Traits: sig
       module ToArray: module type of ToContainer(struct type 'a t = 'a array end)
 
       module Right: sig
-        #include "Traits/Scanable.signatures.Short.Right.ml"
+        #include "OldFashion/Traits/Scanable.signatures.Short.Right.ml"
 
         module ToContainer(C: sig type 'a t end): sig
-          #include "Traits/Scanable.signatures.Short.Right.ToContainer.ml"
+          #include "OldFashion/Traits/Scanable.signatures.Short.Right.ToContainer.ml"
         end
 
         module ToList: module type of ToContainer(struct type 'a t = 'a list end)
