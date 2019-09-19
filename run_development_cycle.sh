@@ -49,7 +49,7 @@ do
 
         GENERATE_CODE=false
 
-        $RUN python3 src/geni.py
+        $RUN python3 -m geni
         git --no-pager diff
     fi
 

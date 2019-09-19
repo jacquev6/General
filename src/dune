@@ -2,7 +2,6 @@
   (targets General.mli)
   (deps
     (:src General.cppo.mli)
-    geni.py
     Generated/Atoms.mli
     Generated/Concepts.mli
     Generated/Traits.mli
@@ -39,7 +38,6 @@
   (targets General.ml)
   (deps
     (:src General.cppo.ml)
-    geni.py
     Atoms/BigInt.ml
     Atoms/Bool.foundations.ml
     Atoms/Bool.ml
