@@ -1,0 +1,8 @@
+module O: sig
+  val (<): unit -> unit -> bool
+  val (<=): unit -> unit -> bool
+  val (<>): unit -> unit -> bool
+  val (=): unit -> unit -> bool
+  val (>): unit -> unit -> bool
+  val (>=): unit -> unit -> bool
+end

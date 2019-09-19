@@ -4,6 +4,8 @@ module Char: sig
   val between: t -> low:t -> high:t -> bool
   val between_or_equal: t -> low:t -> high:t -> bool
   val compare: t -> t -> General.Compare.t
+  val different: t -> t -> bool
+  val equal: t -> t -> bool
   val greater_or_equal: t -> t -> bool
   val greater_than: t -> t -> bool
   val less_or_equal: t -> t -> bool
@@ -13,6 +15,7 @@ module Char: sig
   val min_max: t -> t -> t * t
   val of_int: int -> t
   val repeat: t -> len:int -> string
+  val repr: t -> string
   val to_int: t -> int
   val to_string: t -> string
 end

@@ -36,5 +36,6 @@ module Int: sig
   val to_int: t -> t
   val to_string: t -> string
   val try_of_string: string -> t option
+  val width: t
   val zero: t
 end

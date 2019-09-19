@@ -1,8 +1,11 @@
 module Concepts: sig
   module Able
+  module FixedWidthInteger
   module Identifiable
   module Integer
   module Number
+  module OfStandardNumber
   module RealNumber
   module Stringable
+  module ToStandardNumber
 end

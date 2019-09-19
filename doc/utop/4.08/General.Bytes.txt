@@ -1,9 +1,23 @@
 module Bytes: sig
+  module O
   type t = bytes
+  val between: bytes -> low:bytes -> high:bytes -> bool
+  val between_or_equal: bytes -> low:bytes -> high:bytes -> bool
+  val compare: bytes -> bytes -> General.Compare.t
+  val different: bytes -> bytes -> bool
   val empty: bytes
+  val equal: bytes -> bytes -> bool
   val get: bytes -> int -> char
+  val greater_or_equal: bytes -> bytes -> bool
+  val greater_than: bytes -> bytes -> bool
+  val less_or_equal: bytes -> bytes -> bool
+  val less_than: bytes -> bytes -> bool
   val make: len:int -> bytes
+  val max: bytes -> bytes -> bytes
+  val min: bytes -> bytes -> bytes
+  val min_max: bytes -> bytes -> bytes * bytes
   val of_string: string -> bytes
+  val repr: bytes -> string
   val set: bytes -> int -> char -> unit
   val size: bytes -> int
   val to_string: bytes -> string

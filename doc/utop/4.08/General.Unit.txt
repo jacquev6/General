@@ -1,4 +1,18 @@
 module Unit: sig
+  module O
   type t = unit
+  val between: unit -> low:unit -> high:unit -> bool
+  val between_or_equal: unit -> low:unit -> high:unit -> bool
+  val compare: unit -> unit -> General.Compare.t
+  val different: unit -> unit -> bool
+  val equal: unit -> unit -> bool
+  val greater_or_equal: unit -> unit -> bool
+  val greater_than: unit -> unit -> bool
   val ignore: 'a -> unit
+  val less_or_equal: unit -> unit -> bool
+  val less_than: unit -> unit -> bool
+  val max: unit -> unit -> unit
+  val min: unit -> unit -> unit
+  val min_max: unit -> unit -> unit * unit
+  val repr: unit -> string
 end

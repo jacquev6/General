@@ -1,0 +1,8 @@
+module O: sig
+  val (<): string -> string -> bool
+  val (<=): string -> string -> bool
+  val (<>): string -> string -> bool
+  val (=): string -> string -> bool
+  val (>): string -> string -> bool
+  val (>=): string -> string -> bool
+end

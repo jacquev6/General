@@ -1,0 +1,8 @@
+module Bounded: sig
+  module Tests
+  module type S0 = sig
+    type t
+    val greatest: t
+    val smallest: t
+  end
+end

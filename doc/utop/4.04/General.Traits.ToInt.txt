@@ -1,0 +1,7 @@
+module ToInt: sig
+  module Tests
+  module type S0 = sig
+    type t
+    val to_int: t -> int
+  end
+end

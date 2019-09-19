@@ -17,7 +17,9 @@ module Self = struct
   let to_string = OCSB.to_string
 
   let repr x =
-    Format.apply "%S" x
+    x
+    |> to_string
+    |> Format.apply "%S"
 
   let get = OCSB.get
   let set = OCSB.set
@@ -34,25 +36,25 @@ include Self
 
 module Tests = Tests_.Make(Self)(struct
   let representations = [
-    ("foo", "\"foo\"");
-    ("bar\"baz", "\"bar\\\"baz\"");
+    (of_string "foo", "\"foo\"");
+    (of_string "bar\"baz", "\"bar\\\"baz\"");
   ]
 
   let displays = [
-    ("foo", "foo");
-    ("bar\"baz", "bar\"baz");
+    (of_string "foo", "foo");
+    (of_string "bar\"baz", "bar\"baz");
   ]
 
   let equalities = [
-    ["foo"];
+    [of_string "foo"];
   ]
 
   let differences = [
-    ("foo", "bar");
+    (of_string "foo", of_string "bar");
   ]
 
   let orders = [
-    ["aaaa"; "aaaaa"; "aaaab"; "ab"; "b"];
+    [of_string "aaaa"; of_string "aaaaa"; of_string "aaaab"; of_string "ab"; of_string "b"];
   ]
 end)(struct
   let tests = []
