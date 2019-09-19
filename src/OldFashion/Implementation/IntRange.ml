@@ -29,8 +29,8 @@ module Tests = struct
   end
 
   let test = "IntRange" >:: [
-    (let module T = Traits.Representable.Tests.Make0(Self)(Examples) in T.test);
-    (let module T = Traits.Equatable.Tests.Make0(Self)(Examples) in T.test);
+    (let module T = Facets.Representable.Tests.Make0(Self)(Examples) in T.test);
+    (let module T = Facets.Equatable.Tests.Make0(Self)(Examples) in T.test);
     "to_list" >:: [
       "simplest" >: (lazy (check_int_list ~expected:[0; 1; 2; 3; 4] (to_list (make 5))));
       "with start" >: (lazy (check_int_list ~expected:[2; 3; 4] (to_list (make 5 ~start:2))));

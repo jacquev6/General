@@ -1,0 +1,9 @@
+module Make1(M: General.Facets.Able.Tests.Testable.S1)(E: sig
+  module A: General.Facets.Able.Tests.Examples.Element
+  val differences: (A.t M.t * A.t M.t) list
+  val equalities: A.t M.t list list
+  val orders: A.t M.t list list
+  val representations: (A.t M.t * string) list
+end): sig
+  val test: General.Test.t
+end

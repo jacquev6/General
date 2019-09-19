@@ -1,5 +1,5 @@
 module Self = struct
-  include Traits.Equatable.Different.Make1(Foundations.List)
+  include Facets.Equatable.Different.Make1(Foundations.List)
   include Foundations.List
 end
 
@@ -32,14 +32,14 @@ module Specialize(A: sig type t end) = struct
   end
 end
 
-module SpecializeEquatable(A: Traits.Equatable.Basic.S0) = struct
+module SpecializeEquatable(A: Facets.Equatable.Basic.S0) = struct
   type t = A.t list
 
   let contains xs x =
     Self.contains xs x ~equal_a:A.equal
 end
 
-module SpecializeRepresentable(A: Traits.Representable.S0) = struct
+module SpecializeRepresentable(A: Facets.Representable.S0) = struct
   type t = A.t list
 
   let repr xs =
@@ -73,9 +73,9 @@ module Tests = struct
   open Testing
 
   let test = "List" >:: [
-    (let module T = Traits.Representable.Tests.Make1(Self)(Examples) in T.test);
-    (let module T = Traits.Equatable.Tests.Make1(Self)(Examples) in T.test);
-    (let module T = Traits.FilterMapable.Tests.Make1(Self) in T.test);
+    (let module T = Facets.Representable.Tests.Make1(Self)(Examples) in T.test);
+    (let module T = Facets.Equatable.Tests.Make1(Self)(Examples) in T.test);
+    (let module T = Facets.FilterMapable.Tests.Make1(Self) in T.test);
     "reverse" >: (lazy (check_string_list ~expected:["3"; "2"; "1"] (reverse ["1"; "2"; "3"])));
     "concat" >: (lazy (check_int_list ~expected:[1; 2; 3; 4; 5; 6] (concat [1; 2; 3] [4; 5; 6])));
     "prepend" >: (lazy (check_int_list ~expected:[1; 2; 3] (prepend 1 [2; 3])));

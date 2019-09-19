@@ -37,7 +37,7 @@ module Tests = struct
 
   let test = "Testing" >:: [
     "Result" >:: [
-      (let module T = Traits.Representable.Tests.Make0(Result)(ResultExamples) in T.test);
+      (let module T = Facets.Representable.Tests.Make0(Result)(ResultExamples) in T.test);
       "to_indented_strings" >:: (
         let make ?(verbose=false) expected result =
           (expected |> Foundations.List.join_string_list ~sep:"\n") >: (lazy (

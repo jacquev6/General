@@ -136,107 +136,105 @@ module Testing = struct
   #include "Testing/Testing.ml"
 end
 
-module Traits = struct
+module Facets = struct
   module Representable = struct
-    #include "Traits/Representable.ml"
+    #include "Facets/Representable.ml"
   end
 
   module Equatable = struct
-    #include "Traits/Equatable.ml"
+    #include "Facets/Equatable.ml"
   end
 
   module Comparable = struct
-    #include "Traits/Comparable.ml"
+    #include "Facets/Comparable.ml"
   end
 
   module Displayable = struct
-    #include "Traits/Displayable.ml"
+    #include "Facets/Displayable.ml"
   end
 
   module Parsable = struct
-    #include "Traits/Parsable.ml"
+    #include "Facets/Parsable.ml"
   end
 
   module PredSucc = struct
-    #include "Traits/PredSucc.ml"
+    #include "Facets/PredSucc.ml"
   end
 
   module OfInt = struct
-    #include "Traits/OfInt.ml"
+    #include "Facets/OfInt.ml"
   end
 
   module ToInt = struct
-    #include "Traits/ToInt.ml"
+    #include "Facets/ToInt.ml"
   end
 
   module OfFloat = struct
-    #include "Traits/OfFloat.ml"
+    #include "Facets/OfFloat.ml"
   end
 
   module ToFloat = struct
-    #include "Traits/ToFloat.ml"
+    #include "Facets/ToFloat.ml"
   end
 
   module Ringoid = struct
-    #include "Traits/Ringoid.ml"
+    #include "Facets/Ringoid.ml"
   end
 
   module Bounded = struct
-    #include "Traits/Bounded.ml"
+    #include "Facets/Bounded.ml"
   end
 
   module Bitwise = struct
-    #include "Traits/Bitwise.ml"
+    #include "Facets/Bitwise.ml"
   end
 
   module FilterMapable = struct
-    #include "OldFashion/Traits/FilterMapable.ml"
+    #include "OldFashion/Facets/FilterMapable.ml"
   end
 
   module Foldable = struct
-    #include "OldFashion/Traits/Foldable.ml"
+    #include "OldFashion/Facets/Foldable.ml"
   end
 
   module Scanable = struct
-    #include "OldFashion/Traits/Scanable.ml"
+    #include "OldFashion/Facets/Scanable.ml"
   end
-end
 
-module Concepts = struct
   module Identifiable = struct
-    #include "Concepts/Identifiable.ml"
+    #include "Facets/Identifiable.ml"
   end
 
   module Able = struct
-    #include "Concepts/Able.ml"
+    #include "Facets/Able.ml"
   end
 
   module Stringable = struct
-    #include "Concepts/Stringable.ml"
+    #include "Facets/Stringable.ml"
   end
 
   module OfStandardNumber = struct
-    #include "Concepts/OfStandardNumber.ml"
+    #include "Facets/OfStandardNumber.ml"
   end
 
   module Number = struct
-    #include "Concepts/Number.ml"
+    #include "Facets/Number.ml"
   end
 
   module ToStandardNumber = struct
-    #include "Concepts/ToStandardNumber.ml"
+    #include "Facets/ToStandardNumber.ml"
   end
 
   module RealNumber = struct
-    #include "Concepts/RealNumber.ml"
+    #include "Facets/RealNumber.ml"
   end
 
   module Integer = struct
-    #include "Concepts/Integer.ml"
+    #include "Facets/Integer.ml"
   end
 
   module FixedWidthInteger = struct
-    #include "Concepts/FixedWidthInteger.ml"
+    #include "Facets/FixedWidthInteger.ml"
   end
 end
 

@@ -35,6 +35,7 @@ module Tests = Tests_.Make(Self)(struct
 end)(struct
   open Testing
 
+  (* @todo Restore those tests *)
   (* module LocationExamples = struct
     let representations = [
       (
@@ -47,9 +48,9 @@ end)(struct
   let tests = [
     "frames" >: (lazy (check_int ~expected:(if javascript then 0 else 4) (stack |> frames |> List.size))); (*BISECT-IGNORE*)
     (* "Location" >:: [ *)
-      (* (let module T = Traits.Comparable.Tests.Make0(Foundations.CallStack.Location)(LocationExamples) in T.test); *)
-      (* (let module T = Traits.Equatable.Tests.Make0(Foundations.CallStack.Location)(LocationExamples) in T.test); *)
-      (* (let module T = Traits.Representable.Tests.Make0(Foundations.CallStack.Location)(LocationExamples) in T.test); *)
+      (* (let module T = Facets.Comparable.Tests.Make0(Foundations.CallStack.Location)(LocationExamples) in T.test); *)
+      (* (let module T = Facets.Equatable.Tests.Make0(Foundations.CallStack.Location)(LocationExamples) in T.test); *)
+      (* (let module T = Facets.Representable.Tests.Make0(Foundations.CallStack.Location)(LocationExamples) in T.test); *)
     (* ]; *)
     (* "Frame" >:: (
       match frames stack with

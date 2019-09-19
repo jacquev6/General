@@ -1,0 +1,10 @@
+module Make4(M: General.Facets.Comparable.Tests.Testable.S4)(E: sig
+  module A: General.Facets.Comparable.Tests.Examples.Element
+  module B: General.Facets.Comparable.Tests.Examples.Element
+  module C: General.Facets.Comparable.Tests.Examples.Element
+  module D: General.Facets.Comparable.Tests.Examples.Element
+  val equalities: (A.t, B.t, C.t, D.t) M.t list list
+  val orders: (A.t, B.t, C.t, D.t) M.t list list
+end): sig
+  val test: General.Test.t
+end

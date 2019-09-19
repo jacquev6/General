@@ -1,0 +1,27 @@
+module Facets: sig
+  module Able
+  module Bitwise
+  module Bounded
+  module Comparable
+  module Displayable
+  module Equatable
+  module FilterMapable
+  module FixedWidthInteger
+  module Foldable
+  module Identifiable
+  module Integer
+  module Number
+  module OfFloat
+  module OfInt
+  module OfStandardNumber
+  module Parsable
+  module PredSucc
+  module RealNumber
+  module Representable
+  module Ringoid
+  module Scanable
+  module Stringable
+  module ToFloat
+  module ToInt
+  module ToStandardNumber
+end

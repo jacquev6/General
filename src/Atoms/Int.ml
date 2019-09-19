@@ -3,7 +3,7 @@
 module SelfA = struct
   include Foundations.Int
 
-  include Traits.Ringoid.Exponentiate.Make0(struct
+  include Facets.Ringoid.Exponentiate.Make0(struct
     include Foundations.Int
 
     let exponentiate_negative_exponent ~exponentiate:_ _ n =

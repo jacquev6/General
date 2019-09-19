@@ -1,4 +1,4 @@
-module SpecializeRingoid(A: General.Traits.Ringoid.Basic.S0): sig
+module SpecializeRingoid(A: General.Facets.Ringoid.Basic.S0): sig
   module O: sig
     val (=*): t -> A.t -> unit
     val (=+): t -> A.t -> unit

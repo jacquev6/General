@@ -61,7 +61,7 @@ module Poly = struct
     )
 end
 
-module Make(K: Traits.Comparable.Basic.S0) = struct
+module Make(K: Facets.Comparable.Basic.S0) = struct
   let cmp (x, _) (y, _) =
     K.compare x y
 

@@ -1,8 +1,0 @@
-module Make2(M: General.Traits.Comparable.Tests.Testable.S2)(E: sig
-  module A: General.Traits.Comparable.Tests.Examples.Element
-  module B: General.Traits.Comparable.Tests.Examples.Element
-  val equalities: (A.t, B.t) M.t list list
-  val orders: (A.t, B.t) M.t list list
-end): sig
-  val test: General.Test.t
-end

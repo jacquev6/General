@@ -103,7 +103,7 @@ end
 
 module Shorten: sig
   (** Return type for functions used in short-circuit iterations over collections.
-  (i.e: :val:`General.Traits.Foldable.Short.S0:fold_short`) *)
+  (i.e: :val:`General.Facets.Foldable.Short.S0:fold_short`) *)
   type t =
     | GoOn (** Used to indicate iteration should proceed to next item *)
     | ShortCircuit (** Used to indicate iteration should stop after this item *)
@@ -166,17 +166,25 @@ module Test: sig
   type t
 end
 
-(** Traits are isolated capabilities associated to a type. *)
-module Traits: sig
-  #include "Generated/Traits.mli"
+module Facets: sig
+  #include "Generated/Facets.mli"
 
-  (* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
+  (* @feature Facets for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
 
+  (* Typology of iterations other collection:
+  - is there an accumulator (fold vs map)
+  - is it short circuit (exists/fold_short/find vs fold/map)
+  - does it produce a list (map) or a scalar (find/fold) or nothing (iter)
+  - from a list (map) or from a scalar (unfold/until_none/until_fixed)? (until_none i: [f i; f f i; f f f i; ... until f returns None]; until_fixed: until f f f i = f f i)
+  - other criteria?
+  and we need a generic function in each category. *)
+
+  (* @todo Generate these facets *)
   module FilterMapable: sig
-    #include "OldFashion/Traits/FilterMapable.signatures.ml"
+    #include "OldFashion/Facets/FilterMapable.signatures.ml"
 
     module ToContainer(C: sig type 'a t end): sig
-      #include "OldFashion/Traits/FilterMapable.signatures.ToContainer.ml"
+      #include "OldFashion/Facets/FilterMapable.signatures.ToContainer.ml"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -186,41 +194,41 @@ module Traits: sig
 
   module Foldable: sig
     module Basic: sig
-      #include "OldFashion/Traits/Foldable.signatures.Basic.ml"
+      #include "OldFashion/Facets/Foldable.signatures.Basic.ml"
     end
 
-    #include "OldFashion/Traits/Foldable.signatures.ml"
+    #include "OldFashion/Facets/Foldable.signatures.ml"
 
     module Right: sig
       module Basic: sig
-        #include "OldFashion/Traits/Foldable.signatures.Right.Basic.ml"
+        #include "OldFashion/Facets/Foldable.signatures.Right.Basic.ml"
       end
 
-      #include "OldFashion/Traits/Foldable.signatures.Right.ml"
+      #include "OldFashion/Facets/Foldable.signatures.Right.ml"
     end
 
     module Short: sig
       module Basic: sig
-        #include "OldFashion/Traits/Foldable.signatures.Short.Basic.ml"
+        #include "OldFashion/Facets/Foldable.signatures.Short.Basic.ml"
       end
 
-      #include "OldFashion/Traits/Foldable.signatures.Short.ml"
+      #include "OldFashion/Facets/Foldable.signatures.Short.ml"
 
       module Right: sig
         module Basic: sig
-          #include "OldFashion/Traits/Foldable.signatures.Short.Right.Basic.ml"
+          #include "OldFashion/Facets/Foldable.signatures.Short.Right.Basic.ml"
         end
 
-        #include "OldFashion/Traits/Foldable.signatures.Short.Right.ml"
+        #include "OldFashion/Facets/Foldable.signatures.Short.Right.ml"
       end
     end
   end
 
   module Scanable: sig
-    #include "OldFashion/Traits/Scanable.signatures.ml"
+    #include "OldFashion/Facets/Scanable.signatures.ml"
 
     module ToContainer(C: sig type 'a t end): sig
-      #include "OldFashion/Traits/Scanable.signatures.ToContainer.ml"
+      #include "OldFashion/Facets/Scanable.signatures.ToContainer.ml"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -228,10 +236,10 @@ module Traits: sig
     module ToArray: module type of ToContainer(struct type 'a t = 'a array end)
 
     module Right: sig
-      #include "OldFashion/Traits/Scanable.signatures.Right.ml"
+      #include "OldFashion/Facets/Scanable.signatures.Right.ml"
 
       module ToContainer(C: sig type 'a t end): sig
-        #include "OldFashion/Traits/Scanable.signatures.Right.ToContainer.ml"
+        #include "OldFashion/Facets/Scanable.signatures.Right.ToContainer.ml"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -240,10 +248,10 @@ module Traits: sig
     end
 
     module Short: sig
-      #include "OldFashion/Traits/Scanable.signatures.Short.ml"
+      #include "OldFashion/Facets/Scanable.signatures.Short.ml"
 
       module ToContainer(C: sig type 'a t end): sig
-        #include "OldFashion/Traits/Scanable.signatures.Short.ToContainer.ml"
+        #include "OldFashion/Facets/Scanable.signatures.Short.ToContainer.ml"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -251,10 +259,10 @@ module Traits: sig
       module ToArray: module type of ToContainer(struct type 'a t = 'a array end)
 
       module Right: sig
-        #include "OldFashion/Traits/Scanable.signatures.Short.Right.ml"
+        #include "OldFashion/Facets/Scanable.signatures.Short.Right.ml"
 
         module ToContainer(C: sig type 'a t end): sig
-          #include "OldFashion/Traits/Scanable.signatures.Short.Right.ToContainer.ml"
+          #include "OldFashion/Facets/Scanable.signatures.Short.Right.ToContainer.ml"
         end
 
         module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -263,18 +271,6 @@ module Traits: sig
       end
     end
   end
-end
-
-(* Typology of iterations other collection:
-- is there an accumulator (fold vs map)
-- is it short circuit (exists/fold_short/find vs fold/map)
-- does it produce a list (map) or a scalar (find/fold) or nothing (iter)
-- from a list (map) or from a scalar (unfold/until_none/until_fixed)? (until_none i: [f i; f f i; f f f i; ... until f returns None]; until_fixed: until f f f i = f f i)
-- other criteria?
-and we need a generic function in each category. *)
-
-module Concepts: sig
-  #include "Generated/Concepts.mli"
 end
 
 #include "Generated/Atoms.mli"
@@ -375,17 +371,17 @@ module List: sig
   val reverse: 'a t -> 'a t
   val concat: 'a t -> 'a t -> 'a t
 
-  include Traits.Representable.S1 with type 'a t := 'a t
-  include Traits.Equatable.S1 with type 'a t := 'a t
-  include Traits.FilterMapable.S1 with type 'a t := 'a t
-  include Traits.Foldable.S1 with type 'a t := 'a t
-  include Traits.Foldable.Short.S1 with type 'a t := 'a t
-  (* include Traits.Foldable.Right.S1 with type 'a t := 'a t *)
-  (* include Traits.Foldable.Short.Right.S1 with type 'a t := 'a t *)
-  include Traits.Scanable.S1 with type 'a t := 'a t
-  include Traits.Scanable.Short.S1 with type 'a t := 'a t
-  (* include Traits.Scanable.Right.S1 with type 'a t := 'a t *)
-  (* include Traits.Scanable.Short.Right.S1 with type 'a t := 'a t *)
+  include Facets.Representable.S1 with type 'a t := 'a t
+  include Facets.Equatable.S1 with type 'a t := 'a t
+  include Facets.FilterMapable.S1 with type 'a t := 'a t
+  include Facets.Foldable.S1 with type 'a t := 'a t
+  include Facets.Foldable.Short.S1 with type 'a t := 'a t
+  (* include Facets.Foldable.Right.S1 with type 'a t := 'a t *)
+  (* include Facets.Foldable.Short.Right.S1 with type 'a t := 'a t *)
+  include Facets.Scanable.S1 with type 'a t := 'a t
+  include Facets.Scanable.Short.S1 with type 'a t := 'a t
+  (* include Facets.Scanable.Right.S1 with type 'a t := 'a t *)
+  (* include Facets.Scanable.Short.Right.S1 with type 'a t := 'a t *)
 
   module Two: sig
     val to_pair_list: 'a t -> 'b t -> ('a * 'b) t
@@ -417,32 +413,32 @@ module List: sig
     val reverse: t -> t
     val concat: t -> t -> t
 
-    include Traits.FilterMapable.S0 with type elt := A.t and type t := t
-    include Traits.Foldable.S0 with type elt := A.t and type t := t
-    include Traits.Foldable.Short.S0 with type elt := A.t and type t := t
-    (* include Traits.Foldable.Right.S0 with type elt := A.t and type t := t *)
-    (* include Traits.Foldable.Short.Right.S0 with type elt := A.t and type t := t *)
-    include Traits.Scanable.S0 with type elt := A.t and type t := t
-    include Traits.Scanable.Short.S0 with type elt := A.t and type t := t
-    (* include Traits.Scanable.Right.S0 with type elt := A.t and type t := t *)
-    (* include Traits.Scanable.Short.Right.S0 with type elt := A.t and type t := t *)
+    include Facets.FilterMapable.S0 with type elt := A.t and type t := t
+    include Facets.Foldable.S0 with type elt := A.t and type t := t
+    include Facets.Foldable.Short.S0 with type elt := A.t and type t := t
+    (* include Facets.Foldable.Right.S0 with type elt := A.t and type t := t *)
+    (* include Facets.Foldable.Short.Right.S0 with type elt := A.t and type t := t *)
+    include Facets.Scanable.S0 with type elt := A.t and type t := t
+    include Facets.Scanable.Short.S0 with type elt := A.t and type t := t
+    (* include Facets.Scanable.Right.S0 with type elt := A.t and type t := t *)
+    (* include Facets.Scanable.Short.Right.S0 with type elt := A.t and type t := t *)
 
     module ToList: sig
-      include Traits.FilterMapable.ToList.S0 with type elt := A.t and type t := t
-      include Traits.Scanable.ToList.S0 with type elt := A.t and type t := t
-      include Traits.Scanable.Short.ToList.S0 with type elt := A.t and type t := t
-      (* include Traits.Scanable.Right.ToList.S0 with type elt := A.t and type t := t *)
-      (* include Traits.Scanable.Short.Right.ToList.S0 with type elt := A.t and type t := t *)
+      include Facets.FilterMapable.ToList.S0 with type elt := A.t and type t := t
+      include Facets.Scanable.ToList.S0 with type elt := A.t and type t := t
+      include Facets.Scanable.Short.ToList.S0 with type elt := A.t and type t := t
+      (* include Facets.Scanable.Right.ToList.S0 with type elt := A.t and type t := t *)
+      (* include Facets.Scanable.Short.Right.ToList.S0 with type elt := A.t and type t := t *)
     end
   end
 
-  module SpecializeEquatable(A: Traits.Equatable.Basic.S0): sig
+  module SpecializeEquatable(A: Facets.Equatable.Basic.S0): sig
     type t = A.t list
 
     val contains: t -> A.t -> bool
   end
 
-  module SpecializeRepresentable(A: Traits.Representable.S0): Traits.Representable.S0 with type t = A.t list
+  module SpecializeRepresentable(A: Facets.Representable.S0): Facets.Representable.S0 with type t = A.t list
 end
 
 module Array: sig
@@ -475,11 +471,11 @@ module Stream: sig
   val prepend: 'a -> 'a t -> 'a t
   val concat: 'a t -> 'a t -> 'a t
 
-  include Traits.FilterMapable.S1 with type 'a t := 'a t
-  (* @feature Other iteration traits: Foldable and Scanable *)
+  include Facets.FilterMapable.S1 with type 'a t := 'a t
+  (* @feature Other iteration facets: Foldable and Scanable *)
 
   module ToList: sig
-    include Traits.FilterMapable.ToList.S1 with type 'a t := 'a t
+    include Facets.FilterMapable.ToList.S1 with type 'a t := 'a t
   end
 
   (* @feature module Specialize (with ToList and ToStream) *)
@@ -503,10 +499,10 @@ module SortedSet: sig
 
     val contains: 'a t -> v:'a -> bool
 
-    (* @feature Traits *)
+    (* @feature Facets *)
   end
 
-  module Make(E: Traits.Comparable.Basic.S0): sig
+  module Make(E: Facets.Comparable.Basic.S0): sig
     type t
 
     val empty: t
@@ -523,7 +519,7 @@ module SortedSet: sig
 
     val contains: t -> v:E.t -> bool
 
-    (* @feature Traits *)
+    (* @feature Facets *)
   end
 end
 
@@ -553,10 +549,10 @@ module SortedMap: sig
 
     (* @feature [try_](smallest|largest): ('a, 'b) t -> ('a, 'b) [option] returning (k, v) with smallest (largest) k *)
 
-    (* @feature Traits *)
+    (* @feature Facets *)
   end
 
-  module Make(K: Traits.Comparable.Basic.S0): sig
+  module Make(K: Facets.Comparable.Basic.S0): sig
     type 'a t
 
     val empty: 'a t
@@ -578,7 +574,7 @@ module SortedMap: sig
     val try_get: 'a t -> k:K.t -> 'a option
     val get: 'a t -> k:K.t -> 'a
 
-    (* @feature Traits *)
+    (* @feature Facets *)
   end
 end
 
@@ -599,7 +595,7 @@ module Heap: sig
     val max: 'a t -> 'a
   end
 
-  module Make(E: Traits.Comparable.Basic.S0): sig
+  module Make(E: Facets.Comparable.Basic.S0): sig
     type t
 
     val empty: t
@@ -623,7 +619,7 @@ module PriorityQueue: sig
     val max: ('a, 'b) t -> 'a * 'b
   end
 
-  module Make(K: Traits.Comparable.Basic.S0): sig
+  module Make(K: Facets.Comparable.Basic.S0): sig
     type 'a t
 
     val empty: 'a t
@@ -647,7 +643,7 @@ end
 module IntRange: sig
   type t
 
-  include Concepts.Identifiable.S0 with type t := t
+  include Facets.Identifiable.S0 with type t := t
   (* @feature Add Comparable to make it Able
   Warning: compare r1 r2 should always be equal to List.compare (to_list r1) (to_list r2), so Compare.Poly will not work. *)
 
@@ -657,13 +653,13 @@ module IntRange: sig
   val to_list: t -> int list
   val to_array: t -> int array
 
-  include Traits.Foldable.S0 with type elt := int and type t := t
-  include Traits.Foldable.Short.S0 with type elt := int and type t := t
+  include Facets.Foldable.S0 with type elt := int and type t := t
+  include Facets.Foldable.Short.S0 with type elt := int and type t := t
 
   module ToList: sig
-    include Traits.FilterMapable.ToList.S0 with type elt := int and type t := t
-    include Traits.Scanable.ToList.S0 with type elt := int and type t := t
-    include Traits.Scanable.Short.ToList.S0 with type elt := int and type t := t
+    include Facets.FilterMapable.ToList.S0 with type elt := int and type t := t
+    include Facets.Scanable.ToList.S0 with type elt := int and type t := t
+    include Facets.Scanable.Short.ToList.S0 with type elt := int and type t := t
   end
 end
 

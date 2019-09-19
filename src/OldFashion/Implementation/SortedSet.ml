@@ -38,7 +38,7 @@ module Poly = struct
     |> Option.is_some
 end
 
-module Make(E: Traits.Comparable.Basic.S0) = struct
+module Make(E: Facets.Comparable.Basic.S0) = struct
   let cmp = E.compare
   let cmp_k = cmp
 

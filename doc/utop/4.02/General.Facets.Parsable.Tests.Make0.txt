@@ -1,0 +1,5 @@
+module Make0(M: General.Facets.Parsable.Tests.Testable.S0)(E: sig
+  val literals: (bytes * M.t) list
+end): sig
+  val test: General.Test.t
+end

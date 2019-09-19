@@ -3,14 +3,14 @@
 module SelfA = struct
   include Foundations.Float
 
-  include Traits.Ringoid.Exponentiate.Make0(struct
+  include Facets.Ringoid.Exponentiate.Make0(struct
     include Foundations.Float
 
     let exponentiate_negative_exponent ~exponentiate x n =
       exponentiate (divide 1. x) (-n)
   end)
 
-  include Traits.Comparable.Between.Make0(Foundations.Float)
+  include Facets.Comparable.Between.Make0(Foundations.Float)
 end
 
 module SelfB = struct

@@ -1,0 +1,4 @@
+module Specialize3(M: General.Facets.Representable.S3)(A: General.Facets.Representable.S0)(B: General.Facets.Representable.S0)(C: General.Facets.Representable.S0): sig
+  type t = (A.t, B.t, C.t) M.t
+  val repr: t -> bytes
+end

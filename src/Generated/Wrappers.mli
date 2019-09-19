@@ -1,6 +1,6 @@
 module Option: sig
   type 'a t = 'a option
-  include Concepts.Able.S1 with type 'a t := 'a t
+  include Facets.Able.S1 with type 'a t := 'a t
   val none: 'a t
   val some: 'a -> 'a t
   val some_if: bool -> 'a lazy_t -> 'a t
@@ -65,13 +65,13 @@ module Reference: sig
     module O: module type of SpecializeOperators(A) with type t := t
   end
 
-  module SpecializePredSucc(A: Traits.PredSucc.S0): sig
+  module SpecializePredSucc(A: Facets.PredSucc.S0): sig
     type nonrec t = A.t t
     val increment: t -> unit
     val decrement: t -> unit
   end
 
-  module SpecializeRingoidOperators(A: Traits.Ringoid.Basic.S0): sig
+  module SpecializeRingoidOperators(A: Facets.Ringoid.Basic.S0): sig
     type nonrec t = A.t t
     val (=+): t -> A.t -> unit
     val (=-): t -> A.t -> unit
@@ -79,7 +79,7 @@ module Reference: sig
     val (=/): t -> A.t -> unit
   end
 
-  module SpecializeRingoid(A: Traits.Ringoid.Basic.S0): sig
+  module SpecializeRingoid(A: Facets.Ringoid.Basic.S0): sig
     type nonrec t = A.t t
     module O: module type of SpecializeRingoidOperators(A) with type t := t
   end
@@ -87,7 +87,7 @@ end
 
 module Tuple2: sig
   type ('a, 'b) t = 'a * 'b
-  include Concepts.Able.S2 with type ('a, 'b) t := ('a, 'b) t
+  include Facets.Able.S2 with type ('a, 'b) t := ('a, 'b) t
   val make: 'a -> 'b -> ('a, 'b) t
   val get_0: ('a, 'b) t -> 'a
   val get_1: ('a, 'b) t -> 'b
@@ -96,7 +96,7 @@ end
 
 module Tuple3: sig
   type ('a, 'b, 'c) t = 'a * 'b * 'c
-  include Concepts.Able.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
+  include Facets.Able.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
   val make: 'a -> 'b -> 'c -> ('a, 'b, 'c) t
   val get_0: ('a, 'b, 'c) t -> 'a
   val get_1: ('a, 'b, 'c) t -> 'b
@@ -106,7 +106,7 @@ end
 
 module Tuple4: sig
   type ('a, 'b, 'c, 'd) t = 'a * 'b * 'c * 'd
-  include Concepts.Able.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
+  include Facets.Able.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
   val make: 'a -> 'b -> 'c -> 'd -> ('a, 'b, 'c, 'd) t
   val get_0: ('a, 'b, 'c, 'd) t -> 'a
   val get_1: ('a, 'b, 'c, 'd) t -> 'b
@@ -117,7 +117,7 @@ end
 
 module Tuple5: sig
   type ('a, 'b, 'c, 'd, 'e) t = 'a * 'b * 'c * 'd * 'e
-  include Concepts.Able.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
+  include Facets.Able.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
   val make: 'a -> 'b -> 'c -> 'd -> 'e -> ('a, 'b, 'c, 'd, 'e) t
   val get_0: ('a, 'b, 'c, 'd, 'e) t -> 'a
   val get_1: ('a, 'b, 'c, 'd, 'e) t -> 'b

@@ -1,4 +1,0 @@
-module Specialize4(M: General.Traits.Representable.S4)(A: General.Traits.Representable.S0)(B: General.Traits.Representable.S0)(C: General.Traits.Representable.S0)(D: General.Traits.Representable.S0): sig
-  type t = (A.t, B.t, C.t, D.t) M.t
-  val repr: t -> bytes
-end

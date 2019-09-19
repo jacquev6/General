@@ -65,18 +65,18 @@ end
 module SelfB = struct
   include SelfA
 
-  include Traits.Comparable.Between.Make0(SelfA)
-  include Traits.Comparable.MinMax.Make0(SelfA)
-  include Traits.Equatable.Different.Make0(SelfA)
+  include Facets.Comparable.Between.Make0(SelfA)
+  include Facets.Comparable.MinMax.Make0(SelfA)
+  include Facets.Equatable.Different.Make0(SelfA)
 end
 
 module Self = struct
   include SelfB
 
   module O = struct
-    include Traits.Comparable.Operators.Make0(SelfB)
-    include Traits.Equatable.Operators.Make0(SelfB)
-    include Traits.Ringoid.Operators.Make0(SelfB)
+    include Facets.Comparable.Operators.Make0(SelfB)
+    include Facets.Equatable.Operators.Make0(SelfB)
+    include Facets.Ringoid.Operators.Make0(SelfB)
 
     let (mod) = modulo
   end

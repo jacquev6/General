@@ -2,8 +2,8 @@ digraph {
   compound=true
   rankdir="BT"
   node [shape="box"]
-  subgraph cluster_Traits {
-    label="Traits"
+  subgraph cluster_Facets {
+    label="Facets"
     labelloc="b"
     representable [label="Representable\n\nrepr"]
     equatable [label="Equatable\n\nequal\n\ndifferent"]
@@ -18,10 +18,6 @@ digraph {
     predsucc [label="PredSucc\n\npred\nsucc"]
     bounded [label="Bounded\n\nsmallest\ngreatest"]
     bitwise [label="Bitwise\n\nBitwise.logical_and\nBitwise.logical_or\nBitwise.logical_xor\nBitwise.logical_not\nBitwise.logical_shift_left\nBitwise.logical_shift_right\nBitwise.arithmetic_shift_right"]
-  }
-  subgraph cluster_Concepts {
-    label="Concepts"
-    labelloc="b"
     identifiable [label="Identifiable"]
     able [label="Able"]
     stringable [label="Stringable"]

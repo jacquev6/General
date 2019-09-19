@@ -3,27 +3,26 @@
   (deps
     (:src General.cppo.mli)
     Generated/Atoms.mli
-    Generated/Concepts.mli
-    Generated/Traits.mli
+    Generated/Facets.mli
     Generated/Wrappers.mli
-    OldFashion/Traits/FilterMapable.signatures.ToContainer.ml
-    OldFashion/Traits/FilterMapable.signatures.ml
-    OldFashion/Traits/Foldable.signatures.Basic.ml
-    OldFashion/Traits/Foldable.signatures.Right.Basic.ml
-    OldFashion/Traits/Foldable.signatures.Right.ml
-    OldFashion/Traits/Foldable.signatures.Short.Basic.ml
-    OldFashion/Traits/Foldable.signatures.Short.Right.Basic.ml
-    OldFashion/Traits/Foldable.signatures.Short.Right.ml
-    OldFashion/Traits/Foldable.signatures.Short.ml
-    OldFashion/Traits/Foldable.signatures.ml
-    OldFashion/Traits/Scanable.signatures.Right.ToContainer.ml
-    OldFashion/Traits/Scanable.signatures.Right.ml
-    OldFashion/Traits/Scanable.signatures.Short.Right.ToContainer.ml
-    OldFashion/Traits/Scanable.signatures.Short.Right.ml
-    OldFashion/Traits/Scanable.signatures.Short.ToContainer.ml
-    OldFashion/Traits/Scanable.signatures.Short.ml
-    OldFashion/Traits/Scanable.signatures.ToContainer.ml
-    OldFashion/Traits/Scanable.signatures.ml
+    OldFashion/Facets/FilterMapable.signatures.ToContainer.ml
+    OldFashion/Facets/FilterMapable.signatures.ml
+    OldFashion/Facets/Foldable.signatures.Basic.ml
+    OldFashion/Facets/Foldable.signatures.Right.Basic.ml
+    OldFashion/Facets/Foldable.signatures.Right.ml
+    OldFashion/Facets/Foldable.signatures.Short.Basic.ml
+    OldFashion/Facets/Foldable.signatures.Short.Right.Basic.ml
+    OldFashion/Facets/Foldable.signatures.Short.Right.ml
+    OldFashion/Facets/Foldable.signatures.Short.ml
+    OldFashion/Facets/Foldable.signatures.ml
+    OldFashion/Facets/Scanable.signatures.Right.ToContainer.ml
+    OldFashion/Facets/Scanable.signatures.Right.ml
+    OldFashion/Facets/Scanable.signatures.Short.Right.ToContainer.ml
+    OldFashion/Facets/Scanable.signatures.Short.Right.ml
+    OldFashion/Facets/Scanable.signatures.Short.ToContainer.ml
+    OldFashion/Facets/Scanable.signatures.Short.ml
+    OldFashion/Facets/Scanable.signatures.ToContainer.ml
+    OldFashion/Facets/Scanable.signatures.ml
     Reset/CommonHeader.ml
     Reset/Footer.ml
     Reset/PervasivesWhitelist.ml
@@ -68,17 +67,30 @@
     Atoms/Unit.foundations.ml
     Atoms/Unit.ml
     Compare.ml
-    Concepts/Able.ml
-    Concepts/FixedWidthInteger.ml
-    Concepts/Identifiable.ml
-    Concepts/Integer.ml
-    Concepts/Number.ml
-    Concepts/OfStandardNumber.ml
-    Concepts/RealNumber.ml
-    Concepts/Stringable.ml
-    Concepts/ToStandardNumber.ml
-    Concepts/empty_concept.ml
     Equate.ml
+    Facets/Able.ml
+    Facets/Bitwise.ml
+    Facets/Bounded.ml
+    Facets/Comparable.ml
+    Facets/Displayable.ml
+    Facets/Equatable.ml
+    Facets/FixedWidthInteger.ml
+    Facets/Identifiable.ml
+    Facets/Integer.ml
+    Facets/Number.ml
+    Facets/OfFloat.ml
+    Facets/OfInt.ml
+    Facets/OfStandardNumber.ml
+    Facets/Parsable.ml
+    Facets/PredSucc.ml
+    Facets/RealNumber.ml
+    Facets/Representable.ml
+    Facets/Ringoid.ml
+    Facets/Stringable.ml
+    Facets/ToFloat.ml
+    Facets/ToInt.ml
+    Facets/ToStandardNumber.ml
+    Facets/empty_facet.ml
     Generated/Atoms/BigInt.ml
     Generated/Atoms/Bool.ml
     Generated/Atoms/Bytes.ml
@@ -101,28 +113,28 @@
     Generated/Atoms/NativeInt.ml
     Generated/Atoms/String.ml
     Generated/Atoms/Unit.ml
-    Generated/Concepts/Able.ml
-    Generated/Concepts/FixedWidthInteger.ml
-    Generated/Concepts/Identifiable.ml
-    Generated/Concepts/Integer.ml
-    Generated/Concepts/Number.ml
-    Generated/Concepts/OfStandardNumber.ml
-    Generated/Concepts/RealNumber.ml
-    Generated/Concepts/Stringable.ml
-    Generated/Concepts/ToStandardNumber.ml
-    Generated/Traits/Bitwise.ml
-    Generated/Traits/Bounded.ml
-    Generated/Traits/Comparable.ml
-    Generated/Traits/Displayable.ml
-    Generated/Traits/Equatable.ml
-    Generated/Traits/OfFloat.ml
-    Generated/Traits/OfInt.ml
-    Generated/Traits/Parsable.ml
-    Generated/Traits/PredSucc.ml
-    Generated/Traits/Representable.ml
-    Generated/Traits/Ringoid.ml
-    Generated/Traits/ToFloat.ml
-    Generated/Traits/ToInt.ml
+    Generated/Facets/Able.ml
+    Generated/Facets/Bitwise.ml
+    Generated/Facets/Bounded.ml
+    Generated/Facets/Comparable.ml
+    Generated/Facets/Displayable.ml
+    Generated/Facets/Equatable.ml
+    Generated/Facets/FixedWidthInteger.ml
+    Generated/Facets/Identifiable.ml
+    Generated/Facets/Integer.ml
+    Generated/Facets/Number.ml
+    Generated/Facets/OfFloat.ml
+    Generated/Facets/OfInt.ml
+    Generated/Facets/OfStandardNumber.ml
+    Generated/Facets/Parsable.ml
+    Generated/Facets/PredSucc.ml
+    Generated/Facets/RealNumber.ml
+    Generated/Facets/Representable.ml
+    Generated/Facets/Ringoid.ml
+    Generated/Facets/Stringable.ml
+    Generated/Facets/ToFloat.ml
+    Generated/Facets/ToInt.ml
+    Generated/Facets/ToStandardNumber.ml
     Generated/Wrappers/Lazy.ml
     Generated/Wrappers/Option.ml
     Generated/Wrappers/Reference.ml
@@ -130,6 +142,27 @@
     Generated/Wrappers/Tuple3.ml
     Generated/Wrappers/Tuple4.ml
     Generated/Wrappers/Tuple5.ml
+    OldFashion/Facets/FilterMapable.ml
+    OldFashion/Facets/FilterMapable.signatures.ToContainer.ml
+    OldFashion/Facets/FilterMapable.signatures.ml
+    OldFashion/Facets/Foldable.ml
+    OldFashion/Facets/Foldable.signatures.Basic.ml
+    OldFashion/Facets/Foldable.signatures.Right.Basic.ml
+    OldFashion/Facets/Foldable.signatures.Right.ml
+    OldFashion/Facets/Foldable.signatures.Short.Basic.ml
+    OldFashion/Facets/Foldable.signatures.Short.Right.Basic.ml
+    OldFashion/Facets/Foldable.signatures.Short.Right.ml
+    OldFashion/Facets/Foldable.signatures.Short.ml
+    OldFashion/Facets/Foldable.signatures.ml
+    OldFashion/Facets/Scanable.ml
+    OldFashion/Facets/Scanable.signatures.Right.ToContainer.ml
+    OldFashion/Facets/Scanable.signatures.Right.ml
+    OldFashion/Facets/Scanable.signatures.Short.Right.ToContainer.ml
+    OldFashion/Facets/Scanable.signatures.Short.Right.ml
+    OldFashion/Facets/Scanable.signatures.Short.ToContainer.ml
+    OldFashion/Facets/Scanable.signatures.Short.ml
+    OldFashion/Facets/Scanable.signatures.ToContainer.ml
+    OldFashion/Facets/Scanable.signatures.ml
     OldFashion/Foundations/Format.ml
     OldFashion/Foundations/IntRange.ml
     OldFashion/Foundations/List.ml
@@ -158,27 +191,6 @@
     OldFashion/Specializations/Reference.ml
     OldFashion/Specializations/SortedMap.ml
     OldFashion/Specializations/SortedSet.ml
-    OldFashion/Traits/FilterMapable.ml
-    OldFashion/Traits/FilterMapable.signatures.ToContainer.ml
-    OldFashion/Traits/FilterMapable.signatures.ml
-    OldFashion/Traits/Foldable.ml
-    OldFashion/Traits/Foldable.signatures.Basic.ml
-    OldFashion/Traits/Foldable.signatures.Right.Basic.ml
-    OldFashion/Traits/Foldable.signatures.Right.ml
-    OldFashion/Traits/Foldable.signatures.Short.Basic.ml
-    OldFashion/Traits/Foldable.signatures.Short.Right.Basic.ml
-    OldFashion/Traits/Foldable.signatures.Short.Right.ml
-    OldFashion/Traits/Foldable.signatures.Short.ml
-    OldFashion/Traits/Foldable.signatures.ml
-    OldFashion/Traits/Scanable.ml
-    OldFashion/Traits/Scanable.signatures.Right.ToContainer.ml
-    OldFashion/Traits/Scanable.signatures.Right.ml
-    OldFashion/Traits/Scanable.signatures.Short.Right.ToContainer.ml
-    OldFashion/Traits/Scanable.signatures.Short.Right.ml
-    OldFashion/Traits/Scanable.signatures.Short.ToContainer.ml
-    OldFashion/Traits/Scanable.signatures.Short.ml
-    OldFashion/Traits/Scanable.signatures.ToContainer.ml
-    OldFashion/Traits/Scanable.signatures.ml
     Reset/CommonHeader.ml
     Reset/DefinitionHeader.ml
     Reset/Footer.ml
@@ -189,20 +201,6 @@
     Testing/Test.ml
     Testing/Testing.ml
     Testing/Tests.ml
-    Traits/Bitwise.ml
-    Traits/Bounded.ml
-    Traits/Comparable.ml
-    Traits/Displayable.ml
-    Traits/Equatable.ml
-    Traits/OfFloat.ml
-    Traits/OfInt.ml
-    Traits/Parsable.ml
-    Traits/PredSucc.ml
-    Traits/Representable.ml
-    Traits/Ringoid.ml
-    Traits/ToFloat.ml
-    Traits/ToInt.ml
-    Traits/empty_trait.ml
     Wrappers/Lazy.foundations.ml
     Wrappers/Lazy.ml
     Wrappers/Option.foundations.ml

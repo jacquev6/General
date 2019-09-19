@@ -9,10 +9,10 @@ module General: sig
   module CharSortedMap
   module CharSortedSet
   module Compare
-  module Concepts
   module Equate
   module Exception
   module Exit
+  module Facets
   module Float
   module FloatList
   module FloatOption
@@ -64,7 +64,6 @@ module General: sig
   module Test
   module Testing
   module Tests
-  module Traits
   module Tuple2
   module Tuple3
   module Tuple4

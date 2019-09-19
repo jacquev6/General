@@ -24,7 +24,7 @@ def indent(element, levels=1):
             yield from indent(sub, levels)
 
 
-class Facets:
+class Facet:
     def __init__(
             self, *,
             prefix, name,
@@ -468,11 +468,11 @@ class Type:
         yield f"type {self.type_params}t = {self.type}"
         if len(self.operators) > 0:
             yield mod_spec("O",
-                (f"include {base.contextualized_name(self.prefix)}.Operators.S{self.arity} with type t := t" for base in self.bases if base._Facets__has_operators()),
+                (f"include {base.contextualized_name(self.prefix)}.Operators.S{self.arity} with type t := t" for base in self.bases if base._Facet__has_operators()),
                 (f"val {value.name}: {value.value_type(self.arity, 't')}" for value in self.operators)
             )
         for base in self.bases:
-            if len(self.operators) > 0 and base._Facets__has_operators():
+            if len(self.operators) > 0 and base._Facet__has_operators():
                 operators_constraint = " and module O := O"
             else:
                 operators_constraint = ""

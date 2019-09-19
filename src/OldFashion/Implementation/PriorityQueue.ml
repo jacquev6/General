@@ -18,7 +18,7 @@ module Poly = struct
     BinaryHeap.pop_max ~cmp xs
 end
 
-module Make(E: Traits.Comparable.Basic.S0) = struct
+module Make(E: Facets.Comparable.Basic.S0) = struct
   let cmp (x, _) (y, _) =
     E.compare x y
 

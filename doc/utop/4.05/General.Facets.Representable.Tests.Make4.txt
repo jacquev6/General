@@ -1,0 +1,9 @@
+module Make4(M: General.Facets.Representable.Tests.Testable.S4)(E: sig
+  module A: General.Facets.Representable.Tests.Examples.Element
+  module B: General.Facets.Representable.Tests.Examples.Element
+  module C: General.Facets.Representable.Tests.Examples.Element
+  module D: General.Facets.Representable.Tests.Examples.Element
+  val representations: ((A.t, B.t, C.t, D.t) M.t * string) list
+end): sig
+  val test: General.Test.t
+end

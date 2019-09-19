@@ -25,7 +25,7 @@ end
 
 open General.Abbr
 
-module DemoInteger(N: sig val name: string end)(I: General.Concepts.Integer.S0) = struct
+module DemoInteger(N: sig val name: string end)(I: General.Facets.Integer.S0) = struct
   (* Define unusable operators to demonstrate that O actually defines the operators we use. *)
   let (=) = ()
   let (+) = ()
@@ -81,21 +81,21 @@ module IntMod3 = struct
   end
 
   module SelfB = struct
-    include General.Traits.Ringoid.Subtract.Make0(SelfA)
-    include General.Traits.Ringoid.Square.Make0(SelfA)
+    include General.Facets.Ringoid.Subtract.Make0(SelfA)
+    include General.Facets.Ringoid.Square.Make0(SelfA)
     include SelfA
   end
 
   module SelfC = struct
-    include General.Traits.Ringoid.Exponentiate.Make0(SelfB)
-    include General.Traits.PredSucc.PredSucc.Make0(SelfB)
+    include General.Facets.Ringoid.Exponentiate.Make0(SelfB)
+    include General.Facets.PredSucc.PredSucc.Make0(SelfB)
     include SelfB
   end
 
   module O = struct
     include General.Compare.Poly.O
     include General.Equate.Poly.O
-    include General.Traits.Ringoid.Operators.Make0(SelfC)
+    include General.Facets.Ringoid.Operators.Make0(SelfC)
 
     let (mod) x y = (x mod y)
   end
@@ -160,14 +160,14 @@ end
 let () = Tst.(
   let test =
     ~:: "de%s" "mo" [
-      (let module T = General.Traits.Comparable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
-      (let module T = General.Traits.Equatable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
-      (let module T = General.Traits.Representable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
-      (let module T = General.Traits.Ringoid.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
-      (let module T = General.Concepts.Number.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
-      (let module T = General.Concepts.RealNumber.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      (let module T = General.Facets.Comparable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      (let module T = General.Facets.Equatable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      (let module T = General.Facets.Representable.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      (let module T = General.Facets.Ringoid.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      (let module T = General.Facets.Number.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      (let module T = General.Facets.RealNumber.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
       (* Integer.Tests includes all tests above. The previous lines are only here to prove that we export the functors. *)
-      (let module T = General.Concepts.Integer.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
+      (let module T = General.Facets.Integer.Tests.Make0(IntMod3)(IntMod3Examples) in T.test);
       ~: "some %s" "test" (lazy ());
     ]
   in

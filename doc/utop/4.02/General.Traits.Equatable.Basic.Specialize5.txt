@@ -1,4 +1,0 @@
-module Specialize5(M: General.Traits.Equatable.Basic.S5)(A: General.Traits.Equatable.Basic.S0)(B: General.Traits.Equatable.Basic.S0)(C: General.Traits.Equatable.Basic.S0)(D: General.Traits.Equatable.Basic.S0)(E: General.Traits.Equatable.Basic.S0): sig
-  type t = (A.t, B.t, C.t, D.t, E.t) M.t
-  val equal: t -> t -> bool
-end

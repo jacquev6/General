@@ -4,14 +4,14 @@ module SelfA = Foundations.Tuple2
 
 module SelfB = struct
   include SelfA
-  include Traits.Comparable.GreaterLessThan.Make2(SelfA)
-  include Traits.Comparable.MinMax.Make2(SelfA)
-  include Traits.Equatable.Different.Make2(SelfA)
+  include Facets.Comparable.GreaterLessThan.Make2(SelfA)
+  include Facets.Comparable.MinMax.Make2(SelfA)
+  include Facets.Equatable.Different.Make2(SelfA)
 end
 
 module Self = struct
   include SelfB
-  include Traits.Comparable.Between.Make2(SelfB)
+  include Facets.Comparable.Between.Make2(SelfB)
 end
 
 include Self

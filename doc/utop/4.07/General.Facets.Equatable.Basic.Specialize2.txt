@@ -1,0 +1,4 @@
+module Specialize2(M: General.Facets.Equatable.Basic.S2)(A: General.Facets.Equatable.Basic.S0)(B: General.Facets.Equatable.Basic.S0): sig
+  type t = (A.t, B.t) M.t
+  val equal: t -> t -> bool
+end

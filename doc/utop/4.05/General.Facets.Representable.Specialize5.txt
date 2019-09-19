@@ -1,0 +1,4 @@
+module Specialize5(M: General.Facets.Representable.S5)(A: General.Facets.Representable.S0)(B: General.Facets.Representable.S0)(C: General.Facets.Representable.S0)(D: General.Facets.Representable.S0)(E: General.Facets.Representable.S0): sig
+  type t = (A.t, B.t, C.t, D.t, E.t) M.t
+  val repr: t -> string
+end

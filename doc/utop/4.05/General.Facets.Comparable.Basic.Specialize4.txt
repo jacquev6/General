@@ -1,0 +1,4 @@
+module Specialize4(M: General.Facets.Comparable.Basic.S4)(A: General.Facets.Comparable.Basic.S0)(B: General.Facets.Comparable.Basic.S0)(C: General.Facets.Comparable.Basic.S0)(D: General.Facets.Comparable.Basic.S0): sig
+  type t = (A.t, B.t, C.t, D.t) M.t
+  val compare: t -> t -> General.Compare.t
+end

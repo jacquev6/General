@@ -1,10 +1,10 @@
 module CallStack: sig
   type t = Pervasives.OCamlStandard.Printexc.raw_backtrace
-  include Traits.Displayable.S0 with type t := t
-  include Traits.Representable.S0 with type t := t
+  include Facets.Displayable.S0 with type t := t
+  include Facets.Representable.S0 with type t := t
   module Location: sig
     type t = Pervasives.OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}
-    include Concepts.Able.S0 with type t := t
+    include Facets.Able.S0 with type t := t
   end
 
   module Frame: sig
@@ -20,8 +20,8 @@ end
 
 module Exception: sig
   type t = exn
-  include Concepts.Identifiable.S0 with type t := t
-  include Traits.Displayable.S0 with type t := t
+  include Facets.Identifiable.S0 with type t := t
+  include Facets.Displayable.S0 with type t := t
   exception MatchFailure of (string * int * int)
   exception AssertFailure of (string * int * int)
   exception InvalidArgument of string
@@ -100,22 +100,22 @@ end
 
 module Unit: sig
   type t = unit
-  include Concepts.Able.S0 with type t := t
+  include Facets.Able.S0 with type t := t
   val ignore: _ -> t
 end
 
 module Bool: sig
   type t = bool
   module O: sig
-    include Concepts.Able.Operators.S0 with type t := t
+    include Facets.Able.Operators.S0 with type t := t
     val not: t -> t
     val (&&): t -> t -> t
     val (||): t -> t -> t
     val xor: t -> t -> t
   end
 
-  include Concepts.Able.S0 with type t := t and module O := O
-  include Concepts.Stringable.S0 with type t := t
+  include Facets.Able.S0 with type t := t and module O := O
+  include Facets.Stringable.S0 with type t := t
   val not: t -> t
   val and_: t -> t -> t
   val or_: t -> t -> t
@@ -124,45 +124,45 @@ end
 
 module Char: sig
   type t = char
-  include Concepts.Able.S0 with type t := t
-  include Traits.Displayable.S0 with type t := t
-  include Traits.OfInt.S0 with type t := t
-  include Traits.ToInt.S0 with type t := t
+  include Facets.Able.S0 with type t := t
+  include Facets.Displayable.S0 with type t := t
+  include Facets.OfInt.S0 with type t := t
+  include Facets.ToInt.S0 with type t := t
   val repeat: t -> len:(int) -> string
 end
 
 module Int: sig
   type t = int
-  include Concepts.FixedWidthInteger.S0 with type t := t
+  include Facets.FixedWidthInteger.S0 with type t := t
 end
 
 module Int32: sig
   type t = Pervasives.OCamlStandard.Int32.t
-  include Concepts.FixedWidthInteger.S0 with type t := t
+  include Facets.FixedWidthInteger.S0 with type t := t
 end
 
 module Int64: sig
   type t = Pervasives.OCamlStandard.Int64.t
-  include Concepts.FixedWidthInteger.S0 with type t := t
+  include Facets.FixedWidthInteger.S0 with type t := t
 end
 
 module NativeInt: sig
   type t = Pervasives.OCamlStandard.Nativeint.t
-  include Concepts.FixedWidthInteger.S0 with type t := t
+  include Facets.FixedWidthInteger.S0 with type t := t
 end
 
 module BigInt: sig
   type t = Pervasives.OCamlStandard.Big_int.big_int
-  include Concepts.Integer.S0 with type t := t
+  include Facets.Integer.S0 with type t := t
 end
 
 module Float: sig
   type t = float
-  include Concepts.RealNumber.S0 with type t := t
-  include Traits.Bounded.S0 with type t := t
+  include Facets.RealNumber.S0 with type t := t
+  include Facets.Bounded.S0 with type t := t
   module Class: sig
     type t = Normal | SubNormal | Zero | Infinite | NotANumber
-    include Concepts.Able.S0 with type t := t
+    include Facets.Able.S0 with type t := t
     val of_float: float -> t
   end
 
@@ -201,12 +201,12 @@ end
 module String: sig
   type t = string
   module O: sig
-    include Concepts.Able.Operators.S0 with type t := t
+    include Facets.Able.Operators.S0 with type t := t
     val (^): t -> t -> t
   end
 
-  include Concepts.Able.S0 with type t := t and module O := O
-  include Concepts.Stringable.S0 with type t := t
+  include Facets.Able.S0 with type t := t and module O := O
+  include Facets.Stringable.S0 with type t := t
   val of_char: char -> t
   val of_list: char list -> t
   val to_list: t -> char list
@@ -235,8 +235,8 @@ end
 
 module Bytes: sig
   type t = bytes
-  include Concepts.Able.S0 with type t := t
-  include Traits.Displayable.S0 with type t := t
+  include Facets.Able.S0 with type t := t
+  include Facets.Displayable.S0 with type t := t
   val size: t -> int
   val of_string: string -> t
   val get: t -> int -> char

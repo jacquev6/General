@@ -1,4 +1,4 @@
-module Make(K: General.Traits.Comparable.Basic.S0): sig
+module Make(K: General.Facets.Comparable.Basic.S0): sig
   type 'a t
   val add: 'a t -> k:K.t -> v:'a -> bool * 'a t
   val empty: 'a t

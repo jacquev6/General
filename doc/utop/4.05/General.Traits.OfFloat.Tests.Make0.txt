@@ -1,4 +1,0 @@
-module Make0(M: General.Traits.OfFloat.Tests.Testable.S0)(E: sig
-end): sig
-  val test: General.Test.t
-end

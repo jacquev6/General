@@ -5,7 +5,7 @@ import shutil
 import subprocess
 import textwrap
 
-from .facets import Facets, Type, OCamlException, Value, UnlabelledParameter, LabelledParameter, DelegateParameter, Extension, variadic_type_marker as t, abcd, max_arity, generate, indent
+from .facets import Facet, Type, OCamlException, Value, UnlabelledParameter, LabelledParameter, DelegateParameter, Extension, variadic_type_marker as t, abcd, max_arity, generate, indent
 
 values = {}
 
@@ -63,55 +63,32 @@ def exception(name, *arguments):
     return OCamlException(name, arguments)
 
 
-traits = []
+facets = []
 
-def trait(
+def facet(
         name,
         *,
         variadic=True,
         submodule=None,
+        bases=[],
         values=[],
         extensions=[],
         test_examples=[],
         test_requirements=[],
 ):
-    trait = Facets(
-        prefix="Traits",
+    facet = Facet(
+        prefix="Facets",
         name=name,
         variadic=variadic,
         submodule=submodule,
-        bases=[],
+        bases=bases,
         values=values,
         extensions=extensions,
         test_examples=test_examples,
         test_requirements=test_requirements,
     )
-    traits.append(trait)
-    return trait
-
-
-concepts = []
-
-def concept(
-        name,
-        *,
-        bases,
-        values=[],
-        test_requirements=[],
-):
-    concept = Facets(
-        prefix="Concepts",
-        name=name,
-        variadic=True,
-        submodule=None,
-        bases=bases,
-        values=values,
-        extensions=[],
-        test_examples=[],
-        test_requirements=test_requirements,
-    )
-    concepts.append(concept)
-    return concept
+    facets.append(facet)
+    return facet
 
 
 atoms = []
@@ -208,7 +185,7 @@ def make_dune():
     yield "  (deps"
     yield "    (:src General.cppo.mli)"
     for name in sorted(itertools.chain(
-        glob.glob("src/OldFashion/Traits/*.signatures*.ml", recursive=False),
+        glob.glob("src/OldFashion/Facets/*.signatures*.ml", recursive=False),
         glob.glob("src/Generated/*.mli", recursive=False),
         filter(lambda path: path != "src/Reset/DefinitionHeader.ml", glob.glob("src/Reset/*.ml*", recursive=False)),
     )):
@@ -238,13 +215,13 @@ def make_dune():
     yield ")"
 
 
-###### TRAITS ######
+###### FACETS ######
 
-# @feature (?) Add trait Testable with val test: Test.t
+# @feature (?) Add facet Testable with val test: Test.t
 
 # A *representation* is a string representing a value for a software developer audience.
 # When possible, it should be a valid OCaml expression for the value.
-representable = trait(
+representable = facet(
     "Representable",
     values=[val("repr", t, deleg("repr"), "string")],
     test_examples=[val("representations", f"({t} * string) list")],
@@ -252,7 +229,7 @@ representable = trait(
 
 equalities = val("equalities", f"{t} list list")
 
-equatable = trait(
+equatable = facet(
     "Equatable",
     values=[val("equal", t, t, deleg("equal"), "bool", operator="=")],
     extensions=[
@@ -269,16 +246,16 @@ equatable = trait(
     test_requirements=[representable],
 )
 
-displayable = trait(
+displayable = facet(
     "Displayable",
     variadic=False,
     values=[val("to_string", t, "string")],
     test_examples=[val("displays", f"({t} * string) list")],
 )
 
-# @feature Traits.Hashable with val hash: t -> int, Poly using Hashtbl.hash
+# @feature Facets.Hashable with val hash: t -> int, Poly using Hashtbl.hash
 
-parsable = trait(
+parsable = facet(
     "Parsable",
     variadic=False,
     values=[
@@ -289,7 +266,7 @@ parsable = trait(
     test_requirements=[equatable, representable],
 )
 
-comparable = trait(
+comparable = facet(
     "Comparable",
     values=[val("compare", t, t, deleg("compare"), "Compare.t")],
     extensions=[
@@ -328,7 +305,7 @@ comparable = trait(
     test_requirements=[equatable, representable],
 )
 
-ringoid = trait(
+ringoid = facet(
     "Ringoid",
     variadic=False,
     values=[
@@ -373,7 +350,7 @@ ringoid = trait(
     test_requirements=[equatable, representable],
 )
 
-of_int = trait(
+of_int = facet(
     "OfInt",
     variadic=False,
     values=[
@@ -381,7 +358,7 @@ of_int = trait(
     ],
 )
 
-to_int = trait(
+to_int = facet(
     "ToInt",
     variadic=False,
     values=[
@@ -389,7 +366,7 @@ to_int = trait(
     ],
 )
 
-of_float = trait(
+of_float = facet(
     "OfFloat",
     variadic=False,
     values=[
@@ -397,7 +374,7 @@ of_float = trait(
     ],
 )
 
-to_float = trait(
+to_float = facet(
     "ToFloat",
     variadic=False,
     values=[
@@ -405,7 +382,7 @@ to_float = trait(
     ],
 )
 
-pred_succ = trait(
+pred_succ = facet(
     "PredSucc",
     variadic=False,
     values=[
@@ -423,7 +400,7 @@ pred_succ = trait(
     test_requirements=[equatable, representable],
 )
 
-bounded = trait(
+bounded = facet(
     "Bounded",
     variadic=False,
     values=[
@@ -432,7 +409,7 @@ bounded = trait(
     ],
 )
 
-bitwise = trait(
+bitwise = facet(
     "Bitwise",
     variadic=False,
     submodule="Bitwise",
@@ -447,42 +424,40 @@ bitwise = trait(
     ],
 )
 
-###### CONCEPTS ######
+# @feature Facets for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer
 
-# @feature Concepts for iterables and collections. Something like Collection, Container, MonoBag, MultiBag, LinearContainer
-
-identifiable = concept(
+identifiable = facet(
     "Identifiable",
     bases=[equatable, representable],
 )
 
-able = concept(
+able = facet(
     "Able",
     bases=[identifiable, comparable],
 )
 
-stringable = concept(
+stringable = facet(
     "Stringable",
     bases=[displayable, parsable],
     test_requirements=[representable, equatable],  # @todo Deduce from parsable's test requirements
 )
 
-of_standard_numbers = concept(
+of_standard_numbers = facet(
     "OfStandardNumber",
     bases=[of_int, of_float],
 )
 
-number = concept(
+number = facet(
     "Number",
     bases=[identifiable, stringable, ringoid, of_standard_numbers],
 )
 
-to_standard_numbers = concept(
+to_standard_numbers = facet(
     "ToStandardNumber",
     bases=[to_int, to_float],
 )
 
-real_number = concept(
+real_number = facet(
     "RealNumber",
     # @feature sign
     bases=[number, comparable, to_standard_numbers],
@@ -492,7 +467,7 @@ real_number = concept(
     ],
 )
 
-integer = concept(
+integer = facet(
     "Integer",
     # @feature Bitwise?
     # @feature gcd, lcm, quomod
@@ -500,7 +475,7 @@ integer = concept(
     bases=[real_number, pred_succ],
 )
 
-fixed_width_integer = concept(
+fixed_width_integer = facet(
     "FixedWidthInteger",
     bases=[integer, bounded, bitwise],
     values=[val("width", "int")],
@@ -810,7 +785,7 @@ string = atom(
         val("split", t, {"sep": t}, "t list"),
         val("split'", t, {"seps": "char list"}, "t list"),
 
-        #   (* @feature Traits *)
+        #   (* @feature Facets *)
         val("fold", {"init": "'a"}, t, {"f": "'a -> char -> 'a"}, "'a"),
         val("filter", t, {"f": "char -> bool"}, t),
     ]
@@ -932,14 +907,14 @@ reference = wrapper(
         # @feature SpecializeRepresentable
         # @feature SpecializeAble (merge of three previous)
         textwrap.dedent("""\
-            module SpecializePredSucc(A: Traits.PredSucc.S0): sig
+            module SpecializePredSucc(A: Facets.PredSucc.S0): sig
               type nonrec t = A.t t
               val increment: t -> unit
               val decrement: t -> unit
             end
         """).splitlines(),
         textwrap.dedent("""\
-            module SpecializeRingoidOperators(A: Traits.Ringoid.Basic.S0): sig
+            module SpecializeRingoidOperators(A: Facets.Ringoid.Basic.S0): sig
               type nonrec t = A.t t
               val (=+): t -> A.t -> unit
               val (=-): t -> A.t -> unit
@@ -948,7 +923,7 @@ reference = wrapper(
             end
         """).splitlines(),
         textwrap.dedent("""\
-            module SpecializeRingoid(A: Traits.Ringoid.Basic.S0): sig
+            module SpecializeRingoid(A: Facets.Ringoid.Basic.S0): sig
               type nonrec t = A.t t
               module O: module type of SpecializeRingoidOperators(A) with type t := t
             end
@@ -982,7 +957,7 @@ if __name__ == "__main__":
         with open(path, "w") as f:
             generate(items, file=f)
 
-    all_items = (traits, concepts, atoms, wrappers)
+    all_items = (facets, atoms, wrappers)
 
     gen(
         "doc/Facets.dot",

@@ -4,14 +4,14 @@ module SelfA = Foundations.Tuple3
 
 module SelfB = struct
   include SelfA
-  include Traits.Comparable.GreaterLessThan.Make3(SelfA)
-  include Traits.Comparable.MinMax.Make3(SelfA)
-  include Traits.Equatable.Different.Make3(SelfA)
+  include Facets.Comparable.GreaterLessThan.Make3(SelfA)
+  include Facets.Comparable.MinMax.Make3(SelfA)
+  include Facets.Equatable.Different.Make3(SelfA)
 end
 
 module Self = struct
   include SelfB
-  include Traits.Comparable.Between.Make3(SelfB)
+  include Facets.Comparable.Between.Make3(SelfB)
 end
 
 include Self

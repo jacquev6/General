@@ -34,7 +34,7 @@ module Make(M: sig
   val to_string: t -> string
   val compare: t -> t -> int
   val equal: t -> t -> bool
-end): Concepts.FixedWidthInteger.S0 with type t = M.t = struct
+end): Facets.FixedWidthInteger.S0 with type t = M.t = struct
   module SelfA = struct
     open M
 
@@ -85,31 +85,31 @@ end): Concepts.FixedWidthInteger.S0 with type t = M.t = struct
   end
 
   module SelfB = struct
-    include Traits.Comparable.GreaterLessThan.Make0(SelfA)
-    include Traits.Comparable.MinMax.Make0(SelfA)
-    include Traits.Equatable.Different.Make0(SelfA)
-    include Traits.Ringoid.Square.Make0(SelfA)
+    include Facets.Comparable.GreaterLessThan.Make0(SelfA)
+    include Facets.Comparable.MinMax.Make0(SelfA)
+    include Facets.Equatable.Different.Make0(SelfA)
+    include Facets.Ringoid.Square.Make0(SelfA)
 
     include SelfA
   end
 
   module SelfC = struct
-    include Traits.Ringoid.Exponentiate.Make0(struct
+    include Facets.Ringoid.Exponentiate.Make0(struct
       include SelfB
 
       let exponentiate_negative_exponent ~exponentiate:_ _ n =
         Exception.invalid_argument "%s.exponentiate: Negative exponent: %i" M.name n
     end)
-    include Traits.Comparable.Between.Make0(SelfB)
+    include Facets.Comparable.Between.Make0(SelfB)
 
     include SelfB
   end
 
   module Self = struct
     module O = struct
-      include Traits.Comparable.Operators.Make0(SelfC)
-      include Traits.Equatable.Operators.Make0(SelfC)
-      include Traits.Ringoid.Operators.Make0(SelfC)
+      include Facets.Comparable.Operators.Make0(SelfC)
+      include Facets.Equatable.Operators.Make0(SelfC)
+      include Facets.Ringoid.Operators.Make0(SelfC)
 
       let (mod) = SelfC.modulo
     end

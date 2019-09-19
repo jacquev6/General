@@ -2,14 +2,14 @@
 
 module SelfA = struct
   include Foundations.Option
-  include Traits.Equatable.Different.Make1(Foundations.Option)
-  include Traits.Comparable.GreaterLessThan.Make1(Foundations.Option)
-  include Traits.Comparable.MinMax.Make1(Foundations.Option)
+  include Facets.Equatable.Different.Make1(Foundations.Option)
+  include Facets.Comparable.GreaterLessThan.Make1(Foundations.Option)
+  include Facets.Comparable.MinMax.Make1(Foundations.Option)
 end
 
 module Self = struct
   include SelfA
-  include Traits.Comparable.Between.Make1(SelfA)
+  include Facets.Comparable.Between.Make1(SelfA)
 end
 
 module Specialize(A: sig type t end) = struct

@@ -4,14 +4,14 @@ module SelfA = Foundations.Tuple5
 
 module SelfB = struct
   include SelfA
-  include Traits.Comparable.GreaterLessThan.Make5(SelfA)
-  include Traits.Comparable.MinMax.Make5(SelfA)
-  include Traits.Equatable.Different.Make5(SelfA)
+  include Facets.Comparable.GreaterLessThan.Make5(SelfA)
+  include Facets.Comparable.MinMax.Make5(SelfA)
+  include Facets.Equatable.Different.Make5(SelfA)
 end
 
 module Self = struct
   include SelfB
-  include Traits.Comparable.Between.Make5(SelfB)
+  include Facets.Comparable.Between.Make5(SelfB)
 end
 
 include Self

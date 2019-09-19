@@ -1,4 +1,4 @@
-module SpecializeRepresentable(A: General.Traits.Representable.S0): sig
+module SpecializeRepresentable(A: General.Facets.Representable.S0): sig
   type t = A.t list
   val repr: t -> string
 end

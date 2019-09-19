@@ -17,7 +17,7 @@ module Self = struct
     include (Ref: module type of Ref with type 'a t := 'a Ref.t)
   end
 
-  module SpecializePredSucc(A: Traits.PredSucc.S0) = struct
+  module SpecializePredSucc(A: Facets.PredSucc.S0) = struct
     open Ref.O
 
     type t = A.t Ref.t
@@ -29,7 +29,7 @@ module Self = struct
       r := A.pred !r
   end
 
-  module SpecializeRingoidOperators(A: Traits.Ringoid.Basic.S0) = struct
+  module SpecializeRingoidOperators(A: Facets.Ringoid.Basic.S0) = struct
     open Ref.O
 
     type t = A.t Ref.t
@@ -47,7 +47,7 @@ module Self = struct
       r := A.divide !r v
   end
 
-  module SpecializeRingoid(A: Traits.Ringoid.Basic.S0) = struct
+  module SpecializeRingoid(A: Facets.Ringoid.Basic.S0) = struct
     type t = A.t Ref.t
 
     module O = (SpecializeRingoidOperators(A): module type of SpecializeRingoidOperators(A) with type t := t)
