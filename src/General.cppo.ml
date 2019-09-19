@@ -112,7 +112,7 @@ module Foundations = struct
   end
 
   module PervasivesWhitelist = struct
-    #include "OldFashion/Foundations/PervasivesWhitelist.ml"
+    #include "Reset/PervasivesWhitelist.ml"
   end
 end
 
@@ -253,7 +253,7 @@ module Format = struct
 end
 
 module StandardInt = struct
-  #include "OldFashion/Implementation/StandardInt.ml"
+  #include "Atoms/StandardInt.ml"
 end
 
 module Int32 = struct

@@ -27,6 +27,7 @@
     OldFashion/Traits/Scanable.signatures.ml
     Reset/CommonHeader.ml
     Reset/Footer.ml
+    Reset/PervasivesWhitelist.ml
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml
     Reset/SignatureHeader.ml
@@ -63,6 +64,7 @@
     Atoms/Int32.ml
     Atoms/Int64.ml
     Atoms/NativeInt.ml
+    Atoms/StandardInt.ml
     Atoms/String.foundations.ml
     Atoms/String.ml
     Atoms/Unit.foundations.ml
@@ -133,7 +135,6 @@
     OldFashion/Foundations/Format.ml
     OldFashion/Foundations/IntRange.ml
     OldFashion/Foundations/List.ml
-    OldFashion/Foundations/PervasivesWhitelist.ml
     OldFashion/Foundations/Stream.ml
     OldFashion/Implementation/Array.ml
     OldFashion/Implementation/BinaryHeap.ml
@@ -149,7 +150,6 @@
     OldFashion/Implementation/RedBlackTree.ml
     OldFashion/Implementation/SortedMap.ml
     OldFashion/Implementation/SortedSet.ml
-    OldFashion/Implementation/StandardInt.ml
     OldFashion/Implementation/StandardOutChannel.ml
     OldFashion/Implementation/StdErr.ml
     OldFashion/Implementation/StdIn.ml
@@ -184,6 +184,7 @@
     Reset/CommonHeader.ml
     Reset/DefinitionHeader.ml
     Reset/Footer.ml
+    Reset/PervasivesWhitelist.ml
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml
     Shorten.ml
