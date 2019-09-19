@@ -328,8 +328,8 @@ let check_int_list ~expected actual =
 
 let check_tuple2 ~repr_a ~repr_b ~equal_a ~equal_b ~expected actual =
   check
-    ~repr:(Tuples.Tuple2.repr ~repr_a ~repr_b)
-    ~equal:(Tuples.Tuple2.equal ~equal_a ~equal_b)
+    ~repr:(Tuple2.repr ~repr_a ~repr_b)
+    ~equal:(Tuple2.equal ~equal_a ~equal_b)
     ~expected actual
 
 let check_int_tuple2 ~expected actual =
@@ -340,8 +340,8 @@ let check_int_tuple2 ~expected actual =
 
 let check_tuple3 ~repr_a ~repr_b ~repr_c ~equal_a ~equal_b ~equal_c ~expected actual =
   check
-    ~repr:(Tuples.Tuple3.repr ~repr_a ~repr_b ~repr_c)
-    ~equal:(Tuples.Tuple3.equal ~equal_a ~equal_b ~equal_c)
+    ~repr:(Tuple3.repr ~repr_a ~repr_b ~repr_c)
+    ~equal:(Tuple3.equal ~equal_a ~equal_b ~equal_c)
     ~expected actual
 
 let check_int_tuple3 ~expected actual =
@@ -352,8 +352,8 @@ let check_int_tuple3 ~expected actual =
 
 let check_tuple4 ~repr_a ~repr_b ~repr_c ~repr_d ~equal_a ~equal_b ~equal_c ~equal_d ~expected actual =
   check
-    ~repr:(Tuples.Tuple4.repr ~repr_a ~repr_b ~repr_c ~repr_d)
-    ~equal:(Tuples.Tuple4.equal ~equal_a ~equal_b ~equal_c ~equal_d)
+    ~repr:(Tuple4.repr ~repr_a ~repr_b ~repr_c ~repr_d)
+    ~equal:(Tuple4.equal ~equal_a ~equal_b ~equal_c ~equal_d)
     ~expected actual
 
 let check_int_tuple4 ~expected actual =
@@ -364,8 +364,8 @@ let check_int_tuple4 ~expected actual =
 
 let check_tuple5 ~repr_a ~repr_b ~repr_c ~repr_d ~repr_e ~equal_a ~equal_b ~equal_c ~equal_d ~equal_e ~expected actual =
   check
-    ~repr:(Tuples.Tuple5.repr ~repr_a ~repr_b ~repr_c ~repr_d ~repr_e)
-    ~equal:(Tuples.Tuple5.equal ~equal_a ~equal_b ~equal_c ~equal_d ~equal_e)
+    ~repr:(Tuple5.repr ~repr_a ~repr_b ~repr_c ~repr_d ~repr_e)
+    ~equal:(Tuple5.equal ~equal_a ~equal_b ~equal_c ~equal_d ~equal_e)
     ~expected actual
 
 let check_int_tuple5 ~expected actual =

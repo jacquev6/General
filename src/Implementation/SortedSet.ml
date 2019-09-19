@@ -21,7 +21,7 @@ module Poly = struct
     vs
     |> List.fold ~init:empty ~f:(fun t v ->
       add t ~v
-      |> Tuples.Tuple2.get_1
+      |> Tuple2.get_1
     )
 
   let replace t ~v =
@@ -59,7 +59,7 @@ module Make(E: Traits.Comparable.Basic.S0) = struct
     vs
     |> List.fold ~init:empty ~f:(fun t v ->
       add t ~v
-      |> Tuples.Tuple2.get_1
+      |> Tuple2.get_1
     )
 
   let replace t ~v =

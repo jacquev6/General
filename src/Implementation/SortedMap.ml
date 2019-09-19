@@ -23,7 +23,7 @@ module Poly = struct
     vs
     |> List.fold ~init:empty ~f:(fun t (k, v) ->
       add t ~k ~v
-      |> Tuples.Tuple2.get_1
+      |> Tuple2.get_1
     )
 
   let replace t ~k ~v =
@@ -46,7 +46,7 @@ module Poly = struct
 
   let try_get t ~k =
     Tree.try_get t ~cmp ~cmp_k k
-    |> Option.map ~f:Tuples.Tuple2.get_1
+    |> Option.map ~f:Tuple2.get_1
 
   let get t ~k =
     try_get t ~k
@@ -84,7 +84,7 @@ module Make(K: Traits.Comparable.Basic.S0) = struct
     vs
     |> List.fold ~init:empty ~f:(fun t (k, v) ->
       add t ~k ~v
-      |> Tuples.Tuple2.get_1
+      |> Tuple2.get_1
     )
 
   let replace t ~k ~v =
@@ -107,7 +107,7 @@ module Make(K: Traits.Comparable.Basic.S0) = struct
 
   let try_get t ~k =
     Tree.try_get t ~cmp ~cmp_k k
-    |> Option.map ~f:Tuples.Tuple2.get_1
+    |> Option.map ~f:Tuple2.get_1
 
   let get t ~k =
     try_get t ~k

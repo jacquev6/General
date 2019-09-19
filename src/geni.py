@@ -502,14 +502,18 @@ class Type:
     def __tests_implementation_items(self):
         # @todo Homogenize
         if self.name == "Class":
-            type_ = "SelfA.t"
+            type_1 = type_2 = "SelfA.t"
+        elif self.name.startswith("Tuple"):
+            type_1 = f"{self.type_params}t"
+            type_2 = self.type
+            yield f"type {self.type_params}t = {self.type}"
         else:
-            type_ = self.type
+            type_1 = type_2 = self.type
         yield mod_type("Examples",
-            (f"include {base.contextualized_name(self.prefix)}.Tests.Examples.S{self.arity} with type {self.type_params}t := {type_}" for base in self.bases),
+            (f"include {base.contextualized_name(self.prefix)}.Tests.Examples.S{self.arity} with type {self.type_params}t := {type_1}" for base in self.bases),
         )
         yield mod_type("Testable",
-            f"type {self.type_params}t = {type_}" if len(self.bases) > 0 else (),
+            f"type {self.type_params}t = {type_2}" if len(self.bases) > 0 else (),
             (f"include {base.contextualized_name(self.prefix)}.Tests.Testable.S{self.arity} with type {self.type_params}t := {self.type_params}t" for base in self.bases),
         )
         yield mod_impl("Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end)",
@@ -877,6 +881,7 @@ def wrapper(
     *,
     type_params,
     type,
+    arity=1,
     bases,
     operators=[],
     values,
@@ -887,7 +892,7 @@ def wrapper(
         name=name,
         type_params=type_params,
         type=type,
-        arity=1,
+        arity=arity,
         bases=bases,
         operators=operators,
         values=values,
@@ -1616,6 +1621,25 @@ reference = wrapper(
         """).splitlines(),
     ],
 )
+
+tuple_ = [
+    wrapper(
+        f"Tuple{arity}",
+        arity=arity,
+        type_params="({})".format(", ".join(f"'{a}" for a in abcd(arity))),
+        type=" * ".join(f"'{a}" for a in abcd(arity)),
+        bases=[able],
+        values=itertools.chain(
+            [val("make", *(f"'{a}" for a in abcd(arity)), "({}) t".format(", ".join(f"'{a}" for a in abcd(arity))))],
+            (
+                val(f"get_{n}", "({}) t".format(", ".join(f"'{a}" for a in abcd(arity))), f"'{abcd(n + 1)[-1]}")
+                for n in range(arity)
+            ),
+            [val("flip", "({}) t".format(", ".join(f"'{a}" for a in abcd(arity))), "({}) t".format(", ".join(f"'{a}" for a in reversed(abcd(arity)))))]
+        ),
+    )
+    for arity in range(2, max_arity)
+]
 
 if __name__ == "__main__":
     def gen(path, *items):

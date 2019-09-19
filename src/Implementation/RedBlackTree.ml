@@ -517,7 +517,7 @@ module Tests = struct
     "add" >:: (
       let make t x expected =
         ~: "add %s %i" (repr t) x (lazy (
-          check_poly ~repr:(Tuples.Tuple2.repr ~repr_a:Bool.repr ~repr_b:repr) ~expected (add t ~cmp x)
+          check_poly ~repr:(Tuple2.repr ~repr_a:Bool.repr ~repr_b:repr) ~expected (add t ~cmp x)
         ))
       in 
       let make_t t x expected =
@@ -764,7 +764,7 @@ module Tests = struct
     "remove" >:: (
       let make t x expected =
         ~: "remove %s %i" (repr t) x (lazy (
-          check_poly ~repr:(Tuples.Tuple2.repr ~repr_a:Bool.repr ~repr_b:repr) ~expected (remove t ~cmp ~cmp_k:cmp x)
+          check_poly ~repr:(Tuple2.repr ~repr_a:Bool.repr ~repr_b:repr) ~expected (remove t ~cmp ~cmp_k:cmp x)
         ))
       in
       let make_t t x expected =
@@ -1176,7 +1176,7 @@ module Tests = struct
         ));
         "remove" >: (lazy (
           check_poly
-            ~repr:(Tuples.Tuple2.repr ~repr_a:Bool.repr ~repr_b:repr)
+            ~repr:(Tuple2.repr ~repr_a:Bool.repr ~repr_b:repr)
             ~expected:(true, Empty)
             (remove (Black {l=Empty; v=42; r=Empty}) ~cmp ~cmp_k (`Int 42))
         ));

@@ -84,7 +84,6 @@
     Foundations/List.ml
     Foundations/PervasivesWhitelist.ml
     Foundations/Stream.ml
-    Foundations/Tuples.ml
     Generated/Atoms/BigInt.ml
     Generated/Atoms/Bool.ml
     Generated/Atoms/Bytes.ml
@@ -132,6 +131,10 @@
     Generated/Wrappers/Lazy.ml
     Generated/Wrappers/Option.ml
     Generated/Wrappers/Reference.ml
+    Generated/Wrappers/Tuple2.ml
+    Generated/Wrappers/Tuple3.ml
+    Generated/Wrappers/Tuple4.ml
+    Generated/Wrappers/Tuple5.ml
     Implementation/Array.ml
     Implementation/BinaryHeap.ml
     Implementation/Format.ml
@@ -152,7 +155,6 @@
     Implementation/StdIn.ml
     Implementation/StdOut.ml
     Implementation/Stream.ml
-    Implementation/Tuples.ml
     Reset/CommonHeader.ml
     Reset/DefinitionHeader.ml
     Reset/Footer.ml
@@ -208,6 +210,14 @@
     Wrappers/Option.ml
     Wrappers/Reference.foundations.ml
     Wrappers/Reference.ml
+    Wrappers/Tuple2.foundations.ml
+    Wrappers/Tuple2.ml
+    Wrappers/Tuple3.foundations.ml
+    Wrappers/Tuple3.ml
+    Wrappers/Tuple4.foundations.ml
+    Wrappers/Tuple4.ml
+    Wrappers/Tuple5.foundations.ml
+    Wrappers/Tuple5.ml
   )
   (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
 )

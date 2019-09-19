@@ -285,64 +285,6 @@ end
 
 #include "Generated/Wrappers.mli"
 
-module Tuple2: sig
-  type ('a, 'b) t = 'a * 'b
-
-  include Concepts.Able.S2 with type ('a, 'b) t := ('a, 'b) t
-
-  val make: 'a -> 'b -> ('a, 'b) t
-
-  val get_0: ('a, _) t -> 'a
-  val get_1: (_, 'b) t -> 'b
-
-  val flip: ('a, 'b) t -> ('b, 'a) t
-end
-
-module Tuple3: sig
-  type ('a, 'b, 'c) t = 'a * 'b * 'c
-
-  include Concepts.Able.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-
-  val make: 'a -> 'b -> 'c -> ('a, 'b, 'c) t
-
-  val get_0: ('a, _, _) t -> 'a
-  val get_1: (_, 'b, _) t -> 'b
-  val get_2: (_, _, 'c) t -> 'c
-
-  val flip: ('a, 'b, 'c) t -> ('c, 'b, 'a) t
-end
-
-module Tuple4: sig
-  type ('a, 'b, 'c, 'd) t = 'a * 'b * 'c * 'd
-
-  include Concepts.Able.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-
-  val make: 'a -> 'b -> 'c -> 'd -> ('a, 'b, 'c, 'd) t
-
-  val get_0: ('a, _, _, _) t -> 'a
-  val get_1: (_, 'b, _, _) t -> 'b
-  val get_2: (_, _, 'c, _) t -> 'c
-  val get_3: (_, _, _, 'd) t -> 'd
-
-  val flip: ('a, 'b, 'c, 'd) t -> ('d, 'c, 'b, 'a) t
-end
-
-module Tuple5: sig
-  type ('a, 'b, 'c, 'd, 'e) t = 'a * 'b * 'c * 'd * 'e
-
-  include Concepts.Able.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-
-  val make: 'a -> 'b -> 'c -> 'd -> 'e -> ('a, 'b, 'c, 'd, 'e) t
-
-  val get_0: ('a, _, _, _, _) t -> 'a
-  val get_1: (_, 'b, _, _, _) t -> 'b
-  val get_2: (_, _, 'c, _, _) t -> 'c
-  val get_3: (_, _, _, 'd, _) t -> 'd
-  val get_4: (_, _, _, _, 'e) t -> 'e
-
-  val flip: ('a, 'b, 'c, 'd, 'e) t -> ('e, 'd, 'c, 'b, 'a) t
-end
-
 (* Specializations of fixed-size containers *)
 
 module IntOption: sig

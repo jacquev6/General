@@ -83,8 +83,20 @@ module Foundations = struct
     #include "Foundations/IntRange.ml"
   end
 
-  module Tuples = struct
-    #include "Foundations/Tuples.ml"
+  module Tuple2 = struct
+    #include "Wrappers/Tuple2.foundations.ml"
+  end
+
+  module Tuple3 = struct
+    #include "Wrappers/Tuple3.foundations.ml"
+  end
+
+  module Tuple4 = struct
+    #include "Wrappers/Tuple4.foundations.ml"
+  end
+
+  module Tuple5 = struct
+    #include "Wrappers/Tuple5.foundations.ml"
   end
 
   module Exit = struct
@@ -340,13 +352,21 @@ module OutFile = struct
   #include "Implementation/OutFile.ml"
 end
 
-module Tuples = struct
-  #include "Implementation/Tuples.ml"
+module Tuple2 = struct
+  #include "Wrappers/Tuple2.ml"
 end
-module Tuple2 = Tuples.Tuple2
-module Tuple3 = Tuples.Tuple3
-module Tuple4 = Tuples.Tuple4
-module Tuple5 = Tuples.Tuple5
+
+module Tuple3 = struct
+  #include "Wrappers/Tuple3.ml"
+end
+
+module Tuple4 = struct
+  #include "Wrappers/Tuple4.ml"
+end
+
+module Tuple5 = struct
+  #include "Wrappers/Tuple5.ml"
+end
 
 module RedBlackTree = struct
   #include "Implementation/RedBlackTree.ml"
@@ -644,7 +664,10 @@ module Tests = struct
     Reference.Tests.test;
     Stream.Tests.test;
     String.Tests.test;
-    Tuples.Tests.test;
+    Tuple2.Tests.test;
+    Tuple3.Tests.test;
+    Tuple4.Tests.test;
+    Tuple5.Tests.test;
     Unit.Tests.test;
 
     IntRange.Tests.test;
