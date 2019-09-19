@@ -1,0 +1,131 @@
+digraph {
+  compound=true
+  rankdir="BT"
+  node [shape="box"]
+  subgraph cluster_Traits {
+    label="Traits"
+    labelloc="b"
+    representable [label="Representable\n\nrepr"]
+    equatable [label="Equatable\n\nequal\n\ndifferent"]
+    displayable [label="Displayable\n\nto_string"]
+    parsable [label="Parsable\n\ntry_of_string\nof_string"]
+    comparable [label="Comparable\n\ncompare\n\nless_than\nless_or_equal\ngreater_than\ngreater_or_equal\nbetween\nbetween_or_equal\nmin\nmax\nmin_max"]
+    ringoid [label="Ringoid\n\nzero\none\nnegate\nadd\nsubtract\nmultiply\ndivide\n\nsquare\nexponentiate"]
+    ofint [label="OfInt\n\nof_int"]
+    toint [label="ToInt\n\nto_int"]
+    offloat [label="OfFloat\n\nof_float"]
+    tofloat [label="ToFloat\n\nto_float"]
+    predsucc [label="PredSucc\n\npred\nsucc"]
+    bounded [label="Bounded\n\nsmallest\ngreatest"]
+    bitwise [label="Bitwise\n\nBitwise.logical_and\nBitwise.logical_or\nBitwise.logical_xor\nBitwise.logical_not\nBitwise.logical_shift_left\nBitwise.logical_shift_right\nBitwise.arithmetic_shift_right"]
+  }
+  subgraph cluster_Concepts {
+    label="Concepts"
+    labelloc="b"
+    identifiable [label="Identifiable"]
+    able [label="Able"]
+    stringable [label="Stringable"]
+    ofstandardnumber [label="OfStandardNumber"]
+    number [label="Number"]
+    tostandardnumber [label="ToStandardNumber"]
+    realnumber [label="RealNumber\n\nabs\nmodulo"]
+    integer [label="Integer"]
+    fixedwidthinteger [label="FixedWidthInteger\n\nwidth"]
+  }
+  subgraph cluster_Atoms {
+    label="Atoms"
+    labelloc="b"
+    subgraph cluster_CallStack {
+      label="CallStack"
+      labelloc="b"
+      callstack [style="dotted",label="current\nframes"]
+      location [label="Location"]
+      frame [label="Frame\n\nis_raise\nlocation\nformat"]
+    }
+    exception [label="Exception\n\nregister_printer\nrecord_backtraces\nrecording_backtraces\nmost_recent_backtrace\nraise\nraise_without_backtrace\ninvalid_argument\nfailure\nfailure_if\nfailure_unless\nname\nor_none"]
+    exit [label="Exit\n\nof_int\nexit\nat_exit"]
+    function1 [label="Function1\n\nidentity\napply\nrev_apply\ncompose"]
+    function2 [label="Function2\n\nflip\ncurry\nuncurry"]
+    function3 [label="Function3\n\nflip\ncurry\nuncurry"]
+    function4 [label="Function4\n\nflip\ncurry\nuncurry"]
+    function5 [label="Function5\n\nflip\ncurry\nuncurry"]
+    unit [label="Unit\n\nignore"]
+    bool [label="Bool\n\nnot\nand_\nor_\nxor"]
+    char [label="Char\n\nrepeat"]
+    int [label="Int"]
+    int32 [label="Int32"]
+    int64 [label="Int64"]
+    nativeint [label="NativeInt"]
+    bigint [label="BigInt"]
+    subgraph cluster_Float {
+      label="Float"
+      labelloc="b"
+      float [style="dotted",label="approx_equal\nepsilon\ninfinity\nnegative_infinity\nnot_a_number\npi\ne\nof_parts\nto_parts\nto_fractional_and_integral\nsqrt\nexp\nlog\nlog10\nexpm1\nlog1p\ncos\nsin\ntan\nacos\nasin\natan\natan2\nhypot\ncosh\nsinh\ntanh\nceil\nfloor\ncopy_sign"]
+      float_class [label="Class\n\nof_float"]
+    }
+    string [label="String\n\nof_char\nof_list\nto_list\nsize\nget\nset\nof_bytes\nto_bytes\nconcat\nsubstring\nprefix\nsuffix\nhas_prefix\ntry_drop_prefix\ndrop_prefix\ndrop_prefix'\nhas_suffix\ntry_drop_suffix\ndrop_suffix\ndrop_suffix'\nsplit\nsplit'\nfold\nfilter"]
+    bytes [label="Bytes\n\nsize\nof_string\nget\nset\nempty\nmake"]
+  }
+  subgraph cluster_Wrappers {
+    label="Wrappers"
+    labelloc="b"
+    option [label="Option\n\nnone\nsome\nsome_if\nsome_if'\nis_some\nis_none\nvalue_def\nvalue\nor_failure\nmap\niter\nfilter\nfilter_map\nvalue_map"]
+    lazy [label="Lazy\n\nis_value\nvalue\nmap"]
+    reference [label="Reference\n\nof_contents\ncontents\nassign"]
+    tuple2 [label="Tuple2\n\nmake\nget_0\nget_1\nflip"]
+    tuple3 [label="Tuple3\n\nmake\nget_0\nget_1\nget_2\nflip"]
+    tuple4 [label="Tuple4\n\nmake\nget_0\nget_1\nget_2\nget_3\nflip"]
+    tuple5 [label="Tuple5\n\nmake\nget_0\nget_1\nget_2\nget_3\nget_4\nflip"]
+  }
+  identifiable -> equatable
+  identifiable -> representable
+  able -> identifiable
+  able -> comparable
+  stringable -> displayable
+  stringable -> parsable
+  ofstandardnumber -> ofint
+  ofstandardnumber -> offloat
+  number -> identifiable
+  number -> stringable
+  number -> ringoid
+  number -> ofstandardnumber
+  tostandardnumber -> toint
+  tostandardnumber -> tofloat
+  realnumber -> number
+  realnumber -> comparable
+  realnumber -> tostandardnumber
+  integer -> realnumber
+  integer -> predsucc
+  fixedwidthinteger -> integer
+  fixedwidthinteger -> bounded
+  fixedwidthinteger -> bitwise
+  callstack -> displayable [ltail="cluster_CallStack"]
+  callstack -> representable [ltail="cluster_CallStack"]
+  location -> able
+  exception -> identifiable
+  exception -> displayable
+  unit -> able
+  bool -> able
+  bool -> stringable
+  char -> able
+  char -> displayable
+  char -> ofint
+  char -> toint
+  int -> fixedwidthinteger
+  int32 -> fixedwidthinteger
+  int64 -> fixedwidthinteger
+  nativeint -> fixedwidthinteger
+  bigint -> integer
+  float -> realnumber [ltail="cluster_Float"]
+  float -> bounded [ltail="cluster_Float"]
+  float_class -> able
+  string -> able
+  string -> stringable
+  bytes -> able
+  bytes -> displayable
+  option -> able
+  tuple2 -> able
+  tuple3 -> able
+  tuple4 -> able
+  tuple5 -> able
+}

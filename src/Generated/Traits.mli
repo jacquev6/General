@@ -1110,10 +1110,59 @@ module Ringoid: sig
   end
 end
 
-module OfStandardNumbers: sig
+module OfInt: sig
   module type S0 = sig
     type t
     val of_int: int -> t
+  end
+
+  module Tests: sig
+    module Examples: sig
+      module type S0 = sig
+        type t
+      end
+    end
+
+    module Testable: sig
+      module type S0 = sig
+        include S0
+      end
+    end
+
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
+      val test: Test.t
+    end
+  end
+end
+
+module ToInt: sig
+  module type S0 = sig
+    type t
+    val to_int: t -> int
+  end
+
+  module Tests: sig
+    module Examples: sig
+      module type S0 = sig
+        type t
+      end
+    end
+
+    module Testable: sig
+      module type S0 = sig
+        include S0
+      end
+    end
+
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
+      val test: Test.t
+    end
+  end
+end
+
+module OfFloat: sig
+  module type S0 = sig
+    type t
     val of_float: float -> t
   end
 
@@ -1136,10 +1185,9 @@ module OfStandardNumbers: sig
   end
 end
 
-module ToStandardNumbers: sig
+module ToFloat: sig
   module type S0 = sig
     type t
-    val to_int: t -> int
     val to_float: t -> float
   end
 
@@ -1194,6 +1242,65 @@ module PredSucc: sig
         include S0
         include Equatable.Basic.S0 with type t := t
         include Representable.S0 with type t := t
+      end
+    end
+
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
+      val test: Test.t
+    end
+  end
+end
+
+module Bounded: sig
+  module type S0 = sig
+    type t
+    val smallest: t
+    val greatest: t
+  end
+
+  module Tests: sig
+    module Examples: sig
+      module type S0 = sig
+        type t
+      end
+    end
+
+    module Testable: sig
+      module type S0 = sig
+        include S0
+      end
+    end
+
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
+      val test: Test.t
+    end
+  end
+end
+
+module Bitwise: sig
+  module type S0 = sig
+    type t
+    module Bitwise: sig
+      val logical_and: t -> t -> t
+      val logical_or: t -> t -> t
+      val logical_xor: t -> t -> t
+      val logical_not: t -> t
+      val logical_shift_left: t -> shift:(int) -> t
+      val logical_shift_right: t -> shift:(int) -> t
+      val arithmetic_shift_right: t -> shift:(int) -> t
+    end
+  end
+
+  module Tests: sig
+    module Examples: sig
+      module type S0 = sig
+        type t
+      end
+    end
+
+    module Testable: sig
+      module type S0 = sig
+        include S0
       end
     end
 

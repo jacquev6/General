@@ -1,0 +1,7 @@
+module ToFloat: sig
+  module Tests
+  module type S0 = sig
+    type t
+    val to_float: t -> float
+  end
+end

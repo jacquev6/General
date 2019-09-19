@@ -1,4 +1,5 @@
 module Int32: sig
+  module Bitwise
   module O
   type t = int32
   val abs: int32 -> int32
@@ -35,5 +36,6 @@ module Int32: sig
   val to_int: int32 -> int
   val to_string: int32 -> string
   val try_of_string: string -> int32 option
+  val width: int
   val zero: int32
 end

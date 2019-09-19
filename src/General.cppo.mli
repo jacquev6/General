@@ -163,43 +163,6 @@ end
 
 (* Testing base *)
 module Test: sig
-  (* @todo Move back to Testing *)
-  module Result: sig
-    module Status: sig
-      type failure
-
-      type t =
-        | Success
-        | Failure of failure
-        | Error of exn * Pervasives.OCamlStandard.Printexc.raw_backtrace option
-
-      val to_string: t -> string
-    end
-
-    type single = {
-      label: string;
-      status: Status.t;
-    }
-
-    module Counts: sig
-      type t = {
-        successes: int;
-        failures: int;
-        errors: int;
-      }
-    end
-
-    type group = {
-      name: string;
-      children: t list;
-      counts: Counts.t;
-    }
-
-    and t =
-      | Single of single
-      | Group of group
-  end
-
   type t
 end
 
@@ -210,10 +173,10 @@ module Traits: sig
   (* @feature Traits for head and tail (Headable.Left?), and init and last (Headable.Right?) *)
 
   module FilterMapable: sig
-    #include "Traits/FilterMapable.signatures.ml"
+    #include "OldFashion/Traits/FilterMapable.signatures.ml"
 
     module ToContainer(C: sig type 'a t end): sig
-      #include "Traits/FilterMapable.signatures.ToContainer.ml"
+      #include "OldFashion/Traits/FilterMapable.signatures.ToContainer.ml"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -223,41 +186,41 @@ module Traits: sig
 
   module Foldable: sig
     module Basic: sig
-      #include "Traits/Foldable.signatures.Basic.ml"
+      #include "OldFashion/Traits/Foldable.signatures.Basic.ml"
     end
 
-    #include "Traits/Foldable.signatures.ml"
+    #include "OldFashion/Traits/Foldable.signatures.ml"
 
     module Right: sig
       module Basic: sig
-        #include "Traits/Foldable.signatures.Right.Basic.ml"
+        #include "OldFashion/Traits/Foldable.signatures.Right.Basic.ml"
       end
 
-      #include "Traits/Foldable.signatures.Right.ml"
+      #include "OldFashion/Traits/Foldable.signatures.Right.ml"
     end
 
     module Short: sig
       module Basic: sig
-        #include "Traits/Foldable.signatures.Short.Basic.ml"
+        #include "OldFashion/Traits/Foldable.signatures.Short.Basic.ml"
       end
 
-      #include "Traits/Foldable.signatures.Short.ml"
+      #include "OldFashion/Traits/Foldable.signatures.Short.ml"
 
       module Right: sig
         module Basic: sig
-          #include "Traits/Foldable.signatures.Short.Right.Basic.ml"
+          #include "OldFashion/Traits/Foldable.signatures.Short.Right.Basic.ml"
         end
 
-        #include "Traits/Foldable.signatures.Short.Right.ml"
+        #include "OldFashion/Traits/Foldable.signatures.Short.Right.ml"
       end
     end
   end
 
   module Scanable: sig
-    #include "Traits/Scanable.signatures.ml"
+    #include "OldFashion/Traits/Scanable.signatures.ml"
 
     module ToContainer(C: sig type 'a t end): sig
-      #include "Traits/Scanable.signatures.ToContainer.ml"
+      #include "OldFashion/Traits/Scanable.signatures.ToContainer.ml"
     end
 
     module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -265,10 +228,10 @@ module Traits: sig
     module ToArray: module type of ToContainer(struct type 'a t = 'a array end)
 
     module Right: sig
-      #include "Traits/Scanable.signatures.Right.ml"
+      #include "OldFashion/Traits/Scanable.signatures.Right.ml"
 
       module ToContainer(C: sig type 'a t end): sig
-        #include "Traits/Scanable.signatures.Right.ToContainer.ml"
+        #include "OldFashion/Traits/Scanable.signatures.Right.ToContainer.ml"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -277,10 +240,10 @@ module Traits: sig
     end
 
     module Short: sig
-      #include "Traits/Scanable.signatures.Short.ml"
+      #include "OldFashion/Traits/Scanable.signatures.Short.ml"
 
       module ToContainer(C: sig type 'a t end): sig
-        #include "Traits/Scanable.signatures.Short.ToContainer.ml"
+        #include "OldFashion/Traits/Scanable.signatures.Short.ToContainer.ml"
       end
 
       module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -288,10 +251,10 @@ module Traits: sig
       module ToArray: module type of ToContainer(struct type 'a t = 'a array end)
 
       module Right: sig
-        #include "Traits/Scanable.signatures.Short.Right.ml"
+        #include "OldFashion/Traits/Scanable.signatures.Short.Right.ml"
 
         module ToContainer(C: sig type 'a t end): sig
-          #include "Traits/Scanable.signatures.Short.Right.ToContainer.ml"
+          #include "OldFashion/Traits/Scanable.signatures.Short.Right.ToContainer.ml"
         end
 
         module ToList: module type of ToContainer(struct type 'a t = 'a list end)
@@ -314,565 +277,13 @@ module Concepts: sig
   #include "Generated/Concepts.mli"
 end
 
-(* Technical, utility modules *)
-
-module CallStack: sig
-  type t = Pervasives.OCamlStandard.Printexc.raw_backtrace
-
-  include Traits.Displayable.S0 with type t := t
-  include Traits.Representable.S0 with type t := t
-
-  val current: ?max_size:int -> unit -> t
-
-  module Location: sig
-    type t = Pervasives.OCamlStandard.Printexc.location = {
-      filename: string;
-      line_number: int;
-      start_char: int;
-      end_char: int;
-    }
-
-    include Concepts.Able.S0 with type t := t
-  end
-
-  module Frame: sig
-    type t = Pervasives.OCamlStandard.Printexc.backtrace_slot
-
-    val is_raise: t -> bool
-    (* @feature val is_inline: t -> bool *)
-
-    val location: t -> Location.t option
-
-    val format: int -> t -> string option
-  end
-
-  (* @feature? val size: t -> int *)
-  (* @feature? val frame: t -> int -> Frame.t *)
-  val frames: t -> Frame.t list
-end
-
-module Exception: sig
-  type t = exn
-
-  include Concepts.Identifiable.S0 with type t := t
-  include Traits.Displayable.S0 with type t := t
-
-  val register_printer: (t -> string option) -> unit
-
-  val record_backtraces: bool -> unit
-  val recording_backtraces: unit -> bool
-  (* There is no way to get the call stack of a specific exception.
-  It's just possible to get the call stack of the most recent exception. *)
-  val most_recent_backtrace: unit -> CallStack.t option
-
-  (* Aliases for all predefined exceptions
-  https://caml.inria.fr/pub/docs/manual-ocaml-4.05/core.html#sec527 *)
-  exception MatchFailure of (string * int * int)
-  exception AssertFailure of (string * int * int)
-  exception InvalidArgument of string
-  exception Failure of string
-  exception NotFound
-
-  (** Raised when the system could not allocate memory *)
-  exception OutOfMemory
-
-  exception StackOverflow
-  exception SysError of string
-  exception EndOfFile
-  exception DivisionByZero
-  exception SysBlockedIO
-  exception UndefinedRecursiveModule of (string * int * int)
-
-  (* Aliases for all exceptions in Pervasives
-  https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libref/Pervasives.html *)
-  exception Exit
-
-  val raise: t -> 'a
-
-  val raise_without_backtrace: t -> 'a
-
-  val invalid_argument: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
-
-  val failure: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
-
-  val failure_if: bool -> ('a, unit, string, string, string, unit) CamlinternalFormatBasics.format6 -> 'a
-  val failure_unless: bool -> ('a, unit, string, string, string, unit) CamlinternalFormatBasics.format6 -> 'a
-
-  val name: exn -> string
-
-  val or_none: 'a lazy_t -> 'a option
-end
-
-module Exit: sig
-  type t =
-    | Success
-    | Failure of int
-
-  (* @feature Able *)
-
-  val of_int: int -> t
-
-  val exit: t -> 'a
-
-  val at_exit: (unit -> unit) -> unit
-end
-
-(* Functions *)
-
-module Function1: sig
-  type ('a, 'z) t = 'a -> 'z
-
-  val identity: ('a, 'a) t
-
-  val apply: ('a, 'z) t -> 'a -> 'z
-  val rev_apply: 'a -> ('a, 'z) t -> 'z
-  val compose: ('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t
-
-  module O: sig
-    val (@@): ('a, 'z) t -> 'a -> 'z
-    val (|>): 'a -> ('a, 'z) t -> 'z
-    val (%): ('a, 'b) t -> ('c, 'a) t -> ('c, 'b) t
-  end
-end
-
-module Function2: sig
-  type ('a, 'b, 'z) t = 'a -> 'b -> 'z
-
-  val flip: ('a, 'b, 'z) t -> ('b, 'a, 'z) t
-
-  val curry: ('a * 'b, 'z) Function1.t -> ('a, 'b, 'z) t
-  val uncurry: ('a, 'b, 'z) t -> ('a * 'b, 'z) Function1.t
-end
-
-module Function3: sig
-  type ('a, 'b, 'c, 'z) t = 'a -> 'b -> 'c -> 'z
-
-  val flip: ('a, 'b, 'c, 'z) t -> ('c, 'b, 'a, 'z) t
-
-  val curry: ('a * 'b * 'c, 'z) Function1.t -> ('a, 'b, 'c, 'z) t
-  val uncurry: ('a, 'b, 'c, 'z) t -> ('a * 'b * 'c, 'z) Function1.t
-end
-
-module Function4: sig
-  type ('a, 'b, 'c, 'd, 'z) t = 'a -> 'b -> 'c -> 'd -> 'z
-
-  val flip: ('a, 'b, 'c, 'd, 'z) t -> ('d, 'c, 'b, 'a, 'z) t
-
-  val curry: ('a * 'b * 'c * 'd, 'z) Function1.t -> ('a, 'b, 'c, 'd, 'z) t
-  val uncurry: ('a, 'b, 'c, 'd, 'z) t -> ('a * 'b * 'c * 'd, 'z) Function1.t
-end
-
-module Function5: sig
-  type ('a, 'b, 'c, 'd, 'e, 'z) t = 'a -> 'b -> 'c -> 'd -> 'e -> 'z
-
-  val flip: ('a, 'b, 'c, 'd, 'e, 'z) t -> ('e, 'd, 'c, 'b, 'a, 'z) t
-
-  val curry: ('a * 'b * 'c * 'd * 'e, 'z) Function1.t -> ('a, 'b, 'c, 'd, 'e, 'z) t
-  val uncurry: ('a, 'b, 'c, 'd, 'e, 'z) t -> ('a * 'b * 'c * 'd * 'e, 'z) Function1.t
-end
-
-(* @feature Predicate1,2,3,etc. (or BoolFunction1,2,3, more consistent with other specializations) with composition of predicates (not, and, or, xor) *)
-
-(* Atomic values *)
-
-module Unit: sig
-  type t = unit
-
-  (* @feature Able *)
-
-  val ignore: 'a -> t
-end
-
-module Bool: sig
-  type t = bool
-
-  module O: sig
-    include Concepts.Able.Operators.S0 with type t := t
-
-    val not: t -> t
-    val (&&): t -> t -> t (* Lazy *)
-    val (||): t -> t -> t (* Lazy *)
-    val xor: t -> t -> t
-  end
-
-  include Concepts.Able.S0 with type t := t and module O := O
-  include Concepts.Stringable.S0 with type t := t
-
-  val not: t -> t
-  val and_: t -> t -> t (* Not lazy *)
-  val or_: t -> t -> t (* Not lazy *)
-  val xor: t -> t -> t
-end
-
-module Char: sig
-  type t = char
-
-  (* @feature Integer, smallest, greatest *)
-  include Traits.Comparable.S0 with type t := t
-
-  val of_int: int -> t
-  val to_int: t -> int
-
-  val to_string: t -> string
-  val repeat: t -> len:int -> string
-end
-
-module Int: sig
-  type t = int
-
-  include Concepts.Integer.S0 with type t := t
-
-  (* @feature Traits.Bounded? Concept.FixedWidthInteger? *)
-  (* @feature width: int  Like OCS.Nativeint.size and Sys.int_size *)
-  val smallest: t
-  val greatest: t
-
-  module Bitwise: sig
-    val logical_and: t -> t -> t
-    val logical_or: t -> t -> t
-    val logical_xor: t -> t -> t
-    val logical_not: t -> t
-    val logical_shift_left: t -> shift:t -> t
-    val logical_shift_right: t -> shift:t -> t
-    val arithmetic_shift_right: t -> shift:t -> t
-  end
-end
-
-module Int32: sig
-  type t = int32
-
-  include Concepts.Integer.S0 with type t := t
-
-  val smallest: t
-  val greatest: t
-end
-
-module Int64: sig
-  type t = int64
-
-  include Concepts.Integer.S0 with type t := t
-
-  val smallest: t
-  val greatest: t
-end
-
-module NativeInt: sig
-  type t = nativeint
-
-  include Concepts.Integer.S0 with type t := t
-
-  val smallest: t
-  val greatest: t
-end
-
-module BigInt: sig
-  type t = Pervasives.OCamlStandard.Big_int.big_int
-
-  include Concepts.Integer.S0 with type t := t
-end
-
-module Float: sig
-  type t = float
-
-  include Concepts.RealNumber.S0 with type t := t
-
-  val approx_equal: ?precision:t -> t -> t -> bool
-
-  val epsilon: t
-  val smallest: t
-  val greatest: t
-  val infinity: t
-  val negative_infinity: t
-  val not_a_number: t
-  val pi: float
-  val e: float
-
-  val of_parts: significand:float -> exponent:int -> t
-  val to_parts: t -> float * int
-  val to_fractional_and_integral: t -> float * float
-
-  val sqrt: float -> float
-
-  val exp: float -> float
-  val log: float -> float
-  val log10: float -> float
-  val expm1: float -> float
-  val log1p: float -> float
-
-  val cos: float -> float
-  val sin: float -> float
-  val tan: float -> float
-  val acos: float -> float
-  val asin: float -> float
-  val atan: float -> float
-  val atan2: y:float -> x:float -> float
-  val hypot: float -> float -> float
-  val cosh: float -> float
-  val sinh: float -> float
-  val tanh: float -> float
-
-  val ceil: float -> float
-  val floor: float -> float
-  val copy_sign: t -> sign:t -> t
-
-  module Class: sig
-    type t =
-      | Normal
-      | SubNormal
-      | Zero
-      | Infinite
-      | NotANumber
-
-    include Traits.Representable.S0 with type t := t
-
-    val of_float: float -> t
-  end
-end
-
-module String: sig
-  type t = string
-
-  val of_char: char -> t
-  val of_list: char list -> t
-  val to_list: t -> char list
-
-  val size: t -> int
-  val get: t -> int -> char
-  val set: bytes -> int -> char -> unit
-
-  val of_bytes: bytes -> t
-  val to_bytes: t -> bytes
-
-  module O: sig
-    include Concepts.Able.Operators.S0 with type t := t
-    val (^): t -> t -> t
-  end
-
-  include Concepts.Stringable.S0 with type t := t
-  include Concepts.Able.S0 with type t := t and module O := O
-
-  val concat: t -> t -> t
-
-  (* @feature val try_substring: t -> pos:int -> len:int -> t option *)
-  val substring: t -> pos:int -> len:int -> t
-  (* @feature val try_prefix: t -> len:int -> t option *)
-  val prefix: t -> len:int -> t
-  (* @feature val try_suffix: t -> len:int -> t option *)
-  val suffix: t -> len:int -> t
-
-  val has_prefix: t -> pre:t -> bool
-  val try_drop_prefix: t -> pre:t -> t option
-  val drop_prefix: t -> pre:t -> t
-  val drop_prefix': t -> len:int -> t
-  val has_suffix: t -> suf:t -> bool
-  val try_drop_suffix: t -> suf:t -> t option
-  val drop_suffix: t -> suf:t -> t
-  val drop_suffix': t -> len:int -> t
-
-  val split: t -> sep:t -> t list
-  val split': t -> seps:char list -> t list
-
-  (* @feature Traits *)
-  val fold: init:'a -> t -> f:('a -> char -> 'a) -> 'a
-  val filter: t -> f:(char -> bool) -> t
-end
-
-module Bytes: sig
-  type t = bytes
-
-  val size: t -> int
-
-  val of_string: string -> t
-  val to_string: t -> string
-
-  val get: t -> int -> char
-  val set: t -> int -> char -> unit
-
-  val empty: t
-  val make: len:int -> t
-end
+#include "Generated/Atoms.mli"
 
 (* @feature Rational, Complex, Quaternion, Matrix *)
 
 (* Fixed-size containers *)
 
-module Option: sig
-  type 'a t = 'a option
-
-  include Concepts.Able.S1 with type 'a t := 'a t
-
-  (* @feature coalesce[_def] (with an (|||) operator? The operator *has* to be lazy like (&&) and (||)) *)
-
-  val none: 'a t
-  val some: 'a -> 'a t
-
-  val some_if: bool -> 'a lazy_t -> 'a t
-  val some_if': bool -> 'a -> 'a t
-
-  val is_some: 'a t -> bool
-  val is_none: 'a t -> bool
-
-  val value_def: 'a t -> def:'a -> 'a
-  val value: ?exc:exn -> 'a t -> 'a
-  val or_failure: ('a, unit, string, string, string, 'b t -> 'b) CamlinternalFormatBasics.format6 -> 'a
-
-  val map: 'a t -> f:('a -> 'b) -> 'b t
-  val iter: 'a t -> f:('a -> unit) -> unit
-  val filter: 'a t -> f:('a -> bool) -> 'a t
-  val filter_map: 'a t -> f:('a -> 'b option) -> 'b t
-
-  val value_map: 'a t -> def:'b -> f:('a -> 'b) -> 'b
-
-  module Specialize(A: sig type t end): sig
-    type t = A.t option
-
-    val some_if: bool -> A.t lazy_t -> t
-    val some_if': bool -> A.t -> t
-
-    val is_some: t -> bool
-    val is_none: t -> bool
-
-    val value_def: t -> def:A.t -> A.t
-    val value: ?exc:exn -> t -> A.t
-    val or_failure: ('a, unit, string, string, string, t -> A.t) CamlinternalFormatBasics.format6 -> 'a
-
-    val map: t -> f:(A.t -> 'a) -> 'a option
-    val iter: t -> f:(A.t -> unit) -> unit
-    val filter: t -> f:(A.t -> bool) -> t
-    val filter_map: t -> f:(A.t -> 'a option) -> 'a option
-
-    val value_map: t -> def:'a -> f:(A.t -> 'a) -> 'a
-  end
-end
-
-module Lazy: sig
-  type 'a t = 'a lazy_t
-
-  val is_value: 'a t -> bool
-
-  val value: 'a t -> 'a
-
-  val map: 'a t -> f:('a -> 'b) -> 'b t
-end
-
-module Reference: sig
-  type 'a t = 'a Pervasives.OCamlStandard.Pervasives.ref = {mutable contents: 'a}
-
-  (* @feature Concept.Able *)
-
-  val of_contents: 'a -> 'a t
-  val contents: 'a t -> 'a
-  val assign: 'a t -> 'a -> unit
-
-  module O: sig
-    val ref: 'a -> 'a t
-    val (!): 'a t -> 'a
-    val (:=): 'a t -> 'a -> unit
-  end
-
-  module SpecializeOperators(A: sig type t end): sig
-    type nonrec t = A.t t
-
-    val ref: A.t -> t
-    val (!): t -> A.t
-    val (:=): t -> A.t -> unit
-  end
-
-  module Specialize(A: sig type t end): sig
-    type nonrec t = A.t t
-
-    val of_contents: A.t -> t
-    val contents: t -> A.t
-    val assign: t -> A.t -> unit
-
-    module O: module type of SpecializeOperators(A) with type t := t
-  end
-
-  (* @feature SpecializeComparable *)
-  (* @feature SpecializeEquatable *)
-  (* @feature SpecializeRepresentable *)
-  (* @feature SpecializeAble (merge of three previous) *)
-
-  module SpecializePredSucc(A: Traits.PredSucc.S0): sig
-    type nonrec t = A.t t
-
-    val increment: t -> unit
-    val decrement: t -> unit
-  end
-
-  module SpecializeRingoidOperators(A: Traits.Ringoid.Basic.S0): sig
-    type nonrec t = A.t t
-
-    val (=+): t -> A.t -> unit
-    val (=-): t -> A.t -> unit
-    val (=*): t -> A.t -> unit
-    val (=/): t -> A.t -> unit
-  end
-
-  module SpecializeRingoid(A: Traits.Ringoid.Basic.S0): sig
-    type nonrec t = A.t t
-
-    module O: module type of SpecializeRingoidOperators(A) with type t := t
-  end
-end
-
-module Tuple2: sig
-  type ('a, 'b) t = 'a * 'b
-
-  include Concepts.Able.S2 with type ('a, 'b) t := ('a, 'b) t
-
-  val make: 'a -> 'b -> ('a, 'b) t
-
-  val get_0: ('a, _) t -> 'a
-  val get_1: (_, 'b) t -> 'b
-
-  val flip: ('a, 'b) t -> ('b, 'a) t
-end
-
-module Tuple3: sig
-  type ('a, 'b, 'c) t = 'a * 'b * 'c
-
-  include Concepts.Able.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-
-  val make: 'a -> 'b -> 'c -> ('a, 'b, 'c) t
-
-  val get_0: ('a, _, _) t -> 'a
-  val get_1: (_, 'b, _) t -> 'b
-  val get_2: (_, _, 'c) t -> 'c
-
-  val flip: ('a, 'b, 'c) t -> ('c, 'b, 'a) t
-end
-
-module Tuple4: sig
-  type ('a, 'b, 'c, 'd) t = 'a * 'b * 'c * 'd
-
-  include Concepts.Able.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-
-  val make: 'a -> 'b -> 'c -> 'd -> ('a, 'b, 'c, 'd) t
-
-  val get_0: ('a, _, _, _) t -> 'a
-  val get_1: (_, 'b, _, _) t -> 'b
-  val get_2: (_, _, 'c, _) t -> 'c
-  val get_3: (_, _, _, 'd) t -> 'd
-
-  val flip: ('a, 'b, 'c, 'd) t -> ('d, 'c, 'b, 'a) t
-end
-
-module Tuple5: sig
-  type ('a, 'b, 'c, 'd, 'e) t = 'a * 'b * 'c * 'd * 'e
-
-  include Concepts.Able.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-
-  val make: 'a -> 'b -> 'c -> 'd -> 'e -> ('a, 'b, 'c, 'd, 'e) t
-
-  val get_0: ('a, _, _, _, _) t -> 'a
-  val get_1: (_, 'b, _, _, _) t -> 'b
-  val get_2: (_, _, 'c, _, _) t -> 'c
-  val get_3: (_, _, _, 'd, _) t -> 'd
-  val get_4: (_, _, _, _, 'e) t -> 'e
-
-  val flip: ('a, 'b, 'c, 'd, 'e) t -> ('e, 'd, 'c, 'b, 'a) t
-end
+#include "Generated/Wrappers.mli"
 
 (* Specializations of fixed-size containers *)
 
@@ -1397,7 +808,43 @@ end
 (* Testing utilities *)
 
 module Testing: sig
-  val run: ?record_backtrace:bool -> Test.t -> Test.Result.t
+  module Result: sig
+    module Status: sig
+      type failure
+
+      type t =
+        | Success
+        | Failure of failure
+        | Error of exn * Pervasives.OCamlStandard.Printexc.raw_backtrace option
+
+      val to_string: t -> string
+    end
+
+    type single = {
+      label: string;
+      status: Status.t;
+    }
+
+    module Counts: sig
+      type t = {
+        successes: int;
+        failures: int;
+        errors: int;
+      }
+    end
+
+    type group = {
+      name: string;
+      children: t list;
+      counts: Counts.t;
+    }
+
+    and t =
+      | Single of single
+      | Group of group
+  end
+
+  val run: ?record_backtrace:bool -> Test.t -> Result.t
 
   val command_line_main: argv:string list -> Test.t -> Exit.t
 

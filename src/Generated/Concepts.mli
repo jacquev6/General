@@ -391,6 +391,34 @@ module Stringable: sig
   end
 end
 
+module OfStandardNumber: sig
+  module type S0 = sig
+    type t
+    include Traits.OfInt.S0 with type t := t
+    include Traits.OfFloat.S0 with type t := t
+  end
+
+  module Tests: sig
+    module Examples: sig
+      module type S0 = sig
+        type t
+        include Traits.OfInt.Tests.Examples.S0 with type t := t
+        include Traits.OfFloat.Tests.Examples.S0 with type t := t
+      end
+    end
+
+    module Testable: sig
+      module type S0 = sig
+        include S0
+      end
+    end
+
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
+      val test: Test.t
+    end
+  end
+end
+
 module Number: sig
   module Operators: sig
     module type S0 = sig
@@ -406,7 +434,7 @@ module Number: sig
     include Identifiable.S0 with type t := t and module O := O
     include Stringable.S0 with type t := t
     include Traits.Ringoid.S0 with type t := t and module O := O
-    include Traits.OfStandardNumbers.S0 with type t := t
+    include OfStandardNumber.S0 with type t := t
   end
 
   module Tests: sig
@@ -416,7 +444,35 @@ module Number: sig
         include Identifiable.Tests.Examples.S0 with type t := t
         include Stringable.Tests.Examples.S0 with type t := t
         include Traits.Ringoid.Tests.Examples.S0 with type t := t
-        include Traits.OfStandardNumbers.Tests.Examples.S0 with type t := t
+        include OfStandardNumber.Tests.Examples.S0 with type t := t
+      end
+    end
+
+    module Testable: sig
+      module type S0 = sig
+        include S0
+      end
+    end
+
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
+      val test: Test.t
+    end
+  end
+end
+
+module ToStandardNumber: sig
+  module type S0 = sig
+    type t
+    include Traits.ToInt.S0 with type t := t
+    include Traits.ToFloat.S0 with type t := t
+  end
+
+  module Tests: sig
+    module Examples: sig
+      module type S0 = sig
+        type t
+        include Traits.ToInt.Tests.Examples.S0 with type t := t
+        include Traits.ToFloat.Tests.Examples.S0 with type t := t
       end
     end
 
@@ -454,7 +510,7 @@ module RealNumber: sig
     module O: Operators.S0 with type t := t
     include Number.S0 with type t := t and module O := O
     include Traits.Comparable.S0 with type t := t and module O := O
-    include Traits.ToStandardNumbers.S0 with type t := t
+    include ToStandardNumber.S0 with type t := t
     val abs: t -> t
     val modulo: t -> t -> t
   end
@@ -465,7 +521,7 @@ module RealNumber: sig
         type t
         include Number.Tests.Examples.S0 with type t := t
         include Traits.Comparable.Tests.Examples.S0 with type t := t
-        include Traits.ToStandardNumbers.Tests.Examples.S0 with type t := t
+        include ToStandardNumber.Tests.Examples.S0 with type t := t
       end
     end
 
@@ -502,6 +558,45 @@ module Integer: sig
         type t
         include RealNumber.Tests.Examples.S0 with type t := t
         include Traits.PredSucc.Tests.Examples.S0 with type t := t
+      end
+    end
+
+    module Testable: sig
+      module type S0 = sig
+        include S0
+      end
+    end
+
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
+      val test: Test.t
+    end
+  end
+end
+
+module FixedWidthInteger: sig
+  module Operators: sig
+    module type S0 = sig
+      type t
+      include Integer.Operators.S0 with type t := t
+    end
+  end
+
+  module type S0 = sig
+    type t
+    module O: Operators.S0 with type t := t
+    include Integer.S0 with type t := t and module O := O
+    include Traits.Bounded.S0 with type t := t
+    include Traits.Bitwise.S0 with type t := t
+    val width: int
+  end
+
+  module Tests: sig
+    module Examples: sig
+      module type S0 = sig
+        type t
+        include Integer.Tests.Examples.S0 with type t := t
+        include Traits.Bounded.Tests.Examples.S0 with type t := t
+        include Traits.Bitwise.Tests.Examples.S0 with type t := t
       end
     end
 

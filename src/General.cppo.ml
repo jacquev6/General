@@ -32,75 +32,87 @@ end
 
 module Foundations = struct
   module Format = struct
-    #include "Foundations/Format.ml"
+    #include "OldFashion/Foundations/Format.ml"
   end
 
   module Lazy = struct
-    #include "Foundations/Lazy.ml"
+    #include "Wrappers/Lazy.foundations.ml"
   end
 
   module Exception = struct
-    #include "Foundations/Exception.ml"
+    #include "Atoms/Exception.foundations.ml"
   end
 
-  module Functions = struct
-    #include "Foundations/Functions.ml"
+  module Function1 = struct
+    #include "Atoms/Function1.foundations.ml"
   end
 
   module Int = struct
-    #include "Foundations/Int.ml"
+    #include "Atoms/Int.foundations.ml"
   end
 
   module Bool = struct
-    #include "Foundations/Bool.ml"
+    #include "Atoms/Bool.foundations.ml"
   end
 
   module Option = struct
-    #include "Foundations/Option.ml"
+    #include "Wrappers/Option.foundations.ml"
   end
 
   module List = struct
-    #include "Foundations/List.ml"
+    #include "OldFashion/Foundations/List.ml"
   end
 
   module CallStack = struct
-    #include "Foundations/CallStack.ml"
+    #include "Atoms/CallStack.foundations.ml"
   end
 
   module Float = struct
-    #include "Foundations/Float.ml"
+    #include "Atoms/Float.foundations.ml"
   end
 
   module Reference = struct
-    #include "Foundations/Reference.ml"
+    #include "Wrappers/Reference.foundations.ml"
   end
 
   module String = struct
-    #include "Foundations/String.ml"
+    #include "Atoms/String.foundations.ml"
   end
 
   module IntRange = struct
-    #include "Foundations/IntRange.ml"
+    #include "OldFashion/Foundations/IntRange.ml"
   end
 
-  module Tuples = struct
-    #include "Foundations/Tuples.ml"
+  module Tuple2 = struct
+    #include "Wrappers/Tuple2.foundations.ml"
+  end
+
+  module Tuple3 = struct
+    #include "Wrappers/Tuple3.foundations.ml"
+  end
+
+  module Tuple4 = struct
+    #include "Wrappers/Tuple4.foundations.ml"
+  end
+
+  module Tuple5 = struct
+    #include "Wrappers/Tuple5.foundations.ml"
   end
 
   module Exit = struct
-    #include "Foundations/Exit.ml"
+    #include "Atoms/Exit.foundations.ml"
   end
 
   module Stream = struct
-    #include "Foundations/Stream.ml"
+    #include "OldFashion/Foundations/Stream.ml"
   end
 
   module Unit = struct
-    #include "Foundations/Unit.ml"
+    #include "Atoms/Unit.foundations.ml"
   end
 
   module PervasivesWhitelist = struct
-    #include "Foundations/PervasivesWhitelist.ml"
+    #include "Reset/PervasivesWhitelist.ml"
   end
 end
 
@@ -110,11 +122,11 @@ module Ubiquitous = struct
   include Foundations.PervasivesWhitelist
 end
 
-module Pervasives = Ubiquitous
-
 open Ubiquitous
 
 open Foundations
+
+module Pervasives = Ubiquitous
 
 module Test = struct
   #include "Testing/Test.ml"
@@ -149,28 +161,44 @@ module Traits = struct
     #include "Traits/PredSucc.ml"
   end
 
-  module OfStandardNumbers = struct
-    #include "Traits/OfStandardNumbers.ml"
+  module OfInt = struct
+    #include "Traits/OfInt.ml"
   end
 
-  module ToStandardNumbers = struct
-    #include "Traits/ToStandardNumbers.ml"
+  module ToInt = struct
+    #include "Traits/ToInt.ml"
+  end
+
+  module OfFloat = struct
+    #include "Traits/OfFloat.ml"
+  end
+
+  module ToFloat = struct
+    #include "Traits/ToFloat.ml"
   end
 
   module Ringoid = struct
     #include "Traits/Ringoid.ml"
   end
 
+  module Bounded = struct
+    #include "Traits/Bounded.ml"
+  end
+
+  module Bitwise = struct
+    #include "Traits/Bitwise.ml"
+  end
+
   module FilterMapable = struct
-    #include "Traits/FilterMapable.ml"
+    #include "OldFashion/Traits/FilterMapable.ml"
   end
 
   module Foldable = struct
-    #include "Traits/Foldable.ml"
+    #include "OldFashion/Traits/Foldable.ml"
   end
 
   module Scanable = struct
-    #include "Traits/Scanable.ml"
+    #include "OldFashion/Traits/Scanable.ml"
   end
 end
 
@@ -187,8 +215,16 @@ module Concepts = struct
     #include "Concepts/Stringable.ml"
   end
 
+  module OfStandardNumber = struct
+    #include "Concepts/OfStandardNumber.ml"
+  end
+
   module Number = struct
     #include "Concepts/Number.ml"
+  end
+
+  module ToStandardNumber = struct
+    #include "Concepts/ToStandardNumber.ml"
   end
 
   module RealNumber = struct
@@ -198,196 +234,219 @@ module Concepts = struct
   module Integer = struct
     #include "Concepts/Integer.ml"
   end
+
+  module FixedWidthInteger = struct
+    #include "Concepts/FixedWidthInteger.ml"
+  end
 end
 
 module Array = struct
-  #include "Implementation/Array.ml"
+  #include "OldFashion/Implementation/Array.ml"
 end
 
 module Exception = struct
-  #include "Implementation/Exception.ml"
+  #include "Atoms/Exception.ml"
 end
 
 module Format = struct
-  #include "Implementation/Format.ml"
+  #include "OldFashion/Implementation/Format.ml"
 end
 
 module StandardInt = struct
-  #include "Implementation/StandardInt.ml"
+  #include "Atoms/StandardInt.ml"
 end
 
 module Int32 = struct
-  #include "Implementation/Int32.ml"
+  #include "Atoms/Int32.ml"
 end
 
 module Int64 = struct
-  #include "Implementation/Int64.ml"
+  #include "Atoms/Int64.ml"
 end
 
 module Float = struct
-  #include "Implementation/Float.ml"
+  #include "Atoms/Float.ml"
 end
 
 module BigInt = struct
-  #include "Implementation/BigInt.ml"
+  #include "Atoms/BigInt.ml"
 end
 
 module Bool = struct
-  #include "Implementation/Bool.ml"
+  #include "Atoms/Bool.ml"
 end
 
 module Bytes = struct
-  #include "Implementation/Bytes.ml"
+  #include "Atoms/Bytes.ml"
 end
 
 module Int = struct
-  #include "Implementation/Int.ml"
+  #include "Atoms/Int.ml"
 end
 
 module List = struct
-  #include "Implementation/List.ml"
+  #include "OldFashion/Implementation/List.ml"
 end
 
 module CallStack = struct
-  #include "Implementation/CallStack.ml"
+  #include "Atoms/CallStack.ml"
 end
 
 module Char = struct
-  #include "Implementation/Char.ml"
+  #include "Atoms/Char.ml"
 end
 
 module Exit = struct
-  #include "Implementation/Exit.ml"
+  #include "Atoms/Exit.ml"
 end
 
-module Functions = struct
-  #include "Implementation/Functions.ml"
+module Function1 = struct
+  #include "Atoms/Function1.ml"
 end
-module Function1 = Functions.Function1
-module Function2 = Functions.Function2
-module Function3 = Functions.Function3
-module Function4 = Functions.Function4
-module Function5 = Functions.Function5
+
+module Function2 = struct
+  #include "Atoms/Function2.ml"
+end
+
+module Function3 = struct
+  #include "Atoms/Function3.ml"
+end
+
+module Function4 = struct
+  #include "Atoms/Function4.ml"
+end
+
+module Function5 = struct
+  #include "Atoms/Function5.ml"
+end
 
 module InChannel = struct
-  #include "Implementation/InChannel.ml"
+  #include "OldFashion/Implementation/InChannel.ml"
 end
 
 module InFile = struct
-  #include "Implementation/InFile.ml"
+  #include "OldFashion/Implementation/InFile.ml"
 end
 
 module IntRange = struct
-  #include "Implementation/IntRange.ml"
+  #include "OldFashion/Implementation/IntRange.ml"
 end
 
 module Lazy = struct
-  #include "Implementation/Lazy.ml"
+  #include "Wrappers/Lazy.ml"
 end
 
 module NativeInt = struct
-  #include "Implementation/NativeInt.ml"
+  #include "Atoms/NativeInt.ml"
 end
 
 module Option = struct
-  #include "Implementation/Option.ml"
+  #include "Wrappers/Option.ml"
 end
 
 module OutChannel = struct
-  #include "Implementation/OutChannel.ml"
+  #include "OldFashion/Implementation/OutChannel.ml"
 end
 
 module OutFile = struct
-  #include "Implementation/OutFile.ml"
+  #include "OldFashion/Implementation/OutFile.ml"
 end
 
-module Tuples = struct
-  #include "Implementation/Tuples.ml"
+module Tuple2 = struct
+  #include "Wrappers/Tuple2.ml"
 end
-module Tuple2 = Tuples.Tuple2
-module Tuple3 = Tuples.Tuple3
-module Tuple4 = Tuples.Tuple4
-module Tuple5 = Tuples.Tuple5
+
+module Tuple3 = struct
+  #include "Wrappers/Tuple3.ml"
+end
+
+module Tuple4 = struct
+  #include "Wrappers/Tuple4.ml"
+end
+
+module Tuple5 = struct
+  #include "Wrappers/Tuple5.ml"
+end
 
 module RedBlackTree = struct
-  #include "Implementation/RedBlackTree.ml"
+  #include "OldFashion/Implementation/RedBlackTree.ml"
 end
 
 module BinaryHeap = struct
-  #include "Implementation/BinaryHeap.ml"
+  #include "OldFashion/Implementation/BinaryHeap.ml"
 end
 
 module PriorityQueue = struct
-  #include "Implementation/PriorityQueue.ml"
+  #include "OldFashion/Implementation/PriorityQueue.ml"
 end
 
 module Reference = struct
-  #include "Implementation/Reference.ml"
+  #include "Wrappers/Reference.ml"
 end
 
 module SortedMap = struct
-  #include "Implementation/SortedMap.ml"
+  #include "OldFashion/Implementation/SortedMap.ml"
 end
 
 module SortedSet = struct
-  #include "Implementation/SortedSet.ml"
+  #include "OldFashion/Implementation/SortedSet.ml"
 end
 
 module Heap = struct
-  #include "Implementation/Heap.ml"
+  #include "OldFashion/Implementation/Heap.ml"
 end
 
 module StandardOutChannel = struct
-  #include "Implementation/StandardOutChannel.ml"
+  #include "OldFashion/Implementation/StandardOutChannel.ml"
 end
 
 module StdErr = struct
-  #include "Implementation/StdErr.ml"
+  #include "OldFashion/Implementation/StdErr.ml"
 end
 
 module StdIn = struct
-  #include "Implementation/StdIn.ml"
+  #include "OldFashion/Implementation/StdIn.ml"
 end
 
 module StdOut = struct
-  #include "Implementation/StdOut.ml"
+  #include "OldFashion/Implementation/StdOut.ml"
 end
 
 module Stream = struct
-  #include "Implementation/Stream.ml"
+  #include "OldFashion/Implementation/Stream.ml"
 end
 
 module String = struct
-  #include "Implementation/String.ml"
+  #include "Atoms/String.ml"
 end
 
 module TestingTests = struct
-  #include "Implementation/TestingTests.ml"
+  #include "Testing/Tests.ml"
 end
 
 module Unit = struct
-  #include "Implementation/Unit.ml"
+  #include "Atoms/Unit.ml"
 end
 
 module Specializations = struct
   module List = struct
-    #include "Specializations/List.ml"
+    #include "OldFashion/Specializations/List.ml"
   end
 
   module Option = struct
-    #include "Specializations/Option.ml"
+    #include "OldFashion/Specializations/Option.ml"
   end
 
   module Reference = struct
-    #include "Specializations/Reference.ml"
+    #include "OldFashion/Specializations/Reference.ml"
   end
 
   module SortedMap = struct
-    #include "Specializations/SortedMap.ml"
+    #include "OldFashion/Specializations/SortedMap.ml"
   end
 
   module SortedSet = struct
-    #include "Specializations/SortedSet.ml"
+    #include "OldFashion/Specializations/SortedSet.ml"
   end
 end
 
@@ -583,10 +642,17 @@ module Tests = struct
     BigInt.Tests.test;
     BinaryHeap.Tests.test;
     Bool.Tests.test;
+    Bytes.Tests.test;
     CallStack.Tests.test;
+    Char.Tests.test;
     Exception.Tests.test;
+    Exit.Tests.test;
     Float.Tests.test;
-    Functions.Tests.test;
+    Function1.Tests.test;
+    Function2.Tests.test;
+    Function3.Tests.test;
+    Function4.Tests.test;
+    Function5.Tests.test;
     Int.Tests.test;
     Int32.Tests.test;
     Int64.Tests.test;
@@ -595,9 +661,14 @@ module Tests = struct
     NativeInt.Tests.test;
     Option.Tests.test;
     RedBlackTree.Tests.test;
+    Reference.Tests.test;
     Stream.Tests.test;
     String.Tests.test;
-    Tuples.Tests.test;
+    Tuple2.Tests.test;
+    Tuple3.Tests.test;
+    Tuple4.Tests.test;
+    Tuple5.Tests.test;
+    Unit.Tests.test;
 
     IntRange.Tests.test;
 

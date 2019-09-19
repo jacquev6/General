@@ -71,8 +71,8 @@ module Tests = struct
 
     let check_pair =
       check
-        ~repr:(Tuples.Tuple2.repr ~repr_a:repr ~repr_b:repr)
-        ~equal:(Tuples.Tuple2.equal ~equal_a:equal ~equal_b:equal)
+        ~repr:(Tuple2.repr ~repr_a:repr ~repr_b:repr)
+        ~equal:(Tuple2.equal ~equal_a:equal ~equal_b:equal)
 
     let check = check ~repr ~equal
 
@@ -108,7 +108,7 @@ module Tests = struct
           ] in
           (y, new_tests @ tests)
         )
-        |> Tuples.Tuple2.get_1
+        |> Tuple2.get_1
       )
     ) @ (
       E.equalities

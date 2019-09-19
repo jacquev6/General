@@ -1,0 +1,8 @@
+module O: sig
+  val (<): General.Float.Class.t -> General.Float.Class.t -> bool
+  val (<=): General.Float.Class.t -> General.Float.Class.t -> bool
+  val (<>): General.Float.Class.t -> General.Float.Class.t -> bool
+  val (=): General.Float.Class.t -> General.Float.Class.t -> bool
+  val (>): General.Float.Class.t -> General.Float.Class.t -> bool
+  val (>=): General.Float.Class.t -> General.Float.Class.t -> bool
+end
