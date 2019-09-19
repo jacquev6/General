@@ -1,9 +1,14 @@
-include Foundations.Lazy
+#include "../Generated/Wrappers/Lazy.ml"
 
-open Testing
+module Self = Foundations.Lazy
 
-module Tests = struct
-  let test = "Lazy" >:: [
+include Self
+
+module Tests = Tests_.Make(Self)(struct
+end)(struct
+  open Testing
+
+  let tests = [
     "value" >: (lazy (check_42 (value (lazy 42))));
     "value exc" >: (lazy (expect_exception ~expected:(Exception.Failure "nope") (lazy (value (lazy (Exception.failure "nope"))))));
     "is_value" >: (lazy (
@@ -19,4 +24,4 @@ module Tests = struct
       expect_exception ~expected:(Exception.Failure "You called me!") (lazy (value y))
     ));
   ]
-end
+end)

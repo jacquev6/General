@@ -878,6 +878,7 @@ def wrapper(
     type_params,
     type,
     bases,
+    operators=[],
     values,
     specializers=[],
 ):
@@ -888,7 +889,7 @@ def wrapper(
         type=type,
         arity=1,
         bases=bases,
-        operators=[],
+        operators=operators,
         values=values,
         types=[],
         exceptions=[],
@@ -1538,6 +1539,82 @@ option = wrapper(
             end
         """).splitlines(),
     ]
+)
+
+lazy = wrapper(
+    "Lazy",
+    type_params="'a",
+    type="'a lazy_t",
+    bases=[],
+    values=[
+        val("is_value", "'a t", "bool"),
+        val("value", "'a t", "'a"),
+        val("map", "'a t", {"f": "'a -> 'b"}, "'b t"),
+    ],
+)
+
+reference = wrapper(
+    "Reference",
+    type_params="'a",
+    type="'a Pervasives.OCamlStandard.Pervasives.ref = {mutable contents: 'a}",
+    bases=[
+        # @feature able
+    ],
+    values=[
+        val("of_contents", "'a", "'a t"),
+        val("contents", "'a t", "'a"),
+        val("assign", "'a t", "'a", "unit"),
+    ],
+    operators=[
+        val("ref", "'a", "'a t"),
+        val("(!)", "'a t", "'a"),
+        val("(:=)", "'a t", "'a", "unit"),
+    ],
+    specializers=[
+        textwrap.dedent("""\
+            module SpecializeOperators(A: sig type t end): sig
+              type nonrec t = A.t t
+              val ref: A.t -> t
+              val (!): t -> A.t
+              val (:=): t -> A.t -> unit
+            end
+        """).splitlines(),
+        textwrap.dedent("""\
+            module Specialize(A: sig type t end): sig
+              type nonrec t = A.t t
+              val of_contents: A.t -> t
+              val contents: t -> A.t
+              val assign: t -> A.t -> unit
+              module O: module type of SpecializeOperators(A) with type t := t
+            end
+        """).splitlines(),
+        # @feature SpecializeComparable
+        # @feature SpecializeEquatable
+        # @feature SpecializeRepresentable
+        # @feature SpecializeAble (merge of three previous)
+        textwrap.dedent("""\
+            module SpecializePredSucc(A: Traits.PredSucc.S0): sig
+              type nonrec t = A.t t
+              val increment: t -> unit
+              val decrement: t -> unit
+            end
+        """).splitlines(),
+        textwrap.dedent("""\
+            module SpecializeRingoidOperators(A: Traits.Ringoid.Basic.S0): sig
+              type nonrec t = A.t t
+              val (=+): t -> A.t -> unit
+              val (=-): t -> A.t -> unit
+              val (=*): t -> A.t -> unit
+              val (=/): t -> A.t -> unit
+            end
+        """).splitlines(),
+        textwrap.dedent("""\
+            module SpecializeRingoid(A: Traits.Ringoid.Basic.S0): sig
+              type nonrec t = A.t t
+              module O: module type of SpecializeRingoidOperators(A) with type t := t
+            end
+        """).splitlines(),
+    ],
 )
 
 if __name__ == "__main__":

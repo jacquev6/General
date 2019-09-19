@@ -70,6 +70,8 @@ digraph {
     label="Wrappers"
     labelloc="b"
     option [label="Option\n\nnone\nsome\nsome_if\nsome_if'\nis_some\nis_none\nvalue_def\nvalue\nor_failure\nmap\niter\nfilter\nfilter_map\nvalue_map"]
+    lazy [label="Lazy\n\nis_value\nvalue\nmap"]
+    reference [label="Reference\n\nof_contents\ncontents\nassign"]
   }
   identifiable -> equatable
   identifiable -> representable

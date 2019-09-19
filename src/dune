@@ -81,10 +81,8 @@
     Equate.ml
     Foundations/Format.ml
     Foundations/IntRange.ml
-    Foundations/Lazy.ml
     Foundations/List.ml
     Foundations/PervasivesWhitelist.ml
-    Foundations/Reference.ml
     Foundations/Stream.ml
     Foundations/Tuples.ml
     Generated/Atoms/BigInt.ml
@@ -131,7 +129,9 @@
     Generated/Traits/Ringoid.ml
     Generated/Traits/ToFloat.ml
     Generated/Traits/ToInt.ml
+    Generated/Wrappers/Lazy.ml
     Generated/Wrappers/Option.ml
+    Generated/Wrappers/Reference.ml
     Implementation/Array.ml
     Implementation/BinaryHeap.ml
     Implementation/Format.ml
@@ -139,13 +139,11 @@
     Implementation/InChannel.ml
     Implementation/InFile.ml
     Implementation/IntRange.ml
-    Implementation/Lazy.ml
     Implementation/List.ml
     Implementation/OutChannel.ml
     Implementation/OutFile.ml
     Implementation/PriorityQueue.ml
     Implementation/RedBlackTree.ml
-    Implementation/Reference.ml
     Implementation/SortedMap.ml
     Implementation/SortedSet.ml
     Implementation/StandardInt.ml
@@ -204,8 +202,12 @@
     Traits/ToFloat.ml
     Traits/ToInt.ml
     Traits/empty_trait.ml
+    Wrappers/Lazy.foundations.ml
+    Wrappers/Lazy.ml
     Wrappers/Option.foundations.ml
     Wrappers/Option.ml
+    Wrappers/Reference.foundations.ml
+    Wrappers/Reference.ml
   )
   (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
 )

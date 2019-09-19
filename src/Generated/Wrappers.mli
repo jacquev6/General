@@ -31,3 +31,56 @@ module Option: sig
     val value_map: t -> def:'a -> f:(A.t -> 'a) -> 'a
   end
 end
+
+module Lazy: sig
+  type 'a t = 'a lazy_t
+  val is_value: 'a t -> bool
+  val value: 'a t -> 'a
+  val map: 'a t -> f:('a -> 'b) -> 'b t
+end
+
+module Reference: sig
+  type 'a t = 'a Pervasives.OCamlStandard.Pervasives.ref = {mutable contents: 'a}
+  module O: sig
+    val ref: 'a -> 'a t
+    val (!): 'a t -> 'a
+    val (:=): 'a t -> 'a -> unit
+  end
+
+  val of_contents: 'a -> 'a t
+  val contents: 'a t -> 'a
+  val assign: 'a t -> 'a -> unit
+  module SpecializeOperators(A: sig type t end): sig
+    type nonrec t = A.t t
+    val ref: A.t -> t
+    val (!): t -> A.t
+    val (:=): t -> A.t -> unit
+  end
+
+  module Specialize(A: sig type t end): sig
+    type nonrec t = A.t t
+    val of_contents: A.t -> t
+    val contents: t -> A.t
+    val assign: t -> A.t -> unit
+    module O: module type of SpecializeOperators(A) with type t := t
+  end
+
+  module SpecializePredSucc(A: Traits.PredSucc.S0): sig
+    type nonrec t = A.t t
+    val increment: t -> unit
+    val decrement: t -> unit
+  end
+
+  module SpecializeRingoidOperators(A: Traits.Ringoid.Basic.S0): sig
+    type nonrec t = A.t t
+    val (=+): t -> A.t -> unit
+    val (=-): t -> A.t -> unit
+    val (=*): t -> A.t -> unit
+    val (=/): t -> A.t -> unit
+  end
+
+  module SpecializeRingoid(A: Traits.Ringoid.Basic.S0): sig
+    type nonrec t = A.t t
+    module O: module type of SpecializeRingoidOperators(A) with type t := t
+  end
+end

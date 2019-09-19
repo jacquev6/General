@@ -36,7 +36,7 @@ module Foundations = struct
   end
 
   module Lazy = struct
-    #include "Foundations/Lazy.ml"
+    #include "Wrappers/Lazy.foundations.ml"
   end
 
   module Exception = struct
@@ -72,7 +72,7 @@ module Foundations = struct
   end
 
   module Reference = struct
-    #include "Foundations/Reference.ml"
+    #include "Wrappers/Reference.foundations.ml"
   end
 
   module String = struct
@@ -321,7 +321,7 @@ module IntRange = struct
 end
 
 module Lazy = struct
-  #include "Implementation/Lazy.ml"
+  #include "Wrappers/Lazy.ml"
 end
 
 module NativeInt = struct
@@ -361,7 +361,7 @@ module PriorityQueue = struct
 end
 
 module Reference = struct
-  #include "Implementation/Reference.ml"
+  #include "Wrappers/Reference.ml"
 end
 
 module SortedMap = struct
@@ -641,6 +641,7 @@ module Tests = struct
     NativeInt.Tests.test;
     Option.Tests.test;
     RedBlackTree.Tests.test;
+    Reference.Tests.test;
     Stream.Tests.test;
     String.Tests.test;
     Tuples.Tests.test;
