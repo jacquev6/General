@@ -1,6 +1,5 @@
 #include "../Generated/Traits/Ringoid.ml"
 
-(* @todo Fix spelling of 'subtract' *)
 module Subtract = struct
   include Subtract_.MakeMakers(struct
     let subtract ~negate ~add x y =
