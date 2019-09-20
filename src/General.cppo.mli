@@ -1,17 +1,15 @@
-(** Some doc for :mod:`General` *)
 
-#include "Reset/CommonHeader.ml"
-#include "Reset/SignatureHeader.ml"
+(** Some doc for :mod:`General` *)
 
 (** Some doc for :mod:`General.Ubiquitous` *)
 
 module Ubiquitous: sig
+  #define SIGNATURE 1
   #include "Reset/ResetPervasives.ml"
   #include "Reset/ResetStandardLibrary.ml"
+  #undef SIGNATURE
   #include "Reset/PervasivesWhitelist.mli"
 end
-
-#include "Reset/Footer.ml"
 
 module OCamlStandard = Ubiquitous.OCamlStandard
 
@@ -908,9 +906,7 @@ module Standard: sig
   with module Array := Array
   and module Bytes := Bytes
   and module Char := Char
-  #ifdef HAS_Float
   and module Float := Float
-  #endif
   and module Format := Format
   and module Int32 := Int32
   and module Int64 := Int64

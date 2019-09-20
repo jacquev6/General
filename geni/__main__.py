@@ -157,12 +157,12 @@ def make_unit_tests():
     values = set()
     with open("src/Reset/ResetPervasives.ml") as f:
         for line in f:
-            if "RESET_TYPE" in line:
+            if line.startswith("RESET_TYPE"):
                 type_ = "General." + line.split(",")[-1].strip()[:-1].replace("__", ".")
                 if "'" in line:
                     type_ = f"_ {type_}"
                 types.add(type_)
-            if "RESET_VALUE" in line:
+            if line.startswith("RESET_VALUE"):
                 values.add("General." + line.split(",")[1].strip()[:-1].replace("__", "."))
     types.discard("General.todo")
     types.discard("_ General.todo")

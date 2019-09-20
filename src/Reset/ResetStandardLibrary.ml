@@ -1,6 +1,22 @@
+#if OCAML_VERSION >= (4, 7, 0)
+#define ALIAS_STDLIB_MODULE(m) module m = Stdlib.m
+#else
+#define ALIAS_STDLIB_MODULE(m) module m = m
+#endif
+
+#if SIGNATURE = 1
+  #define RESET_MODULE(m) module m: sig
+  #define EMPTY_MODULE(m) module m: sig end
+  #define ALIAS_VALUE(name, t, v) val name: t
+#else
+  #define RESET_MODULE(m) module m = struct
+  #define EMPTY_MODULE(m) module m = struct end
+  #define ALIAS_VALUE(name, t, v) let name = v
+#endif
+
 RESET_MODULE(OCamlStandard)
   (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/core.html *)
-  #ifdef DEPRECATES_Pervasives
+  #if OCAML_VERSION >= (4, 8, 0)
   module Pervasives = Stdlib
   #else
   ALIAS_STDLIB_MODULE(Pervasives)
@@ -10,7 +26,7 @@ RESET_MODULE(OCamlStandard)
   ALIAS_STDLIB_MODULE(Arg)
   ALIAS_STDLIB_MODULE(Array)
   ALIAS_STDLIB_MODULE(ArrayLabels)
-  #ifdef HAS_Bigarray
+  #if OCAML_VERSION >= (4, 7, 0)
   ALIAS_STDLIB_MODULE(Bigarray)
   #endif
   ALIAS_STDLIB_MODULE(Buffer)
@@ -20,11 +36,11 @@ RESET_MODULE(OCamlStandard)
   ALIAS_STDLIB_MODULE(Char)
   ALIAS_STDLIB_MODULE(Complex)
   ALIAS_STDLIB_MODULE(Digest)
-  #ifdef HAS_Ephemeron
+  #if OCAML_VERSION >= (4, 3, 0)
   ALIAS_STDLIB_MODULE(Ephemeron)
   #endif
   ALIAS_STDLIB_MODULE(Filename)
-  #ifdef HAS_Float
+  #if OCAML_VERSION >= (4, 7, 0)
   ALIAS_STDLIB_MODULE(Float)
   #endif
   ALIAS_STDLIB_MODULE(Format)
@@ -48,14 +64,14 @@ RESET_MODULE(OCamlStandard)
   ALIAS_STDLIB_MODULE(Queue)
   ALIAS_STDLIB_MODULE(Random)
   ALIAS_STDLIB_MODULE(Scanf)
-  #ifdef HAS_Seq
+  #if OCAML_VERSION >= (4, 7, 0)
   ALIAS_STDLIB_MODULE(Seq)
   #endif
   ALIAS_STDLIB_MODULE(Set)
-  #ifdef HAS_Sort
+  #if OCAML_VERSION < (4, 8, 0)
   ALIAS_STDLIB_MODULE(Sort)
   #endif
-  #ifdef HAS_Spacetime
+  #if OCAML_VERSION >= (4, 4, 0)
   ALIAS_STDLIB_MODULE(Spacetime)
   #endif
   ALIAS_STDLIB_MODULE(Stack)
@@ -64,7 +80,7 @@ RESET_MODULE(OCamlStandard)
   ALIAS_STDLIB_MODULE(String)
   ALIAS_STDLIB_MODULE(StringLabels)
   ALIAS_STDLIB_MODULE(Sys)
-  #ifdef HAS_Uchar
+  #if OCAML_VERSION >= (4, 3, 0)
   ALIAS_STDLIB_MODULE(Uchar)
   #endif
   ALIAS_STDLIB_MODULE(Weak)
@@ -74,9 +90,9 @@ RESET_MODULE(OCamlStandard)
   (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libunix.html *)
 
   (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libnum.html *)
-  ALIAS_MODULE(Num)
-  ALIAS_MODULE(Big_int)
-  ALIAS_MODULE(Arith_status)
+  module Num = Num
+  module Big_int = Big_int
+  module Arith_status = Arith_status
 
   (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libstr.html *)
   (* https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libthreads.html *)
@@ -93,9 +109,7 @@ RESET_MODULE(Array)
   ALIAS_VALUE(set, 'a array -> int -> 'a -> unit, OCamlStandard.Array.set)
 end
 EMPTY_MODULE(ArrayLabels)
-#ifdef HAS_Bigarray
 EMPTY_MODULE(Bigarray)
-#endif
 EMPTY_MODULE(Buffer)
 EMPTY_MODULE(Bytes)
 EMPTY_MODULE(BytesLabels)
@@ -103,13 +117,9 @@ EMPTY_MODULE(Callback)
 EMPTY_MODULE(Char)
 EMPTY_MODULE(Complex)
 EMPTY_MODULE(Digest)
-#ifdef HAS_Ephemeron
 EMPTY_MODULE(Ephemeron)
-#endif
 EMPTY_MODULE(Filename)
-#ifdef HAS_Float
 EMPTY_MODULE(Float)
-#endif
 EMPTY_MODULE(Format)
 EMPTY_MODULE(Gc)
 EMPTY_MODULE(Genlex)
@@ -131,14 +141,10 @@ EMPTY_MODULE(Printf)
 EMPTY_MODULE(Queue)
 EMPTY_MODULE(Random)
 EMPTY_MODULE(Scanf)
-#ifdef HAS_Seq
 EMPTY_MODULE(Seq)
-#endif
 EMPTY_MODULE(Set)
 EMPTY_MODULE(Sort)
-#ifdef HAS_Spacetime
 EMPTY_MODULE(Spacetime)
-#endif
 EMPTY_MODULE(Stack)
 EMPTY_MODULE(StdLabels)
 EMPTY_MODULE(Stream)
@@ -148,11 +154,14 @@ RESET_MODULE(String)
 end
 EMPTY_MODULE(StringLabels)
 EMPTY_MODULE(Sys)
-#ifdef HAS_Uchar
 EMPTY_MODULE(Uchar)
-#endif
 EMPTY_MODULE(Weak)
 
 EMPTY_MODULE(Num)
 EMPTY_MODULE(Big_int)
 EMPTY_MODULE(Arith_status)
+
+#undef ALIAS_STDLIB_MODULE
+#undef RESET_MODULE
+#undef EMPTY_MODULE
+#undef ALIAS_VALUE
