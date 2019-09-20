@@ -177,6 +177,10 @@ module Facets = struct
     #include "Facets/ToFloat.ml"
   end
 
+  module RingoidBasic = struct
+    #include "Facets/RingoidBasic.ml"
+  end
+
   module Ringoid = struct
     #include "Facets/Ringoid.ml"
   end

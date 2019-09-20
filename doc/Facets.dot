@@ -12,7 +12,8 @@ digraph {
     parsable [label="Parsable\n\ntry_of_string\nof_string"]
     comparablebasic [label="ComparableBasic\n\ncompare"]
     comparable [label="Comparable\n\nless_than\nless_or_equal\ngreater_than\ngreater_or_equal\nbetween\nbetween_or_equal\nmin\nmax\nmin_max"]
-    ringoid [label="Ringoid\n\nzero\none\nnegate\nadd\nsubtract\nmultiply\ndivide\n\nsquare\nexponentiate"]
+    ringoidbasic [label="RingoidBasic\n\nzero\none\nnegate\nadd\nsubtract\nmultiply\ndivide"]
+    ringoid [label="Ringoid\n\nnegate\nadd\nsubtract\nmultiply\ndivide\nsquare\nexponentiate"]
     ofint [label="OfInt\n\nof_int"]
     toint [label="ToInt\n\nto_int"]
     offloat [label="OfFloat\n\nof_float"]
@@ -77,6 +78,7 @@ digraph {
   }
   equatable -> equatablebasic
   comparable -> comparablebasic
+  ringoid -> ringoidbasic
   identifiable -> equatable
   identifiable -> representable
   able -> identifiable

@@ -27,38 +27,17 @@ module Operators = struct
   end
 end
 
-module Basic = struct
-  module type S0 = sig
-    type t
-    val zero: t
-    val one: t
-    val negate: t -> t
-    val add: t -> t -> t
-    val subtract: t -> t -> t
-    val multiply: t -> t -> t
-    val divide: t -> t -> t
-  end
-end
-
 module type S0 = sig
-  include Basic.S0
+  type t
   module O: Operators.S0 with type t := t
+  include RingoidBasic.S0 with type t := t
+  val negate: t -> t
+  val add: t -> t -> t
+  val subtract: t -> t -> t
+  val multiply: t -> t -> t
+  val divide: t -> t -> t
   val square: t -> t
   val exponentiate: t -> int -> t
-end
-
-module Subtract_ = struct
-  module MakeMakers(Implementation: sig
-    val subtract: negate:('a -> 'a) -> add:('a -> 'a -> 'a) -> 'a -> 'a -> 'a
-  end) = struct
-    module Make0(M: sig
-      type t
-      val negate: t -> t
-      val add: t -> t -> t
-    end) = struct
-      let subtract x y = Implementation.subtract ~negate:(M.negate) ~add:(M.add) x y
-    end
-  end
 end
 
 module Square_ = struct
@@ -94,10 +73,7 @@ module Tests_ = struct
   module Examples = struct
     module type S0 = sig
       type t
-      val additions: (t * t * t) list
-      val negations: (t * t) list
-      val multiplications: (t * t * t) list
-      val divisions: (t * t * t) list
+      include RingoidBasic.Tests.Examples.S0 with type t := t
       val exponentiations: (t * int * t) list
     end
   end
@@ -115,6 +91,7 @@ module Tests_ = struct
       open Testing
       module E = MakeExamples(M)(E)
       let test = "Ringoid" >:: [
+        (let module T = RingoidBasic.Tests.Make0(M)(E) in T.test);
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
   end

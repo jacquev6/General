@@ -29,7 +29,7 @@ module Self = struct
       r := A.pred !r
   end
 
-  module SpecializeRingoidOperators(A: Facets.Ringoid.Basic.S0) = struct
+  module SpecializeRingoidOperators(A: Facets.RingoidBasic.S0) = struct
     open Ref.O
 
     type t = A.t Ref.t
@@ -47,7 +47,7 @@ module Self = struct
       r := A.divide !r v
   end
 
-  module SpecializeRingoid(A: Facets.Ringoid.Basic.S0) = struct
+  module SpecializeRingoid(A: Facets.RingoidBasic.S0) = struct
     type t = A.t Ref.t
 
     module O = (SpecializeRingoidOperators(A): module type of SpecializeRingoidOperators(A) with type t := t)

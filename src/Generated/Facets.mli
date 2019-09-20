@@ -1250,6 +1250,53 @@ module Comparable: sig
   end
 end
 
+module RingoidBasic: sig
+  module type S0 = sig
+    type t
+    val zero: t
+    val one: t
+    val negate: t -> t
+    val add: t -> t -> t
+    val subtract: t -> t -> t
+    val multiply: t -> t -> t
+    val divide: t -> t -> t
+  end
+
+  module Subtract: sig
+    module Make0(M: sig
+      type t
+      val negate: t -> t
+      val add: t -> t -> t
+    end): sig
+      val subtract: M.t -> M.t -> M.t
+    end
+  end
+
+  module Tests: sig
+    module Examples: sig
+      module type S0 = sig
+        type t
+        val additions: (t * t * t) list
+        val negations: (t * t) list
+        val multiplications: (t * t * t) list
+        val divisions: (t * t * t) list
+      end
+    end
+
+    module Testable: sig
+      module type S0 = sig
+        include S0
+        include EquatableBasic.S0 with type t := t
+        include Representable.S0 with type t := t
+      end
+    end
+
+    module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t): sig
+      val test: Test.t
+    end
+  end
+end
+
 module Ringoid: sig
   module Operators: sig
     module type S0 = sig
@@ -1280,34 +1327,17 @@ module Ringoid: sig
     end
   end
 
-  module Basic: sig
-    module type S0 = sig
-      type t
-      val zero: t
-      val one: t
-      val negate: t -> t
-      val add: t -> t -> t
-      val subtract: t -> t -> t
-      val multiply: t -> t -> t
-      val divide: t -> t -> t
-    end
-  end
-
   module type S0 = sig
-    include Basic.S0
+    type t
     module O: Operators.S0 with type t := t
+    include RingoidBasic.S0 with type t := t
+    val negate: t -> t
+    val add: t -> t -> t
+    val subtract: t -> t -> t
+    val multiply: t -> t -> t
+    val divide: t -> t -> t
     val square: t -> t
     val exponentiate: t -> int -> t
-  end
-
-  module Subtract: sig
-    module Make0(M: sig
-      type t
-      val negate: t -> t
-      val add: t -> t -> t
-    end): sig
-      val subtract: M.t -> M.t -> M.t
-    end
   end
 
   module Square: sig
@@ -1335,10 +1365,7 @@ module Ringoid: sig
     module Examples: sig
       module type S0 = sig
         type t
-        val additions: (t * t * t) list
-        val negations: (t * t) list
-        val multiplications: (t * t * t) list
-        val divisions: (t * t * t) list
+        include RingoidBasic.Tests.Examples.S0 with type t := t
         val exponentiations: (t * int * t) list
       end
     end

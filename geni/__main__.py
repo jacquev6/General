@@ -316,18 +316,17 @@ comparable = facet(
     test_requirements=[equatable_basic, representable],
 )
 
-ringoid = facet(
-    "Ringoid",
+ringoid_basic = facet(
+    "RingoidBasic",
     variadic=False,
     values=[
         val("zero", t),
         val("one", t),
-        # val("posate", t, t, operator="~+"),
-        val("negate", t, t, operator="~-"),
-        val("add", t, t, t, operator="+"),
-        val("subtract", t, t, t, operator="-"),
-        val("multiply", t, t, t, operator="*"),
-        val("divide", t, t, t, operator="/"),
+        val("negate", t, t),
+        val("add", t, t, t),
+        val("subtract", t, t, t),
+        val("multiply", t, t, t),
+        val("divide", t, t, t),
     ],
     extensions=[
         ext(
@@ -335,14 +334,39 @@ ringoid = facet(
             members=["subtract"],
             requirements=["negate", "add"],
         ),
+    ],
+    test_examples=[
+        val("additions", f"({t} * {t} * {t}) list"),
+        val("negations", f"({t} * {t}) list"),
+        val("multiplications", f"({t} * {t} * {t}) list"),
+        val("divisions", f"({t} * {t} * {t}) list"),
+    ],
+    test_requirements=[equatable_basic, representable],
+)
+
+ringoid = facet(
+    "Ringoid",
+    bases=[ringoid_basic],
+    values=[
+        # @todo Don't repeat these values, just add the operators
+        # val("posate", t, t, operator="~+"),
+        val("negate", t, t, operator="~-"),
+        val("add", t, t, t, operator="+"),
+        val("subtract", t, t, t, operator="-"),
+        val("multiply", t, t, t, operator="*"),
+        val("divide", t, t, t, operator="/"),
+        val("square", t, t),
+        val("exponentiate", t, "int", t, operator="**")
+    ],
+    extensions=[
         ext(
             "Square",
-            members=[val("square", t, t)],
+            members=["square"],
             requirements=["multiply"],
         ),
         ext(
             "Exponentiate",
-            members=[val("exponentiate", t, "int", t, operator="**")],
+            members=["exponentiate"],
             requirements=[
                 "one",
                 "square",
@@ -352,10 +376,6 @@ ringoid = facet(
         ),
     ],
     test_examples=[
-        val("additions", f"({t} * {t} * {t}) list"),
-        val("negations", f"({t} * {t}) list"),
-        val("multiplications", f"({t} * {t} * {t}) list"),
-        val("divisions", f"({t} * {t} * {t}) list"),
         val("exponentiations", f"({t} * int * {t}) list"),
     ],
     test_requirements=[equatable_basic, representable],
@@ -925,7 +945,7 @@ reference = wrapper(
             end
         """).splitlines(),
         textwrap.dedent("""\
-            module SpecializeRingoidOperators(A: Facets.Ringoid.Basic.S0): sig
+            module SpecializeRingoidOperators(A: Facets.RingoidBasic.S0): sig
               type nonrec t = A.t t
               val (=+): t -> A.t -> unit
               val (=-): t -> A.t -> unit
@@ -934,7 +954,7 @@ reference = wrapper(
             end
         """).splitlines(),
         textwrap.dedent("""\
-            module SpecializeRingoid(A: Facets.Ringoid.Basic.S0): sig
+            module SpecializeRingoid(A: Facets.RingoidBasic.S0): sig
               type nonrec t = A.t t
               module O: module type of SpecializeRingoidOperators(A) with type t := t
             end

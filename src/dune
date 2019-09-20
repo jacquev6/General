@@ -87,6 +87,7 @@
     Facets/RealNumber.ml
     Facets/Representable.ml
     Facets/Ringoid.ml
+    Facets/RingoidBasic.ml
     Facets/Stringable.ml
     Facets/ToFloat.ml
     Facets/ToInt.ml
@@ -134,6 +135,7 @@
     Generated/Facets/RealNumber.ml
     Generated/Facets/Representable.ml
     Generated/Facets/Ringoid.ml
+    Generated/Facets/RingoidBasic.ml
     Generated/Facets/Stringable.ml
     Generated/Facets/ToFloat.ml
     Generated/Facets/ToInt.ml
