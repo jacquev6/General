@@ -9,7 +9,7 @@ from .facets import Facet, Type, OCamlException, Value, UnlabelledParameter, Lab
 
 vals = {}
 
-def val(name, *type_chain, operator=None):
+def val(name, *type_chain):
     def make_param(param):
         if isinstance(param, str):
             return UnlabelledParameter(param)
@@ -27,7 +27,6 @@ def val(name, *type_chain, operator=None):
     value = Value(
         name=name,
         type_chain=(make_param(param) for param in type_chain),
-        operator=operator,
     )
     if name not in vals:
         vals[name] = value
@@ -292,10 +291,10 @@ comparable = facet(
     "Comparable",
     bases=[comparable_basic],
     values=[
-        val("less_than", t, t, deleg("compare"), "bool", operator="<"),
-        val("less_or_equal", t, t, deleg("compare"), "bool", operator="<="),
-        val("greater_than", t, t, deleg("compare"), "bool", operator=">"),
-        val("greater_or_equal", t, t, deleg("compare"), "bool", operator=">="),
+        val("less_than", t, t, deleg("compare"), "bool"),
+        val("less_or_equal", t, t, deleg("compare"), "bool"),
+        val("greater_than", t, t, deleg("compare"), "bool"),
+        val("greater_or_equal", t, t, deleg("compare"), "bool"),
         val("between", t, {"low": t}, {"high": t}, deleg("compare"), "bool"),
         val("between_or_equal", t, {"low": t}, {"high": t}, deleg("compare"), "bool"),
         val("min", t, t, deleg("compare"), t),

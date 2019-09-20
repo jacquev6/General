@@ -623,24 +623,15 @@ class DelegateParameter:
 
 
 class Value:
-    def __init__(self, *, name, type_chain, operator):
+    def __init__(self, *, name, type_chain):
         self.__name = name
         self.__type_chain = list(type_chain)
         assert len(self.__type_chain) > 0
         self.__parameters = self.__type_chain[:-1]
-        self.__operator = operator
-
-    @property
-    def type_chain(self):
-        return self.__type_chain
 
     @property
     def name(self):
         return self.__name
-
-    @property
-    def operator(self):
-        return self.__operator
 
     def value_type(self, arity, t):
         return " -> ".join(filter(None, (param.param_type(arity, t) for param in self.__type_chain)))
