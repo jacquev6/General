@@ -1,15 +1,15 @@
 module O: sig
-  val (*): nativeint -> nativeint -> nativeint
-  val (**): nativeint -> int -> nativeint
-  val (+): nativeint -> nativeint -> nativeint
-  val (-): nativeint -> nativeint -> nativeint
-  val (/): nativeint -> nativeint -> nativeint
-  val (<): nativeint -> nativeint -> bool
-  val (<=): nativeint -> nativeint -> bool
-  val (<>): nativeint -> nativeint -> bool
-  val (=): nativeint -> nativeint -> bool
-  val (>): nativeint -> nativeint -> bool
-  val (>=): nativeint -> nativeint -> bool
-  val (mod): nativeint -> nativeint -> nativeint
-  val (~-): nativeint -> nativeint
+  val (*): General.NativeInt.t -> General.NativeInt.t -> General.NativeInt.t
+  val (**): General.NativeInt.t -> int -> General.NativeInt.t
+  val (+): General.NativeInt.t -> General.NativeInt.t -> General.NativeInt.t
+  val (-): General.NativeInt.t -> General.NativeInt.t -> General.NativeInt.t
+  val (/): General.NativeInt.t -> General.NativeInt.t -> General.NativeInt.t
+  val (<): General.NativeInt.t -> General.NativeInt.t -> bool
+  val (<=): General.NativeInt.t -> General.NativeInt.t -> bool
+  val (<>): General.NativeInt.t -> General.NativeInt.t -> bool
+  val (=): General.NativeInt.t -> General.NativeInt.t -> bool
+  val (>): General.NativeInt.t -> General.NativeInt.t -> bool
+  val (>=): General.NativeInt.t -> General.NativeInt.t -> bool
+  val (mod): General.NativeInt.t -> General.NativeInt.t -> General.NativeInt.t
+  val (~-): General.NativeInt.t -> General.NativeInt.t
 end

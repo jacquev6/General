@@ -40,13 +40,12 @@ module General: sig
   module Lazy
   module List
   module NativeInt
+  module OCamlStandard
   module Option
   module OutChannel
   module OutFile
-  module Pervasives
   module PriorityQueue
   module Reference
-  module Reset
   module Shorten
   module SortedMap
   module SortedSet

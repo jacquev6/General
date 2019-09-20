@@ -1,15 +1,15 @@
 module O: sig
-  val (*): int32 -> int32 -> int32
-  val (**): int32 -> int -> int32
-  val (+): int32 -> int32 -> int32
-  val (-): int32 -> int32 -> int32
-  val (/): int32 -> int32 -> int32
-  val (<): int32 -> int32 -> bool
-  val (<=): int32 -> int32 -> bool
-  val (<>): int32 -> int32 -> bool
-  val (=): int32 -> int32 -> bool
-  val (>): int32 -> int32 -> bool
-  val (>=): int32 -> int32 -> bool
-  val (mod): int32 -> int32 -> int32
-  val (~-): int32 -> int32
+  val (*): General.Int32.t -> General.Int32.t -> General.Int32.t
+  val (**): General.Int32.t -> int -> General.Int32.t
+  val (+): General.Int32.t -> General.Int32.t -> General.Int32.t
+  val (-): General.Int32.t -> General.Int32.t -> General.Int32.t
+  val (/): General.Int32.t -> General.Int32.t -> General.Int32.t
+  val (<): General.Int32.t -> General.Int32.t -> bool
+  val (<=): General.Int32.t -> General.Int32.t -> bool
+  val (<>): General.Int32.t -> General.Int32.t -> bool
+  val (=): General.Int32.t -> General.Int32.t -> bool
+  val (>): General.Int32.t -> General.Int32.t -> bool
+  val (>=): General.Int32.t -> General.Int32.t -> bool
+  val (mod): General.Int32.t -> General.Int32.t -> General.Int32.t
+  val (~-): General.Int32.t -> General.Int32.t
 end

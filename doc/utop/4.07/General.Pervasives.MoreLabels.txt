@@ -1,2 +1,0 @@
-module MoreLabels: sig
-end

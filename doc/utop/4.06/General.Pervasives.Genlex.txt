@@ -1,2 +1,0 @@
-module Genlex: sig
-end

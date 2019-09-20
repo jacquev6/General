@@ -1,10 +1,10 @@
 module Tests_ = struct
   module type Examples = sig
-    include Facets.FixedWidthInteger.Tests.Examples.S0 with type t := Pervasives.OCamlStandard.Int64.t
+    include Facets.FixedWidthInteger.Tests.Examples.S0 with type t := OCamlStandard.Int64.t
   end
 
   module type Testable = sig
-    type t = Pervasives.OCamlStandard.Int64.t
+    type t = OCamlStandard.Int64.t
     include Facets.FixedWidthInteger.Tests.Testable.S0 with type t := t
   end
 

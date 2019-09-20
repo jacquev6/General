@@ -1,5 +1,0 @@
-#undef RESET_MODULE
-#undef RESET_TYPE
-#undef RESET_VALUE
-#undef ALIAS_MODULE
-#undef EMPTY_MODULE

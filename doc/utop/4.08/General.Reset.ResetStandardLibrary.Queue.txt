@@ -1,2 +1,0 @@
-module Queue: sig
-end

@@ -1,3 +1,18 @@
+#if SIGNATURE = 1
+  #define RESET_MODULE(m) module m: sig
+  #define RESET_VALUE(v, repl) val v: [`CONCAT(Please_use_General__, repl)]
+#else
+  #define RESET_MODULE(m) module m = struct
+  #define RESET_VALUE(v, repl) let v = `CONCAT(Please_use_General__, repl)
+#endif
+
+#define RESET_TYPE(t, repl) type t = [`CONCAT(Please_use_General__, repl)]
+
+(* "Warning 32: unused value" disabled because we override some symbols deactivated here in PervasivesWhitelist *)
+[@@@ocaml.warning "-32"]
+
+(* https://caml.inria.fr/pub/docs/manual-ocaml-4.08/libref/Stdlib.html *)
+
 (* Exceptions *)
 RESET_VALUE(raise, Exception__raise)
 RESET_VALUE(raise_notrace, Exception__raise_without_backtrace)
@@ -21,11 +36,9 @@ RESET_VALUE((!=), Equate__Phys__different)
 (* Boolean operations *)
 RESET_VALUE(not, Bool__not)
 RESET_VALUE((&&), Bool__and_)
-RESET_VALUE((||), Bool__or_)
-[@@@ocaml.warning "-3"]
 RESET_VALUE((&), Bool__and_)
+RESET_VALUE((||), Bool__or_)
 RESET_VALUE((or), Bool__or_)
-[@@@ocaml.warning "+3"]
 
 (* Debugging *)
 (* Nothing to reset *)
@@ -115,20 +128,14 @@ RESET_VALUE(ignore, Unit__ignore)
 
 (* String conversion functions *)
 RESET_VALUE(string_of_bool, Bool__to_string)
-RESET_VALUE(bool_of_string, Bool__of_string)
-#ifdef HAS_Pervasives_bool_of_string_opt
 RESET_VALUE(bool_of_string_opt, Bool__try_of_string)
-#endif
+RESET_VALUE(bool_of_string, Bool__of_string)
 RESET_VALUE(string_of_int, Int__to_string)
-RESET_VALUE(int_of_string, Int__of_string)
-#ifdef HAS_Pervasives_int_of_string_opt
 RESET_VALUE(int_of_string_opt, Int__try_of_string)
-#endif
+RESET_VALUE(int_of_string, Int__of_string)
 RESET_VALUE(string_of_float, Float__of_string)
-RESET_VALUE(float_of_string, Float__to_string)
-#ifdef HAS_Pervasives_float_of_string_opt
 RESET_VALUE(float_of_string_opt, Float__try_of_string)
-#endif
+RESET_VALUE(float_of_string, Float__to_string)
 
 (* Pair operations *)
 RESET_VALUE(fst, Tuple2__get_0)
@@ -164,15 +171,10 @@ RESET_VALUE(prerr_newline, StdErr__print)
 
 (* Input functions on standard input *)
 RESET_VALUE(read_line, todo)
-RESET_VALUE(read_int, todo)
-(* @todo Remove "ifdef" in this module: put everything in our Pervasives even if it's not in OCamlStandard.Pervasives *)
-#ifdef HAS_Pervasives_read_int_opt
 RESET_VALUE(read_int_opt, todo)
-#endif
-RESET_VALUE(read_float, todo)
-#ifdef HAS_Pervasives_read_float_opt
+RESET_VALUE(read_int, todo)
 RESET_VALUE(read_float_opt, todo)
-#endif
+RESET_VALUE(read_float, todo)
 
 (* General output functions *)
 RESET_TYPE(open_flag, todo)
@@ -234,9 +236,7 @@ RESET_VALUE(incr, IntReference__increment)
 RESET_VALUE(decr, IntReference__decrement)
 
 (* Result type *)
-#ifdef HAS_Pervasives_result
 RESET_TYPE(('a, 'b) result, todo)
-#endif
 
 (* Operations on format strings *)
 RESET_TYPE(('a, 'b, 'c, 'd, 'e, 'f) format6, Format__t)
@@ -254,3 +254,9 @@ RESET_VALUE(at_exit, Exit__at_exit)
 RESET_VALUE(valid_float_lexem, Standard__OCamlStandard__Pervasives__valid_float_lexem)
 RESET_VALUE(unsafe_really_input, Standard__OCamlStandard__Pervasives__unsafe_really_input)
 RESET_VALUE(do_at_exit, Standard__OCamlStandard__Pervasives__do_at_exit)
+
+[@@@ocaml.warning "+32"]
+
+#undef RESET_MODULE
+#undef RESET_VALUE
+#undef RESET_TYPE

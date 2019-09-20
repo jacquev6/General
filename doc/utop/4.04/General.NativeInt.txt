@@ -1,7 +1,7 @@
 module NativeInt: sig
   module Bitwise
   module O
-  type t = nativeint
+  type t = General.NativeInt.t
   val abs: t -> t
   val add: t -> t -> t
   val between: t -> low:t -> high:t -> bool

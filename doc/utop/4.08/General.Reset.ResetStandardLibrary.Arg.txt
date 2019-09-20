@@ -1,2 +1,0 @@
-module Arg: sig
-end

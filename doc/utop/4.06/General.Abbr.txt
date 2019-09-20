@@ -6,6 +6,7 @@ module Abbr: sig
   module ArrayLabels
   module BigInt = General.BigInt
   module Big_int
+  module Bigarray
   module Bo = General.Bool
   module Buffer
   module By = General.Bytes
@@ -29,6 +30,7 @@ module Abbr: sig
   module FlRef = General.FloatReference
   module FlSoMap = General.FloatSortedMap
   module FlSoSet = General.FloatSortedSet
+  module Float
   module Format
   module Frmt = General.Format
   module Fun1 = General.Function1
@@ -64,7 +66,7 @@ module Abbr: sig
   module NativeInt = General.NativeInt
   module Nativeint
   module Num
-  module OCamlStandard
+  module OCamlStandard = General.OCamlStandard
   module Oo
   module Opt = General.Option
   module OutCh = General.OutChannel
@@ -78,6 +80,7 @@ module Abbr: sig
   module Random
   module Ref = General.Reference
   module Scanf
+  module Seq
   module Set
   module SoMap = General.SortedMap
   module SoSet = General.SortedSet

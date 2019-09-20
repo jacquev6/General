@@ -1,104 +1,10 @@
-(* Basics *)
 
 (** Some doc for :mod:`General` *)
 
-module Reset: sig
-  #include "Reset/CommonHeader.ml"
-  #include "Reset/SignatureHeader.ml"
+(** Some doc for :mod:`General.Ubiquitous` *)
 
-  module ResetPervasives: sig
-    #include "Reset/ResetPervasives.ml"
-  end
-
-  module ResetStandardLibrary: sig
-    #include "Reset/ResetStandardLibrary.ml"
-  end
-
-  #include "Reset/Footer.ml"
-end [@@autodoc.hide]
-
-(** Some doc for :mod:`General.Pervasives` *)
-module Pervasives: sig
-  include module type of Reset.ResetPervasives [@@autodoc.hide]
-  include module type of Reset.ResetStandardLibrary [@@autodoc.hide]
-
-  (** This module overrides all elements from the standard
-  `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_
-  with unusable but guiding values like:
-
-  .. val:: raise
-    :noindex:
-    :type: [ `Please_use_General__Exception__raise ]
-
-    The types of these values point at what replaces them in :mod:`General`.
-    (In that case, :val:`General.Exception.raise`).
-
-  It then brings back a small set of ubiquitous values: *)
-
-  (** **Boolean operators** *)
-
-  (** Negation. Alias of :val:`General.Bool.O.not`. *)
-  val not: bool -> bool
-
-  (** Conjunction. Lazy. Alias of :val:`General.Bool.O.(&&)` *)
-  val (&&): bool -> bool -> bool
-
-  (** Disjunction. Lazy. Alias of :val:`General.Bool.O.(||)` *)
-  val (||): bool -> bool -> bool
-
-  (** **Integer operators** *)
-
-  val (~-): int -> int
-  val (~+): int -> int
-  val (+): int -> int -> int
-  val (-): int -> int -> int
-  val ( * ): int -> int -> int
-  val (/): int -> int -> int
-  val (mod): int -> int -> int
-
-  (** **Floating point operators** *)
-
-  val (~-.): float -> float
-  val (~+.): float -> float
-  val (+.): float -> float -> float
-  val (-.): float -> float -> float
-  val ( *. ): float -> float -> float
-  val (/.): float -> float -> float
-  val ( ** ): float -> float -> float
-
-  (** **Function composition and application** *)
-
-  val (@@): ('a -> 'b) -> 'a -> 'b
-  val (|>): 'a -> ('a -> 'b) -> 'b
-  val (%): ('a -> 'b) -> ('c -> 'a) -> ('c -> 'b)
-
-  (** **References** *)
-
-  val ref: 'a -> 'a OCamlStandard.Pervasives.ref
-  val (:=): 'a OCamlStandard.Pervasives.ref -> 'a -> unit
-  val (!): 'a OCamlStandard.Pervasives.ref -> 'a
-
-  (** **Polymorphic comparison** *)
-
-  val (=): 'a -> 'a -> bool
-  val (<>): 'a -> 'a -> bool
-
-  val (<): 'a -> 'a -> bool
-  val (<=): 'a -> 'a -> bool
-  val (>=): 'a -> 'a -> bool
-  val (>): 'a -> 'a -> bool
-
-  (** **Ubiquitous functions** *)
-
-  val ignore: 'a -> unit
-
-  val identity: 'a -> 'a
-
-  (** **Miscelaneous operators** *)
-
-  val (@): 'a list -> 'a list -> 'a list
-
-  val (^): string -> string -> string
+module OCamlStandard: sig
+  #include "Reset/OCamlStandard.ml"
 end
 
 module Shorten: sig
@@ -460,7 +366,7 @@ module Array: sig
 end
 
 module Stream: sig
-  type 'a t = 'a Pervasives.OCamlStandard.Stream.t
+  type 'a t = 'a OCamlStandard.Stream.t
 
   val empty: 'a t
   val singleton: 'a -> 'a t
@@ -738,11 +644,11 @@ module Format: sig
 
   val concat: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('f, 'b, 'c, 'e, 'g, 'h) t -> ('a, 'b, 'c, 'd, 'g, 'h) t
 
-  val with_scan_result: ('a, Pervasives.OCamlStandard.Scanf.Scanning.scanbuf, 'b, 'c -> 'd, 'a -> 'e, 'e) t -> f:'c -> string -> 'd
+  val with_scan_result: ('a, OCamlStandard.Scanf.Scanning.scanbuf, 'b, 'c -> 'd, 'a -> 'e, 'e) t -> f:'c -> string -> 'd
 end
 
 module InChannel: sig
-  type t = Pervasives.OCamlStandard.Pervasives.in_channel
+  type t = OCamlStandard.Pervasives.in_channel
 
   (* @feature val lines: string Stream.t *)
 end
@@ -762,7 +668,7 @@ module InFile: sig
 end
 
 module OutChannel: sig
-  type t = Pervasives.OCamlStandard.Pervasives.out_channel
+  type t = OCamlStandard.Pervasives.out_channel
 
   val print: ?flush:bool -> t -> ('a, t, unit, unit, unit, unit) Format.t -> 'a
   val output: t -> bytes -> unit
@@ -811,7 +717,7 @@ module Testing: sig
       type t =
         | Success
         | Failure of failure
-        | Error of exn * Pervasives.OCamlStandard.Printexc.raw_backtrace option
+        | Error of exn * OCamlStandard.Printexc.raw_backtrace option
 
       val to_string: t -> string
     end
@@ -988,23 +894,15 @@ module Standard: sig
   module IntSortedMap = IntSortedMap
   module StringSortedMap = StringSortedMap
 
-  (** It also includes :mod:`General.Pervasives`. *)
+  module OCamlStandard = OCamlStandard
 
-  include module type of Pervasives[@remove_aliases]
-  with module Array := Array
-  and module Bytes := Bytes
-  and module Char := Char
-  #ifdef HAS_Float
-  and module Float := Float
-  #endif
-  and module Format := Format
-  and module Int32 := Int32
-  and module Int64 := Int64
-  and module Lazy := Lazy
-  and module List := List
-  and module Stream := Stream
-  and module String := String
-  [@@autodoc.hide]
+  #define SIGNATURE 1
+  #define ABBREVIATED 0
+  #include "Reset/ResetPervasives.ml"
+  #include "Reset/ResetStandardLibrary.ml"
+  #undef SIGNATURE
+  #undef ABBREVIATED
+  #include "Reset/PervasivesWhitelist.mli"
 end
 
 module Abbr: sig
@@ -1078,12 +976,15 @@ module Abbr: sig
   module IntSoMap = IntSortedMap
   module StrSoMap = StringSortedMap
 
-  (** It also includes :mod:`General.Pervasives`. *)
+  module OCamlStandard = OCamlStandard
 
-  include module type of Pervasives[@remove_aliases]
-  with module Int32 := Int32
-  and module Int64 := Int64
-  [@@autodoc.hide]
+  #define SIGNATURE 1
+  #define ABBREVIATED 1
+  #include "Reset/ResetPervasives.ml"
+  #include "Reset/ResetStandardLibrary.ml"
+  #undef SIGNATURE
+  #undef ABBREVIATED
+  #include "Reset/PervasivesWhitelist.mli"
 end
 
 (* @todo Remove from interface, or make a functor, to avoid linking tests in client applications *)

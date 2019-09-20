@@ -157,12 +157,12 @@ def make_unit_tests():
     values = set()
     with open("src/Reset/ResetPervasives.ml") as f:
         for line in f:
-            if "RESET_TYPE" in line:
+            if line.startswith("RESET_TYPE"):
                 type_ = "General." + line.split(",")[-1].strip()[:-1].replace("__", ".")
                 if "'" in line:
                     type_ = f"_ {type_}"
                 types.add(type_)
-            if "RESET_VALUE" in line:
+            if line.startswith("RESET_VALUE"):
                 values.add("General." + line.split(",")[1].strip()[:-1].replace("__", "."))
     types.discard("General.todo")
     types.discard("_ General.todo")
@@ -485,7 +485,7 @@ fixed_width_integer = facet(
 
 call_stack = atom(
     "CallStack",
-    type="Pervasives.OCamlStandard.Printexc.raw_backtrace",
+    type="OCamlStandard.Printexc.raw_backtrace",
     bases=[displayable, representable],
     values=[
         val("current", {"?max_size": "int"}, "unit", t),
@@ -498,7 +498,7 @@ call_stack = atom(
             prefix="Atoms.CallStack",
             name="Location",
             type_params=None,
-            type="Pervasives.OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}",
+            type="OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}",
             arity=0,
             bases=[able],
             exceptions=[],
@@ -511,7 +511,7 @@ call_stack = atom(
             prefix="Atoms.CallStack",
             name="Frame",
             type_params=None,
-            type="Pervasives.OCamlStandard.Printexc.backtrace_slot",
+            type="OCamlStandard.Printexc.backtrace_slot",
             arity=0,
             bases=[],
             exceptions=[],
@@ -666,25 +666,25 @@ int_ = atom(
 
 int32 = atom(
     "Int32",
-    type="Pervasives.OCamlStandard.Int32.t",
+    type="OCamlStandard.Int32.t",
     bases=[fixed_width_integer],
 )
 
 int64 = atom(
     "Int64",
-    type="Pervasives.OCamlStandard.Int64.t",
+    type="OCamlStandard.Int64.t",
     bases=[fixed_width_integer],
 )
 
 native_int = atom(
     "NativeInt",
-    type="Pervasives.OCamlStandard.Nativeint.t",
+    type="OCamlStandard.Nativeint.t",
     bases=[fixed_width_integer],
 )
 
 big_int = atom(
     "BigInt",
-    type="Pervasives.OCamlStandard.Big_int.big_int",
+    type="OCamlStandard.Big_int.big_int",
     bases=[integer],
 )
 
@@ -870,7 +870,7 @@ lazy = wrapper(
 reference = wrapper(
     "Reference",
     type_params="'a",
-    type="'a Pervasives.OCamlStandard.Pervasives.ref = {mutable contents: 'a}",
+    type="'a OCamlStandard.Pervasives.ref = {mutable contents: 'a}",
     bases=[
         # @feature able
     ],

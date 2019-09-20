@@ -23,12 +23,11 @@
     OldFashion/Facets/Scanable.signatures.Short.ml
     OldFashion/Facets/Scanable.signatures.ToContainer.ml
     OldFashion/Facets/Scanable.signatures.ml
-    Reset/CommonHeader.ml
-    Reset/Footer.ml
+    Reset/OCamlStandard.ml
     Reset/PervasivesWhitelist.ml
+    Reset/PervasivesWhitelist.mli
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml
-    Reset/SignatureHeader.ml
   )
   (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
 )
@@ -191,9 +190,7 @@
     OldFashion/Specializations/Reference.ml
     OldFashion/Specializations/SortedMap.ml
     OldFashion/Specializations/SortedSet.ml
-    Reset/CommonHeader.ml
-    Reset/DefinitionHeader.ml
-    Reset/Footer.ml
+    Reset/OCamlStandard.ml
     Reset/PervasivesWhitelist.ml
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml

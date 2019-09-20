@@ -6,6 +6,7 @@ module Abbr: sig
   module ArrayLabels
   module BigInt = General.BigInt
   module Big_int
+  module Bigarray
   module Bo = General.Bool
   module Buffer
   module By = General.Bytes
@@ -19,6 +20,7 @@ module Abbr: sig
   module Char
   module Complex
   module Digest
+  module Ephemeron
   module Exit = General.Exit
   module Exn = General.Exception
   module Filename
@@ -28,6 +30,7 @@ module Abbr: sig
   module FlRef = General.FloatReference
   module FlSoMap = General.FloatSortedMap
   module FlSoSet = General.FloatSortedSet
+  module Float
   module Format
   module Frmt = General.Format
   module Fun1 = General.Function1
@@ -63,7 +66,7 @@ module Abbr: sig
   module NativeInt = General.NativeInt
   module Nativeint
   module Num
-  module OCamlStandard
+  module OCamlStandard = General.OCamlStandard
   module Oo
   module Opt = General.Option
   module OutCh = General.OutChannel
@@ -77,10 +80,12 @@ module Abbr: sig
   module Random
   module Ref = General.Reference
   module Scanf
+  module Seq
   module Set
   module SoMap = General.SortedMap
   module SoSet = General.SortedSet
   module Sort
+  module Spacetime
   module Stack
   module StdErr = General.StdErr
   module StdIn = General.StdIn
@@ -102,9 +107,11 @@ module Abbr: sig
   module Tu3 = General.Tuple3
   module Tu4 = General.Tuple4
   module Tu5 = General.Tuple5
+  module Uchar
   module Unit = General.Unit
   module Weak
   type 'a ref = [ `Please_use_General__Reference__t ]
+  type ('a, 'b) result = [ `Please_use_General__todo ]
   type ('a, 'b, 'c) format = [ `Please_use_General__Format__t ]
   type ('a, 'b, 'c, 'd) format4 = [ `Please_use_General__Format__t ]
   type ('a, 'b, 'c, 'd, 'e, 'f) format6 = [ `Please_use_General__Format__t ]
@@ -112,7 +119,7 @@ module Abbr: sig
   type in_channel = [ `Please_use_General__InChannel__t ]
   type open_flag = [ `Please_use_General__todo ]
   type out_channel = [ `Please_use_General__OutChannel__t ]
-  val (!): 'a OCamlStandard.Pervasives.ref -> 'a
+  val (!): 'a Ref.t -> 'a
   val (!=): [ `Please_use_General__Equate__Phys__different ]
   val (%): ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
   val (&): [ `Please_use_General__Bool__and_ ]
@@ -126,7 +133,7 @@ module Abbr: sig
   val (-.): float -> float -> float
   val (/): int -> int -> int
   val (/.): float -> float -> float
-  val (:=): 'a OCamlStandard.Pervasives.ref -> 'a -> unit
+  val (:=): 'a Ref.t -> 'a -> unit
   val (<): 'a -> 'a -> bool
   val (<=): 'a -> 'a -> bool
   val (<>): 'a -> 'a -> bool
@@ -160,6 +167,7 @@ module Abbr: sig
   val atan: [ `Please_use_General__Float__atan ]
   val atan2: [ `Please_use_General__Float__atan2 ]
   val bool_of_string: [ `Please_use_General__Bool__of_string ]
+  val bool_of_string_opt: [ `Please_use_General__Bool__try_of_string ]
   val ceil: [ `Please_use_General__Float__ceil ]
   val char_of_int: [ `Please_use_General__Char__to_int ]
   val classify_float: [ `Please_use_General__Float__Class__of_float ]
@@ -181,6 +189,7 @@ module Abbr: sig
   val float: [ `Please_use_General__Float__of_int ]
   val float_of_int: [ `Please_use_General__Float__of_int ]
   val float_of_string: [ `Please_use_General__Float__to_string ]
+  val float_of_string_opt: [ `Please_use_General__Float__try_of_string ]
   val floor: [ `Please_use_General__Float__floor ]
   val flush: [ `Please_use_General__OutChannel__flush ]
   val flush_all: [ `Please_use_General__todo ]
@@ -202,6 +211,7 @@ module Abbr: sig
   val int_of_char: [ `Please_use_General__Char__of_int ]
   val int_of_float: [ `Please_use_General__Int__of_float ]
   val int_of_string: [ `Please_use_General__Int__of_string ]
+  val int_of_string_opt: [ `Please_use_General__Int__try_of_string ]
   val invalid_arg: [ `Please_use_General__Exception__invalid_argument ]
   val ldexp: [ `Please_use_General__Float__of_parts ]
   val lnot: [ `Please_use_General__Int__Bitwise__logical_not ]
@@ -254,11 +264,13 @@ module Abbr: sig
   val raise: [ `Please_use_General__Exception__raise ]
   val raise_notrace: [ `Please_use_General__Exception__raise_without_backtrace ]
   val read_float: [ `Please_use_General__todo ]
+  val read_float_opt: [ `Please_use_General__todo ]
   val read_int: [ `Please_use_General__todo ]
+  val read_int_opt: [ `Please_use_General__todo ]
   val read_line: [ `Please_use_General__todo ]
   val really_input: [ `Please_use_General__todo ]
   val really_input_string: [ `Please_use_General__todo ]
-  val ref: 'a -> 'a OCamlStandard.Pervasives.ref
+  val ref: 'a -> 'a Ref.t
   val seek_in: [ `Please_use_General__InFile__seek ]
   val seek_out: [ `Please_use_General__OutFile__seek ]
   val set_binary_mode_in: [ `Please_use_General__todo ]

@@ -6,6 +6,7 @@ module Abbr: sig
   module ArrayLabels
   module BigInt = General.BigInt
   module Big_int
+  module Bigarray
   module Bo = General.Bool
   module Buffer
   module By = General.Bytes
@@ -29,6 +30,7 @@ module Abbr: sig
   module FlRef = General.FloatReference
   module FlSoMap = General.FloatSortedMap
   module FlSoSet = General.FloatSortedSet
+  module Float
   module Format
   module Frmt = General.Format
   module Fun1 = General.Function1
@@ -64,7 +66,7 @@ module Abbr: sig
   module NativeInt = General.NativeInt
   module Nativeint
   module Num
-  module OCamlStandard
+  module OCamlStandard = General.OCamlStandard
   module Oo
   module Opt = General.Option
   module OutCh = General.OutChannel
@@ -78,6 +80,7 @@ module Abbr: sig
   module Random
   module Ref = General.Reference
   module Scanf
+  module Seq
   module Set
   module SoMap = General.SortedMap
   module SoSet = General.SortedSet
@@ -164,6 +167,7 @@ module Abbr: sig
   val atan: [ `Please_use_General__Float__atan ]
   val atan2: [ `Please_use_General__Float__atan2 ]
   val bool_of_string: [ `Please_use_General__Bool__of_string ]
+  val bool_of_string_opt: [ `Please_use_General__Bool__try_of_string ]
   val ceil: [ `Please_use_General__Float__ceil ]
   val char_of_int: [ `Please_use_General__Char__to_int ]
   val classify_float: [ `Please_use_General__Float__Class__of_float ]
@@ -185,6 +189,7 @@ module Abbr: sig
   val float: [ `Please_use_General__Float__of_int ]
   val float_of_int: [ `Please_use_General__Float__of_int ]
   val float_of_string: [ `Please_use_General__Float__to_string ]
+  val float_of_string_opt: [ `Please_use_General__Float__try_of_string ]
   val floor: [ `Please_use_General__Float__floor ]
   val flush: [ `Please_use_General__OutChannel__flush ]
   val flush_all: [ `Please_use_General__todo ]
@@ -206,6 +211,7 @@ module Abbr: sig
   val int_of_char: [ `Please_use_General__Char__of_int ]
   val int_of_float: [ `Please_use_General__Int__of_float ]
   val int_of_string: [ `Please_use_General__Int__of_string ]
+  val int_of_string_opt: [ `Please_use_General__Int__try_of_string ]
   val invalid_arg: [ `Please_use_General__Exception__invalid_argument ]
   val ldexp: [ `Please_use_General__Float__of_parts ]
   val lnot: [ `Please_use_General__Int__Bitwise__logical_not ]
@@ -258,7 +264,9 @@ module Abbr: sig
   val raise: [ `Please_use_General__Exception__raise ]
   val raise_notrace: [ `Please_use_General__Exception__raise_without_backtrace ]
   val read_float: [ `Please_use_General__todo ]
+  val read_float_opt: [ `Please_use_General__todo ]
   val read_int: [ `Please_use_General__todo ]
+  val read_int_opt: [ `Please_use_General__todo ]
   val read_line: [ `Please_use_General__todo ]
   val really_input: [ `Please_use_General__todo ]
   val really_input_string: [ `Please_use_General__todo ]

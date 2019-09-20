@@ -5,6 +5,7 @@ module Standard: sig
   module ArrayLabels
   module BigInt = General.BigInt
   module Big_int
+  module Bigarray
   module Bool = General.Bool
   module Buffer
   module Bytes = General.Bytes
@@ -58,7 +59,7 @@ module Standard: sig
   module NativeInt = General.NativeInt
   module Nativeint
   module Num
-  module OCamlStandard
+  module OCamlStandard = General.OCamlStandard
   module Oo
   module Option = General.Option
   module OutChannel = General.OutChannel
@@ -72,6 +73,7 @@ module Standard: sig
   module Random
   module Reference = General.Reference
   module Scanf
+  module Seq
   module Set
   module Sort
   module SortedMap = General.SortedMap

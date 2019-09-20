@@ -1,2 +1,0 @@
-module Callback: sig
-end

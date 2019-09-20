@@ -1,20 +1,15 @@
-module Reset = struct
-  #include "Reset/CommonHeader.ml"
-  #include "Reset/DefinitionHeader.ml"
-
-  module ResetPervasives = struct
-    #include "Reset/ResetPervasives.ml"
-  end
-
-  module ResetStandardLibrary = struct
-    #include "Reset/ResetStandardLibrary.ml"
-  end
-
-  #include "Reset/Footer.ml"
+module OCamlStandard = struct
+  #include "Reset/OCamlStandard.ml"
 end
 
-open Reset.ResetPervasives
-open Reset.ResetStandardLibrary
+module Reset = struct
+  #define SIGNATURE 0
+  #include "Reset/ResetPervasives.ml"
+  #include "Reset/ResetStandardLibrary.ml"
+  #undef SIGNATURE
+end
+
+open Reset
 
 module OCSP = OCamlStandard.Pervasives
 
@@ -117,16 +112,13 @@ module Foundations = struct
 end
 
 module Ubiquitous = struct
-  include Reset.ResetPervasives
-  include Reset.ResetStandardLibrary
+  include Reset
   include Foundations.PervasivesWhitelist
 end
 
 open Ubiquitous
 
 open Foundations
-
-module Pervasives = Ubiquitous
 
 module Test = struct
   #include "Testing/Test.ml"
@@ -539,17 +531,15 @@ module Standard = struct
   module IntSortedMap = IntSortedMap
   module StringSortedMap = StringSortedMap
 
+  module OCamlStandard = OCamlStandard
+
   include (
     Ubiquitous: module type of Ubiquitous[@remove_aliases]
     with module Array := Array
     and module Bytes := Bytes
     and module Char := Char
-    #ifdef HAS_Float
     and module Float := Float
-    #endif
     and module Format := Format
-    and module Int32 := Int32
-    and module Int64 := Int64
     and module Lazy := Lazy
     and module List := List
     and module Stream := Stream
@@ -626,11 +616,9 @@ module Abbr = struct
   module IntSoMap = IntSortedMap
   module StrSoMap = StringSortedMap
 
-  include (
-    Ubiquitous: module type of Ubiquitous[@remove_aliases]
-    with module Int32 := Int32
-    and module Int64 := Int64
-  )
+  module OCamlStandard = OCamlStandard
+
+  include Ubiquitous
 end
 
 module Tests = struct
@@ -681,7 +669,7 @@ module Tests = struct
         (* @todo Use check_char *)
         "string" >:: [
           "get" >: (let a: string = "a" in lazy (Char.(check ~repr ~equal ~expected:'a' a.[0])));
-          #ifdef STRINGS_ARE_MUTABLE
+          #if OCAML_VERSION < (4, 6, 0)
           (* @todo Fix that test in node.js *)
           (* "set" >: (let a: string = "a" in lazy (Char.(check ~repr ~equal ~expected:'a' (String.get a 0)); a.[0] <- 'z'; Char.(check ~repr ~equal ~expected:'z' (String.get a 0)))); *)
           #endif
@@ -698,7 +686,7 @@ module Tests = struct
         (* @todo Use check_char *)
         "string" >:: [
           "get" >: (let a: string = "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' a.[0])));
-          #ifdef STRINGS_ARE_MUTABLE
+          #if OCAML_VERSION < (4, 6, 0)
           (* "set" >: (let a: string = "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' (Str.get a 0)); a.[0] <- 'z'; Ch.(check ~repr ~equal ~expected:'z' (Str.get a 0)))); *)
           #endif
         ];

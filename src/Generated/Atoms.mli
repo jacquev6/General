@@ -1,14 +1,14 @@
 module CallStack: sig
-  type t = Pervasives.OCamlStandard.Printexc.raw_backtrace
+  type t = OCamlStandard.Printexc.raw_backtrace
   include Facets.Displayable.S0 with type t := t
   include Facets.Representable.S0 with type t := t
   module Location: sig
-    type t = Pervasives.OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}
+    type t = OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}
     include Facets.Able.S0 with type t := t
   end
 
   module Frame: sig
-    type t = Pervasives.OCamlStandard.Printexc.backtrace_slot
+    type t = OCamlStandard.Printexc.backtrace_slot
     val is_raise: t -> bool
     val location: t -> Location.t option
     val format: int -> t -> string option
@@ -137,22 +137,22 @@ module Int: sig
 end
 
 module Int32: sig
-  type t = Pervasives.OCamlStandard.Int32.t
+  type t = OCamlStandard.Int32.t
   include Facets.FixedWidthInteger.S0 with type t := t
 end
 
 module Int64: sig
-  type t = Pervasives.OCamlStandard.Int64.t
+  type t = OCamlStandard.Int64.t
   include Facets.FixedWidthInteger.S0 with type t := t
 end
 
 module NativeInt: sig
-  type t = Pervasives.OCamlStandard.Nativeint.t
+  type t = OCamlStandard.Nativeint.t
   include Facets.FixedWidthInteger.S0 with type t := t
 end
 
 module BigInt: sig
-  type t = Pervasives.OCamlStandard.Big_int.big_int
+  type t = OCamlStandard.Big_int.big_int
   include Facets.Integer.S0 with type t := t
 end
 

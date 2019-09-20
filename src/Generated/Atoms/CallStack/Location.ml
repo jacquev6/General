@@ -1,10 +1,10 @@
 module Tests_ = struct
   module type Examples = sig
-    include Facets.Able.Tests.Examples.S0 with type t := Pervasives.OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}
+    include Facets.Able.Tests.Examples.S0 with type t := OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}
   end
 
   module type Testable = sig
-    type t = Pervasives.OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}
+    type t = OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}
     include Facets.Able.Tests.Testable.S0 with type t := t
   end
 
