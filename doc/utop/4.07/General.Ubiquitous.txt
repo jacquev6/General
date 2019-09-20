@@ -1,9 +1,10 @@
-module Pervasives: sig
+module Ubiquitous: sig
   module Arg
   module Arith_status
   module Array
   module ArrayLabels
   module Big_int
+  module Bigarray
   module Buffer
   module Bytes
   module BytesLabels
@@ -13,6 +14,7 @@ module Pervasives: sig
   module Digest
   module Ephemeron
   module Filename
+  module Float
   module Format
   module Gc
   module Genlex
@@ -38,6 +40,7 @@ module Pervasives: sig
   module Queue
   module Random
   module Scanf
+  module Seq
   module Set
   module Sort
   module Spacetime
@@ -58,7 +61,7 @@ module Pervasives: sig
   type in_channel = [ `Please_use_General__InChannel__t ]
   type open_flag = [ `Please_use_General__todo ]
   type out_channel = [ `Please_use_General__OutChannel__t ]
-  val (!): 'a ref -> 'a
+  val (!): 'a Stdlib.ref -> 'a
   val (!=): [ `Please_use_General__Equate__Phys__different ]
   val (%): ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
   val (&): [ `Please_use_General__Bool__and_ ]
@@ -72,7 +75,7 @@ module Pervasives: sig
   val (-.): float -> float -> float
   val (/): int -> int -> int
   val (/.): float -> float -> float
-  val (:=): 'a ref -> 'a -> unit
+  val (:=): 'a Stdlib.ref -> 'a -> unit
   val (<): 'a -> 'a -> bool
   val (<=): 'a -> 'a -> bool
   val (<>): 'a -> 'a -> bool
@@ -209,7 +212,7 @@ module Pervasives: sig
   val read_line: [ `Please_use_General__todo ]
   val really_input: [ `Please_use_General__todo ]
   val really_input_string: [ `Please_use_General__todo ]
-  val ref: 'a -> 'a ref
+  val ref: 'a -> 'a Stdlib.ref
   val seek_in: [ `Please_use_General__InFile__seek ]
   val seek_out: [ `Please_use_General__OutFile__seek ]
   val set_binary_mode_in: [ `Please_use_General__todo ]

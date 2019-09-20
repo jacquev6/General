@@ -1,4 +1,4 @@
-module Pervasives: sig
+module Ubiquitous: sig
   module Arg
   module Arith_status
   module Array
@@ -58,7 +58,7 @@ module Pervasives: sig
   type in_channel = [ `Please_use_General__InChannel__t ]
   type open_flag = [ `Please_use_General__todo ]
   type out_channel = [ `Please_use_General__OutChannel__t ]
-  val (!): 'a Pervasives.ref -> 'a
+  val (!): 'a ref -> 'a
   val (!=): [ `Please_use_General__Equate__Phys__different ]
   val (%): ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
   val (&): [ `Please_use_General__Bool__and_ ]
@@ -72,7 +72,7 @@ module Pervasives: sig
   val (-.): float -> float -> float
   val (/): int -> int -> int
   val (/.): float -> float -> float
-  val (:=): 'a Pervasives.ref -> 'a -> unit
+  val (:=): 'a ref -> 'a -> unit
   val (<): 'a -> 'a -> bool
   val (<=): 'a -> 'a -> bool
   val (<>): 'a -> 'a -> bool
@@ -209,7 +209,7 @@ module Pervasives: sig
   val read_line: [ `Please_use_General__todo ]
   val really_input: [ `Please_use_General__todo ]
   val really_input_string: [ `Please_use_General__todo ]
-  val ref: 'a -> 'a Pervasives.ref
+  val ref: 'a -> 'a ref
   val seek_in: [ `Please_use_General__InFile__seek ]
   val seek_out: [ `Please_use_General__OutFile__seek ]
   val set_binary_mode_in: [ `Please_use_General__todo ]

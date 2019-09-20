@@ -1,4 +1,4 @@
-module Pervasives: sig
+module Ubiquitous: sig
   module Arg
   module Arith_status
   module Array
