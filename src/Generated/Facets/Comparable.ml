@@ -414,7 +414,7 @@ module Tests_ = struct
   module Examples = struct
     module type Element = sig
       type t
-      include S0 with type t := t
+      include ComparableBasic.S0 with type t := t
       include EquatableBasic.S0 with type t := t
       include Representable.S0 with type t := t
     end

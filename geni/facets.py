@@ -279,7 +279,7 @@ class Facet:
 
     def __tests_examples_element_mod_type_items(self):
         yield "type t"
-        yield f"include S0 with type t := t"
+        yield f"include {self.specializes_from}S0 with type t := t"
         for req in self.test_requirements:
             yield f"include {req.name}.S0 with type t := t"
 
