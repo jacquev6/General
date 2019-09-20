@@ -72,6 +72,7 @@ def facet(
         values=[],
         operators={},
         extensions=[],
+        specializes_from=None,
         test_examples=[],
         test_requirements=[],
 ):
@@ -84,6 +85,7 @@ def facet(
         values=values,
         operators={name: vals[value] for (name, value) in operators.items()},
         extensions=extensions,
+        specializes_from=specializes_from,
         test_examples=test_examples,
         test_requirements=test_requirements,
     )
@@ -252,6 +254,7 @@ equatable = facet(
     extensions=[
         ext("Different", members=["different"], requirements=["equal"]),
     ],
+    specializes_from=equatable_basic,
     test_requirements=[representable],
 )
 
@@ -322,6 +325,7 @@ comparable = facet(
             requirements=["compare"],
         ),
     ],
+    specializes_from=comparable_basic,
     test_requirements=[equatable_basic, representable],
 )
 

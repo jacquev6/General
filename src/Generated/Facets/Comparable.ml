@@ -106,7 +106,7 @@ module type S5 = sig
   val min_max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
 end
 
-module Specialize1(M: S1)(A: S0) = struct
+module Specialize1(M: S1)(A: ComparableBasic.S0) = struct
   module Self = struct
     type t = A.t M.t
     module ComparableBasic_ = ComparableBasic.Specialize1(M)(A)
@@ -126,7 +126,7 @@ module Specialize1(M: S1)(A: S0) = struct
   include Self
 end
 
-module Specialize2(M: S2)(A: S0)(B: S0) = struct
+module Specialize2(M: S2)(A: ComparableBasic.S0)(B: ComparableBasic.S0) = struct
   module Self = struct
     type t = (A.t, B.t) M.t
     module ComparableBasic_ = ComparableBasic.Specialize2(M)(A)(B)
@@ -146,7 +146,7 @@ module Specialize2(M: S2)(A: S0)(B: S0) = struct
   include Self
 end
 
-module Specialize3(M: S3)(A: S0)(B: S0)(C: S0) = struct
+module Specialize3(M: S3)(A: ComparableBasic.S0)(B: ComparableBasic.S0)(C: ComparableBasic.S0) = struct
   module Self = struct
     type t = (A.t, B.t, C.t) M.t
     module ComparableBasic_ = ComparableBasic.Specialize3(M)(A)(B)(C)
@@ -166,7 +166,7 @@ module Specialize3(M: S3)(A: S0)(B: S0)(C: S0) = struct
   include Self
 end
 
-module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0) = struct
+module Specialize4(M: S4)(A: ComparableBasic.S0)(B: ComparableBasic.S0)(C: ComparableBasic.S0)(D: ComparableBasic.S0) = struct
   module Self = struct
     type t = (A.t, B.t, C.t, D.t) M.t
     module ComparableBasic_ = ComparableBasic.Specialize4(M)(A)(B)(C)(D)
@@ -186,7 +186,7 @@ module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0) = struct
   include Self
 end
 
-module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
+module Specialize5(M: S5)(A: ComparableBasic.S0)(B: ComparableBasic.S0)(C: ComparableBasic.S0)(D: ComparableBasic.S0)(E: ComparableBasic.S0) = struct
   module Self = struct
     type t = (A.t, B.t, C.t, D.t, E.t) M.t
     module ComparableBasic_ = ComparableBasic.Specialize5(M)(A)(B)(C)(D)(E)

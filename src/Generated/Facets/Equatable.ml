@@ -52,7 +52,7 @@ module type S5 = sig
   val different: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
 end
 
-module Specialize1(M: S1)(A: S0) = struct
+module Specialize1(M: S1)(A: EquatableBasic.S0) = struct
   module Self = struct
     type t = A.t M.t
     module EquatableBasic_ = EquatableBasic.Specialize1(M)(A)
@@ -64,7 +64,7 @@ module Specialize1(M: S1)(A: S0) = struct
   include Self
 end
 
-module Specialize2(M: S2)(A: S0)(B: S0) = struct
+module Specialize2(M: S2)(A: EquatableBasic.S0)(B: EquatableBasic.S0) = struct
   module Self = struct
     type t = (A.t, B.t) M.t
     module EquatableBasic_ = EquatableBasic.Specialize2(M)(A)(B)
@@ -76,7 +76,7 @@ module Specialize2(M: S2)(A: S0)(B: S0) = struct
   include Self
 end
 
-module Specialize3(M: S3)(A: S0)(B: S0)(C: S0) = struct
+module Specialize3(M: S3)(A: EquatableBasic.S0)(B: EquatableBasic.S0)(C: EquatableBasic.S0) = struct
   module Self = struct
     type t = (A.t, B.t, C.t) M.t
     module EquatableBasic_ = EquatableBasic.Specialize3(M)(A)(B)(C)
@@ -88,7 +88,7 @@ module Specialize3(M: S3)(A: S0)(B: S0)(C: S0) = struct
   include Self
 end
 
-module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0) = struct
+module Specialize4(M: S4)(A: EquatableBasic.S0)(B: EquatableBasic.S0)(C: EquatableBasic.S0)(D: EquatableBasic.S0) = struct
   module Self = struct
     type t = (A.t, B.t, C.t, D.t) M.t
     module EquatableBasic_ = EquatableBasic.Specialize4(M)(A)(B)(C)(D)
@@ -100,7 +100,7 @@ module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0) = struct
   include Self
 end
 
-module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
+module Specialize5(M: S5)(A: EquatableBasic.S0)(B: EquatableBasic.S0)(C: EquatableBasic.S0)(D: EquatableBasic.S0)(E: EquatableBasic.S0) = struct
   module Self = struct
     type t = (A.t, B.t, C.t, D.t, E.t) M.t
     module EquatableBasic_ = EquatableBasic.Specialize5(M)(A)(B)(C)(D)(E)

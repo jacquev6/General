@@ -388,27 +388,27 @@ module Equatable: sig
     val different: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
   end
 
-  module Specialize1(M: S1)(A: S0): sig
+  module Specialize1(M: S1)(A: EquatableBasic.S0): sig
     type t = A.t M.t
     include S0 with type t := t
   end
 
-  module Specialize2(M: S2)(A: S0)(B: S0): sig
+  module Specialize2(M: S2)(A: EquatableBasic.S0)(B: EquatableBasic.S0): sig
     type t = (A.t, B.t) M.t
     include S0 with type t := t
   end
 
-  module Specialize3(M: S3)(A: S0)(B: S0)(C: S0): sig
+  module Specialize3(M: S3)(A: EquatableBasic.S0)(B: EquatableBasic.S0)(C: EquatableBasic.S0): sig
     type t = (A.t, B.t, C.t) M.t
     include S0 with type t := t
   end
 
-  module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0): sig
+  module Specialize4(M: S4)(A: EquatableBasic.S0)(B: EquatableBasic.S0)(C: EquatableBasic.S0)(D: EquatableBasic.S0): sig
     type t = (A.t, B.t, C.t, D.t) M.t
     include S0 with type t := t
   end
 
-  module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0): sig
+  module Specialize5(M: S5)(A: EquatableBasic.S0)(B: EquatableBasic.S0)(C: EquatableBasic.S0)(D: EquatableBasic.S0)(E: EquatableBasic.S0): sig
     type t = (A.t, B.t, C.t, D.t, E.t) M.t
     include S0 with type t := t
   end
@@ -914,27 +914,27 @@ module Comparable: sig
     val min_max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
   end
 
-  module Specialize1(M: S1)(A: S0): sig
+  module Specialize1(M: S1)(A: ComparableBasic.S0): sig
     type t = A.t M.t
     include S0 with type t := t
   end
 
-  module Specialize2(M: S2)(A: S0)(B: S0): sig
+  module Specialize2(M: S2)(A: ComparableBasic.S0)(B: ComparableBasic.S0): sig
     type t = (A.t, B.t) M.t
     include S0 with type t := t
   end
 
-  module Specialize3(M: S3)(A: S0)(B: S0)(C: S0): sig
+  module Specialize3(M: S3)(A: ComparableBasic.S0)(B: ComparableBasic.S0)(C: ComparableBasic.S0): sig
     type t = (A.t, B.t, C.t) M.t
     include S0 with type t := t
   end
 
-  module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0): sig
+  module Specialize4(M: S4)(A: ComparableBasic.S0)(B: ComparableBasic.S0)(C: ComparableBasic.S0)(D: ComparableBasic.S0): sig
     type t = (A.t, B.t, C.t, D.t) M.t
     include S0 with type t := t
   end
 
-  module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0): sig
+  module Specialize5(M: S5)(A: ComparableBasic.S0)(B: ComparableBasic.S0)(C: ComparableBasic.S0)(D: ComparableBasic.S0)(E: ComparableBasic.S0): sig
     type t = (A.t, B.t, C.t, D.t, E.t) M.t
     include S0 with type t := t
   end

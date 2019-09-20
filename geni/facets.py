@@ -31,6 +31,7 @@ class Facet:
             variadic,
             submodule,
             bases, values, operators, extensions,
+            specializes_from,
             test_examples, test_requirements,
         ):
         self.prefix = prefix
@@ -42,10 +43,7 @@ class Facet:
         self.submodule = submodule
         self.values = list(values)
         self.extensions = list(extensions)
-        self.all_items = list(itertools.chain(
-            self.values,
-            itertools.chain.from_iterable(extension.members for extension in self.extensions),
-        ))
+        self.specializes_from = "" if specializes_from is None else f"{specializes_from.name}."
         self.operators = dict(operators)
         self.test_examples = list(test_examples)
         self.test_requirements = list(test_requirements)
@@ -203,12 +201,12 @@ class Facet:
 
     def __core_specialize_specifications(self):
         for arity in self.non_zero_arities:
-            functor_params = "".join(f"({a.upper()}: S0)" for a in abcd(arity))
+            functor_params = "".join(f"({a.upper()}: {self.specializes_from}S0)" for a in abcd(arity))
             yield mod_spec(f"Specialize{arity}(M: S{arity}){functor_params}", self.__specialize_specification_items(arity))
 
     def __core_specialize_implementations(self):
         for arity in self.non_zero_arities:
-            functor_params = "".join(f"({a.upper()}: S0)" for a in abcd(arity))
+            functor_params = "".join(f"({a.upper()}: {self.specializes_from}S0)" for a in abcd(arity))
             yield mod_impl(f"Specialize{arity}(M: S{arity}){functor_params}", self.__core_specialize_implementation_items(arity))
 
     def __specialize_specification_items(self, arity):
