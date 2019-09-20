@@ -49,8 +49,13 @@ do
 
         GENERATE_CODE=false
 
-        $RUN python3 -m geni
-        git --no-pager diff
+        $RUN coverage3 run --branch -m geni
+        echo
+        echo "Geni coverage:"
+        $RUN coverage3 report
+        echo "Full report in $PWD/_builds/$OCAML_VERSION/geni_coverage/index.html"
+        $RUN coverage3 html --directory=_build/geni_coverage
+        rm .coverage
     fi
 
     echo
