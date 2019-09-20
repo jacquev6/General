@@ -229,19 +229,25 @@ representable = facet(
 
 equalities = val("equalities", f"{t} list list")
 
-equatable = facet(
-    "Equatable",
-    values=[val("equal", t, t, deleg("equal"), "bool", operator="=")],
-    extensions=[
-        ext(
-            "Different",
-            members=[val("different", t, t, deleg("equal"), "bool", operator="<>")],
-            requirements=["equal"],
-        ),
-    ],
+equatable_basic = facet(
+    "EquatableBasic",
+    values=[val("equal", t, t, deleg("equal"), "bool")],
     test_examples=[
         equalities,
         val("differences", f"({t} * {t}) list"),
+    ],
+    test_requirements=[representable],
+)
+
+equatable = facet(
+    "Equatable",
+    bases=[equatable_basic],
+    values=[
+        val("equal", t, t, deleg("equal"), "bool", operator="="),  # @todo Do not repeat "equal", just add the operator
+        val("different", t, t, deleg("equal"), "bool", operator="<>"),
+    ],
+    extensions=[
+        ext("Different", members=["different"], requirements=["equal"]),
     ],
     test_requirements=[representable],
 )
@@ -263,7 +269,7 @@ parsable = facet(
         val("of_string", "string", t),
     ],
     test_examples=[val("literals", f"(string * {t}) list")],
-    test_requirements=[equatable, representable],
+    test_requirements=[equatable_basic, representable],
 )
 
 comparable_basic = facet(
@@ -273,7 +279,7 @@ comparable_basic = facet(
         val("orders", f"{t} list list"),
         equalities,
     ],
-    test_requirements=[equatable, representable],
+    test_requirements=[equatable_basic, representable],
 )
 
 comparable = facet(
@@ -311,7 +317,7 @@ comparable = facet(
         val("orders", f"{t} list list"),
         equalities,
     ],
-    test_requirements=[equatable, representable],
+    test_requirements=[equatable_basic, representable],
 )
 
 ringoid = facet(
@@ -356,7 +362,7 @@ ringoid = facet(
         val("divisions", f"({t} * {t} * {t}) list"),
         val("exponentiations", f"({t} * int * {t}) list"),
     ],
-    test_requirements=[equatable, representable],
+    test_requirements=[equatable_basic, representable],
 )
 
 of_int = facet(
@@ -406,7 +412,7 @@ pred_succ = facet(
         ),
     ],
     test_examples=[val("successions", f"({t} * {t}) list")],
-    test_requirements=[equatable, representable],
+    test_requirements=[equatable_basic, representable],
 )
 
 bounded = facet(
@@ -448,7 +454,7 @@ able = facet(
 stringable = facet(
     "Stringable",
     bases=[displayable, parsable],
-    test_requirements=[representable, equatable],  # @todo Deduce from parsable's test requirements
+    test_requirements=[representable, equatable_basic],  # @todo Deduce from parsable's test requirements
 )
 
 of_standard_numbers = facet(

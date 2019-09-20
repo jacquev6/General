@@ -338,7 +338,7 @@ module List: sig
     end
   end
 
-  module SpecializeEquatable(A: Facets.Equatable.Basic.S0): sig
+  module SpecializeEquatable(A: Facets.EquatableBasic.S0): sig
     type t = A.t list
 
     val contains: t -> A.t -> bool

@@ -6,7 +6,8 @@ digraph {
     label="Facets"
     labelloc="b"
     representable [label="Representable\n\nrepr"]
-    equatable [label="Equatable\n\nequal\n\ndifferent"]
+    equatablebasic [label="EquatableBasic\n\nequal"]
+    equatable [label="Equatable\n\nequal\ndifferent"]
     displayable [label="Displayable\n\nto_string"]
     parsable [label="Parsable\n\ntry_of_string\nof_string"]
     comparablebasic [label="ComparableBasic\n\ncompare"]
@@ -74,6 +75,7 @@ digraph {
     tuple4 [label="Tuple4\n\nmake\nget_0\nget_1\nget_2\nget_3\nflip"]
     tuple5 [label="Tuple5\n\nmake\nget_0\nget_1\nget_2\nget_3\nget_4\nflip"]
   }
+  equatable -> equatablebasic
   comparable -> comparablebasic
   identifiable -> equatable
   identifiable -> representable

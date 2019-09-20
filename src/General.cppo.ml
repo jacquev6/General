@@ -133,6 +133,10 @@ module Facets = struct
     #include "Facets/Representable.ml"
   end
 
+  module EquatableBasic = struct
+    #include "Facets/EquatableBasic.ml"
+  end
+
   module Equatable = struct
     #include "Facets/Equatable.ml"
   end
