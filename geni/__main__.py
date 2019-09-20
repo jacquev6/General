@@ -266,35 +266,44 @@ parsable = facet(
     test_requirements=[equatable, representable],
 )
 
+comparable_basic = facet(
+    "ComparableBasic",
+    values=[val("compare", t, t, deleg("compare"), "Compare.t")],
+    test_examples=[
+        val("orders", f"{t} list list"),
+        equalities,
+    ],
+    test_requirements=[equatable, representable],
+)
+
 comparable = facet(
     "Comparable",
-    values=[val("compare", t, t, deleg("compare"), "Compare.t")],
+    bases=[comparable_basic],
+    values=[
+        val("less_than", t, t, deleg("compare"), "bool", operator="<"),
+        val("less_or_equal", t, t, deleg("compare"), "bool", operator="<="),
+        val("greater_than", t, t, deleg("compare"), "bool", operator=">"),
+        val("greater_or_equal", t, t, deleg("compare"), "bool", operator=">="),
+        val("between", t, {"low": t}, {"high": t}, deleg("compare"), "bool"),
+        val("between_or_equal", t, {"low": t}, {"high": t}, deleg("compare"), "bool"),
+        val("min", t, t, deleg("compare"), t),
+        val("max", t, t, deleg("compare"), t),
+        val("min_max", t, t, deleg("compare"), f"{t} * {t}"),
+    ],
     extensions=[
         ext(
             "GreaterLessThan",
-            members=[
-                val("less_than", t, t, deleg("compare"), "bool", operator="<"),
-                val("less_or_equal", t, t, deleg("compare"), "bool", operator="<="),
-                val("greater_than", t, t, deleg("compare"), "bool", operator=">"),
-                val("greater_or_equal", t, t, deleg("compare"), "bool", operator=">="),
-            ],
+            members=["less_than", "less_or_equal", "greater_than", "greater_or_equal"],
             requirements=["compare"],
         ),
         ext(
             "Between",
-            members=[
-                val("between", t, {"low": t}, {"high": t}, deleg("compare"), "bool"),
-                val("between_or_equal", t, {"low": t}, {"high": t}, deleg("compare"), "bool")
-            ],
+            members=["between", "between_or_equal"],
             requirements=["less_than", "less_or_equal", "greater_than", "greater_or_equal"],
         ),
         ext(
             "MinMax",
-            members=[
-                val("min", t, t, deleg("compare"), t),
-                val("max", t, t, deleg("compare"), t),
-                val("min_max", t, t, deleg("compare"), f"{t} * {t}"),
-            ],
+            members=["min", "max", "min_max"],
             requirements=["compare"],
         ),
     ],

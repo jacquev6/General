@@ -21,66 +21,10 @@ module Operators = struct
   end
 end
 
-module Basic = struct
-  module type S0 = sig
-    type t
-    val compare: t -> t -> Compare.t
-  end
-
-  module type S1 = sig
-    type 'a t
-    val compare: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> Compare.t
-  end
-
-  module type S2 = sig
-    type ('a, 'b) t
-    val compare: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> Compare.t
-  end
-
-  module type S3 = sig
-    type ('a, 'b, 'c) t
-    val compare: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> Compare.t
-  end
-
-  module type S4 = sig
-    type ('a, 'b, 'c, 'd) t
-    val compare: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> Compare.t
-  end
-
-  module type S5 = sig
-    type ('a, 'b, 'c, 'd, 'e) t
-    val compare: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> Compare.t
-  end
-
-  module Specialize1(M: S1)(A: S0) = struct
-    type t = A.t M.t
-    let compare x y = M.compare x y ~compare_a:A.compare
-  end
-
-  module Specialize2(M: S2)(A: S0)(B: S0) = struct
-    type t = (A.t, B.t) M.t
-    let compare x y = M.compare x y ~compare_a:A.compare ~compare_b:B.compare
-  end
-
-  module Specialize3(M: S3)(A: S0)(B: S0)(C: S0) = struct
-    type t = (A.t, B.t, C.t) M.t
-    let compare x y = M.compare x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare
-  end
-
-  module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0) = struct
-    type t = (A.t, B.t, C.t, D.t) M.t
-    let compare x y = M.compare x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare
-  end
-
-  module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
-    type t = (A.t, B.t, C.t, D.t, E.t) M.t
-    let compare x y = M.compare x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare ~compare_e:E.compare
-  end
-end
-
 module type S0 = sig
-  include Basic.S0
+  type t
   module O: Operators.S0 with type t := t
+  include ComparableBasic.S0 with type t := t
   val less_than: t -> t -> bool
   val less_or_equal: t -> t -> bool
   val greater_than: t -> t -> bool
@@ -93,7 +37,8 @@ module type S0 = sig
 end
 
 module type S1 = sig
-  include Basic.S1
+  type 'a t
+  include ComparableBasic.S1 with type 'a t := 'a t
   val less_than: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> bool
   val less_or_equal: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> bool
   val greater_than: 'a t -> 'a t -> compare_a:('a -> 'a -> Compare.t) -> bool
@@ -106,7 +51,8 @@ module type S1 = sig
 end
 
 module type S2 = sig
-  include Basic.S2
+  type ('a, 'b) t
+  include ComparableBasic.S2 with type ('a, 'b) t := ('a, 'b) t
   val less_than: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
   val less_or_equal: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
   val greater_than: ('a, 'b) t -> ('a, 'b) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> bool
@@ -119,7 +65,8 @@ module type S2 = sig
 end
 
 module type S3 = sig
-  include Basic.S3
+  type ('a, 'b, 'c) t
+  include ComparableBasic.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
   val less_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
   val less_or_equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
   val greater_than: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> bool
@@ -132,7 +79,8 @@ module type S3 = sig
 end
 
 module type S4 = sig
-  include Basic.S4
+  type ('a, 'b, 'c, 'd) t
+  include ComparableBasic.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
   val less_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
   val less_or_equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
   val greater_than: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> bool
@@ -145,7 +93,8 @@ module type S4 = sig
 end
 
 module type S5 = sig
-  include Basic.S5
+  type ('a, 'b, 'c, 'd, 'e) t
+  include ComparableBasic.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
   val less_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
   val less_or_equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
   val greater_than: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> bool
@@ -157,9 +106,11 @@ module type S5 = sig
   val min_max: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> compare_a:('a -> 'a -> Compare.t) -> compare_b:('b -> 'b -> Compare.t) -> compare_c:('c -> 'c -> Compare.t) -> compare_d:('d -> 'd -> Compare.t) -> compare_e:('e -> 'e -> Compare.t) -> ('a, 'b, 'c, 'd, 'e) t * ('a, 'b, 'c, 'd, 'e) t
 end
 
-module Specialize1(M: S1)(A: Basic.S0) = struct
+module Specialize1(M: S1)(A: S0) = struct
   module Self = struct
-    include Basic.Specialize1(M)(A)
+    type t = A.t M.t
+    module ComparableBasic_ = ComparableBasic.Specialize1(M)(A)
+    include (ComparableBasic_: ComparableBasic.S0 with type t := t)
     let less_than x y = M.less_than x y ~compare_a:A.compare
     let less_or_equal x y = M.less_or_equal x y ~compare_a:A.compare
     let greater_than x y = M.greater_than x y ~compare_a:A.compare
@@ -175,9 +126,11 @@ module Specialize1(M: S1)(A: Basic.S0) = struct
   include Self
 end
 
-module Specialize2(M: S2)(A: Basic.S0)(B: Basic.S0) = struct
+module Specialize2(M: S2)(A: S0)(B: S0) = struct
   module Self = struct
-    include Basic.Specialize2(M)(A)(B)
+    type t = (A.t, B.t) M.t
+    module ComparableBasic_ = ComparableBasic.Specialize2(M)(A)(B)
+    include (ComparableBasic_: ComparableBasic.S0 with type t := t)
     let less_than x y = M.less_than x y ~compare_a:A.compare ~compare_b:B.compare
     let less_or_equal x y = M.less_or_equal x y ~compare_a:A.compare ~compare_b:B.compare
     let greater_than x y = M.greater_than x y ~compare_a:A.compare ~compare_b:B.compare
@@ -193,9 +146,11 @@ module Specialize2(M: S2)(A: Basic.S0)(B: Basic.S0) = struct
   include Self
 end
 
-module Specialize3(M: S3)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0) = struct
+module Specialize3(M: S3)(A: S0)(B: S0)(C: S0) = struct
   module Self = struct
-    include Basic.Specialize3(M)(A)(B)(C)
+    type t = (A.t, B.t, C.t) M.t
+    module ComparableBasic_ = ComparableBasic.Specialize3(M)(A)(B)(C)
+    include (ComparableBasic_: ComparableBasic.S0 with type t := t)
     let less_than x y = M.less_than x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare
     let less_or_equal x y = M.less_or_equal x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare
     let greater_than x y = M.greater_than x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare
@@ -211,9 +166,11 @@ module Specialize3(M: S3)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0) = struct
   include Self
 end
 
-module Specialize4(M: S4)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0) = struct
+module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0) = struct
   module Self = struct
-    include Basic.Specialize4(M)(A)(B)(C)(D)
+    type t = (A.t, B.t, C.t, D.t) M.t
+    module ComparableBasic_ = ComparableBasic.Specialize4(M)(A)(B)(C)(D)
+    include (ComparableBasic_: ComparableBasic.S0 with type t := t)
     let less_than x y = M.less_than x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare
     let less_or_equal x y = M.less_or_equal x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare
     let greater_than x y = M.greater_than x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare
@@ -229,9 +186,11 @@ module Specialize4(M: S4)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0) = 
   include Self
 end
 
-module Specialize5(M: S5)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0)(E: Basic.S0) = struct
+module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
   module Self = struct
-    include Basic.Specialize5(M)(A)(B)(C)(D)(E)
+    type t = (A.t, B.t, C.t, D.t, E.t) M.t
+    module ComparableBasic_ = ComparableBasic.Specialize5(M)(A)(B)(C)(D)(E)
+    include (ComparableBasic_: ComparableBasic.S0 with type t := t)
     let less_than x y = M.less_than x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare ~compare_e:E.compare
     let less_or_equal x y = M.less_or_equal x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare ~compare_e:E.compare
     let greater_than x y = M.greater_than x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare ~compare_e:E.compare
@@ -455,13 +414,14 @@ module Tests_ = struct
   module Examples = struct
     module type Element = sig
       type t
-      include Basic.S0 with type t := t
+      include S0 with type t := t
       include Equatable.Basic.S0 with type t := t
       include Representable.S0 with type t := t
     end
 
     module type S0 = sig
       type t
+      include ComparableBasic.Tests.Examples.S0 with type t := t
       val orders: t list list
       val equalities: t list list
     end
@@ -469,6 +429,7 @@ module Tests_ = struct
     module type S1 = sig
       type 'a t
       module A: Element
+      include ComparableBasic.Tests.Examples.S1 with type 'a t := 'a t and module A := A
       val orders: A.t t list list
       val equalities: A.t t list list
     end
@@ -477,6 +438,7 @@ module Tests_ = struct
       type ('a, 'b) t
       module A: Element
       module B: Element
+      include ComparableBasic.Tests.Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
       val orders: (A.t, B.t) t list list
       val equalities: (A.t, B.t) t list list
     end
@@ -486,6 +448,7 @@ module Tests_ = struct
       module A: Element
       module B: Element
       module C: Element
+      include ComparableBasic.Tests.Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
       val orders: (A.t, B.t, C.t) t list list
       val equalities: (A.t, B.t, C.t) t list list
     end
@@ -496,6 +459,7 @@ module Tests_ = struct
       module B: Element
       module C: Element
       module D: Element
+      include ComparableBasic.Tests.Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
       val orders: (A.t, B.t, C.t, D.t) t list list
       val equalities: (A.t, B.t, C.t, D.t) t list list
     end
@@ -507,6 +471,7 @@ module Tests_ = struct
       module C: Element
       module D: Element
       module E: Element
+      include ComparableBasic.Tests.Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
       val orders: (A.t, B.t, C.t, D.t, E.t) t list list
       val equalities: (A.t, B.t, C.t, D.t, E.t) t list list
     end
@@ -555,6 +520,7 @@ module Tests_ = struct
       open Testing
       module E = MakeExamples(M)(E)
       let test = "Comparable" >:: [
+        (let module T = ComparableBasic.Tests.Make0(M)(E) in T.test);
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
 

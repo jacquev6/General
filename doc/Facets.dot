@@ -9,7 +9,8 @@ digraph {
     equatable [label="Equatable\n\nequal\n\ndifferent"]
     displayable [label="Displayable\n\nto_string"]
     parsable [label="Parsable\n\ntry_of_string\nof_string"]
-    comparable [label="Comparable\n\ncompare\n\nless_than\nless_or_equal\ngreater_than\ngreater_or_equal\nbetween\nbetween_or_equal\nmin\nmax\nmin_max"]
+    comparablebasic [label="ComparableBasic\n\ncompare"]
+    comparable [label="Comparable\n\nless_than\nless_or_equal\ngreater_than\ngreater_or_equal\nbetween\nbetween_or_equal\nmin\nmax\nmin_max"]
     ringoid [label="Ringoid\n\nzero\none\nnegate\nadd\nsubtract\nmultiply\ndivide\n\nsquare\nexponentiate"]
     ofint [label="OfInt\n\nof_int"]
     toint [label="ToInt\n\nto_int"]
@@ -73,6 +74,7 @@ digraph {
     tuple4 [label="Tuple4\n\nmake\nget_0\nget_1\nget_2\nget_3\nflip"]
     tuple5 [label="Tuple5\n\nmake\nget_0\nget_1\nget_2\nget_3\nget_4\nflip"]
   }
+  comparable -> comparablebasic
   identifiable -> equatable
   identifiable -> representable
   able -> identifiable

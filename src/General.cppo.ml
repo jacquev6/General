@@ -137,6 +137,10 @@ module Facets = struct
     #include "Facets/Equatable.ml"
   end
 
+  module ComparableBasic = struct
+    #include "Facets/ComparableBasic.ml"
+  end
+
   module Comparable = struct
     #include "Facets/Comparable.ml"
   end

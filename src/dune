@@ -71,6 +71,7 @@
     Facets/Bitwise.ml
     Facets/Bounded.ml
     Facets/Comparable.ml
+    Facets/ComparableBasic.ml
     Facets/Displayable.ml
     Facets/Equatable.ml
     Facets/FixedWidthInteger.ml
@@ -116,6 +117,7 @@
     Generated/Facets/Bitwise.ml
     Generated/Facets/Bounded.ml
     Generated/Facets/Comparable.ml
+    Generated/Facets/ComparableBasic.ml
     Generated/Facets/Displayable.ml
     Generated/Facets/Equatable.ml
     Generated/Facets/FixedWidthInteger.ml

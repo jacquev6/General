@@ -229,6 +229,14 @@ class Facet:
         yield "include S0 with type t := t",
 
     def __basic_specialize_implementation_items(self, arity):
+        if self.__is_basic() and self.__has_own_operators():
+            yield mod_impl("Self", self.__basic_specialize_self_implementation_items(arity))
+            yield "module O = Operators.Make0(Self)"
+            yield "include Self"
+        else:
+            yield self.__basic_specialize_self_implementation_items(arity)
+
+    def __basic_specialize_self_implementation_items(self, arity):
         yield f"type t = {type_args(arity)}M.t"
         functor_args = "".join(f"({a.upper()})" for a in abcd(arity))
         for base in self.bases:
