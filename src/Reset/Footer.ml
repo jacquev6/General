@@ -3,3 +3,5 @@
 #undef RESET_VALUE
 #undef ALIAS_MODULE
 #undef EMPTY_MODULE
+#undef ALIAS_STDLIB_MODULE
+#undef ALIAS_VALUE
