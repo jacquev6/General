@@ -3,8 +3,10 @@ module Facets: sig
   module Bitwise
   module Bounded
   module Comparable
+  module ComparableBasic
   module Displayable
   module Equatable
+  module EquatableBasic
   module FilterMapable
   module FixedWidthInteger
   module Foldable
@@ -19,6 +21,7 @@ module Facets: sig
   module RealNumber
   module Representable
   module Ringoid
+  module RingoidBasic
   module Scanable
   module Stringable
   module ToFloat

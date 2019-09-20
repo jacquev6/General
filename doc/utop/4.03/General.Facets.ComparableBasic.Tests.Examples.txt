@@ -1,0 +1,53 @@
+module Examples: sig
+  module type Element = sig
+    type t
+    val compare: t -> t -> General.Compare.t
+    val equal: t -> t -> bool
+    val repr: t -> string
+  end
+  module type S0 = sig
+    type t
+    val equalities: t list list
+    val orders: t list list
+  end
+  module type S1 = sig
+    module A: Element
+    type 'a t
+    val equalities: A.t t list list
+    val orders: A.t t list list
+  end
+  module type S2 = sig
+    module A: Element
+    module B: Element
+    type ('a, 'b) t
+    val equalities: (A.t, B.t) t list list
+    val orders: (A.t, B.t) t list list
+  end
+  module type S3 = sig
+    module A: Element
+    module B: Element
+    module C: Element
+    type ('a, 'b, 'c) t
+    val equalities: (A.t, B.t, C.t) t list list
+    val orders: (A.t, B.t, C.t) t list list
+  end
+  module type S4 = sig
+    module A: Element
+    module B: Element
+    module C: Element
+    module D: Element
+    type ('a, 'b, 'c, 'd) t
+    val equalities: (A.t, B.t, C.t, D.t) t list list
+    val orders: (A.t, B.t, C.t, D.t) t list list
+  end
+  module type S5 = sig
+    module A: Element
+    module B: Element
+    module C: Element
+    module D: Element
+    module E: Element
+    type ('a, 'b, 'c, 'd, 'e) t
+    val equalities: (A.t, B.t, C.t, D.t, E.t) t list list
+    val orders: (A.t, B.t, C.t, D.t, E.t) t list list
+  end
+end

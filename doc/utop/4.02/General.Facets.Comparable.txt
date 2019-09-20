@@ -1,5 +1,4 @@
 module Comparable: sig
-  module Basic
   module Between
   module GreaterLessThan
   module MinMax

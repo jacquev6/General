@@ -1,5 +1,4 @@
 module Equatable: sig
-  module Basic
   module Different
   module Operators
   module Specialize1

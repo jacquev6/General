@@ -1,0 +1,14 @@
+module RingoidBasic: sig
+  module Subtract
+  module Tests
+  module type S0 = sig
+    type t
+    val add: t -> t -> t
+    val divide: t -> t -> t
+    val multiply: t -> t -> t
+    val negate: t -> t
+    val one: t
+    val subtract: t -> t -> t
+    val zero: t
+  end
+end

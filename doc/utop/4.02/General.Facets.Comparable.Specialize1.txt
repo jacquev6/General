@@ -1,4 +1,4 @@
-module Specialize1(M: General.Facets.Comparable.S1)(A: General.Facets.Comparable.Basic.S0): sig
+module Specialize1(M: General.Facets.Comparable.S1)(A: General.Facets.ComparableBasic.S0): sig
   module O: sig
     val (<): t -> t -> bool
     val (<=): t -> t -> bool

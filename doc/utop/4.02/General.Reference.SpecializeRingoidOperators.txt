@@ -1,4 +1,4 @@
-module SpecializeRingoidOperators(A: General.Facets.Ringoid.Basic.S0): sig
+module SpecializeRingoidOperators(A: General.Facets.RingoidBasic.S0): sig
   type nonrec t = A.t ref
   val (=*): t -> A.t -> unit
   val (=+): t -> A.t -> unit

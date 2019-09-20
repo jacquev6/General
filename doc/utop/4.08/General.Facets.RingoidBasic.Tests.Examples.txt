@@ -1,0 +1,9 @@
+module Examples: sig
+  module type S0 = sig
+    type t
+    val additions: (t * t * t) list
+    val divisions: (t * t * t) list
+    val multiplications: (t * t * t) list
+    val negations: (t * t) list
+  end
+end

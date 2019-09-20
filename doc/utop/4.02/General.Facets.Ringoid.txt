@@ -1,9 +1,7 @@
 module Ringoid: sig
-  module Basic
   module Exponentiate
   module Operators
   module Square
-  module Subtract
   module Tests
   module type S0 = sig
     module O: sig
