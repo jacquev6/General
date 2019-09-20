@@ -15,97 +15,48 @@ module Operators = struct
   end
 end
 
-module Basic = struct
-  module type S0 = sig
-    type t
-    val equal: t -> t -> bool
-  end
-
-  module type S1 = sig
-    type 'a t
-    val equal: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
-  end
-
-  module type S2 = sig
-    type ('a, 'b) t
-    val equal: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
-  end
-
-  module type S3 = sig
-    type ('a, 'b, 'c) t
-    val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
-  end
-
-  module type S4 = sig
-    type ('a, 'b, 'c, 'd) t
-    val equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
-  end
-
-  module type S5 = sig
-    type ('a, 'b, 'c, 'd, 'e) t
-    val equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
-  end
-
-  module Specialize1(M: S1)(A: S0) = struct
-    type t = A.t M.t
-    let equal x y = M.equal x y ~equal_a:A.equal
-  end
-
-  module Specialize2(M: S2)(A: S0)(B: S0) = struct
-    type t = (A.t, B.t) M.t
-    let equal x y = M.equal x y ~equal_a:A.equal ~equal_b:B.equal
-  end
-
-  module Specialize3(M: S3)(A: S0)(B: S0)(C: S0) = struct
-    type t = (A.t, B.t, C.t) M.t
-    let equal x y = M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal
-  end
-
-  module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0) = struct
-    type t = (A.t, B.t, C.t, D.t) M.t
-    let equal x y = M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal
-  end
-
-  module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
-    type t = (A.t, B.t, C.t, D.t, E.t) M.t
-    let equal x y = M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal ~equal_e:E.equal
-  end
-end
-
 module type S0 = sig
-  include Basic.S0
+  type t
   module O: Operators.S0 with type t := t
+  include EquatableBasic.S0 with type t := t
   val different: t -> t -> bool
 end
 
 module type S1 = sig
-  include Basic.S1
+  type 'a t
+  include EquatableBasic.S1 with type 'a t := 'a t
   val different: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
 end
 
 module type S2 = sig
-  include Basic.S2
+  type ('a, 'b) t
+  include EquatableBasic.S2 with type ('a, 'b) t := ('a, 'b) t
   val different: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
 end
 
 module type S3 = sig
-  include Basic.S3
+  type ('a, 'b, 'c) t
+  include EquatableBasic.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
   val different: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
 end
 
 module type S4 = sig
-  include Basic.S4
+  type ('a, 'b, 'c, 'd) t
+  include EquatableBasic.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
   val different: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
 end
 
 module type S5 = sig
-  include Basic.S5
+  type ('a, 'b, 'c, 'd, 'e) t
+  include EquatableBasic.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
   val different: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
 end
 
-module Specialize1(M: S1)(A: Basic.S0) = struct
+module Specialize1(M: S1)(A: EquatableBasic.S0) = struct
   module Self = struct
-    include Basic.Specialize1(M)(A)
+    type t = A.t M.t
+    module EquatableBasic_ = EquatableBasic.Specialize1(M)(A)
+    include (EquatableBasic_: EquatableBasic.S0 with type t := t)
     let different x y = M.different x y ~equal_a:A.equal
   end
 
@@ -113,9 +64,11 @@ module Specialize1(M: S1)(A: Basic.S0) = struct
   include Self
 end
 
-module Specialize2(M: S2)(A: Basic.S0)(B: Basic.S0) = struct
+module Specialize2(M: S2)(A: EquatableBasic.S0)(B: EquatableBasic.S0) = struct
   module Self = struct
-    include Basic.Specialize2(M)(A)(B)
+    type t = (A.t, B.t) M.t
+    module EquatableBasic_ = EquatableBasic.Specialize2(M)(A)(B)
+    include (EquatableBasic_: EquatableBasic.S0 with type t := t)
     let different x y = M.different x y ~equal_a:A.equal ~equal_b:B.equal
   end
 
@@ -123,9 +76,11 @@ module Specialize2(M: S2)(A: Basic.S0)(B: Basic.S0) = struct
   include Self
 end
 
-module Specialize3(M: S3)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0) = struct
+module Specialize3(M: S3)(A: EquatableBasic.S0)(B: EquatableBasic.S0)(C: EquatableBasic.S0) = struct
   module Self = struct
-    include Basic.Specialize3(M)(A)(B)(C)
+    type t = (A.t, B.t, C.t) M.t
+    module EquatableBasic_ = EquatableBasic.Specialize3(M)(A)(B)(C)
+    include (EquatableBasic_: EquatableBasic.S0 with type t := t)
     let different x y = M.different x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal
   end
 
@@ -133,9 +88,11 @@ module Specialize3(M: S3)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0) = struct
   include Self
 end
 
-module Specialize4(M: S4)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0) = struct
+module Specialize4(M: S4)(A: EquatableBasic.S0)(B: EquatableBasic.S0)(C: EquatableBasic.S0)(D: EquatableBasic.S0) = struct
   module Self = struct
-    include Basic.Specialize4(M)(A)(B)(C)(D)
+    type t = (A.t, B.t, C.t, D.t) M.t
+    module EquatableBasic_ = EquatableBasic.Specialize4(M)(A)(B)(C)(D)
+    include (EquatableBasic_: EquatableBasic.S0 with type t := t)
     let different x y = M.different x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal
   end
 
@@ -143,9 +100,11 @@ module Specialize4(M: S4)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0) = 
   include Self
 end
 
-module Specialize5(M: S5)(A: Basic.S0)(B: Basic.S0)(C: Basic.S0)(D: Basic.S0)(E: Basic.S0) = struct
+module Specialize5(M: S5)(A: EquatableBasic.S0)(B: EquatableBasic.S0)(C: EquatableBasic.S0)(D: EquatableBasic.S0)(E: EquatableBasic.S0) = struct
   module Self = struct
-    include Basic.Specialize5(M)(A)(B)(C)(D)(E)
+    type t = (A.t, B.t, C.t, D.t, E.t) M.t
+    module EquatableBasic_ = EquatableBasic.Specialize5(M)(A)(B)(C)(D)(E)
+    include (EquatableBasic_: EquatableBasic.S0 with type t := t)
     let different x y = M.different x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal ~equal_e:E.equal
   end
 
@@ -205,29 +164,26 @@ module Tests_ = struct
   module Examples = struct
     module type Element = sig
       type t
-      include Basic.S0 with type t := t
+      include EquatableBasic.S0 with type t := t
       include Representable.S0 with type t := t
     end
 
     module type S0 = sig
       type t
-      val equalities: t list list
-      val differences: (t * t) list
+      include EquatableBasic.Tests.Examples.S0 with type t := t
     end
 
     module type S1 = sig
       type 'a t
       module A: Element
-      val equalities: A.t t list list
-      val differences: (A.t t * A.t t) list
+      include EquatableBasic.Tests.Examples.S1 with type 'a t := 'a t and module A := A
     end
 
     module type S2 = sig
       type ('a, 'b) t
       module A: Element
       module B: Element
-      val equalities: (A.t, B.t) t list list
-      val differences: ((A.t, B.t) t * (A.t, B.t) t) list
+      include EquatableBasic.Tests.Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
     end
 
     module type S3 = sig
@@ -235,8 +191,7 @@ module Tests_ = struct
       module A: Element
       module B: Element
       module C: Element
-      val equalities: (A.t, B.t, C.t) t list list
-      val differences: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
+      include EquatableBasic.Tests.Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
     end
 
     module type S4 = sig
@@ -245,8 +200,7 @@ module Tests_ = struct
       module B: Element
       module C: Element
       module D: Element
-      val equalities: (A.t, B.t, C.t, D.t) t list list
-      val differences: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
+      include EquatableBasic.Tests.Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
     end
 
     module type S5 = sig
@@ -256,8 +210,7 @@ module Tests_ = struct
       module C: Element
       module D: Element
       module E: Element
-      val equalities: (A.t, B.t, C.t, D.t, E.t) t list list
-      val differences: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
+      include EquatableBasic.Tests.Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
     end
   end
 
@@ -298,6 +251,7 @@ module Tests_ = struct
       open Testing
       module E = MakeExamples(M)(E)
       let test = "Equatable" >:: [
+        (let module T = EquatableBasic.Tests.Make0(M)(E) in T.test);
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
 

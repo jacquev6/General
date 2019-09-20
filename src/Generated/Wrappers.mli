@@ -71,7 +71,7 @@ module Reference: sig
     val decrement: t -> unit
   end
 
-  module SpecializeRingoidOperators(A: Facets.Ringoid.Basic.S0): sig
+  module SpecializeRingoidOperators(A: Facets.RingoidBasic.S0): sig
     type nonrec t = A.t t
     val (=+): t -> A.t -> unit
     val (=-): t -> A.t -> unit
@@ -79,7 +79,7 @@ module Reference: sig
     val (=/): t -> A.t -> unit
   end
 
-  module SpecializeRingoid(A: Facets.Ringoid.Basic.S0): sig
+  module SpecializeRingoid(A: Facets.RingoidBasic.S0): sig
     type nonrec t = A.t t
     module O: module type of SpecializeRingoidOperators(A) with type t := t
   end

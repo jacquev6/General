@@ -71,8 +71,10 @@
     Facets/Bitwise.ml
     Facets/Bounded.ml
     Facets/Comparable.ml
+    Facets/ComparableBasic.ml
     Facets/Displayable.ml
     Facets/Equatable.ml
+    Facets/EquatableBasic.ml
     Facets/FixedWidthInteger.ml
     Facets/Identifiable.ml
     Facets/Integer.ml
@@ -85,6 +87,7 @@
     Facets/RealNumber.ml
     Facets/Representable.ml
     Facets/Ringoid.ml
+    Facets/RingoidBasic.ml
     Facets/Stringable.ml
     Facets/ToFloat.ml
     Facets/ToInt.ml
@@ -116,8 +119,10 @@
     Generated/Facets/Bitwise.ml
     Generated/Facets/Bounded.ml
     Generated/Facets/Comparable.ml
+    Generated/Facets/ComparableBasic.ml
     Generated/Facets/Displayable.ml
     Generated/Facets/Equatable.ml
+    Generated/Facets/EquatableBasic.ml
     Generated/Facets/FixedWidthInteger.ml
     Generated/Facets/Identifiable.ml
     Generated/Facets/Integer.ml
@@ -130,6 +135,7 @@
     Generated/Facets/RealNumber.ml
     Generated/Facets/Representable.ml
     Generated/Facets/Ringoid.ml
+    Generated/Facets/RingoidBasic.ml
     Generated/Facets/Stringable.ml
     Generated/Facets/ToFloat.ml
     Generated/Facets/ToInt.ml

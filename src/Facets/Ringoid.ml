@@ -1,12 +1,5 @@
 #include "../Generated/Facets/Ringoid.ml"
 
-module Subtract = struct
-  include Subtract_.MakeMakers(struct
-    let subtract ~negate ~add x y =
-      add x (negate y)
-  end)
-end
-
 module Square = struct
   include Square_.MakeMakers(struct
     let square ~multiply x =

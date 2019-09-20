@@ -81,7 +81,7 @@ module IntMod3 = struct
   end
 
   module SelfB = struct
-    include General.Facets.Ringoid.Subtract.Make0(SelfA)
+    include General.Facets.RingoidBasic.Subtract.Make0(SelfA)
     include General.Facets.Ringoid.Square.Make0(SelfA)
     include SelfA
   end

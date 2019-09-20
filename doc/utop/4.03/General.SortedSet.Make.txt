@@ -1,4 +1,4 @@
-module Make(E: General.Facets.Comparable.Basic.S0): sig
+module Make(E: General.Facets.ComparableBasic.S0): sig
   type t
   val add: t -> v:E.t -> bool * t
   val contains: t -> v:E.t -> bool

@@ -338,7 +338,7 @@ module List: sig
     end
   end
 
-  module SpecializeEquatable(A: Facets.Equatable.Basic.S0): sig
+  module SpecializeEquatable(A: Facets.EquatableBasic.S0): sig
     type t = A.t list
 
     val contains: t -> A.t -> bool
@@ -408,7 +408,7 @@ module SortedSet: sig
     (* @feature Facets *)
   end
 
-  module Make(E: Facets.Comparable.Basic.S0): sig
+  module Make(E: Facets.ComparableBasic.S0): sig
     type t
 
     val empty: t
@@ -458,7 +458,7 @@ module SortedMap: sig
     (* @feature Facets *)
   end
 
-  module Make(K: Facets.Comparable.Basic.S0): sig
+  module Make(K: Facets.ComparableBasic.S0): sig
     type 'a t
 
     val empty: 'a t
@@ -501,7 +501,7 @@ module Heap: sig
     val max: 'a t -> 'a
   end
 
-  module Make(E: Facets.Comparable.Basic.S0): sig
+  module Make(E: Facets.ComparableBasic.S0): sig
     type t
 
     val empty: t
@@ -525,7 +525,7 @@ module PriorityQueue: sig
     val max: ('a, 'b) t -> 'a * 'b
   end
 
-  module Make(K: Facets.Comparable.Basic.S0): sig
+  module Make(K: Facets.ComparableBasic.S0): sig
     type 'a t
 
     val empty: 'a t

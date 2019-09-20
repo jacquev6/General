@@ -133,8 +133,16 @@ module Facets = struct
     #include "Facets/Representable.ml"
   end
 
+  module EquatableBasic = struct
+    #include "Facets/EquatableBasic.ml"
+  end
+
   module Equatable = struct
     #include "Facets/Equatable.ml"
+  end
+
+  module ComparableBasic = struct
+    #include "Facets/ComparableBasic.ml"
   end
 
   module Comparable = struct
@@ -167,6 +175,10 @@ module Facets = struct
 
   module ToFloat = struct
     #include "Facets/ToFloat.ml"
+  end
+
+  module RingoidBasic = struct
+    #include "Facets/RingoidBasic.ml"
   end
 
   module Ringoid = struct

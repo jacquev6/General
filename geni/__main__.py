@@ -7,9 +7,9 @@ import textwrap
 
 from .facets import Facet, Type, OCamlException, Value, UnlabelledParameter, LabelledParameter, DelegateParameter, Extension, variadic_type_marker as t, abcd, max_arity, generate, indent
 
-values = {}
+vals = {}
 
-def val(name, *type_chain, operator=None):
+def val(name, *type_chain):
     def make_param(param):
         if isinstance(param, str):
             return UnlabelledParameter(param)
@@ -18,32 +18,29 @@ def val(name, *type_chain, operator=None):
             return LabelledParameter(label, type_)
         elif isinstance(param, tuple):
             if param[0] is DelegateParameter:
-                return DelegateParameter(values, param[1])
+                return DelegateParameter(vals, param[1])
             else:
-                assert False
+                assert False  # pragma nocover
         else:
-            assert False
+            assert False  # pragma nocover
 
     value = Value(
         name=name,
         type_chain=(make_param(param) for param in type_chain),
-        operator=operator,
     )
-    if name in values:
-        print("WARNING: duplicated value", name)
-    else:
-        values[name] = value
+    if name not in vals:
+        vals[name] = value
     return value
 
 
 def ext(name, *, members, requirements):
     def make_requirement(req):
         if isinstance(req, str):
-            return values[req]
+            return vals[req]
         elif isinstance(req, Value):
             return req
         else:
-            assert False
+            assert False  # pragma nocover
 
     members = list(members)
 
@@ -51,7 +48,7 @@ def ext(name, *, members, requirements):
         name=name,
         members=(member for member in members if isinstance(member, Value)),
         requirements=(make_requirement(requirement) for requirement in requirements),
-        basic_production=(values[member] for member in members if isinstance(member, str)),
+        basic_production=(vals[member] for member in members if isinstance(member, str)),
     )
 
 
@@ -72,7 +69,9 @@ def facet(
         submodule=None,
         bases=[],
         values=[],
+        operators={},
         extensions=[],
+        specializes_from=None,
         test_examples=[],
         test_requirements=[],
 ):
@@ -83,7 +82,9 @@ def facet(
         submodule=submodule,
         bases=bases,
         values=values,
+        operators={name: vals[value] for (name, value) in operators.items()},
         extensions=extensions,
+        specializes_from=specializes_from,
         test_examples=test_examples,
         test_requirements=test_requirements,
     )
@@ -229,20 +230,30 @@ representable = facet(
 
 equalities = val("equalities", f"{t} list list")
 
-equatable = facet(
-    "Equatable",
-    values=[val("equal", t, t, deleg("equal"), "bool", operator="=")],
-    extensions=[
-        ext(
-            "Different",
-            members=[val("different", t, t, deleg("equal"), "bool", operator="<>")],
-            requirements=["equal"],
-        ),
-    ],
+equatable_basic = facet(
+    "EquatableBasic",
+    values=[val("equal", t, t, deleg("equal"), "bool")],
     test_examples=[
         equalities,
         val("differences", f"({t} * {t}) list"),
     ],
+    test_requirements=[representable],
+)
+
+equatable = facet(
+    "Equatable",
+    bases=[equatable_basic],
+    values=[
+        val("different", t, t, deleg("equal"), "bool"),
+    ],
+    operators={
+        "=": "equal",
+        "<>": "different",
+    },
+    extensions=[
+        ext("Different", members=["different"], requirements=["equal"]),
+    ],
+    specializes_from=equatable_basic,
     test_requirements=[representable],
 )
 
@@ -263,60 +274,72 @@ parsable = facet(
         val("of_string", "string", t),
     ],
     test_examples=[val("literals", f"(string * {t}) list")],
-    test_requirements=[equatable, representable],
+    test_requirements=[equatable_basic, representable],
 )
 
-comparable = facet(
-    "Comparable",
+comparable_basic = facet(
+    "ComparableBasic",
     values=[val("compare", t, t, deleg("compare"), "Compare.t")],
-    extensions=[
-        ext(
-            "GreaterLessThan",
-            members=[
-                val("less_than", t, t, deleg("compare"), "bool", operator="<"),
-                val("less_or_equal", t, t, deleg("compare"), "bool", operator="<="),
-                val("greater_than", t, t, deleg("compare"), "bool", operator=">"),
-                val("greater_or_equal", t, t, deleg("compare"), "bool", operator=">="),
-            ],
-            requirements=["compare"],
-        ),
-        ext(
-            "Between",
-            members=[
-                val("between", t, {"low": t}, {"high": t}, deleg("compare"), "bool"),
-                val("between_or_equal", t, {"low": t}, {"high": t}, deleg("compare"), "bool")
-            ],
-            requirements=["less_than", "less_or_equal", "greater_than", "greater_or_equal"],
-        ),
-        ext(
-            "MinMax",
-            members=[
-                val("min", t, t, deleg("compare"), t),
-                val("max", t, t, deleg("compare"), t),
-                val("min_max", t, t, deleg("compare"), f"{t} * {t}"),
-            ],
-            requirements=["compare"],
-        ),
-    ],
     test_examples=[
         val("orders", f"{t} list list"),
         equalities,
     ],
-    test_requirements=[equatable, representable],
+    test_requirements=[equatable_basic, representable],
 )
 
-ringoid = facet(
-    "Ringoid",
+comparable = facet(
+    "Comparable",
+    bases=[comparable_basic],
+    values=[
+        val("less_than", t, t, deleg("compare"), "bool"),
+        val("less_or_equal", t, t, deleg("compare"), "bool"),
+        val("greater_than", t, t, deleg("compare"), "bool"),
+        val("greater_or_equal", t, t, deleg("compare"), "bool"),
+        val("between", t, {"low": t}, {"high": t}, deleg("compare"), "bool"),
+        val("between_or_equal", t, {"low": t}, {"high": t}, deleg("compare"), "bool"),
+        val("min", t, t, deleg("compare"), t),
+        val("max", t, t, deleg("compare"), t),
+        val("min_max", t, t, deleg("compare"), f"{t} * {t}"),
+    ],
+    operators={
+        "<": "less_than",
+        "<=": "less_or_equal",
+        ">": "greater_than",
+        ">=": "greater_or_equal",
+    },
+    extensions=[
+        ext(
+            "GreaterLessThan",
+            members=["less_than", "less_or_equal", "greater_than", "greater_or_equal"],
+            requirements=["compare"],
+        ),
+        ext(
+            "Between",
+            members=["between", "between_or_equal"],
+            requirements=["less_than", "less_or_equal", "greater_than", "greater_or_equal"],
+        ),
+        ext(
+            "MinMax",
+            members=["min", "max", "min_max"],
+            requirements=["compare"],
+        ),
+    ],
+    specializes_from=comparable_basic,
+    test_requirements=[equatable_basic, representable],
+)
+
+ringoid_basic = facet(
+    "RingoidBasic",
     variadic=False,
     values=[
         val("zero", t),
         val("one", t),
-        # val("posate", t, t, operator="~+"),
-        val("negate", t, t, operator="~-"),
-        val("add", t, t, t, operator="+"),
-        val("subtract", t, t, t, operator="-"),
-        val("multiply", t, t, t, operator="*"),
-        val("divide", t, t, t, operator="/"),
+        # val("posate", t, t),
+        val("negate", t, t),
+        val("add", t, t, t),
+        val("subtract", t, t, t),
+        val("multiply", t, t, t),
+        val("divide", t, t, t),
     ],
     extensions=[
         ext(
@@ -324,14 +347,40 @@ ringoid = facet(
             members=["subtract"],
             requirements=["negate", "add"],
         ),
+    ],
+    test_examples=[
+        val("additions", f"({t} * {t} * {t}) list"),
+        val("negations", f"({t} * {t}) list"),
+        val("multiplications", f"({t} * {t} * {t}) list"),
+        val("divisions", f"({t} * {t} * {t}) list"),
+    ],
+    test_requirements=[equatable_basic, representable],
+)
+
+ringoid = facet(
+    "Ringoid",
+    bases=[ringoid_basic],
+    values=[
+        val("square", t, t),
+        val("exponentiate", t, "int", t),
+    ],
+    operators={
+        "~-": "negate",
+        "+": "add",
+        "-": "subtract",
+        "*": "multiply",
+        "/": "divide",
+        "**": "exponentiate",
+    },
+    extensions=[
         ext(
             "Square",
-            members=[val("square", t, t)],
+            members=["square"],
             requirements=["multiply"],
         ),
         ext(
             "Exponentiate",
-            members=[val("exponentiate", t, "int", t, operator="**")],
+            members=["exponentiate"],
             requirements=[
                 "one",
                 "square",
@@ -341,13 +390,9 @@ ringoid = facet(
         ),
     ],
     test_examples=[
-        val("additions", f"({t} * {t} * {t}) list"),
-        val("negations", f"({t} * {t}) list"),
-        val("multiplications", f"({t} * {t} * {t}) list"),
-        val("divisions", f"({t} * {t} * {t}) list"),
         val("exponentiations", f"({t} * int * {t}) list"),
     ],
-    test_requirements=[equatable, representable],
+    test_requirements=[equatable_basic, representable],
 )
 
 of_int = facet(
@@ -397,7 +442,7 @@ pred_succ = facet(
         ),
     ],
     test_examples=[val("successions", f"({t} * {t}) list")],
-    test_requirements=[equatable, representable],
+    test_requirements=[equatable_basic, representable],
 )
 
 bounded = facet(
@@ -439,7 +484,7 @@ able = facet(
 stringable = facet(
     "Stringable",
     bases=[displayable, parsable],
-    test_requirements=[representable, equatable],  # @todo Deduce from parsable's test requirements
+    test_requirements=[representable, equatable_basic],  # @todo Deduce from parsable's test requirements
 )
 
 of_standard_numbers = facet(
@@ -463,8 +508,11 @@ real_number = facet(
     bases=[number, comparable, to_standard_numbers],
     values=[
         val("abs", t, t),
-        val("modulo", t, t, t, operator="mod"),
+        val("modulo", t, t, t),
     ],
+    operators={
+        "mod": "modulo",
+    }
 )
 
 integer = facet(
@@ -914,7 +962,7 @@ reference = wrapper(
             end
         """).splitlines(),
         textwrap.dedent("""\
-            module SpecializeRingoidOperators(A: Facets.Ringoid.Basic.S0): sig
+            module SpecializeRingoidOperators(A: Facets.RingoidBasic.S0): sig
               type nonrec t = A.t t
               val (=+): t -> A.t -> unit
               val (=-): t -> A.t -> unit
@@ -923,7 +971,7 @@ reference = wrapper(
             end
         """).splitlines(),
         textwrap.dedent("""\
-            module SpecializeRingoid(A: Facets.Ringoid.Basic.S0): sig
+            module SpecializeRingoid(A: Facets.RingoidBasic.S0): sig
               type nonrec t = A.t t
               module O: module type of SpecializeRingoidOperators(A) with type t := t
             end
@@ -950,57 +998,57 @@ tuple_ = [
     for arity in range(2, max_arity)
 ]
 
-if __name__ == "__main__":
-    def gen(path, *items):
-        if os.sep in path:
-            os.makedirs(os.path.dirname(path), exist_ok=True)
-        with open(path, "w") as f:
-            generate(items, file=f)
 
-    all_items = (facets, atoms, wrappers)
+def gen(path, *items):
+    if os.sep in path:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as f:
+        generate(items, file=f)
 
-    gen(
-        "doc/Facets.dot",
-        'digraph {',
-        '  compound=true',
-        '  rankdir="BT"',
-        '  node [shape="box"]',
+all_items = (facets, atoms, wrappers)
+
+gen(
+    "doc/Facets.dot",
+    'digraph {',
+    '  compound=true',
+    '  rankdir="BT"',
+    '  node [shape="box"]',
+    (
         (
-            (
-                f'  subgraph cluster_{items[0].prefix} {{',
-                f'    label="{items[0].prefix}"',
-                f'    labelloc="b"',
-                indent((item.graphviz_node for item in items), levels=2),
-                '  }',
-            )
-            for items in all_items
-        ),
-        indent(item.graphviz_links for item in itertools.chain.from_iterable(all_items)),
-        '}',
-    )
+            f'  subgraph cluster_{items[0].prefix} {{',
+            f'    label="{items[0].prefix}"',
+            f'    labelloc="b"',
+            indent((item.graphviz_node for item in items), levels=2),
+            '  }',
+        )
+        for items in all_items
+    ),
+    indent(item.graphviz_links for item in itertools.chain.from_iterable(all_items)),
+    '}',
+)
 
-    subprocess.run(["dot", "doc/Facets.dot", "-Tpng", "-odocs/Facets.png"], check=True)
+subprocess.run(["dot", "doc/Facets.dot", "-Tpng", "-odocs/Facets.png"], check=True)
 
-    shutil.rmtree("src/Generated", ignore_errors=True)
+shutil.rmtree("src/Generated", ignore_errors=True)
 
-    for items in all_items:
-        gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
-        for item in items:
-            path = f"src/{item.prefix}/{item.name}.ml"
-            if os.path.exists(path):
-                with open(path) as f:
-                    first_line = f.readlines()[0]
-                assert first_line == f'#include "../Generated/{item.prefix}/{item.name}.ml"\n', (path, first_line)
-            else:
-                with open(path, "w") as f:
-                    f.write(f'#include "../Generated/{item.prefix}/{item.name}.ml"\n\n#include "empty_{item.prefix[:-1].lower()}.ml"\n')
+for items in all_items:
+    gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
+    for item in items:
+        path = f"src/{item.prefix}/{item.name}.ml"
+        if os.path.exists(path):
+            with open(path) as f:
+                first_line = f.readlines()[0]
+            assert first_line == f'#include "../Generated/{item.prefix}/{item.name}.ml"\n', (path, first_line)
+        else:  # pragma nocover
+            with open(path, "w") as f:
+                f.write(f'#include "../Generated/{item.prefix}/{item.name}.ml"\n\n#include "empty_{item.prefix[:-1].lower()}.ml"\n')
 
-    for item in itertools.chain.from_iterable(all_items):
-        gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)
-        if hasattr(item, "types"):
-            for subtype in item.types:
-                gen(f"src/Generated/{item.prefix}/{subtype.prefix.split('.')[1]}/{subtype.name}.ml", subtype.implementation_items)
+for item in itertools.chain.from_iterable(all_items):
+    gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)
+    if hasattr(item, "types"):
+        for subtype in item.types:
+            gen(f"src/Generated/{item.prefix}/{subtype.prefix.split('.')[1]}/{subtype.name}.ml", subtype.implementation_items)
 
-    gen("unit_tests.ml", make_unit_tests())
+gen("unit_tests.ml", make_unit_tests())
 
-    gen("src/dune", make_dune())
+gen("src/dune", make_dune())

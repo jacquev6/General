@@ -1,4 +1,4 @@
-module Specialize4(M: General.Facets.Equatable.S4)(A: General.Facets.Equatable.Basic.S0)(B: General.Facets.Equatable.Basic.S0)(C: General.Facets.Equatable.Basic.S0)(D: General.Facets.Equatable.Basic.S0): sig
+module Specialize4(M: General.Facets.Equatable.S4)(A: General.Facets.EquatableBasic.S0)(B: General.Facets.EquatableBasic.S0)(C: General.Facets.EquatableBasic.S0)(D: General.Facets.EquatableBasic.S0): sig
   module O: sig
     val (<>): t -> t -> bool
     val (=): t -> t -> bool

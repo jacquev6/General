@@ -32,7 +32,7 @@ module Specialize(A: sig type t end) = struct
   end
 end
 
-module SpecializeEquatable(A: Facets.Equatable.Basic.S0) = struct
+module SpecializeEquatable(A: Facets.EquatableBasic.S0) = struct
   type t = A.t list
 
   let contains xs x =

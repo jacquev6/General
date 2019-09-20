@@ -1,0 +1,14 @@
+module Testable: sig
+  module type S0 = sig
+    type t
+    val add: t -> t -> t
+    val divide: t -> t -> t
+    val equal: t -> t -> bool
+    val multiply: t -> t -> t
+    val negate: t -> t
+    val one: t
+    val repr: t -> string
+    val subtract: t -> t -> t
+    val zero: t
+  end
+end
