@@ -2,104 +2,18 @@
 
 (** Some doc for :mod:`General` *)
 
-module Reset: sig
-  #include "Reset/CommonHeader.ml"
-  #include "Reset/SignatureHeader.ml"
-
-  module ResetPervasives: sig
-    #include "Reset/ResetPervasives.ml"
-  end
-
-  module ResetStandardLibrary: sig
-    #include "Reset/ResetStandardLibrary.ml"
-  end
-
-  #include "Reset/Footer.ml"
-end [@@autodoc.hide]
-
 (** Some doc for :mod:`General.Pervasives` *)
+
+#include "Reset/CommonHeader.ml"
+#include "Reset/SignatureHeader.ml"
+
 module Pervasives: sig
-  include module type of Reset.ResetPervasives [@@autodoc.hide]
-  include module type of Reset.ResetStandardLibrary [@@autodoc.hide]
-
-  (** This module overrides all elements from the standard
-  `pervasives <https://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html>`_
-  with unusable but guiding values like:
-
-  .. val:: raise
-    :noindex:
-    :type: [ `Please_use_General__Exception__raise ]
-
-    The types of these values point at what replaces them in :mod:`General`.
-    (In that case, :val:`General.Exception.raise`).
-
-  It then brings back a small set of ubiquitous values: *)
-
-  (** **Boolean operators** *)
-
-  (** Negation. Alias of :val:`General.Bool.O.not`. *)
-  val not: bool -> bool
-
-  (** Conjunction. Lazy. Alias of :val:`General.Bool.O.(&&)` *)
-  val (&&): bool -> bool -> bool
-
-  (** Disjunction. Lazy. Alias of :val:`General.Bool.O.(||)` *)
-  val (||): bool -> bool -> bool
-
-  (** **Integer operators** *)
-
-  val (~-): int -> int
-  val (~+): int -> int
-  val (+): int -> int -> int
-  val (-): int -> int -> int
-  val ( * ): int -> int -> int
-  val (/): int -> int -> int
-  val (mod): int -> int -> int
-
-  (** **Floating point operators** *)
-
-  val (~-.): float -> float
-  val (~+.): float -> float
-  val (+.): float -> float -> float
-  val (-.): float -> float -> float
-  val ( *. ): float -> float -> float
-  val (/.): float -> float -> float
-  val ( ** ): float -> float -> float
-
-  (** **Function composition and application** *)
-
-  val (@@): ('a -> 'b) -> 'a -> 'b
-  val (|>): 'a -> ('a -> 'b) -> 'b
-  val (%): ('a -> 'b) -> ('c -> 'a) -> ('c -> 'b)
-
-  (** **References** *)
-
-  val ref: 'a -> 'a OCamlStandard.Pervasives.ref
-  val (:=): 'a OCamlStandard.Pervasives.ref -> 'a -> unit
-  val (!): 'a OCamlStandard.Pervasives.ref -> 'a
-
-  (** **Polymorphic comparison** *)
-
-  val (=): 'a -> 'a -> bool
-  val (<>): 'a -> 'a -> bool
-
-  val (<): 'a -> 'a -> bool
-  val (<=): 'a -> 'a -> bool
-  val (>=): 'a -> 'a -> bool
-  val (>): 'a -> 'a -> bool
-
-  (** **Ubiquitous functions** *)
-
-  val ignore: 'a -> unit
-
-  val identity: 'a -> 'a
-
-  (** **Miscelaneous operators** *)
-
-  val (@): 'a list -> 'a list -> 'a list
-
-  val (^): string -> string -> string
+  #include "Reset/ResetPervasives.ml"
+  #include "Reset/ResetStandardLibrary.ml"
+  #include "Reset/PervasivesWhitelist.mli"
 end
+
+#include "Reset/Footer.ml"
 
 module Shorten: sig
   (** Return type for functions used in short-circuit iterations over collections.

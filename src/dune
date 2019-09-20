@@ -26,6 +26,7 @@
     Reset/CommonHeader.ml
     Reset/Footer.ml
     Reset/PervasivesWhitelist.ml
+    Reset/PervasivesWhitelist.mli
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml
     Reset/SignatureHeader.ml

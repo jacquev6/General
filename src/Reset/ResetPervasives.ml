@@ -1,3 +1,6 @@
+(* "Warning 32: unused value" disabled because we override some symbols deactivated here in PervasivesWhitelist *)
+[@@@ocaml.warning "-32"]
+
 (* Exceptions *)
 RESET_VALUE(raise, Exception__raise)
 RESET_VALUE(raise_notrace, Exception__raise_without_backtrace)
@@ -22,10 +25,8 @@ RESET_VALUE((!=), Equate__Phys__different)
 RESET_VALUE(not, Bool__not)
 RESET_VALUE((&&), Bool__and_)
 RESET_VALUE((||), Bool__or_)
-[@@@ocaml.warning "-3"]
 RESET_VALUE((&), Bool__and_)
 RESET_VALUE((or), Bool__or_)
-[@@@ocaml.warning "+3"]
 
 (* Debugging *)
 (* Nothing to reset *)
@@ -254,3 +255,5 @@ RESET_VALUE(at_exit, Exit__at_exit)
 RESET_VALUE(valid_float_lexem, Standard__OCamlStandard__Pervasives__valid_float_lexem)
 RESET_VALUE(unsafe_really_input, Standard__OCamlStandard__Pervasives__unsafe_really_input)
 RESET_VALUE(do_at_exit, Standard__OCamlStandard__Pervasives__do_at_exit)
+
+[@@@ocaml.warning "+32"]

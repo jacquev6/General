@@ -206,7 +206,6 @@ if __name__ == "__main__":
                 f.write(module.text().replace("( ", "(").replace(" )", ")").replace(" :", ":"))
 
             if module_name not in [
-                "General.Pervasives.OCamlStandard",
                 "General.Abbr",
                 "General.Standard",
             ]:
