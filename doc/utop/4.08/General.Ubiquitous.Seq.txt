@@ -1,2 +1,0 @@
-module Seq: sig
-end

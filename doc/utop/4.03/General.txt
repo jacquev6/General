@@ -40,7 +40,7 @@ module General: sig
   module Lazy
   module List
   module NativeInt
-  module OCamlStandard = Ubiquitous.OCamlStandard
+  module OCamlStandard
   module Option
   module OutChannel
   module OutFile
@@ -67,6 +67,5 @@ module General: sig
   module Tuple3
   module Tuple4
   module Tuple5
-  module Ubiquitous
   module Unit
 end

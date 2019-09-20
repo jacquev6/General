@@ -1,2 +1,0 @@
-module Int32: sig
-end

@@ -66,7 +66,7 @@ module Abbr: sig
   module NativeInt = General.NativeInt
   module Nativeint
   module Num
-  module OCamlStandard
+  module OCamlStandard = General.OCamlStandard
   module Oo
   module Opt = General.Option
   module OutCh = General.OutChannel
@@ -119,7 +119,7 @@ module Abbr: sig
   type in_channel = [ `Please_use_General__InChannel__t ]
   type open_flag = [ `Please_use_General__todo ]
   type out_channel = [ `Please_use_General__OutChannel__t ]
-  val (!): 'a OCamlStandard.Pervasives.ref -> 'a
+  val (!): 'a Ref.t -> 'a
   val (!=): [ `Please_use_General__Equate__Phys__different ]
   val (%): ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
   val (&): [ `Please_use_General__Bool__and_ ]
@@ -133,7 +133,7 @@ module Abbr: sig
   val (-.): float -> float -> float
   val (/): int -> int -> int
   val (/.): float -> float -> float
-  val (:=): 'a OCamlStandard.Pervasives.ref -> 'a -> unit
+  val (:=): 'a Ref.t -> 'a -> unit
   val (<): 'a -> 'a -> bool
   val (<=): 'a -> 'a -> bool
   val (<>): 'a -> 'a -> bool
@@ -270,7 +270,7 @@ module Abbr: sig
   val read_line: [ `Please_use_General__todo ]
   val really_input: [ `Please_use_General__todo ]
   val really_input_string: [ `Please_use_General__todo ]
-  val ref: 'a -> 'a OCamlStandard.Pervasives.ref
+  val ref: 'a -> 'a Ref.t
   val seek_in: [ `Please_use_General__InFile__seek ]
   val seek_out: [ `Please_use_General__OutFile__seek ]
   val set_binary_mode_in: [ `Please_use_General__todo ]

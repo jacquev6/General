@@ -5,5 +5,5 @@ module Format: sig
   val of_string: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('a, 'b, 'c, 'd, 'e, 'f) t
   val to_string: ('a, 'b, 'c, 'd, 'e, 'f) t -> bytes
   val with_result: ('b, unit, bytes, bytes, bytes, 'a) t -> f:(bytes -> 'a) -> 'b
-  val with_scan_result: ('a, Scanf.Scanning.scanbuf, 'b, 'c -> 'd, 'a -> 'e, 'e) t -> f:'c -> bytes -> 'd
+  val with_scan_result: ('a, General.OCamlStandard.Scanf.Scanning.scanbuf, 'b, 'c -> 'd, 'a -> 'e, 'e) t -> f:'c -> bytes -> 'd
 end

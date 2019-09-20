@@ -1,4 +1,0 @@
-module Array: sig
-  val get: 'a array -> int -> 'a
-  val set: 'a array -> int -> 'a -> unit
-end

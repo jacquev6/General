@@ -59,7 +59,7 @@ module Standard: sig
   module NativeInt = General.NativeInt
   module Nativeint
   module Num
-  module OCamlStandard
+  module OCamlStandard = General.OCamlStandard
   module Oo
   module Option = General.Option
   module OutChannel = General.OutChannel
