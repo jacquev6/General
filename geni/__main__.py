@@ -313,10 +313,6 @@ comparable = facet(
             requirements=["compare"],
         ),
     ],
-    test_examples=[
-        val("orders", f"{t} list list"),
-        equalities,
-    ],
     test_requirements=[equatable_basic, representable],
 )
 
