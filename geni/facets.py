@@ -63,10 +63,6 @@ class Facet:
             else:
                 prefix = f"{self.submodule}."
             parts += [f"{prefix}{val.name}" for val in self.values]
-        exts = [val.name for extension in self.extensions for val in extension.members]
-        if len(exts) > 0:
-            parts.append("")
-            parts += exts
         return "\\n".join(parts)
 
     @property
@@ -82,19 +78,16 @@ class Facet:
     def specification(self):
         return mod_spec(self.name, self.specification_items)
 
-    @property
-    def implementation(self):
-        return mod_impl(self.name, self.implementation_items)
+    # @property
+    # def implementation(self):
+    #     return mod_impl(self.name, self.implementation_items)
 
     @property
     def specification_items(self):
         if self.__has_operators():
             yield self.__operators_specification()
 
-        if self.__is_basic():
-            yield self.__basic_specification_items()
-        else:
-            yield self.__extended_specification_items()
+        yield self.__core_specification_items()
 
         yield self.__extension_makers_specification_items()
 
@@ -105,10 +98,7 @@ class Facet:
         if self.__has_operators():
             yield self.__operators_implementation()
 
-        if self.__is_basic():
-            yield self.__basic_implementation_items()
-        else:
-            yield self.__extended_implementation_items()
+        yield self.__core_implementation_items()
 
         yield self.__extensions_makers_implementation_items()
 
@@ -178,27 +168,24 @@ class Facet:
             yield f"  let ( {operator.operator} ) = M.{operator.name}"
         yield "end"
 
-    # Core contents: basic
+    # Core contents
 
-    def __is_basic(self):
-        return len(list(itertools.chain.from_iterable(extension.members for extension in self.extensions))) == 0
+    def __core_specification_items(self):
+        yield self.__core_signature_mod_types()
+        yield self.__core_specialize_specifications()
 
-    def __basic_specification_items(self):
-        yield self.__basic_signature_mod_types()
-        yield self.__basic_specialize_specifications()
+    def __core_implementation_items(self):
+        yield self.__core_signature_mod_types()
+        yield self.__core_specialize_implementations()
 
-    def __basic_implementation_items(self):
-        yield self.__basic_signature_mod_types()
-        yield self.__basic_specialize_implementations()
-
-    def __basic_signature_mod_types(self):
+    def __core_signature_mod_types(self):
         for arity in self.arities:
-            yield mod_type(f"S{arity}", self.__basic_signature_mod_type_items(arity))
+            yield mod_type(f"S{arity}", self.__core_signature_mod_type_items(arity))
 
-    def __basic_signature_mod_type_items(self, arity):
+    def __core_signature_mod_type_items(self, arity):
         t = f"{type_params(arity)}t"
         yield f"type {t}"
-        if arity == 0 and self.__has_operators() and self.__is_basic():
+        if arity == 0 and self.__has_operators():
             yield "module O: Operators.S0 with type t := t"
         for base in self.bases:
             if arity == 0 and base.__has_operators():
@@ -214,29 +201,29 @@ class Facet:
                 (f"val {value.name}: {value.value_type(arity, t)}" for value in self.values),
             )
 
-    def __basic_specialize_specifications(self):
+    def __core_specialize_specifications(self):
         for arity in self.non_zero_arities:
             functor_params = "".join(f"({a.upper()}: S0)" for a in abcd(arity))
             yield mod_spec(f"Specialize{arity}(M: S{arity}){functor_params}", self.__specialize_specification_items(arity))
 
-    def __basic_specialize_implementations(self):
+    def __core_specialize_implementations(self):
         for arity in self.non_zero_arities:
             functor_params = "".join(f"({a.upper()}: S0)" for a in abcd(arity))
-            yield mod_impl(f"Specialize{arity}(M: S{arity}){functor_params}", self.__basic_specialize_implementation_items(arity))
+            yield mod_impl(f"Specialize{arity}(M: S{arity}){functor_params}", self.__core_specialize_implementation_items(arity))
 
     def __specialize_specification_items(self, arity):
         yield f"type t = {type_args(arity)}M.t",
         yield "include S0 with type t := t",
 
-    def __basic_specialize_implementation_items(self, arity):
-        if self.__is_basic() and self.__has_own_operators():
-            yield mod_impl("Self", self.__basic_specialize_self_implementation_items(arity))
+    def __core_specialize_implementation_items(self, arity):
+        if self.__has_own_operators():
+            yield mod_impl("Self", self.__core_specialize_self_implementation_items(arity))
             yield "module O = Operators.Make0(Self)"
             yield "include Self"
         else:
-            yield self.__basic_specialize_self_implementation_items(arity)
+            yield self.__core_specialize_self_implementation_items(arity)
 
-    def __basic_specialize_self_implementation_items(self, arity):
+    def __core_specialize_self_implementation_items(self, arity):
         yield f"type t = {type_args(arity)}M.t"
         functor_args = "".join(f"({a.upper()})" for a in abcd(arity))
         for base in self.bases:
@@ -251,49 +238,6 @@ class Facet:
             yield f"include ({base.name}_: {base.contextualized_name(self.prefix)}.S0 with type t := t{operators_constraint})"
         for value in self.values:
             yield value.value_specialization(arity)
-
-    # Core contents: extended
-
-    def __extended_specification_items(self):
-        yield mod_spec("Basic", self.__basic_specification_items())
-        yield self.__extended_signature_mod_types()
-        yield self.__extended_specialize_specifications()
-
-    def __extended_implementation_items(self):
-        yield mod_impl("Basic", self.__basic_implementation_items())
-        yield self.__extended_signature_mod_types()
-        yield self.__extended_specialize_implementations()
-
-    def __extended_signature_mod_types(self):
-        for arity in self.arities:
-            yield mod_type(f"S{arity}", self.__extended_signature_mod_type_items(arity))
-
-    def __extended_signature_mod_type_items(self, arity):
-        yield f"include Basic.S{arity}"
-        if arity == 0:
-            yield "module O: Operators.S0 with type t := t"
-        for extension in self.extensions:
-            for value in extension.members:
-                yield f"val {value.name}: {value.value_type(arity, f'{type_params(arity)}t')}"
-
-    def __extended_specialize_specifications(self):
-        for arity in self.non_zero_arities:
-            functor_params = "".join(f"({a.upper()}: Basic.S0)" for a in abcd(arity))
-            yield mod_spec(f"Specialize{arity}(M: S{arity}){functor_params}", self.__specialize_specification_items(arity))
-
-    def __extended_specialize_implementations(self):
-        for arity in self.non_zero_arities:
-            functor_params = "".join(f"({a.upper()}: Basic.S0)" for a in abcd(arity))
-            yield mod_impl(f"Specialize{arity}(M: S{arity}){functor_params}", self.__extended_specialize_implementation_items(arity))
-
-    def __extended_specialize_implementation_items(self, arity):
-        functor_args = "".join(f"({a.upper()})" for a in abcd(arity))
-        yield mod_impl("Self",
-            f"include Basic.Specialize{arity}(M){functor_args}",
-            (value.value_specialization(arity) for extension in self.extensions for value in extension.members)
-        )
-        yield "module O = Operators.Make0(Self)"
-        yield "include Self"
 
     # Extension makers
 
@@ -337,11 +281,9 @@ class Facet:
 
     def __tests_examples_element_mod_type_items(self):
         yield "type t"
-        basic = "" if self.__is_basic() else "Basic."
-        yield f"include {basic}S0 with type t := t"
+        yield f"include S0 with type t := t"
         for req in self.test_requirements:
-            basic = "" if req.__is_basic() else "Basic."
-            yield f"include {req.name}.{basic}S0 with type t := t"
+            yield f"include {req.name}.S0 with type t := t"
 
     def __tests_examples_mod_type_items(self, arity):
         yield f"type {type_params(arity)}t"
@@ -363,8 +305,7 @@ class Facet:
     def __tests_testable_mod_type_items(self, arity):
             yield f"include S{arity}"
             for req in self.test_requirements:
-                basic = "" if req.__is_basic() else "Basic."
-                yield f"include {req.contextualized_name(self.prefix)}.{basic}S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
+                yield f"include {req.contextualized_name(self.prefix)}.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
 
     def __tests_makers_specifications(self):
         for arity in self.arities:
@@ -403,8 +344,7 @@ class Facet:
         functor_args = "".join(f"(E.{a.upper()})" for a in abcd(arity))
         yield indent(f"include Specialize{arity}(M){functor_args}"),
         for req in self.test_requirements:
-            basic = "" if req.__is_basic() else "Basic."
-            yield indent(f"include ({req.contextualized_name(self.prefix)}.{basic}Specialize{arity}(M){functor_args}: {req.contextualized_name(self.prefix)}.{basic}S0 with type t := t)")
+            yield indent(f"include ({req.contextualized_name(self.prefix)}.Specialize{arity}(M){functor_args}: {req.contextualized_name(self.prefix)}.S0 with type t := t)")
         yield "end)(E)",
 
 
@@ -573,7 +513,7 @@ class Extension:
         self.__name = name
         self.__members = list(members)
         self.__requirements = list(requirements)
-        self.__basic_production = list(basic_production)
+        self.__core_production = list(basic_production)
 
     @property
     def name(self):
@@ -590,7 +530,7 @@ class Extension:
             for requirement in self.__requirements:
                 yield f"  val {requirement.name}: {requirement.value_type(arity, f'{type_params(arity)}t')}"
             yield "end): sig"
-            for value in itertools.chain(self.members, self.__basic_production):
+            for value in itertools.chain(self.members, self.__core_production):
                 yield f"  val {value.name}: {value.value_type(arity, f'{type_params(arity)}M.t')}"
             yield "end"
 
@@ -600,7 +540,7 @@ class Extension:
         for requirement in self.__requirements:
             additional_prefix_params += LabelledParameter(requirement.name, requirement.value_type(0, "'a")).param_type(0, "t") + " -> "
         t = "'a"
-        for value in itertools.chain(self.members, self.__basic_production):
+        for value in itertools.chain(self.members, self.__core_production):
             yield f"  val {value.name}: {additional_prefix_params}{value.value_type(0, t)}"
         yield "end) = struct"
         for arity in arities:
@@ -611,7 +551,7 @@ class Extension:
                 yield f"    val {requirement.name}: {requirement.value_type(arity, f'{type_params(arity)}t')}"
                 requirement_names.append(requirement.name)
             yield "  end) = struct"
-            for value in itertools.chain(self.members, self.__basic_production):
+            for value in itertools.chain(self.members, self.__core_production):
                 yield indent(value.value_extension(requirement_names, arity), levels=2)
             yield "  end"
         yield "end"
@@ -676,10 +616,7 @@ class DelegateParameter:
             return " ".join(f"~{self.name}_{a}" for a in abcd(arity))
 
     def param_specialization(self, arity, _index):
-        if arity == 0:
-            return None
-        else:
-            return " ".join(f"~{self.name}_{a}:{a.upper()}.{self.name}" for a in abcd(arity))
+        return " ".join(f"~{self.name}_{a}:{a.upper()}.{self.name}" for a in abcd(arity))
 
     def param_extension(self, _arity, _index):
         return None

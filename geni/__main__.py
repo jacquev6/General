@@ -29,9 +29,7 @@ def val(name, *type_chain, operator=None):
         type_chain=(make_param(param) for param in type_chain),
         operator=operator,
     )
-    if name in values:
-        print("WARNING: duplicated value", name)
-    else:
+    if name not in values:
         values[name] = value
     return value
 
