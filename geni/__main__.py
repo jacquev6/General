@@ -7,7 +7,7 @@ import textwrap
 
 from .facets import Facet, Type, OCamlException, Value, UnlabelledParameter, LabelledParameter, DelegateParameter, Extension, variadic_type_marker as t, abcd, max_arity, generate, indent
 
-values = {}
+vals = {}
 
 def val(name, *type_chain, operator=None):
     def make_param(param):
@@ -18,7 +18,7 @@ def val(name, *type_chain, operator=None):
             return LabelledParameter(label, type_)
         elif isinstance(param, tuple):
             if param[0] is DelegateParameter:
-                return DelegateParameter(values, param[1])
+                return DelegateParameter(vals, param[1])
             else:
                 assert False  # pragma nocover
         else:
@@ -29,15 +29,15 @@ def val(name, *type_chain, operator=None):
         type_chain=(make_param(param) for param in type_chain),
         operator=operator,
     )
-    if name not in values:
-        values[name] = value
+    if name not in vals:
+        vals[name] = value
     return value
 
 
 def ext(name, *, members, requirements):
     def make_requirement(req):
         if isinstance(req, str):
-            return values[req]
+            return vals[req]
         elif isinstance(req, Value):
             return req
         else:
@@ -49,7 +49,7 @@ def ext(name, *, members, requirements):
         name=name,
         members=(member for member in members if isinstance(member, Value)),
         requirements=(make_requirement(requirement) for requirement in requirements),
-        basic_production=(values[member] for member in members if isinstance(member, str)),
+        basic_production=(vals[member] for member in members if isinstance(member, str)),
     )
 
 
@@ -70,6 +70,7 @@ def facet(
         submodule=None,
         bases=[],
         values=[],
+        operators={},
         extensions=[],
         test_examples=[],
         test_requirements=[],
@@ -81,6 +82,7 @@ def facet(
         submodule=submodule,
         bases=bases,
         values=values,
+        operators={name: vals[value] for (name, value) in operators.items()},
         extensions=extensions,
         test_examples=test_examples,
         test_requirements=test_requirements,
@@ -241,9 +243,12 @@ equatable = facet(
     "Equatable",
     bases=[equatable_basic],
     values=[
-        val("equal", t, t, deleg("equal"), "bool", operator="="),  # @todo Do not repeat "equal", just add the operator
-        val("different", t, t, deleg("equal"), "bool", operator="<>"),
+        val("different", t, t, deleg("equal"), "bool"),
     ],
+    operators={
+        "=": "equal",
+        "<>": "different",
+    },
     extensions=[
         ext("Different", members=["different"], requirements=["equal"]),
     ],
@@ -294,6 +299,12 @@ comparable = facet(
         val("max", t, t, deleg("compare"), t),
         val("min_max", t, t, deleg("compare"), f"{t} * {t}"),
     ],
+    operators={
+        "<": "less_than",
+        "<=": "less_or_equal",
+        ">": "greater_than",
+        ">=": "greater_or_equal",
+    },
     extensions=[
         ext(
             "GreaterLessThan",
@@ -320,6 +331,7 @@ ringoid_basic = facet(
     values=[
         val("zero", t),
         val("one", t),
+        # val("posate", t, t),
         val("negate", t, t),
         val("add", t, t, t),
         val("subtract", t, t, t),
@@ -346,16 +358,17 @@ ringoid = facet(
     "Ringoid",
     bases=[ringoid_basic],
     values=[
-        # @todo Don't repeat these values, just add the operators
-        # val("posate", t, t, operator="~+"),
-        val("negate", t, t, operator="~-"),
-        val("add", t, t, t, operator="+"),
-        val("subtract", t, t, t, operator="-"),
-        val("multiply", t, t, t, operator="*"),
-        val("divide", t, t, t, operator="/"),
         val("square", t, t),
-        val("exponentiate", t, "int", t, operator="**")
+        val("exponentiate", t, "int", t),
     ],
+    operators={
+        "~-": "negate",
+        "+": "add",
+        "-": "subtract",
+        "*": "multiply",
+        "/": "divide",
+        "**": "exponentiate",
+    },
     extensions=[
         ext(
             "Square",
@@ -492,8 +505,11 @@ real_number = facet(
     bases=[number, comparable, to_standard_numbers],
     values=[
         val("abs", t, t),
-        val("modulo", t, t, t, operator="mod"),
+        val("modulo", t, t, t),
     ],
+    operators={
+        "mod": "modulo",
+    }
 )
 
 integer = facet(

@@ -31,11 +31,6 @@ module type S0 = sig
   type t
   module O: Operators.S0 with type t := t
   include RingoidBasic.S0 with type t := t
-  val negate: t -> t
-  val add: t -> t -> t
-  val subtract: t -> t -> t
-  val multiply: t -> t -> t
-  val divide: t -> t -> t
   val square: t -> t
   val exponentiate: t -> int -> t
 end

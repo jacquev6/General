@@ -30,7 +30,7 @@ class Facet:
             prefix, name,
             variadic,
             submodule,
-            bases, values, extensions,
+            bases, values, operators, extensions,
             test_examples, test_requirements,
         ):
         self.prefix = prefix
@@ -46,7 +46,7 @@ class Facet:
             self.values,
             itertools.chain.from_iterable(extension.members for extension in self.extensions),
         ))
-        self.operators = [item for item in self.all_items if item.operator is not None]
+        self.operators = dict(operators)
         self.test_examples = list(test_examples)
         self.test_requirements = list(test_requirements)
 
@@ -129,12 +129,12 @@ class Facet:
 
     def __operators_specification_items(self):
         yield self.__operators_s0_mod_type()
-        if len(self.operators) > 0:
+        if self.__has_own_operators():
             yield self.__operators_make0_specification()
 
     def __operators_implementation_items(self):
         yield self.__operators_s0_mod_type()
-        if len(self.operators) > 0:
+        if self.__has_own_operators():
             yield self.__operators_make0_implementation()
 
     def __operators_s0_mod_type(self):
@@ -145,27 +145,27 @@ class Facet:
         for base in self.bases:
             if base.__has_operators():
                 yield f"include {base.contextualized_name(self.prefix)}.Operators.S0 with type t := t"
-        for operator in self.operators:
-            yield f"val ( {operator.operator} ): { operator.value_type(0, 't')}"
+        for (name, value) in self.operators.items():
+            yield f"val ( {name} ): { value.value_type(0, 't')}"
 
     def __operators_make0_specification(self):
         yield "module Make0(M: sig"
         yield "  type t"
-        for operator in self.operators:
-            yield f"  val {operator.name}: {operator.value_type(0, 't')}"
+        for (name, value) in self.operators.items():
+            yield f"  val {value.name}: {value.value_type(0, 't')}"
         yield "end): sig"
-        for operator in self.operators:
-            yield f"  val ( {operator.operator} ): {operator.value_type(0, 'M.t')}"
+        for (name, value) in self.operators.items():
+            yield f"  val ( {name} ): {value.value_type(0, 'M.t')}"
         yield "end"
 
     def __operators_make0_implementation(self):
         yield "module Make0(M: sig"
         yield "  type t"
-        for operator in self.operators:
-            yield f"  val {operator.name}: {operator.value_type(0, f'{type_params(0)}t')}"
+        for (name, value) in self.operators.items():
+            yield f"  val {value.name}: {value.value_type(0, f'{type_params(0)}t')}"
         yield "end) = struct"
-        for operator in self.operators:
-            yield f"  let ( {operator.operator} ) = M.{operator.name}"
+        for (name, value) in self.operators.items():
+            yield f"  let ( {name} ) = M.{value.name}"
         yield "end"
 
     # Core contents
@@ -295,6 +295,8 @@ class Facet:
                 + "".join(f" and module {a.upper()} := {a.upper()}" for a in abcd(arity))
             )
         t = f"{type_args(arity)}t"
+        # @todo When we drop OCaml versions that don't support it, we can "include S0 with type t := (A.t, B.T, ...) t"
+        # (OCaml 4.02 gives "Only type constructors with identical parameters can be substituted.", OCaml 4.08 accepts it)
         for item in self.test_examples:
             yield f"val {item.name}: {item.value_type(0, t)}"
 
@@ -629,6 +631,10 @@ class Value:
         assert len(self.__type_chain) > 0
         self.__parameters = self.__type_chain[:-1]
         self.__operator = operator
+
+    @property
+    def type_chain(self):
+        return self.__type_chain
 
     @property
     def name(self):

@@ -19,42 +19,36 @@ module type S0 = sig
   type t
   module O: Operators.S0 with type t := t
   include EquatableBasic.S0 with type t := t
-  val equal: t -> t -> bool
   val different: t -> t -> bool
 end
 
 module type S1 = sig
   type 'a t
   include EquatableBasic.S1 with type 'a t := 'a t
-  val equal: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
   val different: 'a t -> 'a t -> equal_a:('a -> 'a -> bool) -> bool
 end
 
 module type S2 = sig
   type ('a, 'b) t
   include EquatableBasic.S2 with type ('a, 'b) t := ('a, 'b) t
-  val equal: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
   val different: ('a, 'b) t -> ('a, 'b) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> bool
 end
 
 module type S3 = sig
   type ('a, 'b, 'c) t
   include EquatableBasic.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t
-  val equal: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
   val different: ('a, 'b, 'c) t -> ('a, 'b, 'c) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> bool
 end
 
 module type S4 = sig
   type ('a, 'b, 'c, 'd) t
   include EquatableBasic.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t
-  val equal: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
   val different: ('a, 'b, 'c, 'd) t -> ('a, 'b, 'c, 'd) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> bool
 end
 
 module type S5 = sig
   type ('a, 'b, 'c, 'd, 'e) t
   include EquatableBasic.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t
-  val equal: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
   val different: ('a, 'b, 'c, 'd, 'e) t -> ('a, 'b, 'c, 'd, 'e) t -> equal_a:('a -> 'a -> bool) -> equal_b:('b -> 'b -> bool) -> equal_c:('c -> 'c -> bool) -> equal_d:('d -> 'd -> bool) -> equal_e:('e -> 'e -> bool) -> bool
 end
 
@@ -63,7 +57,6 @@ module Specialize1(M: S1)(A: S0) = struct
     type t = A.t M.t
     module EquatableBasic_ = EquatableBasic.Specialize1(M)(A)
     include (EquatableBasic_: EquatableBasic.S0 with type t := t)
-    let equal x y = M.equal x y ~equal_a:A.equal
     let different x y = M.different x y ~equal_a:A.equal
   end
 
@@ -76,7 +69,6 @@ module Specialize2(M: S2)(A: S0)(B: S0) = struct
     type t = (A.t, B.t) M.t
     module EquatableBasic_ = EquatableBasic.Specialize2(M)(A)(B)
     include (EquatableBasic_: EquatableBasic.S0 with type t := t)
-    let equal x y = M.equal x y ~equal_a:A.equal ~equal_b:B.equal
     let different x y = M.different x y ~equal_a:A.equal ~equal_b:B.equal
   end
 
@@ -89,7 +81,6 @@ module Specialize3(M: S3)(A: S0)(B: S0)(C: S0) = struct
     type t = (A.t, B.t, C.t) M.t
     module EquatableBasic_ = EquatableBasic.Specialize3(M)(A)(B)(C)
     include (EquatableBasic_: EquatableBasic.S0 with type t := t)
-    let equal x y = M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal
     let different x y = M.different x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal
   end
 
@@ -102,7 +93,6 @@ module Specialize4(M: S4)(A: S0)(B: S0)(C: S0)(D: S0) = struct
     type t = (A.t, B.t, C.t, D.t) M.t
     module EquatableBasic_ = EquatableBasic.Specialize4(M)(A)(B)(C)(D)
     include (EquatableBasic_: EquatableBasic.S0 with type t := t)
-    let equal x y = M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal
     let different x y = M.different x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal
   end
 
@@ -115,7 +105,6 @@ module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
     type t = (A.t, B.t, C.t, D.t, E.t) M.t
     module EquatableBasic_ = EquatableBasic.Specialize5(M)(A)(B)(C)(D)(E)
     include (EquatableBasic_: EquatableBasic.S0 with type t := t)
-    let equal x y = M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal ~equal_e:E.equal
     let different x y = M.different x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal ~equal_e:E.equal
   end
 
