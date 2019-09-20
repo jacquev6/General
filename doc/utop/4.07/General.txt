@@ -46,7 +46,6 @@ module General: sig
   module Pervasives
   module PriorityQueue
   module Reference
-  module Reset
   module Shorten
   module SortedMap
   module SortedSet

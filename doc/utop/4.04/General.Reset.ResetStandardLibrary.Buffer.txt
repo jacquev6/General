@@ -1,2 +1,0 @@
-module Buffer: sig
-end

@@ -1,9 +1,9 @@
 module Bitwise: sig
-  val arithmetic_shift_right: nativeint -> shift:int -> nativeint
-  val logical_and: nativeint -> nativeint -> nativeint
-  val logical_not: nativeint -> nativeint
-  val logical_or: nativeint -> nativeint -> nativeint
-  val logical_shift_left: nativeint -> shift:int -> nativeint
-  val logical_shift_right: nativeint -> shift:int -> nativeint
-  val logical_xor: nativeint -> nativeint -> nativeint
+  val arithmetic_shift_right: General.NativeInt.t -> shift:int -> General.NativeInt.t
+  val logical_and: General.NativeInt.t -> General.NativeInt.t -> General.NativeInt.t
+  val logical_not: General.NativeInt.t -> General.NativeInt.t
+  val logical_or: General.NativeInt.t -> General.NativeInt.t -> General.NativeInt.t
+  val logical_shift_left: General.NativeInt.t -> shift:int -> General.NativeInt.t
+  val logical_shift_right: General.NativeInt.t -> shift:int -> General.NativeInt.t
+  val logical_xor: General.NativeInt.t -> General.NativeInt.t -> General.NativeInt.t
 end

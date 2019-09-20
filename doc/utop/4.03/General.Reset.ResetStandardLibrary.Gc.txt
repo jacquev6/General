@@ -1,2 +1,0 @@
-module Gc: sig
-end

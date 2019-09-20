@@ -1,15 +1,15 @@
 module O: sig
-  val (*): int64 -> int64 -> int64
-  val (**): int64 -> int -> int64
-  val (+): int64 -> int64 -> int64
-  val (-): int64 -> int64 -> int64
-  val (/): int64 -> int64 -> int64
-  val (<): int64 -> int64 -> bool
-  val (<=): int64 -> int64 -> bool
-  val (<>): int64 -> int64 -> bool
-  val (=): int64 -> int64 -> bool
-  val (>): int64 -> int64 -> bool
-  val (>=): int64 -> int64 -> bool
-  val (mod): int64 -> int64 -> int64
-  val (~-): int64 -> int64
+  val (*): General.Int64.t -> General.Int64.t -> General.Int64.t
+  val (**): General.Int64.t -> int -> General.Int64.t
+  val (+): General.Int64.t -> General.Int64.t -> General.Int64.t
+  val (-): General.Int64.t -> General.Int64.t -> General.Int64.t
+  val (/): General.Int64.t -> General.Int64.t -> General.Int64.t
+  val (<): General.Int64.t -> General.Int64.t -> bool
+  val (<=): General.Int64.t -> General.Int64.t -> bool
+  val (<>): General.Int64.t -> General.Int64.t -> bool
+  val (=): General.Int64.t -> General.Int64.t -> bool
+  val (>): General.Int64.t -> General.Int64.t -> bool
+  val (>=): General.Int64.t -> General.Int64.t -> bool
+  val (mod): General.Int64.t -> General.Int64.t -> General.Int64.t
+  val (~-): General.Int64.t -> General.Int64.t
 end

@@ -1,7 +1,7 @@
 module Int32: sig
   module Bitwise
   module O
-  type t = int32
+  type t = General.Int32.t
   val abs: t -> t
   val add: t -> t -> t
   val between: t -> low:t -> high:t -> bool

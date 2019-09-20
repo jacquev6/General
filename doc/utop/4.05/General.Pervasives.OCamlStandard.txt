@@ -1,50 +1,50 @@
 module OCamlStandard: sig
-  module Arg
-  module Arith_status
-  module Array
-  module ArrayLabels
-  module Big_int
-  module Buffer
-  module Bytes
-  module BytesLabels
-  module Callback
-  module Char
-  module Complex
-  module Digest
-  module Ephemeron
-  module Filename
-  module Format
-  module Gc
-  module Genlex
-  module Hashtbl
-  module Int32
-  module Int64
-  module Lazy
-  module Lexing
-  module List
-  module ListLabels
-  module Map
-  module Marshal
-  module MoreLabels
-  module Nativeint
-  module Num
-  module Oo
-  module Parsing
-  module Pervasives
-  module Printexc
-  module Printf
-  module Queue
-  module Random
-  module Scanf
-  module Set
-  module Sort
-  module Spacetime
-  module Stack
-  module StdLabels
-  module Stream
-  module String
-  module StringLabels
-  module Sys
-  module Uchar
-  module Weak
+  module Arg = Arg
+  module Arith_status = Arith_status
+  module Array = Array
+  module ArrayLabels = ArrayLabels
+  module Big_int = Big_int
+  module Buffer = Buffer
+  module Bytes = Bytes
+  module BytesLabels = BytesLabels
+  module Callback = Callback
+  module Char = Char
+  module Complex = Complex
+  module Digest = Digest
+  module Ephemeron = Ephemeron
+  module Filename = Filename
+  module Format = Format
+  module Gc = Gc
+  module Genlex = Genlex
+  module Hashtbl = Hashtbl
+  module Int32 = Int32
+  module Int64 = Int64
+  module Lazy = Lazy
+  module Lexing = Lexing
+  module List = List
+  module ListLabels = ListLabels
+  module Map = Map
+  module Marshal = Marshal
+  module MoreLabels = MoreLabels
+  module Nativeint = Nativeint
+  module Num = Num
+  module Oo = Oo
+  module Parsing = Parsing
+  module Pervasives = Pervasives
+  module Printexc = Printexc
+  module Printf = Printf
+  module Queue = Queue
+  module Random = Random
+  module Scanf = Scanf
+  module Set = Set
+  module Sort = Sort
+  module Spacetime = Spacetime
+  module Stack = Stack
+  module StdLabels = StdLabels
+  module Stream = Stream
+  module String = String
+  module StringLabels = StringLabels
+  module Sys = Sys
+  module Uchar = Uchar
+  module Weak = Weak
 end

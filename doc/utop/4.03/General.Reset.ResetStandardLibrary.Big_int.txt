@@ -1,2 +1,0 @@
-module Big_int: sig
-end
