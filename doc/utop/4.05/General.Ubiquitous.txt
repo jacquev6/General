@@ -4,6 +4,7 @@ module Ubiquitous: sig
   module Array
   module ArrayLabels
   module Big_int
+  module Bigarray
   module Buffer
   module Bytes
   module BytesLabels
@@ -13,6 +14,7 @@ module Ubiquitous: sig
   module Digest
   module Ephemeron
   module Filename
+  module Float
   module Format
   module Gc
   module Genlex
@@ -38,6 +40,7 @@ module Ubiquitous: sig
   module Queue
   module Random
   module Scanf
+  module Seq
   module Set
   module Sort
   module Spacetime
