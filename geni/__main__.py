@@ -534,7 +534,7 @@ exception = atom(
     bases=[identifiable, displayable],
     exceptions=[
         # Aliases for all predefined exceptions
-        # https://caml.inria.fr/pub/docs/manual-ocaml-4.05/core.html#sec527
+        # https://caml.inria.fr/pub/docs/manual-ocaml-4.09/core.html#sec556
         exception("MatchFailure", "string", "int", "int"),
         exception("AssertFailure", "string", "int", "int"),
         exception("InvalidArgument", "string"),
@@ -549,7 +549,7 @@ exception = atom(
         exception("UndefinedRecursiveModule", "string", "int", "int"),
 
         # Aliases for all exceptions in Pervasives
-        # https://caml.inria.fr/pub/docs/manual-ocaml-4.05/libref/Pervasives.html
+        # https://caml.inria.fr/pub/docs/manual-ocaml-4.09/libref/Pervasives.html
         exception("Exit"),
     ],
     values=[

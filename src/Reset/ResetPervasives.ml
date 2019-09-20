@@ -11,7 +11,7 @@
 (* "Warning 32: unused value" disabled because we override some symbols deactivated here in PervasivesWhitelist *)
 [@@@ocaml.warning "-32"]
 
-(* https://caml.inria.fr/pub/docs/manual-ocaml-4.08/libref/Stdlib.html *)
+(* https://caml.inria.fr/pub/docs/manual-ocaml-4.09/libref/Stdlib.html *)
 
 (* Exceptions *)
 RESET_VALUE(raise, Exception__raise)

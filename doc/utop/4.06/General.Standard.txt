@@ -28,6 +28,7 @@ module Standard: sig
   module FloatSortedMap = General.FloatSortedMap
   module FloatSortedSet = General.FloatSortedSet
   module Format = General.Format
+  module Fun
   module Function1 = General.Function1
   module Function2 = General.Function2
   module Function3 = General.Function3
@@ -60,6 +61,7 @@ module Standard: sig
   module Nativeint
   module Num
   module OCamlStandard = General.OCamlStandard
+  module Obj
   module Oo
   module Option = General.Option
   module OutChannel = General.OutChannel
@@ -72,6 +74,7 @@ module Standard: sig
   module Queue
   module Random
   module Reference = General.Reference
+  module Result
   module Scanf
   module Seq
   module Set

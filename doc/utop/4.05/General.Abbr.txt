@@ -8,6 +8,7 @@ module Abbr: sig
   module Big_int
   module Bigarray
   module Bo = General.Bool
+  module Bool
   module Buffer
   module By = General.Bytes
   module Bytes
@@ -33,6 +34,7 @@ module Abbr: sig
   module Float
   module Format
   module Frmt = General.Format
+  module Fun
   module Fun1 = General.Function1
   module Fun2 = General.Function2
   module Fun3 = General.Function3
@@ -67,8 +69,10 @@ module Abbr: sig
   module Nativeint
   module Num
   module OCamlStandard = General.OCamlStandard
+  module Obj
   module Oo
   module Opt = General.Option
+  module Option
   module OutCh = General.OutChannel
   module OutFile = General.OutFile
   module Parsing
@@ -79,6 +83,7 @@ module Abbr: sig
   module Queue
   module Random
   module Ref = General.Reference
+  module Result
   module Scanf
   module Seq
   module Set

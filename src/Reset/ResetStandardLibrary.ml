@@ -8,6 +8,8 @@
   #define ALIAS_VALUE(name, t, v) let name = v
 #endif
 
+(* https://caml.inria.fr/pub/docs/manual-ocaml-4.09/libref/Stdlib.html *)
+
 EMPTY_MODULE(Pervasives)
 
 EMPTY_MODULE(Arg)
@@ -19,6 +21,9 @@ end
 #endif
 EMPTY_MODULE(ArrayLabels)
 EMPTY_MODULE(Bigarray)
+#if SIGNATURE = 0 || ABBREVIATED = 1
+EMPTY_MODULE(Bool)
+#endif
 EMPTY_MODULE(Buffer)
 #if SIGNATURE = 0 || ABBREVIATED = 1
 EMPTY_MODULE(Bytes)
@@ -36,9 +41,11 @@ EMPTY_MODULE(Filename)
 EMPTY_MODULE(Float)
 EMPTY_MODULE(Format)
 #endif
+EMPTY_MODULE(Fun)
 EMPTY_MODULE(Gc)
 EMPTY_MODULE(Genlex)
 EMPTY_MODULE(Hashtbl)
+(* EMPTY_MODULE(Int) *)
 (* EMPTY_MODULE(Int32) *)
 (* EMPTY_MODULE(Int64) *)
 #if SIGNATURE = 0 || ABBREVIATED = 1
@@ -53,11 +60,16 @@ EMPTY_MODULE(Map)
 EMPTY_MODULE(Marshal)
 EMPTY_MODULE(MoreLabels)
 EMPTY_MODULE(Nativeint)
+EMPTY_MODULE(Obj)
 EMPTY_MODULE(Oo)
+#if SIGNATURE = 0 || ABBREVIATED = 1
+EMPTY_MODULE(Option)
+#endif
 EMPTY_MODULE(Parsing)
 EMPTY_MODULE(Printexc)
 EMPTY_MODULE(Printf)
 EMPTY_MODULE(Queue)
+EMPTY_MODULE(Result)
 EMPTY_MODULE(Random)
 EMPTY_MODULE(Scanf)
 EMPTY_MODULE(Seq)
@@ -76,6 +88,7 @@ end
 EMPTY_MODULE(StringLabels)
 EMPTY_MODULE(Sys)
 EMPTY_MODULE(Uchar)
+(* EMPTY_MODULE(Unit) *)
 EMPTY_MODULE(Weak)
 
 EMPTY_MODULE(Num)

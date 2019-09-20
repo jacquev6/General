@@ -536,12 +536,14 @@ module Standard = struct
   include (
     Ubiquitous: module type of Ubiquitous[@remove_aliases]
     with module Array := Array
+    and module Bool := Bool
     and module Bytes := Bytes
     and module Char := Char
     and module Float := Float
     and module Format := Format
     and module Lazy := Lazy
     and module List := List
+    and module Option := Option
     and module Stream := Stream
     and module String := String
   )

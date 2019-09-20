@@ -5,6 +5,7 @@ module OCamlStandard: sig
   module ArrayLabels = ArrayLabels
   module Big_int = Big_int
   module Bigarray = Bigarray
+  module Bool = Bool
   module Buffer = Buffer
   module Bytes = Bytes
   module BytesLabels = BytesLabels
@@ -16,9 +17,11 @@ module OCamlStandard: sig
   module Filename = Filename
   module Float = Float
   module Format = Format
+  module Fun = Fun
   module Gc = Gc
   module Genlex = Genlex
   module Hashtbl = Hashtbl
+  module Int = Int
   module Int32 = Int32
   module Int64 = Int64
   module Lazy = Lazy
@@ -30,13 +33,16 @@ module OCamlStandard: sig
   module MoreLabels = MoreLabels
   module Nativeint = Nativeint
   module Num = Num
+  module Obj = Obj
   module Oo = Oo
+  module Option = Option
   module Parsing = Parsing
   module Pervasives = Stdlib
   module Printexc = Printexc
   module Printf = Printf
   module Queue = Queue
   module Random = Random
+  module Result = Result
   module Scanf = Scanf
   module Seq = Seq
   module Set = Set
@@ -48,5 +54,6 @@ module OCamlStandard: sig
   module StringLabels = StringLabels
   module Sys = Sys
   module Uchar = Uchar
+  module Unit = Unit
   module Weak = Weak
 end
