@@ -3,15 +3,9 @@
 
 (** Some doc for :mod:`General.Ubiquitous` *)
 
-module Ubiquitous: sig
-  #define SIGNATURE 1
-  #include "Reset/ResetPervasives.ml"
-  #include "Reset/ResetStandardLibrary.ml"
-  #undef SIGNATURE
-  #include "Reset/PervasivesWhitelist.mli"
+module OCamlStandard: sig
+  #include "Reset/OCamlStandard.ml"
 end
-
-module OCamlStandard = Ubiquitous.OCamlStandard
 
 module Shorten: sig
   (** Return type for functions used in short-circuit iterations over collections.
@@ -900,21 +894,15 @@ module Standard: sig
   module IntSortedMap = IntSortedMap
   module StringSortedMap = StringSortedMap
 
-  (** It also includes :mod:`General.Ubiquitous`. *)
+  module OCamlStandard = OCamlStandard
 
-  include module type of Ubiquitous[@remove_aliases]
-  with module Array := Array
-  and module Bytes := Bytes
-  and module Char := Char
-  and module Float := Float
-  and module Format := Format
-  and module Int32 := Int32
-  and module Int64 := Int64
-  and module Lazy := Lazy
-  and module List := List
-  and module Stream := Stream
-  and module String := String
-  [@@autodoc.hide]
+  #define SIGNATURE 1
+  #define ABBREVIATED 0
+  #include "Reset/ResetPervasives.ml"
+  #include "Reset/ResetStandardLibrary.ml"
+  #undef SIGNATURE
+  #undef ABBREVIATED
+  #include "Reset/PervasivesWhitelist.mli"
 end
 
 module Abbr: sig
@@ -988,12 +976,15 @@ module Abbr: sig
   module IntSoMap = IntSortedMap
   module StrSoMap = StringSortedMap
 
-  (** It also includes :mod:`General.Ubiquitous`. *)
+  module OCamlStandard = OCamlStandard
 
-  include module type of Ubiquitous[@remove_aliases]
-  with module Int32 := Int32
-  and module Int64 := Int64
-  [@@autodoc.hide]
+  #define SIGNATURE 1
+  #define ABBREVIATED 1
+  #include "Reset/ResetPervasives.ml"
+  #include "Reset/ResetStandardLibrary.ml"
+  #undef SIGNATURE
+  #undef ABBREVIATED
+  #include "Reset/PervasivesWhitelist.mli"
 end
 
 (* @todo Remove from interface, or make a functor, to avoid linking tests in client applications *)

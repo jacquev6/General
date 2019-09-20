@@ -1,3 +1,7 @@
+module OCamlStandard = struct
+  #include "Reset/OCamlStandard.ml"
+end
+
 module Reset = struct
   #define SIGNATURE 0
   #include "Reset/ResetPervasives.ml"
@@ -111,8 +115,6 @@ module Ubiquitous = struct
   include Reset
   include Foundations.PervasivesWhitelist
 end
-
-module OCamlStandard = Ubiquitous.OCamlStandard
 
 open Ubiquitous
 
@@ -529,6 +531,8 @@ module Standard = struct
   module IntSortedMap = IntSortedMap
   module StringSortedMap = StringSortedMap
 
+  module OCamlStandard = OCamlStandard
+
   include (
     Ubiquitous: module type of Ubiquitous[@remove_aliases]
     with module Array := Array
@@ -536,8 +540,6 @@ module Standard = struct
     and module Char := Char
     and module Float := Float
     and module Format := Format
-    and module Int32 := Int32
-    and module Int64 := Int64
     and module Lazy := Lazy
     and module List := List
     and module Stream := Stream
@@ -614,11 +616,9 @@ module Abbr = struct
   module IntSoMap = IntSortedMap
   module StrSoMap = StringSortedMap
 
-  include (
-    Ubiquitous: module type of Ubiquitous[@remove_aliases]
-    with module Int32 := Int32
-    and module Int64 := Int64
-  )
+  module OCamlStandard = OCamlStandard
+
+  include Ubiquitous
 end
 
 module Tests = struct
