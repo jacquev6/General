@@ -1,20 +1,14 @@
+#include "Reset/CommonHeader.ml"
+#include "Reset/DefinitionHeader.ml"
+
 module Reset = struct
-  #include "Reset/CommonHeader.ml"
-  #include "Reset/DefinitionHeader.ml"
-
-  module ResetPervasives = struct
-    #include "Reset/ResetPervasives.ml"
-  end
-
-  module ResetStandardLibrary = struct
-    #include "Reset/ResetStandardLibrary.ml"
-  end
-
-  #include "Reset/Footer.ml"
+  #include "Reset/ResetPervasives.ml"
+  #include "Reset/ResetStandardLibrary.ml"
 end
 
-open Reset.ResetPervasives
-open Reset.ResetStandardLibrary
+#include "Reset/Footer.ml"
+
+open Reset
 
 module OCSP = OCamlStandard.Pervasives
 
@@ -117,16 +111,15 @@ module Foundations = struct
 end
 
 module Ubiquitous = struct
-  include Reset.ResetPervasives
-  include Reset.ResetStandardLibrary
+  include Reset
   include Foundations.PervasivesWhitelist
 end
+
+module OCamlStandard = Ubiquitous.OCamlStandard
 
 open Ubiquitous
 
 open Foundations
-
-module Pervasives = Ubiquitous
 
 module Test = struct
   #include "Testing/Test.ml"

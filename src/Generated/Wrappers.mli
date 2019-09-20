@@ -40,7 +40,7 @@ module Lazy: sig
 end
 
 module Reference: sig
-  type 'a t = 'a Pervasives.OCamlStandard.Pervasives.ref = {mutable contents: 'a}
+  type 'a t = 'a OCamlStandard.Pervasives.ref = {mutable contents: 'a}
   module O: sig
     val ref: 'a -> 'a t
     val (!): 'a t -> 'a

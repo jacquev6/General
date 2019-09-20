@@ -1,19 +1,19 @@
-(* Basics *)
-
 (** Some doc for :mod:`General` *)
-
-(** Some doc for :mod:`General.Pervasives` *)
 
 #include "Reset/CommonHeader.ml"
 #include "Reset/SignatureHeader.ml"
 
-module Pervasives: sig
+(** Some doc for :mod:`General.Ubiquitous` *)
+
+module Ubiquitous: sig
   #include "Reset/ResetPervasives.ml"
   #include "Reset/ResetStandardLibrary.ml"
   #include "Reset/PervasivesWhitelist.mli"
 end
 
 #include "Reset/Footer.ml"
+
+module OCamlStandard = Ubiquitous.OCamlStandard
 
 module Shorten: sig
   (** Return type for functions used in short-circuit iterations over collections.
@@ -374,7 +374,7 @@ module Array: sig
 end
 
 module Stream: sig
-  type 'a t = 'a Pervasives.OCamlStandard.Stream.t
+  type 'a t = 'a OCamlStandard.Stream.t
 
   val empty: 'a t
   val singleton: 'a -> 'a t
@@ -652,11 +652,11 @@ module Format: sig
 
   val concat: ('a, 'b, 'c, 'd, 'e, 'f) t -> ('f, 'b, 'c, 'e, 'g, 'h) t -> ('a, 'b, 'c, 'd, 'g, 'h) t
 
-  val with_scan_result: ('a, Pervasives.OCamlStandard.Scanf.Scanning.scanbuf, 'b, 'c -> 'd, 'a -> 'e, 'e) t -> f:'c -> string -> 'd
+  val with_scan_result: ('a, OCamlStandard.Scanf.Scanning.scanbuf, 'b, 'c -> 'd, 'a -> 'e, 'e) t -> f:'c -> string -> 'd
 end
 
 module InChannel: sig
-  type t = Pervasives.OCamlStandard.Pervasives.in_channel
+  type t = OCamlStandard.Pervasives.in_channel
 
   (* @feature val lines: string Stream.t *)
 end
@@ -676,7 +676,7 @@ module InFile: sig
 end
 
 module OutChannel: sig
-  type t = Pervasives.OCamlStandard.Pervasives.out_channel
+  type t = OCamlStandard.Pervasives.out_channel
 
   val print: ?flush:bool -> t -> ('a, t, unit, unit, unit, unit) Format.t -> 'a
   val output: t -> bytes -> unit
@@ -725,7 +725,7 @@ module Testing: sig
       type t =
         | Success
         | Failure of failure
-        | Error of exn * Pervasives.OCamlStandard.Printexc.raw_backtrace option
+        | Error of exn * OCamlStandard.Printexc.raw_backtrace option
 
       val to_string: t -> string
     end
@@ -902,9 +902,9 @@ module Standard: sig
   module IntSortedMap = IntSortedMap
   module StringSortedMap = StringSortedMap
 
-  (** It also includes :mod:`General.Pervasives`. *)
+  (** It also includes :mod:`General.Ubiquitous`. *)
 
-  include module type of Pervasives[@remove_aliases]
+  include module type of Ubiquitous[@remove_aliases]
   with module Array := Array
   and module Bytes := Bytes
   and module Char := Char
@@ -992,9 +992,9 @@ module Abbr: sig
   module IntSoMap = IntSortedMap
   module StrSoMap = StringSortedMap
 
-  (** It also includes :mod:`General.Pervasives`. *)
+  (** It also includes :mod:`General.Ubiquitous`. *)
 
-  include module type of Pervasives[@remove_aliases]
+  include module type of Ubiquitous[@remove_aliases]
   with module Int32 := Int32
   and module Int64 := Int64
   [@@autodoc.hide]
