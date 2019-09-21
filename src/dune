@@ -37,19 +37,16 @@
   (deps
     (:src General.cppo.ml)
     Atoms/BigInt.ml
-    Atoms/Bool.foundations.ml
     Atoms/Bool.ml
     Atoms/Bytes.ml
     Atoms/CallStack.foundations.ml
     Atoms/CallStack.ml
     Atoms/Char.ml
-    Atoms/Exception.foundations.ml
     Atoms/Exception.ml
     Atoms/Exit.foundations.ml
     Atoms/Exit.ml
     Atoms/Float.foundations.ml
     Atoms/Float.ml
-    Atoms/Function1.foundations.ml
     Atoms/Function1.ml
     Atoms/Function2.ml
     Atoms/Function3.ml

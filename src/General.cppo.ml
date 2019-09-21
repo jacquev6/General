@@ -34,20 +34,35 @@ module Lazy = struct
   #include "Wrappers/Lazy.ml"
 end
 
+module Exception = struct
+  #include "Atoms/Exception.ml"
+end
+
+module Bool = struct
+  #include "Atoms/Bool.ml"
+end
+
+module Function1 = struct
+  #include "Atoms/Function1.ml"
+end
+
+module Function2 = struct
+  #include "Atoms/Function2.ml"
+end
+
+module Function3 = struct
+  #include "Atoms/Function3.ml"
+end
+
+module Function4 = struct
+  #include "Atoms/Function4.ml"
+end
+
+module Function5 = struct
+  #include "Atoms/Function5.ml"
+end
 
 module Foundations = struct
-  module Exception = struct
-    #include "Atoms/Exception.foundations.ml"
-  end
-
-  module Bool = struct
-    #include "Atoms/Bool.foundations.ml"
-  end
-
-  module Function1 = struct
-    #include "Atoms/Function1.foundations.ml"
-  end
-
   module Int = struct
     #include "Atoms/Int.foundations.ml"
   end
@@ -422,10 +437,6 @@ module Array = struct
   #include "OldFashion/Implementation/Array.ml"
 end
 
-module Exception = struct
-  #include "Atoms/Exception.ml"
-end
-
 module StandardInt = struct
   #include "Atoms/StandardInt.ml"
 end
@@ -444,10 +455,6 @@ end
 
 module BigInt = struct
   #include "Atoms/BigInt.ml"
-end
-
-module Bool = struct
-  #include "Atoms/Bool.ml"
 end
 
 module Bytes = struct
@@ -472,26 +479,6 @@ end
 
 module Exit = struct
   #include "Atoms/Exit.ml"
-end
-
-module Function1 = struct
-  #include "Atoms/Function1.ml"
-end
-
-module Function2 = struct
-  #include "Atoms/Function2.ml"
-end
-
-module Function3 = struct
-  #include "Atoms/Function3.ml"
-end
-
-module Function4 = struct
-  #include "Atoms/Function4.ml"
-end
-
-module Function5 = struct
-  #include "Atoms/Function5.ml"
 end
 
 module InChannel = struct
