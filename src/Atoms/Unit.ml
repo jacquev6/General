@@ -1,7 +1,9 @@
 #include "../Generated/Atoms/Unit.ml"
 
 module Self = struct
-  include Foundations.Unit
+  type t = unit
+
+  let ignore = OCSP.ignore
 
   module O = struct
     include Compare.Poly.O

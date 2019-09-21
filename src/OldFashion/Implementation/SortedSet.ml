@@ -1,77 +1,83 @@
 module Tree = RedBlackTree
 
-module Poly = struct
-  let cmp = Compare.Poly.compare
-  let cmp_k = cmp
+module Basic = struct
+  module Poly = struct
+    let cmp = Compare.Poly.compare
+    let cmp_k = cmp
 
-  (* @todo Forbid using Poly.equal and Poly.compare *)
-  type 'a t = 'a Tree.t
+    (* @todo Forbid using Poly.equal and Poly.compare *)
+    type 'a t = 'a Tree.t
 
-  let empty = Tree.empty
+    let empty = Tree.empty
 
-  let is_empty = Tree.is_empty
+    let is_empty = Tree.is_empty
 
-  let size t =
-    Tree.size t ~cmp
+    let size t =
+      Tree.size t ~cmp
 
-  let add t ~v =
-    Tree.add t ~cmp v
+    let add t ~v =
+      Tree.add t ~cmp v
 
-  let of_list vs =
-    vs
-    |> List.fold ~init:empty ~f:(fun t v ->
-      add t ~v
-      |> Tuple2.get_1
-    )
+    let of_list vs =
+      vs
+      |> List.fold ~init:empty ~f:(fun t v ->
+        add t ~v
+        |> Tuple2.get_1
+      )
 
-  let replace t ~v =
-    Tree.replace t ~cmp v
+    let replace t ~v =
+      Tree.replace t ~cmp v
 
-  let remove t ~v =
-    Tree.remove t ~cmp ~cmp_k v
+    let remove t ~v =
+      Tree.remove t ~cmp ~cmp_k v
 
-  let to_list t =
-    Tree.to_list t ~cmp
+    let to_list t =
+      Tree.to_list t ~cmp
 
-  let contains t ~v =
-    Tree.try_get t ~cmp ~cmp_k v
-    |> Option.is_some
+    let contains t ~v =
+      Tree.try_get t ~cmp ~cmp_k v
+      |> Option.is_some
+  end
 end
 
-module Make(E: Facets.ComparableBasic.S0) = struct
-  let cmp = E.compare
-  let cmp_k = cmp
+module Extended(Facets: Facets) = struct
+  include Basic
 
-  (* @todo Forbid using Poly.equal and Poly.compare *)
-  type t = E.t Tree.t
+  module Make(E: Facets.ComparableBasic.S0) = struct
+    let cmp = E.compare
+    let cmp_k = cmp
 
-  let empty = Tree.empty
+    (* @todo Forbid using Poly.equal and Poly.compare *)
+    type t = E.t Tree.t
 
-  let is_empty = Tree.is_empty
+    let empty = Tree.empty
 
-  let size t =
-    Tree.size t ~cmp
+    let is_empty = Tree.is_empty
 
-  let add t ~v =
-    Tree.add t ~cmp v
+    let size t =
+      Tree.size t ~cmp
 
-  let of_list vs =
-    vs
-    |> List.fold ~init:empty ~f:(fun t v ->
-      add t ~v
-      |> Tuple2.get_1
-    )
+    let add t ~v =
+      Tree.add t ~cmp v
 
-  let replace t ~v =
-    Tree.replace t ~cmp v
+    let of_list vs =
+      vs
+      |> List.fold ~init:empty ~f:(fun t v ->
+        add t ~v
+        |> Tuple2.get_1
+      )
 
-  let remove t ~v =
-    Tree.remove t ~cmp ~cmp_k v
+    let replace t ~v =
+      Tree.replace t ~cmp v
 
-  let to_list t =
-    Tree.to_list t ~cmp
+    let remove t ~v =
+      Tree.remove t ~cmp ~cmp_k v
 
-  let contains t ~v =
-    Tree.try_get t ~cmp ~cmp_k v
-    |> Option.is_some
+    let to_list t =
+      Tree.to_list t ~cmp
+
+    let contains t ~v =
+      Tree.try_get t ~cmp ~cmp_k v
+      |> Option.is_some
+  end
 end

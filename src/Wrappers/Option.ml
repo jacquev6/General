@@ -1,24 +1,115 @@
 #include "../Generated/Wrappers/Option.ml"
 
-module SelfA = struct
-  include Foundations.Option
-  include Facets.Equatable.Different.Make1(Foundations.Option)
-  include Facets.Comparable.GreaterLessThan.Make1(Foundations.Option)
-  include Facets.Comparable.MinMax.Make1(Foundations.Option)
+module Basic = struct
+  type 'a t = 'a option
+
+  let equal x y ~equal_a =
+    match (x, y) with
+      | (None, None) -> true
+      | (None, Some _) | (Some _, None) -> false
+      | (Some x, Some y) -> equal_a x y
+
+  let compare x y ~compare_a =
+    match (x, y) with
+      | (None, None) -> Compare.EQ
+      | (None, Some _) -> Compare.LT
+      | (Some _, None) -> Compare.GT
+      | (Some x, Some y) -> compare_a x y
+
+  let repr x ~repr_a =
+    match x with
+      | None -> "None"
+      | Some x -> Format.apply "Some %s" (repr_a x)
+
+  let none = None
+
+  let some x =
+    Some x
+
+  let some_if condition value =
+    if condition then Some (Lazy.value value) else None
+
+  let some_if' condition value =
+    if condition then Some value else None
+
+  let value_def x ~def =
+    match x with
+      | Some x -> x
+      | None -> def
+
+  let value ?(exc=Failure "Option.value") x =
+    match x with
+      | Some x -> x
+      | None -> OCSP.raise exc
+
+  (* @todo Why does (o |> value) complain about missing ?exc, but (ss |> StrLi.join) doesn't complain about ?sep ? *)
+
+  let or_failure format =
+    Format.with_result
+      ~f:(fun message ->
+        function
+        | None ->
+          Exception.(raise (Failure message))
+        | Some x ->
+          x
+      )
+      format
+
+  let map x ~f =
+    match x with
+      | None -> None
+      | Some x -> Some (f x)
+
+  let value_map x ~def ~f =
+    match x with
+      | None -> def
+      | Some x -> f x
+
+  let is_some = function
+    | None -> false
+    | Some _ -> true
+
+  let is_none = function
+    | None -> true
+    | Some _ -> false
+
+  let iter x ~f =
+    match x with
+      | None -> ()
+      | Some x -> f x
+
+  let filter x ~f =
+    match x with
+      | None -> None
+      | Some x -> some_if' (f x) x
+
+  let filter_map x ~f =
+    match x with
+      | None -> None
+      | Some x -> (f x)
 end
 
-module Self = struct
-  include SelfA
-  include Facets.Comparable.Between.Make1(SelfA)
+module Extended(Facets: Facets) = struct
+  module SelfA = struct
+    include Basic
+    include Facets.Equatable.Different.Make1(Basic)
+    include Facets.Comparable.GreaterLessThan.Make1(Basic)
+    include Facets.Comparable.MinMax.Make1(Basic)
+  end
+
+  module Self = struct
+    include SelfA
+    include Facets.Comparable.Between.Make1(SelfA)
+  end
+
+  module Specialize(A: sig type t end) = struct
+    type t = A.t option
+
+    include (Self: module type of Self with type 'a t := 'a Self.t)
+  end
+
+  include Self
 end
-
-module Specialize(A: sig type t end) = struct
-  type t = A.t option
-
-  include (Self: module type of Self with type 'a t := 'a Self.t)
-end
-
-include Self
 
 (*
 module Tests = Tests_.Make(Self)(struct

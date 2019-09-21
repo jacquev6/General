@@ -36,7 +36,7 @@ module type Facets = sig
 end
 
 module Format = struct
-  #include "OldFashion/Foundations/Format.ml"
+  #include "OldFashion/Atoms/Format.ml"
 end
 
 module Lazy = struct
@@ -54,6 +54,8 @@ end
 module Function1 = struct
   #include "Atoms/Function1.ml"
 end
+
+let (|>) = Function1.rev_apply  (* @todo Put somewhere *)
 
 module Function2 = struct
   #include "Atoms/Function2.ml"
@@ -77,37 +79,63 @@ module Int_ = struct
 end
 open Int_
 
+module Option_ = struct
+  #include "Wrappers/Option.ml"
+  module Option = Basic
+end
+open Option_
+
+module List_ = struct
+  #include "OldFashion/Collections/List.ml"
+  module List = Basic
+end
+open List_
+
+module CallStack = struct
+  #include "Atoms/CallStack.ml"
+end
+
+module Float_ = struct
+  #include "Atoms/Float.ml"
+  module Float = Basic
+end
+open Float_
+
+module Reference_ = struct
+  #include "Wrappers/Reference.ml"
+  module Reference = Basic
+end
+open Reference_
+
+module Unit = struct
+  #include "Atoms/Unit.ml"
+end
+
+let ignore = Unit.ignore  (* @todo Put somewhere *)
+
+module RedBlackTree = struct
+  #include "OldFashion/Implementation/RedBlackTree.ml"
+end
+
+module Tuple2_ = struct
+  #include "Wrappers/Tuple2.ml"
+  module Tuple2 = Basic
+end
+open Tuple2_
+
+module SortedSet_ = struct
+  #include "OldFashion/Implementation/SortedSet.ml"
+  module SortedSet = Basic
+end
+open SortedSet_
+
+module String = struct
+  #include "Atoms/String.ml"
+end
+
 module Foundations = struct
-  module Option = struct
-    #include "Wrappers/Option.foundations.ml"
-  end
-
-  module List = struct
-    #include "OldFashion/Foundations/List.ml"
-  end
-
-  module CallStack = struct
-    #include "Atoms/CallStack.foundations.ml"
-  end
-
-  module Float = struct
-    #include "Atoms/Float.foundations.ml"
-  end
-
-  module Reference = struct
-    #include "Wrappers/Reference.foundations.ml"
-  end
-
-  module String = struct
-    #include "Atoms/String.foundations.ml"
-  end
-
   module IntRange = struct
     #include "OldFashion/Foundations/IntRange.ml"
-  end
-
-  module Tuple2 = struct
-    #include "Wrappers/Tuple2.foundations.ml"
   end
 
   module Tuple3 = struct
@@ -128,10 +156,6 @@ module Foundations = struct
 
   module Stream = struct
     #include "OldFashion/Foundations/Stream.ml"
-  end
-
-  module Unit = struct
-    #include "Atoms/Unit.foundations.ml"
   end
 end
 
@@ -458,9 +482,7 @@ module Int64 = struct
   #include "Atoms/Int64.ml"
 end
 
-module Float = struct
-  #include "Atoms/Float.ml"
-end
+module Float = Float_.Extended(Facets)
 
 module BigInt = struct
   #include "Atoms/BigInt.ml"
@@ -470,13 +492,7 @@ module Bytes = struct
   #include "Atoms/Bytes.ml"
 end
 
-module List = struct
-  #include "OldFashion/Implementation/List.ml"
-end
-
-module CallStack = struct
-  #include "Atoms/CallStack.ml"
-end
+module List = List_.Extended(Facets)
 
 module Char = struct
   #include "Atoms/Char.ml"
@@ -502,9 +518,7 @@ module NativeInt = struct
   #include "Atoms/NativeInt.ml"
 end
 
-module Option = struct
-  #include "Wrappers/Option.ml"
-end
+module Option = Option_.Extended(Facets)
 
 module OutChannel = struct
   #include "OldFashion/Implementation/OutChannel.ml"
@@ -514,9 +528,7 @@ module OutFile = struct
   #include "OldFashion/Implementation/OutFile.ml"
 end
 
-module Tuple2 = struct
-  #include "Wrappers/Tuple2.ml"
-end
+module Tuple2 = Tuple2_.Extended(Facets)
 
 module Tuple3 = struct
   #include "Wrappers/Tuple3.ml"
@@ -530,10 +542,6 @@ module Tuple5 = struct
   #include "Wrappers/Tuple5.ml"
 end
 
-module RedBlackTree = struct
-  #include "OldFashion/Implementation/RedBlackTree.ml"
-end
-
 module BinaryHeap = struct
   #include "OldFashion/Implementation/BinaryHeap.ml"
 end
@@ -542,17 +550,13 @@ module PriorityQueue = struct
   #include "OldFashion/Implementation/PriorityQueue.ml"
 end
 
-module Reference = struct
-  #include "Wrappers/Reference.ml"
-end
+module Reference = Reference_.Extended(Facets)
 
 module SortedMap = struct
   #include "OldFashion/Implementation/SortedMap.ml"
 end
 
-module SortedSet = struct
-  #include "OldFashion/Implementation/SortedSet.ml"
-end
+module SortedSet = SortedSet_.Extended(Facets)
 
 module Heap = struct
   #include "OldFashion/Implementation/Heap.ml"
@@ -578,16 +582,8 @@ module Stream = struct
   #include "OldFashion/Implementation/Stream.ml"
 end
 
-module String = struct
-  #include "Atoms/String.ml"
-end
-
 module TestingTests = struct
   #include "Testing/Tests.ml"
-end
-
-module Unit = struct
-  #include "Atoms/Unit.ml"
 end
 
 module Specializations = struct
