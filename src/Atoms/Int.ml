@@ -1,30 +1,91 @@
 #include "../Generated/Atoms/Int.ml"
 
-module SelfA = struct
-  include Foundations.Int
+module Basic = struct
+  type t = int
 
-  include Facets.Ringoid.Exponentiate.Make0(struct
-    include Foundations.Int
+  let zero = 0
+  let one = 1
+  let smallest = OCSP.min_int
+  let greatest = OCSP.max_int
 
-    let exponentiate_negative_exponent ~exponentiate:_ _ n =
-      Exception.invalid_argument "Int.exponentiate: Negative exponent: %i" n
-  end)
-end
+  let width = OCSP.(OCamlStandard.Sys.word_size - 1)  (* @todo If we drop OCaml 4.02: use Sys.int_size. Until then, Int.width is wrong on Javascript *)
 
-module SelfB = struct
+  let of_int = Function1.identity
+  let to_int = Function1.identity
+  let of_float = OCSP.int_of_float
+  let to_float = OCSP.float_of_int
+  let of_string = OCSP.int_of_string
+  let try_of_string s =
+    Exception.or_none (lazy (of_string s))
+  let to_string = OCSP.string_of_int
+
+  let repr = OCSP.string_of_int
+
+  let add = OCSP.(+)
+  let subtract = OCSP.(-)
+  let negate = OCSP.(~-)
+  let multiply = OCSP.( * )
+  let divide = OCSP.(/)
+  let square x = multiply x x
+  let abs = OCSP.abs
+  let modulo = OCSP.(mod)
+  let pred = OCSP.pred
+  let succ = OCSP.succ
+
   module O = struct
-    include SelfA.O
+    include Compare.Poly.O
+    include Equate.Poly.O
 
-    let ( ** ) = SelfA.exponentiate
+    let (~-) = OCSP.(~-)
+    let (~+) = OCSP.(~+)
+    let (+) = OCSP.(+)
+    let (-) = OCSP.(-)
+    let ( * ) = OCSP.( * )
+    let (/) = OCSP.(/)
+    let (mod) = OCSP.(mod)
   end
 
-  include (SelfA: module type of SelfA[@remove_aliases] with module O := O)
+  include (Compare.Poly: module type of Compare.Poly with module O := O)
+  include (Equate.Poly: module type of Equate.Poly with module O := O)
+
+  module Bitwise = struct
+    let logical_and = OCSP.(land)
+    let logical_or = OCSP.(lor)
+    let logical_xor = OCSP.(lxor)
+    let logical_not = OCSP.(lnot)
+    let logical_shift_left n ~shift = OCSP.(n lsl shift)
+    let logical_shift_right n ~shift = OCSP.(n lsr shift)
+    let arithmetic_shift_right n ~shift = OCSP.(n asr shift)
+  end
 end
 
-include SelfB
+module Extended(Facets: Facets) = struct
+  module Self_alpha = struct
+    include Basic
+
+    include Facets.Ringoid.Exponentiate.Make0(struct
+      include Basic
+
+      let exponentiate_negative_exponent ~exponentiate:_ _ n =
+        Exception.invalid_argument "Int.exponentiate: Negative exponent: %i" n
+    end)
+  end
+
+  module Self_beta = struct
+    module O = struct
+      include Self_alpha.O
+
+      let ( ** ) = Self_alpha.exponentiate
+    end
+
+    include (Self_alpha: module type of Self_alpha[@remove_aliases] with module O := O)
+  end
+
+  include Self_beta
+end
 
 (*
-module Tests = Tests_.Make(SelfB)(struct
+module Tests = Tests_.Make(Self_beta)(struct
   let representations = [
     (-3, "-3");
     (-0, "0");

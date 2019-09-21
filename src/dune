@@ -52,7 +52,6 @@
     Atoms/Function3.ml
     Atoms/Function4.ml
     Atoms/Function5.ml
-    Atoms/Int.foundations.ml
     Atoms/Int.ml
     Atoms/Int32.ml
     Atoms/Int64.ml

@@ -25,6 +25,15 @@ module Shorten = struct
   #include "Shorten.ml"
 end
 
+module Test = struct
+  #include "Testing/Test.ml"
+end
+
+module type Facets = sig
+  [@@@ocaml.warning "-32"]
+  #include "Generated/Facets.mli"
+  [@@@ocaml.warning "+32"]
+end
 
 module Format = struct
   #include "OldFashion/Foundations/Format.ml"
@@ -62,11 +71,13 @@ module Function5 = struct
   #include "Atoms/Function5.ml"
 end
 
-module Foundations = struct
-  module Int = struct
-    #include "Atoms/Int.foundations.ml"
-  end
+module Int_ = struct
+  #include "Atoms/Int.ml"
+  module Int = Basic
+end
+open Int_
 
+module Foundations = struct
   module Option = struct
     #include "Wrappers/Option.foundations.ml"
   end
@@ -131,10 +142,6 @@ module PervasivesWhitelist = struct
 end
 
 open PervasivesWhitelist
-
-module Test = struct
-  #include "Testing/Test.ml"
-end
 
 module type Testing = sig
   val (>::): string -> Test.t list -> Test.t
@@ -433,6 +440,8 @@ module Facets = struct
   end
 end
 
+module Int = Int_.Extended(Facets)
+
 module Array = struct
   #include "OldFashion/Implementation/Array.ml"
 end
@@ -459,10 +468,6 @@ end
 
 module Bytes = struct
   #include "Atoms/Bytes.ml"
-end
-
-module Int = struct
-  #include "Atoms/Int.ml"
 end
 
 module List = struct
