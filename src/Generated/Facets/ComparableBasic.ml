@@ -53,7 +53,7 @@ module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
   let compare x y = M.compare x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare ~compare_e:E.compare
 end
 
-module Tests_ = struct
+module Tests_alpha(Testing: Testing) = struct
   module Examples = struct
     module type Element = sig
       type t

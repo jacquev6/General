@@ -9,7 +9,7 @@ module Reset = struct
   #undef SIGNATURE
 end
 
-open Reset
+open Reset (* Ensure our code is explicit about using the OCaml standard library (i.e. through OCamlStandard) *)
 
 module OCSP = OCamlStandard.Pervasives
 
@@ -124,11 +124,45 @@ module Test = struct
   #include "Testing/Test.ml"
 end
 
-module Testing = struct
-  #include "Testing/Testing.ml"
+module type Testing = sig
+  val (>::): string -> Test.t list -> Test.t
+  val (>:): string -> unit lazy_t -> Test.t
+  val (~:): ('a, unit, string, string, string, unit lazy_t -> Test.t) CamlinternalFormatBasics.format6 -> 'a
+  (* val (~::): ('a, unit, string, string, string, Test.t list -> Test.t) CamlinternalFormatBasics.format6 -> 'a *)
+  (* val fail: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a *)
+  (* val expect_exception: expected:exn -> 'a lazy_t -> unit *)
+  (* val expect_exception_named: expected:string -> 'a lazy_t -> unit *)
+  val check: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
+  (* val check_poly: repr:('a -> string) -> expected:'a -> 'a -> unit *)
+  val check_string: expected:String.t -> String.t -> unit
+  (* val check_bool: expected:bool -> bool -> unit *)
+  val check_true: Bool.t -> unit
+  val check_false: Bool.t -> unit
+  val check_int: expected:Int.t -> Int.t -> unit
+  (* val check_int32: expected:int32 -> int32 -> unit *)
+  (* val check_int64: expected:int64 -> int64 -> unit *)
+  (* val check_float: ?precision:float -> expected:float -> float -> unit *)
+  (* val check_float_in: low:float -> high:float -> float -> unit *)
+  val check_float_exact: expected:Float.t -> Float.t -> unit
+  (* val check_option: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a option -> 'a option -> unit *)
+  (* val check_option_poly: repr:('a -> string) -> expected:'a option -> 'a option -> unit *)
+  val check_some: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a Option.t -> unit
+  (* val check_none: repr:('a -> string) -> equal:('a -> 'a -> bool) -> 'a option -> unit *)
+  (* val check_some_poly: repr:('a -> string) -> expected:'a -> 'a option -> unit *)
+  (* val check_none_poly: repr:('a -> string) -> 'a option -> unit *)
+  (* val check_int_option: expected:int option -> int option -> unit *)
+  (* val check_some_int: expected:int -> int option -> unit *)
+  (* val check_none_int: int option -> unit *)
+  (* val check_string_option: expected:string option -> string option -> unit *)
+  (* val check_some_string: expected:string -> string option -> unit *)
+  (* val check_none_string: string option -> unit *)
+  (* val check_list: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a list -> 'a list -> unit *)
+  (* val check_list_poly: repr:('a -> string) -> expected:'a list -> 'a list -> unit *)
+  (* val check_string_list: expected:string list -> string list -> unit *)
+  (* val check_int_list: expected:int list -> int list -> unit *)
 end
 
-module Facets = struct
+module Facets_alpha = struct
   module Representable = struct
     #include "Facets/Representable.ml"
   end
@@ -239,6 +273,151 @@ module Facets = struct
 
   module FixedWidthInteger = struct
     #include "Facets/FixedWidthInteger.ml"
+  end
+end
+
+module Testing = struct
+  #include "Testing/Testing.ml"
+end
+
+module Facets = struct
+  open Facets_alpha
+
+  module Representable = struct
+    include Representable
+    module Tests = Tests_beta(Testing)
+  end
+
+  module EquatableBasic = struct
+    include EquatableBasic
+    module Tests = Tests_beta(Testing)
+  end
+
+  module Equatable = struct
+    include Equatable
+    module Tests = Tests_beta(Testing)
+  end
+
+  module ComparableBasic = struct
+    include ComparableBasic
+    module Tests = Tests_beta(Testing)
+  end
+
+  module Comparable = struct
+    include Comparable
+    module Tests = Tests_beta(Testing)
+  end
+
+  module Displayable = struct
+    include Displayable
+    module Tests = Tests_beta(Testing)
+  end
+
+  module Parsable = struct
+    include Parsable
+    module Tests = Tests_beta(Testing)
+  end
+
+  module PredSucc = struct
+    include PredSucc
+    module Tests = Tests_beta(Testing)
+  end
+
+  module OfInt = struct
+    include OfInt
+    module Tests = Tests_beta(Testing)
+  end
+
+  module ToInt = struct
+    include ToInt
+    module Tests = Tests_beta(Testing)
+  end
+
+  module OfFloat = struct
+    include OfFloat
+    module Tests = Tests_beta(Testing)
+  end
+
+  module ToFloat = struct
+    include ToFloat
+    module Tests = Tests_beta(Testing)
+  end
+
+  module RingoidBasic = struct
+    include RingoidBasic
+    module Tests = Tests_beta(Testing)
+  end
+
+  module Ringoid = struct
+    include Ringoid
+    module Tests = Tests_beta(Testing)
+  end
+
+  module Bounded = struct
+    include Bounded
+    module Tests = Tests_beta(Testing)
+  end
+
+  module Bitwise = struct
+    include Bitwise
+    module Tests = Tests_beta(Testing)
+  end
+
+  module FilterMapable = struct
+    include FilterMapable
+  end
+
+  module Foldable = struct
+    include Foldable
+  end
+
+  module Scanable = struct
+    include Scanable
+  end
+
+  module Identifiable = struct
+    include Identifiable
+    module Tests = Tests_beta(Testing)
+  end
+
+  module Able = struct
+    include Able
+    module Tests = Tests_beta(Testing)
+  end
+
+  module Stringable = struct
+    include Stringable
+    module Tests = Tests_beta(Testing)
+  end
+
+  module OfStandardNumber = struct
+    include OfStandardNumber
+    module Tests = Tests_beta(Testing)
+  end
+
+  module Number = struct
+    include Number
+    module Tests = Tests_beta(Testing)
+  end
+
+  module ToStandardNumber = struct
+    include ToStandardNumber
+    module Tests = Tests_beta(Testing)
+  end
+
+  module RealNumber = struct
+    include RealNumber
+    module Tests = Tests_beta(Testing)
+  end
+
+  module Integer = struct
+    include Integer
+    module Tests = Tests_beta(Testing)
+  end
+
+  module FixedWidthInteger = struct
+    include FixedWidthInteger
+    module Tests = Tests_beta(Testing)
   end
 end
 

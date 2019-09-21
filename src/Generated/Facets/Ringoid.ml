@@ -64,11 +64,11 @@ module Exponentiate_ = struct
   end
 end
 
-module Tests_ = struct
+module Tests_alpha(Testing: Testing) = struct
   module Examples = struct
     module type S0 = sig
       type t
-      include RingoidBasic.Tests.Examples.S0 with type t := t
+      include RingoidBasic.Tests_beta(Testing).Examples.S0 with type t := t
       val exponentiations: (t * int * t) list
     end
   end
@@ -86,7 +86,7 @@ module Tests_ = struct
       open Testing
       module E = MakeExamples(M)(E)
       let test = "Ringoid" >:: [
-        (let module T = RingoidBasic.Tests.Make0(M)(E) in T.test);
+        (let module T_alpha = RingoidBasic.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
   end

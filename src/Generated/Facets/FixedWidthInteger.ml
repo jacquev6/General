@@ -14,13 +14,13 @@ module type S0 = sig
   val width: int
 end
 
-module Tests_ = struct
+module Tests_alpha(Testing: Testing) = struct
   module Examples = struct
     module type S0 = sig
       type t
-      include Integer.Tests.Examples.S0 with type t := t
-      include Bounded.Tests.Examples.S0 with type t := t
-      include Bitwise.Tests.Examples.S0 with type t := t
+      include Integer.Tests_beta(Testing).Examples.S0 with type t := t
+      include Bounded.Tests_beta(Testing).Examples.S0 with type t := t
+      include Bitwise.Tests_beta(Testing).Examples.S0 with type t := t
     end
   end
 
@@ -35,9 +35,9 @@ module Tests_ = struct
       open Testing
       module E = MakeExamples(M)(E)
       let test = "FixedWidthInteger" >:: [
-        (let module T = Integer.Tests.Make0(M)(E) in T.test);
-        (let module T = Bounded.Tests.Make0(M)(E) in T.test);
-        (let module T = Bitwise.Tests.Make0(M)(E) in T.test);
+        (let module T_alpha = Integer.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);
+        (let module T_alpha = Bounded.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);
+        (let module T_alpha = Bitwise.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
   end

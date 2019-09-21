@@ -52,7 +52,7 @@ do
         $RUN coverage3 run --branch -m geni
         echo
         echo "Geni coverage:"
-        $RUN coverage3 report
+        $RUN coverage3 report --show-missing
         echo "Full report in $PWD/_builds/$OCAML_VERSION/geni_coverage/index.html"
         $RUN coverage3 html --directory=_build/geni_coverage
         rm .coverage

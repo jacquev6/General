@@ -253,7 +253,7 @@ class Facet:
         yield mod_spec("Tests", self.__tests_specification_items())
 
     def __tests_implementation(self):
-        yield mod_impl("Tests_", self.__tests_implementation_items())
+        yield mod_impl("Tests_alpha(Testing: Testing)", self.__tests_implementation_items())
 
     def __tests_specification_items(self):
         yield self.__tests_examples_specification()
@@ -266,16 +266,16 @@ class Facet:
         yield self.__tests_makers_implementations()
 
     def __tests_examples_specification(self):
-        yield mod_spec("Examples", self.__tests_examples_items())
+        yield mod_spec("Examples", self.__tests_examples_items(implem=False))
 
     def __tests_examples_implementation(self):
-        yield mod_impl("Examples", self.__tests_examples_items())
+        yield mod_impl("Examples", self.__tests_examples_items(implem=True))
 
-    def __tests_examples_items(self):
+    def __tests_examples_items(self, *, implem):
         if self.max_arity > 1:
             yield mod_type("Element", self.__tests_examples_element_mod_type_items())
         for arity in self.arities:
-            yield mod_type(f"S{arity}", self.__tests_examples_mod_type_items(arity))
+            yield mod_type(f"S{arity}", self.__tests_examples_mod_type_items(arity, implem=implem))
 
     def __tests_examples_element_mod_type_items(self):
         yield "type t"
@@ -283,13 +283,14 @@ class Facet:
         for req in self.test_requirements:
             yield f"include {req.name}.S0 with type t := t"
 
-    def __tests_examples_mod_type_items(self, arity):
+    def __tests_examples_mod_type_items(self, arity, *, implem):
+        suffix = "_beta(Testing)" if implem else ""
         yield f"type {type_params(arity)}t"
         for a in abcd(arity):
             yield f"module {a.upper()}: Element"
         for base in self.bases:
             yield (
-                f"include {base.contextualized_name(self.prefix)}.Tests.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
+                f"include {base.contextualized_name(self.prefix)}.Tests{suffix}.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
                 + "".join(f" and module {a.upper()} := {a.upper()}" for a in abcd(arity))
             )
         t = f"{type_args(arity)}t"
@@ -336,7 +337,7 @@ class Facet:
         yield "module E = MakeExamples(M)(E)"
         yield f'let test = "{self.name}" >:: ['
         for base in self.bases:
-            yield f"  (let module T = {base.contextualized_name(self.prefix)}.Tests.Make0(M)(E) in T.test);"
+            yield f"  (let module T_alpha = {base.contextualized_name(self.prefix)}.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);"
         yield "] @ (let module T = MakeTests(M)(E) in T.tests)"
 
     def __tests_maker_implementation_items(self, arity):

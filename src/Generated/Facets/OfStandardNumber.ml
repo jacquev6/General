@@ -4,12 +4,12 @@ module type S0 = sig
   include OfFloat.S0 with type t := t
 end
 
-module Tests_ = struct
+module Tests_alpha(Testing: Testing) = struct
   module Examples = struct
     module type S0 = sig
       type t
-      include OfInt.Tests.Examples.S0 with type t := t
-      include OfFloat.Tests.Examples.S0 with type t := t
+      include OfInt.Tests_beta(Testing).Examples.S0 with type t := t
+      include OfFloat.Tests_beta(Testing).Examples.S0 with type t := t
     end
   end
 
@@ -24,8 +24,8 @@ module Tests_ = struct
       open Testing
       module E = MakeExamples(M)(E)
       let test = "OfStandardNumber" >:: [
-        (let module T = OfInt.Tests.Make0(M)(E) in T.test);
-        (let module T = OfFloat.Tests.Make0(M)(E) in T.test);
+        (let module T_alpha = OfInt.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);
+        (let module T_alpha = OfFloat.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
   end

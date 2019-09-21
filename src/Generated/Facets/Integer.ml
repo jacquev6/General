@@ -12,12 +12,12 @@ module type S0 = sig
   include PredSucc.S0 with type t := t
 end
 
-module Tests_ = struct
+module Tests_alpha(Testing: Testing) = struct
   module Examples = struct
     module type S0 = sig
       type t
-      include RealNumber.Tests.Examples.S0 with type t := t
-      include PredSucc.Tests.Examples.S0 with type t := t
+      include RealNumber.Tests_beta(Testing).Examples.S0 with type t := t
+      include PredSucc.Tests_beta(Testing).Examples.S0 with type t := t
     end
   end
 
@@ -32,8 +32,8 @@ module Tests_ = struct
       open Testing
       module E = MakeExamples(M)(E)
       let test = "Integer" >:: [
-        (let module T = RealNumber.Tests.Make0(M)(E) in T.test);
-        (let module T = PredSucc.Tests.Make0(M)(E) in T.test);
+        (let module T_alpha = RealNumber.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);
+        (let module T_alpha = PredSucc.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
   end

@@ -3,7 +3,7 @@ module type S0 = sig
   val to_int: t -> int
 end
 
-module Tests_ = struct
+module Tests_alpha(Testing: Testing) = struct
   module Examples = struct
     module type S0 = sig
       type t
