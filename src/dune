@@ -174,7 +174,6 @@
     OldFashion/Foundations/Stream.ml
     OldFashion/Implementation/Array.ml
     OldFashion/Implementation/BinaryHeap.ml
-    OldFashion/Implementation/Format.ml
     OldFashion/Implementation/Heap.ml
     OldFashion/Implementation/InChannel.ml
     OldFashion/Implementation/InFile.ml
@@ -204,7 +203,6 @@
     Testing/Test.ml
     Testing/Testing.ml
     Testing/Tests.ml
-    Wrappers/Lazy.foundations.ml
     Wrappers/Lazy.ml
     Wrappers/Option.foundations.ml
     Wrappers/Option.ml

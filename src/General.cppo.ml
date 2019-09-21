@@ -25,17 +25,23 @@ module Shorten = struct
   #include "Shorten.ml"
 end
 
+
+module Format = struct
+  #include "OldFashion/Foundations/Format.ml"
+end
+
+module Lazy = struct
+  #include "Wrappers/Lazy.ml"
+end
+
+
 module Foundations = struct
-  module Format = struct
-    #include "OldFashion/Foundations/Format.ml"
-  end
-
-  module Lazy = struct
-    #include "Wrappers/Lazy.foundations.ml"
-  end
-
   module Exception = struct
     #include "Atoms/Exception.foundations.ml"
+  end
+
+  module Bool = struct
+    #include "Atoms/Bool.foundations.ml"
   end
 
   module Function1 = struct
@@ -44,10 +50,6 @@ module Foundations = struct
 
   module Int = struct
     #include "Atoms/Int.foundations.ml"
-  end
-
-  module Bool = struct
-    #include "Atoms/Bool.foundations.ml"
   end
 
   module Option = struct
@@ -105,20 +107,15 @@ module Foundations = struct
   module Unit = struct
     #include "Atoms/Unit.foundations.ml"
   end
-
-  module PervasivesWhitelist = struct
-    #include "Reset/PervasivesWhitelist.ml"
-  end
 end
-
-module Ubiquitous = struct
-  include Reset
-  include Foundations.PervasivesWhitelist
-end
-
-open Ubiquitous
 
 open Foundations
+
+module PervasivesWhitelist = struct
+  #include "Reset/PervasivesWhitelist.ml"
+end
+
+open PervasivesWhitelist
 
 module Test = struct
   #include "Testing/Test.ml"
@@ -429,10 +426,6 @@ module Exception = struct
   #include "Atoms/Exception.ml"
 end
 
-module Format = struct
-  #include "OldFashion/Implementation/Format.ml"
-end
-
 module StandardInt = struct
   #include "Atoms/StandardInt.ml"
 end
@@ -511,10 +504,6 @@ end
 
 module IntRange = struct
   #include "OldFashion/Implementation/IntRange.ml"
-end
-
-module Lazy = struct
-  #include "Wrappers/Lazy.ml"
 end
 
 module NativeInt = struct
@@ -725,7 +714,7 @@ module Standard = struct
   module OCamlStandard = OCamlStandard
 
   include (
-    Ubiquitous: module type of Ubiquitous[@remove_aliases]
+    Reset: module type of Reset[@remove_aliases]
     with module Array := Array
     and module Bool := Bool
     and module Bytes := Bytes
@@ -738,6 +727,8 @@ module Standard = struct
     and module Stream := Stream
     and module String := String
   )
+
+  include PervasivesWhitelist
 end
 
 module Abbr = struct
@@ -811,7 +802,8 @@ module Abbr = struct
 
   module OCamlStandard = OCamlStandard
 
-  include Ubiquitous
+  include Reset
+  include PervasivesWhitelist
 end
 
 (*

@@ -1,6 +1,17 @@
 #include "../Generated/Wrappers/Lazy.ml"
 
-module Self = Foundations.Lazy
+module Self = struct
+  type 'a t = 'a lazy_t
+
+  module OCSL = OCamlStandard.Lazy
+
+  let value = OCSL.force
+
+  let is_value = OCSL.is_val
+
+  let map x ~f =
+    lazy (f (value x))
+end
 
 include Self
 
