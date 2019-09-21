@@ -2,6 +2,7 @@ module Self = Foundations.IntRange
 
 include Self
 
+(*
 module Tests = struct
   open Testing
 
@@ -54,3 +55,4 @@ module Tests = struct
     ];
   ]
 end
+*)

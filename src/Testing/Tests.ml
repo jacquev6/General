@@ -1,3 +1,4 @@
+(*
 (* The position of these symbols is tested below. Moving them requires fixing the tests *)
 let callstack = CallStack.current ()
 (* End of symbols to not move *)
@@ -168,3 +169,4 @@ module Tests = struct
     ];
   ]
 end
+*)

@@ -4,6 +4,7 @@ module Self = Foundations.Lazy
 
 include Self
 
+(*
 module Tests = Tests_.Make(Self)(struct
 end)(struct
   open Testing
@@ -25,3 +26,4 @@ end)(struct
     ));
   ]
 end)
+*)

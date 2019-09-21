@@ -2,6 +2,7 @@ module Self = Foundations.Stream
 
 include Self
 
+(*
 module Tests = struct
   open Testing
 
@@ -10,3 +11,4 @@ module Tests = struct
     (let module T = Facets.FilterMapable.ToList.Tests.Make1(Self)(Self.ToList)(List) in T.test);
   ]
 end
+*)

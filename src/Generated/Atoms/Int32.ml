@@ -1,3 +1,4 @@
+(*
 module Tests_ = struct
   module type Examples = sig
     include Facets.FixedWidthInteger.Tests.Examples.S0 with type t := OCamlStandard.Int32.t
@@ -15,3 +16,5 @@ module Tests_ = struct
     ] @ Tests.tests
   end
 end
+
+*)

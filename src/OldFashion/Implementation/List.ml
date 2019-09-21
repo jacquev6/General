@@ -46,6 +46,7 @@ module SpecializeRepresentable(A: Facets.Representable.S0) = struct
     Self.repr xs ~repr_a:A.repr
 end
 
+(*
 module Examples = struct
   module A = Foundations.Int
 
@@ -96,3 +97,4 @@ module Tests = struct
     "iter" >: (lazy (check_int ~expected:4096 (let p = ref 2 in iter ~f:(fun n -> p := Int.exponentiate !p n) [3; 4]; !p)));
   ]
 end
+*)

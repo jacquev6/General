@@ -1,11 +1,13 @@
 #include "../Generated/Atoms/Exception.ml"
 
+(*
 (* The position of these symbols is tested below. Moving them requires fixing the tests *)
 [@@@ocaml.warning "-8"]
 let match_failure = lazy (let 0 = 1 in 0) (*BISECT-IGNORE*)
 [@@@ocaml.warning "+8"]
 let assert_failure = lazy (assert false)
 (* End of symbols to not move *)
+*)
 
 module OCSL = OCamlStandard.List
 
@@ -25,6 +27,7 @@ end
 
 include Self
 
+(*
 module Tests = Tests_.Make(Self)(struct
   let equalities = [
     [Failure "foo"];
@@ -68,3 +71,4 @@ end)(struct
     ]
   ]
 end)
+*)

@@ -61,6 +61,7 @@ module Class = struct
 
   include SelfB
 
+  (*
   module Tests = Tests_.Make(SelfB)(struct
     let representations = [
       (Normal, "Normal");
@@ -107,8 +108,10 @@ module Class = struct
       );
     ]
   end)
+  *)
 end
 
+(*
 module Tests = Tests_.Make(SelfB)(struct
   let representations = [
     (-3., "-3.");
@@ -202,3 +205,4 @@ end)(struct
     Class.Tests.test;
   ]
 end)
+*)

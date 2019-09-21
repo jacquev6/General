@@ -11,6 +11,7 @@ and 'a t =
   | Red of 'a node
   (* Red nodes don't need such marker because if the extra black-height reaches them, they just absorb it by turning black. *)
 
+(*
 let repr ~repr_a =
   let rec aux = function
     | Empty -> "Empty"
@@ -137,6 +138,7 @@ module Invariants = struct
       | [] -> t
       | broken_invariants -> Exception.raise (BrokenInvariants broken_invariants)
 end
+*)
 
 module Restore = struct
   let fix_root_color = function
@@ -440,6 +442,7 @@ let to_list xs ~cmp =
 let size xs ~cmp =
   fold xs ~cmp ~init:0 ~f:(fun n _ -> Int.succ n)
 
+(*
 module Tests = struct
   open Testing
 
@@ -1206,3 +1209,4 @@ module Tests = struct
     );
   ]
 end
+*)

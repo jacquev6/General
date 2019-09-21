@@ -1,5 +1,6 @@
 #include "../Generated/Atoms/CallStack.ml"
 
+(*
 (* The position of these symbols is tested below. Moving them requires fixing the tests *)
 let rec stack = function
   | 0 -> [Some (Foundations.CallStack.current ())]
@@ -10,6 +11,7 @@ let stack =
   |> List.filter_map ~f:identity
   |> List.head
 (* End of symbols to not move *)
+*)
 
 module Self = struct
   include Foundations.CallStack
@@ -17,6 +19,7 @@ end
 
 include Self
 
+(*
 module Tests = Tests_.Make(Self)(struct
   let displays = [
     (
@@ -63,3 +66,4 @@ end)(struct
     ); *)
   ]
 end)
+*)

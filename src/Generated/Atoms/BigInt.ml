@@ -1,3 +1,4 @@
+(*
 module Tests_ = struct
   module type Examples = sig
     include Facets.Integer.Tests.Examples.S0 with type t := OCamlStandard.Big_int.big_int
@@ -15,3 +16,5 @@ module Tests_ = struct
     ] @ Tests.tests
   end
 end
+
+*)

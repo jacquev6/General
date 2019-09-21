@@ -18,6 +18,7 @@ end
 
 include Self
 
+(*
 module Tests = Tests_.Make(Self)(struct
 end)(struct
   open Testing
@@ -28,3 +29,4 @@ end)(struct
     "uncurry" >: (lazy (check_string ~expected:"7 2 4" ((uncurry (Format.apply "%d %d %d")) (7, 2, 4))));
   ]
 end)
+*)

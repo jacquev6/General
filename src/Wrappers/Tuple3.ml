@@ -16,6 +16,7 @@ end
 
 include Self
 
+(*
 module Tests = Tests_.Make(Self)(struct
   module A = Foundations.Int
   module B = Foundations.String
@@ -49,3 +50,4 @@ end)(struct
     "get_2" >: (lazy (check_42 (get_2 (0, 0, 42))));
   ]
 end)
+*)

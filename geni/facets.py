@@ -441,7 +441,9 @@ class Type:
 
     @property
     def implementation_items(self):
+        yield "(*"
         yield mod_impl("Tests_", self.__tests_implementation_items())
+        yield "*)"
 
     def __tests_implementation_items(self):
         # @todo Homogenize

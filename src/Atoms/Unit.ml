@@ -16,6 +16,7 @@ end
 
 include Self
 
+(*
 module Tests = Tests_.Make(Self)(struct
     let representations = [
         ((), "()");
@@ -31,3 +32,4 @@ module Tests = Tests_.Make(Self)(struct
 end)(struct
   let tests = []
 end)
+*)

@@ -1,3 +1,4 @@
+(*
 module Tests_ = struct
   module type Examples = sig
     include Facets.RealNumber.Tests.Examples.S0 with type t := float
@@ -18,3 +19,5 @@ module Tests_ = struct
     ] @ Tests.tests
   end
 end
+
+*)

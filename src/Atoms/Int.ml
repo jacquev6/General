@@ -23,6 +23,7 @@ end
 
 include SelfB
 
+(*
 module Tests = Tests_.Make(SelfB)(struct
   let representations = [
     (-3, "-3");
@@ -98,3 +99,4 @@ end)(struct
     "exponentiate 2 (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "Int.exponentiate: Negative exponent: -4") (lazy (exponentiate 2 (-4)))));
   ]
 end)
+*)

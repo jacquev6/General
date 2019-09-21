@@ -15,6 +15,7 @@ module Result = struct
       | WrongExceptionNamed of string * exn * CallStack.t option
       | Custom of string
 
+    (*
     let failure_repr = function
       | NotEqual (x, y) ->
         Format.apply "NotEqual (%S, %S)" x y
@@ -28,12 +29,14 @@ module Result = struct
         Format.apply "WrongExceptionNamed (%S, %s, %s)" expected (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
       | Custom x ->
         Format.apply "Custom %S" x
+    *)
 
     type t =
       | Success
       | Failure of failure
       | Error of exn * CallStack.t option
 
+    (*
     let repr = function
       | Success ->
         "Success"
@@ -41,6 +44,7 @@ module Result = struct
         Format.apply "Failure (%s)" (failure_repr reason)
       | Error (exc, bt) ->
         Format.apply "Error (%s, %s)" (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
+    *)
 
     let to_string = function
         | Success ->
@@ -94,8 +98,10 @@ module Result = struct
         errors = errors + errors';
       }
 
+    (*
     let repr {successes; failures; errors} =
       Format.apply "{successes=%i; failures=%i; errors=%i}" successes failures errors
+    *)
   end
 
   type group = {
@@ -108,6 +114,7 @@ module Result = struct
     | Single of single
     | Group of group
 
+  (*
   let rec repr = function
     | Single {label; status} ->
       Format.apply "Single {label=%S; status=%s}" label (Status.repr status)
@@ -116,6 +123,7 @@ module Result = struct
 
   let equal x y =
     Equate.Poly.equal x y
+  *)
 
   let to_indented_strings ~verbose =
     let rec aux indent = function
@@ -209,7 +217,9 @@ let (~:) format =
 
 (* Checks *)
 
+(*
 let javascript = String.has_suffix OCSS.argv.(0) ~suf:".js"
+*)
 
 let fail format =
   Format.with_result
@@ -261,8 +271,10 @@ let check_string ~expected actual =
 let check_int ~expected actual =
   check ~repr:Int.repr ~equal:Int.equal ~expected actual
 
+(*
 let check_42 actual =
   check ~repr:Int.repr ~equal:Int.equal ~expected:42 actual
+*)
 
 let check_float ?precision ~expected actual =
   check ~repr:Float.repr ~equal:(Float.approx_equal ?precision) ~expected actual
@@ -299,8 +311,10 @@ let check_int_option ~expected actual =
 let check_some_int ~expected actual =
   check_int_option ~expected:(Some expected) actual
 
+(*
 let check_some_42 actual =
   check_some_int ~expected:42 actual
+*)
 
 let check_none_int actual =
   check_int_option ~expected:None actual
@@ -326,6 +340,7 @@ let check_string_list ~expected actual =
 let check_int_list ~expected actual =
   check_list ~repr:Int.repr ~equal:Int.equal ~expected actual
 
+(*
 let check_tuple2 ~repr_a ~repr_b ~equal_a ~equal_b ~expected actual =
   check
     ~repr:(Tuple2.repr ~repr_a ~repr_b)
@@ -373,3 +388,4 @@ let check_int_tuple5 ~expected actual =
     ~repr_a:Int.repr ~repr_b:Int.repr ~repr_c:Int.repr ~repr_d:Int.repr ~repr_e:Int.repr
     ~equal_a:Int.equal ~equal_b:Int.equal ~equal_c:Int.equal ~equal_d:Int.equal ~equal_e:Int.equal
     ~expected actual
+*)

@@ -15,6 +15,7 @@ end)
 
 include Self
 
+(*
 module Tests = Tests_.Make(Self)(struct
   let literals = [
     ("43", 43n);
@@ -94,3 +95,4 @@ end)(struct
     "exponentiate 2n (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "NativeInt.exponentiate: Negative exponent: -4") (lazy (exponentiate 2n (-4)))));
   ]
 end)
+*)

@@ -1,3 +1,4 @@
+(*
 module Tests_ = struct
   module type Examples = sig
   end
@@ -11,3 +12,5 @@ module Tests_ = struct
     ] @ Tests.tests
   end
 end
+
+*)

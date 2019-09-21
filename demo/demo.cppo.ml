@@ -157,6 +157,7 @@ module IntMod3Examples = struct
   ]
 end
 
+(*
 let () = Tst.(
   let test =
     ~:: "de%s" "mo" [
@@ -173,3 +174,4 @@ let () = Tst.(
   in
   Exit.exit (command_line_main ~argv:(Li.of_array OCamlStandard.Sys.argv) test)
 )
+*)

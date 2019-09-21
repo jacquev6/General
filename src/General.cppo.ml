@@ -635,6 +635,7 @@ module Abbr = struct
   include Ubiquitous
 end
 
+(*
 module Tests = struct
   open Testing
 
@@ -711,3 +712,4 @@ module Tests = struct
     ];
   ]
 end
+*)

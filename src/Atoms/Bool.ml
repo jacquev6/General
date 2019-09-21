@@ -2,6 +2,7 @@
 
 include Foundations.Bool
 
+(*
 module Tests = Tests_.Make(Foundations.Bool)(struct
   let representations = [
     (false, "false");
@@ -56,3 +57,4 @@ end)(struct
     "xor false false" >: (lazy (check_false (xor false false)));
   ]
 end)
+*)

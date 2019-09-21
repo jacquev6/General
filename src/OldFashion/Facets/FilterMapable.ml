@@ -5,6 +5,7 @@
 module ToContainer(C: sig type 'a t end) = struct
   #include "FilterMapable.signatures.ToContainer.ml"
 
+  (*
   module Tests = struct
     open Testing
 
@@ -76,12 +77,14 @@ module ToContainer(C: sig type 'a t end) = struct
       ]
     end
   end
+  *)
 end
 
 module ToList = ToContainer(struct type 'a t = 'a list end)
 
 module ToArray = ToContainer(struct type 'a t = 'a array end)
 
+(*
 module Tests = struct
   open Testing
 
@@ -97,3 +100,4 @@ module Tests = struct
     include T.Tests.Make1(M)(M)(M)
   end
 end
+*)

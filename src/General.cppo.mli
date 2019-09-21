@@ -988,6 +988,8 @@ module Abbr: sig
 end
 
 (* @todo Remove from interface, or make a functor, to avoid linking tests in client applications *)
+(*
 module Tests: sig
   val test: Test.t
 end [@@autodoc.hide]
+*)

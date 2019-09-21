@@ -4,6 +4,7 @@ module Self = Foundations.Function1
 
 include Self
 
+(*
 module Tests = Tests_.Make(Self)(struct
 end)(struct
   open Testing
@@ -15,3 +16,4 @@ end)(struct
     "compose" >: (lazy (check_string ~expected:"42" ((compose (Format.apply "%d") (( * ) 2)) 21)));
   ]
 end)
+*)

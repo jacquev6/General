@@ -22,6 +22,7 @@ end
 
 include Self
 
+(*
 module Tests = Tests_.Make(Self)(struct
   let representations = [
     ("foo", "\"foo\"");
@@ -66,3 +67,4 @@ end)(struct
     );
   ]
 end)
+*)

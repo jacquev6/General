@@ -20,6 +20,7 @@ end
 
 include Self
 
+(*
 module Tests = Tests_.Make(Self)(struct
   module A = Int
 
@@ -73,3 +74,4 @@ end)(struct
     "filter_map Some false" >: (lazy (check_none_int (filter_map ~f:(fun _ -> None) (Some 42))));
   ]
 end)
+*)

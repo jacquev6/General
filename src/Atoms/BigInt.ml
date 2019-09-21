@@ -84,6 +84,7 @@ end
 
 include Self
 
+(*
 module Tests = Tests_.Make(Self)(struct
   let i = OCSB.big_int_of_int
   let s = OCSB.big_int_of_string
@@ -397,3 +398,4 @@ end)(struct
     );
   ]
 end)
+*)

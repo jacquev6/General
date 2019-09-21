@@ -121,6 +121,7 @@ let pop_max xs ~cmp =
 let pop_max xs ~cmp =
   Invariants.(xs |> validate ~cmp |> pop_max ~cmp |> validate ~cmp)
 
+(*
 module Tests = struct
   open Testing
 
@@ -175,3 +176,4 @@ module Tests = struct
     );
   ]
 end
+*)
