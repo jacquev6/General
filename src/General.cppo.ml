@@ -208,69 +208,7 @@ module type Testing = sig
 end
 
 module Facets_alpha = struct
-  module Representable = struct
-    #include "Facets/Representable.ml"
-  end
-
-  module EquatableBasic = struct
-    #include "Facets/EquatableBasic.ml"
-  end
-
-  module Equatable = struct
-    #include "Facets/Equatable.ml"
-  end
-
-  module ComparableBasic = struct
-    #include "Facets/ComparableBasic.ml"
-  end
-
-  module Comparable = struct
-    #include "Facets/Comparable.ml"
-  end
-
-  module Displayable = struct
-    #include "Facets/Displayable.ml"
-  end
-
-  module Parsable = struct
-    #include "Facets/Parsable.ml"
-  end
-
-  module PredSucc = struct
-    #include "Facets/PredSucc.ml"
-  end
-
-  module OfInt = struct
-    #include "Facets/OfInt.ml"
-  end
-
-  module ToInt = struct
-    #include "Facets/ToInt.ml"
-  end
-
-  module OfFloat = struct
-    #include "Facets/OfFloat.ml"
-  end
-
-  module ToFloat = struct
-    #include "Facets/ToFloat.ml"
-  end
-
-  module RingoidBasic = struct
-    #include "Facets/RingoidBasic.ml"
-  end
-
-  module Ringoid = struct
-    #include "Facets/Ringoid.ml"
-  end
-
-  module Bounded = struct
-    #include "Facets/Bounded.ml"
-  end
-
-  module Bitwise = struct
-    #include "Facets/Bitwise.ml"
-  end
+  #include "Generated/Facets_alpha.ml"
 
   module FilterMapable = struct
     #include "OldFashion/Facets/FilterMapable.ml"
@@ -283,42 +221,6 @@ module Facets_alpha = struct
   module Scanable = struct
     #include "OldFashion/Facets/Scanable.ml"
   end
-
-  module Identifiable = struct
-    #include "Facets/Identifiable.ml"
-  end
-
-  module Able = struct
-    #include "Facets/Able.ml"
-  end
-
-  module Stringable = struct
-    #include "Facets/Stringable.ml"
-  end
-
-  module OfStandardNumber = struct
-    #include "Facets/OfStandardNumber.ml"
-  end
-
-  module Number = struct
-    #include "Facets/Number.ml"
-  end
-
-  module ToStandardNumber = struct
-    #include "Facets/ToStandardNumber.ml"
-  end
-
-  module RealNumber = struct
-    #include "Facets/RealNumber.ml"
-  end
-
-  module Integer = struct
-    #include "Facets/Integer.ml"
-  end
-
-  module FixedWidthInteger = struct
-    #include "Facets/FixedWidthInteger.ml"
-  end
 end
 
 module Testing = struct
@@ -326,144 +228,13 @@ module Testing = struct
 end
 
 module Facets = struct
-  open Facets_alpha
+  #include "Generated/Facets.ml"
 
-  module Representable = struct
-    include Representable
-    module Tests = Tests_beta(Testing)
-  end
+  module FilterMapable = Facets_alpha.FilterMapable
 
-  module EquatableBasic = struct
-    include EquatableBasic
-    module Tests = Tests_beta(Testing)
-  end
+  module Foldable = Facets_alpha.Foldable
 
-  module Equatable = struct
-    include Equatable
-    module Tests = Tests_beta(Testing)
-  end
-
-  module ComparableBasic = struct
-    include ComparableBasic
-    module Tests = Tests_beta(Testing)
-  end
-
-  module Comparable = struct
-    include Comparable
-    module Tests = Tests_beta(Testing)
-  end
-
-  module Displayable = struct
-    include Displayable
-    module Tests = Tests_beta(Testing)
-  end
-
-  module Parsable = struct
-    include Parsable
-    module Tests = Tests_beta(Testing)
-  end
-
-  module PredSucc = struct
-    include PredSucc
-    module Tests = Tests_beta(Testing)
-  end
-
-  module OfInt = struct
-    include OfInt
-    module Tests = Tests_beta(Testing)
-  end
-
-  module ToInt = struct
-    include ToInt
-    module Tests = Tests_beta(Testing)
-  end
-
-  module OfFloat = struct
-    include OfFloat
-    module Tests = Tests_beta(Testing)
-  end
-
-  module ToFloat = struct
-    include ToFloat
-    module Tests = Tests_beta(Testing)
-  end
-
-  module RingoidBasic = struct
-    include RingoidBasic
-    module Tests = Tests_beta(Testing)
-  end
-
-  module Ringoid = struct
-    include Ringoid
-    module Tests = Tests_beta(Testing)
-  end
-
-  module Bounded = struct
-    include Bounded
-    module Tests = Tests_beta(Testing)
-  end
-
-  module Bitwise = struct
-    include Bitwise
-    module Tests = Tests_beta(Testing)
-  end
-
-  module FilterMapable = struct
-    include FilterMapable
-  end
-
-  module Foldable = struct
-    include Foldable
-  end
-
-  module Scanable = struct
-    include Scanable
-  end
-
-  module Identifiable = struct
-    include Identifiable
-    module Tests = Tests_beta(Testing)
-  end
-
-  module Able = struct
-    include Able
-    module Tests = Tests_beta(Testing)
-  end
-
-  module Stringable = struct
-    include Stringable
-    module Tests = Tests_beta(Testing)
-  end
-
-  module OfStandardNumber = struct
-    include OfStandardNumber
-    module Tests = Tests_beta(Testing)
-  end
-
-  module Number = struct
-    include Number
-    module Tests = Tests_beta(Testing)
-  end
-
-  module ToStandardNumber = struct
-    include ToStandardNumber
-    module Tests = Tests_beta(Testing)
-  end
-
-  module RealNumber = struct
-    include RealNumber
-    module Tests = Tests_beta(Testing)
-  end
-
-  module Integer = struct
-    include Integer
-    module Tests = Tests_beta(Testing)
-  end
-
-  module FixedWidthInteger = struct
-    include FixedWidthInteger
-    module Tests = Tests_beta(Testing)
-  end
+  module Scanable = Facets_alpha.Scanable
 end
 
 module Int = Int_.Extended(Facets)

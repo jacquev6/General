@@ -106,6 +106,7 @@
     Generated/Atoms/NativeInt.ml
     Generated/Atoms/String.ml
     Generated/Atoms/Unit.ml
+    Generated/Facets.ml
     Generated/Facets/Able.ml
     Generated/Facets/Bitwise.ml
     Generated/Facets/Bounded.ml
@@ -131,6 +132,7 @@
     Generated/Facets/ToFloat.ml
     Generated/Facets/ToInt.ml
     Generated/Facets/ToStandardNumber.ml
+    Generated/Facets_alpha.ml
     Generated/Wrappers/Lazy.ml
     Generated/Wrappers/Option.ml
     Generated/Wrappers/Reference.ml

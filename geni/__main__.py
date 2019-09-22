@@ -998,57 +998,78 @@ tuple_ = [
     for arity in range(2, max_arity)
 ]
 
+def main():
+    def gen(path, *items):
+        if os.sep in path:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w") as f:
+            generate(items, file=f)
 
-def gen(path, *items):
-    if os.sep in path:
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w") as f:
-        generate(items, file=f)
+    all_items = (facets, atoms, wrappers)
 
-all_items = (facets, atoms, wrappers)
-
-gen(
-    "doc/Facets.dot",
-    'digraph {',
-    '  compound=true',
-    '  rankdir="BT"',
-    '  node [shape="box"]',
-    (
+    gen(
+        "doc/Facets.dot",
+        'digraph {',
+        '  compound=true',
+        '  rankdir="BT"',
+        '  node [shape="box"]',
         (
-            f'  subgraph cluster_{items[0].prefix} {{',
-            f'    label="{items[0].prefix}"',
-            f'    labelloc="b"',
-            indent((item.graphviz_node for item in items), levels=2),
-            '  }',
+            (
+                f'  subgraph cluster_{items[0].prefix} {{',
+                f'    label="{items[0].prefix}"',
+                f'    labelloc="b"',
+                indent((item.graphviz_node for item in items), levels=2),
+                '  }',
+            )
+            for items in all_items
+        ),
+        indent(item.graphviz_links for item in itertools.chain.from_iterable(all_items)),
+        '}',
+    )
+
+    subprocess.run(["dot", "doc/Facets.dot", "-Tpng", "-odocs/Facets.png"], check=True)
+
+    shutil.rmtree("src/Generated", ignore_errors=True)
+
+    for items in all_items:
+        gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
+        for item in items:
+            path = f"src/{item.prefix}/{item.name}.ml"
+            if os.path.exists(path):
+                with open(path) as f:
+                    first_line = f.readlines()[0]
+                assert first_line == f'#include "../Generated/{item.prefix}/{item.name}.ml"\n', (path, first_line)
+            else:  # pragma nocover
+                with open(path, "w") as f:
+                    f.write(f'#include "../Generated/{item.prefix}/{item.name}.ml"\n\n#include "empty_{item.prefix[:-1].lower()}.ml"\n')
+
+    for item in itertools.chain.from_iterable(all_items):
+        gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)
+        if hasattr(item, "types"):
+            for subtype in item.types:
+                gen(f"src/Generated/{item.prefix}/{subtype.prefix.split('.')[1]}/{subtype.name}.ml", subtype.implementation_items)
+
+    gen("src/Generated/Facets_alpha.ml", (
+        (
+            f"module {facet.name} = struct",
+            f'  #include "../Facets/{facet.name}.ml"',
+            "end",
         )
-        for items in all_items
-    ),
-    indent(item.graphviz_links for item in itertools.chain.from_iterable(all_items)),
-    '}',
-)
+        for facet in facets
+    ))
 
-subprocess.run(["dot", "doc/Facets.dot", "-Tpng", "-odocs/Facets.png"], check=True)
+    gen("src/Generated/Facets.ml", (
+        (
+            f"module {facet.name} = struct",
+            f'  include Facets_alpha.{facet.name}',
+            "  module Tests = Tests_beta(Testing)",
+            "end",
+        )
+        for facet in facets
+    ))
 
-shutil.rmtree("src/Generated", ignore_errors=True)
+    gen("unit_tests.ml", make_unit_tests())
 
-for items in all_items:
-    gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
-    for item in items:
-        path = f"src/{item.prefix}/{item.name}.ml"
-        if os.path.exists(path):
-            with open(path) as f:
-                first_line = f.readlines()[0]
-            assert first_line == f'#include "../Generated/{item.prefix}/{item.name}.ml"\n', (path, first_line)
-        else:  # pragma nocover
-            with open(path, "w") as f:
-                f.write(f'#include "../Generated/{item.prefix}/{item.name}.ml"\n\n#include "empty_{item.prefix[:-1].lower()}.ml"\n')
+    gen("src/dune", make_dune())
 
-for item in itertools.chain.from_iterable(all_items):
-    gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)
-    if hasattr(item, "types"):
-        for subtype in item.types:
-            gen(f"src/Generated/{item.prefix}/{subtype.prefix.split('.')[1]}/{subtype.name}.ml", subtype.implementation_items)
-
-gen("unit_tests.ml", make_unit_tests())
-
-gen("src/dune", make_dune())
+main()
