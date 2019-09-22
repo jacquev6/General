@@ -42,7 +42,6 @@
     Atoms/CallStack.ml
     Atoms/Char.ml
     Atoms/Exception.ml
-    Atoms/Exit.foundations.ml
     Atoms/Exit.ml
     Atoms/Float.ml
     Atoms/Function1.ml
@@ -144,6 +143,7 @@
     OldFashion/Collections/List.ml
     OldFashion/Collections/RedBlackTree.ml
     OldFashion/Collections/SortedSet.ml
+    OldFashion/Collections/Stream.ml
     OldFashion/Facets/FilterMapable.ml
     OldFashion/Facets/FilterMapable.signatures.ToContainer.ml
     OldFashion/Facets/FilterMapable.signatures.ml
@@ -165,7 +165,6 @@
     OldFashion/Facets/Scanable.signatures.Short.ml
     OldFashion/Facets/Scanable.signatures.ToContainer.ml
     OldFashion/Facets/Scanable.signatures.ml
-    OldFashion/Foundations/Stream.ml
     OldFashion/Implementation/Array.ml
     OldFashion/Implementation/BinaryHeap.ml
     OldFashion/Implementation/Heap.ml
@@ -179,7 +178,6 @@
     OldFashion/Implementation/StdErr.ml
     OldFashion/Implementation/StdIn.ml
     OldFashion/Implementation/StdOut.ml
-    OldFashion/Implementation/Stream.ml
     OldFashion/Specializations/List.ml
     OldFashion/Specializations/Option.ml
     OldFashion/Specializations/Reference.ml
@@ -197,11 +195,8 @@
     Wrappers/Option.ml
     Wrappers/Reference.ml
     Wrappers/Tuple2.ml
-    Wrappers/Tuple3.foundations.ml
     Wrappers/Tuple3.ml
-    Wrappers/Tuple4.foundations.ml
     Wrappers/Tuple4.ml
-    Wrappers/Tuple5.foundations.ml
     Wrappers/Tuple5.ml
   )
   (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))

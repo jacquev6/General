@@ -123,6 +123,24 @@ module Tuple2_ = struct
 end
 open Tuple2_
 
+module Tuple3_ = struct
+  #include "Wrappers/Tuple3.ml"
+  module Tuple3 = Basic
+end
+open Tuple3_
+
+module Tuple4_ = struct
+  #include "Wrappers/Tuple4.ml"
+  module Tuple4 = Basic
+end
+open Tuple4_
+
+module Tuple5_ = struct
+  #include "Wrappers/Tuple5.ml"
+  module Tuple5 = Basic
+end
+open Tuple5_
+
 module SortedSet_ = struct
   #include "OldFashion/Collections/SortedSet.ml"
   module SortedSet = Basic
@@ -137,29 +155,13 @@ module IntRange = struct
   #include "OldFashion/Collections/IntRange.ml"
 end
 
-module Foundations = struct
-  module Tuple3 = struct
-    #include "Wrappers/Tuple3.foundations.ml"
-  end
-
-  module Tuple4 = struct
-    #include "Wrappers/Tuple4.foundations.ml"
-  end
-
-  module Tuple5 = struct
-    #include "Wrappers/Tuple5.foundations.ml"
-  end
-
-  module Exit = struct
-    #include "Atoms/Exit.foundations.ml"
-  end
-
-  module Stream = struct
-    #include "OldFashion/Foundations/Stream.ml"
-  end
+module Exit = struct
+  #include "Atoms/Exit.ml"
 end
 
-open Foundations
+module Stream = struct
+  #include "OldFashion/Collections/Stream.ml"
+end
 
 module PervasivesWhitelist = struct
   #include "Reset/PervasivesWhitelist.ml"
@@ -498,10 +500,6 @@ module Char = struct
   #include "Atoms/Char.ml"
 end
 
-module Exit = struct
-  #include "Atoms/Exit.ml"
-end
-
 module InChannel = struct
   #include "OldFashion/Implementation/InChannel.ml"
 end
@@ -526,17 +524,11 @@ end
 
 module Tuple2 = Tuple2_.Extended(Facets)
 
-module Tuple3 = struct
-  #include "Wrappers/Tuple3.ml"
-end
+module Tuple3 = Tuple3_.Extended(Facets)
 
-module Tuple4 = struct
-  #include "Wrappers/Tuple4.ml"
-end
+module Tuple4 = Tuple4_.Extended(Facets)
 
-module Tuple5 = struct
-  #include "Wrappers/Tuple5.ml"
-end
+module Tuple5 = Tuple5_.Extended(Facets)
 
 module BinaryHeap = struct
   #include "OldFashion/Implementation/BinaryHeap.ml"
@@ -572,10 +564,6 @@ end
 
 module StdOut = struct
   #include "OldFashion/Implementation/StdOut.ml"
-end
-
-module Stream = struct
-  #include "OldFashion/Implementation/Stream.ml"
 end
 
 module TestingTests = struct

@@ -1,5 +1,3 @@
-open Foundations
-
 module OCSS = OCamlStandard.Sys
 module OCSPf = OCamlStandard.Printf (* @todo Put StdOut in Foundations *)
 
