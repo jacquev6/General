@@ -140,7 +140,10 @@
     Generated/Wrappers/Tuple4.ml
     Generated/Wrappers/Tuple5.ml
     OldFashion/Atoms/Format.ml
+    OldFashion/Collections/IntRange.ml
     OldFashion/Collections/List.ml
+    OldFashion/Collections/RedBlackTree.ml
+    OldFashion/Collections/SortedSet.ml
     OldFashion/Facets/FilterMapable.ml
     OldFashion/Facets/FilterMapable.signatures.ToContainer.ml
     OldFashion/Facets/FilterMapable.signatures.ml
@@ -162,20 +165,16 @@
     OldFashion/Facets/Scanable.signatures.Short.ml
     OldFashion/Facets/Scanable.signatures.ToContainer.ml
     OldFashion/Facets/Scanable.signatures.ml
-    OldFashion/Foundations/IntRange.ml
     OldFashion/Foundations/Stream.ml
     OldFashion/Implementation/Array.ml
     OldFashion/Implementation/BinaryHeap.ml
     OldFashion/Implementation/Heap.ml
     OldFashion/Implementation/InChannel.ml
     OldFashion/Implementation/InFile.ml
-    OldFashion/Implementation/IntRange.ml
     OldFashion/Implementation/OutChannel.ml
     OldFashion/Implementation/OutFile.ml
     OldFashion/Implementation/PriorityQueue.ml
-    OldFashion/Implementation/RedBlackTree.ml
     OldFashion/Implementation/SortedMap.ml
-    OldFashion/Implementation/SortedSet.ml
     OldFashion/Implementation/StandardOutChannel.ml
     OldFashion/Implementation/StdErr.ml
     OldFashion/Implementation/StdIn.ml

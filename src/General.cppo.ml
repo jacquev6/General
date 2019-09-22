@@ -114,7 +114,7 @@ end
 let ignore = Unit.ignore  (* @todo Put somewhere *)
 
 module RedBlackTree = struct
-  #include "OldFashion/Implementation/RedBlackTree.ml"
+  #include "OldFashion/Collections/RedBlackTree.ml"
 end
 
 module Tuple2_ = struct
@@ -124,7 +124,7 @@ end
 open Tuple2_
 
 module SortedSet_ = struct
-  #include "OldFashion/Implementation/SortedSet.ml"
+  #include "OldFashion/Collections/SortedSet.ml"
   module SortedSet = Basic
 end
 open SortedSet_
@@ -133,11 +133,11 @@ module String = struct
   #include "Atoms/String.ml"
 end
 
-module Foundations = struct
-  module IntRange = struct
-    #include "OldFashion/Foundations/IntRange.ml"
-  end
+module IntRange = struct
+  #include "OldFashion/Collections/IntRange.ml"
+end
 
+module Foundations = struct
   module Tuple3 = struct
     #include "Wrappers/Tuple3.foundations.ml"
   end
@@ -508,10 +508,6 @@ end
 
 module InFile = struct
   #include "OldFashion/Implementation/InFile.ml"
-end
-
-module IntRange = struct
-  #include "OldFashion/Implementation/IntRange.ml"
 end
 
 module NativeInt = struct
