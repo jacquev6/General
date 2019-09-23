@@ -1,3 +1,5 @@
+(* Phase 1: ensure our code is explicit about using the OCaml standard library (i.e. through OCamlStandard) *)
+
 module OCamlStandard = struct
   #include "Reset/OCamlStandard.ml"
 end
@@ -9,9 +11,11 @@ module Reset = struct
   #undef SIGNATURE
 end
 
-open Reset (* Ensure our code is explicit about using the OCaml standard library (i.e. through OCamlStandard) *)
+open Reset
 
 module OCSP = OCamlStandard.Pervasives
+
+(* Phase 2: add basic types used in Facets' interface *)
 
 module Equate = struct
   #include "Equate.ml"
@@ -34,6 +38,8 @@ module type Facets = sig
   #include "Generated/Facets.mli"
   [@@@ocaml.warning "+32"]
 end
+
+(* Phase 3: implement everything that does not depend on Facets *)
 
 module Format = struct
   #include "OldFashion/Atoms/Format.ml"
@@ -173,6 +179,52 @@ end
 
 open PervasivesWhitelist
 
+module Array = struct
+  #include "OldFashion/Implementation/Array.ml"
+end
+
+module Bytes = struct
+  #include "Atoms/Bytes.ml"
+end
+
+module InChannel = struct
+  #include "OldFashion/Implementation/InChannel.ml"
+end
+
+module InFile = struct
+  #include "OldFashion/Implementation/InFile.ml"
+end
+
+module OutChannel = struct
+  #include "OldFashion/Implementation/OutChannel.ml"
+end
+
+module OutFile = struct
+  #include "OldFashion/Implementation/OutFile.ml"
+end
+
+module BinaryHeap = struct
+  #include "OldFashion/Implementation/BinaryHeap.ml"
+end
+
+module StandardOutChannel = struct
+  #include "OldFashion/Implementation/StandardOutChannel.ml"
+end
+
+module StdErr = struct
+  #include "OldFashion/Implementation/StdErr.ml"
+end
+
+module StdIn = struct
+  #include "OldFashion/Implementation/StdIn.ml"
+end
+
+module StdOut = struct
+  #include "OldFashion/Implementation/StdOut.ml"
+end
+
+(* Phase 4: Implement Facets *)
+
 module type Testing = sig
   val (>::): string -> Test.t list -> Test.t
   val (>:): string -> unit lazy_t -> Test.t
@@ -241,11 +293,7 @@ module Facets = struct
   module Scanable = Facets_alpha.Scanable
 end
 
-module Int = Int_.Extended(Facets)
-
-module Array = struct
-  #include "OldFashion/Implementation/Array.ml"
-end
+(* Phase 5: extend implementation using Facets *)
 
 module StandardInt = struct
   #include "Atoms/StandardInt.ml"
@@ -259,39 +307,21 @@ module Int64 = struct
   #include "Atoms/Int64.ml"
 end
 
-module Float = Float_.Extended(Facets)
-
 module BigInt = struct
   #include "Atoms/BigInt.ml"
-end
-
-module Bytes = struct
-  #include "Atoms/Bytes.ml"
-end
-
-module List = List_.Extended(Facets)
-
-module InChannel = struct
-  #include "OldFashion/Implementation/InChannel.ml"
-end
-
-module InFile = struct
-  #include "OldFashion/Implementation/InFile.ml"
 end
 
 module NativeInt = struct
   #include "Atoms/NativeInt.ml"
 end
 
+module Int = Int_.Extended(Facets)
+
+module Float = Float_.Extended(Facets)
+
+module List = List_.Extended(Facets)
+
 module Option = Option_.Extended(Facets)
-
-module OutChannel = struct
-  #include "OldFashion/Implementation/OutChannel.ml"
-end
-
-module OutFile = struct
-  #include "OldFashion/Implementation/OutFile.ml"
-end
 
 module Tuple2 = Tuple2_.Extended(Facets)
 
@@ -301,15 +331,15 @@ module Tuple4 = Tuple4_.Extended(Facets)
 
 module Tuple5 = Tuple5_.Extended(Facets)
 
-module BinaryHeap = struct
-  #include "OldFashion/Implementation/BinaryHeap.ml"
-end
+module Reference = Reference_.Extended(Facets)
 
 module PriorityQueue = struct
   #include "OldFashion/Implementation/PriorityQueue.ml"
 end
 
-module Reference = Reference_.Extended(Facets)
+module Heap = struct
+  #include "OldFashion/Implementation/Heap.ml"
+end
 
 module SortedMap = struct
   #include "OldFashion/Implementation/SortedMap.ml"
@@ -317,25 +347,7 @@ end
 
 module SortedSet = SortedSet_.Extended(Facets)
 
-module Heap = struct
-  #include "OldFashion/Implementation/Heap.ml"
-end
-
-module StandardOutChannel = struct
-  #include "OldFashion/Implementation/StandardOutChannel.ml"
-end
-
-module StdErr = struct
-  #include "OldFashion/Implementation/StdErr.ml"
-end
-
-module StdIn = struct
-  #include "OldFashion/Implementation/StdIn.ml"
-end
-
-module StdOut = struct
-  #include "OldFashion/Implementation/StdOut.ml"
-end
+(* Phase 6: wrap it up *)
 
 module TestingTests = struct
   #include "Testing/Tests.ml"
