@@ -11,12 +11,11 @@
   (action (run %{exe:unit_tests.bc}))
 )
 
-; @todo Fix tests in native
-; (alias
-;   (name runtest)
-;   (deps unit_tests.exe)
-;   (action (run %{exe:unit_tests.exe}))
-; )
+(alias
+  (name runtest)
+  (deps unit_tests.exe)
+  (action (run %{exe:unit_tests.exe}))
+)
 
 (alias
   (name runtest)

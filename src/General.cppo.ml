@@ -163,6 +163,10 @@ module Stream = struct
   #include "OldFashion/Collections/Stream.ml"
 end
 
+module Char = struct
+  #include "Atoms/Char.ml"
+end
+
 module PervasivesWhitelist = struct
   #include "Reset/PervasivesWhitelist.ml"
 end
@@ -266,10 +270,6 @@ module Bytes = struct
 end
 
 module List = List_.Extended(Facets)
-
-module Char = struct
-  #include "Atoms/Char.ml"
-end
 
 module InChannel = struct
   #include "OldFashion/Implementation/InChannel.ml"
@@ -549,45 +549,44 @@ module Abbr = struct
   include PervasivesWhitelist
 end
 
-(*
-module Tests = struct
+module MakeTests() = struct
   open Testing
 
   let test = "General" >:: [
-    BigInt.Tests.test;
-    BinaryHeap.Tests.test;
-    Bool.Tests.test;
-    Bytes.Tests.test;
-    CallStack.Tests.test;
-    Char.Tests.test;
-    Exception.Tests.test;
-    Exit.Tests.test;
-    Float.Tests.test;
-    Function1.Tests.test;
-    Function2.Tests.test;
-    Function3.Tests.test;
-    Function4.Tests.test;
-    Function5.Tests.test;
-    Int.Tests.test;
-    Int32.Tests.test;
-    Int64.Tests.test;
-    Lazy.Tests.test;
-    List.Tests.test;
-    NativeInt.Tests.test;
-    Option.Tests.test;
-    RedBlackTree.Tests.test;
-    Reference.Tests.test;
-    Stream.Tests.test;
-    String.Tests.test;
-    Tuple2.Tests.test;
-    Tuple3.Tests.test;
-    Tuple4.Tests.test;
-    Tuple5.Tests.test;
-    Unit.Tests.test;
+    (* BigInt.Tests.test; *)
+    (* BinaryHeap.Tests.test; *)
+    (* Bool.Tests.test; *)
+    (* Bytes.Tests.test; *)
+    (* CallStack.Tests.test; *)
+    (* Char.Tests.test; *)
+    (* Exception.Tests.test; *)
+    (* Exit.Tests.test; *)
+    (* Float.Tests.test; *)
+    (* Function1.Tests.test; *)
+    (* Function2.Tests.test; *)
+    (* Function3.Tests.test; *)
+    (* Function4.Tests.test; *)
+    (* Function5.Tests.test; *)
+    (* Int.Tests.test; *)
+    (* Int32.Tests.test; *)
+    (* Int64.Tests.test; *)
+    (* Lazy.Tests.test; *)
+    (* List.Tests.test; *)
+    (* NativeInt.Tests.test; *)
+    (* Option.Tests.test; *)
+    (* RedBlackTree.Tests.test; *)
+    (* Reference.Tests.test; *)
+    (* Stream.Tests.test; *)
+    (* String.Tests.test; *)
+    (* Tuple2.Tests.test; *)
+    (* Tuple3.Tests.test; *)
+    (* Tuple4.Tests.test; *)
+    (* Tuple5.Tests.test; *)
+    (* Unit.Tests.test; *)
 
-    IntRange.Tests.test;
+    (* IntRange.Tests.test; *)
 
-    TestingTests.Tests.test;
+    (* TestingTests.Tests.test; *)
 
     "Syntactic sugar" >:: [
       "Standard" >:: Standard.[
@@ -597,14 +596,15 @@ module Tests = struct
         ];
         (* @todo Use check_char *)
         "string" >:: [
-          "get" >: (let a: string = "a" in lazy (Char.(check ~repr ~equal ~expected:'a' a.[0])));
+          "get" >: (let a: string = "a" in lazy (check_char ~expected:'a' a.[0]));
           #if OCAML_VERSION < (4, 6, 0)
-          (* @todo Fix that test in node.js *)
-          (* "set" >: (let a: string = "a" in lazy (Char.(check ~repr ~equal ~expected:'a' (String.get a 0)); a.[0] <- 'z'; Char.(check ~repr ~equal ~expected:'z' (String.get a 0)))); *)
+          skip_if_javascript (
+            "set" >: (let a: string = "a" in lazy (check_char ~expected:'a' (String.get a 0); a.[0] <- 'z'; check_char ~expected:'z' (String.get a 0)))
+          );
           #endif
         ];
         "bytes" >:: [
-          "set" >: (let a: bytes = Bytes.of_string "a" in lazy (Char.(check ~repr ~equal ~expected:'a' (Bytes.get a 0)); a.[0] <- 'z'; Char.(check ~repr ~equal ~expected:'z' (Bytes.get a 0))));
+          "set" >: (let a: bytes = Bytes.of_string "a" in lazy (check_char ~expected:'a' (Bytes.get a 0); a.[0] <- 'z'; check_char ~expected:'z' (Bytes.get a 0)));
         ];
       ];
       "Abbr" >:: Abbr.[
@@ -614,16 +614,17 @@ module Tests = struct
         ];
         (* @todo Use check_char *)
         "string" >:: [
-          "get" >: (let a: string = "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' a.[0])));
+          "get" >: (let a: string = "a" in lazy (check_char ~expected:'a' a.[0]));
           #if OCAML_VERSION < (4, 6, 0)
-          (* "set" >: (let a: string = "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' (Str.get a 0)); a.[0] <- 'z'; Ch.(check ~repr ~equal ~expected:'z' (Str.get a 0)))); *)
+          skip_if_javascript (
+            "set" >: (let a: string = "a" in lazy (check_char ~expected:'a' (Str.get a 0); a.[0] <- 'z'; check_char ~expected:'z' (Str.get a 0)))
+          );
           #endif
         ];
         "bytes" >:: [
-          "set" >: (let a: bytes = By.of_string "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' (By.get a 0)); a.[0] <- 'z'; Ch.(check ~repr ~equal ~expected:'z' (By.get a 0))));
+          "set" >: (let a: bytes = By.of_string "a" in lazy (check_char ~expected:'a' (By.get a 0); a.[0] <- 'z'; check_char ~expected:'z' (By.get a 0)));
         ];
       ];
     ];
   ]
 end
-*)

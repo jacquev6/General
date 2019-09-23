@@ -127,3 +127,10 @@ let _ = General.String.concat
 let _ = General.Tuple2.get_0
 let _ = General.Tuple2.get_1
 let _ = General.Unit.ignore
+
+open General.Abbr
+
+let () =
+  let argv = Li.of_array OCamlStandard.Sys.argv in
+  let module T = General.MakeTests() in
+  Exit.exit (Tst.command_line_main ~argv T.test)

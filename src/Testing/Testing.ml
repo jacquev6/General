@@ -215,9 +215,10 @@ let (~:) format =
 
 (* Checks *)
 
-(*
 let javascript = String.has_suffix OCSS.argv.(0) ~suf:".js"
-*)
+
+let skip_if_javascript test =
+  if javascript then Test.(Group {name="*skipped on JavaScript*"; tests=[]}) else test
 
 let fail format =
   Format.with_result
@@ -264,7 +265,7 @@ let check_false actual =
 let check_string ~expected actual =
   check ~repr:String.repr ~equal:String.equal ~expected actual
 
-(* @todo check_char (difficulty: Char is in Implementation, not Foundation) *)
+let check_char = Char.(check ~repr ~equal)
 
 let check_int ~expected actual =
   check ~repr:Int.repr ~equal:Int.equal ~expected actual
