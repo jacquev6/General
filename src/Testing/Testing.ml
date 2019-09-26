@@ -253,6 +253,14 @@ let check ~repr ~equal ~expected actual =
 let check_poly ~repr ~expected actual =
   check ~repr ~equal:Equate.Poly.equal ~expected actual
 
+let check_compare = Compare.(check ~repr ~equal)
+
+let check_eq = check_compare ~expected:Compare.EQ
+
+let check_lt = check_compare ~expected:Compare.LT
+
+let check_gt = check_compare ~expected:Compare.GT
+
 let check_bool ~expected actual =
   check ~repr:Bool.repr ~equal:Bool.equal ~expected actual
 

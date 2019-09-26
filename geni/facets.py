@@ -317,7 +317,7 @@ class Facet:
 
     def __tests_makers_implementations(self):
         yield mod_impl(
-            "MakeMakers(MakeExamples: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> Examples.S0 with type t := M.t)(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end)",
+            "MakeMakers(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end)",
             self.__tests_makers_implementations_items(),
         )
 
@@ -334,7 +334,6 @@ class Facet:
 
     def __tests_make0_implementation_items(self):
         yield "open Testing"
-        yield "module E = MakeExamples(M)(E)"
         yield f'let test = "{self.name}" >:: ['
         for base in self.bases:
             yield f"  (let module T_alpha = {base.contextualized_name(self.prefix)}.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);"
@@ -347,6 +346,9 @@ class Facet:
         for req in self.test_requirements:
             yield indent(f"include ({req.contextualized_name(self.prefix)}.Specialize{arity}(M){functor_args}: {req.contextualized_name(self.prefix)}.S0 with type t := t)")
         yield "end)(E)",
+
+
+ng = ["Bool"]
 
 
 class Type:
@@ -442,9 +444,11 @@ class Type:
 
     @property
     def implementation_items(self):
-        yield "(*"
+        if self.name not in ng:
+            yield "(*"
         yield mod_impl("Tests_", self.__tests_implementation_items())
-        yield "*)"
+        if self.name not in ng:
+            yield "*)"
 
     def __tests_implementation_items(self):
         # @todo Homogenize
@@ -465,9 +469,9 @@ class Type:
         )
         yield mod_impl("Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end)",
             "open Testing",
-            f'let test = "{self.name}" >:: [',
+            f'let test = "{self.name}" >:: OCSP.(@) [',
             indent(f"(let module T = {base.contextualized_name(self.prefix)}.Tests.Make{self.arity}(M)(E) in T.test);" for base in self.bases),
-            "] @ Tests.tests",
+            "] Tests.tests",
         )
 
 

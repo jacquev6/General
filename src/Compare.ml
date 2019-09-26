@@ -7,6 +7,13 @@ let of_standard compare =
       | c when OCSP.(<) c 0 -> LT
       | _ -> GT
 
+let repr = function
+  | LT -> "LT"
+  | EQ -> "EQ"
+  | GT -> "GT"
+
+let equal = Equate.Poly.equal
+
 module Poly = struct
   let compare x y = of_standard OCSP.compare x y
   let less_than = OCSP.(<)

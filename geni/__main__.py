@@ -229,13 +229,14 @@ representable = facet(
     test_examples=[val("representations", f"({t} * string) list")],
 )
 
-equalities = val("equalities", f"{t} list list")
+values_ = val("values", f"{t} list")
 
 equatable_basic = facet(
     "EquatableBasic",
     values=[val("equal", t, t, deleg("equal"), "bool")],
     test_examples=[
-        equalities,
+        values_,
+        val("equalities", f"{t} list list"),
         val("differences", f"({t} * {t}) list"),
     ],
     test_requirements=[representable],
@@ -274,7 +275,10 @@ parsable = facet(
         val("try_of_string", "string", f"{t} option"),
         val("of_string", "string", t),
     ],
-    test_examples=[val("literals", f"(string * {t}) list")],
+    test_examples=[
+        val("literals", f"(string * {t}) list"),
+        val("unparsable", f"string list"),
+    ],
     test_requirements=[equatable_basic, representable],
 )
 
@@ -282,8 +286,9 @@ comparable_basic = facet(
     "ComparableBasic",
     values=[val("compare", t, t, deleg("compare"), "Compare.t")],
     test_examples=[
-        val("orders", f"{t} list list"),
-        equalities,
+        values_,
+        val("order_classes", f"{t} list list"),
+        val("strict_orders", f"{t} list list"),
     ],
     test_requirements=[equatable_basic, representable],
 )
@@ -1034,15 +1039,6 @@ def main():
 
     for items in all_items:
         gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
-        for item in items:
-            path = f"src/{item.prefix}/{item.name}.ml"
-            if os.path.exists(path):
-                with open(path) as f:
-                    first_line = f.readlines()[0]
-                assert first_line == f'#include "../Generated/{item.prefix}/{item.name}.ml"\n', (path, first_line)
-            else:  # pragma nocover
-                with open(path, "w") as f:
-                    f.write(f'#include "../Generated/{item.prefix}/{item.name}.ml"\n\n#include "empty_{item.prefix[:-1].lower()}.ml"\n')
 
     for item in itertools.chain.from_iterable(all_items):
         gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)

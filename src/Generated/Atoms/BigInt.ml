@@ -11,9 +11,9 @@ module Tests_ = struct
 
   module Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end) = struct
     open Testing
-    let test = "BigInt" >:: [
+    let test = "BigInt" >:: OCSP.(@) [
       (let module T = Facets.Integer.Tests.Make0(M)(E) in T.test);
-    ] @ Tests.tests
+    ] Tests.tests
   end
 end
 

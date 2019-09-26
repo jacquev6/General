@@ -62,99 +62,100 @@ end
 module Tests_beta(Testing: Testing) = struct
   include Tests_alpha(Testing)
 
-  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = E
+  module ComparableBasicTests = ComparableBasic.Tests_beta(Testing)
 
-  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+  include MakeMakers(functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> struct
     open Testing
-    open M
-    open M.O
 
-    let check_pair =
+    let check_m_pair =
       check
-        ~repr:(Tuple2.repr ~repr_a:repr ~repr_b:repr)
-        ~equal:(Tuple2.equal ~equal_a:equal ~equal_b:equal)
+        ~repr:(Tuple2.repr ~repr_a:M.repr ~repr_b:M.repr)
+        ~equal:(Tuple2.equal ~equal_a:M.equal ~equal_b:M.equal)
 
-    let check = check ~repr ~equal
+    let check_m = M.(check ~repr ~equal)
 
-    let tests = (
-      E.orders
-      |> List.flat_map ~f:(fun xs ->
-        List.fold ~init:(List.head xs, []) (List.tail xs) ~f:(fun (x, tests) y ->
-          let rx = repr x and ry = repr y in
-          let new_tests = [
-            ~: "less_than %s %s" rx ry (lazy (check_true (less_than x y)));
-            ~: "less_or_equal %s %s" rx ry (lazy (check_true (less_or_equal x y)));
-            ~: "greater_or_equal %s %s" rx ry (lazy (check_false (greater_or_equal x y)));
-            ~: "greater_than %s %s" rx ry (lazy (check_false (greater_than x y)));
-            ~: "%s < %s" rx ry (lazy (check_true (x < y)));
-            ~: "%s <= %s" rx ry (lazy (check_true (x <= y)));
-            ~: "%s >= %s" rx ry (lazy (check_false (x >= y)));
-            ~: "%s > %s" rx ry (lazy (check_false (x > y)));
-            ~: "min %s %s" rx ry (lazy (check ~expected:x (min x y)));
-            ~: "max %s %s" rx ry (lazy (check ~expected:y (max x y)));
-            ~: "min_max %s %s" rx ry (lazy (check_pair ~expected:(x, y) (min_max x y)));
+    let tests =
+      let module Expectations = ComparableBasicTests.MakeExpectations(M)(E) in []
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "less_than %s %s" rx ry (lazy (M.less_than x y |> check_false))
+      ))
+      @ (List.flat_map Expectations.ordered_pairs ~f:(fun (x, rx, y, ry) -> [
+        ~: "less_than %s %s" rx ry (lazy (M.less_than x y |> check_true));
+        ~: "less_than %s %s" ry rx (lazy (M.less_than y x |> check_false));
+      ]))
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "%s < %s" rx ry (lazy (M.O.(x < y) |> check_false))
+      ))
+      @ (List.flat_map Expectations.ordered_pairs ~f:(fun (x, rx, y, ry) -> [
+        ~: "%s < %s" rx ry (lazy (M.O.(x < y) |> check_true));
+        ~: "%s < %s" ry rx (lazy (M.O.(y < x) |> check_false));
+      ]))
 
-            ~: "less_than %s %s" ry rx (lazy (check_false (less_than y x)));
-            ~: "less_or_equal %s %s" ry rx (lazy (check_false (less_or_equal y x)));
-            ~: "greater_or_equal %s %s" ry rx (lazy (check_true (greater_or_equal y x)));
-            ~: "greater_than %s %s" ry rx (lazy (check_true (greater_than y x)));
-            ~: "%s < %s" ry rx (lazy (check_false (y < x)));
-            ~: "%s <= %s" ry rx (lazy (check_false (y <= x)));
-            ~: "%s >= %s" ry rx (lazy (check_true (y >= x)));
-            ~: "%s > %s" ry rx (lazy (check_true (y > x)));
-            ~: "min %s %s" ry rx (lazy (check ~expected:x (min y x)));
-            ~: "max %s %s" ry rx (lazy (check ~expected:y (max y x)));
-            ~: "min_max %s %s" ry rx (lazy (check_pair ~expected:(x, y) (min_max y x)));
-          ] in
-          (y, new_tests @ tests)
-        )
-        |> Tuple2.get_1
-      )
-    ) @ (
-      E.equalities
-      |> List.flat_map ~f:(fun xs ->
-        List.cartesian_product xs xs
-        |> List.flat_map ~f:(fun (x, y) ->
-          let rx = repr x and ry = repr y in
-          [
-            ~: "less_than %s %s" rx ry (lazy (check_false (less_than x y)));
-            ~: "less_or_equal %s %s" rx ry (lazy (check_true (less_or_equal x y)));
-            ~: "greater_or_equal %s %s" rx ry (lazy (check_true (greater_or_equal x y)));
-            ~: "greater_than %s %s" rx ry (lazy (check_false (greater_than x y)));
-            ~: "%s < %s" rx ry (lazy (check_false (x < y)));
-            ~: "%s <= %s" rx ry (lazy (check_true (x <= y)));
-            ~: "%s >= %s" rx ry (lazy (check_true (x >= y)));
-            ~: "%s > %s" rx ry (lazy (check_false (x > y)));
-            ~: "min %s %s" rx ry (lazy (check ~expected:x (min x y)));
-            ~: "min %s %s" rx ry (lazy (check ~expected:y (min x y)));
-            ~: "max %s %s" rx ry (lazy (check ~expected:x (max x y)));
-            ~: "max %s %s" rx ry (lazy (check ~expected:y (max x y)));
-            ~: "min_max %s %s" rx ry (lazy (check_pair ~expected:(x, y) (min_max x y)));
-            ~: "min_max %s %s" rx ry (lazy (check_pair ~expected:(y, x) (min_max x y)));
-            ~: "min_max %s %s" rx ry (lazy (check_pair ~expected:(x, x) (min_max x y)));
-            ~: "min_max %s %s" rx ry (lazy (check_pair ~expected:(y, y) (min_max x y)));
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "less_or_equal %s %s" rx ry (lazy (M.less_or_equal x y |> check_true))
+      ))
+      @ (List.flat_map Expectations.ordered_pairs ~f:(fun (x, rx, y, ry) -> [
+        ~: "less_or_equal %s %s" rx ry (lazy (M.less_or_equal x y |> check_true));
+        ~: "less_or_equal %s %s" ry rx (lazy (M.less_or_equal y x |> check_false));
+      ]))
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "%s <= %s" rx ry (lazy (M.O.(x <= y) |> check_true))
+      ))
+      @ (List.flat_map Expectations.ordered_pairs ~f:(fun (x, rx, y, ry) -> [
+        ~: "%s <= %s" rx ry (lazy (M.O.(x <= y) |> check_true));
+        ~: "%s <= %s" ry rx (lazy (M.O.(y <= x) |> check_false));
+      ]))
 
-            ~: "less_than %s %s" ry rx (lazy (check_false (less_than y x)));
-            ~: "less_or_equal %s %s" ry rx (lazy (check_true (less_or_equal y x)));
-            ~: "greater_or_equal %s %s" ry rx (lazy (check_true (greater_or_equal y x)));
-            ~: "greater_than %s %s" ry rx (lazy (check_false (greater_than y x)));
-            ~: "%s < %s" ry rx (lazy (check_false (y < x)));
-            ~: "%s <= %s" ry rx (lazy (check_true (y <= x)));
-            ~: "%s >= %s" ry rx (lazy (check_true (y >= x)));
-            ~: "%s > %s" ry rx (lazy (check_false (y > x)));
-            ~: "min %s %s" ry rx (lazy (check ~expected:x (min y x)));
-            ~: "min %s %s" ry rx (lazy (check ~expected:y (min y x)));
-            ~: "max %s %s" ry rx (lazy (check ~expected:x (max y x)));
-            ~: "max %s %s" ry rx (lazy (check ~expected:y (max y x)));
-            ~: "min_max %s %s" ry rx (lazy (check_pair ~expected:(x, y) (min_max y x)));
-            ~: "min_max %s %s" ry rx (lazy (check_pair ~expected:(y, x) (min_max y x)));
-            ~: "min_max %s %s" ry rx (lazy (check_pair ~expected:(x, x) (min_max y x)));
-            ~: "min_max %s %s" ry rx (lazy (check_pair ~expected:(y, y) (min_max y x)));
-          ]
-        )
-      )
-    )
-  end
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "greater_than %s %s" rx ry (lazy (M.greater_than x y |> check_false))
+      ))
+      @ (List.flat_map Expectations.ordered_pairs ~f:(fun (x, rx, y, ry) -> [
+        ~: "greater_than %s %s" rx ry (lazy (M.greater_than x y |> check_false));
+        ~: "greater_than %s %s" ry rx (lazy (M.greater_than y x |> check_true));
+      ]))
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "%s > %s" rx ry (lazy (M.O.(x > y) |> check_false))
+      ))
+      @ (List.flat_map Expectations.ordered_pairs ~f:(fun (x, rx, y, ry) -> [
+        ~: "%s > %s" rx ry (lazy (M.O.(x > y) |> check_false));
+        ~: "%s > %s" ry rx (lazy (M.O.(y > x) |> check_true));
+      ]))
 
-  include MakeMakers(MakeExamples)(MakeTests)
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "greater_or_equal %s %s" rx ry (lazy (M.greater_or_equal x y |> check_true))
+      ))
+      @ (List.flat_map Expectations.ordered_pairs ~f:(fun (x, rx, y, ry) -> [
+        ~: "greater_or_equal %s %s" rx ry (lazy (M.greater_or_equal x y |> check_false));
+        ~: "greater_or_equal %s %s" ry rx (lazy (M.greater_or_equal y x |> check_true));
+      ]))
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "%s >= %s" rx ry (lazy (M.O.(x >= y) |> check_true))
+      ))
+      @ (List.flat_map Expectations.ordered_pairs ~f:(fun (x, rx, y, ry) -> [
+        ~: "%s >= %s" rx ry (lazy (M.O.(x >= y) |> check_false));
+        ~: "%s >= %s" ry rx (lazy (M.O.(y >= x) |> check_true));
+      ]))
+
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "min %s %s" rx ry (lazy (M.min x y |> check_m ~expected:x))
+      ))
+      @ (List.flat_map Expectations.ordered_pairs ~f:(fun (x, rx, y, ry) -> [
+        ~: "min %s %s" rx ry (lazy (M.min x y |> check_m ~expected:x));
+        ~: "min %s %s" ry rx (lazy (M.min y x |> check_m ~expected:x));
+      ]))
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "max %s %s" rx ry (lazy (M.max x y |> check_m ~expected:y))
+      ))
+      @ (List.flat_map Expectations.ordered_pairs ~f:(fun (x, rx, y, ry) -> [
+        ~: "max %s %s" rx ry (lazy (M.max x y |> check_m ~expected:y));
+        ~: "max %s %s" ry rx (lazy (M.max y x |> check_m ~expected:y));
+      ]))
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "min_max %s %s" rx ry (lazy (M.min_max x y |> check_m_pair ~expected:(x, y)))
+      ))
+      @ (List.flat_map Expectations.ordered_pairs ~f:(fun (x, rx, y, ry) -> [
+        ~: "min_max %s %s" rx ry (lazy (M.min_max x y |> check_m_pair ~expected:(x, y)));
+        ~: "min_max %s %s" ry rx (lazy (M.min_max y x |> check_m_pair ~expected:(x, y)));
+      ]))
+  end)
 end

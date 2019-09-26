@@ -8,8 +8,8 @@ module Tests_ = struct
 
   module Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end) = struct
     open Testing
-    let test = "Function1" >:: [
-    ] @ Tests.tests
+    let test = "Function1" >:: OCSP.(@) [
+    ] Tests.tests
   end
 end
 

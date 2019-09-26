@@ -225,6 +225,7 @@ module EquatableBasic: sig
 
       module type S0 = sig
         type t
+        val values: t list
         val equalities: t list list
         val differences: (t * t) list
       end
@@ -232,6 +233,7 @@ module EquatableBasic: sig
       module type S1 = sig
         type 'a t
         module A: Element
+        val values: A.t t list
         val equalities: A.t t list list
         val differences: (A.t t * A.t t) list
       end
@@ -240,6 +242,7 @@ module EquatableBasic: sig
         type ('a, 'b) t
         module A: Element
         module B: Element
+        val values: (A.t, B.t) t list
         val equalities: (A.t, B.t) t list list
         val differences: ((A.t, B.t) t * (A.t, B.t) t) list
       end
@@ -249,6 +252,7 @@ module EquatableBasic: sig
         module A: Element
         module B: Element
         module C: Element
+        val values: (A.t, B.t, C.t) t list
         val equalities: (A.t, B.t, C.t) t list list
         val differences: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
       end
@@ -259,6 +263,7 @@ module EquatableBasic: sig
         module B: Element
         module C: Element
         module D: Element
+        val values: (A.t, B.t, C.t, D.t) t list
         val equalities: (A.t, B.t, C.t, D.t) t list list
         val differences: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
       end
@@ -270,6 +275,7 @@ module EquatableBasic: sig
         module C: Element
         module D: Element
         module E: Element
+        val values: (A.t, B.t, C.t, D.t, E.t) t list
         val equalities: (A.t, B.t, C.t, D.t, E.t) t list list
         val differences: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
       end
@@ -607,6 +613,7 @@ module Parsable: sig
       module type S0 = sig
         type t
         val literals: (string * t) list
+        val unparsable: string list
       end
     end
 
@@ -691,23 +698,26 @@ module ComparableBasic: sig
 
       module type S0 = sig
         type t
-        val orders: t list list
-        val equalities: t list list
+        val values: t list
+        val order_classes: t list list
+        val strict_orders: t list list
       end
 
       module type S1 = sig
         type 'a t
         module A: Element
-        val orders: A.t t list list
-        val equalities: A.t t list list
+        val values: A.t t list
+        val order_classes: A.t t list list
+        val strict_orders: A.t t list list
       end
 
       module type S2 = sig
         type ('a, 'b) t
         module A: Element
         module B: Element
-        val orders: (A.t, B.t) t list list
-        val equalities: (A.t, B.t) t list list
+        val values: (A.t, B.t) t list
+        val order_classes: (A.t, B.t) t list list
+        val strict_orders: (A.t, B.t) t list list
       end
 
       module type S3 = sig
@@ -715,8 +725,9 @@ module ComparableBasic: sig
         module A: Element
         module B: Element
         module C: Element
-        val orders: (A.t, B.t, C.t) t list list
-        val equalities: (A.t, B.t, C.t) t list list
+        val values: (A.t, B.t, C.t) t list
+        val order_classes: (A.t, B.t, C.t) t list list
+        val strict_orders: (A.t, B.t, C.t) t list list
       end
 
       module type S4 = sig
@@ -725,8 +736,9 @@ module ComparableBasic: sig
         module B: Element
         module C: Element
         module D: Element
-        val orders: (A.t, B.t, C.t, D.t) t list list
-        val equalities: (A.t, B.t, C.t, D.t) t list list
+        val values: (A.t, B.t, C.t, D.t) t list
+        val order_classes: (A.t, B.t, C.t, D.t) t list list
+        val strict_orders: (A.t, B.t, C.t, D.t) t list list
       end
 
       module type S5 = sig
@@ -736,8 +748,9 @@ module ComparableBasic: sig
         module C: Element
         module D: Element
         module E: Element
-        val orders: (A.t, B.t, C.t, D.t, E.t) t list list
-        val equalities: (A.t, B.t, C.t, D.t, E.t) t list list
+        val values: (A.t, B.t, C.t, D.t, E.t) t list
+        val order_classes: (A.t, B.t, C.t, D.t, E.t) t list list
+        val strict_orders: (A.t, B.t, C.t, D.t, E.t) t list list
       end
     end
 

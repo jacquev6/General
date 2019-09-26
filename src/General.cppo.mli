@@ -770,6 +770,8 @@ module Testing: sig
 
   val check_string: expected:string -> string -> unit
 
+  val check_char: expected:char -> char -> unit
+
   val check_bool: expected:bool -> bool -> unit
 
   val check_true: bool -> unit

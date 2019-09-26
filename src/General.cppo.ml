@@ -39,6 +39,49 @@ module type Facets = sig
   [@@@ocaml.warning "+32"]
 end
 
+module type Testing = sig
+  val (>::): string -> Test.t list -> Test.t
+  val (>:): string -> unit lazy_t -> Test.t
+  val (~:): ('a, unit, string, string, string, unit lazy_t -> Test.t) CamlinternalFormatBasics.format6 -> 'a
+  (* val (~::): ('a, unit, string, string, string, Test.t list -> Test.t) CamlinternalFormatBasics.format6 -> 'a *)
+  (* val fail: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a *)
+  (* val expect_exception: expected:exn -> 'a lazy_t -> unit *)
+  val expect_exception_named: expected:string -> 'a lazy_t -> unit
+  val check: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
+  (* val check_poly: repr:('a -> string) -> expected:'a -> 'a -> unit *)
+
+  val check_compare: expected:Compare.t -> Compare.t -> unit
+  val check_eq: Compare.t -> unit
+  val check_lt: Compare.t -> unit
+  val check_gt: Compare.t -> unit
+  val check_string: expected:string -> string -> unit
+  val check_bool: expected:bool -> bool -> unit
+  val check_true: bool -> unit
+  val check_false: bool -> unit
+  val check_int: expected:int -> int -> unit
+  (* val check_int32: expected:int32 -> int32 -> unit *)
+  (* val check_int64: expected:int64 -> int64 -> unit *)
+  (* val check_float: ?precision:float -> expected:float -> float -> unit *)
+  (* val check_float_in: low:float -> high:float -> float -> unit *)
+  val check_float_exact: expected:float -> float -> unit
+  (* val check_option: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a option -> 'a option -> unit *)
+  (* val check_option_poly: repr:('a -> string) -> expected:'a option -> 'a option -> unit *)
+  val check_some: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a option -> unit
+  val check_none: repr:('a -> string) -> equal:('a -> 'a -> bool) -> 'a option -> unit
+  (* val check_some_poly: repr:('a -> string) -> expected:'a -> 'a option -> unit *)
+  (* val check_none_poly: repr:('a -> string) -> 'a option -> unit *)
+  (* val check_int_option: expected:int option -> int option -> unit *)
+  (* val check_some_int: expected:int -> int option -> unit *)
+  (* val check_none_int: int option -> unit *)
+  (* val check_string_option: expected:string option -> string option -> unit *)
+  (* val check_some_string: expected:string -> string option -> unit *)
+  (* val check_none_string: string option -> unit *)
+  (* val check_list: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a list -> 'a list -> unit *)
+  (* val check_list_poly: repr:('a -> string) -> expected:'a list -> 'a list -> unit *)
+  (* val check_string_list: expected:string list -> string list -> unit *)
+  (* val check_int_list: expected:int list -> int list -> unit *)
+end
+
 (* Phase 3: implement everything that does not depend on Facets *)
 
 module Format = struct
@@ -53,15 +96,17 @@ module Exception = struct
   #include "Atoms/Exception.ml"
 end
 
-module Bool = struct
-  #include "Atoms/Bool.ml"
-end
-
 module Function1 = struct
   #include "Atoms/Function1.ml"
 end
 
 let (|>) = Function1.rev_apply  (* @todo Put somewhere *)
+
+module Bool_ = struct
+  #include "Atoms/Bool.ml"
+  module Bool = Basic
+end
+open Bool_
 
 module Function2 = struct
   #include "Atoms/Function2.ml"
@@ -225,44 +270,6 @@ end
 
 (* Phase 4: Implement Facets *)
 
-module type Testing = sig
-  val (>::): string -> Test.t list -> Test.t
-  val (>:): string -> unit lazy_t -> Test.t
-  val (~:): ('a, unit, string, string, string, unit lazy_t -> Test.t) CamlinternalFormatBasics.format6 -> 'a
-  (* val (~::): ('a, unit, string, string, string, Test.t list -> Test.t) CamlinternalFormatBasics.format6 -> 'a *)
-  (* val fail: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a *)
-  (* val expect_exception: expected:exn -> 'a lazy_t -> unit *)
-  (* val expect_exception_named: expected:string -> 'a lazy_t -> unit *)
-  val check: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
-  (* val check_poly: repr:('a -> string) -> expected:'a -> 'a -> unit *)
-  val check_string: expected:String.t -> String.t -> unit
-  (* val check_bool: expected:bool -> bool -> unit *)
-  val check_true: Bool.t -> unit
-  val check_false: Bool.t -> unit
-  val check_int: expected:Int.t -> Int.t -> unit
-  (* val check_int32: expected:int32 -> int32 -> unit *)
-  (* val check_int64: expected:int64 -> int64 -> unit *)
-  (* val check_float: ?precision:float -> expected:float -> float -> unit *)
-  (* val check_float_in: low:float -> high:float -> float -> unit *)
-  val check_float_exact: expected:Float.t -> Float.t -> unit
-  (* val check_option: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a option -> 'a option -> unit *)
-  (* val check_option_poly: repr:('a -> string) -> expected:'a option -> 'a option -> unit *)
-  val check_some: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a Option.t -> unit
-  (* val check_none: repr:('a -> string) -> equal:('a -> 'a -> bool) -> 'a option -> unit *)
-  (* val check_some_poly: repr:('a -> string) -> expected:'a -> 'a option -> unit *)
-  (* val check_none_poly: repr:('a -> string) -> 'a option -> unit *)
-  (* val check_int_option: expected:int option -> int option -> unit *)
-  (* val check_some_int: expected:int -> int option -> unit *)
-  (* val check_none_int: int option -> unit *)
-  (* val check_string_option: expected:string option -> string option -> unit *)
-  (* val check_some_string: expected:string -> string option -> unit *)
-  (* val check_none_string: string option -> unit *)
-  (* val check_list: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a list -> 'a list -> unit *)
-  (* val check_list_poly: repr:('a -> string) -> expected:'a list -> 'a list -> unit *)
-  (* val check_string_list: expected:string list -> string list -> unit *)
-  (* val check_int_list: expected:int list -> int list -> unit *)
-end
-
 module Facets_alpha = struct
   #include "Generated/Facets_alpha.ml"
 
@@ -314,6 +321,8 @@ end
 module NativeInt = struct
   #include "Atoms/NativeInt.ml"
 end
+
+module Bool = Bool_.Extended(Facets)
 
 module Int = Int_.Extended(Facets)
 
@@ -567,7 +576,7 @@ module MakeTests() = struct
   let test = "General" >:: [
     (* BigInt.Tests.test; *)
     (* BinaryHeap.Tests.test; *)
-    (* Bool.Tests.test; *)
+    (let module T = Bool.MakeTests(Testing) in T.test);
     (* Bytes.Tests.test; *)
     (* CallStack.Tests.test; *)
     (* Char.Tests.test; *)

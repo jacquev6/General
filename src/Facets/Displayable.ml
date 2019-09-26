@@ -3,19 +3,12 @@
 module Tests_beta(Testing: Testing) = struct
   include Tests_alpha(Testing)
 
-  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = E
-
-  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+  include MakeMakers(functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> struct
     open Testing
-    open M
 
-    let tests = (
-      E.displays
-      |> List.map ~f:(fun (v, expected) ->
-        ~: "to_string %s" expected (lazy (check_string ~expected (to_string v)))
+    let tests =
+      List.map E.displays ~f:(fun (v, expected) ->
+        ~: "to_string %s" expected (lazy (M.to_string v |> check_string ~expected))
       )
-    )
-  end
-
-  include MakeMakers(MakeExamples)(MakeTests)
+  end)
 end

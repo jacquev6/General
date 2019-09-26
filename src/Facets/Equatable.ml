@@ -9,46 +9,31 @@ end
 module Tests_beta(Testing: Testing) = struct
   include Tests_alpha(Testing)
 
-  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = E
+  module EquatableBasicTests = EquatableBasic.Tests_beta(Testing)
 
-  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+  include MakeMakers(functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> struct
     open Testing
-    open M
-    open M.O
 
-    let tests = (
-      E.equalities
-      |> List.flat_map ~f:(fun xs ->
-        List.cartesian_product xs xs
-        |> List.flat_map ~f:(fun (x, y) ->
-          let rx = repr x and ry = repr y in
-          [
-            ~: "different %s %s" rx ry (lazy (check_false (different x y)));
-            ~: "%s = %s" rx ry (lazy (check_true (x = y)));
-            ~: "%s <> %s" rx ry (lazy (check_false (x <> y)));
+    let tests =
+      let module Expectations = EquatableBasicTests.MakeExpectations(M)(E) in []
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "%s = %s" rx ry (lazy (M.O.(x = y) |> check_true))
+      ))
+      @ (List.map Expectations.different_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "%s = %s" rx ry (lazy (M.O.(x = y) |> check_false))
+      ))
 
-            ~: "different %s %s" ry rx (lazy (check_false (different y x)));
-            ~: "%s = %s" ry rx (lazy (check_true (y = x)));
-            ~: "%s <> %s" ry rx (lazy (check_false (y <> x)));
-          ]
-        )
-      )
-    ) @ (
-      E.differences
-      |> List.flat_map ~f:(fun (x, y) ->
-        let rx = repr x and ry = repr y in
-        [
-          ~: "different %s %s" rx ry (lazy (check_true (different x y)));
-          ~: "%s = %s" rx ry (lazy (check_false (x = y)));
-          ~: "%s <> %s" rx ry (lazy (check_true (x <> y)));
-
-          ~: "different %s %s" ry rx (lazy (check_true (different y x)));
-          ~: "%s = %s" ry rx (lazy (check_false (y = x)));
-          ~: "%s <> %s" ry rx (lazy (check_true (y <> x)));
-        ]
-      )
-    )
-  end
-
-  include MakeMakers(MakeExamples)(MakeTests)
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "different %s %s" rx ry (lazy (M.different x y |> check_false))
+      ))
+      @ (List.map Expectations.different_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "different %s %s" rx ry (lazy (M.different x y |> check_true))
+      ))
+      @ (List.map Expectations.equal_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "%s <> %s" rx ry (lazy (M.O.(x <> y) |> check_false))
+      ))
+      @ (List.map Expectations.different_pairs ~f:(fun (x, rx, y, ry) ->
+        ~: "%s <> %s" rx ry (lazy (M.O.(x <> y) |> check_true))
+      ))
+  end)
 end

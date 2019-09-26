@@ -21,10 +21,9 @@ module Tests_alpha(Testing: Testing) = struct
     end
   end
 
-  module MakeMakers(MakeExamples: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> Examples.S0 with type t := M.t)(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct
+  module MakeMakers(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct
     module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
       open Testing
-      module E = MakeExamples(M)(E)
       let test = "Stringable" >:: [
         (let module T_alpha = Displayable.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);
         (let module T_alpha = Parsable.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);
