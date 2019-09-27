@@ -65,6 +65,10 @@ do
     # @todo Measure test coverage. If possible, module by module.
     $RUN dune runtest
 
+    rm -rf doc/unit_tests/$OCAML_VERSION
+    mkdir -p doc/unit_tests/$OCAML_VERSION
+    $RUN _build/default/unit_tests.exe --verbose >doc/unit_tests/$OCAML_VERSION/all.txt
+
     if $DO_UTOP_INTERFACE
     then
         echo

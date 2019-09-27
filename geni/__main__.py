@@ -263,7 +263,8 @@ displayable = facet(
     "Displayable",
     variadic=False,
     values=[val("to_string", t, "string")],
-    test_examples=[val("displays", f"({t} * string) list")],
+    test_examples=[val("conversions_to_string", f"({t} * string) list")],
+    test_requirements=[representable],
 )
 
 # @feature Facets.Hashable with val hash: t -> int, Poly using Hashtbl.hash
@@ -276,8 +277,9 @@ parsable = facet(
         val("of_string", "string", t),
     ],
     test_examples=[
-        val("literals", f"(string * {t}) list"),
-        val("unparsable", f"string list"),
+        val("module_name", "string"),
+        val("conversions_from_string", f"(string * {t}) list"),
+        val("unconvertible_strings", f"string list"),
     ],
     test_requirements=[equatable_basic, representable],
 )
@@ -355,6 +357,7 @@ ringoid_basic = facet(
         ),
     ],
     test_examples=[
+        values_,
         val("additions", f"({t} * {t} * {t}) list"),
         val("negations", f"({t} * {t}) list"),
         val("multiplications", f"({t} * {t} * {t}) list"),
@@ -407,6 +410,10 @@ of_int = facet(
     values=[
         val("of_int", "int", t),
     ],
+    test_examples=[
+        val("conversions_from_int", f"(int * {t}) list")
+    ],
+    test_requirements=[equatable_basic, representable]
 )
 
 to_int = facet(
@@ -415,14 +422,22 @@ to_int = facet(
     values=[
         val("to_int", t, "int"),
     ],
+    test_examples=[
+        val("conversions_to_int", f"({t} * int) list")
+    ],
+    test_requirements=[representable],
 )
 
 of_float = facet(
-    "OfFloat",
+    "OfFloat", # @todo (?) Rename to ConvertibleFromFloat. Same for all OfXxx and ToXxx facets. Same for Parsable and Displayable.
     variadic=False,
     values=[
         val("of_float", "float", t),
     ],
+    test_examples=[
+        val("conversions_from_float", f"(float * {t}) list")
+    ],
+    test_requirements=[equatable_basic, representable]
 )
 
 to_float = facet(
@@ -431,6 +446,10 @@ to_float = facet(
     values=[
         val("to_float", t, "float"),
     ],
+    test_examples=[
+        val("conversions_to_float", f"({t} * float) list")
+    ],
+    test_requirements=[representable],
 )
 
 pred_succ = facet(
@@ -496,6 +515,7 @@ stringable = facet(
 of_standard_numbers = facet(
     "OfStandardNumber",
     bases=[of_int, of_float],
+    test_requirements=[equatable_basic, representable],
 )
 
 number = facet(
@@ -506,6 +526,7 @@ number = facet(
 to_standard_numbers = facet(
     "ToStandardNumber",
     bases=[to_int, to_float],
+    test_requirements=[representable],
 )
 
 real_number = facet(
@@ -745,7 +766,7 @@ big_int = atom(
 float_ = atom(
     "Float",
     type="float",
-    bases=[real_number, bounded],
+    bases=[real_number, bounded],  # @todo Capture this pair as a new facet (IE449Float? BoundedFloat? FloatingPointNumber?)
     values=[
         val("approx_equal", {"?precision": t}, t, t, "bool"),
 

@@ -45,7 +45,7 @@ module type Testing = sig
   val (~:): ('a, unit, string, string, string, unit lazy_t -> Test.t) CamlinternalFormatBasics.format6 -> 'a
   (* val (~::): ('a, unit, string, string, string, Test.t list -> Test.t) CamlinternalFormatBasics.format6 -> 'a *)
   (* val fail: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a *)
-  (* val expect_exception: expected:exn -> 'a lazy_t -> unit *)
+  val expect_exception: expected:exn -> 'a lazy_t -> unit
   val expect_exception_named: expected:string -> 'a lazy_t -> unit
   val check: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
   (* val check_poly: repr:('a -> string) -> expected:'a -> 'a -> unit *)
@@ -574,7 +574,7 @@ module MakeTests() = struct
   open Testing
 
   let test = "General" >:: [
-    (* BigInt.Tests.test; *)
+    (let module T = BigInt.MakeTests(Testing) in T.test);
     (* BinaryHeap.Tests.test; *)
     (let module T = Bool.MakeTests(Testing) in T.test);
     (* Bytes.Tests.test; *)

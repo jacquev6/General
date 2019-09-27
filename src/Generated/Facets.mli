@@ -585,13 +585,14 @@ module Displayable: sig
     module Examples: sig
       module type S0 = sig
         type t
-        val displays: (t * string) list
+        val conversions_to_string: (t * string) list
       end
     end
 
     module Testable: sig
       module type S0 = sig
         include S0
+        include Representable.S0 with type t := t
       end
     end
 
@@ -612,8 +613,9 @@ module Parsable: sig
     module Examples: sig
       module type S0 = sig
         type t
-        val literals: (string * t) list
-        val unparsable: string list
+        val module_name: string
+        val conversions_from_string: (string * t) list
+        val unconvertible_strings: string list
       end
     end
 
@@ -1283,6 +1285,7 @@ module RingoidBasic: sig
     module Examples: sig
       module type S0 = sig
         type t
+        val values: t list
         val additions: (t * t * t) list
         val negations: (t * t) list
         val multiplications: (t * t * t) list
@@ -1396,12 +1399,15 @@ module OfInt: sig
     module Examples: sig
       module type S0 = sig
         type t
+        val conversions_from_int: (int * t) list
       end
     end
 
     module Testable: sig
       module type S0 = sig
         include S0
+        include EquatableBasic.S0 with type t := t
+        include Representable.S0 with type t := t
       end
     end
 
@@ -1421,12 +1427,14 @@ module ToInt: sig
     module Examples: sig
       module type S0 = sig
         type t
+        val conversions_to_int: (t * int) list
       end
     end
 
     module Testable: sig
       module type S0 = sig
         include S0
+        include Representable.S0 with type t := t
       end
     end
 
@@ -1446,12 +1454,15 @@ module OfFloat: sig
     module Examples: sig
       module type S0 = sig
         type t
+        val conversions_from_float: (float * t) list
       end
     end
 
     module Testable: sig
       module type S0 = sig
         include S0
+        include EquatableBasic.S0 with type t := t
+        include Representable.S0 with type t := t
       end
     end
 
@@ -1471,12 +1482,14 @@ module ToFloat: sig
     module Examples: sig
       module type S0 = sig
         type t
+        val conversions_to_float: (t * float) list
       end
     end
 
     module Testable: sig
       module type S0 = sig
         include S0
+        include Representable.S0 with type t := t
       end
     end
 
@@ -1998,6 +2011,8 @@ module OfStandardNumber: sig
     module Testable: sig
       module type S0 = sig
         include S0
+        include EquatableBasic.S0 with type t := t
+        include Representable.S0 with type t := t
       end
     end
 
@@ -2067,6 +2082,7 @@ module ToStandardNumber: sig
     module Testable: sig
       module type S0 = sig
         include S0
+        include Representable.S0 with type t := t
       end
     end
 

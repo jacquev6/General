@@ -348,7 +348,7 @@ class Facet:
         yield "end)(E)",
 
 
-ng = ["Bool"]
+ng = ["BigInt", "Bool"]
 
 
 class Type:

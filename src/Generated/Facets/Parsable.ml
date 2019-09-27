@@ -8,8 +8,9 @@ module Tests_alpha(Testing: Testing) = struct
   module Examples = struct
     module type S0 = sig
       type t
-      val literals: (string * t) list
-      val unparsable: string list
+      val module_name: string
+      val conversions_from_string: (string * t) list
+      val unconvertible_strings: string list
     end
   end
 

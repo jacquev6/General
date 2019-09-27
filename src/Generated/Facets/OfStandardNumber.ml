@@ -16,6 +16,8 @@ module Tests_alpha(Testing: Testing) = struct
   module Testable = struct
     module type S0 = sig
       include S0
+      include EquatableBasic.S0 with type t := t
+      include Representable.S0 with type t := t
     end
   end
 

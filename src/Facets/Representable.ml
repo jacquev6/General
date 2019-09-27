@@ -8,7 +8,7 @@ module Tests_beta(Testing: Testing) = struct
 
     let tests =
       List.map E.representations ~f:(fun (v, expected) ->
-        ~: "repr %s" expected (lazy (M.repr v |> check_string ~expected))
+        ~: "Representable: repr %s" expected (lazy (M.repr v |> check_string ~expected))
       )
   end)
 end

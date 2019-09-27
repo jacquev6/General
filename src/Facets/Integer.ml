@@ -3,19 +3,13 @@
 module Tests_beta(Testing: Testing) = struct
   include Tests_alpha(Testing)
 
-  (*
-  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
-    include E
+  module PredSuccTests = PredSucc.Tests_beta(Testing)
 
-    let successions = successions @ [
-      (M.zero, M.one);
-    ]
-  end
-  *)
+  include MakeMakers(functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> struct
+    module PredSuccTesters = PredSuccTests.MakeTesters(M)
 
-  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
     let tests = []
-  end
-
-  include MakeMakers(MakeTests)
+      @ (PredSuccTesters.test_succession ((M.zero, "zero"), (M.one, "one")))
+      @ (E.values |> List.flat_map ~f:(fun x -> let y = M.add x M.one in PredSuccTesters.test_succession ((x, M.repr x), (y, M.repr y))))
+  end)
 end

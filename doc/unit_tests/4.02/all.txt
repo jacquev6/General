@@ -1,0 +1,678 @@
+"General" (Successes: 634)
+  "BigInt" (Successes: 504)
+    "Integer" (Successes: 475)
+      "RealNumber" (Successes: 465)
+        "Number" (Successes: 169)
+          "Identifiable" (Successes: 18)
+            "Equatable" (Successes: 16)
+              "EquatableBasic" (Successes: 4)
+                "EquatableBasic: equal 4 4": OK
+                "EquatableBasic: equal -10 -10": OK
+                "EquatableBasic: equal 4 -10": OK
+                "EquatableBasic: equal -10 4": OK
+              "Equatable: 4 = 4": OK
+              "Equatable: different 4 4": OK
+              "Equatable: 4 <> 4": OK
+              "Equatable: -10 = -10": OK
+              "Equatable: different -10 -10": OK
+              "Equatable: -10 <> -10": OK
+              "Equatable: 4 = -10": OK
+              "Equatable: different 4 -10": OK
+              "Equatable: 4 <> -10": OK
+              "Equatable: -10 = 4": OK
+              "Equatable: different -10 4": OK
+              "Equatable: -10 <> 4": OK
+            "Representable" (Successes: 2)
+              "Representable: repr 10": OK
+              "Representable: repr 10000000000000000000000000000000000000000": OK
+          "Stringable" (Successes: 8)
+            "Displayable" (Successes: 2)
+              "Displayable: to_string 10": OK
+              "Displayable: to_string 10000000000000000000000000000000000000000": OK
+            "Parsable" (Successes: 6)
+              "Parsable: of_string \"100000\"": OK
+              "Parsable: try_of_string \"100000\"": OK
+              "Parsable: of_string \"abcd\"": OK
+              "Parsable: try_of_string \"abcd\"": OK
+              "Parsable: of_string \"1000a\"": OK
+              "Parsable: try_of_string \"1000a\"": OK
+          "Ringoid" (Successes: 120)
+            "RingoidBasic" (Successes: 48)
+              "RingoidBasic: add 4 zero": OK
+              "RingoidBasic: subtract 4 4": OK
+              "RingoidBasic: add zero 4": OK
+              "RingoidBasic: subtract 4 zero": OK
+              "RingoidBasic: multiply 4 one": OK
+              "RingoidBasic: multiply one 4": OK
+              "RingoidBasic: multiply 4 zero": OK
+              "RingoidBasic: multiply zero 4": OK
+              "RingoidBasic: divide 4 one": OK
+              "RingoidBasic: add -10 zero": OK
+              "RingoidBasic: subtract -10 -10": OK
+              "RingoidBasic: add zero -10": OK
+              "RingoidBasic: subtract -10 zero": OK
+              "RingoidBasic: multiply -10 one": OK
+              "RingoidBasic: multiply one -10": OK
+              "RingoidBasic: multiply -10 zero": OK
+              "RingoidBasic: multiply zero -10": OK
+              "RingoidBasic: divide -10 one": OK
+              "RingoidBasic: add 100 27": OK
+              "RingoidBasic: subtract 127 100": OK
+              "RingoidBasic: add 27 100": OK
+              "RingoidBasic: subtract 127 27": OK
+              "RingoidBasic: negate 12": OK
+              "RingoidBasic: add 12 -12": OK
+              "RingoidBasic: subtract zero 12": OK
+              "RingoidBasic: negate -12": OK
+              "RingoidBasic: add -12 12": OK
+              "RingoidBasic: subtract zero -12": OK
+              "RingoidBasic: multiply 7 3": OK
+              "RingoidBasic: multiply 3 7": OK
+              "RingoidBasic: divide 45 9": OK
+              "RingoidBasic: add zero zero": OK
+              "RingoidBasic: subtract zero zero": OK
+              "RingoidBasic: multiply zero one": OK
+              "RingoidBasic: multiply one zero": OK
+              "RingoidBasic: multiply zero zero": OK
+              "RingoidBasic: divide zero one": OK
+              "RingoidBasic: add one zero": OK
+              "RingoidBasic: subtract one one": OK
+              "RingoidBasic: add zero one": OK
+              "RingoidBasic: subtract one zero": OK
+              "RingoidBasic: multiply one one": OK
+              "RingoidBasic: multiply one zero": OK
+              "RingoidBasic: multiply zero one": OK
+              "RingoidBasic: divide one one": OK
+              "RingoidBasic: negate zero": OK
+              "RingoidBasic: add zero zero": OK
+              "RingoidBasic: subtract zero zero": OK
+            "Ringoid: 4 + zero": OK
+            "Ringoid: 4 - 4": OK
+            "Ringoid: zero + 4": OK
+            "Ringoid: 4 - zero": OK
+            "Ringoid: 4 * one": OK
+            "Ringoid: one * 4": OK
+            "Ringoid: 4 * zero": OK
+            "Ringoid: zero * 4": OK
+            "Ringoid: 4 / one": OK
+            "Ringoid: exponentiate 4 1": OK
+            "Ringoid: 4 ** 1": OK
+            "Ringoid: exponentiate 4 0": OK
+            "Ringoid: 4 ** 0": OK
+            "Ringoid: -10 + zero": OK
+            "Ringoid: -10 - -10": OK
+            "Ringoid: zero + -10": OK
+            "Ringoid: -10 - zero": OK
+            "Ringoid: -10 * one": OK
+            "Ringoid: one * -10": OK
+            "Ringoid: -10 * zero": OK
+            "Ringoid: zero * -10": OK
+            "Ringoid: -10 / one": OK
+            "Ringoid: exponentiate -10 1": OK
+            "Ringoid: -10 ** 1": OK
+            "Ringoid: exponentiate -10 0": OK
+            "Ringoid: -10 ** 0": OK
+            "Ringoid: 100 + 27": OK
+            "Ringoid: 127 - 100": OK
+            "Ringoid: 27 + 100": OK
+            "Ringoid: 127 - 27": OK
+            "Ringoid: - 12": OK
+            "Ringoid: 12 + -12": OK
+            "Ringoid: zero - 12": OK
+            "Ringoid: - -12": OK
+            "Ringoid: -12 + 12": OK
+            "Ringoid: zero - -12": OK
+            "Ringoid: 7 * 3": OK
+            "Ringoid: 3 * 7": OK
+            "Ringoid: 45 / 9": OK
+            "Ringoid: exponentiate 10 10": OK
+            "Ringoid: 10 ** 10": OK
+            "Ringoid: exponentiate 10 40": OK
+            "Ringoid: 10 ** 40": OK
+            "Ringoid: zero + zero": OK
+            "Ringoid: zero - zero": OK
+            "Ringoid: zero * one": OK
+            "Ringoid: one * zero": OK
+            "Ringoid: zero * zero": OK
+            "Ringoid: zero / one": OK
+            "Ringoid: exponentiate zero 1": OK
+            "Ringoid: zero ** 1": OK
+            "Ringoid: exponentiate zero 0": OK
+            "Ringoid: zero ** 0": OK
+            "Ringoid: one + zero": OK
+            "Ringoid: one - one": OK
+            "Ringoid: zero + one": OK
+            "Ringoid: one - zero": OK
+            "Ringoid: one * one": OK
+            "Ringoid: one * zero": OK
+            "Ringoid: zero * one": OK
+            "Ringoid: one / one": OK
+            "Ringoid: exponentiate one 1": OK
+            "Ringoid: one ** 1": OK
+            "Ringoid: exponentiate one 0": OK
+            "Ringoid: one ** 0": OK
+            "Ringoid: - zero": OK
+            "Ringoid: zero + zero": OK
+            "Ringoid: zero - zero": OK
+            "Ringoid: exponentiate zero 7": OK
+            "Ringoid: zero ** 7": OK
+            "Ringoid: exponentiate one 42": OK
+            "Ringoid: one ** 42": OK
+          "OfStandardNumber" (Successes: 2)
+            "OfInt" (Successes: 1)
+              "OfInt: of_int 100": OK
+            "OfFloat" (Successes: 1)
+              "OfFloat: of_float 100.000000": OK
+          "EquatableBasic: equal zero one": OK
+          "EquatableBasic: equal one zero": OK
+          "Equatable: zero = one": OK
+          "Equatable: different zero one": OK
+          "Equatable: zero <> one": OK
+          "Equatable: one = zero": OK
+          "Equatable: different one zero": OK
+          "Equatable: one <> zero": OK
+          "OfInt: of_int 0": OK
+          "OfInt: of_int 1": OK
+          "OfFloat: of_float -0.990000": OK
+          "OfFloat: of_float 0.000000": OK
+          "OfFloat: of_float 0.990000": OK
+          "OfFloat: of_float 1.000000": OK
+          "OfFloat: of_float 1.990000": OK
+          "Parsable: of_string \"0\"": OK
+          "Parsable: try_of_string \"0\"": OK
+          "Parsable: of_string \"1\"": OK
+          "Parsable: try_of_string \"1\"": OK
+          "Displayable: to_string zero": OK
+          "Displayable: to_string one": OK
+        "Comparable" (Successes: 264)
+          "ComparableBasic" (Successes: 22)
+            "ComparableBasic: compare 4 4": OK
+            "ComparableBasic: compare -10 -10": OK
+            "ComparableBasic: compare -3 -1": OK
+            "ComparableBasic: compare -1 -3": OK
+            "ComparableBasic: compare -3 0": OK
+            "ComparableBasic: compare 0 -3": OK
+            "ComparableBasic: compare -3 1": OK
+            "ComparableBasic: compare 1 -3": OK
+            "ComparableBasic: compare -3 5": OK
+            "ComparableBasic: compare 5 -3": OK
+            "ComparableBasic: compare -1 0": OK
+            "ComparableBasic: compare 0 -1": OK
+            "ComparableBasic: compare -1 1": OK
+            "ComparableBasic: compare 1 -1": OK
+            "ComparableBasic: compare -1 5": OK
+            "ComparableBasic: compare 5 -1": OK
+            "ComparableBasic: compare 0 1": OK
+            "ComparableBasic: compare 1 0": OK
+            "ComparableBasic: compare 0 5": OK
+            "ComparableBasic: compare 5 0": OK
+            "ComparableBasic: compare 1 5": OK
+            "ComparableBasic: compare 5 1": OK
+          "Comparable: less_than 4 4": OK
+          "Comparable: 4 < 4": OK
+          "Comparable: less_or_equal 4 4": OK
+          "Comparable: 4 <= 4": OK
+          "Comparable: greater_than 4 4": OK
+          "Comparable: 4 > 4": OK
+          "Comparable: greater_or_equal 4 4": OK
+          "Comparable: 4 >= 4": OK
+          "Comparable: min 4 4": OK
+          "Comparable: max 4 4": OK
+          "Comparable: min_max 4 4": OK
+          "Comparable: less_than -10 -10": OK
+          "Comparable: -10 < -10": OK
+          "Comparable: less_or_equal -10 -10": OK
+          "Comparable: -10 <= -10": OK
+          "Comparable: greater_than -10 -10": OK
+          "Comparable: -10 > -10": OK
+          "Comparable: greater_or_equal -10 -10": OK
+          "Comparable: -10 >= -10": OK
+          "Comparable: min -10 -10": OK
+          "Comparable: max -10 -10": OK
+          "Comparable: min_max -10 -10": OK
+          "Comparable: less_than -3 -1": OK
+          "Comparable: less_than -1 -3": OK
+          "Comparable: -3 < -1": OK
+          "Comparable: -1 < -3": OK
+          "Comparable: less_or_equal -3 -1": OK
+          "Comparable: less_or_equal -1 -3": OK
+          "Comparable: -3 <= -1": OK
+          "Comparable: -1 <= -3": OK
+          "Comparable: greater_than -3 -1": OK
+          "Comparable: greater_than -1 -3": OK
+          "Comparable: -3 > -1": OK
+          "Comparable: -1 > -3": OK
+          "Comparable: greater_or_equal -3 -1": OK
+          "Comparable: greater_or_equal -1 -3": OK
+          "Comparable: -3 >= -1": OK
+          "Comparable: -1 >= -3": OK
+          "Comparable: min -3 -1": OK
+          "Comparable: min -1 -3": OK
+          "Comparable: max -3 -1": OK
+          "Comparable: max -1 -3": OK
+          "Comparable: min_max -3 -1": OK
+          "Comparable: min_max -1 -3": OK
+          "Comparable: less_than -3 0": OK
+          "Comparable: less_than 0 -3": OK
+          "Comparable: -3 < 0": OK
+          "Comparable: 0 < -3": OK
+          "Comparable: less_or_equal -3 0": OK
+          "Comparable: less_or_equal 0 -3": OK
+          "Comparable: -3 <= 0": OK
+          "Comparable: 0 <= -3": OK
+          "Comparable: greater_than -3 0": OK
+          "Comparable: greater_than 0 -3": OK
+          "Comparable: -3 > 0": OK
+          "Comparable: 0 > -3": OK
+          "Comparable: greater_or_equal -3 0": OK
+          "Comparable: greater_or_equal 0 -3": OK
+          "Comparable: -3 >= 0": OK
+          "Comparable: 0 >= -3": OK
+          "Comparable: min -3 0": OK
+          "Comparable: min 0 -3": OK
+          "Comparable: max -3 0": OK
+          "Comparable: max 0 -3": OK
+          "Comparable: min_max -3 0": OK
+          "Comparable: min_max 0 -3": OK
+          "Comparable: less_than -3 1": OK
+          "Comparable: less_than 1 -3": OK
+          "Comparable: -3 < 1": OK
+          "Comparable: 1 < -3": OK
+          "Comparable: less_or_equal -3 1": OK
+          "Comparable: less_or_equal 1 -3": OK
+          "Comparable: -3 <= 1": OK
+          "Comparable: 1 <= -3": OK
+          "Comparable: greater_than -3 1": OK
+          "Comparable: greater_than 1 -3": OK
+          "Comparable: -3 > 1": OK
+          "Comparable: 1 > -3": OK
+          "Comparable: greater_or_equal -3 1": OK
+          "Comparable: greater_or_equal 1 -3": OK
+          "Comparable: -3 >= 1": OK
+          "Comparable: 1 >= -3": OK
+          "Comparable: min -3 1": OK
+          "Comparable: min 1 -3": OK
+          "Comparable: max -3 1": OK
+          "Comparable: max 1 -3": OK
+          "Comparable: min_max -3 1": OK
+          "Comparable: min_max 1 -3": OK
+          "Comparable: less_than -3 5": OK
+          "Comparable: less_than 5 -3": OK
+          "Comparable: -3 < 5": OK
+          "Comparable: 5 < -3": OK
+          "Comparable: less_or_equal -3 5": OK
+          "Comparable: less_or_equal 5 -3": OK
+          "Comparable: -3 <= 5": OK
+          "Comparable: 5 <= -3": OK
+          "Comparable: greater_than -3 5": OK
+          "Comparable: greater_than 5 -3": OK
+          "Comparable: -3 > 5": OK
+          "Comparable: 5 > -3": OK
+          "Comparable: greater_or_equal -3 5": OK
+          "Comparable: greater_or_equal 5 -3": OK
+          "Comparable: -3 >= 5": OK
+          "Comparable: 5 >= -3": OK
+          "Comparable: min -3 5": OK
+          "Comparable: min 5 -3": OK
+          "Comparable: max -3 5": OK
+          "Comparable: max 5 -3": OK
+          "Comparable: min_max -3 5": OK
+          "Comparable: min_max 5 -3": OK
+          "Comparable: less_than -1 0": OK
+          "Comparable: less_than 0 -1": OK
+          "Comparable: -1 < 0": OK
+          "Comparable: 0 < -1": OK
+          "Comparable: less_or_equal -1 0": OK
+          "Comparable: less_or_equal 0 -1": OK
+          "Comparable: -1 <= 0": OK
+          "Comparable: 0 <= -1": OK
+          "Comparable: greater_than -1 0": OK
+          "Comparable: greater_than 0 -1": OK
+          "Comparable: -1 > 0": OK
+          "Comparable: 0 > -1": OK
+          "Comparable: greater_or_equal -1 0": OK
+          "Comparable: greater_or_equal 0 -1": OK
+          "Comparable: -1 >= 0": OK
+          "Comparable: 0 >= -1": OK
+          "Comparable: min -1 0": OK
+          "Comparable: min 0 -1": OK
+          "Comparable: max -1 0": OK
+          "Comparable: max 0 -1": OK
+          "Comparable: min_max -1 0": OK
+          "Comparable: min_max 0 -1": OK
+          "Comparable: less_than -1 1": OK
+          "Comparable: less_than 1 -1": OK
+          "Comparable: -1 < 1": OK
+          "Comparable: 1 < -1": OK
+          "Comparable: less_or_equal -1 1": OK
+          "Comparable: less_or_equal 1 -1": OK
+          "Comparable: -1 <= 1": OK
+          "Comparable: 1 <= -1": OK
+          "Comparable: greater_than -1 1": OK
+          "Comparable: greater_than 1 -1": OK
+          "Comparable: -1 > 1": OK
+          "Comparable: 1 > -1": OK
+          "Comparable: greater_or_equal -1 1": OK
+          "Comparable: greater_or_equal 1 -1": OK
+          "Comparable: -1 >= 1": OK
+          "Comparable: 1 >= -1": OK
+          "Comparable: min -1 1": OK
+          "Comparable: min 1 -1": OK
+          "Comparable: max -1 1": OK
+          "Comparable: max 1 -1": OK
+          "Comparable: min_max -1 1": OK
+          "Comparable: min_max 1 -1": OK
+          "Comparable: less_than -1 5": OK
+          "Comparable: less_than 5 -1": OK
+          "Comparable: -1 < 5": OK
+          "Comparable: 5 < -1": OK
+          "Comparable: less_or_equal -1 5": OK
+          "Comparable: less_or_equal 5 -1": OK
+          "Comparable: -1 <= 5": OK
+          "Comparable: 5 <= -1": OK
+          "Comparable: greater_than -1 5": OK
+          "Comparable: greater_than 5 -1": OK
+          "Comparable: -1 > 5": OK
+          "Comparable: 5 > -1": OK
+          "Comparable: greater_or_equal -1 5": OK
+          "Comparable: greater_or_equal 5 -1": OK
+          "Comparable: -1 >= 5": OK
+          "Comparable: 5 >= -1": OK
+          "Comparable: min -1 5": OK
+          "Comparable: min 5 -1": OK
+          "Comparable: max -1 5": OK
+          "Comparable: max 5 -1": OK
+          "Comparable: min_max -1 5": OK
+          "Comparable: min_max 5 -1": OK
+          "Comparable: less_than 0 1": OK
+          "Comparable: less_than 1 0": OK
+          "Comparable: 0 < 1": OK
+          "Comparable: 1 < 0": OK
+          "Comparable: less_or_equal 0 1": OK
+          "Comparable: less_or_equal 1 0": OK
+          "Comparable: 0 <= 1": OK
+          "Comparable: 1 <= 0": OK
+          "Comparable: greater_than 0 1": OK
+          "Comparable: greater_than 1 0": OK
+          "Comparable: 0 > 1": OK
+          "Comparable: 1 > 0": OK
+          "Comparable: greater_or_equal 0 1": OK
+          "Comparable: greater_or_equal 1 0": OK
+          "Comparable: 0 >= 1": OK
+          "Comparable: 1 >= 0": OK
+          "Comparable: min 0 1": OK
+          "Comparable: min 1 0": OK
+          "Comparable: max 0 1": OK
+          "Comparable: max 1 0": OK
+          "Comparable: min_max 0 1": OK
+          "Comparable: min_max 1 0": OK
+          "Comparable: less_than 0 5": OK
+          "Comparable: less_than 5 0": OK
+          "Comparable: 0 < 5": OK
+          "Comparable: 5 < 0": OK
+          "Comparable: less_or_equal 0 5": OK
+          "Comparable: less_or_equal 5 0": OK
+          "Comparable: 0 <= 5": OK
+          "Comparable: 5 <= 0": OK
+          "Comparable: greater_than 0 5": OK
+          "Comparable: greater_than 5 0": OK
+          "Comparable: 0 > 5": OK
+          "Comparable: 5 > 0": OK
+          "Comparable: greater_or_equal 0 5": OK
+          "Comparable: greater_or_equal 5 0": OK
+          "Comparable: 0 >= 5": OK
+          "Comparable: 5 >= 0": OK
+          "Comparable: min 0 5": OK
+          "Comparable: min 5 0": OK
+          "Comparable: max 0 5": OK
+          "Comparable: max 5 0": OK
+          "Comparable: min_max 0 5": OK
+          "Comparable: min_max 5 0": OK
+          "Comparable: less_than 1 5": OK
+          "Comparable: less_than 5 1": OK
+          "Comparable: 1 < 5": OK
+          "Comparable: 5 < 1": OK
+          "Comparable: less_or_equal 1 5": OK
+          "Comparable: less_or_equal 5 1": OK
+          "Comparable: 1 <= 5": OK
+          "Comparable: 5 <= 1": OK
+          "Comparable: greater_than 1 5": OK
+          "Comparable: greater_than 5 1": OK
+          "Comparable: 1 > 5": OK
+          "Comparable: 5 > 1": OK
+          "Comparable: greater_or_equal 1 5": OK
+          "Comparable: greater_or_equal 5 1": OK
+          "Comparable: 1 >= 5": OK
+          "Comparable: 5 >= 1": OK
+          "Comparable: min 1 5": OK
+          "Comparable: min 5 1": OK
+          "Comparable: max 1 5": OK
+          "Comparable: max 5 1": OK
+          "Comparable: min_max 1 5": OK
+          "Comparable: min_max 5 1": OK
+        "ToStandardNumber" (Successes: 2)
+          "ToInt" (Successes: 1)
+            "ToInt: to_int 100": OK
+          "ToFloat" (Successes: 1)
+            "ToFloat: to_float 100": OK
+        "RealNumber: abs 12": OK
+        "RealNumber: abs -12": OK
+        "ComparableBasic: compare zero one": OK
+        "ComparableBasic: compare one zero": OK
+        "Comparable: less_than zero one": OK
+        "Comparable: less_than one zero": OK
+        "Comparable: zero < one": OK
+        "Comparable: one < zero": OK
+        "Comparable: less_or_equal zero one": OK
+        "Comparable: less_or_equal one zero": OK
+        "Comparable: zero <= one": OK
+        "Comparable: one <= zero": OK
+        "Comparable: greater_than zero one": OK
+        "Comparable: greater_than one zero": OK
+        "Comparable: zero > one": OK
+        "Comparable: one > zero": OK
+        "Comparable: greater_or_equal zero one": OK
+        "Comparable: greater_or_equal one zero": OK
+        "Comparable: zero >= one": OK
+        "Comparable: one >= zero": OK
+        "Comparable: min zero one": OK
+        "Comparable: min one zero": OK
+        "Comparable: max zero one": OK
+        "Comparable: max one zero": OK
+        "Comparable: min_max zero one": OK
+        "Comparable: min_max one zero": OK
+        "ToInt: to_int zero": OK
+        "ToInt: to_int one": OK
+        "ToFloat: to_float zero": OK
+        "ToFloat: to_float one": OK
+      "PredSucc" (Successes: 4)
+        "PredSucc: succ 41": OK
+        "PredSucc: pred 42": OK
+        "PredSucc: succ -6": OK
+        "PredSucc: pred -5": OK
+      "PredSucc: succ zero": OK
+      "PredSucc: pred one": OK
+      "PredSucc: succ 4": OK
+      "PredSucc: pred 5": OK
+      "PredSucc: succ -10": OK
+      "PredSucc: pred -9": OK
+    "BigInt: exponentiate (of_int 2) (-4)": OK
+    "of_float" (Successes: 28)
+      "BigInt: 2 ^ 0 - 2 ^ 0": OK
+      "BigInt: 2 ^ 1 - 2 ^ 0": OK
+      "BigInt: 2 ^ 2 - 2 ^ 0": OK
+      "BigInt: 2 ^ 3 - 2 ^ 0": OK
+      "BigInt: 2 ^ 50 - 2 ^ 0": OK
+      "BigInt: 2 ^ 51 - 2 ^ 0": OK
+      "BigInt: 2 ^ 52 - 2 ^ 0": OK
+      "BigInt: 2 ^ 53 - 2 ^ 0": OK
+      "BigInt: 2 ^ 54 - 2 ^ 1": OK
+      "BigInt: 2 ^ 55 - 2 ^ 2": OK
+      "BigInt: 2 ^ 56 - 2 ^ 3": OK
+      "BigInt: 2 ^ 57 - 2 ^ 4": OK
+      "BigInt: 2 ^ 95 - 2 ^ 42": OK
+      "BigInt: 2 ^ 1": OK
+      "BigInt: 2 ^ 2": OK
+      "BigInt: 2 ^ 15": OK
+      "BigInt: 2 ^ 16": OK
+      "BigInt: 2 ^ 17": OK
+      "BigInt: 2 ^ 31": OK
+      "BigInt: 2 ^ 32": OK
+      "BigInt: 2 ^ 33": OK
+      "BigInt: 2 ^ 63": OK
+      "BigInt: 2 ^ 64": OK
+      "BigInt: 2 ^ 65": OK
+      "BigInt: 2 ^ 127": OK
+      "BigInt: 2 ^ 128": OK
+      "BigInt: 2 ^ 129": OK
+      "BigInt: 2 ^ 1023": OK
+  "Bool" (Successes: 120)
+    "Able" (Successes: 66)
+      "Identifiable" (Successes: 18)
+        "Equatable" (Successes: 16)
+          "EquatableBasic" (Successes: 4)
+            "EquatableBasic: equal true true": OK
+            "EquatableBasic: equal false false": OK
+            "EquatableBasic: equal true false": OK
+            "EquatableBasic: equal false true": OK
+          "Equatable: true = true": OK
+          "Equatable: different true true": OK
+          "Equatable: true <> true": OK
+          "Equatable: false = false": OK
+          "Equatable: different false false": OK
+          "Equatable: false <> false": OK
+          "Equatable: true = false": OK
+          "Equatable: different true false": OK
+          "Equatable: true <> false": OK
+          "Equatable: false = true": OK
+          "Equatable: different false true": OK
+          "Equatable: false <> true": OK
+        "Representable" (Successes: 2)
+          "Representable: repr false": OK
+          "Representable: repr true": OK
+      "Comparable" (Successes: 48)
+        "ComparableBasic" (Successes: 4)
+          "ComparableBasic: compare true true": OK
+          "ComparableBasic: compare false false": OK
+          "ComparableBasic: compare false true": OK
+          "ComparableBasic: compare true false": OK
+        "Comparable: less_than true true": OK
+        "Comparable: true < true": OK
+        "Comparable: less_or_equal true true": OK
+        "Comparable: true <= true": OK
+        "Comparable: greater_than true true": OK
+        "Comparable: true > true": OK
+        "Comparable: greater_or_equal true true": OK
+        "Comparable: true >= true": OK
+        "Comparable: min true true": OK
+        "Comparable: max true true": OK
+        "Comparable: min_max true true": OK
+        "Comparable: less_than false false": OK
+        "Comparable: false < false": OK
+        "Comparable: less_or_equal false false": OK
+        "Comparable: false <= false": OK
+        "Comparable: greater_than false false": OK
+        "Comparable: false > false": OK
+        "Comparable: greater_or_equal false false": OK
+        "Comparable: false >= false": OK
+        "Comparable: min false false": OK
+        "Comparable: max false false": OK
+        "Comparable: min_max false false": OK
+        "Comparable: less_than false true": OK
+        "Comparable: less_than true false": OK
+        "Comparable: false < true": OK
+        "Comparable: true < false": OK
+        "Comparable: less_or_equal false true": OK
+        "Comparable: less_or_equal true false": OK
+        "Comparable: false <= true": OK
+        "Comparable: true <= false": OK
+        "Comparable: greater_than false true": OK
+        "Comparable: greater_than true false": OK
+        "Comparable: false > true": OK
+        "Comparable: true > false": OK
+        "Comparable: greater_or_equal false true": OK
+        "Comparable: greater_or_equal true false": OK
+        "Comparable: false >= true": OK
+        "Comparable: true >= false": OK
+        "Comparable: min false true": OK
+        "Comparable: min true false": OK
+        "Comparable: max false true": OK
+        "Comparable: max true false": OK
+        "Comparable: min_max false true": OK
+        "Comparable: min_max true false": OK
+    "Stringable" (Successes: 26)
+      "Displayable" (Successes: 2)
+        "Displayable: to_string false": OK
+        "Displayable: to_string true": OK
+      "Parsable" (Successes: 24)
+        "Parsable: of_string \"false\"": OK
+        "Parsable: try_of_string \"false\"": OK
+        "Parsable: of_string \"true\"": OK
+        "Parsable: try_of_string \"true\"": OK
+        "Parsable: of_string \"0\"": OK
+        "Parsable: try_of_string \"0\"": OK
+        "Parsable: of_string \"1\"": OK
+        "Parsable: try_of_string \"1\"": OK
+        "Parsable: of_string \"False\"": OK
+        "Parsable: try_of_string \"False\"": OK
+        "Parsable: of_string \"True\"": OK
+        "Parsable: try_of_string \"True\"": OK
+        "Parsable: of_string \"no\"": OK
+        "Parsable: try_of_string \"no\"": OK
+        "Parsable: of_string \"yes\"": OK
+        "Parsable: try_of_string \"yes\"": OK
+        "Parsable: of_string \"No\"": OK
+        "Parsable: try_of_string \"No\"": OK
+        "Parsable: of_string \"Yes\"": OK
+        "Parsable: try_of_string \"Yes\"": OK
+        "Parsable: of_string \"N\"": OK
+        "Parsable: try_of_string \"N\"": OK
+        "Parsable: of_string \"Y\"": OK
+        "Parsable: try_of_string \"Y\"": OK
+    "Bool: not true": OK
+    "Bool: not false": OK
+    "Bool: O.not true": OK
+    "Bool: O.not false": OK
+    "Bool: and_ true true": OK
+    "Bool: and_ true false": OK
+    "Bool: and_ false true": OK
+    "Bool: and_ false false": OK
+    "Bool: and_ false raise": OK
+    "Bool: true && true": OK
+    "Bool: true && false": OK
+    "Bool: false && whatever": OK
+    "Bool: or_ true true": OK
+    "Bool: or_ true false": OK
+    "Bool: or_ true raise": OK
+    "Bool: or_ false true": OK
+    "Bool: or_ false false": OK
+    "Bool: true || whatever": OK
+    "Bool: false || true": OK
+    "Bool: false || false": OK
+    "Bool: xor true true": OK
+    "Bool: xor true false": OK
+    "Bool: xor false true": OK
+    "Bool: xor false false": OK
+    "Bool: O.xor true true": OK
+    "Bool: O.xor true false": OK
+    "Bool: O.xor false true": OK
+    "Bool: O.xor false false": OK
+  "Syntactic sugar" (Successes: 10)
+    "Standard" (Successes: 5)
+      "array" (Successes: 2)
+        "get": OK
+        "set": OK
+      "string" (Successes: 2)
+        "get": OK
+        "set": OK
+      "bytes" (Successes: 1)
+        "set": OK
+    "Abbr" (Successes: 5)
+      "array" (Successes: 2)
+        "get": OK
+        "set": OK
+      "string" (Successes: 2)
+        "get": OK
+        "set": OK
+      "bytes" (Successes: 1)
+        "set": OK

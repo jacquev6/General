@@ -27,6 +27,7 @@ module Tests_alpha(Testing: Testing) = struct
   module Examples = struct
     module type S0 = sig
       type t
+      val values: t list
       val additions: (t * t * t) list
       val negations: (t * t) list
       val multiplications: (t * t * t) list

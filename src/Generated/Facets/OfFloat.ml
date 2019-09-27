@@ -7,12 +7,15 @@ module Tests_alpha(Testing: Testing) = struct
   module Examples = struct
     module type S0 = sig
       type t
+      val conversions_from_float: (float * t) list
     end
   end
 
   module Testable = struct
     module type S0 = sig
       include S0
+      include EquatableBasic.S0 with type t := t
+      include Representable.S0 with type t := t
     end
   end
 

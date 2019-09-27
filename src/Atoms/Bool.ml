@@ -1,9 +1,14 @@
 module Basic = struct
   type t = bool
 
-  let of_string = OCSP.bool_of_string
+  let of_string s =
+    try
+      OCSP.bool_of_string s
+    with Exception.InvalidArgument "bool_of_string" -> Exception.invalid_argument "Bool.of_string"
+
   let try_of_string s =
-    Exception.or_none (lazy (of_string s))
+    Exception.or_none (lazy (OCSP.bool_of_string s))
+
   let to_string = OCSP.string_of_bool
 
   let repr = OCSP.string_of_bool
@@ -38,9 +43,11 @@ module Extended(Facets: Facets) = struct
     #include "../Generated/Atoms/Bool.ml"
 
     include Tests_.Make(Basic)(struct
+      let module_name = "Bool"
+
       let values = [true; false]
 
-      let equalities = [[true]; [false]]
+      let equalities = []
 
       let differences = [
         (true, false);
@@ -50,60 +57,60 @@ module Extended(Facets: Facets) = struct
         [false; true];
       ]
 
-      let order_classes = equalities
+      let order_classes = []
 
       let representations = [
         (false, "false");
         (true, "true");
       ]
 
-      let displays = representations
+      let conversions_to_string = representations
 
-      let literals = [
+      let conversions_from_string = [
         ("false", false);
         ("true", true);
       ]
 
-      let unparsable = ["0"; "1"; "False"; "True"; "no"; "yes"; "No"; "Yes"; "N"; "Y"]
+      let unconvertible_strings = ["0"; "1"; "False"; "True"; "no"; "yes"; "No"; "Yes"; "N"; "Y"]
     end)(struct
       open Testing
 
       let tests = [
-        "not true" >: (lazy (not true |> check_false));
-        "not false" >: (lazy (not false |> check_true));
+        "Bool: not true" >: (lazy (not true |> check_false));
+        "Bool: not false" >: (lazy (not false |> check_true));
 
-        "O.not true" >: (lazy (O.not true |> check_false));
-        "O.not false" >: (lazy (O.not false |> check_true));
+        "Bool: O.not true" >: (lazy (O.not true |> check_false));
+        "Bool: O.not false" >: (lazy (O.not false |> check_true));
 
-        "and_ true true" >: (lazy (and_ true true |> check_true));
-        "and_ true false" >: (lazy (and_ true false |> check_false));
-        "and_ false true" >: (lazy (and_ false true |> check_false));
-        "and_ false false" >: (lazy (and_ false false |> check_false));
-        "and_ false raise" >: (lazy (expect_exception_named ~expected:"Failure" (lazy (and_ false (Exception.failure "")))));
+        "Bool: and_ true true" >: (lazy (and_ true true |> check_true));
+        "Bool: and_ true false" >: (lazy (and_ true false |> check_false));
+        "Bool: and_ false true" >: (lazy (and_ false true |> check_false));
+        "Bool: and_ false false" >: (lazy (and_ false false |> check_false));
+        "Bool: and_ false raise" >: (lazy (expect_exception_named ~expected:"Failure" (lazy (and_ false (Exception.failure "")))));
 
-        "true && true" >: (lazy (O.(true && true) |> check_true));
-        "true && false" >: (lazy (O.(true && false) |> check_false));
-        "false && whatever" >: (lazy (O.(false && (Exception.failure "Don't call me")) |> check_false));
+        "Bool: true && true" >: (lazy (O.(true && true) |> check_true));
+        "Bool: true && false" >: (lazy (O.(true && false) |> check_false));
+        "Bool: false && whatever" >: (lazy (O.(false && (Exception.failure "Don't call me")) |> check_false));
 
-        "or_ true true" >: (lazy (or_ true true |> check_true));
-        "or_ true false" >: (lazy (or_ true false |> check_true));
-        "or_ true raise" >: (lazy (expect_exception_named ~expected:"Failure" (lazy (or_ true (Exception.failure "")))));
-        "or_ false true" >: (lazy (or_ false true |> check_true));
-        "or_ false false" >: (lazy (or_ false false |> check_false));
+        "Bool: or_ true true" >: (lazy (or_ true true |> check_true));
+        "Bool: or_ true false" >: (lazy (or_ true false |> check_true));
+        "Bool: or_ true raise" >: (lazy (expect_exception_named ~expected:"Failure" (lazy (or_ true (Exception.failure "")))));
+        "Bool: or_ false true" >: (lazy (or_ false true |> check_true));
+        "Bool: or_ false false" >: (lazy (or_ false false |> check_false));
 
-        "true || whatever" >: (lazy (O.(true || (Exception.failure "Don't call me")) |> check_true));
-        "false || true" >: (lazy (O.(false || true) |> check_true));
-        "false || false" >: (lazy (O.(false || false) |> check_false));
+        "Bool: true || whatever" >: (lazy (O.(true || (Exception.failure "Don't call me")) |> check_true));
+        "Bool: false || true" >: (lazy (O.(false || true) |> check_true));
+        "Bool: false || false" >: (lazy (O.(false || false) |> check_false));
 
-        "xor true true" >: (lazy (xor true true |> check_false));
-        "xor true false" >: (lazy (xor true false |> check_true));
-        "xor false true" >: (lazy (xor false true |> check_true));
-        "xor false false" >: (lazy (xor false false |> check_false));
+        "Bool: xor true true" >: (lazy (xor true true |> check_false));
+        "Bool: xor true false" >: (lazy (xor true false |> check_true));
+        "Bool: xor false true" >: (lazy (xor false true |> check_true));
+        "Bool: xor false false" >: (lazy (xor false false |> check_false));
 
-        "O.xor true true" >: (lazy (O.xor true true |> check_false));
-        "O.xor true false" >: (lazy (O.xor true false |> check_true));
-        "O.xor false true" >: (lazy (O.xor false true |> check_true));
-        "O.xor false false" >: (lazy (O.xor false false |> check_false));
+        "Bool: O.xor true true" >: (lazy (O.xor true true |> check_false));
+        "Bool: O.xor true false" >: (lazy (O.xor true false |> check_true));
+        "Bool: O.xor false true" >: (lazy (O.xor false true |> check_true));
+        "Bool: O.xor false false" >: (lazy (O.xor false false |> check_false));
       ]
     end)
   end
