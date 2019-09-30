@@ -1,17 +1,14 @@
 module Basic = struct
-  module OCSP = OCamlStandard.Pervasives
-  module OCSS = OCamlStandard.String
-
   type t = char
 
-  let of_int = OCSP.char_of_int
-  let to_int = OCSP.int_of_char
+  let of_int = OCamlStandard.Pervasives.char_of_int
+  let to_int = OCamlStandard.Pervasives.int_of_char
 
   let repeat c ~len =
-    OCSS.make len c
+    OCamlStandard.String.make len c
 
   let to_string c =
-    OCSS.make 1 c
+    OCamlStandard.String.make 1 c
 
   let repr c =
     Format.apply "%C" c
@@ -28,7 +25,9 @@ end
 module Extended(Facets: Facets) = struct
   include Basic
 
-  module MakeTests(Testing: Testing) = struct
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
     #include "../Generated/Atoms/Char.ml"
 
     include Tests_.Make(Basic)(struct

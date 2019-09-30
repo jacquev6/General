@@ -4,26 +4,24 @@
 
 module GreaterLessThan = struct
   include GreaterLessThan_.MakeMakers(struct
-    open Compare
-
     let less_than ~compare x y =
       match compare x y with
-        | LT -> true
+        | Compare.LT -> true
         | _ -> false
 
     let less_or_equal ~compare x y =
       match compare x y with
-        | GT -> false
+        | Compare.GT -> false
         | _ -> true
 
     let greater_than ~compare x y =
       match compare x y with
-        | GT -> true
+        | Compare.GT -> true
         | _ -> false
 
     let greater_or_equal ~compare x y =
       match compare x y with
-        | LT -> false
+        | Compare.LT -> false
         | _ -> true
   end)
 end
@@ -40,22 +38,20 @@ end
 
 module MinMax = struct
   include MinMax_.MakeMakers(struct
-    open Compare
-
     let min ~compare x y =
       match compare x y with
-        | LT -> x
-        | GT | EQ -> y
+        | Compare.LT -> x
+        | Compare.GT | Compare.EQ -> y
 
     let max ~compare x y =
       match compare x y with
-        | GT -> x
-        | LT | EQ -> y
+        | Compare.GT -> x
+        | Compare.LT | Compare.EQ -> y
 
     let min_max ~compare x y =
       match compare x y with
-        | LT -> (x, y)
-        | GT | EQ -> (y, x)
+        | Compare.LT -> (x, y)
+        | Compare.GT | Compare.EQ -> (y, x)
   end)
 end
 

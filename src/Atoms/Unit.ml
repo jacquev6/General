@@ -1,7 +1,7 @@
 module Basic = struct
   type t = unit
 
-  let ignore = OCSP.ignore
+  let ignore = OCamlStandard.Pervasives.ignore
 
   module O = struct
     include Compare.Poly.O
@@ -17,7 +17,9 @@ end
 module Extended(Facets: Facets) = struct
   include Basic
 
-  module MakeTests(Testing: Testing) = struct
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
     #include "../Generated/Atoms/Unit.ml"
 
     include Tests_.Make(Basic)(struct

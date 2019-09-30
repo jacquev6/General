@@ -463,7 +463,7 @@ class Type:
         )
         yield mod_impl("Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end)",
             "open Testing",
-            f'let test = "{self.name}" >:: OCSP.(@) [',
+            f'let test = "{self.name}" >:: OCamlStandard.Pervasives.( @ ) [',
             indent(f"(let module T = {base.contextualized_name(self.prefix)}.Tests.Make{self.arity}(M)(E) in T.test);" for base in self.bases),
             "] Tests.tests",
         )

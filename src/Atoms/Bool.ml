@@ -3,26 +3,28 @@ module Basic = struct
 
   let of_string s =
     try
-      OCSP.bool_of_string s
+      OCamlStandard.Pervasives.bool_of_string s
     with Exception.InvalidArgument "bool_of_string" -> Exception.invalid_argument "Bool.of_string"
 
   let try_of_string s =
-    Exception.or_none (lazy (OCSP.bool_of_string s))
+    Exception.or_none (lazy (OCamlStandard.Pervasives.bool_of_string s))
 
-  let to_string = OCSP.string_of_bool
+  let to_string = OCamlStandard.Pervasives.string_of_bool
 
-  let repr = OCSP.string_of_bool
+  let repr = to_string
 
   let xor x y =
     match (x, y) with
       | (true, false) | (false, true) -> true
       | (true, true) | (false, false) -> false
 
+  let not = OCamlStandard.Pervasives.not
+
   module O = struct
     include Compare.Poly.O
     include Equate.Poly.O
 
-    let not = OCSP.not (* @todo Remove: it's not infix, so it's not an operator *)
+    let not = not (* @todo Remove: it's not infix, so it's not an operator *)
     external (&&): bool -> bool -> bool = "%sequand"
     external (||): bool -> bool -> bool = "%sequor"
     let xor = xor (* @todo Remove: it's not infix, so it's not an operator *)
@@ -31,15 +33,16 @@ module Basic = struct
   include (Compare.Poly: module type of Compare.Poly with module O:= O)
   include (Equate.Poly: module type of Equate.Poly with module O:= O)
 
-  let not = OCSP.not
-  let and_ = OCSP.(&&)
-  let or_ = OCSP.(||)
+  let and_ = O.(&&)
+  let or_ = O.(||)
 end
 
 module Extended(Facets: Facets) = struct
   include Basic
 
-  module MakeTests(Testing: Testing) = struct
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
     #include "../Generated/Atoms/Bool.ml"
 
     include Tests_.Make(Basic)(struct

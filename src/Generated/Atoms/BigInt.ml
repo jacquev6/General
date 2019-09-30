@@ -10,7 +10,7 @@ module Tests_ = struct
 
   module Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end) = struct
     open Testing
-    let test = "BigInt" >:: OCSP.(@) [
+    let test = "BigInt" >:: OCamlStandard.Pervasives.( @ ) [
       (let module T = Facets.Integer.Tests.Make0(M)(E) in T.test);
     ] Tests.tests
   end

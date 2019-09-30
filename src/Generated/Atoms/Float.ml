@@ -12,7 +12,7 @@ module Tests_ = struct
 
   module Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end) = struct
     open Testing
-    let test = "Float" >:: OCSP.(@) [
+    let test = "Float" >:: OCamlStandard.Pervasives.( @ ) [
       (let module T = Facets.RealNumber.Tests.Make0(M)(E) in T.test);
       (let module T = Facets.Bounded.Tests.Make0(M)(E) in T.test);
     ] Tests.tests

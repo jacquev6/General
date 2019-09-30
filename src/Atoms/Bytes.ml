@@ -1,6 +1,4 @@
 module Basic = struct
-  module OCSB = OCamlStandard.Bytes
-
   type t = bytes
 
   module O = struct
@@ -11,29 +9,30 @@ module Basic = struct
   include (Compare.Poly: module type of Compare.Poly with module O := O)
   include (Equate.Poly: module type of Equate.Poly with module O := O)
 
-  let of_string = OCSB.of_string
-  let to_string = OCSB.to_string
+  let of_string = OCamlStandard.Bytes.of_string
+  let to_string = OCamlStandard.Bytes.to_string
 
   let repr x =
     x
     |> to_string
     |> Format.apply "%S"
 
-  let get = OCSB.get
-  let set = OCSB.set
+  let get = OCamlStandard.Bytes.get
+  let set = OCamlStandard.Bytes.set
 
-  let size = OCSB.length
+  let size = OCamlStandard.Bytes.length
 
-  let empty = OCSB.empty
+  let empty = OCamlStandard.Bytes.empty
 
-  let make ~len =
-    OCSB.create len
+  let make ~len = OCamlStandard.Bytes.create len
 end
 
 module Extended(Facets: Facets) = struct
   include Basic
 
-  module MakeTests(Testing: Testing) = struct
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
     #include "../Generated/Atoms/Bytes.ml"
 
     include Tests_.Make(Basic)(struct

@@ -17,7 +17,9 @@ end
 module Extended(Facets: Facets) = struct
   include Basic
 
-  module MakeTests(Testing: Testing) = struct
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
     #include "../Generated/Atoms/Function2.ml"
 
     include Tests_.Make(Basic)(struct

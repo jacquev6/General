@@ -1,14 +1,11 @@
-module OCSP = OCamlStandard.Pervasives
-module OCSPr = OCamlStandard.Printf
+type t = OCamlStandard.Pervasives.out_channel
 
-type t = OCSP.out_channel
-
-let flush = OCSP.flush
+let flush = OCamlStandard.Pervasives.flush
 
 let print ?flush:(do_flush=false) channel format =
-  OCSPr.kfprintf
+  OCamlStandard.Printf.kfprintf
     (fun channel -> if do_flush then flush channel)
     channel
     format
 
-let output = OCSP.output_bytes
+let output = OCamlStandard.Pervasives.output_bytes

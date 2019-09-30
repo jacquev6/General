@@ -10,7 +10,7 @@ module Tests_ = struct
 
   module Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end) = struct
     open Testing
-    let test = "Location" >:: OCSP.(@) [
+    let test = "Location" >:: OCamlStandard.Pervasives.( @ ) [
       (let module T = Facets.Representable.Tests.Make0(M)(E) in T.test);
     ] Tests.tests
   end

@@ -38,7 +38,7 @@ module Basic = struct
   let value ?(exc=Failure "Option.value") x =
     match x with
       | Some x -> x
-      | None -> OCSP.raise exc
+      | None -> OCamlStandard.Pervasives.raise exc
 
   (* @todo Why does (o |> value) complain about missing ?exc, but (ss |> StrLi.join) doesn't complain about ?sep ? *)
 
@@ -108,7 +108,9 @@ module Extended(Facets: Facets) = struct
 
   include Self
 
-  module MakeTests(Testing: Testing) = struct
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
     #include "../Generated/Wrappers/Option.ml"
 
     include Tests_.Make(Self)(struct
@@ -154,9 +156,9 @@ module Extended(Facets: Facets) = struct
         "Option: value ~exc None" >: (lazy (expect_exception ~expected:(Exception.Failure "Nope") (lazy (value ~exc:(Exception.Failure "Nope") None))));
         "Option: repr None" >: (lazy (check_string ~expected:"None" (repr ~repr_a:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*) (*BISECT-IGNORE*)
         "Option: map None" >: (lazy (check_none_int (map ~f:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*)
-        "Option: map Some" >: (lazy (check_some_int ~expected:42 (map ~f:(OCSP.( * ) 2) (Some 21))));
+        "Option: map Some" >: (lazy (check_some_int ~expected:42 (map ~f:(( * ) 2) (Some 21))));
         "Option: value_map None" >: (lazy (check_int ~expected:42 (value_map ~def:42 ~f:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*)
-        "Option: value_map Some" >: (lazy (check_int ~expected:42 (value_map ~def:57 ~f:(OCSP.( * ) 2) (Some 21))));
+        "Option: value_map Some" >: (lazy (check_int ~expected:42 (value_map ~def:57 ~f:(( * ) 2) (Some 21))));
         "Option: iter None" >: (lazy (iter ~f:(fun _ -> Exception.failure "Don't call me") None)); (*BISECT-IGNORE*)
         "Option: iter Some" >: (lazy (check_int ~expected:42 (let x = ref 0 in iter ~f:(fun n -> x := n) (Some 42); !x)));
         "Option: filter None" >: (lazy (check_none_int (filter ~f:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*)

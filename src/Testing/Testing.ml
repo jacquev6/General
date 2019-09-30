@@ -1,8 +1,3 @@
-module OCSS = OCamlStandard.Sys
-module OCSPf = OCamlStandard.Printf (* @todo Put StdOut in Foundations *)
-
-(* Running *)
-
 module Result = struct
   module Status = struct
     type failure =
@@ -191,7 +186,7 @@ let command_line_main ~argv test =
   let result = run test in
   result
   |> Result.to_indented_strings ~verbose
-  |> List.iter ~f:(OCSPf.printf "%s\n");
+  |> List.iter ~f:(StdOut.print "%s\n");
   match result with
     | Result.Single {Result.status=Result.Status.Success; _}
     | Result.Group {Result.counts={Result.Counts.failures=0; errors=0; _}; _} ->
@@ -219,7 +214,7 @@ type context = NodeJs | ByteCode | Native
 
 let context =
   [(".js", NodeJs); (".bc", ByteCode); (".exe", Native)]
-  |> List.find_map ~f:(fun (suf, ret) -> Option.some_if' (String.has_suffix OCSS.argv.(0) ~suf) ret)
+  |> List.find_map ~f:(fun (suf, ret) -> Option.some_if' (String.has_suffix OCamlStandard.Sys.argv.(0) ~suf) ret)
 
 let skip_if_javascript test =
   if context = NodeJs then Test.(Group {name="*skipped on JavaScript*"; tests=[]}) else test

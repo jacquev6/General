@@ -1,3 +1,1 @@
-module OCSP = OCamlStandard.Pervasives
-
-let channel = OCSP.stdin
+let channel = OCamlStandard.Pervasives.stdin

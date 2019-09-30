@@ -1,7 +1,5 @@
 module Self = struct
   open Int.O
-  open Bool.O
-  open Function1.O
 
   type full = {
     min: int;

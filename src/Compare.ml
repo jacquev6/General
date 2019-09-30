@@ -4,7 +4,7 @@ let of_standard compare =
   fun x y ->
     match compare x y with
       | 0 -> EQ
-      | c when OCSP.(<) c 0 -> LT
+      | c when OCamlStandard.Pervasives.( < ) c 0 -> LT
       | _ -> GT
 
 let repr = function
@@ -15,28 +15,28 @@ let repr = function
 let equal = Equate.Poly.equal
 
 module Poly = struct
-  let compare x y = of_standard OCSP.compare x y
-  let less_than = OCSP.(<)
-  let less_or_equal = OCSP.(<=)
-  let greater_or_equal = OCSP.(>=)
-  let greater_than = OCSP.(>)
+  let compare x y = of_standard OCamlStandard.Pervasives.compare x y
+  let less_than = OCamlStandard.Pervasives.( < )
+  let less_or_equal = OCamlStandard.Pervasives.( <= )
+  let greater_or_equal = OCamlStandard.Pervasives.( >= )
+  let greater_than = OCamlStandard.Pervasives.( > )
 
   let between x ~low ~high =
-    OCSP.(&&) (less_than low x) (greater_than high x)
+    OCamlStandard.Pervasives.(&&) (less_than low x) (greater_than high x)
 
   let between_or_equal x ~low ~high =
-    OCSP.(&&) (less_or_equal low x) (greater_or_equal high x)
+    OCamlStandard.Pervasives.(&&) (less_or_equal low x) (greater_or_equal high x)
 
-  let min = OCSP.min
-  let max = OCSP.max
+  let min = OCamlStandard.Pervasives.min
+  let max = OCamlStandard.Pervasives.max
 
   let min_max x y =
     match compare x y with LT -> (x, y) | GT | EQ -> (y, x)
 
   module O = struct
-    let (<) = OCSP.(<)
-    let (<=) = OCSP.(<=)
-    let (>=) = OCSP.(>=)
-    let (>) = OCSP.(>)
+    let ( < ) = OCamlStandard.Pervasives.( < )
+    let ( <= ) = OCamlStandard.Pervasives.( <= )
+    let ( >= ) = OCamlStandard.Pervasives.( >= )
+    let ( > ) = OCamlStandard.Pervasives.( > )
   end
 end

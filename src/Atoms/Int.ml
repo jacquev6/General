@@ -3,63 +3,63 @@ module Basic = struct
 
   let zero = 0
   let one = 1
-  let smallest = OCSP.min_int
-  let greatest = OCSP.max_int
+  let smallest = OCamlStandard.Pervasives.min_int
+  let greatest = OCamlStandard.Pervasives.max_int
 
-  let width = OCSP.(OCamlStandard.Sys.word_size - 1)  (* @todo If we drop OCaml 4.02: use Sys.int_size. Until then, Int.width is wrong on Javascript *)
+  let width = OCamlStandard.Pervasives.(OCamlStandard.Sys.word_size - 1)  (* @todo If we drop OCaml 4.02: use Sys.int_size. Until then, Int.width is wrong on Javascript *)
 
   let of_int = Function1.identity
   let to_int = Function1.identity
-  let of_float = OCSP.int_of_float
-  let to_float = OCSP.float_of_int
+  let of_float = OCamlStandard.Pervasives.int_of_float
+  let to_float = OCamlStandard.Pervasives.float_of_int
 
   let of_string s =
     try
-      OCSP.int_of_string s
+      OCamlStandard.Pervasives.int_of_string s
     with Failure "int_of_string" -> Exception.invalid_argument "Int.of_string"
 
   let try_of_string s =
-    Exception.or_none (lazy (OCSP.int_of_string s))
+    Exception.or_none (lazy (OCamlStandard.Pervasives.int_of_string s))
 
-  let to_string = OCSP.string_of_int
+  let to_string = OCamlStandard.Pervasives.string_of_int
 
-  let repr = OCSP.string_of_int
+  let repr = OCamlStandard.Pervasives.string_of_int
 
-  let add = OCSP.(+)
-  let subtract = OCSP.(-)
-  let negate = OCSP.(~-)
-  let multiply = OCSP.( * )
-  let divide = OCSP.(/)
+  let add = OCamlStandard.Pervasives.( + )
+  let subtract = OCamlStandard.Pervasives.( - )
+  let negate = OCamlStandard.Pervasives.( ~- )
+  let multiply = OCamlStandard.Pervasives.( * )
+  let divide = OCamlStandard.Pervasives.( / )
   let square x = multiply x x
-  let abs = OCSP.abs
-  let modulo = OCSP.(mod)
-  let pred = OCSP.pred
-  let succ = OCSP.succ
+  let abs = OCamlStandard.Pervasives.abs
+  let modulo = OCamlStandard.Pervasives.( mod )
+  let pred = OCamlStandard.Pervasives.pred
+  let succ = OCamlStandard.Pervasives.succ
 
   module O = struct
     include Compare.Poly.O
     include Equate.Poly.O
 
-    let (~-) = OCSP.(~-)
-    let (~+) = OCSP.(~+)
-    let (+) = OCSP.(+)
-    let (-) = OCSP.(-)
-    let ( * ) = OCSP.( * )
-    let (/) = OCSP.(/)
-    let (mod) = OCSP.(mod)
+    let ( ~- ) = OCamlStandard.Pervasives.( ~- )
+    let ( ~+ ) = OCamlStandard.Pervasives.( ~+ )
+    let ( + ) = OCamlStandard.Pervasives.( + )
+    let ( - ) = OCamlStandard.Pervasives.( - )
+    let ( * ) = OCamlStandard.Pervasives.( * )
+    let ( / ) = OCamlStandard.Pervasives.( / )
+    let ( mod ) = OCamlStandard.Pervasives.( mod )
   end
 
   include (Compare.Poly: module type of Compare.Poly with module O := O)
   include (Equate.Poly: module type of Equate.Poly with module O := O)
 
   module Bitwise = struct
-    let logical_and = OCSP.(land)
-    let logical_or = OCSP.(lor)
-    let logical_xor = OCSP.(lxor)
-    let logical_not = OCSP.(lnot)
-    let logical_shift_left n ~shift = OCSP.(n lsl shift)
-    let logical_shift_right n ~shift = OCSP.(n lsr shift)
-    let arithmetic_shift_right n ~shift = OCSP.(n asr shift)
+    let logical_and = OCamlStandard.Pervasives.(land)
+    let logical_or = OCamlStandard.Pervasives.(lor)
+    let logical_xor = OCamlStandard.Pervasives.(lxor)
+    let logical_not = OCamlStandard.Pervasives.(lnot)
+    let logical_shift_left n ~shift = OCamlStandard.Pervasives.(n lsl shift)
+    let logical_shift_right n ~shift = OCamlStandard.Pervasives.(n lsr shift)
+    let arithmetic_shift_right n ~shift = OCamlStandard.Pervasives.(n asr shift)
   end
 end
 
@@ -87,7 +87,9 @@ module Extended(Facets: Facets) = struct
 
   include Self_beta
 
-  module MakeTests(Testing: Testing) = struct
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
     #include "../Generated/Atoms/Int.ml"
 
     include Tests_.Make(Self_beta)(struct

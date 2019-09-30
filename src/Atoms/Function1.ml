@@ -14,16 +14,18 @@ module Basic = struct
     fun x -> f (g x)
 
   module O = struct
-    let (@@) = apply
-    let (|>) = rev_apply
-    let (%) = compose
+    let ( @@ ) = apply
+    let ( |> ) = rev_apply
+    let ( % ) = compose
   end
 end
 
 module Extended(Facets: Facets) = struct
   include Basic
 
-  module MakeTests(Testing: Testing) = struct
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
     #include "../Generated/Atoms/Function1.ml"
 
     include Tests_.Make(Basic)(struct

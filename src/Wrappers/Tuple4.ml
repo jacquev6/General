@@ -58,7 +58,9 @@ module Extended(Facets: Facets) = struct
 
   include Self
 
-  module MakeTests(Testing: Testing) = struct
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
     #include "../Generated/Wrappers/Tuple4.ml"
 
     include Tests_.Make(Self)(struct

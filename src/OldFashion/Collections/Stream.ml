@@ -1,33 +1,29 @@
 module Self = struct
-  module OCSS = OCamlStandard.Stream
-
-  open Reference.O
   open Int.O
-  open Function1.O
 
-  type 'a t = 'a OCSS.t
+  type 'a t = 'a OCamlStandard.Stream.t
 
-  let empty = OCSS.sempty
+  let empty = OCamlStandard.Stream.sempty
 
-  let of_list = OCSS.of_list
+  let of_list = OCamlStandard.Stream.of_list
 
-  let singleton = OCSS.ising
+  let singleton = OCamlStandard.Stream.ising
 
   let to_list xs =
     let ys = ref [] in
-    OCSS.iter (fun x ->
+    OCamlStandard.Stream.iter (fun x ->
       ys := x::!ys
     ) xs;
     List.reverse !ys
 
-  let concat = OCSS.iapp
+  let concat = OCamlStandard.Stream.iapp
 
-  let prepend = OCSS.icons
+  let prepend = OCamlStandard.Stream.icons
 
   let try_next xs =
-    OCSS.peek xs
+    OCamlStandard.Stream.peek xs
     |> Option.map ~f:(fun x ->
-      OCSS.junk xs;
+      OCamlStandard.Stream.junk xs;
       x
     )
 
@@ -37,7 +33,7 @@ module Self = struct
     let aux _ = \
       CONCAT(NAME, _next) xs ~f \
     in \
-    OCSS.from aux \
+    OCamlStandard.Stream.from aux \
   \
   let CONCAT(NAME, _acc) ~acc xs ~f = \
     let acc = ref acc in \
@@ -48,16 +44,16 @@ module Self = struct
         y \
       ) \
     in \
-    OCSS.from aux \
+    OCamlStandard.Stream.from aux \
   \
   let CONCAT(NAME, _i) xs ~f = \
     CONCAT(NAME, _acc) ~acc:0 xs ~f:(fun ~acc:i x -> (i + 1, f ~i x))
 
 
   let map_next xs ~f =
-    OCSS.peek xs
+    OCamlStandard.Stream.peek xs
     |> Option.map ~f:(fun x ->
-      OCSS.junk xs;
+      OCamlStandard.Stream.junk xs;
       f x
     )
 
@@ -66,9 +62,9 @@ module Self = struct
 
   let filter_next xs ~f =
     let rec aux () =
-      OCSS.peek xs
+      OCamlStandard.Stream.peek xs
       |> Option.filter_map ~f:(fun x ->
-        OCSS.junk xs;
+        OCamlStandard.Stream.junk xs;
         if f x then
           Some x
         else
@@ -82,9 +78,9 @@ module Self = struct
 
   let filter_map_next xs ~f =
     let rec aux () =
-      OCSS.peek xs
+      OCamlStandard.Stream.peek xs
       |> Option.filter_map ~f:(fun x ->
-        OCSS.junk xs;
+        OCamlStandard.Stream.junk xs;
         match f x with
           | None -> aux ()
           | y -> y
@@ -104,12 +100,12 @@ module Self = struct
       match !current with
         | None -> None
         | Some ys -> begin
-          match OCSS.peek ys with
+          match OCamlStandard.Stream.peek ys with
             | None -> current := None; aux n
-            | x -> OCSS.junk ys; x
+            | x -> OCamlStandard.Stream.junk ys; x
         end
     in
-    OCSS.from aux
+    OCamlStandard.Stream.from aux
 
   let flat_map_acc ~acc xs ~f =
     let acc = ref acc
@@ -119,12 +115,12 @@ module Self = struct
       match !current with
         | None -> None
         | Some ys -> begin
-          match OCSS.peek ys with
+          match OCamlStandard.Stream.peek ys with
             | None -> current := None; aux n
-            | x -> OCSS.junk ys; x
+            | x -> OCamlStandard.Stream.junk ys; x
         end
     in
-    OCSS.from aux
+    OCamlStandard.Stream.from aux
 
   let flat_map_i xs ~f =
     flat_map_acc ~acc:0 xs ~f:(fun ~acc:i x -> (i + 1, f ~i x))

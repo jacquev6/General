@@ -3,81 +3,81 @@ module Basic = struct
 
   let zero = 0.
   let one = 1.
-  let pi = OCSP.(4. *. atan 1.)
-  let e = OCSP.exp 1.
-  let smallest = OCSP.min_float
-  let greatest = OCSP.max_float
-  let epsilon = OCSP.epsilon_float
-  let infinity = OCSP.infinity
-  let negative_infinity = OCSP.neg_infinity
-  let not_a_number = OCSP.nan
+  let pi = OCamlStandard.Pervasives.(4. *. atan 1.)
+  let e = OCamlStandard.Pervasives.exp 1.
+  let smallest = OCamlStandard.Pervasives.min_float
+  let greatest = OCamlStandard.Pervasives.max_float
+  let epsilon = OCamlStandard.Pervasives.epsilon_float
+  let infinity = OCamlStandard.Pervasives.infinity
+  let negative_infinity = OCamlStandard.Pervasives.neg_infinity
+  let not_a_number = OCamlStandard.Pervasives.nan
 
-  let of_int = OCSP.float_of_int
-  let to_int = OCSP.int_of_float
+  let of_int = OCamlStandard.Pervasives.float_of_int
+  let to_int = OCamlStandard.Pervasives.int_of_float
   let of_float = Function1.identity
   let to_float = Function1.identity
 
   let of_string s =
     try
-      OCSP.float_of_string s
+      OCamlStandard.Pervasives.float_of_string s
     with Exception.Failure "float_of_string" -> Exception.invalid_argument "Float.of_string"
 
   let try_of_string s =
-    Exception.or_none (lazy (OCSP.float_of_string s))
+    Exception.or_none (lazy (OCamlStandard.Pervasives.float_of_string s))
 
   let to_string = Format.apply "%g"
 
-  let of_parts ~significand ~exponent = OCSP.ldexp significand exponent
-  let to_parts = OCSP.frexp
+  let of_parts ~significand ~exponent = OCamlStandard.Pervasives.ldexp significand exponent
+  let to_parts = OCamlStandard.Pervasives.frexp
 
-  let to_fractional_and_integral = OCSP.modf
+  let to_fractional_and_integral = OCamlStandard.Pervasives.modf
 
   let repr = Format.apply "%F"
 
-  let add = OCSP.(+.)
-  let subtract = OCSP.(-.)
-  let negate = OCSP.(~-.)
-  let multiply = OCSP.( *. )
-  let divide = OCSP.(/.)
+  let add = OCamlStandard.Pervasives.(+.)
+  let subtract = OCamlStandard.Pervasives.(-.)
+  let negate = OCamlStandard.Pervasives.(~-.)
+  let multiply = OCamlStandard.Pervasives.( *. )
+  let divide = OCamlStandard.Pervasives.(/.)
   let square x = multiply x x
-  let abs = OCSP.abs_float
-  let modulo = OCSP.mod_float
+  let abs = OCamlStandard.Pervasives.abs_float
+  let modulo = OCamlStandard.Pervasives.mod_float
 
-  let sqrt = OCSP.sqrt
+  let sqrt = OCamlStandard.Pervasives.sqrt
 
-  let exp = OCSP.exp
-  let log = OCSP.log
-  let log10 = OCSP.log10
-  let expm1 = OCSP.expm1
-  let log1p = OCSP.log1p
+  let exp = OCamlStandard.Pervasives.exp
+  let log = OCamlStandard.Pervasives.log
+  let log10 = OCamlStandard.Pervasives.log10
+  let expm1 = OCamlStandard.Pervasives.expm1
+  let log1p = OCamlStandard.Pervasives.log1p
 
-  let cos = OCSP.cos
-  let sin = OCSP.sin
-  let tan = OCSP.tan
-  let acos = OCSP.acos
-  let asin = OCSP.asin
-  let atan = OCSP.atan
-  let atan2 ~y ~x = OCSP.atan2 y x
-  let hypot = OCSP.hypot
-  let cosh = OCSP.cosh
-  let sinh = OCSP.sinh
-  let tanh = OCSP.tanh
+  let cos = OCamlStandard.Pervasives.cos
+  let sin = OCamlStandard.Pervasives.sin
+  let tan = OCamlStandard.Pervasives.tan
+  let acos = OCamlStandard.Pervasives.acos
+  let asin = OCamlStandard.Pervasives.asin
+  let atan = OCamlStandard.Pervasives.atan
+  let atan2 ~y ~x = OCamlStandard.Pervasives.atan2 y x
+  let hypot = OCamlStandard.Pervasives.hypot
+  let cosh = OCamlStandard.Pervasives.cosh
+  let sinh = OCamlStandard.Pervasives.sinh
+  let tanh = OCamlStandard.Pervasives.tanh
 
-  let ceil = OCSP.ceil
-  let floor = OCSP.floor
-  let copy_sign x ~sign = OCSP.copysign x sign
+  let ceil = OCamlStandard.Pervasives.ceil
+  let floor = OCamlStandard.Pervasives.floor
+  let copy_sign x ~sign = OCamlStandard.Pervasives.copysign x sign
 
   module O = struct
     include Compare.Poly.O
     include Equate.Poly.O
 
-    let (~-) = OCSP.(~-.)
-    let (~+) = OCSP.(~+.)
-    let (+) = OCSP.(+.)
-    let (-) = OCSP.(-.)
-    let ( * ) = OCSP.( *. )
-    let (/) = OCSP.(/.)
-    let (mod) = OCSP.mod_float
+    let ( ~- ) = OCamlStandard.Pervasives.( ~-. )
+    let ( ~+ ) = OCamlStandard.Pervasives.( ~+. )
+    let ( + ) = OCamlStandard.Pervasives.( +. )
+    let ( - ) = OCamlStandard.Pervasives.( -. )
+    let ( * ) = OCamlStandard.Pervasives.( *. )
+    let ( / ) = OCamlStandard.Pervasives.( /. )
+    let ( mod ) = OCamlStandard.Pervasives.mod_float
   end
 
   include (Compare.Poly: module type of Compare.Poly with module O := O)
@@ -87,13 +87,40 @@ module Basic = struct
     less_than (abs (subtract a b)) precision
 
   module O_dot = struct
-    let (~-.) = OCSP.(~-.)
-    let (~+.) = OCSP.(~+.)
-    let (+.) = OCSP.(+.)
-    let (-.) = OCSP.(-.)
-    let ( *. ) = OCSP.( *. )
-    let (/.) = OCSP.(/.)
-    let ( ** ) = OCSP.( ** )
+    let ( ~-. ) = OCamlStandard.Pervasives.( ~-. )
+    let ( ~+. ) = OCamlStandard.Pervasives.( ~+. )
+    let ( +. ) = OCamlStandard.Pervasives.( +. )
+    let ( -. ) = OCamlStandard.Pervasives.( -. )
+    let ( *. ) = OCamlStandard.Pervasives.( *. )
+    let ( /. ) = OCamlStandard.Pervasives.( /. )
+    let ( ** ) = OCamlStandard.Pervasives.( ** )
+  end
+
+  module Class = struct
+    type t = Normal | SubNormal | Zero | Infinite | NotANumber
+
+    let of_float x =
+      match OCamlStandard.Pervasives.classify_float x with
+        | OCamlStandard.Pervasives.FP_normal -> Normal
+        | OCamlStandard.Pervasives.FP_subnormal -> SubNormal
+        | OCamlStandard.Pervasives.FP_zero -> Zero
+        | OCamlStandard.Pervasives.FP_infinite -> Infinite
+        | OCamlStandard.Pervasives.FP_nan -> NotANumber
+
+    let repr = function
+      | Normal -> "Normal"
+      | SubNormal -> "SubNormal"
+      | Zero -> "Zero"
+      | Infinite -> "Infinite"
+      | NotANumber -> "NotANumber"
+
+    module O = struct
+      include Compare.Poly.O
+      include Equate.Poly.O
+    end
+
+    include (Compare.Poly: module type of Compare.Poly with module O := O)
+    include (Equate.Poly: module type of Equate.Poly with module O := O)
   end
 end
 
@@ -123,45 +150,18 @@ module Extended(Facets: Facets) = struct
 
   include SelfB
 
-  module Class = struct
-    type t = Normal | SubNormal | Zero | Infinite | NotANumber
+  module MakeTests(Standard: Standard) = struct
+    open Standard
 
-    let of_float x =
-      match OCSP.classify_float x with
-        | OCSP.FP_normal -> Normal
-        | OCSP.FP_subnormal -> SubNormal
-        | OCSP.FP_zero -> Zero
-        | OCSP.FP_infinite -> Infinite
-        | OCSP.FP_nan -> NotANumber
-
-    let repr = function
-      | Normal -> "Normal"
-      | SubNormal -> "SubNormal"
-      | Zero -> "Zero"
-      | Infinite -> "Infinite"
-      | NotANumber -> "NotANumber"
-
-    module O = struct
-      include Compare.Poly.O
-      include Equate.Poly.O
-    end
-
-    include (Compare.Poly: module type of Compare.Poly with module O := O)
-    include (Equate.Poly: module type of Equate.Poly with module O := O)
-  end
-
-  module MakeTests(Testing: Testing) = struct
     #include "../Generated/Atoms/Float.ml"
 
     module ClassTests = struct
       #include "../Generated/Atoms/Float/Class.ml"
 
       include Tests_.Make(Class)(struct
-        open Class
+        let values = Class.[Normal; SubNormal; Zero; Infinite; NotANumber]
 
-        let values = [ Normal; SubNormal; Zero; Infinite; NotANumber]
-
-        let representations = [
+        let representations = Class.[
           (Normal, "Normal");
           (SubNormal, "SubNormal");
           (Zero, "Zero");
@@ -171,11 +171,11 @@ module Extended(Facets: Facets) = struct
 
         let equalities = []
 
-        let differences = [
+        let differences = Class.[
           (Normal, SubNormal);
         ]
 
-        let strict_orders = [
+        let strict_orders = Class.[
           [Normal; SubNormal; Zero; Infinite; NotANumber];
         ]
 

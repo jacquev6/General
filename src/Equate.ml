@@ -1,14 +1,14 @@
 module Poly = struct
-  let equal = OCSP.(=)
-  let different = OCSP.(<>)
+  let equal = OCamlStandard.Pervasives.( = )
+  let different = OCamlStandard.Pervasives.( <> )
 
   module O = struct
-    let (=) = OCSP.(=)
-    let (<>) = OCSP.(<>)
+    let ( = ) = OCamlStandard.Pervasives.( = )
+    let ( <> ) = OCamlStandard.Pervasives.( <> )
   end
 end
 
 module Phys = struct
-  let equal = OCSP.(==)
-  let different = OCSP.(!=)
+  let equal = OCamlStandard.Pervasives.( == )
+  let different = OCamlStandard.Pervasives.( != )
 end

@@ -1,10 +1,5 @@
 module Basic = struct
-  module OCSA = OCamlStandard.Array
-
   type 'a t = 'a list
-
-  open Function1.O
-  open Bool.O
 
   (* @feature Add a 'Small' module with the same interface but non-terminal-recursive implementations *)
 
@@ -14,8 +9,8 @@ module Basic = struct
   let of_list = Function1.identity
   let to_list = Function1.identity
   (* @todo Test everything for stack overflow. Including to/of_array. *)
-  let of_array = OCSA.to_list
-  let to_array = OCSA.of_list
+  let of_array = OCamlStandard.Array.to_list
+  let to_array = OCamlStandard.Array.of_list
 
   let is_empty = function
     | [] -> true

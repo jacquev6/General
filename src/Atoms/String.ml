@@ -1,12 +1,7 @@
 module Basic = struct
   type t = string
 
-  module OCSS = OCamlStandard.String
-  module OCSB = OCamlStandard.Bytes
   open Int.O
-  open Bool.O
-  open Function1.O
-  open Reference.O
 
   let repr x =
     Format.apply "%S" x
@@ -15,28 +10,28 @@ module Basic = struct
   let of_string = Function1.identity
   let try_of_string = Option.some
 
-  let of_bytes = OCSB.to_string
-  let to_bytes = OCSB.of_string
+  let of_bytes = OCamlStandard.Bytes.to_string
+  let to_bytes = OCamlStandard.Bytes.of_string
 
-  let get = OCSS.get
-  let set = OCSB.set
+  let get = OCamlStandard.String.get
+  let set = OCamlStandard.Bytes.set
 
-  let concat = OCSP.(^)
+  let concat = OCamlStandard.Pervasives.( ^ )
 
   module O = struct
     include Compare.Poly.O
     include Equate.Poly.O
 
-    let (^) = OCSP.(^)
+    let ( ^ ) = OCamlStandard.Pervasives.( ^ )
   end
 
   include (Compare.Poly: module type of Compare.Poly with module O := O)
   include (Equate.Poly: module type of Equate.Poly with module O := O)
 
-  let size = OCSS.length
+  let size = OCamlStandard.String.length
 
   let of_char c =
-    OCSS.make 1 c
+    OCamlStandard.String.make 1 c
 
   let to_list s =
     let r = ref [] in
@@ -47,15 +42,15 @@ module Basic = struct
 
   let of_list xs =
     let len = List.size xs in
-    let r = OCSB.create len in
+    let r = OCamlStandard.Bytes.create len in
     xs
     |> List.iter_i ~f:(fun ~i x ->
-      OCSB.set r i x
+      OCamlStandard.Bytes.set r i x
     );
     of_bytes r
 
   let substring s ~pos ~len =
-    OCSS.sub s pos len
+    OCamlStandard.String.sub s pos len
 
   let prefix s ~len =
     substring s ~pos:0 ~len
@@ -145,7 +140,9 @@ end
 module Extended(Facets: Facets) = struct
   include Basic
 
-  module MakeTests(Testing: Testing) = struct
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
     #include "../Generated/Atoms/String.ml"
 
     include Tests_.Make(Basic)(struct

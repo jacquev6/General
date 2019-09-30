@@ -1,19 +1,17 @@
 module Basic = struct
-  module OCSB = OCamlStandard.Big_int
+  type t = OCamlStandard.Big_int.big_int
 
-  type t = OCSB.big_int
+  let zero = OCamlStandard.Big_int.zero_big_int
+  let one = OCamlStandard.Big_int.unit_big_int
 
-  let zero = OCSB.zero_big_int
-  let one = OCSB.unit_big_int
-
-  let of_int = OCSB.big_int_of_int
-  let to_int = OCSB.int_of_big_int
+  let of_int = OCamlStandard.Big_int.big_int_of_int
+  let to_int = OCamlStandard.Big_int.int_of_big_int
 
   let of_float x =
     let of_small_float x =
       x
       |> Int64.of_float
-      |> OCSB.big_int_of_int64
+      |> OCamlStandard.Big_int.big_int_of_int64
     and breakpoint =
       58 (* Any integer between 53 and 63 (included) works, because floats have 53 significant bits and int64s have 63 significant bits *)
     in
@@ -21,49 +19,49 @@ module Basic = struct
     if exponent <= breakpoint then
       of_small_float x
     else
-      OCSB.shift_left_big_int
+      OCamlStandard.Big_int.shift_left_big_int
         (of_small_float (Float.of_parts ~significand ~exponent:breakpoint))
         (exponent - breakpoint)
 
-  let to_float = OCSB.float_of_big_int
+  let to_float = OCamlStandard.Big_int.float_of_big_int
 
   let of_string s =
     try
-      OCSB.big_int_of_string s
+      OCamlStandard.Big_int.big_int_of_string s
     with Exception.Failure "invalid digit" -> Exception.invalid_argument "BigInt.of_string"
 
   let try_of_string s =
-    Exception.or_none (lazy (OCSB.big_int_of_string s))
+    Exception.or_none (lazy (OCamlStandard.Big_int.big_int_of_string s))
 
-  let to_string = OCSB.string_of_big_int
+  let to_string = OCamlStandard.Big_int.string_of_big_int
 
   let repr = to_string
 
-  let abs = OCSB.abs_big_int
+  let abs = OCamlStandard.Big_int.abs_big_int
 
-  let negate = OCSB.minus_big_int
-  let add = OCSB.add_big_int
-  let subtract = OCSB.sub_big_int
-  let multiply = OCSB.mult_big_int
-  let divide = OCSB.div_big_int
-  let modulo = OCSB.mod_big_int
-  let square = OCSB.square_big_int
+  let negate = OCamlStandard.Big_int.minus_big_int
+  let add = OCamlStandard.Big_int.add_big_int
+  let subtract = OCamlStandard.Big_int.sub_big_int
+  let multiply = OCamlStandard.Big_int.mult_big_int
+  let divide = OCamlStandard.Big_int.div_big_int
+  let modulo = OCamlStandard.Big_int.mod_big_int
+  let square = OCamlStandard.Big_int.square_big_int
   let exponentiate x n =
     if n < 0 then
       Exception.invalid_argument "BigInt.exponentiate: Negative exponent: %i" n
     else
-      OCSB.power_big_int_positive_int x n
+      OCamlStandard.Big_int.power_big_int_positive_int x n
 
-  let pred = OCSB.pred_big_int
-  let succ = OCSB.succ_big_int
+  let pred = OCamlStandard.Big_int.pred_big_int
+  let succ = OCamlStandard.Big_int.succ_big_int
 
-  let equal = OCSB.eq_big_int
+  let equal = OCamlStandard.Big_int.eq_big_int
 
-  let compare = Compare.of_standard OCSB.compare_big_int
-  let less_than = OCSB.lt_big_int
-  let less_or_equal = OCSB.le_big_int
-  let greater_than = OCSB.gt_big_int
-  let greater_or_equal = OCSB.ge_big_int
+  let compare = Compare.of_standard OCamlStandard.Big_int.compare_big_int
+  let less_than = OCamlStandard.Big_int.lt_big_int
+  let less_or_equal = OCamlStandard.Big_int.le_big_int
+  let greater_than = OCamlStandard.Big_int.gt_big_int
+  let greater_or_equal = OCamlStandard.Big_int.ge_big_int
 end
 
 module Extended(Facets: Facets) = struct
@@ -89,12 +87,14 @@ module Extended(Facets: Facets) = struct
 
   include Self
 
-  module MakeTests(Testing: Testing) = struct
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
     #include "../Generated/Atoms/BigInt.ml"
 
     include Tests_.Make(Self)(struct
-      let i = OCSB.big_int_of_int
-      let s = OCSB.big_int_of_string
+      let i = of_int
+      let s = of_string
 
       let module_name = "BigInt"
 

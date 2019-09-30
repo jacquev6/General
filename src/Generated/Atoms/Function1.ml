@@ -7,7 +7,7 @@ module Tests_ = struct
 
   module Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end) = struct
     open Testing
-    let test = "Function1" >:: OCSP.(@) [
+    let test = "Function1" >:: OCamlStandard.Pervasives.( @ ) [
     ] Tests.tests
   end
 end

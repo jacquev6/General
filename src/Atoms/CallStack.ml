@@ -1,17 +1,15 @@
 module Basic = struct
-  module OCSPE = OCamlStandard.Printexc
-
-  type t = OCSPE.raw_backtrace
+  type t = OCamlStandard.Printexc.raw_backtrace
 
   let current ?(max_size=Int.greatest) () =
-    OCSPE.get_callstack max_size
+    OCamlStandard.Printexc.get_callstack max_size
 
-  let to_string = OCSPE.raw_backtrace_to_string
+  let to_string = OCamlStandard.Printexc.raw_backtrace_to_string
   
   let repr = to_string  (* @todo Provide a more consise, more structured repr *)
 
   module Location = struct
-    type t = OCSPE.location = {
+    type t = OCamlStandard.Printexc.location = {
       filename: string;
       line_number: int;
       start_char: int;
@@ -31,17 +29,17 @@ module Basic = struct
   end
 
   module Frame = struct
-    type t = OCSPE.backtrace_slot
+    type t = OCamlStandard.Printexc.backtrace_slot
 
-    let is_raise = OCSPE.Slot.is_raise
+    let is_raise = OCamlStandard.Printexc.Slot.is_raise
 
-    let location = OCSPE.Slot.location
+    let location = OCamlStandard.Printexc.Slot.location
 
-    let format = OCSPE.Slot.format
+    let format = OCamlStandard.Printexc.Slot.format
   end
 
   let frames bt =
-    match OCSPE.backtrace_slots bt with
+    match OCamlStandard.Printexc.backtrace_slots bt with
       | None -> [] (*BISECT-IGNORE*) (* Would require compiling without tag debug *)
       | Some frames -> List.of_array frames
 end
@@ -49,7 +47,9 @@ end
 module Extended(Facets: Facets) = struct
   include Basic
 
-  module MakeTests(Testing: Testing) = struct
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
     #include "../Generated/Atoms/CallStack.ml"
 
     #include "CallStack.symbols.ml"
@@ -87,9 +87,9 @@ module Extended(Facets: Facets) = struct
           | Native ->
             let frame = List.head (frames stack) in
             Frame.[
-              "format 0" >: (lazy (check_some_string ~expected:"Raised by primitive operation at file \"Atoms/CallStack.ml\", line 7, characters 4-32" (format 0 frame)));
-              "format 1" >: (lazy (check_some_string ~expected:"Called from file \"Atoms/CallStack.ml\", line 7, characters 4-32" (format 1 frame)));
-              "location" >: (lazy (check_some ~repr:Location.repr ~equal:Location.equal ~expected:{Location.filename="Atoms/CallStack.ml"; line_number=7; start_char=4; end_char=32} (location frame)))
+              "format 0" >: (lazy (check_some_string ~expected:"Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49" (format 0 frame)));
+              "format 1" >: (lazy (check_some_string ~expected:"Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49" (format 1 frame)));
+              "location" >: (lazy (check_some ~repr:Location.repr ~equal:Location.equal ~expected:{Location.filename="Atoms/CallStack.ml"; line_number=5; start_char=4; end_char=49} (location frame)))
             ]
       end)
     end
@@ -111,7 +111,7 @@ module Extended(Facets: Facets) = struct
               Called from unknown location\n\
               Called from unknown location\n"
             | Native ->
-              "Raised by primitive operation at file \"Atoms/CallStack.ml\", line 7, characters 4-32\n\
+              "Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
               Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
               Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
               Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\

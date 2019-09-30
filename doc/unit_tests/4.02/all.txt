@@ -1,4 +1,4 @@
-"General" (Successes: 7582)
+"General" (Successes: 7584)
   "BigInt" (Successes: 504)
     "Integer" (Successes: 475)
       "RealNumber" (Successes: 460)
@@ -936,9 +936,9 @@
       "Displayable: to_string \"bar\\\"baz\"": OK
   "CallStack" (Successes: 7)
     "Displayable" (Successes: 1)
-      "Displayable: to_string Raised by primitive operation at file \"Atoms/CallStack.ml\", line 7, characters 4-32\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n": OK
+      "Displayable: to_string Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n": OK
     "Representable" (Successes: 1)
-      "Representable: repr Raised by primitive operation at file \"Atoms/CallStack.ml\", line 7, characters 4-32\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n": OK
+      "Representable: repr Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n": OK
     "CallStack: frames": OK
     "Location" (Successes: 1)
       "Representable" (Successes: 1)
@@ -5476,10 +5476,12 @@
       "Bounded" (Successes: 0)
       "Bitwise" (Successes: 0)
     "Int64: exponentiate 2L (-4)": OK
-  "Lazy" (Successes: 3)
+  "Lazy" (Successes: 5)
     "Lazy: value": OK
+    "Lazy: value exc": OK
     "Lazy: is_value": OK
     "Lazy: map": OK
+    "Lazy: map is lazy": OK
   "NativeInt" (Successes: 798)
     "FixedWidthInteger" (Successes: 797)
       "Integer" (Successes: 797)

@@ -1,4 +1,4 @@
-(* Phase 1: ensure our code is explicit about using the OCaml standard library (i.e. through OCamlStandard) *)
+(* Ensure our code is explicit about using the OCaml standard library (i.e. through OCamlStandard) *)
 
 module OCamlStandard = struct
   #include "Reset/OCamlStandard.ml"
@@ -13,9 +13,7 @@ end
 
 open Reset
 
-module OCSP = OCamlStandard.Pervasives
-
-(* Phase 2: add basic types used in Facets' interface *)
+(* Basic types used in Facets' interface *)
 
 module Equate = struct
   #include "Equate.ml"
@@ -33,11 +31,16 @@ module Test = struct
   #include "Testing/Test.ml"
 end
 
+(* Signature used to inject Facets to make extended types *)
+
 module type Facets = sig
   [@@@ocaml.warning "-32"]
   #include "Generated/Facets.mli"
   [@@@ocaml.warning "+32"]
 end
+
+(* Signatures used to inject General.Testing into facets' test code and General.Standard in the MakeTests functors
+They are ad-hoc subsets of the modules they're named after, containing exactly what the implementation uses. *)
 
 module type Testing = sig
   type context = NodeJs | ByteCode | Native
@@ -90,7 +93,22 @@ module type Testing = sig
   val check_int_tuple5: expected:int * int * int * int * int -> int * int * int * int * int -> unit
 end
 
-(* Phase 3: implement everything that does not depend on Facets *)
+module type Standard = sig
+  val ( + ): int -> int -> int
+  val ( / ): int -> int -> int
+  val ( * ): int -> int -> int
+
+  module Testing: Testing
+
+  module Exception: sig
+    exception InvalidArgument of string
+    exception Failure of string
+
+    val failure: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
+  end
+end
+
+(* Everything that does not depend on Facets, i.e. the "basic" types *)
 
 module Format = struct
   #include "OldFashion/Atoms/Format.ml"
@@ -114,13 +132,18 @@ module Function1_ = struct
 end
 open Function1_
 
-let (|>) = Function1.rev_apply  (* @todo Put somewhere *)
+let ( |> ) = Function1.rev_apply  (* @todo Put somewhere *)
+let ( % ) = Function1.compose  (* @todo Put somewhere *)
 
 module Bool_ = struct
   #include "Atoms/Bool.ml"
   module Bool = Basic
 end
 open Bool_
+
+let ( && ) = Bool.O.( && )  (* @todo Put somewhere *)
+(* let ( || ) = Bool.O.( || )  (* @todo Put somewhere *) *)
+let not = Bool.not  (* @todo Put somewhere *)
 
 module Function2_ = struct
   #include "Atoms/Function2.ml"
@@ -328,7 +351,7 @@ module BigInt_ = struct
   #include "Atoms/BigInt.ml"
 end
 
-(* Phase 4: Implement Facets *)
+(* Facets implementation *)
 
 module Facets_alpha = struct
   #include "Generated/Facets_alpha.ml"
@@ -360,7 +383,7 @@ module Facets = struct
   module Scanable = Facets_alpha.Scanable
 end
 
-(* Phase 5: extend implementation using Facets *)
+(* Extended types, using Facets *)
 
 #include "Generated/Types.extended.ml"
 
@@ -380,7 +403,7 @@ end
 
 module SortedSet = SortedSet_.Extended(Facets)
 
-(* Phase 6: wrap it up *)
+(* Conclusion *)
 
 module TestingTests = struct
   #include "Testing/Tests.ml"
@@ -594,40 +617,42 @@ module Abbr = struct
   include PervasivesWhitelist
 end
 
+(* Tests *)
+
 module MakeTests() = struct
   open Testing
 
   let test = "General" >:: [
-    (let module T = BigInt.MakeTests(Testing) in T.test);
+    (let module T = BigInt.MakeTests(Standard) in T.test);
     (* BinaryHeap.Tests.test; *)
-    (let module T = Bool.MakeTests(Testing) in T.test);
-    (let module T = Bytes.MakeTests(Testing) in T.test);
-    (let module T = CallStack.MakeTests(Testing) in T.test);
-    (let module T = Char.MakeTests(Testing) in T.test);
-    (let module T = Exception.MakeTests(Testing) in T.test);
-    (let module T = Exit.MakeTests(Testing) in T.test);
-    (let module T = Float.MakeTests(Testing) in T.test);
-    (let module T = Function1.MakeTests(Testing) in T.test);
-    (let module T = Function2.MakeTests(Testing) in T.test);
-    (let module T = Function3.MakeTests(Testing) in T.test);
-    (let module T = Function4.MakeTests(Testing) in T.test);
-    (let module T = Function5.MakeTests(Testing) in T.test);
-    (let module T = Int.MakeTests(Testing) in T.test);
-    (let module T = Int32.MakeTests(Testing) in T.test);
-    (let module T = Int64.MakeTests(Testing) in T.test);
-    (let module T = Lazy.MakeTests(Testing) in T.test);
+    (let module T = Bool.MakeTests(Standard) in T.test);
+    (let module T = Bytes.MakeTests(Standard) in T.test);
+    (let module T = CallStack.MakeTests(Standard) in T.test);
+    (let module T = Char.MakeTests(Standard) in T.test);
+    (let module T = Exception.MakeTests(Standard) in T.test);
+    (let module T = Exit.MakeTests(Standard) in T.test);
+    (let module T = Float.MakeTests(Standard) in T.test);
+    (let module T = Function1.MakeTests(Standard) in T.test);
+    (let module T = Function2.MakeTests(Standard) in T.test);
+    (let module T = Function3.MakeTests(Standard) in T.test);
+    (let module T = Function4.MakeTests(Standard) in T.test);
+    (let module T = Function5.MakeTests(Standard) in T.test);
+    (let module T = Int.MakeTests(Standard) in T.test);
+    (let module T = Int32.MakeTests(Standard) in T.test);
+    (let module T = Int64.MakeTests(Standard) in T.test);
+    (let module T = Lazy.MakeTests(Standard) in T.test);
     (* List.Tests.test; *)
-    (let module T = NativeInt.MakeTests(Testing) in T.test);
-    (let module T = Option.MakeTests(Testing) in T.test);
+    (let module T = NativeInt.MakeTests(Standard) in T.test);
+    (let module T = Option.MakeTests(Standard) in T.test);
     (* RedBlackTree.Tests.test; *)
-    (let module T = Reference.MakeTests(Testing) in T.test);
+    (let module T = Reference.MakeTests(Standard) in T.test);
     (* Stream.Tests.test; *)
-    (let module T = String.MakeTests(Testing) in T.test);
-    (let module T = Tuple2.MakeTests(Testing) in T.test);
-    (let module T = Tuple3.MakeTests(Testing) in T.test);
-    (let module T = Tuple4.MakeTests(Testing) in T.test);
-    (let module T = Tuple5.MakeTests(Testing) in T.test);
-    (let module T = Unit.MakeTests(Testing) in T.test);
+    (let module T = String.MakeTests(Standard) in T.test);
+    (let module T = Tuple2.MakeTests(Standard) in T.test);
+    (let module T = Tuple3.MakeTests(Standard) in T.test);
+    (let module T = Tuple4.MakeTests(Standard) in T.test);
+    (let module T = Tuple5.MakeTests(Standard) in T.test);
+    (let module T = Unit.MakeTests(Standard) in T.test);
 
     (* IntRange.Tests.test; *)
 

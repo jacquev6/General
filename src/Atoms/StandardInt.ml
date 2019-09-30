@@ -35,21 +35,19 @@ module MakeBasic(M: sig
   val compare: t -> t -> int
   val equal: t -> t -> bool
 end) = struct
-  open M
+  type t = M.t
 
-  type nonrec t = t
+  let width = M.size
 
-  let width = size
+  let zero = M.zero
+  let one = M.one
+  let greatest = M.max_int
+  let smallest = M.min_int
 
-  let zero = zero
-  let one = one
-  let greatest = max_int
-  let smallest = min_int
-
-  let of_float = of_float
-  let to_float = to_float
-  let of_int = of_int
-  let to_int = to_int
+  let of_float = M.of_float
+  let to_float = M.to_float
+  let of_int = M.of_int
+  let to_int = M.to_int
 
   let of_string s =
     try
@@ -59,34 +57,34 @@ end) = struct
   let try_of_string s =
     Exception.or_none (lazy (M.of_string s))
 
-  let to_string = to_string
+  let to_string = M.to_string
 
   let repr n =
-    Format.apply "%s%s" (to_string n) repr_suffix
+    Format.apply "%s%s" (to_string n) M.repr_suffix
 
-  let abs = abs
+  let abs = M.abs
 
-  let succ = succ
-  let pred = pred
+  let succ = M.succ
+  let pred = M.pred
 
-  let negate = neg
-  let add = add
-  let subtract = sub
-  let multiply = mul
-  let divide = div
-  let modulo = rem
+  let negate = M.neg
+  let add = M.add
+  let subtract = M.sub
+  let multiply = M.mul
+  let divide = M.div
+  let modulo = M.rem
 
-  let compare = Compare.of_standard compare
-  let equal = equal
+  let compare = Compare.of_standard M.compare
+  let equal = M.equal
 
   module Bitwise = struct
-    let logical_and = logand
-    let logical_or = logor
-    let logical_xor = logxor
-    let logical_not = lognot
-    let logical_shift_left n ~shift = shift_left n shift
-    let logical_shift_right n ~shift = shift_right_logical n shift
-    let arithmetic_shift_right n ~shift = shift_right n shift
+    let logical_and = M.logand
+    let logical_or = M.logor
+    let logical_xor = M.logxor
+    let logical_not = M.lognot
+    let logical_shift_left n ~shift = M.shift_left n shift
+    let logical_shift_right n ~shift = M.shift_right_logical n shift
+    let arithmetic_shift_right n ~shift = M.shift_right n shift
   end
 end
 

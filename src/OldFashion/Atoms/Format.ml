@@ -1,17 +1,14 @@
-module OCSPr = OCamlStandard.Printf
-module OCSSc = OCamlStandard.Scanf
-
-type ('a, 'b, 'c, 'd, 'e, 'f) t = ('a, 'b, 'c, 'd, 'e, 'f) OCSP.format6
+type ('a, 'b, 'c, 'd, 'e, 'f) t = ('a, 'b, 'c, 'd, 'e, 'f) OCamlStandard.Pervasives.format6
 
 let with_result format ~f =
-  OCSPr.ksprintf f format
+  OCamlStandard.Printf.ksprintf f format
 
 let apply format =
-  OCSPr.sprintf format
+  OCamlStandard.Printf.sprintf format
 
-let of_string = OCSP.format_of_string
-let to_string = OCSP.string_of_format
-let concat = OCSP.(^^)
+let of_string = OCamlStandard.Pervasives.format_of_string
+let to_string = OCamlStandard.Pervasives.string_of_format
+let concat = OCamlStandard.Pervasives.(^^)
 
 let with_scan_result format ~f s =
-  OCSSc.sscanf s format f
+  OCamlStandard.Scanf.sscanf s format f
