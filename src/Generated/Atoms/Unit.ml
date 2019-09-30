@@ -1,4 +1,3 @@
-(*
 module Tests_ = struct
   module type Examples = sig
     include Facets.Able.Tests.Examples.S0 with type t := unit
@@ -16,5 +15,3 @@ module Tests_ = struct
     ] Tests.tests
   end
 end
-
-*)

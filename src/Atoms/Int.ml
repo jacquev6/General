@@ -1,5 +1,3 @@
-#include "../Generated/Atoms/Int.ml"
-
 module Basic = struct
   type t = int
 
@@ -14,9 +12,15 @@ module Basic = struct
   let to_int = Function1.identity
   let of_float = OCSP.int_of_float
   let to_float = OCSP.float_of_int
-  let of_string = OCSP.int_of_string
+
+  let of_string s =
+    try
+      OCSP.int_of_string s
+    with Failure "int_of_string" -> Exception.invalid_argument "Int.of_string"
+
   let try_of_string s =
-    Exception.or_none (lazy (of_string s))
+    Exception.or_none (lazy (OCSP.int_of_string s))
+
   let to_string = OCSP.string_of_int
 
   let repr = OCSP.string_of_int
@@ -82,82 +86,108 @@ module Extended(Facets: Facets) = struct
   end
 
   include Self_beta
+
+  module MakeTests(Testing: Testing) = struct
+    #include "../Generated/Atoms/Int.ml"
+
+    include Tests_.Make(Self_beta)(struct
+      let module_name = "Int"
+
+      let values = [1; 2; 3]
+
+      let conversions_to_string = [
+        (-3, "-3");
+        (-0, "0");
+        (0, "0");
+        (1, "1");
+        (15, "15");
+      ]
+
+      let representations = conversions_to_string
+
+      let conversions_from_string = [
+        ("0", 0);
+        ("1", 1);
+        ("-1", -1);
+        ("1_000", 1000);
+        ("0x10", 16);
+        ("0o10", 8);
+        ("0b10", 2);
+      ]
+
+      let unconvertible_strings = ["a"]
+
+      let equalities = []
+
+      let differences = [
+        (0, 1);
+        (1, -1);
+      ]
+
+      let strict_orders = [
+        [-10; -5; -1; 0; 1; 2; 5];
+      ]
+
+      let order_classes = []
+
+      let additions = [
+        (4, 3, 7);
+        (4, -2, 2);
+        (5, -7, -2);
+      ]
+
+      let negations = [
+        (4, -4);
+      ]
+
+      let multiplications = [
+        (4, 3, 12);
+        (4, -3, -12);
+        (-4, -3, 12);
+      ]
+
+      let divisions = [
+        (5, 2, 2);
+        (4, 2, 2);
+        (4, 3, 1);
+        (4, 4, 1);
+        (4, 5, 0);
+      ]
+
+      let exponentiations = [
+        (3, 3, 27);
+        (2, 7, 128);
+      ]
+
+      let successions = [
+        (1, 2);
+        (42, 43);
+        (-121, -120);
+      ]
+
+      let conversions_to_int = [
+        (12, 12)
+      ]
+
+      let conversions_from_int = [
+        (12, 12)
+      ]
+
+      let conversions_to_float = [
+        (12, 12.)
+      ]
+
+      let conversions_from_float = [
+        (12., 12);
+        (12.99, 12);
+        (-12.99, -12);
+      ]
+    end)(struct
+      open Testing
+
+      let tests = [
+        "Int: exponentiate 2 (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "Int.exponentiate: Negative exponent: -4") (lazy (exponentiate 2 (-4)))));
+      ]
+    end)
+  end
 end
-
-(*
-module Tests = Tests_.Make(Self_beta)(struct
-  let representations = [
-    (-3, "-3");
-    (-0, "0");
-    (0, "0");
-    (1, "1");
-    (15, "15");
-  ]
-
-  let displays = representations
-
-  let literals = [
-    ("0", 0);
-    ("1", 1);
-    ("-1", -1);
-    ("1_000", 1000);
-  ]
-
-  let equalities = [
-    [0];
-    [1];
-    [2];
-  ]
-
-  let differences = [
-    (0, 1);
-    (1, -1);
-  ]
-
-  let orders = [
-    [-10; -5; -1; 0; 1; 2; 5];
-  ]
-
-  let additions = [
-    (4, 3, 7);
-    (4, -2, 2);
-    (5, -7, -2);
-  ]
-
-  let negations = [
-    (4, -4);
-    (-7, 7);
-  ]
-
-  let multiplications = [
-    (4, 3, 12);
-    (4, -3, -12);
-    (-4, -3, 12);
-  ]
-
-  let divisions = [
-    (5, 2, 2);
-    (4, 2, 2);
-    (4, 3, 1);
-    (4, 4, 1);
-    (4, 5, 0);
-  ]
-
-  let exponentiations = [
-    (3, 3, 27);
-    (2, 7, 128);
-  ]
-
-  let successions = [
-    (1, 2);
-    (42, 43);
-    (-121, -120);
-  ]
-end)(struct
-  open Testing
-
-  let tests = [
-    "exponentiate 2 (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "Int.exponentiate: Negative exponent: -4") (lazy (exponentiate 2 (-4)))));
-  ]
-end)
-*)

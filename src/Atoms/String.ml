@@ -1,6 +1,4 @@
-#include "../Generated/Atoms/String.ml"
-
-module Self = struct
+module Basic = struct
   type t = string
 
   module OCSS = OCamlStandard.String
@@ -144,51 +142,56 @@ module Self = struct
     |> List.reverse
 end
 
-include Self
+module Extended(Facets: Facets) = struct
+  include Basic
 
-(*
-module Tests = Tests_.Make(Self)(struct
-  let representations = [
-    ("foo", "\"foo\"");
-    ("bar\"baz", "\"bar\\\"baz\"");
-  ]
+  module MakeTests(Testing: Testing) = struct
+    #include "../Generated/Atoms/String.ml"
 
-  let displays = [
-    ("foo", "foo");
-    ("bar\"baz", "bar\"baz");
-  ]
+    include Tests_.Make(Basic)(struct
+      let module_name = "String"
 
-  let literals = [
-    ("foo", "foo");
-    ("bar\"baz", "bar\"baz");
-  ]
+      let values = ["foo"; "bar"]
 
-  let equalities = [
-    ["foo"];
-  ]
-
-  let differences = [
-    ("foo", "bar");
-  ]
-
-  let orders = [
-    ["aaaa"; "aaaaa"; "aaaab"; "ab"; "b"];
-  ]
-end)(struct
-  open Testing
-
-  let tests = [
-    "split'" >:: (
-      let make s seps expected =
-        ~: "%S %S" s (of_list seps) (lazy (
-          check_string_list ~expected (split' s ~seps)
-        ))
-      in
-      [
-        make "abcdefghfj" ['c'; 'f'] ["ab"; "de"; "gh"; "j"];
-        make "xabxxcdx" ['x'] [""; "ab"; ""; "cd"; ""];
+      let representations = [
+        ("foo", "\"foo\"");
+        ("bar\"baz", "\"bar\\\"baz\"");
       ]
-    );
-  ]
-end)
-*)
+
+      let conversions_to_string = [
+        ("foo", "foo");
+        ("bar\"baz", "bar\"baz");
+      ]
+
+      let conversions_from_string = conversions_to_string
+
+      let unconvertible_strings = []
+
+      let equalities = []
+
+      let differences = [
+        ("foo", "bar");
+      ]
+
+      let strict_orders = [
+        ["aaaa"; "aaaaa"; "aaaab"; "ab"; "b"];
+      ]
+
+      let order_classes = []
+    end)(struct
+      open Testing
+
+      let tests = (
+        let make s seps expected =
+          ~: "String: split %S %S" s (of_list seps) (lazy (
+            check_string_list ~expected (split' s ~seps)
+          ))
+        in
+        [
+          make "abcdefghfj" ['c'; 'f'] ["ab"; "de"; "gh"; "j"];
+          make "xabxxcdx" ['x'] [""; "ab"; ""; "cd"; ""];
+        ]
+      )
+    end)
+  end
+end

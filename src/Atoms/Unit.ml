@@ -1,6 +1,4 @@
-#include "../Generated/Atoms/Unit.ml"
-
-module Self = struct
+module Basic = struct
   type t = unit
 
   let ignore = OCSP.ignore
@@ -16,22 +14,28 @@ module Self = struct
   let repr () = "()"
 end
 
-include Self
+module Extended(Facets: Facets) = struct
+  include Basic
 
-(*
-module Tests = Tests_.Make(Self)(struct
-    let representations = [
+  module MakeTests(Testing: Testing) = struct
+    #include "../Generated/Atoms/Unit.ml"
+
+    include Tests_.Make(Basic)(struct
+      let values = [()]
+
+      let representations = [
         ((), "()");
-    ]
+      ]
 
-    let equalities = [
-        [()];
-    ]
+      let equalities = []
 
-    let differences = []
+      let differences = []
 
-    let orders = []
-end)(struct
-  let tests = []
-end)
-*)
+      let strict_orders = []
+
+      let order_classes = []
+    end)(struct
+      let tests = []
+    end)
+  end
+end

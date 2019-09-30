@@ -348,7 +348,7 @@ class Facet:
         yield "end)(E)",
 
 
-ng = ["BigInt", "Bool", "Bytes", "CallStack", "Frame", "Location", "Char", "Exception", "Exit", "Float", "Class"]
+ng = ["BigInt", "Bool", "Bytes", "CallStack", "Frame", "Location", "Char", "Exception", "Exit", "Float", "Class", "Function1", "Function2", "Function3", "Function4", "Function5", "Int", "Int32", "Int64", "NativeInt", "String", "Unit"]
 
 
 class Type:

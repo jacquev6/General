@@ -300,10 +300,23 @@ module Extended(Facets: Facets) = struct
         (2., -4, 0.0625);
       ]
 
-      let conversions_from_float = []
-      let conversions_to_float = []
-      let conversions_from_int = []
-      let conversions_to_int = []
+      let conversions_from_float = [
+        (12., 12.);
+      ]
+
+      let conversions_to_float = [
+        (12., 12.);
+      ]
+
+      let conversions_from_int = [
+        (12, 12.);
+      ]
+
+      let conversions_to_int = [
+        (12., 12);
+        (12.99, 12);
+        (-12.99, -12);
+      ]
     end)(struct
       open Testing
 

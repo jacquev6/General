@@ -82,7 +82,7 @@ module type Testing = sig
   (* val check_none_string: string option -> unit *)
   (* val check_list: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a list -> 'a list -> unit *)
   (* val check_list_poly: repr:('a -> string) -> expected:'a list -> 'a list -> unit *)
-  (* val check_string_list: expected:string list -> string list -> unit *)
+  val check_string_list: expected:string list -> string list -> unit
   (* val check_int_list: expected:int list -> int list -> unit *)
 end
 
@@ -102,9 +102,11 @@ module Exception_ = struct
 end
 open Exception_
 
-module Function1 = struct
+module Function1_ = struct
   #include "Atoms/Function1.ml"
+  module Function1 = Basic
 end
+open Function1_
 
 let (|>) = Function1.rev_apply  (* @todo Put somewhere *)
 
@@ -114,21 +116,29 @@ module Bool_ = struct
 end
 open Bool_
 
-module Function2 = struct
+module Function2_ = struct
   #include "Atoms/Function2.ml"
+  module Function2 = Basic
 end
+open Function2_
 
-module Function3 = struct
+module Function3_ = struct
   #include "Atoms/Function3.ml"
+  module Function3 = Basic
 end
+open Function3_
 
-module Function4 = struct
+module Function4_ = struct
   #include "Atoms/Function4.ml"
+  module Function4 = Basic
 end
+open Function4_
 
-module Function5 = struct
+module Function5_ = struct
   #include "Atoms/Function5.ml"
+  module Function5 = Basic
 end
+open Function5_
 
 module Int_ = struct
   #include "Atoms/Int.ml"
@@ -166,9 +176,11 @@ module Reference_ = struct
 end
 open Reference_
 
-module Unit = struct
+module Unit_ = struct
   #include "Atoms/Unit.ml"
+  module Unit = Basic
 end
+open Unit_
 
 let ignore = Unit.ignore  (* @todo Put somewhere *)
 
@@ -206,9 +218,11 @@ module SortedSet_ = struct
 end
 open SortedSet_
 
-module String = struct
+module String_ = struct
   #include "Atoms/String.ml"
+  module String = Basic
 end
+open String_
 
 module IntRange = struct
   #include "OldFashion/Collections/IntRange.ml"
@@ -320,27 +334,45 @@ module StandardInt = struct
   #include "Atoms/StandardInt.ml"
 end
 
-module Int32 = struct
+module Int32_ = struct
   #include "Atoms/Int32.ml"
 end
 
-module Int64 = struct
+module Int64_ = struct
   #include "Atoms/Int64.ml"
+  module Int64 = Basic
 end
+open Int64_
 
 module BigInt = struct
   #include "Atoms/BigInt.ml"
 end
 
-module NativeInt = struct
+module NativeInt_ = struct
   #include "Atoms/NativeInt.ml"
 end
 
 module Exception = Exception_.Extended(Facets)
 
+module Function1 = Function1_.Extended(Facets)
+
+module Function2 = Function2_.Extended(Facets)
+
+module Function3 = Function3_.Extended(Facets)
+
+module Function4 = Function4_.Extended(Facets)
+
+module Function5 = Function5_.Extended(Facets)
+
 module Bool = Bool_.Extended(Facets)
 
 module Int = Int_.Extended(Facets)
+
+module Int32 = Int32_.Extended(Facets)
+
+module Int64 = Int64_.Extended(Facets)
+
+module NativeInt = NativeInt_.Extended(Facets)
 
 module Float = Float_.Extended(Facets)
 
@@ -360,6 +392,8 @@ module Tuple5 = Tuple5_.Extended(Facets)
 
 module Reference = Reference_.Extended(Facets)
 
+module Unit = Unit_.Extended(Facets)
+
 module PriorityQueue = struct
   #include "OldFashion/Implementation/PriorityQueue.ml"
 end
@@ -373,6 +407,8 @@ module SortedMap = struct
 end
 
 module SortedSet = SortedSet_.Extended(Facets)
+
+module String = String_.Extended(Facets)
 
 module Exit = Exit_.Extended(Facets)
 
@@ -607,27 +643,27 @@ module MakeTests() = struct
     (let module T = Exception.MakeTests(Testing) in T.test);
     (let module T = Exit.MakeTests(Testing) in T.test);
     (let module T = Float.MakeTests(Testing) in T.test);
-    (* Function1.Tests.test; *)
-    (* Function2.Tests.test; *)
-    (* Function3.Tests.test; *)
-    (* Function4.Tests.test; *)
-    (* Function5.Tests.test; *)
-    (* Int.Tests.test; *)
-    (* Int32.Tests.test; *)
-    (* Int64.Tests.test; *)
+    (let module T = Function1.MakeTests(Testing) in T.test);
+    (let module T = Function2.MakeTests(Testing) in T.test);
+    (let module T = Function3.MakeTests(Testing) in T.test);
+    (let module T = Function4.MakeTests(Testing) in T.test);
+    (let module T = Function5.MakeTests(Testing) in T.test);
+    (let module T = Int.MakeTests(Testing) in T.test);
+    (let module T = Int32.MakeTests(Testing) in T.test);
+    (let module T = Int64.MakeTests(Testing) in T.test);
     (* Lazy.Tests.test; *)
     (* List.Tests.test; *)
-    (* NativeInt.Tests.test; *)
+    (let module T = NativeInt.MakeTests(Testing) in T.test);
     (* Option.Tests.test; *)
     (* RedBlackTree.Tests.test; *)
     (* Reference.Tests.test; *)
     (* Stream.Tests.test; *)
-    (* String.Tests.test; *)
+    (let module T = String.MakeTests(Testing) in T.test);
     (* Tuple2.Tests.test; *)
     (* Tuple3.Tests.test; *)
     (* Tuple4.Tests.test; *)
     (* Tuple5.Tests.test; *)
-    (* Unit.Tests.test; *)
+    (let module T = Unit.MakeTests(Testing) in T.test);
 
     (* IntRange.Tests.test; *)
 

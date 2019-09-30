@@ -51,10 +51,17 @@ end): Facets.FixedWidthInteger.S0 with type t = M.t = struct
     let to_float = to_float
     let of_int = of_int
     let to_int = to_int
-    let of_string = of_string
+
+    let of_string s =
+      try
+        M.of_string s
+      with Failure "int_of_string" -> Exception.invalid_argument "%s.of_string" M.name
+
     let try_of_string s =
-      Exception.or_none (lazy (of_string s))
+      Exception.or_none (lazy (M.of_string s))
+
     let to_string = to_string
+
     let repr n =
       Format.apply "%s%s" (to_string n) repr_suffix
 

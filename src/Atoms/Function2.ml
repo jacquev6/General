@@ -1,6 +1,4 @@
-#include "../Generated/Atoms/Function2.ml"
-
-module Self = struct
+module Basic = struct
   type ('a, 'b, 'z) t = 'a -> 'b -> 'z
 
   let flip f =
@@ -16,17 +14,21 @@ module Self = struct
       f x y
 end
 
-include Self
+module Extended(Facets: Facets) = struct
+  include Basic
 
-(*
-module Tests = Tests_.Make(Self)(struct
-end)(struct
-  open Testing
+  module MakeTests(Testing: Testing) = struct
+    #include "../Generated/Atoms/Function2.ml"
 
-  let tests = [
-    "flip" >: (lazy (check_int ~expected:128 ((flip Int.exponentiate) 7 2)));
-    "curry" >: (lazy (check_int ~expected:5 ((curry (fun (x, y) -> x - y)) 7 2)));
-    "uncurry" >: (lazy (check_int ~expected:5 ((uncurry (-)) (7, 2))));
-  ]
-end)
-*)
+    include Tests_.Make(Basic)(struct
+    end)(struct
+      open Testing
+
+      let tests = [
+        "Function2: flip" >: (lazy (check_string ~expected:"2 7." ((flip (Format.apply "%d %F")) 7. 2)));
+        "Function2: uncurry" >: (lazy (check_string ~expected:"7 2." ((uncurry (Format.apply "%d %F")) (7, 2.))));
+        "Function2: curry" >: (lazy (check_string ~expected:"7 2." ((curry (uncurry (Format.apply "%d %F"))) 7 2.)));
+      ]
+    end)
+  end
+end
