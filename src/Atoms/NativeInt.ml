@@ -1,4 +1,4 @@
-module Basic = StandardInt.Make(struct
+module Basic = StandardInt.MakeBasic(struct
   include OCamlStandard.Nativeint
 
   let name = "NativeInt"
@@ -10,12 +10,21 @@ module Basic = StandardInt.Make(struct
 end)
 
 module Extended(Facets: Facets) = struct
-  include Basic
+  module Self = struct
+    include Basic
+    include StandardInt.MakeExtensions(Facets)(struct
+      include Basic
+
+      let name = "NativeInt"
+    end)
+  end
+
+  include Self
 
   module MakeTests(Testing: Testing) = struct
     #include "../Generated/Atoms/NativeInt.ml"
 
-    include Tests_.Make(Basic)(struct
+    include Tests_.Make(Self)(struct
       let module_name = "NativeInt"
 
       let values = [21n; -32n]

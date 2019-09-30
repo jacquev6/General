@@ -1,4 +1,4 @@
-module Make(M: sig
+module MakeBasic(M: sig
   type t
 
   val name: string
@@ -34,73 +34,83 @@ module Make(M: sig
   val to_string: t -> string
   val compare: t -> t -> int
   val equal: t -> t -> bool
-end): Facets.FixedWidthInteger.S0 with type t = M.t = struct
-  module SelfA = struct
-    open M
+end) = struct
+  open M
 
-    type nonrec t = t
+  type nonrec t = t
 
-    let width = size
+  let width = size
 
-    let zero = zero
-    let one = one
-    let greatest = max_int
-    let smallest = min_int
+  let zero = zero
+  let one = one
+  let greatest = max_int
+  let smallest = min_int
 
-    let of_float = of_float
-    let to_float = to_float
-    let of_int = of_int
-    let to_int = to_int
+  let of_float = of_float
+  let to_float = to_float
+  let of_int = of_int
+  let to_int = to_int
 
-    let of_string s =
-      try
-        M.of_string s
-      with Failure "int_of_string" -> Exception.invalid_argument "%s.of_string" M.name
+  let of_string s =
+    try
+      M.of_string s
+    with Failure "int_of_string" -> Exception.invalid_argument "%s.of_string" M.name
 
-    let try_of_string s =
-      Exception.or_none (lazy (M.of_string s))
+  let try_of_string s =
+    Exception.or_none (lazy (M.of_string s))
 
-    let to_string = to_string
+  let to_string = to_string
 
-    let repr n =
-      Format.apply "%s%s" (to_string n) repr_suffix
+  let repr n =
+    Format.apply "%s%s" (to_string n) repr_suffix
 
-    let abs = abs
+  let abs = abs
 
-    let succ = succ
-    let pred = pred
+  let succ = succ
+  let pred = pred
 
-    let negate = neg
-    let add = add
-    let subtract = sub
-    let multiply = mul
-    let divide = div
-    let modulo = rem
+  let negate = neg
+  let add = add
+  let subtract = sub
+  let multiply = mul
+  let divide = div
+  let modulo = rem
 
-    let compare = Compare.of_standard compare
-    let equal = equal
+  let compare = Compare.of_standard compare
+  let equal = equal
 
-    module Bitwise = struct
-      let logical_and = logand
-      let logical_or = logor
-      let logical_xor = logxor
-      let logical_not = lognot
-      let logical_shift_left n ~shift = shift_left n shift
-      let logical_shift_right n ~shift = shift_right_logical n shift
-      let arithmetic_shift_right n ~shift = shift_right n shift
-    end
+  module Bitwise = struct
+    let logical_and = logand
+    let logical_or = logor
+    let logical_xor = logxor
+    let logical_not = lognot
+    let logical_shift_left n ~shift = shift_left n shift
+    let logical_shift_right n ~shift = shift_right_logical n shift
+    let arithmetic_shift_right n ~shift = shift_right n shift
   end
+end
 
+module MakeExtensions(Facets: Facets)(M: sig
+  type t
+
+  val name: string
+  include Facets.ComparableBasic.S0 with type t := t
+  include Facets.EquatableBasic.S0 with type t := t
+  include Facets.RingoidBasic.S0 with type t := t
+  val modulo: t -> t -> t
+end) = struct
   module SelfB = struct
-    include Facets.Comparable.GreaterLessThan.Make0(SelfA)
-    include Facets.Comparable.MinMax.Make0(SelfA)
-    include Facets.Equatable.Different.Make0(SelfA)
-    include Facets.Ringoid.Square.Make0(SelfA)
+    include M
 
-    include SelfA
+    include Facets.Comparable.GreaterLessThan.Make0(M)
+    include Facets.Comparable.MinMax.Make0(M)
+    include Facets.Equatable.Different.Make0(M)
+    include Facets.Ringoid.Square.Make0(M)
   end
 
   module SelfC = struct
+    include SelfB
+
     include Facets.Ringoid.Exponentiate.Make0(struct
       include SelfB
 
@@ -108,21 +118,15 @@ end): Facets.FixedWidthInteger.S0 with type t = M.t = struct
         Exception.invalid_argument "%s.exponentiate: Negative exponent: %i" M.name n
     end)
     include Facets.Comparable.Between.Make0(SelfB)
-
-    include SelfB
   end
 
-  module Self = struct
-    module O = struct
-      include Facets.Comparable.Operators.Make0(SelfC)
-      include Facets.Equatable.Operators.Make0(SelfC)
-      include Facets.Ringoid.Operators.Make0(SelfC)
+  include (SelfC: module type of SelfC with type t := M.t)
 
-      let (mod) = SelfC.modulo
-    end
+  module O = struct
+    include Facets.Comparable.Operators.Make0(SelfC)
+    include Facets.Equatable.Operators.Make0(SelfC)
+    include Facets.Ringoid.Operators.Make0(SelfC)
 
-    include SelfC
+    let (mod) = M.modulo
   end
-
-  include Self
 end

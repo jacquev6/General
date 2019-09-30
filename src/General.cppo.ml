@@ -306,6 +306,28 @@ module StdOut = struct
   #include "OldFashion/Implementation/StdOut.ml"
 end
 
+module StandardInt = struct
+  #include "Atoms/StandardInt.ml"
+end
+
+module Int32_ = struct
+  #include "Atoms/Int32.ml"
+end
+
+module Int64_ = struct
+  #include "Atoms/Int64.ml"
+  module Int64 = Basic
+end
+open Int64_
+
+module NativeInt_ = struct
+  #include "Atoms/NativeInt.ml"
+end
+
+module BigInt_ = struct
+  #include "Atoms/BigInt.ml"
+end
+
 (* Phase 4: Implement Facets *)
 
 module Facets_alpha = struct
@@ -340,28 +362,6 @@ end
 
 (* Phase 5: extend implementation using Facets *)
 
-module StandardInt = struct
-  #include "Atoms/StandardInt.ml"
-end
-
-module Int32_ = struct
-  #include "Atoms/Int32.ml"
-end
-
-module Int64_ = struct
-  #include "Atoms/Int64.ml"
-  module Int64 = Basic
-end
-open Int64_
-
-module BigInt = struct
-  #include "Atoms/BigInt.ml"
-end
-
-module NativeInt_ = struct
-  #include "Atoms/NativeInt.ml"
-end
-
 module Lazy = Lazy_.Extended(Facets)
 
 module Exception = Exception_.Extended(Facets)
@@ -385,6 +385,8 @@ module Int32 = Int32_.Extended(Facets)
 module Int64 = Int64_.Extended(Facets)
 
 module NativeInt = NativeInt_.Extended(Facets)
+
+module BigInt = BigInt_.Extended(Facets)
 
 module Float = Float_.Extended(Facets)
 

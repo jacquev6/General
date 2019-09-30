@@ -1,4 +1,4 @@
-module Basic = StandardInt.Make(struct
+module Basic = StandardInt.MakeBasic(struct
   include OCamlStandard.Int32
 
   let name = "Int32"
@@ -11,12 +11,21 @@ module Basic = StandardInt.Make(struct
 end)
 
 module Extended(Facets: Facets) = struct
-  include Basic
+  module Self = struct
+    include Basic
+    include StandardInt.MakeExtensions(Facets)(struct
+      include Basic
+
+      let name = "Int32"
+    end)
+  end
+
+  include Self
 
   module MakeTests(Testing: Testing) = struct
     #include "../Generated/Atoms/Int32.ml"
 
-    include Tests_.Make(Basic)(struct
+    include Tests_.Make(Self)(struct
       let module_name = "Int32"
 
       let values = [21l; -32l]
