@@ -40,8 +40,10 @@
     Atoms/Bool.ml
     Atoms/Bytes.ml
     Atoms/CallStack.ml
+    Atoms/CallStack.symbols.ml
     Atoms/Char.ml
     Atoms/Exception.ml
+    Atoms/Exception.symbols.ml
     Atoms/Exit.ml
     Atoms/Float.ml
     Atoms/Function1.ml

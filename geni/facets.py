@@ -348,7 +348,7 @@ class Facet:
         yield "end)(E)",
 
 
-ng = ["BigInt", "Bool"]
+ng = ["BigInt", "Bool", "Bytes", "CallStack", "Frame", "Location", "Char", "Exception", "Exit", "Float", "Class"]
 
 
 class Type:
@@ -453,7 +453,8 @@ class Type:
     def __tests_implementation_items(self):
         # @todo Homogenize
         if self.name == "Class":
-            type_1 = type_2 = "SelfA.t"
+            type_1 = "Class.t"
+            type_2 = f"Class.t = {self.type}"
         elif self.name.startswith("Tuple"):
             type_1 = f"{self.type_params}t"
             type_2 = self.type

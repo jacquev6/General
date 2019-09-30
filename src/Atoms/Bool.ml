@@ -22,10 +22,10 @@ module Basic = struct
     include Compare.Poly.O
     include Equate.Poly.O
 
-    let not = OCSP.not
+    let not = OCSP.not (* @todo Remove: it's not infix, so it's not an operator *)
     external (&&): bool -> bool -> bool = "%sequand"
     external (||): bool -> bool -> bool = "%sequor"
-    let xor = xor
+    let xor = xor (* @todo Remove: it's not infix, so it's not an operator *)
   end
 
   include (Compare.Poly: module type of Compare.Poly with module O:= O)

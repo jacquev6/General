@@ -1,4 +1,3 @@
-(*
 module Tests_ = struct
   module type Examples = sig
     include Facets.Identifiable.Tests.Examples.S0 with type t := exn
@@ -19,5 +18,3 @@ module Tests_ = struct
     ] Tests.tests
   end
 end
-
-*)

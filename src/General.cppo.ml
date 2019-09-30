@@ -40,10 +40,14 @@ module type Facets = sig
 end
 
 module type Testing = sig
+  type context = NodeJs | ByteCode | Native
+  val context: context
+
   val (>::): string -> Test.t list -> Test.t
   val (>:): string -> unit lazy_t -> Test.t
   val (~:): ('a, unit, string, string, string, unit lazy_t -> Test.t) CamlinternalFormatBasics.format6 -> 'a
   (* val (~::): ('a, unit, string, string, string, Test.t list -> Test.t) CamlinternalFormatBasics.format6 -> 'a *)
+
   (* val fail: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a *)
   val expect_exception: expected:exn -> 'a lazy_t -> unit
   val expect_exception_named: expected:string -> 'a lazy_t -> unit
@@ -74,7 +78,7 @@ module type Testing = sig
   (* val check_some_int: expected:int -> int option -> unit *)
   (* val check_none_int: int option -> unit *)
   (* val check_string_option: expected:string option -> string option -> unit *)
-  (* val check_some_string: expected:string -> string option -> unit *)
+  val check_some_string: expected:string -> string option -> unit
   (* val check_none_string: string option -> unit *)
   (* val check_list: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a list -> 'a list -> unit *)
   (* val check_list_poly: repr:('a -> string) -> expected:'a list -> 'a list -> unit *)
@@ -92,9 +96,11 @@ module Lazy = struct
   #include "Wrappers/Lazy.ml"
 end
 
-module Exception = struct
+module Exception_ = struct
   #include "Atoms/Exception.ml"
+  module Exception = Basic
 end
+open Exception_
 
 module Function1 = struct
   #include "Atoms/Function1.ml"
@@ -142,9 +148,11 @@ module List_ = struct
 end
 open List_
 
-module CallStack = struct
+module CallStack_ = struct
   #include "Atoms/CallStack.ml"
+  module CallStack = Basic
 end
+open CallStack_
 
 module Float_ = struct
   #include "Atoms/Float.ml"
@@ -206,17 +214,21 @@ module IntRange = struct
   #include "OldFashion/Collections/IntRange.ml"
 end
 
-module Exit = struct
+module Exit_ = struct
   #include "Atoms/Exit.ml"
+  module Exit = Basic
 end
+open Exit_
 
 module Stream = struct
   #include "OldFashion/Collections/Stream.ml"
 end
 
-module Char = struct
+module Char_ = struct
   #include "Atoms/Char.ml"
+  module Char = Basic
 end
+open Char_
 
 module PervasivesWhitelist = struct
   #include "Reset/PervasivesWhitelist.ml"
@@ -228,9 +240,11 @@ module Array = struct
   #include "OldFashion/Implementation/Array.ml"
 end
 
-module Bytes = struct
+module Bytes_ = struct
   #include "Atoms/Bytes.ml"
+  module Bytes = Basic
 end
+open Bytes_
 
 module InChannel = struct
   #include "OldFashion/Implementation/InChannel.ml"
@@ -322,6 +336,8 @@ module NativeInt = struct
   #include "Atoms/NativeInt.ml"
 end
 
+module Exception = Exception_.Extended(Facets)
+
 module Bool = Bool_.Extended(Facets)
 
 module Int = Int_.Extended(Facets)
@@ -329,6 +345,8 @@ module Int = Int_.Extended(Facets)
 module Float = Float_.Extended(Facets)
 
 module List = List_.Extended(Facets)
+
+module CallStack = CallStack_.Extended(Facets)
 
 module Option = Option_.Extended(Facets)
 
@@ -355,6 +373,12 @@ module SortedMap = struct
 end
 
 module SortedSet = SortedSet_.Extended(Facets)
+
+module Exit = Exit_.Extended(Facets)
+
+module Char = Char_.Extended(Facets)
+
+module Bytes = Bytes_.Extended(Facets)
 
 (* Phase 6: wrap it up *)
 
@@ -577,12 +601,12 @@ module MakeTests() = struct
     (let module T = BigInt.MakeTests(Testing) in T.test);
     (* BinaryHeap.Tests.test; *)
     (let module T = Bool.MakeTests(Testing) in T.test);
-    (* Bytes.Tests.test; *)
-    (* CallStack.Tests.test; *)
-    (* Char.Tests.test; *)
-    (* Exception.Tests.test; *)
-    (* Exit.Tests.test; *)
-    (* Float.Tests.test; *)
+    (let module T = Bytes.MakeTests(Testing) in T.test);
+    (let module T = CallStack.MakeTests(Testing) in T.test);
+    (let module T = Char.MakeTests(Testing) in T.test);
+    (let module T = Exception.MakeTests(Testing) in T.test);
+    (let module T = Exit.MakeTests(Testing) in T.test);
+    (let module T = Float.MakeTests(Testing) in T.test);
     (* Function1.Tests.test; *)
     (* Function2.Tests.test; *)
     (* Function3.Tests.test; *)

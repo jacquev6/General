@@ -1,6 +1,4 @@
-#include "../Generated/Atoms/Exit.ml"
-
-module Self = struct
+module Basic = struct
     type t =
     | Success
     | Failure of int
@@ -19,11 +17,15 @@ module Self = struct
     let at_exit = OCSP.at_exit
 end
 
-include Self
+module Extended(Facets: Facets) = struct
+  include Basic
 
-(*
-module Tests = Tests_.Make(Self)(struct
-end)(struct
-    let tests = []
-end)
-*)
+  module MakeTests(Testing: Testing) = struct
+    #include "../Generated/Atoms/Exit.ml"
+
+    include Tests_.Make(Basic)(struct
+    end)(struct
+        let tests = []
+    end)
+  end
+end

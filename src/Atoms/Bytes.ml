@@ -1,8 +1,6 @@
-#include "../Generated/Atoms/Bytes.ml"
+module Basic = struct
+  module OCSB = OCamlStandard.Bytes
 
-module OCSB = OCamlStandard.Bytes
-
-module Self = struct
   type t = bytes
 
   module O = struct
@@ -32,32 +30,38 @@ module Self = struct
     OCSB.create len
 end
 
-include Self
+module Extended(Facets: Facets) = struct
+  include Basic
 
-(*
-module Tests = Tests_.Make(Self)(struct
-  let representations = [
-    (of_string "foo", "\"foo\"");
-    (of_string "bar\"baz", "\"bar\\\"baz\"");
-  ]
+  module MakeTests(Testing: Testing) = struct
+    #include "../Generated/Atoms/Bytes.ml"
 
-  let displays = [
-    (of_string "foo", "foo");
-    (of_string "bar\"baz", "bar\"baz");
-  ]
+    include Tests_.Make(Basic)(struct
+      let values = [of_string "foo"]
 
-  let equalities = [
-    [of_string "foo"];
-  ]
+      let representations = [
+        (of_string "foo", "\"foo\"");
+        (of_string "bar\"baz", "\"bar\\\"baz\"");
+      ]
 
-  let differences = [
-    (of_string "foo", of_string "bar");
-  ]
+      let conversions_to_string = [
+        (of_string "foo", "foo");
+        (of_string "bar\"baz", "bar\"baz");
+      ]
 
-  let orders = [
-    [of_string "aaaa"; of_string "aaaaa"; of_string "aaaab"; of_string "ab"; of_string "b"];
-  ]
-end)(struct
-  let tests = []
-end)
-*)
+      let equalities = []
+
+      let differences = [
+        (of_string "foo", of_string "bar");
+      ]
+
+      let strict_orders = [
+        [of_string "aaaa"; of_string "aaaaa"; of_string "aaaab"; of_string "ab"; of_string "b"];
+      ]
+
+      let order_classes = []
+    end)(struct
+      let tests = []
+    end)
+  end
+end

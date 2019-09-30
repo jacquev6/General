@@ -1,9 +1,7 @@
-#include "../Generated/Atoms/Char.ml"
+module Basic = struct
+  module OCSP = OCamlStandard.Pervasives
+  module OCSS = OCamlStandard.String
 
-module OCSP = OCamlStandard.Pervasives
-module OCSS = OCamlStandard.String
-
-module Self = struct
   type t = char
 
   let of_int = OCSP.char_of_int
@@ -16,7 +14,7 @@ module Self = struct
     OCSS.make 1 c
 
   let repr c =
-    to_string c
+    Format.apply "%C" c
 
   module O = struct
     include Compare.Poly.O
@@ -27,31 +25,47 @@ module Self = struct
   include (Equate.Poly: module type of Equate.Poly with module O := O)
 end
 
-include Self
+module Extended(Facets: Facets) = struct
+  include Basic
 
-(*
-module Tests = Tests_.Make(Self)(struct
-  let equalities = [
-    ['a'];
-  ]
+  module MakeTests(Testing: Testing) = struct
+    #include "../Generated/Atoms/Char.ml"
 
-  let differences = [
-    ('a', 'A');
-  ]
+    include Tests_.Make(Basic)(struct
+      let values = ['a'; 'z']
 
-  let representations = [
-    ('a', "a");
-  ]
+      let equalities = []
 
-  let displays = representations
+      let differences = [
+        ('a', 'A');
+      ]
 
-  let orders = [
-    ['a'; 'b'; 'c'; 'z'];
-    ['A'; 'a'];
-    ['A'; 'Z'];
-    ['0'; '1'; '9'];
-  ]
-end)(struct
-  let tests = []
-end)
-*)
+      let representations = [
+        ('a', "'a'");
+      ]
+
+      let conversions_to_string = [
+        ('a', "a");
+      ]
+
+      let strict_orders = [
+        ['a'; 'b'; 'c'; 'z'];
+        ['A'; 'a'];
+        ['A'; 'Z'];
+        ['0'; '1'; '9'];
+      ]
+
+      let order_classes = []
+
+      let conversions_from_int = [
+        (65, 'A');
+      ]
+
+      let conversions_to_int = [
+        ('A', 65);
+      ]
+    end)(struct
+      let tests = []
+    end)
+  end
+end

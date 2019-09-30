@@ -1,19 +1,4 @@
-#include "../Generated/Atoms/CallStack.ml"
-
-(*
-(* The position of these symbols is tested below. Moving them requires fixing the tests *)
-let rec stack = function
-  | 0 -> [Some (Foundations.CallStack.current ())]
-  | n -> None::(stack (n - 1))
-
-let stack =
-  stack 2
-  |> List.filter_map ~f:identity
-  |> List.head
-(* End of symbols to not move *)
-*)
-
-module Self = struct
+module Basic = struct
   module OCSPE = OCamlStandard.Printexc
 
   type t = OCSPE.raw_backtrace
@@ -22,7 +7,8 @@ module Self = struct
     OCSPE.get_callstack max_size
 
   let to_string = OCSPE.raw_backtrace_to_string
-  let repr = to_string
+  
+  let repr = to_string  (* @todo Provide a more consise, more structured repr *)
 
   module Location = struct
     type t = OCSPE.location = {
@@ -60,53 +46,90 @@ module Self = struct
       | Some frames -> List.of_array frames
 end
 
-include Self
+module Extended(Facets: Facets) = struct
+  include Basic
 
-(*
-module Tests = Tests_.Make(Self)(struct
-  let displays = [
-    (
-      stack,
-      if Testing.javascript then
-        "" (*BISECT-IGNORE*)
-      else
-        "Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 15-49\n\
-        Called from file \"Atoms/CallStack.ml\", line 6, characters 15-30\n\
-        Called from file \"Atoms/CallStack.ml\", line 6, characters 15-30\n\
-        Called from file \"Atoms/CallStack.ml\", line 9, characters 2-9\n"
-    );
-  ]
+  module MakeTests(Testing: Testing) = struct
+    #include "../Generated/Atoms/CallStack.ml"
 
-  let representations = displays
-end)(struct
-  open Testing
+    #include "CallStack.symbols.ml"
 
-  (* @todo Restore those tests *)
-  (* module LocationExamples = struct
-    let representations = [
-      (
-        {Location.filename="Atoms/CallStack.ml"; line_number=3; start_char=15; end_char=49},
-        "{filename=\"Atoms/CallStack.ml\"; line_number=3; start_char=15; end_char=49}"
-      );
-    ]
-  end *)
+    module LocationTests = struct
+      #include "../Generated/Atoms/CallStack/Location.ml"
 
-  let tests = [
-    "frames" >: (lazy (check_int ~expected:(if javascript then 0 else 4) (stack |> frames |> List.size))); (*BISECT-IGNORE*)
-    (* "Location" >:: [ *)
-      (* (let module T = Facets.Comparable.Tests.Make0(Foundations.CallStack.Location)(LocationExamples) in T.test); *)
-      (* (let module T = Facets.Equatable.Tests.Make0(Foundations.CallStack.Location)(LocationExamples) in T.test); *)
-      (* (let module T = Facets.Representable.Tests.Make0(Foundations.CallStack.Location)(LocationExamples) in T.test); *)
-    (* ]; *)
-    (* "Frame" >:: (
-      match frames stack with
-        | [] -> [] (*BISECT-IGNORE*)
-        | frame::_ -> Frame.[
-            "format 0" >: (lazy (check_some_string ~expected:"Raised by primitive operation at file \"Atoms/CallStack.ml\", line 3, characters 15-49" (format 0 frame)));
-            "format 1" >: (lazy (check_some_string ~expected:"Called from file \"Atoms/CallStack.ml\", line 3, characters 15-49" (format 1 frame)));
-            "location" >: (lazy (check_some ~repr:Location.repr ~equal:Location.equal ~expected:{Location.filename="Atoms/CallStack.ml"; line_number=3; start_char=15; end_char=49} (location frame)))
-          ]
-    ); *)
-  ]
-end)
-*)
+      include Tests_.Make(Location)(struct
+        let representations = [
+          (
+            {Location.filename="Atoms/CallStack.symbols.ml"; line_number=3; start_char=15; end_char=49},
+            "{filename=\"Atoms/CallStack.symbols.ml\"; line_number=3; start_char=15; end_char=49}"
+          );
+        ]
+      end)(struct
+        let tests = []
+      end)
+    end
+
+    module FrameTests = struct
+      #include "../Generated/Atoms/CallStack/Frame.ml"
+
+      include Tests_.Make(Frame)(struct end)(struct
+        open Testing
+
+        let tests = match Testing.context with
+          | NodeJs -> []
+          | ByteCode ->
+            let frame = List.head (frames stack) in
+            Frame.[
+              "format 0" >: (lazy (check_some_string ~expected:"Raised by primitive operation at file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27" (format 0 frame)));
+              "format 1" >: (lazy (check_some_string ~expected:"Called from file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27" (format 1 frame)));
+              "location" >: (lazy (check_some ~repr:Location.repr ~equal:Location.equal ~expected:{Location.filename="Atoms/CallStack.symbols.ml"; line_number=3; start_char=15; end_char=27} (location frame)))
+            ]
+          | Native ->
+            let frame = List.head (frames stack) in
+            Frame.[
+              "format 0" >: (lazy (check_some_string ~expected:"Raised by primitive operation at file \"Atoms/CallStack.ml\", line 7, characters 4-32" (format 0 frame)));
+              "format 1" >: (lazy (check_some_string ~expected:"Called from file \"Atoms/CallStack.ml\", line 7, characters 4-32" (format 1 frame)));
+              "location" >: (lazy (check_some ~repr:Location.repr ~equal:Location.equal ~expected:{Location.filename="Atoms/CallStack.ml"; line_number=7; start_char=4; end_char=32} (location frame)))
+            ]
+      end)
+    end
+
+    include Tests_.Make(Basic)(struct
+      let conversions_to_string = [
+        (
+          stack,
+          Testing.(match context with
+            | NodeJs ->
+              ""
+            | ByteCode ->
+              "Raised by primitive operation at file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n\
+              Called from unknown location\n\
+              Called from unknown location\n"
+            | Native ->
+              "Raised by primitive operation at file \"Atoms/CallStack.ml\", line 7, characters 4-32\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n"
+          )
+        );
+      ]
+
+      let representations = conversions_to_string
+    end)(struct
+      open Testing
+
+      let tests = [
+        "CallStack: frames" >: (lazy (check_int ~expected:Testing.(match context with | NodeJs -> 0 | ByteCode -> 8 | Native -> 9) (stack |> frames |> List.size)));
+        LocationTests.test;
+        FrameTests.test;
+      ]
+    end)
+  end
+end

@@ -1,11 +1,10 @@
-(*
 module Tests_ = struct
   module type Examples = sig
-    include Facets.Able.Tests.Examples.S0 with type t := SelfA.t
+    include Facets.Able.Tests.Examples.S0 with type t := Class.t
   end
 
   module type Testable = sig
-    type t = SelfA.t
+    type t = Class.t = Normal | SubNormal | Zero | Infinite | NotANumber
     include Facets.Able.Tests.Testable.S0 with type t := t
   end
 
@@ -16,5 +15,3 @@ module Tests_ = struct
     ] Tests.tests
   end
 end
-
-*)

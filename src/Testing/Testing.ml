@@ -215,10 +215,14 @@ let (~:) format =
 
 (* Checks *)
 
-let javascript = String.has_suffix OCSS.argv.(0) ~suf:".js"
+type context = NodeJs | ByteCode | Native
+
+let context =
+  [(".js", NodeJs); (".bc", ByteCode); (".exe", Native)]
+  |> List.find_map ~f:(fun (suf, ret) -> Option.some_if' (String.has_suffix OCSS.argv.(0) ~suf) ret)
 
 let skip_if_javascript test =
-  if javascript then Test.(Group {name="*skipped on JavaScript*"; tests=[]}) else test
+  if context = NodeJs then Test.(Group {name="*skipped on JavaScript*"; tests=[]}) else test
 
 let fail format =
   Format.with_result

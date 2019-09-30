@@ -1,5 +1,3 @@
-#include "../Generated/Atoms/Float.ml"
-
 module Basic = struct
   type t = float
 
@@ -18,17 +16,23 @@ module Basic = struct
   let to_int = OCSP.int_of_float
   let of_float = Function1.identity
   let to_float = Function1.identity
-  let of_string = OCSP.float_of_string
+
+  let of_string s =
+    try
+      OCSP.float_of_string s
+    with Exception.Failure "float_of_string" -> Exception.invalid_argument "Float.of_string"
+
   let try_of_string s =
-    Exception.or_none (lazy (of_string s))
-  let to_string = OCSP.string_of_float
+    Exception.or_none (lazy (OCSP.float_of_string s))
+
+  let to_string = Format.apply "%g"
 
   let of_parts ~significand ~exponent = OCSP.ldexp significand exponent
   let to_parts = OCSP.frexp
 
   let to_fractional_and_integral = OCSP.modf
 
-  let repr = OCSP.string_of_float
+  let repr = Format.apply "%F"
 
   let add = OCSP.(+.)
   let subtract = OCSP.(-.)
@@ -120,184 +124,206 @@ module Extended(Facets: Facets) = struct
   include SelfB
 
   module Class = struct
-    module SelfA = struct
-      type t = Normal | SubNormal | Zero | Infinite | NotANumber
+    type t = Normal | SubNormal | Zero | Infinite | NotANumber
+
+    let of_float x =
+      match OCSP.classify_float x with
+        | OCSP.FP_normal -> Normal
+        | OCSP.FP_subnormal -> SubNormal
+        | OCSP.FP_zero -> Zero
+        | OCSP.FP_infinite -> Infinite
+        | OCSP.FP_nan -> NotANumber
+
+    let repr = function
+      | Normal -> "Normal"
+      | SubNormal -> "SubNormal"
+      | Zero -> "Zero"
+      | Infinite -> "Infinite"
+      | NotANumber -> "NotANumber"
+
+    module O = struct
+      include Compare.Poly.O
+      include Equate.Poly.O
     end
 
-    #include "../Generated/Atoms/Float/Class.ml"
+    include (Compare.Poly: module type of Compare.Poly with module O := O)
+    include (Equate.Poly: module type of Equate.Poly with module O := O)
+  end
 
-    module SelfB = struct
-      include SelfA
+  module MakeTests(Testing: Testing) = struct
+    #include "../Generated/Atoms/Float.ml"
 
-      let of_float x =
-        match OCSP.classify_float x with
-          | OCSP.FP_normal -> Normal
-          | OCSP.FP_subnormal -> SubNormal
-          | OCSP.FP_zero -> Zero
-          | OCSP.FP_infinite -> Infinite
-          | OCSP.FP_nan -> NotANumber
+    module ClassTests = struct
+      #include "../Generated/Atoms/Float/Class.ml"
 
-      let repr = function
-        | Normal -> "Normal"
-        | SubNormal -> "SubNormal"
-        | Zero -> "Zero"
-        | Infinite -> "Infinite"
-        | NotANumber -> "NotANumber"
+      include Tests_.Make(Class)(struct
+        open Class
 
-      module O = struct
-        include Compare.Poly.O
-        include Equate.Poly.O
-      end
+        let values = [ Normal; SubNormal; Zero; Infinite; NotANumber]
 
-      include (Compare.Poly: module type of Compare.Poly with module O := O)
-      include (Equate.Poly: module type of Equate.Poly with module O := O)
+        let representations = [
+          (Normal, "Normal");
+          (SubNormal, "SubNormal");
+          (Zero, "Zero");
+          (Infinite, "Infinite");
+          (NotANumber, "NotANumber");
+        ]
+
+        let equalities = []
+
+        let differences = [
+          (Normal, SubNormal);
+        ]
+
+        let strict_orders = [
+          [Normal; SubNormal; Zero; Infinite; NotANumber];
+        ]
+
+        let order_classes  = []
+      end)(struct
+        open Testing
+
+        let tests = [
+          (* @todo Move to conversions_from_float *)
+          "of_float" >:: Class.(
+            let check = check ~repr ~equal in
+            O_dot.[
+              "Normal" >: (lazy (check ~expected:Normal (of_float 1.)));
+              "SubNormal" >: (lazy (check ~expected:SubNormal (of_float (1. /. greatest))));
+              "Zero" >: (lazy (check ~expected:Zero (of_float 0.)));
+              "Zero-" >: (lazy (check ~expected:Zero (of_float (-0.))));
+              "Infinite+" >: (lazy (check ~expected:Infinite (of_float (1. /. 0.))));
+              "Infinite+" >: (lazy (check ~expected:Infinite (of_float infinity)));
+              "Infinite-" >: (lazy (check ~expected:Infinite (of_float (-1. /. 0.))));
+              "Infinite-" >: (lazy (check ~expected:Infinite (of_float negative_infinity)));
+              "NotANumber" >: (lazy (check ~expected:NotANumber (of_float (0. /. 0.))));
+              "NotANumber" >: (lazy (check ~expected:NotANumber (of_float not_a_number)));
+              "NotANumber-" >: (lazy (check ~expected:NotANumber (of_float (-0. /. 0.))));
+            ]
+          );
+        ]
+      end)
     end
 
-    include SelfB
+    include Tests_.Make(SelfB)(struct
+      let module_name = "Float"
 
-    (*
-    module Tests = Tests_.Make(SelfB)(struct
+      let values = [0.; 1.; 2.]
+      (* nan, infinity and negative_infinity don't behave properly for value testing. e.g. infinity -. infinity = nan instead of zero *)
+
+      (* @todo Add small and large numbers, to test format used *)
       let representations = [
-        (Normal, "Normal");
-        (SubNormal, "SubNormal");
-        (Zero, "Zero");
-        (Infinite, "Infinite");
-        (NotANumber, "NotANumber");
+        (-3., "-3.");
+        (-0., "-0.");
+        (0., "0.");
+        (1., "1.");
+        (15., "15.");
+        (42.5, "42.5");
+        (1e30, "1e+30");
+        (1e-30, "1e-30");
       ]
 
-      let equalities = [
-        [Normal];
-        [SubNormal];
-        [Zero];
-        [Infinite];
-        [NotANumber];
+      let conversions_to_string = [
+        (-3., "-3");
+        (-0., "-0");
+        (0., "0");
+        (1., "1");
+        (15., "15");
+        (42.5, "42.5");
+        (1e30, "1e+30");
+        (1e-30, "1e-30");
       ]
+
+      let conversions_from_string = [
+        ("0", 0.);
+        ("1", 1.);
+        ("1.", 1.);
+        ("1e0", 1.);
+        ("1.0", 1.);
+        ("-1", -1.);
+        ("1_000", 1000.);
+        ("1e30", 1e30);
+        ("1e+30", 1e30);
+        ("1e-30", 1e-30);
+        ("1E30", 1e30);
+      ]
+
+      let unconvertible_strings = ["e"; "1e"]
+
+      let equalities = []
 
       let differences = [
-        (Normal, SubNormal);
+        (0., 1.);
+        (1., -1.);
+        (not_a_number, infinity);
+        (not_a_number, negative_infinity);
+        (not_a_number, 1.);
+        (not_a_number, 0.);
+        (not_a_number, not_a_number);
       ]
 
-      let orders = [
-        [Normal; SubNormal; Zero; Infinite; NotANumber];
+      let strict_orders = [
+        [-10.; -5.; -1.; -0.2; 0.; 0.7; 1.; 2.; 5.];
       ]
+
+      let order_classes = []
+
+      let additions = [
+        (4., 3., 7.);
+        (4., -2., 2.);
+        (5., -7., -2.);
+      ]
+
+      let negations = [
+        (4., -4.);
+        (7., -7.);
+      ]
+
+      let multiplications = [
+        (4., 3., 12.);
+        (4., -3., -12.);
+        (-4., -3., 12.);
+      ]
+
+      let divisions = [
+        (5., 2., 2.5);
+        (4., 2., 2.);
+        (1., 4., 0.25);
+        (4., 4., 1.);
+        (4., 5., 0.8);
+      ]
+
+      let exponentiations = [
+        (3., 3, 27.);
+        (2., 7, 128.);
+        (0.5, 4, 0.0625);
+        (2., -4, 0.0625);
+      ]
+
+      let conversions_from_float = []
+      let conversions_to_float = []
+      let conversions_from_int = []
+      let conversions_to_int = []
     end)(struct
       open Testing
 
       let tests = [
-        "of_float" >:: (
-          let check = check ~repr ~equal in
+        "ceil" >:: (
+          let make x expected =
+            ~: "Float: ceil %f" x (lazy (check_float_exact ~expected (ceil x)))
+          in
           [
-            "Normal" >: (lazy (check ~expected:Normal (of_float 1.)));
-            "SubNormal" >: (lazy (check ~expected:SubNormal (of_float (1. /. greatest))));
-            "Zero" >: (lazy (check ~expected:Zero (of_float 0.)));
-            "Zero-" >: (lazy (check ~expected:Zero (of_float (-0.))));
-            "Infinite+" >: (lazy (check ~expected:Infinite (of_float (1. /. 0.))));
-            "Infinite+" >: (lazy (check ~expected:Infinite (of_float infinity)));
-            "Infinite-" >: (lazy (check ~expected:Infinite (of_float (-1. /. 0.))));
-            "Infinite-" >: (lazy (check ~expected:Infinite (of_float negative_infinity)));
-            "NotANumber" >: (lazy (check ~expected:NotANumber (of_float (0. /. 0.))));
-            "NotANumber" >: (lazy (check ~expected:NotANumber (of_float not_a_number)));
-            "NotANumber-" >: (lazy (check ~expected:NotANumber (of_float (-0. /. 0.))));
+            make (-1.) (-1.);
+            make (-0.99) 0.;
+            make (-0.1) 0.;
+            make 0. 0.;
+            make 0.01 1.;
+            make 0.99 1.;
+            make 1. 1.;
           ]
         );
+        ClassTests.test;
       ]
     end)
-    *)
   end
 end
-
-(*
-module Tests = Tests_.Make(SelfB)(struct
-  let representations = [
-    (-3., "-3.");
-    (-0., "-0.");
-    (0., "0.");
-    (1., "1.");
-    (15., "15.");
-  ]
-
-  let displays = representations
-
-  let literals = [
-    ("0", 0.);
-    ("1", 1.);
-    ("1.0", 1.);
-    ("-1", -1.);
-    ("1_000", 1000.);
-  ]
-
-  let equalities = [
-    [0.];
-    [1.];
-    [2.];
-    [infinity];
-    [negative_infinity];
-  ]
-
-  let differences = [
-    (0., 1.);
-    (1., -1.);
-    (not_a_number, infinity);
-    (not_a_number, negative_infinity);
-    (not_a_number, 1.);
-    (not_a_number, 0.);
-    (not_a_number, not_a_number);
-  ]
-
-  let orders = [
-    [-10.; -5.; -1.; -0.2; 0.; 0.7; 1.; 2.; 5.];
-  ]
-
-  let additions = [
-    (4., 3., 7.);
-    (4., -2., 2.);
-    (5., -7., -2.);
-  ]
-
-  let negations = [
-    (4., -4.);
-    (-7., 7.);
-  ]
-
-  let multiplications = [
-    (4., 3., 12.);
-    (4., -3., -12.);
-    (-4., -3., 12.);
-  ]
-
-  let divisions = [
-    (5., 2., 2.5);
-    (4., 2., 2.);
-    (1., 4., 0.25);
-    (4., 4., 1.);
-    (4., 5., 0.8);
-  ]
-
-  let exponentiations = [
-    (3., 3, 27.);
-    (2., 7, 128.);
-    (0.5, 4, 0.0625);
-    (2., -4, 0.0625);
-  ]
-end)(struct
-  open Testing
-
-  let tests = [
-    "ceil" >:: (
-      let make x expected =
-        ~: "%f" x (lazy (check_float_exact ~expected (ceil x)))
-      in
-      [
-        make (-1.) (-1.);
-        make (-0.99) 0.;
-        make (-0.1) 0.;
-        make 0. 0.;
-        make 0.01 1.;
-        make 0.99 1.;
-        make 1. 1.;
-      ]
-    );
-    Class.Tests.test;
-  ]
-end)
-*)

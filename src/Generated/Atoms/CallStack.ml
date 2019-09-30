@@ -1,4 +1,3 @@
-(*
 module Tests_ = struct
   module type Examples = sig
     include Facets.Displayable.Tests.Examples.S0 with type t := OCamlStandard.Printexc.raw_backtrace
@@ -19,5 +18,3 @@ module Tests_ = struct
     ] Tests.tests
   end
 end
-
-*)
