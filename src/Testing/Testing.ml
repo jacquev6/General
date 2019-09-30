@@ -351,7 +351,6 @@ let check_string_list ~expected actual =
 let check_int_list ~expected actual =
   check_list ~repr:Int.repr ~equal:Int.equal ~expected actual
 
-(*
 let check_tuple2 ~repr_a ~repr_b ~equal_a ~equal_b ~expected actual =
   check
     ~repr:(Tuple2.repr ~repr_a ~repr_b)
@@ -399,4 +398,3 @@ let check_int_tuple5 ~expected actual =
     ~repr_a:Int.repr ~repr_b:Int.repr ~repr_c:Int.repr ~repr_d:Int.repr ~repr_e:Int.repr
     ~equal_a:Int.equal ~equal_b:Int.equal ~equal_c:Int.equal ~equal_d:Int.equal ~equal_e:Int.equal
     ~expected actual
-*)

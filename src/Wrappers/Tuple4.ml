@@ -1,5 +1,3 @@
-#include "../Generated/Wrappers/Tuple4.ml"
-
 module Basic = struct
   type ('a, 'b, 'c, 'd) t = 'a * 'b * 'c * 'd
 
@@ -59,43 +57,47 @@ module Extended(Facets: Facets) = struct
   end
 
   include Self
+
+  module MakeTests(Testing: Testing) = struct
+    #include "../Generated/Wrappers/Tuple4.ml"
+
+    include Tests_.Make(Self)(struct
+      module A = Int
+      module B = Int
+      module C = Float
+      module D = Int
+
+      let values = [(1, 1, 2., 3)]
+
+      let representations = [
+        ((1, 1, 2., 3), "(1, 1, 2., 3)");
+      ]
+
+      let equalities = []
+
+      let differences = [
+        ((1, 1, 2., 3), (1, 1, 2., 4));
+        ((1, 1, 2., 3), (1, 1, 3., 3));
+        ((1, 1, 2., 3), (1, 2, 2., 3));
+        ((1, 1, 2., 3), (0, 1, 2., 3));
+      ]
+
+      let strict_orders = [
+        [(1, 1, 2., 3); (1, 1, 2., 4); (1, 1, 3., 3); (1, 2, 2., 3); (2, 1, 2., 3)]
+      ]
+
+      let order_classes = []
+    end)(struct
+      open Testing
+
+      let tests = [
+        "Tuple4: make" >: (lazy (check_int_tuple4 ~expected:(1, 2, 3, 4) (make 1 2 3 4)));
+        "Tuple4: flip" >: (lazy (check_int_tuple4 ~expected:(1, 2, 3, 4) (flip (4, 3, 2, 1))));
+        "Tuple4: get_0" >: (lazy (check_int ~expected:42 (get_0 (42, 0, 0, 0))));
+        "Tuple4: get_1" >: (lazy (check_int ~expected:42 (get_1 (0, 42, 0, 0))));
+        "Tuple4: get_2" >: (lazy (check_int ~expected:42 (get_2 (0, 0, 42, 0))));
+        "Tuple4: get_3" >: (lazy (check_int ~expected:42 (get_3 (0, 0, 0, 42))));
+      ]
+    end)
+  end
 end
-
-(*
-module Tests = Tests_.Make(Self)(struct
-  module A = Foundations.Int
-  module B = Foundations.String
-  module C = Foundations.Float
-  module D = Foundations.Int
-
-  let representations = [
-    ((1, "a", 2., 3), "(1, \"a\", 2., 3)");
-  ]
-
-  let equalities = [
-    [(1, "a", 2., 3)];
-  ]
-
-  let differences = [
-    ((1, "a", 2., 3), (1, "a", 2., 4));
-    ((1, "a", 2., 3), (1, "a", 3., 3));
-    ((1, "a", 2., 3), (1, "b", 2., 3));
-    ((1, "a", 2., 3), (0, "a", 2., 3));
-  ]
-
-  let orders = [
-    [(1, "a", 2., 3); (1, "a", 2., 4); (1, "a", 3., 3); (1, "b", 2., 3); (2, "a", 2., 3)]
-  ]
-end)(struct
-  open Testing
-
-  let tests = [
-    "make" >: (lazy (check_int_tuple4 ~expected:(1, 2, 3, 4) (make 1 2 3 4)));
-    "flip" >: (lazy (check_int_tuple4 ~expected:(1, 2, 3, 4) (flip (4, 3, 2, 1))));
-    "get_0" >: (lazy (check_42 (get_0 (42, 0, 0, 0))));
-    "get_1" >: (lazy (check_42 (get_1 (0, 42, 0, 0))));
-    "get_2" >: (lazy (check_42 (get_2 (0, 0, 42, 0))));
-    "get_3" >: (lazy (check_42 (get_3 (0, 0, 0, 42))));
-  ]
-end)
-*)

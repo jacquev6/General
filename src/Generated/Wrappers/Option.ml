@@ -1,4 +1,3 @@
-(*
 module Tests_ = struct
   module type Examples = sig
     include Facets.Able.Tests.Examples.S1 with type 'a t := 'a option
@@ -16,5 +15,3 @@ module Tests_ = struct
     ] Tests.tests
   end
 end
-
-*)

@@ -1,5 +1,3 @@
-#include "../Generated/Wrappers/Option.ml"
-
 module Basic = struct
   type 'a t = 'a option
 
@@ -109,60 +107,65 @@ module Extended(Facets: Facets) = struct
   end
 
   include Self
+
+  module MakeTests(Testing: Testing) = struct
+    #include "../Generated/Wrappers/Option.ml"
+
+    include Tests_.Make(Self)(struct
+      module A = Int
+
+      let values = [None; Some 42]
+
+      let conversions_to_string = [
+        (None, "None");
+        (Some 42, "Some 42");
+      ]
+
+      let representations = conversions_to_string
+
+      let equalities = []
+
+      let differences = [
+        (None, Some 42);
+        (Some 42, Some 43);
+      ]
+
+      let strict_orders = [
+        [None; Some 0; Some 1];
+      ]
+
+      let order_classes = []
+    end)(struct
+      open Testing
+
+      let tests = [
+        "Option: some_if true" >: (lazy (check_some_int ~expected:42 (some_if true (lazy 42))));
+        "Option: some_if false" >: (lazy (check_none_int (some_if false (lazy (Exception.failure "Don't call me"))))); (*BISECT-IGNORE*)
+        "Option: some_if' true" >: (lazy (check_some_int ~expected:42 (some_if' true 42)));
+        "Option: some_if' false" >: (lazy (check_none_int (some_if' false 42)));
+        "Option: is_some None" >: (lazy (check_false (is_some None)));
+        "Option: is_some Some" >: (lazy (check_true (is_some (Some 42))));
+        "Option: is_none None" >: (lazy (check_true (is_none None)));
+        "Option: is_none Some" >: (lazy (check_false (is_none (Some 42))));
+        "Option: value_def None" >: (lazy (check_string ~expected:"def" (value_def None ~def:"def")));
+        "Option: value_def Some" >: (lazy (check_string ~expected:"val" (value_def (Some "val") ~def:"def")));
+        "Option: value Some" >: (lazy (check_string ~expected:"val" (value (Some "val"))));
+        "Option: value None" >: (lazy (expect_exception ~expected:(Exception.Failure "Option.value") (lazy (value None))));
+        "Option: value ~exc None" >: (lazy (expect_exception ~expected:(Exception.Failure "Nope") (lazy (value ~exc:(Exception.Failure "Nope") None))));
+        "Option: repr None" >: (lazy (check_string ~expected:"None" (repr ~repr_a:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*) (*BISECT-IGNORE*)
+        "Option: map None" >: (lazy (check_none_int (map ~f:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*)
+        "Option: map Some" >: (lazy (check_some_int ~expected:42 (map ~f:(OCSP.( * ) 2) (Some 21))));
+        "Option: value_map None" >: (lazy (check_int ~expected:42 (value_map ~def:42 ~f:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*)
+        "Option: value_map Some" >: (lazy (check_int ~expected:42 (value_map ~def:57 ~f:(OCSP.( * ) 2) (Some 21))));
+        "Option: iter None" >: (lazy (iter ~f:(fun _ -> Exception.failure "Don't call me") None)); (*BISECT-IGNORE*)
+        "Option: iter Some" >: (lazy (check_int ~expected:42 (let x = ref 0 in iter ~f:(fun n -> x := n) (Some 42); !x)));
+        "Option: filter None" >: (lazy (check_none_int (filter ~f:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*)
+        "Option: filter Some true" >: (lazy (check_some_int ~expected:42 (filter ~f:(fun _ -> true) (Some 42))));
+        "Option: filter Some false" >: (lazy (check_none_int (filter ~f:(fun _ -> false) (Some 42))));
+        "Option: filter_map None" >: (lazy (check_none_int (filter_map ~f:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*)
+        "Option: filter_map Some true" >: (lazy (check_some_int ~expected:57 (filter_map ~f:(fun _ -> Some 57) (Some 42))));
+        "Option: filter_map Some false" >: (lazy (check_none_int (filter_map ~f:(fun _ -> None) (Some 42))));
+      ]
+    end)
+  end
 end
-
-(*
-module Tests = Tests_.Make(Self)(struct
-  module A = Int
-
-  let representations = [
-    (None, "None");
-    (Some 42, "Some 42");
-  ]
-
-  let equalities = [
-    [None];
-    [Some 42];
-  ]
-
-  let differences = [
-    (None, Some 42);
-    (Some 42, Some 43);
-  ]
-
-  let orders = [
-    [None; Some 0; Some 1];
-  ]
-end)(struct
-  open Testing
-
-  let tests = [
-    "some_if true" >: (lazy (check_some_42 (some_if true (lazy 42))));
-    "some_if false" >: (lazy (check_none_int (some_if false (lazy (Exception.failure "Don't call me"))))); (*BISECT-IGNORE*)
-    "some_if' true" >: (lazy (check_some_42 (some_if' true 42)));
-    "some_if' false" >: (lazy (check_none_int (some_if' false 42)));
-    "is_some None" >: (lazy (check_false (is_some None)));
-    "is_some Some" >: (lazy (check_true (is_some (Some 42))));
-    "is_none None" >: (lazy (check_true (is_none None)));
-    "is_none Some" >: (lazy (check_false (is_none (Some 42))));
-    "value_def None" >: (lazy (check_string ~expected:"def" (value_def None ~def:"def")));
-    "value_def Some" >: (lazy (check_string ~expected:"val" (value_def (Some "val") ~def:"def")));
-    "value Some" >: (lazy (check_string ~expected:"val" (value (Some "val"))));
-    "value None" >: (lazy (expect_exception ~expected:(Exception.Failure "Option.value") (lazy (value None))));
-    "value ~exc None" >: (lazy (expect_exception ~expected:(Exception.Failure "Nope") (lazy (value ~exc:(Exception.Failure "Nope") None))));
-    "repr None" >: (lazy (check_string ~expected:"None" (repr ~repr_a:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*) (*BISECT-IGNORE*)
-    "map None" >: (lazy (check_none_int (map ~f:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*)
-    "map Some" >: (lazy (check_some_42 (map ~f:(( * ) 2) (Some 21))));
-    "value_map None" >: (lazy (check_42 (value_map ~def:42 ~f:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*)
-    "value_map Some" >: (lazy (check_42 (value_map ~def:57 ~f:(( * ) 2) (Some 21))));
-    "iter None" >: (lazy (iter ~f:(fun _ -> Exception.failure "Don't call me") None)); (*BISECT-IGNORE*)
-    "iter Some" >: (lazy (check_42 (let x = ref 0 in iter ~f:(fun n -> x := n) (Some 42); !x)));
-    "filter None" >: (lazy (check_none_int (filter ~f:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*)
-    "filter Some true" >: (lazy (check_some_42 (filter ~f:(fun _ -> true) (Some 42))));
-    "filter Some false" >: (lazy (check_none_int (filter ~f:(fun _ -> false) (Some 42))));
-    "filter_map None" >: (lazy (check_none_int (filter_map ~f:(fun _ -> Exception.failure "Don't call me") None))); (*BISECT-IGNORE*)
-    "filter_map Some true" >: (lazy (check_some_int ~expected:57 (filter_map ~f:(fun _ -> Some 57) (Some 42))));
-    "filter_map Some false" >: (lazy (check_none_int (filter_map ~f:(fun _ -> None) (Some 42))));
-  ]
-end)
-*)

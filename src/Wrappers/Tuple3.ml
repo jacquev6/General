@@ -1,5 +1,3 @@
-#include "../Generated/Wrappers/Tuple3.ml"
-
 module Basic = struct
   type ('a, 'b, 'c) t = 'a * 'b * 'c
 
@@ -52,40 +50,44 @@ module Extended(Facets: Facets) = struct
   end
 
   include Self
+
+  module MakeTests(Testing: Testing) = struct
+    #include "../Generated/Wrappers/Tuple3.ml"
+
+    include Tests_.Make(Self)(struct
+      module A = Int
+      module B = Int
+      module C = Float
+
+      let values = [(1, 1, 2.)]
+
+      let representations = [
+        ((1, 1, 2.), "(1, 1, 2.)");
+      ]
+
+      let equalities = []
+
+      let differences = [
+        ((1, 1, 2.), (1, 1, 3.));
+        ((1, 1, 2.), (1, 2, 2.));
+        ((1, 1, 2.), (2, 1, 2.));
+      ]
+
+      let strict_orders = [
+        [(0, 1, 0.); (0, 1, 1.); (0, 2, 0.); (1, 1, 0.)]
+      ]
+
+      let order_classes = []
+    end)(struct
+      open Testing
+
+      let tests = [
+        "Tuple3: make" >: (lazy (check_int_tuple3 ~expected:(1, 2, 3) (make 1 2 3)));
+        "Tuple3: flip" >: (lazy (check_int_tuple3 ~expected:(1, 2, 3) (flip (3, 2, 1))));
+        "Tuple3: get_0" >: (lazy (check_int ~expected:42 (get_0 (42, 0, 0))));
+        "Tuple3: get_1" >: (lazy (check_int ~expected:42 (get_1 (0, 42, 0))));
+        "Tuple3: get_2" >: (lazy (check_int ~expected:42 (get_2 (0, 0, 42))));
+      ]
+    end)
+  end
 end
-
-(*
-module Tests = Tests_.Make(Self)(struct
-  module A = Foundations.Int
-  module B = Foundations.String
-  module C = Foundations.Float
-
-  let representations = [
-    ((1, "a", 2.), "(1, \"a\", 2.)");
-  ]
-
-  let equalities = [
-    [(1, "a", 2.)];
-  ]
-
-  let differences = [
-    ((1, "a", 2.), (1, "a", 3.));
-    ((1, "a", 2.), (1, "b", 2.));
-    ((1, "a", 2.), (2, "a", 2.));
-  ]
-
-  let orders = [
-    [(0, "a", 0.); (0, "a", 1.); (0, "b", 0.); (1, "a", 0.)]
-  ]
-end)(struct
-  open Testing
-
-  let tests = [
-    "make" >: (lazy (check_int_tuple3 ~expected:(1, 2, 3) (make 1 2 3)));
-    "flip" >: (lazy (check_int_tuple3 ~expected:(1, 2, 3) (flip (3, 2, 1))));
-    "get_0" >: (lazy (check_42 (get_0 (42, 0, 0))));
-    "get_1" >: (lazy (check_42 (get_1 (0, 42, 0))));
-    "get_2" >: (lazy (check_42 (get_2 (0, 0, 42))));
-  ]
-end)
-*)

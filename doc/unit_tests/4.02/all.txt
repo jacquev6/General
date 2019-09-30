@@ -1,4 +1,4 @@
-"General" (Successes: 6413)
+"General" (Successes: 7582)
   "BigInt" (Successes: 504)
     "Integer" (Successes: 475)
       "RealNumber" (Successes: 460)
@@ -5476,6 +5476,10 @@
       "Bounded" (Successes: 0)
       "Bitwise" (Successes: 0)
     "Int64: exponentiate 2L (-4)": OK
+  "Lazy" (Successes: 3)
+    "Lazy: value": OK
+    "Lazy: is_value": OK
+    "Lazy: map": OK
   "NativeInt" (Successes: 798)
     "FixedWidthInteger" (Successes: 797)
       "Integer" (Successes: 797)
@@ -6299,6 +6303,163 @@
       "Bounded" (Successes: 0)
       "Bitwise" (Successes: 0)
     "NativeInt: exponentiate 2n (-4)": OK
+  "Option" (Successes: 148)
+    "Able" (Successes: 122)
+      "Identifiable" (Successes: 26)
+        "Equatable" (Successes: 24)
+          "EquatableBasic" (Successes: 6)
+            "EquatableBasic: equal None None": OK
+            "EquatableBasic: equal Some 42 Some 42": OK
+            "EquatableBasic: equal None Some 42": OK
+            "EquatableBasic: equal Some 42 None": OK
+            "EquatableBasic: equal Some 42 Some 43": OK
+            "EquatableBasic: equal Some 43 Some 42": OK
+          "Equatable: None = None": OK
+          "Equatable: different None None": OK
+          "Equatable: None <> None": OK
+          "Equatable: Some 42 = Some 42": OK
+          "Equatable: different Some 42 Some 42": OK
+          "Equatable: Some 42 <> Some 42": OK
+          "Equatable: None = Some 42": OK
+          "Equatable: different None Some 42": OK
+          "Equatable: None <> Some 42": OK
+          "Equatable: Some 42 = None": OK
+          "Equatable: different Some 42 None": OK
+          "Equatable: Some 42 <> None": OK
+          "Equatable: Some 42 = Some 43": OK
+          "Equatable: different Some 42 Some 43": OK
+          "Equatable: Some 42 <> Some 43": OK
+          "Equatable: Some 43 = Some 42": OK
+          "Equatable: different Some 43 Some 42": OK
+          "Equatable: Some 43 <> Some 42": OK
+        "Representable" (Successes: 2)
+          "Representable: repr None": OK
+          "Representable: repr Some 42": OK
+      "Comparable" (Successes: 96)
+        "ComparableBasic" (Successes: 8)
+          "ComparableBasic: compare None None": OK
+          "ComparableBasic: compare Some 42 Some 42": OK
+          "ComparableBasic: compare None Some 0": OK
+          "ComparableBasic: compare Some 0 None": OK
+          "ComparableBasic: compare None Some 1": OK
+          "ComparableBasic: compare Some 1 None": OK
+          "ComparableBasic: compare Some 0 Some 1": OK
+          "ComparableBasic: compare Some 1 Some 0": OK
+        "Comparable: less_than None None": OK
+        "Comparable: None < None": OK
+        "Comparable: less_or_equal None None": OK
+        "Comparable: None <= None": OK
+        "Comparable: greater_than None None": OK
+        "Comparable: None > None": OK
+        "Comparable: greater_or_equal None None": OK
+        "Comparable: None >= None": OK
+        "Comparable: min None None": OK
+        "Comparable: max None None": OK
+        "Comparable: min_max None None": OK
+        "Comparable: less_than Some 42 Some 42": OK
+        "Comparable: Some 42 < Some 42": OK
+        "Comparable: less_or_equal Some 42 Some 42": OK
+        "Comparable: Some 42 <= Some 42": OK
+        "Comparable: greater_than Some 42 Some 42": OK
+        "Comparable: Some 42 > Some 42": OK
+        "Comparable: greater_or_equal Some 42 Some 42": OK
+        "Comparable: Some 42 >= Some 42": OK
+        "Comparable: min Some 42 Some 42": OK
+        "Comparable: max Some 42 Some 42": OK
+        "Comparable: min_max Some 42 Some 42": OK
+        "Comparable: less_than None Some 0": OK
+        "Comparable: less_than Some 0 None": OK
+        "Comparable: None < Some 0": OK
+        "Comparable: Some 0 < None": OK
+        "Comparable: less_or_equal None Some 0": OK
+        "Comparable: less_or_equal Some 0 None": OK
+        "Comparable: None <= Some 0": OK
+        "Comparable: Some 0 <= None": OK
+        "Comparable: greater_than None Some 0": OK
+        "Comparable: greater_than Some 0 None": OK
+        "Comparable: None > Some 0": OK
+        "Comparable: Some 0 > None": OK
+        "Comparable: greater_or_equal None Some 0": OK
+        "Comparable: greater_or_equal Some 0 None": OK
+        "Comparable: None >= Some 0": OK
+        "Comparable: Some 0 >= None": OK
+        "Comparable: min None Some 0": OK
+        "Comparable: min Some 0 None": OK
+        "Comparable: max None Some 0": OK
+        "Comparable: max Some 0 None": OK
+        "Comparable: min_max None Some 0": OK
+        "Comparable: min_max Some 0 None": OK
+        "Comparable: less_than None Some 1": OK
+        "Comparable: less_than Some 1 None": OK
+        "Comparable: None < Some 1": OK
+        "Comparable: Some 1 < None": OK
+        "Comparable: less_or_equal None Some 1": OK
+        "Comparable: less_or_equal Some 1 None": OK
+        "Comparable: None <= Some 1": OK
+        "Comparable: Some 1 <= None": OK
+        "Comparable: greater_than None Some 1": OK
+        "Comparable: greater_than Some 1 None": OK
+        "Comparable: None > Some 1": OK
+        "Comparable: Some 1 > None": OK
+        "Comparable: greater_or_equal None Some 1": OK
+        "Comparable: greater_or_equal Some 1 None": OK
+        "Comparable: None >= Some 1": OK
+        "Comparable: Some 1 >= None": OK
+        "Comparable: min None Some 1": OK
+        "Comparable: min Some 1 None": OK
+        "Comparable: max None Some 1": OK
+        "Comparable: max Some 1 None": OK
+        "Comparable: min_max None Some 1": OK
+        "Comparable: min_max Some 1 None": OK
+        "Comparable: less_than Some 0 Some 1": OK
+        "Comparable: less_than Some 1 Some 0": OK
+        "Comparable: Some 0 < Some 1": OK
+        "Comparable: Some 1 < Some 0": OK
+        "Comparable: less_or_equal Some 0 Some 1": OK
+        "Comparable: less_or_equal Some 1 Some 0": OK
+        "Comparable: Some 0 <= Some 1": OK
+        "Comparable: Some 1 <= Some 0": OK
+        "Comparable: greater_than Some 0 Some 1": OK
+        "Comparable: greater_than Some 1 Some 0": OK
+        "Comparable: Some 0 > Some 1": OK
+        "Comparable: Some 1 > Some 0": OK
+        "Comparable: greater_or_equal Some 0 Some 1": OK
+        "Comparable: greater_or_equal Some 1 Some 0": OK
+        "Comparable: Some 0 >= Some 1": OK
+        "Comparable: Some 1 >= Some 0": OK
+        "Comparable: min Some 0 Some 1": OK
+        "Comparable: min Some 1 Some 0": OK
+        "Comparable: max Some 0 Some 1": OK
+        "Comparable: max Some 1 Some 0": OK
+        "Comparable: min_max Some 0 Some 1": OK
+        "Comparable: min_max Some 1 Some 0": OK
+    "Option: some_if true": OK
+    "Option: some_if false": OK
+    "Option: some_if' true": OK
+    "Option: some_if' false": OK
+    "Option: is_some None": OK
+    "Option: is_some Some": OK
+    "Option: is_none None": OK
+    "Option: is_none Some": OK
+    "Option: value_def None": OK
+    "Option: value_def Some": OK
+    "Option: value Some": OK
+    "Option: value None": OK
+    "Option: value ~exc None": OK
+    "Option: repr None": OK
+    "Option: map None": OK
+    "Option: map Some": OK
+    "Option: value_map None": OK
+    "Option: value_map Some": OK
+    "Option: iter None": OK
+    "Option: iter Some": OK
+    "Option: filter None": OK
+    "Option: filter Some true": OK
+    "Option: filter Some false": OK
+    "Option: filter_map None": OK
+    "Option: filter_map Some true": OK
+    "Option: filter_map Some false": OK
+  "Reference" (Successes: 0)
   "String" (Successes: 290)
     "Able" (Successes: 282)
       "Identifiable" (Successes: 18)
@@ -6600,6 +6761,1056 @@
         "Parsable: try_of_string \"bar\\\"baz\"": OK
     "String: split \"abcdefghfj\" \"cf\"": OK
     "String: split \"xabxxcdx\" \"x\"": OK
+  "Tuple2" (Successes: 109)
+    "Able" (Successes: 105)
+      "Identifiable" (Successes: 21)
+        "Equatable" (Successes: 20)
+          "EquatableBasic" (Successes: 5)
+            "EquatableBasic: equal (1, 1.) (1, 1.)": OK
+            "EquatableBasic: equal (1, 1.) (1, 2.)": OK
+            "EquatableBasic: equal (1, 2.) (1, 1.)": OK
+            "EquatableBasic: equal (1, 1.) (2, 1.)": OK
+            "EquatableBasic: equal (2, 1.) (1, 1.)": OK
+          "Equatable: (1, 1.) = (1, 1.)": OK
+          "Equatable: different (1, 1.) (1, 1.)": OK
+          "Equatable: (1, 1.) <> (1, 1.)": OK
+          "Equatable: (1, 1.) = (1, 2.)": OK
+          "Equatable: different (1, 1.) (1, 2.)": OK
+          "Equatable: (1, 1.) <> (1, 2.)": OK
+          "Equatable: (1, 2.) = (1, 1.)": OK
+          "Equatable: different (1, 2.) (1, 1.)": OK
+          "Equatable: (1, 2.) <> (1, 1.)": OK
+          "Equatable: (1, 1.) = (2, 1.)": OK
+          "Equatable: different (1, 1.) (2, 1.)": OK
+          "Equatable: (1, 1.) <> (2, 1.)": OK
+          "Equatable: (2, 1.) = (1, 1.)": OK
+          "Equatable: different (2, 1.) (1, 1.)": OK
+          "Equatable: (2, 1.) <> (1, 1.)": OK
+        "Representable" (Successes: 1)
+          "Representable: repr (1, 1.)": OK
+      "Comparable" (Successes: 84)
+        "ComparableBasic" (Successes: 7)
+          "ComparableBasic: compare (1, 1.) (1, 1.)": OK
+          "ComparableBasic: compare (0, 1.) (0, 2.)": OK
+          "ComparableBasic: compare (0, 2.) (0, 1.)": OK
+          "ComparableBasic: compare (0, 1.) (1, 1.)": OK
+          "ComparableBasic: compare (1, 1.) (0, 1.)": OK
+          "ComparableBasic: compare (0, 2.) (1, 1.)": OK
+          "ComparableBasic: compare (1, 1.) (0, 2.)": OK
+        "Comparable: less_than (1, 1.) (1, 1.)": OK
+        "Comparable: (1, 1.) < (1, 1.)": OK
+        "Comparable: less_or_equal (1, 1.) (1, 1.)": OK
+        "Comparable: (1, 1.) <= (1, 1.)": OK
+        "Comparable: greater_than (1, 1.) (1, 1.)": OK
+        "Comparable: (1, 1.) > (1, 1.)": OK
+        "Comparable: greater_or_equal (1, 1.) (1, 1.)": OK
+        "Comparable: (1, 1.) >= (1, 1.)": OK
+        "Comparable: min (1, 1.) (1, 1.)": OK
+        "Comparable: max (1, 1.) (1, 1.)": OK
+        "Comparable: min_max (1, 1.) (1, 1.)": OK
+        "Comparable: less_than (0, 1.) (0, 2.)": OK
+        "Comparable: less_than (0, 2.) (0, 1.)": OK
+        "Comparable: (0, 1.) < (0, 2.)": OK
+        "Comparable: (0, 2.) < (0, 1.)": OK
+        "Comparable: less_or_equal (0, 1.) (0, 2.)": OK
+        "Comparable: less_or_equal (0, 2.) (0, 1.)": OK
+        "Comparable: (0, 1.) <= (0, 2.)": OK
+        "Comparable: (0, 2.) <= (0, 1.)": OK
+        "Comparable: greater_than (0, 1.) (0, 2.)": OK
+        "Comparable: greater_than (0, 2.) (0, 1.)": OK
+        "Comparable: (0, 1.) > (0, 2.)": OK
+        "Comparable: (0, 2.) > (0, 1.)": OK
+        "Comparable: greater_or_equal (0, 1.) (0, 2.)": OK
+        "Comparable: greater_or_equal (0, 2.) (0, 1.)": OK
+        "Comparable: (0, 1.) >= (0, 2.)": OK
+        "Comparable: (0, 2.) >= (0, 1.)": OK
+        "Comparable: min (0, 1.) (0, 2.)": OK
+        "Comparable: min (0, 2.) (0, 1.)": OK
+        "Comparable: max (0, 1.) (0, 2.)": OK
+        "Comparable: max (0, 2.) (0, 1.)": OK
+        "Comparable: min_max (0, 1.) (0, 2.)": OK
+        "Comparable: min_max (0, 2.) (0, 1.)": OK
+        "Comparable: less_than (0, 1.) (1, 1.)": OK
+        "Comparable: less_than (1, 1.) (0, 1.)": OK
+        "Comparable: (0, 1.) < (1, 1.)": OK
+        "Comparable: (1, 1.) < (0, 1.)": OK
+        "Comparable: less_or_equal (0, 1.) (1, 1.)": OK
+        "Comparable: less_or_equal (1, 1.) (0, 1.)": OK
+        "Comparable: (0, 1.) <= (1, 1.)": OK
+        "Comparable: (1, 1.) <= (0, 1.)": OK
+        "Comparable: greater_than (0, 1.) (1, 1.)": OK
+        "Comparable: greater_than (1, 1.) (0, 1.)": OK
+        "Comparable: (0, 1.) > (1, 1.)": OK
+        "Comparable: (1, 1.) > (0, 1.)": OK
+        "Comparable: greater_or_equal (0, 1.) (1, 1.)": OK
+        "Comparable: greater_or_equal (1, 1.) (0, 1.)": OK
+        "Comparable: (0, 1.) >= (1, 1.)": OK
+        "Comparable: (1, 1.) >= (0, 1.)": OK
+        "Comparable: min (0, 1.) (1, 1.)": OK
+        "Comparable: min (1, 1.) (0, 1.)": OK
+        "Comparable: max (0, 1.) (1, 1.)": OK
+        "Comparable: max (1, 1.) (0, 1.)": OK
+        "Comparable: min_max (0, 1.) (1, 1.)": OK
+        "Comparable: min_max (1, 1.) (0, 1.)": OK
+        "Comparable: less_than (0, 2.) (1, 1.)": OK
+        "Comparable: less_than (1, 1.) (0, 2.)": OK
+        "Comparable: (0, 2.) < (1, 1.)": OK
+        "Comparable: (1, 1.) < (0, 2.)": OK
+        "Comparable: less_or_equal (0, 2.) (1, 1.)": OK
+        "Comparable: less_or_equal (1, 1.) (0, 2.)": OK
+        "Comparable: (0, 2.) <= (1, 1.)": OK
+        "Comparable: (1, 1.) <= (0, 2.)": OK
+        "Comparable: greater_than (0, 2.) (1, 1.)": OK
+        "Comparable: greater_than (1, 1.) (0, 2.)": OK
+        "Comparable: (0, 2.) > (1, 1.)": OK
+        "Comparable: (1, 1.) > (0, 2.)": OK
+        "Comparable: greater_or_equal (0, 2.) (1, 1.)": OK
+        "Comparable: greater_or_equal (1, 1.) (0, 2.)": OK
+        "Comparable: (0, 2.) >= (1, 1.)": OK
+        "Comparable: (1, 1.) >= (0, 2.)": OK
+        "Comparable: min (0, 2.) (1, 1.)": OK
+        "Comparable: min (1, 1.) (0, 2.)": OK
+        "Comparable: max (0, 2.) (1, 1.)": OK
+        "Comparable: max (1, 1.) (0, 2.)": OK
+        "Comparable: min_max (0, 2.) (1, 1.)": OK
+        "Comparable: min_max (1, 1.) (0, 2.)": OK
+    "make": OK
+    "flip": OK
+    "get_0": OK
+    "get_1": OK
+  "Tuple3" (Successes: 190)
+    "Able" (Successes: 185)
+      "Identifiable" (Successes: 29)
+        "Equatable" (Successes: 28)
+          "EquatableBasic" (Successes: 7)
+            "EquatableBasic: equal (1, 1, 2.) (1, 1, 2.)": OK
+            "EquatableBasic: equal (1, 1, 2.) (1, 1, 3.)": OK
+            "EquatableBasic: equal (1, 1, 3.) (1, 1, 2.)": OK
+            "EquatableBasic: equal (1, 1, 2.) (1, 2, 2.)": OK
+            "EquatableBasic: equal (1, 2, 2.) (1, 1, 2.)": OK
+            "EquatableBasic: equal (1, 1, 2.) (2, 1, 2.)": OK
+            "EquatableBasic: equal (2, 1, 2.) (1, 1, 2.)": OK
+          "Equatable: (1, 1, 2.) = (1, 1, 2.)": OK
+          "Equatable: different (1, 1, 2.) (1, 1, 2.)": OK
+          "Equatable: (1, 1, 2.) <> (1, 1, 2.)": OK
+          "Equatable: (1, 1, 2.) = (1, 1, 3.)": OK
+          "Equatable: different (1, 1, 2.) (1, 1, 3.)": OK
+          "Equatable: (1, 1, 2.) <> (1, 1, 3.)": OK
+          "Equatable: (1, 1, 3.) = (1, 1, 2.)": OK
+          "Equatable: different (1, 1, 3.) (1, 1, 2.)": OK
+          "Equatable: (1, 1, 3.) <> (1, 1, 2.)": OK
+          "Equatable: (1, 1, 2.) = (1, 2, 2.)": OK
+          "Equatable: different (1, 1, 2.) (1, 2, 2.)": OK
+          "Equatable: (1, 1, 2.) <> (1, 2, 2.)": OK
+          "Equatable: (1, 2, 2.) = (1, 1, 2.)": OK
+          "Equatable: different (1, 2, 2.) (1, 1, 2.)": OK
+          "Equatable: (1, 2, 2.) <> (1, 1, 2.)": OK
+          "Equatable: (1, 1, 2.) = (2, 1, 2.)": OK
+          "Equatable: different (1, 1, 2.) (2, 1, 2.)": OK
+          "Equatable: (1, 1, 2.) <> (2, 1, 2.)": OK
+          "Equatable: (2, 1, 2.) = (1, 1, 2.)": OK
+          "Equatable: different (2, 1, 2.) (1, 1, 2.)": OK
+          "Equatable: (2, 1, 2.) <> (1, 1, 2.)": OK
+        "Representable" (Successes: 1)
+          "Representable: repr (1, 1, 2.)": OK
+      "Comparable" (Successes: 156)
+        "ComparableBasic" (Successes: 13)
+          "ComparableBasic: compare (1, 1, 2.) (1, 1, 2.)": OK
+          "ComparableBasic: compare (0, 1, 0.) (0, 1, 1.)": OK
+          "ComparableBasic: compare (0, 1, 1.) (0, 1, 0.)": OK
+          "ComparableBasic: compare (0, 1, 0.) (0, 2, 0.)": OK
+          "ComparableBasic: compare (0, 2, 0.) (0, 1, 0.)": OK
+          "ComparableBasic: compare (0, 1, 0.) (1, 1, 0.)": OK
+          "ComparableBasic: compare (1, 1, 0.) (0, 1, 0.)": OK
+          "ComparableBasic: compare (0, 1, 1.) (0, 2, 0.)": OK
+          "ComparableBasic: compare (0, 2, 0.) (0, 1, 1.)": OK
+          "ComparableBasic: compare (0, 1, 1.) (1, 1, 0.)": OK
+          "ComparableBasic: compare (1, 1, 0.) (0, 1, 1.)": OK
+          "ComparableBasic: compare (0, 2, 0.) (1, 1, 0.)": OK
+          "ComparableBasic: compare (1, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: less_than (1, 1, 2.) (1, 1, 2.)": OK
+        "Comparable: (1, 1, 2.) < (1, 1, 2.)": OK
+        "Comparable: less_or_equal (1, 1, 2.) (1, 1, 2.)": OK
+        "Comparable: (1, 1, 2.) <= (1, 1, 2.)": OK
+        "Comparable: greater_than (1, 1, 2.) (1, 1, 2.)": OK
+        "Comparable: (1, 1, 2.) > (1, 1, 2.)": OK
+        "Comparable: greater_or_equal (1, 1, 2.) (1, 1, 2.)": OK
+        "Comparable: (1, 1, 2.) >= (1, 1, 2.)": OK
+        "Comparable: min (1, 1, 2.) (1, 1, 2.)": OK
+        "Comparable: max (1, 1, 2.) (1, 1, 2.)": OK
+        "Comparable: min_max (1, 1, 2.) (1, 1, 2.)": OK
+        "Comparable: less_than (0, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: less_than (0, 1, 1.) (0, 1, 0.)": OK
+        "Comparable: (0, 1, 0.) < (0, 1, 1.)": OK
+        "Comparable: (0, 1, 1.) < (0, 1, 0.)": OK
+        "Comparable: less_or_equal (0, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: less_or_equal (0, 1, 1.) (0, 1, 0.)": OK
+        "Comparable: (0, 1, 0.) <= (0, 1, 1.)": OK
+        "Comparable: (0, 1, 1.) <= (0, 1, 0.)": OK
+        "Comparable: greater_than (0, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: greater_than (0, 1, 1.) (0, 1, 0.)": OK
+        "Comparable: (0, 1, 0.) > (0, 1, 1.)": OK
+        "Comparable: (0, 1, 1.) > (0, 1, 0.)": OK
+        "Comparable: greater_or_equal (0, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: greater_or_equal (0, 1, 1.) (0, 1, 0.)": OK
+        "Comparable: (0, 1, 0.) >= (0, 1, 1.)": OK
+        "Comparable: (0, 1, 1.) >= (0, 1, 0.)": OK
+        "Comparable: min (0, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: min (0, 1, 1.) (0, 1, 0.)": OK
+        "Comparable: max (0, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: max (0, 1, 1.) (0, 1, 0.)": OK
+        "Comparable: min_max (0, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: min_max (0, 1, 1.) (0, 1, 0.)": OK
+        "Comparable: less_than (0, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: less_than (0, 2, 0.) (0, 1, 0.)": OK
+        "Comparable: (0, 1, 0.) < (0, 2, 0.)": OK
+        "Comparable: (0, 2, 0.) < (0, 1, 0.)": OK
+        "Comparable: less_or_equal (0, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: less_or_equal (0, 2, 0.) (0, 1, 0.)": OK
+        "Comparable: (0, 1, 0.) <= (0, 2, 0.)": OK
+        "Comparable: (0, 2, 0.) <= (0, 1, 0.)": OK
+        "Comparable: greater_than (0, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: greater_than (0, 2, 0.) (0, 1, 0.)": OK
+        "Comparable: (0, 1, 0.) > (0, 2, 0.)": OK
+        "Comparable: (0, 2, 0.) > (0, 1, 0.)": OK
+        "Comparable: greater_or_equal (0, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: greater_or_equal (0, 2, 0.) (0, 1, 0.)": OK
+        "Comparable: (0, 1, 0.) >= (0, 2, 0.)": OK
+        "Comparable: (0, 2, 0.) >= (0, 1, 0.)": OK
+        "Comparable: min (0, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: min (0, 2, 0.) (0, 1, 0.)": OK
+        "Comparable: max (0, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: max (0, 2, 0.) (0, 1, 0.)": OK
+        "Comparable: min_max (0, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: min_max (0, 2, 0.) (0, 1, 0.)": OK
+        "Comparable: less_than (0, 1, 0.) (1, 1, 0.)": OK
+        "Comparable: less_than (1, 1, 0.) (0, 1, 0.)": OK
+        "Comparable: (0, 1, 0.) < (1, 1, 0.)": OK
+        "Comparable: (1, 1, 0.) < (0, 1, 0.)": OK
+        "Comparable: less_or_equal (0, 1, 0.) (1, 1, 0.)": OK
+        "Comparable: less_or_equal (1, 1, 0.) (0, 1, 0.)": OK
+        "Comparable: (0, 1, 0.) <= (1, 1, 0.)": OK
+        "Comparable: (1, 1, 0.) <= (0, 1, 0.)": OK
+        "Comparable: greater_than (0, 1, 0.) (1, 1, 0.)": OK
+        "Comparable: greater_than (1, 1, 0.) (0, 1, 0.)": OK
+        "Comparable: (0, 1, 0.) > (1, 1, 0.)": OK
+        "Comparable: (1, 1, 0.) > (0, 1, 0.)": OK
+        "Comparable: greater_or_equal (0, 1, 0.) (1, 1, 0.)": OK
+        "Comparable: greater_or_equal (1, 1, 0.) (0, 1, 0.)": OK
+        "Comparable: (0, 1, 0.) >= (1, 1, 0.)": OK
+        "Comparable: (1, 1, 0.) >= (0, 1, 0.)": OK
+        "Comparable: min (0, 1, 0.) (1, 1, 0.)": OK
+        "Comparable: min (1, 1, 0.) (0, 1, 0.)": OK
+        "Comparable: max (0, 1, 0.) (1, 1, 0.)": OK
+        "Comparable: max (1, 1, 0.) (0, 1, 0.)": OK
+        "Comparable: min_max (0, 1, 0.) (1, 1, 0.)": OK
+        "Comparable: min_max (1, 1, 0.) (0, 1, 0.)": OK
+        "Comparable: less_than (0, 1, 1.) (0, 2, 0.)": OK
+        "Comparable: less_than (0, 2, 0.) (0, 1, 1.)": OK
+        "Comparable: (0, 1, 1.) < (0, 2, 0.)": OK
+        "Comparable: (0, 2, 0.) < (0, 1, 1.)": OK
+        "Comparable: less_or_equal (0, 1, 1.) (0, 2, 0.)": OK
+        "Comparable: less_or_equal (0, 2, 0.) (0, 1, 1.)": OK
+        "Comparable: (0, 1, 1.) <= (0, 2, 0.)": OK
+        "Comparable: (0, 2, 0.) <= (0, 1, 1.)": OK
+        "Comparable: greater_than (0, 1, 1.) (0, 2, 0.)": OK
+        "Comparable: greater_than (0, 2, 0.) (0, 1, 1.)": OK
+        "Comparable: (0, 1, 1.) > (0, 2, 0.)": OK
+        "Comparable: (0, 2, 0.) > (0, 1, 1.)": OK
+        "Comparable: greater_or_equal (0, 1, 1.) (0, 2, 0.)": OK
+        "Comparable: greater_or_equal (0, 2, 0.) (0, 1, 1.)": OK
+        "Comparable: (0, 1, 1.) >= (0, 2, 0.)": OK
+        "Comparable: (0, 2, 0.) >= (0, 1, 1.)": OK
+        "Comparable: min (0, 1, 1.) (0, 2, 0.)": OK
+        "Comparable: min (0, 2, 0.) (0, 1, 1.)": OK
+        "Comparable: max (0, 1, 1.) (0, 2, 0.)": OK
+        "Comparable: max (0, 2, 0.) (0, 1, 1.)": OK
+        "Comparable: min_max (0, 1, 1.) (0, 2, 0.)": OK
+        "Comparable: min_max (0, 2, 0.) (0, 1, 1.)": OK
+        "Comparable: less_than (0, 1, 1.) (1, 1, 0.)": OK
+        "Comparable: less_than (1, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: (0, 1, 1.) < (1, 1, 0.)": OK
+        "Comparable: (1, 1, 0.) < (0, 1, 1.)": OK
+        "Comparable: less_or_equal (0, 1, 1.) (1, 1, 0.)": OK
+        "Comparable: less_or_equal (1, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: (0, 1, 1.) <= (1, 1, 0.)": OK
+        "Comparable: (1, 1, 0.) <= (0, 1, 1.)": OK
+        "Comparable: greater_than (0, 1, 1.) (1, 1, 0.)": OK
+        "Comparable: greater_than (1, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: (0, 1, 1.) > (1, 1, 0.)": OK
+        "Comparable: (1, 1, 0.) > (0, 1, 1.)": OK
+        "Comparable: greater_or_equal (0, 1, 1.) (1, 1, 0.)": OK
+        "Comparable: greater_or_equal (1, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: (0, 1, 1.) >= (1, 1, 0.)": OK
+        "Comparable: (1, 1, 0.) >= (0, 1, 1.)": OK
+        "Comparable: min (0, 1, 1.) (1, 1, 0.)": OK
+        "Comparable: min (1, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: max (0, 1, 1.) (1, 1, 0.)": OK
+        "Comparable: max (1, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: min_max (0, 1, 1.) (1, 1, 0.)": OK
+        "Comparable: min_max (1, 1, 0.) (0, 1, 1.)": OK
+        "Comparable: less_than (0, 2, 0.) (1, 1, 0.)": OK
+        "Comparable: less_than (1, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: (0, 2, 0.) < (1, 1, 0.)": OK
+        "Comparable: (1, 1, 0.) < (0, 2, 0.)": OK
+        "Comparable: less_or_equal (0, 2, 0.) (1, 1, 0.)": OK
+        "Comparable: less_or_equal (1, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: (0, 2, 0.) <= (1, 1, 0.)": OK
+        "Comparable: (1, 1, 0.) <= (0, 2, 0.)": OK
+        "Comparable: greater_than (0, 2, 0.) (1, 1, 0.)": OK
+        "Comparable: greater_than (1, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: (0, 2, 0.) > (1, 1, 0.)": OK
+        "Comparable: (1, 1, 0.) > (0, 2, 0.)": OK
+        "Comparable: greater_or_equal (0, 2, 0.) (1, 1, 0.)": OK
+        "Comparable: greater_or_equal (1, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: (0, 2, 0.) >= (1, 1, 0.)": OK
+        "Comparable: (1, 1, 0.) >= (0, 2, 0.)": OK
+        "Comparable: min (0, 2, 0.) (1, 1, 0.)": OK
+        "Comparable: min (1, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: max (0, 2, 0.) (1, 1, 0.)": OK
+        "Comparable: max (1, 1, 0.) (0, 2, 0.)": OK
+        "Comparable: min_max (0, 2, 0.) (1, 1, 0.)": OK
+        "Comparable: min_max (1, 1, 0.) (0, 2, 0.)": OK
+    "Tuple3: make": OK
+    "Tuple3: flip": OK
+    "Tuple3: get_0": OK
+    "Tuple3: get_1": OK
+    "Tuple3: get_2": OK
+  "Tuple4" (Successes: 295)
+    "Able" (Successes: 289)
+      "Identifiable" (Successes: 37)
+        "Equatable" (Successes: 36)
+          "EquatableBasic" (Successes: 9)
+            "EquatableBasic: equal (1, 1, 2., 3) (1, 1, 2., 3)": OK
+            "EquatableBasic: equal (1, 1, 2., 3) (1, 1, 2., 4)": OK
+            "EquatableBasic: equal (1, 1, 2., 4) (1, 1, 2., 3)": OK
+            "EquatableBasic: equal (1, 1, 2., 3) (1, 1, 3., 3)": OK
+            "EquatableBasic: equal (1, 1, 3., 3) (1, 1, 2., 3)": OK
+            "EquatableBasic: equal (1, 1, 2., 3) (1, 2, 2., 3)": OK
+            "EquatableBasic: equal (1, 2, 2., 3) (1, 1, 2., 3)": OK
+            "EquatableBasic: equal (1, 1, 2., 3) (0, 1, 2., 3)": OK
+            "EquatableBasic: equal (0, 1, 2., 3) (1, 1, 2., 3)": OK
+          "Equatable: (1, 1, 2., 3) = (1, 1, 2., 3)": OK
+          "Equatable: different (1, 1, 2., 3) (1, 1, 2., 3)": OK
+          "Equatable: (1, 1, 2., 3) <> (1, 1, 2., 3)": OK
+          "Equatable: (1, 1, 2., 3) = (1, 1, 2., 4)": OK
+          "Equatable: different (1, 1, 2., 3) (1, 1, 2., 4)": OK
+          "Equatable: (1, 1, 2., 3) <> (1, 1, 2., 4)": OK
+          "Equatable: (1, 1, 2., 4) = (1, 1, 2., 3)": OK
+          "Equatable: different (1, 1, 2., 4) (1, 1, 2., 3)": OK
+          "Equatable: (1, 1, 2., 4) <> (1, 1, 2., 3)": OK
+          "Equatable: (1, 1, 2., 3) = (1, 1, 3., 3)": OK
+          "Equatable: different (1, 1, 2., 3) (1, 1, 3., 3)": OK
+          "Equatable: (1, 1, 2., 3) <> (1, 1, 3., 3)": OK
+          "Equatable: (1, 1, 3., 3) = (1, 1, 2., 3)": OK
+          "Equatable: different (1, 1, 3., 3) (1, 1, 2., 3)": OK
+          "Equatable: (1, 1, 3., 3) <> (1, 1, 2., 3)": OK
+          "Equatable: (1, 1, 2., 3) = (1, 2, 2., 3)": OK
+          "Equatable: different (1, 1, 2., 3) (1, 2, 2., 3)": OK
+          "Equatable: (1, 1, 2., 3) <> (1, 2, 2., 3)": OK
+          "Equatable: (1, 2, 2., 3) = (1, 1, 2., 3)": OK
+          "Equatable: different (1, 2, 2., 3) (1, 1, 2., 3)": OK
+          "Equatable: (1, 2, 2., 3) <> (1, 1, 2., 3)": OK
+          "Equatable: (1, 1, 2., 3) = (0, 1, 2., 3)": OK
+          "Equatable: different (1, 1, 2., 3) (0, 1, 2., 3)": OK
+          "Equatable: (1, 1, 2., 3) <> (0, 1, 2., 3)": OK
+          "Equatable: (0, 1, 2., 3) = (1, 1, 2., 3)": OK
+          "Equatable: different (0, 1, 2., 3) (1, 1, 2., 3)": OK
+          "Equatable: (0, 1, 2., 3) <> (1, 1, 2., 3)": OK
+        "Representable" (Successes: 1)
+          "Representable: repr (1, 1, 2., 3)": OK
+      "Comparable" (Successes: 252)
+        "ComparableBasic" (Successes: 21)
+          "ComparableBasic: compare (1, 1, 2., 3) (1, 1, 2., 3)": OK
+          "ComparableBasic: compare (1, 1, 2., 3) (1, 1, 2., 4)": OK
+          "ComparableBasic: compare (1, 1, 2., 4) (1, 1, 2., 3)": OK
+          "ComparableBasic: compare (1, 1, 2., 3) (1, 1, 3., 3)": OK
+          "ComparableBasic: compare (1, 1, 3., 3) (1, 1, 2., 3)": OK
+          "ComparableBasic: compare (1, 1, 2., 3) (1, 2, 2., 3)": OK
+          "ComparableBasic: compare (1, 2, 2., 3) (1, 1, 2., 3)": OK
+          "ComparableBasic: compare (1, 1, 2., 3) (2, 1, 2., 3)": OK
+          "ComparableBasic: compare (2, 1, 2., 3) (1, 1, 2., 3)": OK
+          "ComparableBasic: compare (1, 1, 2., 4) (1, 1, 3., 3)": OK
+          "ComparableBasic: compare (1, 1, 3., 3) (1, 1, 2., 4)": OK
+          "ComparableBasic: compare (1, 1, 2., 4) (1, 2, 2., 3)": OK
+          "ComparableBasic: compare (1, 2, 2., 3) (1, 1, 2., 4)": OK
+          "ComparableBasic: compare (1, 1, 2., 4) (2, 1, 2., 3)": OK
+          "ComparableBasic: compare (2, 1, 2., 3) (1, 1, 2., 4)": OK
+          "ComparableBasic: compare (1, 1, 3., 3) (1, 2, 2., 3)": OK
+          "ComparableBasic: compare (1, 2, 2., 3) (1, 1, 3., 3)": OK
+          "ComparableBasic: compare (1, 1, 3., 3) (2, 1, 2., 3)": OK
+          "ComparableBasic: compare (2, 1, 2., 3) (1, 1, 3., 3)": OK
+          "ComparableBasic: compare (1, 2, 2., 3) (2, 1, 2., 3)": OK
+          "ComparableBasic: compare (2, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: less_than (1, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) < (1, 1, 2., 3)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) <= (1, 1, 2., 3)": OK
+        "Comparable: greater_than (1, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) > (1, 1, 2., 3)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) >= (1, 1, 2., 3)": OK
+        "Comparable: min (1, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: max (1, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: min_max (1, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: less_than (1, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: less_than (1, 1, 2., 4) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) < (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) < (1, 1, 2., 3)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 4) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) <= (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) <= (1, 1, 2., 3)": OK
+        "Comparable: greater_than (1, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: greater_than (1, 1, 2., 4) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) > (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) > (1, 1, 2., 3)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 4) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) >= (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) >= (1, 1, 2., 3)": OK
+        "Comparable: min (1, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: min (1, 1, 2., 4) (1, 1, 2., 3)": OK
+        "Comparable: max (1, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: max (1, 1, 2., 4) (1, 1, 2., 3)": OK
+        "Comparable: min_max (1, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: min_max (1, 1, 2., 4) (1, 1, 2., 3)": OK
+        "Comparable: less_than (1, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: less_than (1, 1, 3., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) < (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) < (1, 1, 2., 3)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: less_or_equal (1, 1, 3., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) <= (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) <= (1, 1, 2., 3)": OK
+        "Comparable: greater_than (1, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: greater_than (1, 1, 3., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) > (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) > (1, 1, 2., 3)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: greater_or_equal (1, 1, 3., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) >= (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) >= (1, 1, 2., 3)": OK
+        "Comparable: min (1, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: min (1, 1, 3., 3) (1, 1, 2., 3)": OK
+        "Comparable: max (1, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: max (1, 1, 3., 3) (1, 1, 2., 3)": OK
+        "Comparable: min_max (1, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: min_max (1, 1, 3., 3) (1, 1, 2., 3)": OK
+        "Comparable: less_than (1, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: less_than (1, 2, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) < (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) < (1, 1, 2., 3)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: less_or_equal (1, 2, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) <= (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) <= (1, 1, 2., 3)": OK
+        "Comparable: greater_than (1, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: greater_than (1, 2, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) > (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) > (1, 1, 2., 3)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: greater_or_equal (1, 2, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) >= (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) >= (1, 1, 2., 3)": OK
+        "Comparable: min (1, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: min (1, 2, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: max (1, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: max (1, 2, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: min_max (1, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: min_max (1, 2, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: less_than (1, 1, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: less_than (2, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) < (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) < (1, 1, 2., 3)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: less_or_equal (2, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) <= (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) <= (1, 1, 2., 3)": OK
+        "Comparable: greater_than (1, 1, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: greater_than (2, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) > (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) > (1, 1, 2., 3)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: greater_or_equal (2, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: (1, 1, 2., 3) >= (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) >= (1, 1, 2., 3)": OK
+        "Comparable: min (1, 1, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: min (2, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: max (1, 1, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: max (2, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: min_max (1, 1, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: min_max (2, 1, 2., 3) (1, 1, 2., 3)": OK
+        "Comparable: less_than (1, 1, 2., 4) (1, 1, 3., 3)": OK
+        "Comparable: less_than (1, 1, 3., 3) (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) < (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) < (1, 1, 2., 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 4) (1, 1, 3., 3)": OK
+        "Comparable: less_or_equal (1, 1, 3., 3) (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) <= (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) <= (1, 1, 2., 4)": OK
+        "Comparable: greater_than (1, 1, 2., 4) (1, 1, 3., 3)": OK
+        "Comparable: greater_than (1, 1, 3., 3) (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) > (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) > (1, 1, 2., 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 4) (1, 1, 3., 3)": OK
+        "Comparable: greater_or_equal (1, 1, 3., 3) (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) >= (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) >= (1, 1, 2., 4)": OK
+        "Comparable: min (1, 1, 2., 4) (1, 1, 3., 3)": OK
+        "Comparable: min (1, 1, 3., 3) (1, 1, 2., 4)": OK
+        "Comparable: max (1, 1, 2., 4) (1, 1, 3., 3)": OK
+        "Comparable: max (1, 1, 3., 3) (1, 1, 2., 4)": OK
+        "Comparable: min_max (1, 1, 2., 4) (1, 1, 3., 3)": OK
+        "Comparable: min_max (1, 1, 3., 3) (1, 1, 2., 4)": OK
+        "Comparable: less_than (1, 1, 2., 4) (1, 2, 2., 3)": OK
+        "Comparable: less_than (1, 2, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) < (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) < (1, 1, 2., 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 4) (1, 2, 2., 3)": OK
+        "Comparable: less_or_equal (1, 2, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) <= (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) <= (1, 1, 2., 4)": OK
+        "Comparable: greater_than (1, 1, 2., 4) (1, 2, 2., 3)": OK
+        "Comparable: greater_than (1, 2, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) > (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) > (1, 1, 2., 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 4) (1, 2, 2., 3)": OK
+        "Comparable: greater_or_equal (1, 2, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) >= (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) >= (1, 1, 2., 4)": OK
+        "Comparable: min (1, 1, 2., 4) (1, 2, 2., 3)": OK
+        "Comparable: min (1, 2, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: max (1, 1, 2., 4) (1, 2, 2., 3)": OK
+        "Comparable: max (1, 2, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: min_max (1, 1, 2., 4) (1, 2, 2., 3)": OK
+        "Comparable: min_max (1, 2, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: less_than (1, 1, 2., 4) (2, 1, 2., 3)": OK
+        "Comparable: less_than (2, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) < (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) < (1, 1, 2., 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 4) (2, 1, 2., 3)": OK
+        "Comparable: less_or_equal (2, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) <= (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) <= (1, 1, 2., 4)": OK
+        "Comparable: greater_than (1, 1, 2., 4) (2, 1, 2., 3)": OK
+        "Comparable: greater_than (2, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) > (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) > (1, 1, 2., 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 4) (2, 1, 2., 3)": OK
+        "Comparable: greater_or_equal (2, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: (1, 1, 2., 4) >= (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) >= (1, 1, 2., 4)": OK
+        "Comparable: min (1, 1, 2., 4) (2, 1, 2., 3)": OK
+        "Comparable: min (2, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: max (1, 1, 2., 4) (2, 1, 2., 3)": OK
+        "Comparable: max (2, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: min_max (1, 1, 2., 4) (2, 1, 2., 3)": OK
+        "Comparable: min_max (2, 1, 2., 3) (1, 1, 2., 4)": OK
+        "Comparable: less_than (1, 1, 3., 3) (1, 2, 2., 3)": OK
+        "Comparable: less_than (1, 2, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) < (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) < (1, 1, 3., 3)": OK
+        "Comparable: less_or_equal (1, 1, 3., 3) (1, 2, 2., 3)": OK
+        "Comparable: less_or_equal (1, 2, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) <= (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) <= (1, 1, 3., 3)": OK
+        "Comparable: greater_than (1, 1, 3., 3) (1, 2, 2., 3)": OK
+        "Comparable: greater_than (1, 2, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) > (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) > (1, 1, 3., 3)": OK
+        "Comparable: greater_or_equal (1, 1, 3., 3) (1, 2, 2., 3)": OK
+        "Comparable: greater_or_equal (1, 2, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) >= (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) >= (1, 1, 3., 3)": OK
+        "Comparable: min (1, 1, 3., 3) (1, 2, 2., 3)": OK
+        "Comparable: min (1, 2, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: max (1, 1, 3., 3) (1, 2, 2., 3)": OK
+        "Comparable: max (1, 2, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: min_max (1, 1, 3., 3) (1, 2, 2., 3)": OK
+        "Comparable: min_max (1, 2, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: less_than (1, 1, 3., 3) (2, 1, 2., 3)": OK
+        "Comparable: less_than (2, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) < (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) < (1, 1, 3., 3)": OK
+        "Comparable: less_or_equal (1, 1, 3., 3) (2, 1, 2., 3)": OK
+        "Comparable: less_or_equal (2, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) <= (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) <= (1, 1, 3., 3)": OK
+        "Comparable: greater_than (1, 1, 3., 3) (2, 1, 2., 3)": OK
+        "Comparable: greater_than (2, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) > (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) > (1, 1, 3., 3)": OK
+        "Comparable: greater_or_equal (1, 1, 3., 3) (2, 1, 2., 3)": OK
+        "Comparable: greater_or_equal (2, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: (1, 1, 3., 3) >= (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) >= (1, 1, 3., 3)": OK
+        "Comparable: min (1, 1, 3., 3) (2, 1, 2., 3)": OK
+        "Comparable: min (2, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: max (1, 1, 3., 3) (2, 1, 2., 3)": OK
+        "Comparable: max (2, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: min_max (1, 1, 3., 3) (2, 1, 2., 3)": OK
+        "Comparable: min_max (2, 1, 2., 3) (1, 1, 3., 3)": OK
+        "Comparable: less_than (1, 2, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: less_than (2, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) < (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) < (1, 2, 2., 3)": OK
+        "Comparable: less_or_equal (1, 2, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: less_or_equal (2, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) <= (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) <= (1, 2, 2., 3)": OK
+        "Comparable: greater_than (1, 2, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: greater_than (2, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) > (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) > (1, 2, 2., 3)": OK
+        "Comparable: greater_or_equal (1, 2, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: greater_or_equal (2, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: (1, 2, 2., 3) >= (2, 1, 2., 3)": OK
+        "Comparable: (2, 1, 2., 3) >= (1, 2, 2., 3)": OK
+        "Comparable: min (1, 2, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: min (2, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: max (1, 2, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: max (2, 1, 2., 3) (1, 2, 2., 3)": OK
+        "Comparable: min_max (1, 2, 2., 3) (2, 1, 2., 3)": OK
+        "Comparable: min_max (2, 1, 2., 3) (1, 2, 2., 3)": OK
+    "Tuple4: make": OK
+    "Tuple4: flip": OK
+    "Tuple4: get_0": OK
+    "Tuple4: get_1": OK
+    "Tuple4: get_2": OK
+    "Tuple4: get_3": OK
+  "Tuple5" (Successes: 424)
+    "Able" (Successes: 417)
+      "Identifiable" (Successes: 45)
+        "Equatable" (Successes: 44)
+          "EquatableBasic" (Successes: 11)
+            "EquatableBasic: equal (1, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+            "EquatableBasic: equal (1, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+            "EquatableBasic: equal (1, 1, 2., 3, 5) (1, 1, 2., 3, 4)": OK
+            "EquatableBasic: equal (1, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+            "EquatableBasic: equal (1, 1, 2., 4, 4) (1, 1, 2., 3, 4)": OK
+            "EquatableBasic: equal (1, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+            "EquatableBasic: equal (1, 1, 3., 3, 4) (1, 1, 2., 3, 4)": OK
+            "EquatableBasic: equal (1, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+            "EquatableBasic: equal (1, 2, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+            "EquatableBasic: equal (1, 1, 2., 3, 4) (0, 1, 2., 3, 4)": OK
+            "EquatableBasic: equal (0, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+          "Equatable: (1, 1, 2., 3, 4) = (1, 1, 2., 3, 4)": OK
+          "Equatable: different (1, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+          "Equatable: (1, 1, 2., 3, 4) <> (1, 1, 2., 3, 4)": OK
+          "Equatable: (1, 1, 2., 3, 4) = (1, 1, 2., 3, 5)": OK
+          "Equatable: different (1, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+          "Equatable: (1, 1, 2., 3, 4) <> (1, 1, 2., 3, 5)": OK
+          "Equatable: (1, 1, 2., 3, 5) = (1, 1, 2., 3, 4)": OK
+          "Equatable: different (1, 1, 2., 3, 5) (1, 1, 2., 3, 4)": OK
+          "Equatable: (1, 1, 2., 3, 5) <> (1, 1, 2., 3, 4)": OK
+          "Equatable: (1, 1, 2., 3, 4) = (1, 1, 2., 4, 4)": OK
+          "Equatable: different (1, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+          "Equatable: (1, 1, 2., 3, 4) <> (1, 1, 2., 4, 4)": OK
+          "Equatable: (1, 1, 2., 4, 4) = (1, 1, 2., 3, 4)": OK
+          "Equatable: different (1, 1, 2., 4, 4) (1, 1, 2., 3, 4)": OK
+          "Equatable: (1, 1, 2., 4, 4) <> (1, 1, 2., 3, 4)": OK
+          "Equatable: (1, 1, 2., 3, 4) = (1, 1, 3., 3, 4)": OK
+          "Equatable: different (1, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+          "Equatable: (1, 1, 2., 3, 4) <> (1, 1, 3., 3, 4)": OK
+          "Equatable: (1, 1, 3., 3, 4) = (1, 1, 2., 3, 4)": OK
+          "Equatable: different (1, 1, 3., 3, 4) (1, 1, 2., 3, 4)": OK
+          "Equatable: (1, 1, 3., 3, 4) <> (1, 1, 2., 3, 4)": OK
+          "Equatable: (1, 1, 2., 3, 4) = (1, 2, 2., 3, 4)": OK
+          "Equatable: different (1, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+          "Equatable: (1, 1, 2., 3, 4) <> (1, 2, 2., 3, 4)": OK
+          "Equatable: (1, 2, 2., 3, 4) = (1, 1, 2., 3, 4)": OK
+          "Equatable: different (1, 2, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+          "Equatable: (1, 2, 2., 3, 4) <> (1, 1, 2., 3, 4)": OK
+          "Equatable: (1, 1, 2., 3, 4) = (0, 1, 2., 3, 4)": OK
+          "Equatable: different (1, 1, 2., 3, 4) (0, 1, 2., 3, 4)": OK
+          "Equatable: (1, 1, 2., 3, 4) <> (0, 1, 2., 3, 4)": OK
+          "Equatable: (0, 1, 2., 3, 4) = (1, 1, 2., 3, 4)": OK
+          "Equatable: different (0, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+          "Equatable: (0, 1, 2., 3, 4) <> (1, 1, 2., 3, 4)": OK
+        "Representable" (Successes: 1)
+          "Representable: repr (1, 1, 2., 3, 4)": OK
+      "Comparable" (Successes: 372)
+        "ComparableBasic" (Successes: 31)
+          "ComparableBasic: compare (1, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+          "ComparableBasic: compare (1, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+          "ComparableBasic: compare (1, 1, 2., 3, 5) (1, 1, 2., 3, 4)": OK
+          "ComparableBasic: compare (1, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+          "ComparableBasic: compare (1, 1, 2., 4, 4) (1, 1, 2., 3, 4)": OK
+          "ComparableBasic: compare (1, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+          "ComparableBasic: compare (1, 1, 3., 3, 4) (1, 1, 2., 3, 4)": OK
+          "ComparableBasic: compare (1, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+          "ComparableBasic: compare (1, 2, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+          "ComparableBasic: compare (1, 1, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+          "ComparableBasic: compare (2, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+          "ComparableBasic: compare (1, 1, 2., 3, 5) (1, 1, 2., 4, 4)": OK
+          "ComparableBasic: compare (1, 1, 2., 4, 4) (1, 1, 2., 3, 5)": OK
+          "ComparableBasic: compare (1, 1, 2., 3, 5) (1, 1, 3., 3, 4)": OK
+          "ComparableBasic: compare (1, 1, 3., 3, 4) (1, 1, 2., 3, 5)": OK
+          "ComparableBasic: compare (1, 1, 2., 3, 5) (1, 2, 2., 3, 4)": OK
+          "ComparableBasic: compare (1, 2, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+          "ComparableBasic: compare (1, 1, 2., 3, 5) (2, 1, 2., 3, 4)": OK
+          "ComparableBasic: compare (2, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+          "ComparableBasic: compare (1, 1, 2., 4, 4) (1, 1, 3., 3, 4)": OK
+          "ComparableBasic: compare (1, 1, 3., 3, 4) (1, 1, 2., 4, 4)": OK
+          "ComparableBasic: compare (1, 1, 2., 4, 4) (1, 2, 2., 3, 4)": OK
+          "ComparableBasic: compare (1, 2, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+          "ComparableBasic: compare (1, 1, 2., 4, 4) (2, 1, 2., 3, 4)": OK
+          "ComparableBasic: compare (2, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+          "ComparableBasic: compare (1, 1, 3., 3, 4) (1, 2, 2., 3, 4)": OK
+          "ComparableBasic: compare (1, 2, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+          "ComparableBasic: compare (1, 1, 3., 3, 4) (2, 1, 2., 3, 4)": OK
+          "ComparableBasic: compare (2, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+          "ComparableBasic: compare (1, 2, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+          "ComparableBasic: compare (2, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: less_than (1, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) < (1, 1, 2., 3, 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) <= (1, 1, 2., 3, 4)": OK
+        "Comparable: greater_than (1, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) > (1, 1, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) >= (1, 1, 2., 3, 4)": OK
+        "Comparable: min (1, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: max (1, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: min_max (1, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: less_than (1, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: less_than (1, 1, 2., 3, 5) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) < (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) < (1, 1, 2., 3, 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3, 5) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) <= (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) <= (1, 1, 2., 3, 4)": OK
+        "Comparable: greater_than (1, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: greater_than (1, 1, 2., 3, 5) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) > (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) > (1, 1, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3, 5) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) >= (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) >= (1, 1, 2., 3, 4)": OK
+        "Comparable: min (1, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: min (1, 1, 2., 3, 5) (1, 1, 2., 3, 4)": OK
+        "Comparable: max (1, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: max (1, 1, 2., 3, 5) (1, 1, 2., 3, 4)": OK
+        "Comparable: min_max (1, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: min_max (1, 1, 2., 3, 5) (1, 1, 2., 3, 4)": OK
+        "Comparable: less_than (1, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: less_than (1, 1, 2., 4, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) < (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) < (1, 1, 2., 3, 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 4, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) <= (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) <= (1, 1, 2., 3, 4)": OK
+        "Comparable: greater_than (1, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: greater_than (1, 1, 2., 4, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) > (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) > (1, 1, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 4, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) >= (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) >= (1, 1, 2., 3, 4)": OK
+        "Comparable: min (1, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: min (1, 1, 2., 4, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: max (1, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: max (1, 1, 2., 4, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: min_max (1, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: min_max (1, 1, 2., 4, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: less_than (1, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: less_than (1, 1, 3., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) < (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) < (1, 1, 2., 3, 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: less_or_equal (1, 1, 3., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) <= (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) <= (1, 1, 2., 3, 4)": OK
+        "Comparable: greater_than (1, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: greater_than (1, 1, 3., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) > (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) > (1, 1, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 3., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) >= (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) >= (1, 1, 2., 3, 4)": OK
+        "Comparable: min (1, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: min (1, 1, 3., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: max (1, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: max (1, 1, 3., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: min_max (1, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: min_max (1, 1, 3., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: less_than (1, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: less_than (1, 2, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) < (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) < (1, 1, 2., 3, 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: less_or_equal (1, 2, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) <= (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) <= (1, 1, 2., 3, 4)": OK
+        "Comparable: greater_than (1, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: greater_than (1, 2, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) > (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) > (1, 1, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 2, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) >= (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) >= (1, 1, 2., 3, 4)": OK
+        "Comparable: min (1, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: min (1, 2, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: max (1, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: max (1, 2, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: min_max (1, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: min_max (1, 2, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: less_than (1, 1, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: less_than (2, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) < (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) < (1, 1, 2., 3, 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: less_or_equal (2, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) <= (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) <= (1, 1, 2., 3, 4)": OK
+        "Comparable: greater_than (1, 1, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: greater_than (2, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) > (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) > (1, 1, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (2, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: (1, 1, 2., 3, 4) >= (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) >= (1, 1, 2., 3, 4)": OK
+        "Comparable: min (1, 1, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: min (2, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: max (1, 1, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: max (2, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: min_max (1, 1, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: min_max (2, 1, 2., 3, 4) (1, 1, 2., 3, 4)": OK
+        "Comparable: less_than (1, 1, 2., 3, 5) (1, 1, 2., 4, 4)": OK
+        "Comparable: less_than (1, 1, 2., 4, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) < (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) < (1, 1, 2., 3, 5)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3, 5) (1, 1, 2., 4, 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 4, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) <= (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) <= (1, 1, 2., 3, 5)": OK
+        "Comparable: greater_than (1, 1, 2., 3, 5) (1, 1, 2., 4, 4)": OK
+        "Comparable: greater_than (1, 1, 2., 4, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) > (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) > (1, 1, 2., 3, 5)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3, 5) (1, 1, 2., 4, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 4, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) >= (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) >= (1, 1, 2., 3, 5)": OK
+        "Comparable: min (1, 1, 2., 3, 5) (1, 1, 2., 4, 4)": OK
+        "Comparable: min (1, 1, 2., 4, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: max (1, 1, 2., 3, 5) (1, 1, 2., 4, 4)": OK
+        "Comparable: max (1, 1, 2., 4, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: min_max (1, 1, 2., 3, 5) (1, 1, 2., 4, 4)": OK
+        "Comparable: min_max (1, 1, 2., 4, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: less_than (1, 1, 2., 3, 5) (1, 1, 3., 3, 4)": OK
+        "Comparable: less_than (1, 1, 3., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) < (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) < (1, 1, 2., 3, 5)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3, 5) (1, 1, 3., 3, 4)": OK
+        "Comparable: less_or_equal (1, 1, 3., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) <= (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) <= (1, 1, 2., 3, 5)": OK
+        "Comparable: greater_than (1, 1, 2., 3, 5) (1, 1, 3., 3, 4)": OK
+        "Comparable: greater_than (1, 1, 3., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) > (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) > (1, 1, 2., 3, 5)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3, 5) (1, 1, 3., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 3., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) >= (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) >= (1, 1, 2., 3, 5)": OK
+        "Comparable: min (1, 1, 2., 3, 5) (1, 1, 3., 3, 4)": OK
+        "Comparable: min (1, 1, 3., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: max (1, 1, 2., 3, 5) (1, 1, 3., 3, 4)": OK
+        "Comparable: max (1, 1, 3., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: min_max (1, 1, 2., 3, 5) (1, 1, 3., 3, 4)": OK
+        "Comparable: min_max (1, 1, 3., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: less_than (1, 1, 2., 3, 5) (1, 2, 2., 3, 4)": OK
+        "Comparable: less_than (1, 2, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) < (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) < (1, 1, 2., 3, 5)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3, 5) (1, 2, 2., 3, 4)": OK
+        "Comparable: less_or_equal (1, 2, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) <= (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) <= (1, 1, 2., 3, 5)": OK
+        "Comparable: greater_than (1, 1, 2., 3, 5) (1, 2, 2., 3, 4)": OK
+        "Comparable: greater_than (1, 2, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) > (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) > (1, 1, 2., 3, 5)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3, 5) (1, 2, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 2, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) >= (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) >= (1, 1, 2., 3, 5)": OK
+        "Comparable: min (1, 1, 2., 3, 5) (1, 2, 2., 3, 4)": OK
+        "Comparable: min (1, 2, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: max (1, 1, 2., 3, 5) (1, 2, 2., 3, 4)": OK
+        "Comparable: max (1, 2, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: min_max (1, 1, 2., 3, 5) (1, 2, 2., 3, 4)": OK
+        "Comparable: min_max (1, 2, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: less_than (1, 1, 2., 3, 5) (2, 1, 2., 3, 4)": OK
+        "Comparable: less_than (2, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) < (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) < (1, 1, 2., 3, 5)": OK
+        "Comparable: less_or_equal (1, 1, 2., 3, 5) (2, 1, 2., 3, 4)": OK
+        "Comparable: less_or_equal (2, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) <= (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) <= (1, 1, 2., 3, 5)": OK
+        "Comparable: greater_than (1, 1, 2., 3, 5) (2, 1, 2., 3, 4)": OK
+        "Comparable: greater_than (2, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) > (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) > (1, 1, 2., 3, 5)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 3, 5) (2, 1, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (2, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: (1, 1, 2., 3, 5) >= (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) >= (1, 1, 2., 3, 5)": OK
+        "Comparable: min (1, 1, 2., 3, 5) (2, 1, 2., 3, 4)": OK
+        "Comparable: min (2, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: max (1, 1, 2., 3, 5) (2, 1, 2., 3, 4)": OK
+        "Comparable: max (2, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: min_max (1, 1, 2., 3, 5) (2, 1, 2., 3, 4)": OK
+        "Comparable: min_max (2, 1, 2., 3, 4) (1, 1, 2., 3, 5)": OK
+        "Comparable: less_than (1, 1, 2., 4, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: less_than (1, 1, 3., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) < (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) < (1, 1, 2., 4, 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 4, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: less_or_equal (1, 1, 3., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) <= (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) <= (1, 1, 2., 4, 4)": OK
+        "Comparable: greater_than (1, 1, 2., 4, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: greater_than (1, 1, 3., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) > (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) > (1, 1, 2., 4, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 4, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 3., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) >= (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) >= (1, 1, 2., 4, 4)": OK
+        "Comparable: min (1, 1, 2., 4, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: min (1, 1, 3., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: max (1, 1, 2., 4, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: max (1, 1, 3., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: min_max (1, 1, 2., 4, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: min_max (1, 1, 3., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: less_than (1, 1, 2., 4, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: less_than (1, 2, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) < (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) < (1, 1, 2., 4, 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 4, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: less_or_equal (1, 2, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) <= (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) <= (1, 1, 2., 4, 4)": OK
+        "Comparable: greater_than (1, 1, 2., 4, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: greater_than (1, 2, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) > (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) > (1, 1, 2., 4, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 4, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 2, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) >= (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) >= (1, 1, 2., 4, 4)": OK
+        "Comparable: min (1, 1, 2., 4, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: min (1, 2, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: max (1, 1, 2., 4, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: max (1, 2, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: min_max (1, 1, 2., 4, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: min_max (1, 2, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: less_than (1, 1, 2., 4, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: less_than (2, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) < (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) < (1, 1, 2., 4, 4)": OK
+        "Comparable: less_or_equal (1, 1, 2., 4, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: less_or_equal (2, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) <= (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) <= (1, 1, 2., 4, 4)": OK
+        "Comparable: greater_than (1, 1, 2., 4, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: greater_than (2, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) > (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) > (1, 1, 2., 4, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 2., 4, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (2, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: (1, 1, 2., 4, 4) >= (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) >= (1, 1, 2., 4, 4)": OK
+        "Comparable: min (1, 1, 2., 4, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: min (2, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: max (1, 1, 2., 4, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: max (2, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: min_max (1, 1, 2., 4, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: min_max (2, 1, 2., 3, 4) (1, 1, 2., 4, 4)": OK
+        "Comparable: less_than (1, 1, 3., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: less_than (1, 2, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) < (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) < (1, 1, 3., 3, 4)": OK
+        "Comparable: less_or_equal (1, 1, 3., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: less_or_equal (1, 2, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) <= (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) <= (1, 1, 3., 3, 4)": OK
+        "Comparable: greater_than (1, 1, 3., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: greater_than (1, 2, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) > (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) > (1, 1, 3., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 3., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 2, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) >= (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) >= (1, 1, 3., 3, 4)": OK
+        "Comparable: min (1, 1, 3., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: min (1, 2, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: max (1, 1, 3., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: max (1, 2, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: min_max (1, 1, 3., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: min_max (1, 2, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: less_than (1, 1, 3., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: less_than (2, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) < (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) < (1, 1, 3., 3, 4)": OK
+        "Comparable: less_or_equal (1, 1, 3., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: less_or_equal (2, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) <= (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) <= (1, 1, 3., 3, 4)": OK
+        "Comparable: greater_than (1, 1, 3., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: greater_than (2, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) > (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) > (1, 1, 3., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 1, 3., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (2, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: (1, 1, 3., 3, 4) >= (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) >= (1, 1, 3., 3, 4)": OK
+        "Comparable: min (1, 1, 3., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: min (2, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: max (1, 1, 3., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: max (2, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: min_max (1, 1, 3., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: min_max (2, 1, 2., 3, 4) (1, 1, 3., 3, 4)": OK
+        "Comparable: less_than (1, 2, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: less_than (2, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) < (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) < (1, 2, 2., 3, 4)": OK
+        "Comparable: less_or_equal (1, 2, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: less_or_equal (2, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) <= (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) <= (1, 2, 2., 3, 4)": OK
+        "Comparable: greater_than (1, 2, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: greater_than (2, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) > (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) > (1, 2, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (1, 2, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: greater_or_equal (2, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: (1, 2, 2., 3, 4) >= (2, 1, 2., 3, 4)": OK
+        "Comparable: (2, 1, 2., 3, 4) >= (1, 2, 2., 3, 4)": OK
+        "Comparable: min (1, 2, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: min (2, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: max (1, 2, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: max (2, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+        "Comparable: min_max (1, 2, 2., 3, 4) (2, 1, 2., 3, 4)": OK
+        "Comparable: min_max (2, 1, 2., 3, 4) (1, 2, 2., 3, 4)": OK
+    "Tuple5: make": OK
+    "Tuple5: flip": OK
+    "Tuple5: get_0": OK
+    "Tuple5: get_1": OK
+    "Tuple5: get_2": OK
+    "Tuple5: get_3": OK
+    "Tuple5: get_4": OK
   "Unit" (Successes: 17)
     "Able" (Successes: 17)
       "Identifiable" (Successes: 5)

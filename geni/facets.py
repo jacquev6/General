@@ -348,9 +348,6 @@ class Facet:
         yield "end)(E)",
 
 
-ng = ["BigInt", "Bool", "Bytes", "CallStack", "Frame", "Location", "Char", "Exception", "Exit", "Float", "Class", "Function1", "Function2", "Function3", "Function4", "Function5", "Int", "Int32", "Int64", "NativeInt", "String", "Unit"]
-
-
 class Type:
     def __init__(
             self, *,
@@ -444,11 +441,7 @@ class Type:
 
     @property
     def implementation_items(self):
-        if self.name not in ng:
-            yield "(*"
         yield mod_impl("Tests_", self.__tests_implementation_items())
-        if self.name not in ng:
-            yield "*)"
 
     def __tests_implementation_items(self):
         # @todo Homogenize

@@ -1,4 +1,3 @@
-(*
 module Tests_ = struct
   type ('a, 'b, 'c, 'd, 'e) t = 'a * 'b * 'c * 'd * 'e
   module type Examples = sig
@@ -17,5 +16,3 @@ module Tests_ = struct
     ] Tests.tests
   end
 end
-
-*)

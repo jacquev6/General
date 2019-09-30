@@ -1,5 +1,3 @@
-#include "../Generated/Wrappers/Reference.ml"
-
 module Basic = struct
   type 'a t = 'a OCSP.ref = {
     mutable contents: 'a;
@@ -72,11 +70,13 @@ module Extended(Facets: Facets) = struct
   end
 
   include Self
-end
 
-(*
-module Tests = Tests_.Make(Self)(struct
-end)(struct
-  let tests = []
-end)
-*)
+  module MakeTests(Testing: Testing) = struct
+    #include "../Generated/Wrappers/Reference.ml"
+
+    include Tests_.Make(Self)(struct
+    end)(struct
+      let tests = []
+    end)
+  end
+end

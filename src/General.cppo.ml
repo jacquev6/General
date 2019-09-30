@@ -75,8 +75,8 @@ module type Testing = sig
   (* val check_some_poly: repr:('a -> string) -> expected:'a -> 'a option -> unit *)
   (* val check_none_poly: repr:('a -> string) -> 'a option -> unit *)
   (* val check_int_option: expected:int option -> int option -> unit *)
-  (* val check_some_int: expected:int -> int option -> unit *)
-  (* val check_none_int: int option -> unit *)
+  val check_some_int: expected:int -> int option -> unit
+  val check_none_int: int option -> unit
   (* val check_string_option: expected:string option -> string option -> unit *)
   val check_some_string: expected:string -> string option -> unit
   (* val check_none_string: string option -> unit *)
@@ -84,6 +84,10 @@ module type Testing = sig
   (* val check_list_poly: repr:('a -> string) -> expected:'a list -> 'a list -> unit *)
   val check_string_list: expected:string list -> string list -> unit
   (* val check_int_list: expected:int list -> int list -> unit *)
+  val check_int_tuple2: expected:int * int -> int * int -> unit
+  val check_int_tuple3: expected:int * int * int -> int * int * int -> unit
+  val check_int_tuple4: expected:int * int * int * int -> int * int * int * int -> unit
+  val check_int_tuple5: expected:int * int * int * int * int -> int * int * int * int * int -> unit
 end
 
 (* Phase 3: implement everything that does not depend on Facets *)
@@ -92,9 +96,11 @@ module Format = struct
   #include "OldFashion/Atoms/Format.ml"
 end
 
-module Lazy = struct
+module Lazy_ = struct
   #include "Wrappers/Lazy.ml"
+  module Lazy = Basic
 end
+open Lazy_
 
 module Exception_ = struct
   #include "Atoms/Exception.ml"
@@ -146,6 +152,16 @@ module Int_ = struct
 end
 open Int_
 
+module Reference_ = struct
+  #include "Wrappers/Reference.ml"
+  module Reference = Basic
+end
+open Reference_
+
+let ref = Reference.of_contents  (* @todo Put somewhere *)
+let ( ! ) = Reference.O.( ! )  (* @todo Put somewhere *)
+let ( := ) = Reference.O.( := )  (* @todo Put somewhere *)
+
 module Option_ = struct
   #include "Wrappers/Option.ml"
   module Option = Basic
@@ -169,12 +185,6 @@ module Float_ = struct
   module Float = Basic
 end
 open Float_
-
-module Reference_ = struct
-  #include "Wrappers/Reference.ml"
-  module Reference = Basic
-end
-open Reference_
 
 module Unit_ = struct
   #include "Atoms/Unit.ml"
@@ -351,6 +361,8 @@ end
 module NativeInt_ = struct
   #include "Atoms/NativeInt.ml"
 end
+
+module Lazy = Lazy_.Extended(Facets)
 
 module Exception = Exception_.Extended(Facets)
 
@@ -651,18 +663,18 @@ module MakeTests() = struct
     (let module T = Int.MakeTests(Testing) in T.test);
     (let module T = Int32.MakeTests(Testing) in T.test);
     (let module T = Int64.MakeTests(Testing) in T.test);
-    (* Lazy.Tests.test; *)
+    (let module T = Lazy.MakeTests(Testing) in T.test);
     (* List.Tests.test; *)
     (let module T = NativeInt.MakeTests(Testing) in T.test);
-    (* Option.Tests.test; *)
+    (let module T = Option.MakeTests(Testing) in T.test);
     (* RedBlackTree.Tests.test; *)
-    (* Reference.Tests.test; *)
+    (let module T = Reference.MakeTests(Testing) in T.test);
     (* Stream.Tests.test; *)
     (let module T = String.MakeTests(Testing) in T.test);
-    (* Tuple2.Tests.test; *)
-    (* Tuple3.Tests.test; *)
-    (* Tuple4.Tests.test; *)
-    (* Tuple5.Tests.test; *)
+    (let module T = Tuple2.MakeTests(Testing) in T.test);
+    (let module T = Tuple3.MakeTests(Testing) in T.test);
+    (let module T = Tuple4.MakeTests(Testing) in T.test);
+    (let module T = Tuple5.MakeTests(Testing) in T.test);
     (let module T = Unit.MakeTests(Testing) in T.test);
 
     (* IntRange.Tests.test; *)
