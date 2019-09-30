@@ -135,6 +135,7 @@
     Generated/Facets/ToInt.ml
     Generated/Facets/ToStandardNumber.ml
     Generated/Facets_alpha.ml
+    Generated/Types.extended.ml
     Generated/Wrappers/Lazy.ml
     Generated/Wrappers/Option.ml
     Generated/Wrappers/Reference.ml

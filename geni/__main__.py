@@ -1086,6 +1086,14 @@ def main():
         for facet in facets
     ))
 
+    gen("src/Generated/Types.extended.ml", (
+        (
+            f"module {item.name} = {item.name}_.Extended(Facets)"
+        )
+        for items in (atoms, wrappers)
+        for item in items
+    ))
+
     gen("unit_tests.ml", make_unit_tests())
 
     gen("src/dune", make_dune())
