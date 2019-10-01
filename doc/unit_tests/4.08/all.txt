@@ -1,4 +1,4 @@
-"General" (Successes: 8578)
+"General" (Successes: 8576)
   "BigInt" (Successes: 504)
     "Integer" (Successes: 475)
       "RealNumber" (Successes: 460)
@@ -8856,22 +8856,20 @@
         "Comparable: min () ()": OK
         "Comparable: max () ()": OK
         "Comparable: min_max () ()": OK
-  "Syntactic sugar" (Successes: 10)
-    "Standard" (Successes: 5)
+  "Syntactic sugar" (Successes: 8)
+    "Standard" (Successes: 4)
       "array" (Successes: 2)
         "get": OK
         "set": OK
-      "string" (Successes: 2)
+      "string" (Successes: 1)
         "get": OK
-        "set": OK
       "bytes" (Successes: 1)
         "set": OK
-    "Abbr" (Successes: 5)
+    "Abbr" (Successes: 4)
       "array" (Successes: 2)
         "get": OK
         "set": OK
-      "string" (Successes: 2)
+      "string" (Successes: 1)
         "get": OK
-        "set": OK
       "bytes" (Successes: 1)
         "set": OK

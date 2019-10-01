@@ -19,6 +19,8 @@ module Equate = struct
   #include "Equate.ml"
 end
 
+let ( = ) = Equate.Poly.O.( = )  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+
 module Compare = struct
   #include "Compare.ml"
 end
@@ -31,62 +33,27 @@ module Test = struct
   #include "Testing/Test.ml"
 end
 
-(* Signature used to inject Facets to make extended types *)
+(* Signatures used to break cyclic dependencies with functors *)
+
+[@@@ocaml.warning "-32"]
+[@@@ocaml.warning "-60"]
 
 module type Facets = sig
-  [@@@ocaml.warning "-32"]
   #include "Generated/Facets.mli"
-  [@@@ocaml.warning "+32"]
 end
 
-(* Signatures used to inject General.Testing into facets' test code and General.Standard in the MakeTests functors
-They are ad-hoc subsets of the modules they're named after, containing exactly what the implementation uses. *)
-
 module type Testing = sig
+  #include "Testing/Testing.mli"
+
   type context = NodeJs | ByteCode | Native
   val context: context
 
-  val (>::): string -> Test.t list -> Test.t
-  val (>:): string -> unit lazy_t -> Test.t
-  val (~:): ('a, unit, string, string, string, unit lazy_t -> Test.t) CamlinternalFormatBasics.format6 -> 'a
-  (* val (~::): ('a, unit, string, string, string, Test.t list -> Test.t) CamlinternalFormatBasics.format6 -> 'a *)
-
-  (* val fail: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a *)
-  val expect_exception: expected:exn -> 'a lazy_t -> unit
-  val expect_exception_named: expected:string -> 'a lazy_t -> unit
-  val check: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
-  (* val check_poly: repr:('a -> string) -> expected:'a -> 'a -> unit *)
-
+  (* @todo Publish *)
   val check_compare: expected:Compare.t -> Compare.t -> unit
   val check_eq: Compare.t -> unit
   val check_lt: Compare.t -> unit
   val check_gt: Compare.t -> unit
-  val check_string: expected:string -> string -> unit
-  val check_bool: expected:bool -> bool -> unit
-  val check_true: bool -> unit
-  val check_false: bool -> unit
-  val check_int: expected:int -> int -> unit
-  (* val check_int32: expected:int32 -> int32 -> unit *)
-  (* val check_int64: expected:int64 -> int64 -> unit *)
-  (* val check_float: ?precision:float -> expected:float -> float -> unit *)
-  (* val check_float_in: low:float -> high:float -> float -> unit *)
-  val check_float_exact: expected:float -> float -> unit
-  (* val check_option: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a option -> 'a option -> unit *)
-  (* val check_option_poly: repr:('a -> string) -> expected:'a option -> 'a option -> unit *)
-  val check_some: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a option -> unit
-  val check_none: repr:('a -> string) -> equal:('a -> 'a -> bool) -> 'a option -> unit
-  (* val check_some_poly: repr:('a -> string) -> expected:'a -> 'a option -> unit *)
-  (* val check_none_poly: repr:('a -> string) -> 'a option -> unit *)
-  (* val check_int_option: expected:int option -> int option -> unit *)
-  val check_some_int: expected:int -> int option -> unit
-  val check_none_int: int option -> unit
-  (* val check_string_option: expected:string option -> string option -> unit *)
-  val check_some_string: expected:string -> string option -> unit
-  (* val check_none_string: string option -> unit *)
-  (* val check_list: repr:('a -> string) -> equal:('a -> 'a -> bool) -> expected:'a list -> 'a list -> unit *)
-  (* val check_list_poly: repr:('a -> string) -> expected:'a list -> 'a list -> unit *)
-  val check_string_list: expected:string list -> string list -> unit
-  (* val check_int_list: expected:int list -> int list -> unit *)
+
   val check_int_tuple2: expected:int * int -> int * int -> unit
   val check_int_tuple3: expected:int * int * int -> int * int * int -> unit
   val check_int_tuple4: expected:int * int * int * int -> int * int * int * int -> unit
@@ -94,19 +61,15 @@ module type Testing = sig
 end
 
 module type Standard = sig
-  val ( + ): int -> int -> int
-  val ( / ): int -> int -> int
-  val ( * ): int -> int -> int
-
   module Testing: Testing
-
-  module Exception: sig
-    exception InvalidArgument of string
-    exception Failure of string
-
-    val failure: ('a, unit, string, string, string, 'b) CamlinternalFormatBasics.format6 -> 'a
-  end
+  module Facets: Facets
+  #include "Reset/PervasivesWhitelist.mli"
+  #include "Generated/Atoms.mli"
+  #include "Generated/Wrappers.mli"
 end
+
+[@@@ocaml.warning "+32"]
+[@@@ocaml.warning "+60"]
 
 (* Everything that does not depend on Facets, i.e. the "basic" types *)
 
@@ -132,8 +95,8 @@ module Function1_ = struct
 end
 open Function1_
 
-let ( |> ) = Function1.rev_apply  (* @todo Put somewhere *)
-let ( % ) = Function1.compose  (* @todo Put somewhere *)
+let ( |> ) = Function1.rev_apply  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+let ( % ) = Function1.compose  (* @todo Deduplicate with PervasivesWhiteList.ml *)
 
 module Bool_ = struct
   #include "Atoms/Bool.ml"
@@ -141,9 +104,9 @@ module Bool_ = struct
 end
 open Bool_
 
-let ( && ) = Bool.O.( && )  (* @todo Put somewhere *)
-(* let ( || ) = Bool.O.( || )  (* @todo Put somewhere *) *)
-let not = Bool.not  (* @todo Put somewhere *)
+let ( && ) = Bool.O.( && )  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+(* let ( || ) = Bool.O.( || )  (* @todo Deduplicate with PervasivesWhiteList.ml *) *)
+let not = Bool.not  (* @todo Deduplicate with PervasivesWhiteList.ml *)
 
 module Function2_ = struct
   #include "Atoms/Function2.ml"
@@ -153,21 +116,15 @@ open Function2_
 
 module Function3_ = struct
   #include "Atoms/Function3.ml"
-  module Function3 = Basic
 end
-open Function3_
 
 module Function4_ = struct
   #include "Atoms/Function4.ml"
-  module Function4 = Basic
 end
-open Function4_
 
 module Function5_ = struct
   #include "Atoms/Function5.ml"
-  module Function5 = Basic
 end
-open Function5_
 
 module Int_ = struct
   #include "Atoms/Int.ml"
@@ -175,15 +132,17 @@ module Int_ = struct
 end
 open Int_
 
+let ( + ) = Int.O.( + )  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+
 module Reference_ = struct
   #include "Wrappers/Reference.ml"
   module Reference = Basic
 end
 open Reference_
 
-let ref = Reference.of_contents  (* @todo Put somewhere *)
-let ( ! ) = Reference.O.( ! )  (* @todo Put somewhere *)
-let ( := ) = Reference.O.( := )  (* @todo Put somewhere *)
+let ref = Reference.of_contents  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+let ( ! ) = Reference.O.( ! )  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+let ( := ) = Reference.O.( := )  (* @todo Deduplicate with PervasivesWhiteList.ml *)
 
 module Option_ = struct
   #include "Wrappers/Option.ml"
@@ -215,7 +174,7 @@ module Unit_ = struct
 end
 open Unit_
 
-let ignore = Unit.ignore  (* @todo Put somewhere *)
+let ignore = Unit.ignore  (* @todo Deduplicate with PervasivesWhiteList.ml *)
 
 module RedBlackTree = struct
   #include "OldFashion/Collections/RedBlackTree.ml"
@@ -289,9 +248,7 @@ end
 
 module Bytes_ = struct
   #include "Atoms/Bytes.ml"
-  module Bytes = Basic
 end
-open Bytes_
 
 module InChannel = struct
   #include "OldFashion/Implementation/InChannel.ml"
@@ -405,9 +362,11 @@ module SortedSet = SortedSet_.Extended(Facets)
 
 (* Conclusion *)
 
+(*
 module TestingTests = struct
   #include "Testing/Tests.ml"
 end
+*)
 
 module Specializations = struct
   module List = struct
@@ -622,9 +581,18 @@ end
 module MakeTests() = struct
   open Testing
 
+  module Standard = struct
+    module Facets = Facets
+    include Standard
+  end
+
+  #if OCAML_VERSION >= (4, 6, 0)
+  let () = ignore skip_if_javascript
+  #endif
+
   let test = "General" >:: [
     (let module T = BigInt.MakeTests(Standard) in T.test);
-    (* BinaryHeap.Tests.test; *)
+    (let module T = BinaryHeap.MakeTests(Standard) in T.test);
     (let module T = Bool.MakeTests(Standard) in T.test);
     (let module T = Bytes.MakeTests(Standard) in T.test);
     (let module T = CallStack.MakeTests(Standard) in T.test);
@@ -640,21 +608,20 @@ module MakeTests() = struct
     (let module T = Int.MakeTests(Standard) in T.test);
     (let module T = Int32.MakeTests(Standard) in T.test);
     (let module T = Int64.MakeTests(Standard) in T.test);
+    (let module T = IntRange.MakeTests(Standard) in T.test);
     (let module T = Lazy.MakeTests(Standard) in T.test);
-    (* List.Tests.test; *)
+    (let module T = List.MakeTests(Standard) in T.test);
     (let module T = NativeInt.MakeTests(Standard) in T.test);
     (let module T = Option.MakeTests(Standard) in T.test);
-    (* RedBlackTree.Tests.test; *)
+    (let module T = RedBlackTree.MakeTests(Standard) in T.test);
     (let module T = Reference.MakeTests(Standard) in T.test);
-    (* Stream.Tests.test; *)
+    (let module T = Stream.MakeTests(Standard) in T.test);
     (let module T = String.MakeTests(Standard) in T.test);
     (let module T = Tuple2.MakeTests(Standard) in T.test);
     (let module T = Tuple3.MakeTests(Standard) in T.test);
     (let module T = Tuple4.MakeTests(Standard) in T.test);
     (let module T = Tuple5.MakeTests(Standard) in T.test);
     (let module T = Unit.MakeTests(Standard) in T.test);
-
-    (* IntRange.Tests.test; *)
 
     (* TestingTests.Tests.test; *)
 

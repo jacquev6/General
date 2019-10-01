@@ -119,8 +119,8 @@ let pop_max xs ~cmp =
 let pop_max xs ~cmp =
   Invariants.(xs |> validate ~cmp |> pop_max ~cmp |> validate ~cmp)
 
-(*
-module Tests = struct
+module MakeTests(Standard: Standard) = struct
+  open Standard
   open Testing
 
   let make name ?(init=empty) fs expected =
@@ -174,4 +174,3 @@ module Tests = struct
     );
   ]
 end
-*)

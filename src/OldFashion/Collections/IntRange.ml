@@ -252,13 +252,18 @@ end
 
 include Self
 
-(*
-module Tests = struct
+module MakeTests(Standard: Standard) = struct
+  open Standard
   open Testing
 
   (* @feature Comparable: compare ranges as equal if to_list produces the same integers in the same order, not if they have the same start, stop and step. Poly.equal wouldn't work. *)
 
   module Examples = struct
+    let values = [
+      make 10;
+      make ~step:2 ~start:2 6;
+    ]
+
     let representations = [
       (make 0, "[]");
       (make (-5), "[]");
@@ -301,8 +306,6 @@ module Tests = struct
       "with step < 0" >: (lazy (check_int_list ~expected:[0; -2; -4] (to_list (make (-6) ~step:(-2)))));
       "with step < 0 and start" >: (lazy (check_int_list ~expected:[-3; -5; -7; -9] (to_list (make (-10) ~start:(-3) ~step:(-2)))));
       "with step < 0 and start" >: (lazy (check_int_list ~expected:[-3; -5; -7; -9] (to_list (make (-11) ~start:(-3) ~step:(-2)))));
-      (* "fail" >: (lazy (fail "fail")); *)
     ];
   ]
 end
-*)

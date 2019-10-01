@@ -188,8 +188,8 @@ def make_dune():
     yield "    (:src General.cppo.mli)"
     for name in sorted(itertools.chain(
         glob.glob("src/OldFashion/Facets/*.signatures*.ml", recursive=False),
-        glob.glob("src/Generated/*.mli", recursive=False),
-        filter(lambda path: path != "src/Reset/DefinitionHeader.ml", glob.glob("src/Reset/*.ml*", recursive=False)),
+        glob.glob("src/*/**/*.mli", recursive=True),
+        filter(lambda path: path != "src/Reset/DefinitionHeader.ml", glob.glob("src/Reset/*.ml", recursive=False)),
     )):
         yield f"    {name[4:]}"
     yield "  )"
@@ -200,7 +200,10 @@ def make_dune():
     yield "  (targets General.ml)"
     yield "  (deps"
     yield "    (:src General.cppo.ml)"
-    for path in sorted(glob.glob("src/**/*.ml", recursive=True)):
+    for path in sorted(itertools.chain(
+        glob.glob("src/**/*.ml", recursive=True),
+        glob.glob("src/*/**/*.mli", recursive=True),
+    )):
         if path in ["src/Reset/SignatureHeader.ml", "src/General.cppo.ml"]:
             continue
         yield f"    {path[4:]}"

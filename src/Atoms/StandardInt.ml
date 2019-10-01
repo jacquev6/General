@@ -52,7 +52,7 @@ end) = struct
   let of_string s =
     try
       M.of_string s
-    with Failure "int_of_string" -> Exception.invalid_argument "%s.of_string" M.name
+    with Failure _ -> Exception.invalid_argument "%s.of_string" M.name
 
   let try_of_string s =
     Exception.or_none (lazy (M.of_string s))

@@ -546,57 +546,58 @@ module Extended(Facets: Facets) = struct
     let repr xs =
       Self.repr xs ~repr_a:A.repr
   end
+
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
+    module Examples = struct
+      module A = Int
+
+      let values = [[]; [1]; [1; 2; 3]]
+
+      let representations = [
+        ([], "[]");
+        ([1], "[1]");
+        ([1; 2; 3], "[1; 2; 3]");
+      ]
+
+      let equalities = [
+        [empty; []];
+      ]
+
+      let differences = [
+        ([], [1]);
+        ([1], [2]);
+        ([1; 1; 1], [1; 1; 2]);
+        ([1; 1; 1], [1; 1; 1; 1]);
+      ]
+    end
+
+    open Testing
+
+    let test = "List" >:: [
+      (* @todo Generate in geni.py *)
+      (let module T = Facets.Representable.Tests.Make1(Self)(Examples) in T.test);
+      (let module T = Facets.Equatable.Tests.Make1(Self)(Examples) in T.test);
+      (* (let module T = Facets.FilterMapable.Tests.Make1(Self) in T.test); *)
+      "reverse" >: (lazy (check_string_list ~expected:["3"; "2"; "1"] (reverse ["1"; "2"; "3"])));
+      "concat" >: (lazy (check_int_list ~expected:[1; 2; 3; 4; 5; 6] (concat [1; 2; 3] [4; 5; 6])));
+      "prepend" >: (lazy (check_int_list ~expected:[1; 2; 3] (prepend 1 [2; 3])));
+      "try_head" >: (lazy (check_some_int ~expected:1 (try_head [1; 2; 3])));
+      "try_head []" >: (lazy (check_none_int (try_head [])));
+      "try_tail" >: (lazy (check_some ~repr:(repr ~repr_a:Int.repr) ~equal:(equal ~equal_a:Int.equal) ~expected:[2; 3] (try_tail [1; 2; 3])));
+      "try_tail []" >: (lazy (check_none ~repr:(repr ~repr_a:Float.repr) ~equal:(equal ~equal_a:Float.equal) (try_tail [])));
+      "head" >: (lazy (check_int ~expected:1 (head [1; 2; 3])));
+      "head []" >: (lazy (expect_exception ~expected:(Exception.Failure "List.head") (lazy (head []))));
+      "tail" >: (lazy (check_int_list ~expected:[2; 3] (tail [1; 2; 3])));
+      "tail []" >: (lazy (expect_exception ~expected:(Exception.Failure "List.tail") (lazy (tail []))));
+      "fold []" >: (lazy (check_int ~expected:0 (fold ~init:0 ~f:(fun _ -> Exception.failure "Don't call me") []))); (*BISECT-IGNORE*)
+      "fold" >: (lazy (check_string ~expected:"init-3-4" (fold ~init:"init" ~f:(Format.apply "%s-%d") [3; 4])));
+      "reduce [0]" >: (lazy (check_int ~expected:0 (reduce ~f:(fun _ -> Exception.failure "Don't call me") [0]))); (*BISECT-IGNORE*)
+      "reduce" >: (lazy (check_int ~expected:4096 (reduce ~f:Int.exponentiate [2; 3; 4])));
+      "try_reduce" >: (lazy (check_some_int ~expected:4096 (try_reduce ~f:Int.exponentiate [2; 3; 4])));
+      "try_reduce []" >: (lazy (check_none_int (try_reduce ~f:Int.exponentiate [])));
+      "iter" >: (lazy (check_int ~expected:4096 (let p = ref 2 in iter ~f:(fun n -> p := Int.exponentiate !p n) [3; 4]; !p)));
+    ]
+  end
 end
-
-(*
-module Examples = struct
-  module A = Foundations.Int
-
-  let representations = [
-    ([], "[]");
-    ([1], "[1]");
-    ([1; 2; 3], "[1; 2; 3]");
-  ]
-
-  let equalities = [
-    [empty; []];
-    [[1]];
-    [[1; 2; 3]];
-  ]
-
-  let differences = [
-    ([], [1]);
-    ([1], [2]);
-    ([1; 1; 1], [1; 1; 2]);
-    ([1; 1; 1], [1; 1; 1; 1]);
-  ]
-end
-
-module Tests = struct
-  open Testing
-
-  let test = "List" >:: [
-    (let module T = Facets.Representable.Tests.Make1(Self)(Examples) in T.test);
-    (let module T = Facets.Equatable.Tests.Make1(Self)(Examples) in T.test);
-    (let module T = Facets.FilterMapable.Tests.Make1(Self) in T.test);
-    "reverse" >: (lazy (check_string_list ~expected:["3"; "2"; "1"] (reverse ["1"; "2"; "3"])));
-    "concat" >: (lazy (check_int_list ~expected:[1; 2; 3; 4; 5; 6] (concat [1; 2; 3] [4; 5; 6])));
-    "prepend" >: (lazy (check_int_list ~expected:[1; 2; 3] (prepend 1 [2; 3])));
-    "try_head" >: (lazy (check_some_int ~expected:1 (try_head [1; 2; 3])));
-    "try_head []" >: (lazy (check_none_int (try_head [])));
-    "try_tail" >: (lazy (check_some ~repr:(repr ~repr_a:Int.repr) ~equal:(equal ~equal_a:Int.equal) ~expected:[2; 3] (try_tail [1; 2; 3])));
-    "try_tail []" >: (lazy (check_none ~repr:(repr ~repr_a:Float.repr) ~equal:(equal ~equal_a:Float.equal) (try_tail [])));
-    "head" >: (lazy (check_int ~expected:1 (head [1; 2; 3])));
-    "head []" >: (lazy (expect_exception ~expected:(Exception.Failure "List.head") (lazy (head []))));
-    "tail" >: (lazy (check_int_list ~expected:[2; 3] (tail [1; 2; 3])));
-    "tail []" >: (lazy (expect_exception ~expected:(Exception.Failure "List.tail") (lazy (tail []))));
-    "fold []" >: (lazy (check_int ~expected:0 (fold ~init:0 ~f:(fun _ -> Exception.failure "Don't call me") []))); (*BISECT-IGNORE*)
-    "fold" >: (lazy (check_string ~expected:"init-3-4" (fold ~init:"init" ~f:(Format.apply "%s-%d") [3; 4])));
-    "reduce [0]" >: (lazy (check_int ~expected:0 (reduce ~f:(fun _ -> Exception.failure "Don't call me") [0]))); (*BISECT-IGNORE*)
-    "reduce" >: (lazy (check_int ~expected:4096 (reduce ~f:Int.exponentiate [2; 3; 4])));
-    "try_reduce" >: (lazy (check_some_int ~expected:4096 (try_reduce ~f:Int.exponentiate [2; 3; 4])));
-    "try_reduce []" >: (lazy (check_none_int (try_reduce ~f:Int.exponentiate [])));
-    "iter" >: (lazy (check_int ~expected:4096 (let p = ref 2 in iter ~f:(fun n -> p := Int.exponentiate !p n) [3; 4]; !p)));
-  ]
-end
-*)

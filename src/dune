@@ -28,6 +28,7 @@
     Reset/PervasivesWhitelist.mli
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml
+    Testing/Testing.mli
   )
   (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
 )
@@ -86,6 +87,7 @@
     Facets/ToInt.ml
     Facets/ToStandardNumber.ml
     Facets/empty_facet.ml
+    Generated/Atoms.mli
     Generated/Atoms/BigInt.ml
     Generated/Atoms/Bool.ml
     Generated/Atoms/Bytes.ml
@@ -109,6 +111,7 @@
     Generated/Atoms/String.ml
     Generated/Atoms/Unit.ml
     Generated/Facets.ml
+    Generated/Facets.mli
     Generated/Facets/Able.ml
     Generated/Facets/Bitwise.ml
     Generated/Facets/Bounded.ml
@@ -136,6 +139,7 @@
     Generated/Facets/ToStandardNumber.ml
     Generated/Facets_alpha.ml
     Generated/Types.extended.ml
+    Generated/Wrappers.mli
     Generated/Wrappers/Lazy.ml
     Generated/Wrappers/Option.ml
     Generated/Wrappers/Reference.ml
@@ -190,11 +194,13 @@
     OldFashion/Specializations/SortedSet.ml
     Reset/OCamlStandard.ml
     Reset/PervasivesWhitelist.ml
+    Reset/PervasivesWhitelist.mli
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml
     Shorten.ml
     Testing/Test.ml
     Testing/Testing.ml
+    Testing/Testing.mli
     Testing/Tests.ml
     Wrappers/Lazy.ml
     Wrappers/Option.ml

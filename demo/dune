@@ -4,7 +4,20 @@
   (action (run %{bin:cppo} %{src} -o %{targets}))
 )
 
-(tests
-  (names demo)
+(executable
+  (name demo)
+  (modules demo)
   (libraries General)
 )
+
+(alias
+  (name runtest)
+  (deps demo.bc)
+  (action (run %{exe:demo.bc}))
+)
+
+; @todo Restore native demo. With this commit, ocamlopt.opt fails with a stack overflow
+; (tests
+;   (names demo)
+;   (libraries General)
+; )

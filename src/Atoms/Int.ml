@@ -16,7 +16,7 @@ module Basic = struct
   let of_string s =
     try
       OCamlStandard.Pervasives.int_of_string s
-    with Failure "int_of_string" -> Exception.invalid_argument "Int.of_string"
+    with Failure _ -> Exception.invalid_argument "Int.of_string"
 
   let try_of_string s =
     Exception.or_none (lazy (OCamlStandard.Pervasives.int_of_string s))
