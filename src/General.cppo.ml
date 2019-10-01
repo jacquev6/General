@@ -362,12 +362,6 @@ module SortedSet = SortedSet_.Extended(Facets)
 
 (* Conclusion *)
 
-(*
-module TestingTests = struct
-  #include "Testing/Tests.ml"
-end
-*)
-
 module Specializations = struct
   module List = struct
     #include "OldFashion/Specializations/List.ml"
@@ -578,6 +572,10 @@ end
 
 (* Tests *)
 
+module TestingTests = struct
+  #include "Testing/Tests.ml"
+end
+
 module MakeTests() = struct
   open Testing
 
@@ -590,40 +588,41 @@ module MakeTests() = struct
   let () = ignore skip_if_javascript
   #endif
 
-  let test = "General" >:: [
-    (let module T = BigInt.MakeTests(Standard) in T.test);
-    (let module T = BinaryHeap.MakeTests(Standard) in T.test);
-    (let module T = Bool.MakeTests(Standard) in T.test);
-    (let module T = Bytes.MakeTests(Standard) in T.test);
-    (let module T = CallStack.MakeTests(Standard) in T.test);
-    (let module T = Char.MakeTests(Standard) in T.test);
-    (let module T = Exception.MakeTests(Standard) in T.test);
-    (let module T = Exit.MakeTests(Standard) in T.test);
-    (let module T = Float.MakeTests(Standard) in T.test);
-    (let module T = Function1.MakeTests(Standard) in T.test);
-    (let module T = Function2.MakeTests(Standard) in T.test);
-    (let module T = Function3.MakeTests(Standard) in T.test);
-    (let module T = Function4.MakeTests(Standard) in T.test);
-    (let module T = Function5.MakeTests(Standard) in T.test);
-    (let module T = Int.MakeTests(Standard) in T.test);
-    (let module T = Int32.MakeTests(Standard) in T.test);
-    (let module T = Int64.MakeTests(Standard) in T.test);
-    (let module T = IntRange.MakeTests(Standard) in T.test);
-    (let module T = Lazy.MakeTests(Standard) in T.test);
-    (let module T = List.MakeTests(Standard) in T.test);
-    (let module T = NativeInt.MakeTests(Standard) in T.test);
-    (let module T = Option.MakeTests(Standard) in T.test);
-    (let module T = RedBlackTree.MakeTests(Standard) in T.test);
-    (let module T = Reference.MakeTests(Standard) in T.test);
-    (let module T = Stream.MakeTests(Standard) in T.test);
-    (let module T = String.MakeTests(Standard) in T.test);
-    (let module T = Tuple2.MakeTests(Standard) in T.test);
-    (let module T = Tuple3.MakeTests(Standard) in T.test);
-    (let module T = Tuple4.MakeTests(Standard) in T.test);
-    (let module T = Tuple5.MakeTests(Standard) in T.test);
-    (let module T = Unit.MakeTests(Standard) in T.test);
+  #define TEST(M) (let module T = M.MakeTests(Standard) in T.test)
 
-    (* TestingTests.Tests.test; *)
+  let test = "General" >:: [
+    TEST(BigInt);
+    TEST(BinaryHeap);
+    TEST(Bool);
+    TEST(Bytes);
+    TEST(CallStack);
+    TEST(Char);
+    TEST(Exception);
+    TEST(Exit);
+    TEST(Float);
+    TEST(Function1);
+    TEST(Function2);
+    TEST(Function3);
+    TEST(Function4);
+    TEST(Function5);
+    TEST(Int);
+    TEST(Int32);
+    TEST(Int64);
+    TEST(IntRange);
+    TEST(Lazy);
+    TEST(List);
+    TEST(NativeInt);
+    TEST(Option);
+    TEST(RedBlackTree);
+    TEST(Reference);
+    TEST(Stream);
+    TEST(String);
+    TEST(Tuple2);
+    TEST(Tuple3);
+    TEST(Tuple4);
+    TEST(Tuple5);
+    TEST(Unit);
+    TestingTests.test;
 
     "Syntactic sugar" >:: [
       "Standard" >:: Standard.[

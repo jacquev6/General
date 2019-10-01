@@ -1,4 +1,4 @@
-"General" (Successes: 8576)
+"General" (Successes: 8608)
   "BigInt" (Successes: 504)
     "Integer" (Successes: 475)
       "RealNumber" (Successes: 460)
@@ -8856,6 +8856,44 @@
         "Comparable: min () ()": OK
         "Comparable: max () ()": OK
         "Comparable: min_max () ()": OK
+  "Testing" (Successes: 32)
+    "Result" (Successes: 25)
+      "Representable" (Successes: 9)
+        "Representable: repr Single {label=\"foo\"; status=Success}": OK
+        "Representable: repr Single {label=\"foo\"; status=Failure (NotEqual (\"a\", \"b\"))}": OK
+        "Representable: repr Single {label=\"foo\"; status=Failure (NoException TestingTests.Tests.TestException0)}": OK
+        "Representable: repr Single {label=\"foo\"; status=Failure (NoExceptionNamed \"Foo\")}": OK
+        "Representable: repr Single {label=\"foo\"; status=Failure (WrongException (TestingTests.Tests.TestException0, TestingTests.Tests.TestException0', None))}": OK
+        "Representable: repr Single {label=\"foo\"; status=Failure (WrongExceptionNamed (\"Foo\", TestingTests.Tests.TestException0', None))}": OK
+        "Representable: repr Single {label=\"foo\"; status=Failure (Custom \"bad\")}": OK
+        "Representable: repr Single {label=\"foo\"; status=Error (TestingTests.Tests.TestException0, None)}": OK
+        "Representable: repr Group {name=\"bar\"; children=[Single {label=\"foo\"; status=Success}]; counts={successes=1; failures=2; errors=3}}": OK
+      "to_indented_strings" (Successes: 16)
+        "\"foo\": OK": OK
+        "\"bar 1\": FAILED: expected a, but got b": OK
+        "\"bar 2\": FAILED: expected exception TestingTests.Tests.TestException0 not raised": OK
+        "\"bar 2'\": FAILED: expected exception Foo not raised": OK
+        "\"bar 3\": FAILED: expected exception TestingTests.Tests.TestException0 not raised, but exception TestingTests.Tests.TestException0' raised (no backtrace)": OK
+        "\"bar 3'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException0' raised (no backtrace)": OK
+        "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\nRaised by primitive operation at file \"Testing/Tests.ml\", line 2, characters 16-36\n": OK
+        "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\nRaised by primitive operation at file \"Testing/Tests.ml\", line 2, characters 16-36\n": OK
+        "\"bar 5\": FAILED: too bad": OK
+        "\"bar 6\": ERROR: exception TestingTests.Tests.TestException0 raised (no backtrace)": OK
+        "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\nRaised by primitive operation at file \"Testing/Tests.ml\", line 2, characters 16-36\n": OK
+        "\"foo\" (Successes: 2)\n  \"bar\": OK\n  \"baz\": OK": OK
+        "\"foo\" (Successes: 2)": OK
+        "\"foo\" (Successes: 1, failures: 1, errors: 0)\n  \"bar\": FAILED: nope\n  \"baz\": OK": OK
+        "\"foo\" (Successes: 1, failures: 1, errors: 0)\n  \"bar\": FAILED: nope": OK
+        "\"foo\" (Successes: 0, failures: 0, errors: 1)\n  \"bar\": ERROR: exception TestingTests.Tests.TestException0 raised (no backtrace)": OK
+    "Test" (Successes: 7)
+      "run" (Successes: 7)
+        "single success": OK
+        "group success": OK
+        "not equal failure": OK
+        "no exception": OK
+        "wrong exception": OK
+        "custom failure": OK
+        "error": OK
   "Syntactic sugar" (Successes: 8)
     "Standard" (Successes: 4)
       "array" (Successes: 2)
