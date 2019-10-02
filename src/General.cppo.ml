@@ -16,17 +16,17 @@ open Reset
 (* Basic types used in Facets' interface *)
 
 module Equate = struct
-  #include "Equate.ml"
+  #include "Reset/Equate.ml"
 end
 
 let ( = ) = Equate.Poly.O.( = )  (* @todo Deduplicate with PervasivesWhiteList.ml *)
 
 module Compare = struct
-  #include "Compare.ml"
+  #include "Reset/Compare.ml"
 end
 
 module Shorten = struct
-  #include "Shorten.ml"
+  #include "Reset/Shorten.ml"
 end
 
 module Test = struct

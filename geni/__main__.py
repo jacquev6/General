@@ -191,9 +191,10 @@ def make_dune():
     for name in sorted(itertools.chain(
         glob.glob("src/OldFashion/Facets/*.signatures*.ml", recursive=False),
         glob.glob("src/*/**/*.mli", recursive=True),
-        filter(lambda path: path != "src/Reset/DefinitionHeader.ml", glob.glob("src/Reset/*.ml", recursive=False)),
+        glob.glob("src/Reset/*.ml", recursive=False),
     )):
-        yield f"    {name[4:]}"
+        if name not in ["src/Reset/DefinitionHeader.ml", "src/Reset/Equate.ml", "src/Reset/Compare.ml", "src/Reset/Shorten.ml"]:
+            yield f"    {name[4:]}"
     yield "  )"
     yield "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))"
     yield ")"
@@ -203,11 +204,9 @@ def make_dune():
     yield "  (deps"
     yield "    (:src General.cppo.ml)"
     for path in sorted(itertools.chain(
-        glob.glob("src/**/*.ml", recursive=True),
+        glob.glob("src/*/**/*.ml", recursive=True),
         glob.glob("src/*/**/*.mli", recursive=True),
     )):
-        if path in ["src/Reset/SignatureHeader.ml", "src/General.cppo.ml"]:
-            continue
         yield f"    {path[4:]}"
     yield "  )"
     yield "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))"
