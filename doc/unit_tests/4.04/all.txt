@@ -1,4 +1,4 @@
-"General" (Successes: 8898)
+"General" (Successes: 8896)
   "BigInt" (Successes: 504)
     "Integer" (Successes: 475)
       "RealNumber" (Successes: 460)
@@ -958,9 +958,9 @@
       "Displayable: to_string \"bar\\\"baz\"": OK
   "CallStack" (Successes: 295)
     "Displayable" (Successes: 1)
-      "Displayable: to_string Raised by primitive operation at file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\nCalled from unknown location\nCalled from unknown location\n": OK
+      "Displayable: to_string Raised by primitive operation at file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\nCalled from unknown location\n": OK
     "Representable" (Successes: 1)
-      "Representable: repr Raised by primitive operation at file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\nCalled from unknown location\nCalled from unknown location\n": OK
+      "Representable: repr Raised by primitive operation at file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\nCalled from unknown location\n": OK
     "CallStack: frames": OK
     "Location" (Successes: 289)
       "Able" (Successes: 289)
@@ -9188,22 +9188,20 @@
         "wrong exception": OK
         "custom failure": OK
         "error": OK
-  "Syntactic sugar" (Successes: 10)
-    "Standard" (Successes: 5)
+  "Syntactic sugar" (Successes: 8)
+    "Standard" (Successes: 4)
       "array" (Successes: 2)
         "get": OK
         "set": OK
-      "string" (Successes: 2)
+      "string" (Successes: 1)
         "get": OK
-        "set": OK
       "bytes" (Successes: 1)
         "set": OK
-    "Abbr" (Successes: 5)
+    "Abbr" (Successes: 4)
       "array" (Successes: 2)
         "get": OK
         "set": OK
-      "string" (Successes: 2)
+      "string" (Successes: 1)
         "get": OK
-        "set": OK
       "bytes" (Successes: 1)
         "set": OK

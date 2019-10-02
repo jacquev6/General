@@ -155,7 +155,7 @@ def wrapper(
     return wrapper
 
 
-def make_unit_tests():
+def make_all_please_use_symbols():
     types = set()
     values = set()
     with open("src/Reset/ResetPervasives.ml") as f:
@@ -174,13 +174,6 @@ def make_unit_tests():
         yield f"let (_: {type_} option) = None"
     for value in sorted(values):
         yield f"let _ = {value}"
-    yield ""
-    yield "open General.Abbr"
-    yield ""
-    yield "let () ="
-    yield "  let argv = Li.of_array OCamlStandard.Sys.argv in"
-    yield "  let module T = General.MakeTests() in"
-    yield "  Exit.exit (Tst.command_line_main ~argv T.test)"
 
 
 def make_dune():
@@ -1101,7 +1094,7 @@ def main():
         for item in items
     ))
 
-    gen("tst/unit_tests.ml", make_unit_tests())
+    gen("tst/AllPleaseUseSymbols.ml", make_all_please_use_symbols())
 
     gen("src/dune", make_dune())
 

@@ -133,7 +133,6 @@ module Extended(Facets: Facets) = struct
               Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
               Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
               Called from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n\
-              Called from unknown location\n\
               Called from unknown location\n"
             | Native ->
               "Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
@@ -151,7 +150,7 @@ module Extended(Facets: Facets) = struct
       open Testing
 
       let tests = [
-        "CallStack: frames" >: (lazy (check_int ~expected:Testing.(match context with | NodeJs -> 0 | ByteCode -> 8 | Native -> 9) (stack |> frames |> List.size)));
+        "CallStack: frames" >: (lazy (check_int ~expected:Testing.(match context with | NodeJs -> 0 | ByteCode -> 7 | Native -> 9) (stack |> frames |> List.size)));
         LocationTests.test;
         FrameTests.test;
       ]

@@ -1,136 +1,79 @@
-let (_: General.Float.Class.t option) = None
-let (_: General.InChannel.t option) = None
-let (_: General.OutChannel.t option) = None
-let (_: _ General.Format.t option) = None
-let (_: _ General.Reference.t option) = None
-let _ = General.Bool.and_
-let _ = General.Bool.not
-let _ = General.Bool.of_string
-let _ = General.Bool.or_
-let _ = General.Bool.to_string
-let _ = General.Bool.try_of_string
-let _ = General.Char.of_int
-let _ = General.Char.to_int
-let _ = General.Compare.Poly.compare
-let _ = General.Compare.Poly.greater_or_equal
-let _ = General.Compare.Poly.greater_than
-let _ = General.Compare.Poly.less_or_equal
-let _ = General.Compare.Poly.less_than
-let _ = General.Compare.Poly.max
-let _ = General.Compare.Poly.min
-let _ = General.Equate.Phys.different
-let _ = General.Equate.Phys.equal
-let _ = General.Equate.Poly.different
-let _ = General.Equate.Poly.equal
-let _ = General.Exception.failure
-let _ = General.Exception.invalid_argument
-let _ = General.Exception.raise
-let _ = General.Exception.raise_without_backtrace
-let _ = General.Exit.at_exit
-let _ = General.Exit.exit
-let _ = General.Float.Class.of_float
-let _ = General.Float.abs
-let _ = General.Float.acos
-let _ = General.Float.add
-let _ = General.Float.asin
-let _ = General.Float.atan
-let _ = General.Float.atan2
-let _ = General.Float.ceil
-let _ = General.Float.copy_sign
-let _ = General.Float.cos
-let _ = General.Float.cosh
-let _ = General.Float.divide
-let _ = General.Float.epsilon
-let _ = General.Float.exp
-let _ = General.Float.expm1
-let _ = General.Float.exponentiate
-let _ = General.Float.floor
-let _ = General.Float.greatest
-let _ = General.Float.hypot
-let _ = General.Float.infinity
-let _ = General.Float.log
-let _ = General.Float.log10
-let _ = General.Float.log1p
-let _ = General.Float.modulo
-let _ = General.Float.multiply
-let _ = General.Float.negate
-let _ = General.Float.negative_infinity
-let _ = General.Float.not_a_number
-let _ = General.Float.of_int
-let _ = General.Float.of_parts
-let _ = General.Float.of_string
-let _ = General.Float.sin
-let _ = General.Float.sinh
-let _ = General.Float.smallest
-let _ = General.Float.sqrt
-let _ = General.Float.subtract
-let _ = General.Float.tan
-let _ = General.Float.tanh
-let _ = General.Float.to_fractional_and_integral
-let _ = General.Float.to_parts
-let _ = General.Float.to_string
-let _ = General.Float.try_of_string
-let _ = General.Format.concat
-let _ = General.Format.of_string
-let _ = General.Format.to_string
-let _ = General.Function1.apply
-let _ = General.Function1.identity
-let _ = General.Function1.rev_apply
-let _ = General.InFile.pos
-let _ = General.InFile.seek
-let _ = General.InFile.size
-let _ = General.InFile.with_file
-let _ = General.Int.Bitwise.arithmetic_shift_right
-let _ = General.Int.Bitwise.logical_and
-let _ = General.Int.Bitwise.logical_not
-let _ = General.Int.Bitwise.logical_or
-let _ = General.Int.Bitwise.logical_shift_left
-let _ = General.Int.Bitwise.logical_shift_right
-let _ = General.Int.Bitwise.logical_xor
-let _ = General.Int.abs
-let _ = General.Int.add
-let _ = General.Int.divide
-let _ = General.Int.greatest
-let _ = General.Int.modulo
-let _ = General.Int.multiply
-let _ = General.Int.negate
-let _ = General.Int.of_float
-let _ = General.Int.of_string
-let _ = General.Int.pred
-let _ = General.Int.smallest
-let _ = General.Int.subtract
-let _ = General.Int.succ
-let _ = General.Int.to_string
-let _ = General.Int.try_of_string
-let _ = General.IntReference.decrement
-let _ = General.IntReference.increment
-let _ = General.List.concat
-let _ = General.OutChannel.flush
-let _ = General.OutChannel.output
-let _ = General.OutChannel.print
-let _ = General.OutFile.pos
-let _ = General.OutFile.seek
-let _ = General.OutFile.size
-let _ = General.OutFile.with_file
-let _ = General.Reference.assign
-let _ = General.Reference.contents
-let _ = General.Reference.of_contents
-let _ = General.Standard.OCamlStandard.Pervasives.do_at_exit
-let _ = General.Standard.OCamlStandard.Pervasives.unsafe_really_input
-let _ = General.Standard.OCamlStandard.Pervasives.valid_float_lexem
-let _ = General.StdErr.channel
-let _ = General.StdErr.print
-let _ = General.StdIn.channel
-let _ = General.StdOut.channel
-let _ = General.StdOut.print
-let _ = General.String.concat
-let _ = General.Tuple2.get_0
-let _ = General.Tuple2.get_1
-let _ = General.Unit.ignore
+include AllPleaseUseSymbols
+
+module Tests = struct
+  open General
+  open Testing
+
+  module Standard = struct
+    module Facets = Facets
+    include Standard
+  end
+
+  let test = "General" >:: [
+    (let module T = BigInt.MakeTests(Standard) in T.test);
+    (let module T = BinaryHeap.MakeTests(Standard) in T.test);
+    (let module T = Bool.MakeTests(Standard) in T.test);
+    (let module T = Bytes.MakeTests(Standard) in T.test);
+    (let module T = CallStack.MakeTests(Standard) in T.test);
+    (let module T = Char.MakeTests(Standard) in T.test);
+    (let module T = Exception.MakeTests(Standard) in T.test);
+    (let module T = Exit.MakeTests(Standard) in T.test);
+    (let module T = Float.MakeTests(Standard) in T.test);
+    (let module T = Function1.MakeTests(Standard) in T.test);
+    (let module T = Function2.MakeTests(Standard) in T.test);
+    (let module T = Function3.MakeTests(Standard) in T.test);
+    (let module T = Function4.MakeTests(Standard) in T.test);
+    (let module T = Function5.MakeTests(Standard) in T.test);
+    (let module T = Int.MakeTests(Standard) in T.test);
+    (let module T = Int32.MakeTests(Standard) in T.test);
+    (let module T = Int64.MakeTests(Standard) in T.test);
+    (let module T = IntRange.MakeTests(Standard) in T.test);
+    (let module T = Lazy.MakeTests(Standard) in T.test);
+    (let module T = List.MakeTests(Standard) in T.test);
+    (let module T = NativeInt.MakeTests(Standard) in T.test);
+    (let module T = Option.MakeTests(Standard) in T.test);
+    (let module T = RedBlackTree.MakeTests(Standard) in T.test);
+    (let module T = Reference.MakeTests(Standard) in T.test);
+    (let module T = Stream.MakeTests(Standard) in T.test);
+    (let module T = String.MakeTests(Standard) in T.test);
+    (let module T = Tuple2.MakeTests(Standard) in T.test);
+    (let module T = Tuple3.MakeTests(Standard) in T.test);
+    (let module T = Tuple4.MakeTests(Standard) in T.test);
+    (let module T = Tuple5.MakeTests(Standard) in T.test);
+    (let module T = Unit.MakeTests(Standard) in T.test);
+    TestingTests.test;
+
+    "Syntactic sugar" >:: [
+      "Standard" >:: Standard.[
+        "array" >:: [
+          "get" >: (let a: int array = [|42|] in lazy (check_int ~expected:42 a.(0)));
+          "set" >: (let a: int array = [|42|] in lazy (check_int ~expected:42 (Array.get a 0); a.(0) <- 37; check_int ~expected:37 (Array.get a 0)));
+        ];
+        "string" >:: [
+          "get" >: (let a: string = "a" in lazy (check_char ~expected:'a' a.[0]));
+        ];
+        "bytes" >:: [
+          "set" >: (let a: bytes = Bytes.of_string "a" in lazy (check_char ~expected:'a' (Bytes.get a 0); a.[0] <- 'z'; check_char ~expected:'z' (Bytes.get a 0)));
+        ];
+      ];
+      "Abbr" >:: Abbr.[
+        "array" >:: [
+          "get" >: (let a: int array = [|42|] in lazy (check_int ~expected:42 a.(0)));
+          "set" >: (let a: int array = [|42|] in lazy (check_int ~expected:42 (Ar.get a 0); a.(0) <- 37; check_int ~expected:37 (Ar.get a 0)));
+        ];
+        "string" >:: [
+          "get" >: (let a: string = "a" in lazy (check_char ~expected:'a' a.[0]));
+        ];
+        "bytes" >:: [
+          "set" >: (let a: bytes = By.of_string "a" in lazy (check_char ~expected:'a' (By.get a 0); a.[0] <- 'z'; check_char ~expected:'z' (By.get a 0)));
+        ];
+      ];
+    ];
+  ]
+end
 
 open General.Abbr
 
 let () =
   let argv = Li.of_array OCamlStandard.Sys.argv in
-  let module T = General.MakeTests() in
-  Exit.exit (Tst.command_line_main ~argv T.test)
+  Exit.exit (Tst.command_line_main ~argv Tests.test)
