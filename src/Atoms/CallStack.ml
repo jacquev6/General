@@ -109,7 +109,7 @@ module Extended(Facets: Facets) = struct
               "format 1" >: (lazy (check_some_string ~expected:"Called from file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27" (format 1 frame)));
               "location" >: (lazy (check_some ~repr:Location.repr ~equal:Location.equal ~expected:{Location.filename="Atoms/CallStack.symbols.ml"; line_number=3; start_char=15; end_char=27} (location frame)))
             ]
-          | Native ->
+          | Native _ ->
             let frame = List.head (frames stack) in
             Frame.[
               "format 0" >: (lazy (check_some_string ~expected:"Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49" (format 0 frame)));
@@ -134,13 +134,22 @@ module Extended(Facets: Facets) = struct
               Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
               Called from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n\
               Called from unknown location\n"
-            | Native ->
+            | Native (4, (2|3), _) ->
               "Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
               Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
               Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
               Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
               Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
               Called from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n"
+            | Native _ ->
+              "Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n\
+              Called from file \"tst/unit_tests.ml\", line 14, characters 22-51\n"
           )
         );
       ]
@@ -150,7 +159,7 @@ module Extended(Facets: Facets) = struct
       open Testing
 
       let tests = [
-        "CallStack: frames" >: (lazy (check_int ~expected:Testing.(match context with | NodeJs -> 0 | ByteCode -> 7 | Native -> 9) (stack |> frames |> List.size)));
+        "CallStack: frames" >: (lazy (check_int ~expected:Testing.(match context with | NodeJs -> 0 | ByteCode -> 7 | Native _ -> 8) (stack |> frames |> List.size)));
         LocationTests.test;
         FrameTests.test;
       ]

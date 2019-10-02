@@ -202,10 +202,10 @@ let (~:) format =
 
 (* Checks *)
 
-type context = NodeJs | ByteCode | Native
+type context = NodeJs | ByteCode | Native of int * int * int
 
 let context =
-  [(".js", NodeJs); (".bc", ByteCode); (".exe", Native)]
+  [(".js", NodeJs); (".bc", ByteCode); (".exe", Native OCAML_VERSION)]
   |> List.find_map ~f:(fun (suf, ret) -> Option.some_if' (String.has_suffix OCamlStandard.Sys.argv.(0) ~suf) ret)
 
 let skip_if_javascript test =

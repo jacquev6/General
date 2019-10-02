@@ -16,12 +16,11 @@
   (action (run %{exe:unit_tests.bc}))
 )
 
-; @todo Restore native tests. With this commit, ocamlopt.opt fails with a stack overflow
-; (alias
-;   (name runtest)
-;   (deps unit_tests.exe)
-;   (action (run %{exe:unit_tests.exe}))
-; )
+(alias
+  (name runtest)
+  (deps unit_tests.exe)
+  (action (run %{exe:unit_tests.exe}))
+)
 
 (alias
   (name runtest)
