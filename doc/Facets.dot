@@ -103,7 +103,7 @@ digraph {
   fixedwidthinteger -> bitwise
   callstack -> displayable [ltail="cluster_CallStack"]
   callstack -> representable [ltail="cluster_CallStack"]
-  location -> representable
+  location -> able
   exception -> identifiable
   exception -> displayable
   unit -> able

@@ -1,4 +1,4 @@
-"General" (Successes: 8610)
+"General" (Successes: 8898)
   "BigInt" (Successes: 504)
     "Integer" (Successes: 475)
       "RealNumber" (Successes: 460)
@@ -956,15 +956,309 @@
     "Displayable" (Successes: 2)
       "Displayable: to_string \"foo\"": OK
       "Displayable: to_string \"bar\\\"baz\"": OK
-  "CallStack" (Successes: 7)
+  "CallStack" (Successes: 295)
     "Displayable" (Successes: 1)
       "Displayable: to_string Raised by primitive operation at file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\nCalled from unknown location\nCalled from unknown location\nCalled from unknown location\n": OK
     "Representable" (Successes: 1)
       "Representable: repr Raised by primitive operation at file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\nCalled from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\nCalled from unknown location\nCalled from unknown location\nCalled from unknown location\n": OK
     "CallStack: frames": OK
-    "Location" (Successes: 1)
-      "Representable" (Successes: 1)
-        "Representable: repr {filename=\"Atoms/CallStack.symbols.ml\"; line_number=3; start_char=15; end_char=49}": OK
+    "Location" (Successes: 289)
+      "Able" (Successes: 289)
+        "Identifiable" (Successes: 37)
+          "Equatable" (Successes: 36)
+            "EquatableBasic" (Successes: 9)
+              "EquatableBasic: equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+              "EquatableBasic: equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"bar.ml\"; line_number=3; start_char=15; end_char=49}": OK
+              "EquatableBasic: equal {filename=\"bar.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+              "EquatableBasic: equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+              "EquatableBasic: equal {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+              "EquatableBasic: equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+              "EquatableBasic: equal {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+              "EquatableBasic: equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+              "EquatableBasic: equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} = {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: different {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} <> {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} = {filename=\"bar.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: different {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"bar.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} <> {filename=\"bar.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"bar.ml\"; line_number=3; start_char=15; end_char=49} = {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: different {filename=\"bar.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"bar.ml\"; line_number=3; start_char=15; end_char=49} <> {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} = {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+            "Equatable: different {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} <> {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} = {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: different {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} <> {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} = {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+            "Equatable: different {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} <> {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} = {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: different {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} <> {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} = {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+            "Equatable: different {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} <> {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} = {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: different {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "Equatable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} <> {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Representable" (Successes: 1)
+            "Representable: repr {filename=\"Atoms/CallStack.symbols.ml\"; line_number=3; start_char=15; end_char=49}": OK
+        "Comparable" (Successes: 252)
+          "ComparableBasic" (Successes: 21)
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+            "ComparableBasic: compare {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} < {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} <= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} > {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} >= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} < {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} < {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} <= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} <= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} > {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} > {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} >= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} >= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} < {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} < {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} <= {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} <= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} > {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} > {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} >= {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} >= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} < {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} < {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} <= {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} <= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} > {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} > {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} >= {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} >= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_than {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} < {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} < {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} <= {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} <= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_than {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} > {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} > {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} >= {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} >= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: max {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min_max {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} < {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} < {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} <= {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} <= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} > {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} > {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} >= {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} >= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} < {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} < {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} <= {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} <= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} > {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} > {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} >= {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} >= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_than {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} < {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} < {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} <= {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} <= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_than {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} > {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} > {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} >= {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} >= {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: max {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min_max {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=15; end_char=50}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} < {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} < {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} <= {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} <= {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} > {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} > {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} >= {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} >= {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_than {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} < {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} < {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} <= {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} <= {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_than {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} > {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} > {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} >= {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} >= {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: max {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min_max {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=3; start_char=16; end_char=49}": OK
+          "Comparable: less_than {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_than {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} < {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} < {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: less_or_equal {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} <= {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} <= {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: greater_than {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_than {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} > {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} > {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: greater_or_equal {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} >= {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} >= {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: min {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: max {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: max {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
+          "Comparable: min_max {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49} {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49}": OK
+          "Comparable: min_max {filename=\"goo.ml\"; line_number=3; start_char=15; end_char=49} {filename=\"foo.ml\"; line_number=4; start_char=15; end_char=49}": OK
     "Frame" (Successes: 3)
       "format 0": OK
       "format 1": OK

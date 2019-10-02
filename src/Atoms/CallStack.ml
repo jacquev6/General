@@ -58,12 +58,37 @@ module Extended(Facets: Facets) = struct
       #include "../Generated/Atoms/CallStack/Location.ml"
 
       include Tests_.Make(Location)(struct
-        let representations = [
+        let values = Location.[
+          {filename="foo.ml"; line_number=3; start_char=15; end_char=49};
+        ]
+
+        let representations = Location.[
           (
-            {Location.filename="Atoms/CallStack.symbols.ml"; line_number=3; start_char=15; end_char=49},
+            {filename="Atoms/CallStack.symbols.ml"; line_number=3; start_char=15; end_char=49},
             "{filename=\"Atoms/CallStack.symbols.ml\"; line_number=3; start_char=15; end_char=49}"
           );
         ]
+
+        let equalities = []
+
+        let differences = Location.[
+          ({filename="foo.ml"; line_number=3; start_char=15; end_char=49}, {filename="bar.ml"; line_number=3; start_char=15; end_char=49});
+          ({filename="foo.ml"; line_number=3; start_char=15; end_char=49}, {filename="foo.ml"; line_number=4; start_char=15; end_char=49});
+          ({filename="foo.ml"; line_number=3; start_char=15; end_char=49}, {filename="foo.ml"; line_number=3; start_char=16; end_char=49});
+          ({filename="foo.ml"; line_number=3; start_char=15; end_char=49}, {filename="foo.ml"; line_number=3; start_char=15; end_char=50});
+        ]
+
+        let strict_orders = Location.[
+          [
+            {filename="foo.ml"; line_number=3; start_char=15; end_char=49};
+            {filename="foo.ml"; line_number=3; start_char=15; end_char=50};
+            {filename="foo.ml"; line_number=3; start_char=16; end_char=49};
+            {filename="foo.ml"; line_number=4; start_char=15; end_char=49};
+            {filename="goo.ml"; line_number=3; start_char=15; end_char=49};
+          ]
+        ]
+
+        let order_classes = []
       end)(struct
         let tests = []
       end)

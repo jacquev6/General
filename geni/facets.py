@@ -352,21 +352,22 @@ class Type:
     def __init__(
             self, *,
             prefix, name,
-            type_params, type,
+            type_params, type, type_definition,
             arity,
             bases, exceptions, operators, values, types,
             specializers,
     ):
         self.prefix = prefix
         self.name = name
+        self.type_params = "" if type_params is None else f"{type_params} "
         self.type = type
+        self.type_definition = type_definition
         self.arity = arity
         self.bases = list(bases)
         self.exceptions = list(exceptions)
         self.operators = list(operators)
         self.values = list(values)
         self.types = list(types)
-        self.type_params = "" if type_params is None else f"{type_params} "
         self.specializers = specializers
 
     @property
@@ -413,7 +414,10 @@ class Type:
 
     @property
     def specification_items(self):
-        yield f"type {self.type_params}t = {self.type}"
+        definition = ""
+        if self.type_definition is not None:
+            definition = f" = {self.type_definition}"
+        yield f"type {self.type_params}t = {self.type}{definition}"
         if len(self.operators) > 0:
             yield mod_spec("O",
                 (f"include {base.contextualized_name(self.prefix)}.Operators.S{self.arity} with type t := t" for base in self.bases if base._Facet__has_operators()),

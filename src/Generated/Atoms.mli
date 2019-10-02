@@ -3,8 +3,8 @@ module CallStack: sig
   include Facets.Displayable.S0 with type t := t
   include Facets.Representable.S0 with type t := t
   module Location: sig
-    type t = OCamlStandard.Printexc.location
-    include Facets.Representable.S0 with type t := t
+    type t = OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}
+    include Facets.Able.S0 with type t := t
   end
 
   module Frame: sig
