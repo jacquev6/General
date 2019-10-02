@@ -87,6 +87,7 @@ do
         echo "-----------------------"
 
         $RUN opam install General
+        # @todo Test that the library is actually installed and usable
     fi
 
     # @todo Build demo apps (as native, byte code, and js)
