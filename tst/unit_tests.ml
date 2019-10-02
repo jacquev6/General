@@ -10,13 +10,15 @@ module Tests = struct
   end
 
   let test = "General" >:: [
+    (let module T = CallStack.MakeTests(Standard) in T.test);
+    (let module T = Exception.MakeTests(Standard) in T.test);
+    TestingTests.test;
+
     (let module T = BigInt.MakeTests(Standard) in T.test);
     (let module T = BinaryHeap.MakeTests(Standard) in T.test);
     (let module T = Bool.MakeTests(Standard) in T.test);
     (let module T = Bytes.MakeTests(Standard) in T.test);
-    (let module T = CallStack.MakeTests(Standard) in T.test);
     (let module T = Char.MakeTests(Standard) in T.test);
-    (let module T = Exception.MakeTests(Standard) in T.test);
     (let module T = Exit.MakeTests(Standard) in T.test);
     (let module T = Float.MakeTests(Standard) in T.test);
     (let module T = Function1.MakeTests(Standard) in T.test);
@@ -41,7 +43,6 @@ module Tests = struct
     (let module T = Tuple4.MakeTests(Standard) in T.test);
     (let module T = Tuple5.MakeTests(Standard) in T.test);
     (let module T = Unit.MakeTests(Standard) in T.test);
-    TestingTests.test;
 
     "Syntactic sugar" >:: [
       "Standard" >:: Standard.[
