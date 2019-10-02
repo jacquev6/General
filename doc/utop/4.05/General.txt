@@ -39,7 +39,6 @@ module General: sig
   module IntSortedSet
   module Lazy
   module List
-  module MakeTests
   module NativeInt
   module OCamlStandard
   module Option

@@ -1034,8 +1034,8 @@ tuple_ = [
 
 def main():
     def gen(path, *items):
-        if os.sep in path:
-            os.makedirs(os.path.dirname(path), exist_ok=True)
+        assert os.sep in path
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w") as f:
             generate(items, file=f)
 
@@ -1101,7 +1101,7 @@ def main():
         for item in items
     ))
 
-    gen("unit_tests.ml", make_unit_tests())
+    gen("tst/unit_tests.ml", make_unit_tests())
 
     gen("src/dune", make_dune())
 

@@ -22,7 +22,6 @@ module Tests_beta(Testing: Testing) = struct
   end
 
   include MakeMakers(functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> struct
-    open Testing
     module Expectations = RingoidTests.MakeExpectations(M)(E)
     module Testers = MakeTesters(M)
     module ComparableTesters = ComparableTests.MakeTesters(M)

@@ -1,7 +1,12 @@
+(rule
+  (targets General.ml)
+  (deps ../src/General.ml)
+  (action (copy ../src/General.ml General.ml))
+)
+
 (executable
   (name unit_tests)
-  (modules unit_tests)
-  (libraries General)
+  (libraries num)
   (js_of_ocaml (flags "+nat.js"))
 )
 
