@@ -1,4 +1,5 @@
 module Make0(M: General.Facets.ToInt.Tests.Testable.S0)(E: sig
+  val conversions_to_int: (M.t * int) list
 end): sig
   val test: General.Test.t
 end

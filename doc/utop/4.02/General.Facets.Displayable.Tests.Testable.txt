@@ -1,6 +1,7 @@
 module Testable: sig
   module type S0 = sig
     type t
+    val repr: t -> bytes
     val to_string: t -> bytes
   end
 end

@@ -1,7 +1,9 @@
 module Examples: sig
   module type S0 = sig
     type t
-    val displays: (t * bytes) list
-    val literals: (bytes * t) list
+    val conversions_from_string: (bytes * t) list
+    val conversions_to_string: (t * bytes) list
+    val module_name: bytes
+    val unconvertible_strings: bytes list
   end
 end

@@ -5,8 +5,10 @@ module Make4(M: General.Facets.Able.Tests.Testable.S4)(E: sig
   module D: General.Facets.Able.Tests.Examples.Element
   val differences: ((A.t, B.t, C.t, D.t) M.t * (A.t, B.t, C.t, D.t) M.t) list
   val equalities: (A.t, B.t, C.t, D.t) M.t list list
-  val orders: (A.t, B.t, C.t, D.t) M.t list list
+  val order_classes: (A.t, B.t, C.t, D.t) M.t list list
   val representations: ((A.t, B.t, C.t, D.t) M.t * string) list
+  val strict_orders: (A.t, B.t, C.t, D.t) M.t list list
+  val values: (A.t, B.t, C.t, D.t) M.t list
 end): sig
   val test: General.Test.t
 end

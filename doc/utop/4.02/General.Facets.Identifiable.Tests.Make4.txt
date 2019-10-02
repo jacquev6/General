@@ -6,6 +6,7 @@ module Make4(M: General.Facets.Identifiable.Tests.Testable.S4)(E: sig
   val differences: ((A.t, B.t, C.t, D.t) M.t * (A.t, B.t, C.t, D.t) M.t) list
   val equalities: (A.t, B.t, C.t, D.t) M.t list list
   val representations: ((A.t, B.t, C.t, D.t) M.t * bytes) list
+  val values: (A.t, B.t, C.t, D.t) M.t list
 end): sig
   val test: General.Test.t
 end

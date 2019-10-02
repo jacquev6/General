@@ -39,6 +39,7 @@ module General: sig
   module IntSortedSet
   module Lazy
   module List
+  module MakeTests
   module NativeInt
   module OCamlStandard
   module Option
@@ -62,7 +63,6 @@ module General: sig
   module StringSortedSet
   module Test
   module Testing
-  module Tests
   module Tuple2
   module Tuple3
   module Tuple4
