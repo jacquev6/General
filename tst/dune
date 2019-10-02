@@ -1,7 +1,12 @@
+(rule
+  (targets General.ml)
+  (deps ../src/General.ml)
+  (action (copy ../src/General.ml General.ml))
+)
+
 (executable
   (name unit_tests)
-  (modules unit_tests)
-  (libraries General)
+  (libraries num)
   (js_of_ocaml (flags "+nat.js"))
 )
 
@@ -11,12 +16,11 @@
   (action (run %{exe:unit_tests.bc}))
 )
 
-; @todo Restore native tests. With this commit, ocamlopt.opt fails with a stack overflow
-; (alias
-;   (name runtest)
-;   (deps unit_tests.exe)
-;   (action (run %{exe:unit_tests.exe}))
-; )
+(alias
+  (name runtest)
+  (deps unit_tests.exe)
+  (action (run %{exe:unit_tests.exe}))
+)
 
 (alias
   (name runtest)

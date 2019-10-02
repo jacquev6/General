@@ -67,7 +67,7 @@ do
 
     rm -rf doc/unit_tests/$OCAML_VERSION
     mkdir -p doc/unit_tests/$OCAML_VERSION
-    $RUN _build/default/unit_tests.bc --verbose >doc/unit_tests/$OCAML_VERSION/all.txt
+    $RUN _build/default/tst/unit_tests.bc --verbose >doc/unit_tests/$OCAML_VERSION/all.txt
 
     if $DO_UTOP_INTERFACE
     then
@@ -87,6 +87,7 @@ do
         echo "-----------------------"
 
         $RUN opam install General
+        # @todo Test that the library is actually installed and usable
     fi
 
     # @todo Build demo apps (as native, byte code, and js)

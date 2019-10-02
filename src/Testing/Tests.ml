@@ -71,9 +71,16 @@ let test = "Testing" >:: [
             match Testing.context with
               | NodeJs ->
                 "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n"
-              | _ ->
+              | ByteCode ->
                 "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
                   Raised by primitive operation at file \"Testing/Tests.ml\", line 2, characters 16-36\n"
+              | Native (4, (2|3), _) ->
+                "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                  Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\n"
+              | Native _ ->
+                "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                  Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
+                  Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
           ]
           (Single {label="bar 4"; status=Failure (WrongException (TestException1 "bad", TestException1 "too bad", Some callstack))});
         make
@@ -81,9 +88,16 @@ let test = "Testing" >:: [
             match Testing.context with
               | NodeJs ->
                 "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n"
-              | _ ->
+              | ByteCode ->
                 "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
                   Raised by primitive operation at file \"Testing/Tests.ml\", line 2, characters 16-36\n"
+              | Native (4, (2|3), _) ->
+                "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                  Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\n"
+              | Native _ ->
+                "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                  Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
+                  Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
           ]
           (Single {label="bar 4'"; status=Failure (WrongExceptionNamed ("Foo", TestException1 "too bad", Some callstack))});
         make
@@ -97,9 +111,16 @@ let test = "Testing" >:: [
             match Testing.context with
               | NodeJs ->
                 "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n"
-              | _ ->
+              | ByteCode ->
                 "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
                   Raised by primitive operation at file \"Testing/Tests.ml\", line 2, characters 16-36\n"
+              | Native (4, (2|3), _) ->
+                "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
+                  Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\n"
+              | Native _ ->
+                "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
+                  Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
+                  Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
           ]
           (Single {label="bar 7"; status=Error (TestException1 "bad", Some callstack)});
         make ~verbose:true

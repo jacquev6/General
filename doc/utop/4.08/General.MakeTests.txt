@@ -1,3 +1,0 @@
-module MakeTests(): sig
-  val test: General.Test.t
-end

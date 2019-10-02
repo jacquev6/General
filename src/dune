@@ -59,8 +59,6 @@
     Atoms/StandardInt.ml
     Atoms/String.ml
     Atoms/Unit.ml
-    Compare.ml
-    Equate.ml
     Facets/Able.ml
     Facets/Bitwise.ml
     Facets/Bounded.ml
@@ -192,12 +190,14 @@
     OldFashion/Specializations/Reference.ml
     OldFashion/Specializations/SortedMap.ml
     OldFashion/Specializations/SortedSet.ml
+    Reset/Compare.ml
+    Reset/Equate.ml
     Reset/OCamlStandard.ml
     Reset/PervasivesWhitelist.ml
     Reset/PervasivesWhitelist.mli
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml
-    Shorten.ml
+    Reset/Shorten.ml
     Testing/Test.ml
     Testing/Testing.ml
     Testing/Testing.mli

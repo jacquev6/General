@@ -918,7 +918,3 @@ module Abbr: sig
   #undef ABBREVIATED
   #include "Reset/PervasivesWhitelist.mli"
 end
-
-module MakeTests(): sig
-  val test: Test.t
-end [@@autodoc.hide]
