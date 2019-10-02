@@ -547,6 +547,7 @@ module Extended(Facets: Facets) = struct
       Self.repr xs ~repr_a:A.repr
   end
 
+  #ifdef TESTING_GENERAL
   module MakeTests(Standard: Standard) = struct
     open Standard
 
@@ -600,4 +601,5 @@ module Extended(Facets: Facets) = struct
       "iter" >: (lazy (check_int ~expected:4096 (let p = ref 2 in iter ~f:(fun n -> p := Int.exponentiate !p n) [3; 4]; !p)));
     ]
   end
+  #endif
 end

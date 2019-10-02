@@ -119,6 +119,7 @@ let pop_max xs ~cmp =
 let pop_max xs ~cmp =
   Invariants.(xs |> validate ~cmp |> pop_max ~cmp |> validate ~cmp)
 
+#ifdef TESTING_GENERAL
 module MakeTests(Standard: Standard) = struct
   open Standard
   open Testing
@@ -174,3 +175,4 @@ module MakeTests(Standard: Standard) = struct
     );
   ]
 end
+#endif

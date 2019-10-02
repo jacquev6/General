@@ -252,6 +252,7 @@ end
 
 include Self
 
+#ifdef TESTING_GENERAL
 module MakeTests(Standard: Standard) = struct
   open Standard
   open Testing
@@ -309,3 +310,4 @@ module MakeTests(Standard: Standard) = struct
     ];
   ]
 end
+#endif

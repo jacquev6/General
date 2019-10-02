@@ -8,6 +8,7 @@ module Result = struct
       | WrongExceptionNamed of string * exn * CallStack.t option
       | Custom of string
 
+    #ifdef TESTING_GENERAL
     let failure_repr = function
       | NotEqual (x, y) ->
         Format.apply "NotEqual (%S, %S)" x y
@@ -21,12 +22,14 @@ module Result = struct
         Format.apply "WrongExceptionNamed (%S, %s, %s)" expected (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
       | Custom x ->
         Format.apply "Custom %S" x
+    #endif
 
     type t =
       | Success
       | Failure of failure
       | Error of exn * CallStack.t option
 
+    #ifdef TESTING_GENERAL
     let repr = function
       | Success ->
         "Success"
@@ -34,6 +37,7 @@ module Result = struct
         Format.apply "Failure (%s)" (failure_repr reason)
       | Error (exc, bt) ->
         Format.apply "Error (%s, %s)" (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
+    #endif
 
     let to_string = function
         | Success ->
@@ -87,8 +91,10 @@ module Result = struct
         errors = errors + errors';
       }
 
+    #ifdef TESTING_GENERAL
     let repr {successes; failures; errors} =
       Format.apply "{successes=%i; failures=%i; errors=%i}" successes failures errors
+    #endif
   end
 
   type group = {
@@ -101,6 +107,7 @@ module Result = struct
     | Single of single
     | Group of group
 
+  #ifdef TESTING_GENERAL
   let rec repr = function
     | Single {label; status} ->
       Format.apply "Single {label=%S; status=%s}" label (Status.repr status)
@@ -109,6 +116,7 @@ module Result = struct
 
   let equal x y =
     Equate.Poly.equal x y
+  #endif
 
   let to_indented_strings ~verbose =
     let rec aux indent = function
@@ -207,9 +215,6 @@ type context = NodeJs | ByteCode | Native of int * int * int
 let context =
   [(".js", NodeJs); (".bc", ByteCode); (".exe", Native OCAML_VERSION)]
   |> List.find_map ~f:(fun (suf, ret) -> Option.some_if' (String.has_suffix OCamlStandard.Sys.argv.(0) ~suf) ret)
-
-let skip_if_javascript test =
-  if context = NodeJs then Test.(Group {name="*skipped on JavaScript*"; tests=[]}) else test
 
 let fail format =
   Format.with_result

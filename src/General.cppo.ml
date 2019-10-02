@@ -19,7 +19,9 @@ module Equate = struct
   #include "Reset/Equate.ml"
 end
 
+#ifdef TESTING_GENERAL
 let ( = ) = Equate.Poly.O.( = )  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+#endif
 
 module Compare = struct
   #include "Reset/Compare.ml"
@@ -132,7 +134,9 @@ module Int_ = struct
 end
 open Int_
 
+#ifdef TESTING_GENERAL
 let ( + ) = Int.O.( + )  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+#endif
 
 module Reference_ = struct
   #include "Wrappers/Reference.ml"
@@ -572,6 +576,8 @@ end
 
 (* Tests *)
 
+#ifdef TESTING_GENERAL
 module TestingTests = struct
   #include "Testing/Tests.ml"
 end
+#endif
