@@ -81,6 +81,24 @@ let test = "Testing" >:: [
                 "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
                   Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
                   Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
+              | Flambda (4, 3, _) ->
+                "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                  Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49\n"
+              | Flambda (4, 4, _) ->
+                "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                  Raised by primitive operation at file \"printexc.ml\", line 249, characters 0-75\n\
+                  Called from file \"Atoms/CallStack.ml\" (inlined), line 5, characters 4-49\n\
+                  Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
+              | Flambda (4, (5|6|7), _) ->
+                "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                  Raised by primitive operation at file \"printexc.ml\" (inlined), line 251, characters 0-75\n\
+                  Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
+                  Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
+              | Flambda _ ->
+                "\"bar 4\": FAILED: expected exception TestingTests.Tests.TestException1(\"bad\") not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                  Raised by primitive operation at file \"printexc.ml\" (inlined), line 253, characters 0-75\n\
+                  Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
+                  Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
           ]
           (Single {label="bar 4"; status=Failure (WrongException (TestException1 "bad", TestException1 "too bad", Some callstack))});
         make
@@ -97,6 +115,24 @@ let test = "Testing" >:: [
               | Native _ ->
                 "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
                   Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
+                  Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
+              | Flambda (4, 3, _) ->
+                "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                  Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49\n"
+              | Flambda (4, 4, _) ->
+                "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                  Raised by primitive operation at file \"printexc.ml\", line 249, characters 0-75\n\
+                  Called from file \"Atoms/CallStack.ml\" (inlined), line 5, characters 4-49\n\
+                  Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
+              | Flambda (4, (5|6|7), _) ->
+                "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                  Raised by primitive operation at file \"printexc.ml\" (inlined), line 251, characters 0-75\n\
+                  Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
+                  Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
+              | Flambda _ ->
+                "\"bar 4'\": FAILED: expected exception Foo not raised, but exception TestingTests.Tests.TestException1(\"too bad\") raised\n\
+                  Raised by primitive operation at file \"printexc.ml\" (inlined), line 253, characters 0-75\n\
+                  Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
                   Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
           ]
           (Single {label="bar 4'"; status=Failure (WrongExceptionNamed ("Foo", TestException1 "too bad", Some callstack))});
@@ -120,6 +156,24 @@ let test = "Testing" >:: [
               | Native _ ->
                 "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
                   Raised by primitive operation at file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
+                  Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
+              | Flambda (4, 3, _) ->
+                "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
+                  Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49\n"
+              | Flambda (4, 4, _) ->
+                "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
+                  Raised by primitive operation at file \"printexc.ml\", line 249, characters 0-75\n\
+                  Called from file \"Atoms/CallStack.ml\" (inlined), line 5, characters 4-49\n\
+                  Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
+              | Flambda (4, (5|6|7), _) ->
+                "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
+                  Raised by primitive operation at file \"printexc.ml\" (inlined), line 251, characters 0-75\n\
+                  Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
+                  Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
+              | Flambda _ ->
+                "\"bar 7\": ERROR: exception TestingTests.Tests.TestException1(\"bad\") raised\n\
+                  Raised by primitive operation at file \"printexc.ml\" (inlined), line 253, characters 0-75\n\
+                  Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
                   Called from file \"Testing/Tests.ml\", line 2, characters 16-36\n"
           ]
           (Single {label="bar 7"; status=Error (TestException1 "bad", Some callstack)});

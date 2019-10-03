@@ -202,7 +202,7 @@ def make_dune():
     )):
         yield f"    {path[4:]}"
     yield "  )"
-    yield "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))"
+    yield '  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} -D "OCAML_FLAMBDA %{ocaml-config:flambda}" %{src} -o %{targets}))'
     yield ")"
     yield ""
     yield "(rule"
@@ -215,7 +215,7 @@ def make_dune():
     )):
         yield f"    {path[4:]}"
     yield "  )"
-    yield "  (action (run %{bin:cppo} -D TESTING_GENERAL -V OCAML:%{ocaml_version} %{src} -o %{targets}))"
+    yield '  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} -D "OCAML_FLAMBDA %{ocaml-config:flambda}" -D TESTING_GENERAL %{src} -o %{targets}))'
     yield ")"
     yield ""
     yield "(library"

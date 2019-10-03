@@ -210,7 +210,7 @@
     Wrappers/Tuple4.ml
     Wrappers/Tuple5.ml
   )
-  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
+  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} -D "OCAML_FLAMBDA %{ocaml-config:flambda}" %{src} -o %{targets}))
 )
 
 (rule
@@ -390,7 +390,7 @@
     Wrappers/Tuple4.ml
     Wrappers/Tuple5.ml
   )
-  (action (run %{bin:cppo} -D TESTING_GENERAL -V OCAML:%{ocaml_version} %{src} -o %{targets}))
+  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} -D "OCAML_FLAMBDA %{ocaml-config:flambda}" -D TESTING_GENERAL %{src} -o %{targets}))
 )
 
 (library

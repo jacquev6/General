@@ -6,13 +6,18 @@ RUN sudo apt-get update && \
     sudo apt-get install --yes m4 npm python3 python3-pip graphviz && \
     sudo rm -rf /var/lib/apt/lists/*
 
+RUN sudo pip3 install coverage
+
 WORKDIR /project
 
-RUN opam install utop
+ARG OCAML_VARIANT=4.02
 
-RUN sudo pip3 install coverage
+RUN opam switch ${OCAML_VARIANT} && \
+    eval $(opam env) && \
+    opam install utop
 
 COPY General.opam .
 
-RUN opam pin add --no-action --kind=path . && \
+RUN eval $(opam env) && \
+    opam pin add --no-action --kind=path . && \
     opam install General --deps-only --with-test

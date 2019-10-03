@@ -21,10 +21,10 @@ done
 
 GENERATE_CODE=true
 
-for OCAML_VERSION in ${OCAML_VERSIONS:-4.02 4.03 4.04 4.05 4.06 4.07 4.08}
+for OCAML_VARIANT in ${OCAML_VERSIONS:-4.02 4.03 4.03+flambda 4.04 4.04+flambda 4.05 4.05+flambda 4.06 4.06+flambda 4.07 4.07+flambda 4.08 4.08+flambda}
 do
-    echo "OCaml $OCAML_VERSION"
-    echo "=========="
+    echo "OCaml $OCAML_VARIANT"
+    echo "OCaml $OCAML_VARIANT" | sed "s#.#=#g"
 
     date
 
@@ -32,14 +32,13 @@ do
     echo "Building docker image"
     echo "---------------------"
 
+    OCAML_VERSION=$(echo $OCAML_VARIANT | sed "s#+.*##")
     # Uncomment next line if you're too anxious to wait for the quiet build :)
-    # docker build --build-arg OCAML_VERSION=$OCAML_VERSION .
-    IMAGE=$(docker build --quiet --build-arg OCAML_VERSION=$OCAML_VERSION .)
+    # docker build --build-arg OCAML_VERSION=$OCAML_VERSION --build-arg OCAML_VARIANT=$OCAML_VARIANT .
+    IMAGE=$(docker build --quiet --build-arg OCAML_VERSION=$OCAML_VERSION --build-arg OCAML_VARIANT=$OCAML_VARIANT .)
     RUN="docker run --rm --volume $PWD:/project --workdir /project $IMAGE"
 
-    mkdir -p _builds/$OCAML_VERSION
-    rm -f _build
-    ln -sf _builds/$OCAML_VERSION _build
+    $RUN opam switch
 
     if $GENERATE_CODE
     then
@@ -53,8 +52,8 @@ do
         echo
         echo "Geni coverage:"
         $RUN coverage3 report --show-missing
-        echo "Full report in $PWD/_builds/$OCAML_VERSION/geni_coverage/index.html"
-        $RUN coverage3 html --directory=_build/geni_coverage
+        echo "Full report in $PWD/_builds/geni_coverage/index.html"
+        $RUN coverage3 html --directory=_builds/geni_coverage
         rm .coverage
     fi
 
@@ -62,12 +61,16 @@ do
     echo "Running tests"
     echo "-------------"
 
+    mkdir -p _builds/$OCAML_VARIANT
+    rm -f _build
+    ln -sf _builds/$OCAML_VARIANT _build
+
     # @todo Measure test coverage. If possible, module by module.
     $RUN dune runtest
 
-    rm -rf doc/unit_tests/$OCAML_VERSION
-    mkdir -p doc/unit_tests/$OCAML_VERSION
-    $RUN _build/default/tst/unit_tests.bc --verbose >doc/unit_tests/$OCAML_VERSION/all.txt
+    rm -rf doc/unit_tests/$OCAML_VARIANT
+    mkdir -p doc/unit_tests/$OCAML_VARIANT
+    $RUN _build/default/tst/run_all_tests.bc --verbose >doc/unit_tests/$OCAML_VARIANT/all.txt
 
     if $DO_UTOP_INTERFACE
     then
@@ -75,9 +78,9 @@ do
         echo "Extracting interface as seen in utop"
         echo "------------------------------------"
 
-        rm -rf doc/utop/$OCAML_VERSION
-        mkdir -p doc/utop/$OCAML_VERSION
-        $RUN python3 doc/utop/extract.py doc/utop/$OCAML_VERSION
+        rm -rf doc/utop/$OCAML_VARIANT
+        mkdir -p doc/utop/$OCAML_VARIANT
+        $RUN python3 doc/utop/extract.py doc/utop/$OCAML_VARIANT
     fi
 
     if $DO_TEST_INSTALL
@@ -88,14 +91,6 @@ do
 
         $RUN bash -c 'opam install General && cd /tmp && echo "open General.Abbr let _ = StdOut.print \"Hello General\"">tst.ml && echo "(executable (name tst) (libraries General))">dune && dune build @all && _build/default/tst.exe && _build/default/tst.bc'
     fi
-
-    # @todo Build demo apps (as native, byte code, and js)
-
-    # @todo Integrate validation of ResetPervasives with dune:
-    # in a demo app, check that:
-    #  - all symbols in OCamlStandard.Pervasives are reset in ResetPervasives
-    #  - all symbols in ResetPervasives do exist in OCamlStandard.Pervasives
-    # Symbols: modules, types, exceptions, values, externals
 
     rm _build
 

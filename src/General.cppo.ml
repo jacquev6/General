@@ -47,7 +47,7 @@ end
 module type Testing = sig
   #include "Testing/Testing.mli"
 
-  type context = NodeJs | ByteCode | Native of int * int * int
+  type context = NodeJs | ByteCode | Native of int * int * int | Flambda of int * int * int
   val context: context
 
   (* @todo Publish *)

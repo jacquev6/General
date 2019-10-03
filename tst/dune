@@ -5,25 +5,25 @@
 )
 
 (executable
-  (name unit_tests)
+  (name run_all_tests)
   (libraries num)
   (js_of_ocaml (flags "+nat.js"))
 )
 
 (alias
   (name runtest)
-  (deps unit_tests.bc)
-  (action (run %{exe:unit_tests.bc}))
+  (deps run_all_tests.bc)
+  (action (run %{exe:run_all_tests.bc}))
 )
 
 (alias
   (name runtest)
-  (deps unit_tests.exe)
-  (action (run %{exe:unit_tests.exe}))
+  (deps run_all_tests.exe)
+  (action (run %{exe:run_all_tests.exe}))
 )
 
 (alias
   (name runtest)
-  (deps unit_tests.bc.js)
-  (action (run %{bin:node} %{exe:unit_tests.bc.js}))
+  (deps run_all_tests.bc.js)
+  (action (run %{bin:node} %{exe:run_all_tests.bc.js}))
 )

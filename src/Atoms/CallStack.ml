@@ -117,6 +117,34 @@ module Extended(Facets: Facets) = struct
               "format 1" >: (lazy (check_some_string ~expected:"Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49" (format 1 frame)));
               "location" >: (lazy (check_some ~repr:Location.repr ~equal:Location.equal ~expected:{Location.filename="Atoms/CallStack.ml"; line_number=5; start_char=4; end_char=49} (location frame)))
             ]
+          | Flambda (4, 3, _) ->
+            let frame = List.head (frames stack) in
+            Frame.[
+              "format 0" >: (lazy (check_none_string (format 0 frame)));
+              "format 1" >: (lazy (check_none_string (format 1 frame)));
+              "location" >: (lazy (check_none ~repr:Location.repr ~equal:Location.equal (location frame)))
+            ]
+          | Flambda (4, 4, _) ->
+            let frame = List.head (frames stack) in
+            Frame.[
+              "format 0" >: (lazy (check_some_string ~expected:"Raised by primitive operation at file \"printexc.ml\", line 249, characters 0-75" (format 0 frame)));
+              "format 1" >: (lazy (check_some_string ~expected:"Called from file \"printexc.ml\", line 249, characters 0-75" (format 1 frame)));
+              "location" >: (lazy (check_some ~repr:Location.repr ~equal:Location.equal ~expected:{Location.filename="printexc.ml"; line_number=249; start_char=0; end_char=75} (location frame)))
+            ]
+          | Flambda (4, (5|6|7), _) ->
+            let frame = List.head (frames stack) in
+            Frame.[
+              "format 0" >: (lazy (check_some_string ~expected:"Raised by primitive operation at file \"printexc.ml\" (inlined), line 251, characters 0-75" (format 0 frame)));
+              "format 1" >: (lazy (check_some_string ~expected:"Called from file \"printexc.ml\" (inlined), line 251, characters 0-75" (format 1 frame)));
+              "location" >: (lazy (check_some ~repr:Location.repr ~equal:Location.equal ~expected:{Location.filename="printexc.ml"; line_number=251; start_char=0; end_char=75} (location frame)))
+            ]
+          | Flambda _ ->
+            let frame = List.head (frames stack) in
+            Frame.[
+              "format 0" >: (lazy (check_some_string ~expected:"Raised by primitive operation at file \"printexc.ml\" (inlined), line 253, characters 0-75" (format 0 frame)));
+              "format 1" >: (lazy (check_some_string ~expected:"Called from file \"printexc.ml\" (inlined), line 253, characters 0-75" (format 1 frame)));
+              "location" >: (lazy (check_some ~repr:Location.repr ~equal:Location.equal ~expected:{Location.filename="printexc.ml"; line_number=253; start_char=0; end_char=75} (location frame)))
+            ]
       end)
     end
 
@@ -150,7 +178,45 @@ module Extended(Facets: Facets) = struct
               Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
               Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
               Called from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n\
-              Called from file \"tst/unit_tests.ml\", line 14, characters 22-51\n"
+              Called from file \"tst/CallStackTests.ml\", line 1, characters 8-53\n"
+            | Flambda (4, 3, _) ->
+              "Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n\
+              Called from file \"tst/CallStackTests.ml\", line 1, characters 8-53\n"
+            | Flambda (4, 4, _) ->
+              "Raised by primitive operation at file \"printexc.ml\", line 249, characters 0-75\n\
+              Called from file \"Atoms/CallStack.ml\" (inlined), line 5, characters 4-49\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n\
+              Called from file \"tst/CallStackTests.ml\", line 1, characters 8-53\n"
+            | Flambda (4, (5|6|7), _) ->
+              "Raised by primitive operation at file \"printexc.ml\" (inlined), line 251, characters 0-75\n\
+              Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n\
+              Called from file \"tst/CallStackTests.ml\", line 1, characters 8-53\n"
+            | Flambda _ ->
+              "Raised by primitive operation at file \"printexc.ml\" (inlined), line 253, characters 0-75\n\
+              Called from file \"Atoms/CallStack.ml\", line 5, characters 4-49\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 3, characters 15-27\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 4, characters 15-36\n\
+              Called from file \"Atoms/CallStack.symbols.ml\", line 7, characters 2-9\n\
+              Called from file \"tst/CallStackTests.ml\", line 1, characters 8-53\n"
           )
         );
       ]
@@ -160,7 +226,7 @@ module Extended(Facets: Facets) = struct
       open Testing
 
       let tests = [
-        "CallStack: frames" >: (lazy (check_int ~expected:Testing.(match context with | NodeJs -> 0 | ByteCode -> 7 | Native _ -> 8) (stack |> frames |> List.size)));
+        "CallStack: frames" >: (lazy (check_int ~expected:Testing.(match context with | NodeJs -> 0 | ByteCode -> 7 | Native _ -> 8 | Flambda _ -> 9) (stack |> frames |> List.size)));
         LocationTests.test;
         FrameTests.test;
       ]
