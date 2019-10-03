@@ -214,7 +214,8 @@ type context = NodeJs | ByteCode | Native of int * int * int
 
 let context =
   [(".js", NodeJs); (".bc", ByteCode); (".exe", Native OCAML_VERSION)]
-  |> List.find_map ~f:(fun (suf, ret) -> Option.some_if' (String.has_suffix OCamlStandard.Sys.argv.(0) ~suf) ret)
+  |> List.try_find_map ~f:(fun (suf, ret) -> Option.some_if' (String.has_suffix OCamlStandard.Sys.argv.(0) ~suf) ret)
+  |> Option.value_def ~def:ByteCode
 
 let fail format =
   Format.with_result

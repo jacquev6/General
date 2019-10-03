@@ -86,8 +86,7 @@ do
         echo "Testing package install"
         echo "-----------------------"
 
-        $RUN opam install General
-        # @todo Test that the library is actually installed and usable
+        $RUN bash -c 'opam install General && cd /tmp && echo "open General.Abbr let _ = StdOut.print \"Hello General\"">tst.ml && echo "(executable (name tst) (libraries General))">dune && dune build @all && _build/default/tst.exe && _build/default/tst.bc'
     fi
 
     # @todo Build demo apps (as native, byte code, and js)
