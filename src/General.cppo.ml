@@ -1,3 +1,5 @@
+(* Ensure our code is explicit about using the OCaml standard library (i.e. through OCamlStandard) *)
+
 module OCamlStandard = struct
   #include "Reset/OCamlStandard.ml"
 end
@@ -11,315 +13,245 @@ end
 
 open Reset
 
-module OCSP = OCamlStandard.Pervasives
+(* Basic types used in Facets' interface *)
 
 module Equate = struct
-  #include "Equate.ml"
+  #include "Reset/Equate.ml"
 end
 
+#ifdef TESTING_GENERAL
+let ( = ) = Equate.Poly.O.( = )  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+#endif
+
 module Compare = struct
-  #include "Compare.ml"
+  #include "Reset/Compare.ml"
 end
 
 module Shorten = struct
-  #include "Shorten.ml"
+  #include "Reset/Shorten.ml"
 end
-
-module Foundations = struct
-  module Format = struct
-    #include "OldFashion/Foundations/Format.ml"
-  end
-
-  module Lazy = struct
-    #include "Wrappers/Lazy.foundations.ml"
-  end
-
-  module Exception = struct
-    #include "Atoms/Exception.foundations.ml"
-  end
-
-  module Function1 = struct
-    #include "Atoms/Function1.foundations.ml"
-  end
-
-  module Int = struct
-    #include "Atoms/Int.foundations.ml"
-  end
-
-  module Bool = struct
-    #include "Atoms/Bool.foundations.ml"
-  end
-
-  module Option = struct
-    #include "Wrappers/Option.foundations.ml"
-  end
-
-  module List = struct
-    #include "OldFashion/Foundations/List.ml"
-  end
-
-  module CallStack = struct
-    #include "Atoms/CallStack.foundations.ml"
-  end
-
-  module Float = struct
-    #include "Atoms/Float.foundations.ml"
-  end
-
-  module Reference = struct
-    #include "Wrappers/Reference.foundations.ml"
-  end
-
-  module String = struct
-    #include "Atoms/String.foundations.ml"
-  end
-
-  module IntRange = struct
-    #include "OldFashion/Foundations/IntRange.ml"
-  end
-
-  module Tuple2 = struct
-    #include "Wrappers/Tuple2.foundations.ml"
-  end
-
-  module Tuple3 = struct
-    #include "Wrappers/Tuple3.foundations.ml"
-  end
-
-  module Tuple4 = struct
-    #include "Wrappers/Tuple4.foundations.ml"
-  end
-
-  module Tuple5 = struct
-    #include "Wrappers/Tuple5.foundations.ml"
-  end
-
-  module Exit = struct
-    #include "Atoms/Exit.foundations.ml"
-  end
-
-  module Stream = struct
-    #include "OldFashion/Foundations/Stream.ml"
-  end
-
-  module Unit = struct
-    #include "Atoms/Unit.foundations.ml"
-  end
-
-  module PervasivesWhitelist = struct
-    #include "Reset/PervasivesWhitelist.ml"
-  end
-end
-
-module Ubiquitous = struct
-  include Reset
-  include Foundations.PervasivesWhitelist
-end
-
-open Ubiquitous
-
-open Foundations
 
 module Test = struct
   #include "Testing/Test.ml"
 end
 
-module Testing = struct
-  #include "Testing/Testing.ml"
+(* Signatures used to break cyclic dependencies with functors *)
+
+[@@@ocaml.warning "-32"]
+[@@@ocaml.warning "-60"]
+
+module type Facets = sig
+  #include "Generated/Facets.mli"
 end
 
-module Facets = struct
-  module Representable = struct
-    #include "Facets/Representable.ml"
-  end
+module type Testing = sig
+  #include "Testing/Testing.mli"
 
-  module EquatableBasic = struct
-    #include "Facets/EquatableBasic.ml"
-  end
+  type context = NodeJs | ByteCode | Native of int * int * int
+  val context: context
 
-  module Equatable = struct
-    #include "Facets/Equatable.ml"
-  end
+  (* @todo Publish *)
+  val check_compare: expected:Compare.t -> Compare.t -> unit
+  val check_eq: Compare.t -> unit
+  val check_lt: Compare.t -> unit
+  val check_gt: Compare.t -> unit
 
-  module ComparableBasic = struct
-    #include "Facets/ComparableBasic.ml"
-  end
-
-  module Comparable = struct
-    #include "Facets/Comparable.ml"
-  end
-
-  module Displayable = struct
-    #include "Facets/Displayable.ml"
-  end
-
-  module Parsable = struct
-    #include "Facets/Parsable.ml"
-  end
-
-  module PredSucc = struct
-    #include "Facets/PredSucc.ml"
-  end
-
-  module OfInt = struct
-    #include "Facets/OfInt.ml"
-  end
-
-  module ToInt = struct
-    #include "Facets/ToInt.ml"
-  end
-
-  module OfFloat = struct
-    #include "Facets/OfFloat.ml"
-  end
-
-  module ToFloat = struct
-    #include "Facets/ToFloat.ml"
-  end
-
-  module RingoidBasic = struct
-    #include "Facets/RingoidBasic.ml"
-  end
-
-  module Ringoid = struct
-    #include "Facets/Ringoid.ml"
-  end
-
-  module Bounded = struct
-    #include "Facets/Bounded.ml"
-  end
-
-  module Bitwise = struct
-    #include "Facets/Bitwise.ml"
-  end
-
-  module FilterMapable = struct
-    #include "OldFashion/Facets/FilterMapable.ml"
-  end
-
-  module Foldable = struct
-    #include "OldFashion/Facets/Foldable.ml"
-  end
-
-  module Scanable = struct
-    #include "OldFashion/Facets/Scanable.ml"
-  end
-
-  module Identifiable = struct
-    #include "Facets/Identifiable.ml"
-  end
-
-  module Able = struct
-    #include "Facets/Able.ml"
-  end
-
-  module Stringable = struct
-    #include "Facets/Stringable.ml"
-  end
-
-  module OfStandardNumber = struct
-    #include "Facets/OfStandardNumber.ml"
-  end
-
-  module Number = struct
-    #include "Facets/Number.ml"
-  end
-
-  module ToStandardNumber = struct
-    #include "Facets/ToStandardNumber.ml"
-  end
-
-  module RealNumber = struct
-    #include "Facets/RealNumber.ml"
-  end
-
-  module Integer = struct
-    #include "Facets/Integer.ml"
-  end
-
-  module FixedWidthInteger = struct
-    #include "Facets/FixedWidthInteger.ml"
-  end
+  val check_int_tuple2: expected:int * int -> int * int -> unit
+  val check_int_tuple3: expected:int * int * int -> int * int * int -> unit
+  val check_int_tuple4: expected:int * int * int * int -> int * int * int * int -> unit
+  val check_int_tuple5: expected:int * int * int * int * int -> int * int * int * int * int -> unit
 end
+
+module type Standard = sig
+  module Testing: Testing
+  module Facets: Facets
+  #include "Reset/PervasivesWhitelist.mli"
+  #include "Generated/Atoms.mli"
+  #include "Generated/Wrappers.mli"
+end
+
+[@@@ocaml.warning "+32"]
+[@@@ocaml.warning "+60"]
+
+(* Everything that does not depend on Facets, i.e. the "basic" types *)
+
+module Format = struct
+  #include "OldFashion/Atoms/Format.ml"
+end
+
+module Lazy_ = struct
+  #include "Wrappers/Lazy.ml"
+  module Lazy = Basic
+end
+open Lazy_
+
+module Exception_ = struct
+  #include "Atoms/Exception.ml"
+  module Exception = Basic
+end
+open Exception_
+
+module Function1_ = struct
+  #include "Atoms/Function1.ml"
+  module Function1 = Basic
+end
+open Function1_
+
+let ( |> ) = Function1.rev_apply  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+let ( % ) = Function1.compose  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+
+module Bool_ = struct
+  #include "Atoms/Bool.ml"
+  module Bool = Basic
+end
+open Bool_
+
+let ( && ) = Bool.O.( && )  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+(* let ( || ) = Bool.O.( || )  (* @todo Deduplicate with PervasivesWhiteList.ml *) *)
+let not = Bool.not  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+
+module Function2_ = struct
+  #include "Atoms/Function2.ml"
+  module Function2 = Basic
+end
+open Function2_
+
+module Function3_ = struct
+  #include "Atoms/Function3.ml"
+end
+
+module Function4_ = struct
+  #include "Atoms/Function4.ml"
+end
+
+module Function5_ = struct
+  #include "Atoms/Function5.ml"
+end
+
+module Int_ = struct
+  #include "Atoms/Int.ml"
+  module Int = Basic
+end
+open Int_
+
+#ifdef TESTING_GENERAL
+let ( + ) = Int.O.( + )  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+#endif
+
+module Reference_ = struct
+  #include "Wrappers/Reference.ml"
+  module Reference = Basic
+end
+open Reference_
+
+let ref = Reference.of_contents  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+let ( ! ) = Reference.O.( ! )  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+let ( := ) = Reference.O.( := )  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+
+module Option_ = struct
+  #include "Wrappers/Option.ml"
+  module Option = Basic
+end
+open Option_
+
+module List_ = struct
+  #include "OldFashion/Collections/List.ml"
+  module List = Basic
+end
+open List_
+
+module CallStack_ = struct
+  #include "Atoms/CallStack.ml"
+  module CallStack = Basic
+end
+open CallStack_
+
+module Float_ = struct
+  #include "Atoms/Float.ml"
+  module Float = Basic
+end
+open Float_
+
+module Unit_ = struct
+  #include "Atoms/Unit.ml"
+  module Unit = Basic
+end
+open Unit_
+
+let ignore = Unit.ignore  (* @todo Deduplicate with PervasivesWhiteList.ml *)
+
+module RedBlackTree = struct
+  #include "OldFashion/Collections/RedBlackTree.ml"
+end
+
+module Tuple2_ = struct
+  #include "Wrappers/Tuple2.ml"
+  module Tuple2 = Basic
+end
+open Tuple2_
+
+module Tuple3_ = struct
+  #include "Wrappers/Tuple3.ml"
+  module Tuple3 = Basic
+end
+open Tuple3_
+
+module Tuple4_ = struct
+  #include "Wrappers/Tuple4.ml"
+  module Tuple4 = Basic
+end
+open Tuple4_
+
+module Tuple5_ = struct
+  #include "Wrappers/Tuple5.ml"
+  module Tuple5 = Basic
+end
+open Tuple5_
+
+module SortedSet_ = struct
+  #include "OldFashion/Collections/SortedSet.ml"
+  module SortedSet = Basic
+end
+open SortedSet_
+
+module String_ = struct
+  #include "Atoms/String.ml"
+  module String = Basic
+end
+open String_
+
+module IntRange = struct
+  #include "OldFashion/Collections/IntRange.ml"
+end
+
+module Exit_ = struct
+  #include "Atoms/Exit.ml"
+  module Exit = Basic
+end
+open Exit_
+
+module Stream = struct
+  #include "OldFashion/Collections/Stream.ml"
+end
+
+module Char_ = struct
+  #include "Atoms/Char.ml"
+  module Char = Basic
+end
+open Char_
+
+module PervasivesWhitelist = struct
+  #include "Reset/PervasivesWhitelist.ml"
+end
+
+open PervasivesWhitelist
 
 module Array = struct
   #include "OldFashion/Implementation/Array.ml"
 end
 
-module Exception = struct
-  #include "Atoms/Exception.ml"
-end
-
-module Format = struct
-  #include "OldFashion/Implementation/Format.ml"
-end
-
-module StandardInt = struct
-  #include "Atoms/StandardInt.ml"
-end
-
-module Int32 = struct
-  #include "Atoms/Int32.ml"
-end
-
-module Int64 = struct
-  #include "Atoms/Int64.ml"
-end
-
-module Float = struct
-  #include "Atoms/Float.ml"
-end
-
-module BigInt = struct
-  #include "Atoms/BigInt.ml"
-end
-
-module Bool = struct
-  #include "Atoms/Bool.ml"
-end
-
-module Bytes = struct
+module Bytes_ = struct
   #include "Atoms/Bytes.ml"
-end
-
-module Int = struct
-  #include "Atoms/Int.ml"
-end
-
-module List = struct
-  #include "OldFashion/Implementation/List.ml"
-end
-
-module CallStack = struct
-  #include "Atoms/CallStack.ml"
-end
-
-module Char = struct
-  #include "Atoms/Char.ml"
-end
-
-module Exit = struct
-  #include "Atoms/Exit.ml"
-end
-
-module Function1 = struct
-  #include "Atoms/Function1.ml"
-end
-
-module Function2 = struct
-  #include "Atoms/Function2.ml"
-end
-
-module Function3 = struct
-  #include "Atoms/Function3.ml"
-end
-
-module Function4 = struct
-  #include "Atoms/Function4.ml"
-end
-
-module Function5 = struct
-  #include "Atoms/Function5.ml"
 end
 
 module InChannel = struct
@@ -330,22 +262,6 @@ module InFile = struct
   #include "OldFashion/Implementation/InFile.ml"
 end
 
-module IntRange = struct
-  #include "OldFashion/Implementation/IntRange.ml"
-end
-
-module Lazy = struct
-  #include "Wrappers/Lazy.ml"
-end
-
-module NativeInt = struct
-  #include "Atoms/NativeInt.ml"
-end
-
-module Option = struct
-  #include "Wrappers/Option.ml"
-end
-
 module OutChannel = struct
   #include "OldFashion/Implementation/OutChannel.ml"
 end
@@ -354,48 +270,8 @@ module OutFile = struct
   #include "OldFashion/Implementation/OutFile.ml"
 end
 
-module Tuple2 = struct
-  #include "Wrappers/Tuple2.ml"
-end
-
-module Tuple3 = struct
-  #include "Wrappers/Tuple3.ml"
-end
-
-module Tuple4 = struct
-  #include "Wrappers/Tuple4.ml"
-end
-
-module Tuple5 = struct
-  #include "Wrappers/Tuple5.ml"
-end
-
-module RedBlackTree = struct
-  #include "OldFashion/Implementation/RedBlackTree.ml"
-end
-
 module BinaryHeap = struct
   #include "OldFashion/Implementation/BinaryHeap.ml"
-end
-
-module PriorityQueue = struct
-  #include "OldFashion/Implementation/PriorityQueue.ml"
-end
-
-module Reference = struct
-  #include "Wrappers/Reference.ml"
-end
-
-module SortedMap = struct
-  #include "OldFashion/Implementation/SortedMap.ml"
-end
-
-module SortedSet = struct
-  #include "OldFashion/Implementation/SortedSet.ml"
-end
-
-module Heap = struct
-  #include "OldFashion/Implementation/Heap.ml"
 end
 
 module StandardOutChannel = struct
@@ -414,21 +290,81 @@ module StdOut = struct
   #include "OldFashion/Implementation/StdOut.ml"
 end
 
-module Stream = struct
-  #include "OldFashion/Implementation/Stream.ml"
+module StandardInt = struct
+  #include "Atoms/StandardInt.ml"
 end
 
-module String = struct
-  #include "Atoms/String.ml"
+module Int32_ = struct
+  #include "Atoms/Int32.ml"
 end
 
-module TestingTests = struct
-  #include "Testing/Tests.ml"
+module Int64_ = struct
+  #include "Atoms/Int64.ml"
+  module Int64 = Basic
+end
+open Int64_
+
+module NativeInt_ = struct
+  #include "Atoms/NativeInt.ml"
 end
 
-module Unit = struct
-  #include "Atoms/Unit.ml"
+module BigInt_ = struct
+  #include "Atoms/BigInt.ml"
 end
+
+(* Facets implementation *)
+
+module Facets_alpha = struct
+  #include "Generated/Facets_alpha.ml"
+
+  module FilterMapable = struct
+    #include "OldFashion/Facets/FilterMapable.ml"
+  end
+
+  module Foldable = struct
+    #include "OldFashion/Facets/Foldable.ml"
+  end
+
+  module Scanable = struct
+    #include "OldFashion/Facets/Scanable.ml"
+  end
+end
+
+module Testing = struct
+  #include "Testing/Testing.ml"
+end
+
+module Facets = struct
+  #include "Generated/Facets.ml"
+
+  module FilterMapable = Facets_alpha.FilterMapable
+
+  module Foldable = Facets_alpha.Foldable
+
+  module Scanable = Facets_alpha.Scanable
+end
+
+(* Extended types, using Facets *)
+
+#include "Generated/Types.extended.ml"
+
+module List = List_.Extended(Facets)
+
+module PriorityQueue = struct
+  #include "OldFashion/Implementation/PriorityQueue.ml"
+end
+
+module Heap = struct
+  #include "OldFashion/Implementation/Heap.ml"
+end
+
+module SortedMap = struct
+  #include "OldFashion/Implementation/SortedMap.ml"
+end
+
+module SortedSet = SortedSet_.Extended(Facets)
+
+(* Conclusion *)
 
 module Specializations = struct
   module List = struct
@@ -546,7 +482,7 @@ module Standard = struct
   module OCamlStandard = OCamlStandard
 
   include (
-    Ubiquitous: module type of Ubiquitous[@remove_aliases]
+    Reset: module type of Reset[@remove_aliases]
     with module Array := Array
     and module Bool := Bool
     and module Bytes := Bytes
@@ -559,6 +495,8 @@ module Standard = struct
     and module Stream := Stream
     and module String := String
   )
+
+  include PervasivesWhitelist
 end
 
 module Abbr = struct
@@ -632,82 +570,14 @@ module Abbr = struct
 
   module OCamlStandard = OCamlStandard
 
-  include Ubiquitous
+  include Reset
+  include PervasivesWhitelist
 end
 
-module Tests = struct
-  open Testing
+(* Tests *)
 
-  let test = "General" >:: [
-    BigInt.Tests.test;
-    BinaryHeap.Tests.test;
-    Bool.Tests.test;
-    Bytes.Tests.test;
-    CallStack.Tests.test;
-    Char.Tests.test;
-    Exception.Tests.test;
-    Exit.Tests.test;
-    Float.Tests.test;
-    Function1.Tests.test;
-    Function2.Tests.test;
-    Function3.Tests.test;
-    Function4.Tests.test;
-    Function5.Tests.test;
-    Int.Tests.test;
-    Int32.Tests.test;
-    Int64.Tests.test;
-    Lazy.Tests.test;
-    List.Tests.test;
-    NativeInt.Tests.test;
-    Option.Tests.test;
-    RedBlackTree.Tests.test;
-    Reference.Tests.test;
-    Stream.Tests.test;
-    String.Tests.test;
-    Tuple2.Tests.test;
-    Tuple3.Tests.test;
-    Tuple4.Tests.test;
-    Tuple5.Tests.test;
-    Unit.Tests.test;
-
-    IntRange.Tests.test;
-
-    TestingTests.Tests.test;
-
-    "Syntactic sugar" >:: [
-      "Standard" >:: Standard.[
-        "array" >:: [
-          "get" >: (let a: int array = [|42|] in lazy (check_int ~expected:42 a.(0)));
-          "set" >: (let a: int array = [|42|] in lazy (check_int ~expected:42 (Array.get a 0); a.(0) <- 37; check_int ~expected:37 (Array.get a 0)));
-        ];
-        (* @todo Use check_char *)
-        "string" >:: [
-          "get" >: (let a: string = "a" in lazy (Char.(check ~repr ~equal ~expected:'a' a.[0])));
-          #if OCAML_VERSION < (4, 6, 0)
-          (* @todo Fix that test in node.js *)
-          (* "set" >: (let a: string = "a" in lazy (Char.(check ~repr ~equal ~expected:'a' (String.get a 0)); a.[0] <- 'z'; Char.(check ~repr ~equal ~expected:'z' (String.get a 0)))); *)
-          #endif
-        ];
-        "bytes" >:: [
-          "set" >: (let a: bytes = Bytes.of_string "a" in lazy (Char.(check ~repr ~equal ~expected:'a' (Bytes.get a 0)); a.[0] <- 'z'; Char.(check ~repr ~equal ~expected:'z' (Bytes.get a 0))));
-        ];
-      ];
-      "Abbr" >:: Abbr.[
-        "array" >:: [
-          "get" >: (let a: int array = [|42|] in lazy (check_int ~expected:42 a.(0)));
-          "set" >: (let a: int array = [|42|] in lazy (check_int ~expected:42 (Ar.get a 0); a.(0) <- 37; check_int ~expected:37 (Ar.get a 0)));
-        ];
-        (* @todo Use check_char *)
-        "string" >:: [
-          "get" >: (let a: string = "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' a.[0])));
-          #if OCAML_VERSION < (4, 6, 0)
-          (* "set" >: (let a: string = "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' (Str.get a 0)); a.[0] <- 'z'; Ch.(check ~repr ~equal ~expected:'z' (Str.get a 0)))); *)
-          #endif
-        ];
-        "bytes" >:: [
-          "set" >: (let a: bytes = By.of_string "a" in lazy (Ch.(check ~repr ~equal ~expected:'a' (By.get a 0)); a.[0] <- 'z'; Ch.(check ~repr ~equal ~expected:'z' (By.get a 0))));
-        ];
-      ];
-    ];
-  ]
+#ifdef TESTING_GENERAL
+module TestingTests = struct
+  #include "Testing/Tests.ml"
 end
+#endif

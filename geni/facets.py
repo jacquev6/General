@@ -253,7 +253,7 @@ class Facet:
         yield mod_spec("Tests", self.__tests_specification_items())
 
     def __tests_implementation(self):
-        yield mod_impl("Tests_", self.__tests_implementation_items())
+        yield mod_impl("Tests_alpha(Testing: Testing)", self.__tests_implementation_items())
 
     def __tests_specification_items(self):
         yield self.__tests_examples_specification()
@@ -266,16 +266,16 @@ class Facet:
         yield self.__tests_makers_implementations()
 
     def __tests_examples_specification(self):
-        yield mod_spec("Examples", self.__tests_examples_items())
+        yield mod_spec("Examples", self.__tests_examples_items(implem=False))
 
     def __tests_examples_implementation(self):
-        yield mod_impl("Examples", self.__tests_examples_items())
+        yield mod_impl("Examples", self.__tests_examples_items(implem=True))
 
-    def __tests_examples_items(self):
+    def __tests_examples_items(self, *, implem):
         if self.max_arity > 1:
             yield mod_type("Element", self.__tests_examples_element_mod_type_items())
         for arity in self.arities:
-            yield mod_type(f"S{arity}", self.__tests_examples_mod_type_items(arity))
+            yield mod_type(f"S{arity}", self.__tests_examples_mod_type_items(arity, implem=implem))
 
     def __tests_examples_element_mod_type_items(self):
         yield "type t"
@@ -283,13 +283,14 @@ class Facet:
         for req in self.test_requirements:
             yield f"include {req.name}.S0 with type t := t"
 
-    def __tests_examples_mod_type_items(self, arity):
+    def __tests_examples_mod_type_items(self, arity, *, implem):
+        suffix = "_beta(Testing)" if implem else ""
         yield f"type {type_params(arity)}t"
         for a in abcd(arity):
             yield f"module {a.upper()}: Element"
         for base in self.bases:
             yield (
-                f"include {base.contextualized_name(self.prefix)}.Tests.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
+                f"include {base.contextualized_name(self.prefix)}.Tests{suffix}.Examples.S{arity} with type {type_params(arity)}t := {type_params(arity)}t"
                 + "".join(f" and module {a.upper()} := {a.upper()}" for a in abcd(arity))
             )
         t = f"{type_args(arity)}t"
@@ -316,7 +317,7 @@ class Facet:
 
     def __tests_makers_implementations(self):
         yield mod_impl(
-            "MakeMakers(MakeExamples: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> Examples.S0 with type t := M.t)(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end)",
+            "MakeMakers(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end)",
             self.__tests_makers_implementations_items(),
         )
 
@@ -333,10 +334,9 @@ class Facet:
 
     def __tests_make0_implementation_items(self):
         yield "open Testing"
-        yield "module E = MakeExamples(M)(E)"
         yield f'let test = "{self.name}" >:: ['
         for base in self.bases:
-            yield f"  (let module T = {base.contextualized_name(self.prefix)}.Tests.Make0(M)(E) in T.test);"
+            yield f"  (let module T_alpha = {base.contextualized_name(self.prefix)}.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);"
         yield "] @ (let module T = MakeTests(M)(E) in T.tests)"
 
     def __tests_maker_implementation_items(self, arity):
@@ -352,21 +352,22 @@ class Type:
     def __init__(
             self, *,
             prefix, name,
-            type_params, type,
+            type_params, type, type_definition,
             arity,
             bases, exceptions, operators, values, types,
             specializers,
     ):
         self.prefix = prefix
         self.name = name
+        self.type_params = "" if type_params is None else f"{type_params} "
         self.type = type
+        self.type_definition = type_definition
         self.arity = arity
         self.bases = list(bases)
         self.exceptions = list(exceptions)
         self.operators = list(operators)
         self.values = list(values)
         self.types = list(types)
-        self.type_params = "" if type_params is None else f"{type_params} "
         self.specializers = specializers
 
     @property
@@ -413,7 +414,10 @@ class Type:
 
     @property
     def specification_items(self):
-        yield f"type {self.type_params}t = {self.type}"
+        definition = ""
+        if self.type_definition is not None:
+            definition = f" = {self.type_definition}"
+        yield f"type {self.type_params}t = {self.type}{definition}"
         if len(self.operators) > 0:
             yield mod_spec("O",
                 (f"include {base.contextualized_name(self.prefix)}.Operators.S{self.arity} with type t := t" for base in self.bases if base._Facet__has_operators()),
@@ -446,7 +450,8 @@ class Type:
     def __tests_implementation_items(self):
         # @todo Homogenize
         if self.name == "Class":
-            type_1 = type_2 = "SelfA.t"
+            type_1 = "Class.t"
+            type_2 = f"Class.t = {self.type}"
         elif self.name.startswith("Tuple"):
             type_1 = f"{self.type_params}t"
             type_2 = self.type
@@ -462,9 +467,9 @@ class Type:
         )
         yield mod_impl("Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end)",
             "open Testing",
-            f'let test = "{self.name}" >:: [',
+            f'let test = "{self.name}" >:: OCamlStandard.Pervasives.( @ ) [',
             indent(f"(let module T = {base.contextualized_name(self.prefix)}.Tests.Make{self.arity}(M)(E) in T.test);" for base in self.bases),
-            "] @ Tests.tests",
+            "] Tests.tests",
         )
 
 

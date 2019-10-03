@@ -1,10 +1,35 @@
-#include "../Generated/Atoms/Exit.ml"
+module Basic = struct
+  type t =
+    | Success
+    | Failure of int
 
-module Self = Foundations.Exit
+  let of_int = function
+    | 0 -> Success
+    | n -> Failure n
 
-include Self
+  let to_int = function
+    | Success -> 0
+    | Failure n -> n
 
-module Tests = Tests_.Make(Self)(struct
-end)(struct
-    let tests = []
-end)
+  let exit status =
+    OCamlStandard.Pervasives.exit (to_int status)
+
+  let at_exit = OCamlStandard.Pervasives.at_exit
+end
+
+module Extended(Facets: Facets) = struct
+  include Basic
+
+  #ifdef TESTING_GENERAL
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
+    #include "../Generated/Atoms/Exit.ml"
+
+    include Tests_.Make(Basic)(struct
+    end)(struct
+        let tests = []
+    end)
+  end
+  #endif
+end

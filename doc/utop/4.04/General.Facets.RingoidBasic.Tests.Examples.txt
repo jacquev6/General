@@ -5,5 +5,6 @@ module Examples: sig
     val divisions: (t * t * t) list
     val multiplications: (t * t * t) list
     val negations: (t * t) list
+    val values: t list
   end
 end

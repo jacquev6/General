@@ -29,6 +29,8 @@ module type S0 = sig
   val try_find_i: t -> f:(i:int -> elt -> bool) -> (elt) option
   val try_find_acc: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * bool) -> (elt) option
 
+  (* @feature contains = try_find |> is_some (also = there_exists f:(equal x)) *)
+
   val find_map: t -> f:(elt -> 'b option) -> 'b
   val find_map_i: t -> f:(i:int -> elt -> 'b option) -> 'b
   val find_map_acc: acc:'acc -> t -> f:(acc:'acc -> elt -> 'acc * 'b option) -> 'b

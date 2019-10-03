@@ -28,6 +28,7 @@
     Reset/PervasivesWhitelist.mli
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml
+    Testing/Testing.mli
   )
   (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
 )
@@ -37,36 +38,27 @@
   (deps
     (:src General.cppo.ml)
     Atoms/BigInt.ml
-    Atoms/Bool.foundations.ml
     Atoms/Bool.ml
     Atoms/Bytes.ml
-    Atoms/CallStack.foundations.ml
     Atoms/CallStack.ml
+    Atoms/CallStack.symbols.ml
     Atoms/Char.ml
-    Atoms/Exception.foundations.ml
     Atoms/Exception.ml
-    Atoms/Exit.foundations.ml
+    Atoms/Exception.symbols.ml
     Atoms/Exit.ml
-    Atoms/Float.foundations.ml
     Atoms/Float.ml
-    Atoms/Function1.foundations.ml
     Atoms/Function1.ml
     Atoms/Function2.ml
     Atoms/Function3.ml
     Atoms/Function4.ml
     Atoms/Function5.ml
-    Atoms/Int.foundations.ml
     Atoms/Int.ml
     Atoms/Int32.ml
     Atoms/Int64.ml
     Atoms/NativeInt.ml
     Atoms/StandardInt.ml
-    Atoms/String.foundations.ml
     Atoms/String.ml
-    Atoms/Unit.foundations.ml
     Atoms/Unit.ml
-    Compare.ml
-    Equate.ml
     Facets/Able.ml
     Facets/Bitwise.ml
     Facets/Bounded.ml
@@ -93,6 +85,7 @@
     Facets/ToInt.ml
     Facets/ToStandardNumber.ml
     Facets/empty_facet.ml
+    Generated/Atoms.mli
     Generated/Atoms/BigInt.ml
     Generated/Atoms/Bool.ml
     Generated/Atoms/Bytes.ml
@@ -115,6 +108,8 @@
     Generated/Atoms/NativeInt.ml
     Generated/Atoms/String.ml
     Generated/Atoms/Unit.ml
+    Generated/Facets.ml
+    Generated/Facets.mli
     Generated/Facets/Able.ml
     Generated/Facets/Bitwise.ml
     Generated/Facets/Bounded.ml
@@ -140,6 +135,9 @@
     Generated/Facets/ToFloat.ml
     Generated/Facets/ToInt.ml
     Generated/Facets/ToStandardNumber.ml
+    Generated/Facets_alpha.ml
+    Generated/Types.extended.ml
+    Generated/Wrappers.mli
     Generated/Wrappers/Lazy.ml
     Generated/Wrappers/Option.ml
     Generated/Wrappers/Reference.ml
@@ -147,6 +145,12 @@
     Generated/Wrappers/Tuple3.ml
     Generated/Wrappers/Tuple4.ml
     Generated/Wrappers/Tuple5.ml
+    OldFashion/Atoms/Format.ml
+    OldFashion/Collections/IntRange.ml
+    OldFashion/Collections/List.ml
+    OldFashion/Collections/RedBlackTree.ml
+    OldFashion/Collections/SortedSet.ml
+    OldFashion/Collections/Stream.ml
     OldFashion/Facets/FilterMapable.ml
     OldFashion/Facets/FilterMapable.signatures.ToContainer.ml
     OldFashion/Facets/FilterMapable.signatures.ml
@@ -168,58 +172,225 @@
     OldFashion/Facets/Scanable.signatures.Short.ml
     OldFashion/Facets/Scanable.signatures.ToContainer.ml
     OldFashion/Facets/Scanable.signatures.ml
-    OldFashion/Foundations/Format.ml
-    OldFashion/Foundations/IntRange.ml
-    OldFashion/Foundations/List.ml
-    OldFashion/Foundations/Stream.ml
     OldFashion/Implementation/Array.ml
     OldFashion/Implementation/BinaryHeap.ml
-    OldFashion/Implementation/Format.ml
     OldFashion/Implementation/Heap.ml
     OldFashion/Implementation/InChannel.ml
     OldFashion/Implementation/InFile.ml
-    OldFashion/Implementation/IntRange.ml
-    OldFashion/Implementation/List.ml
     OldFashion/Implementation/OutChannel.ml
     OldFashion/Implementation/OutFile.ml
     OldFashion/Implementation/PriorityQueue.ml
-    OldFashion/Implementation/RedBlackTree.ml
     OldFashion/Implementation/SortedMap.ml
-    OldFashion/Implementation/SortedSet.ml
     OldFashion/Implementation/StandardOutChannel.ml
     OldFashion/Implementation/StdErr.ml
     OldFashion/Implementation/StdIn.ml
     OldFashion/Implementation/StdOut.ml
-    OldFashion/Implementation/Stream.ml
     OldFashion/Specializations/List.ml
     OldFashion/Specializations/Option.ml
     OldFashion/Specializations/Reference.ml
     OldFashion/Specializations/SortedMap.ml
     OldFashion/Specializations/SortedSet.ml
+    Reset/Compare.ml
+    Reset/Equate.ml
     Reset/OCamlStandard.ml
     Reset/PervasivesWhitelist.ml
+    Reset/PervasivesWhitelist.mli
     Reset/ResetPervasives.ml
     Reset/ResetStandardLibrary.ml
-    Shorten.ml
+    Reset/Shorten.ml
     Testing/Test.ml
     Testing/Testing.ml
+    Testing/Testing.mli
     Testing/Tests.ml
-    Wrappers/Lazy.foundations.ml
     Wrappers/Lazy.ml
-    Wrappers/Option.foundations.ml
     Wrappers/Option.ml
-    Wrappers/Reference.foundations.ml
     Wrappers/Reference.ml
-    Wrappers/Tuple2.foundations.ml
     Wrappers/Tuple2.ml
-    Wrappers/Tuple3.foundations.ml
     Wrappers/Tuple3.ml
-    Wrappers/Tuple4.foundations.ml
     Wrappers/Tuple4.ml
-    Wrappers/Tuple5.foundations.ml
     Wrappers/Tuple5.ml
   )
   (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))
+)
+
+(rule
+  (targets General_for_tests.ml)
+  (deps
+    (:src General.cppo.ml)
+    Atoms/BigInt.ml
+    Atoms/Bool.ml
+    Atoms/Bytes.ml
+    Atoms/CallStack.ml
+    Atoms/CallStack.symbols.ml
+    Atoms/Char.ml
+    Atoms/Exception.ml
+    Atoms/Exception.symbols.ml
+    Atoms/Exit.ml
+    Atoms/Float.ml
+    Atoms/Function1.ml
+    Atoms/Function2.ml
+    Atoms/Function3.ml
+    Atoms/Function4.ml
+    Atoms/Function5.ml
+    Atoms/Int.ml
+    Atoms/Int32.ml
+    Atoms/Int64.ml
+    Atoms/NativeInt.ml
+    Atoms/StandardInt.ml
+    Atoms/String.ml
+    Atoms/Unit.ml
+    Facets/Able.ml
+    Facets/Bitwise.ml
+    Facets/Bounded.ml
+    Facets/Comparable.ml
+    Facets/ComparableBasic.ml
+    Facets/Displayable.ml
+    Facets/Equatable.ml
+    Facets/EquatableBasic.ml
+    Facets/FixedWidthInteger.ml
+    Facets/Identifiable.ml
+    Facets/Integer.ml
+    Facets/Number.ml
+    Facets/OfFloat.ml
+    Facets/OfInt.ml
+    Facets/OfStandardNumber.ml
+    Facets/Parsable.ml
+    Facets/PredSucc.ml
+    Facets/RealNumber.ml
+    Facets/Representable.ml
+    Facets/Ringoid.ml
+    Facets/RingoidBasic.ml
+    Facets/Stringable.ml
+    Facets/ToFloat.ml
+    Facets/ToInt.ml
+    Facets/ToStandardNumber.ml
+    Facets/empty_facet.ml
+    Generated/Atoms.mli
+    Generated/Atoms/BigInt.ml
+    Generated/Atoms/Bool.ml
+    Generated/Atoms/Bytes.ml
+    Generated/Atoms/CallStack.ml
+    Generated/Atoms/CallStack/Frame.ml
+    Generated/Atoms/CallStack/Location.ml
+    Generated/Atoms/Char.ml
+    Generated/Atoms/Exception.ml
+    Generated/Atoms/Exit.ml
+    Generated/Atoms/Float.ml
+    Generated/Atoms/Float/Class.ml
+    Generated/Atoms/Function1.ml
+    Generated/Atoms/Function2.ml
+    Generated/Atoms/Function3.ml
+    Generated/Atoms/Function4.ml
+    Generated/Atoms/Function5.ml
+    Generated/Atoms/Int.ml
+    Generated/Atoms/Int32.ml
+    Generated/Atoms/Int64.ml
+    Generated/Atoms/NativeInt.ml
+    Generated/Atoms/String.ml
+    Generated/Atoms/Unit.ml
+    Generated/Facets.ml
+    Generated/Facets.mli
+    Generated/Facets/Able.ml
+    Generated/Facets/Bitwise.ml
+    Generated/Facets/Bounded.ml
+    Generated/Facets/Comparable.ml
+    Generated/Facets/ComparableBasic.ml
+    Generated/Facets/Displayable.ml
+    Generated/Facets/Equatable.ml
+    Generated/Facets/EquatableBasic.ml
+    Generated/Facets/FixedWidthInteger.ml
+    Generated/Facets/Identifiable.ml
+    Generated/Facets/Integer.ml
+    Generated/Facets/Number.ml
+    Generated/Facets/OfFloat.ml
+    Generated/Facets/OfInt.ml
+    Generated/Facets/OfStandardNumber.ml
+    Generated/Facets/Parsable.ml
+    Generated/Facets/PredSucc.ml
+    Generated/Facets/RealNumber.ml
+    Generated/Facets/Representable.ml
+    Generated/Facets/Ringoid.ml
+    Generated/Facets/RingoidBasic.ml
+    Generated/Facets/Stringable.ml
+    Generated/Facets/ToFloat.ml
+    Generated/Facets/ToInt.ml
+    Generated/Facets/ToStandardNumber.ml
+    Generated/Facets_alpha.ml
+    Generated/Types.extended.ml
+    Generated/Wrappers.mli
+    Generated/Wrappers/Lazy.ml
+    Generated/Wrappers/Option.ml
+    Generated/Wrappers/Reference.ml
+    Generated/Wrappers/Tuple2.ml
+    Generated/Wrappers/Tuple3.ml
+    Generated/Wrappers/Tuple4.ml
+    Generated/Wrappers/Tuple5.ml
+    OldFashion/Atoms/Format.ml
+    OldFashion/Collections/IntRange.ml
+    OldFashion/Collections/List.ml
+    OldFashion/Collections/RedBlackTree.ml
+    OldFashion/Collections/SortedSet.ml
+    OldFashion/Collections/Stream.ml
+    OldFashion/Facets/FilterMapable.ml
+    OldFashion/Facets/FilterMapable.signatures.ToContainer.ml
+    OldFashion/Facets/FilterMapable.signatures.ml
+    OldFashion/Facets/Foldable.ml
+    OldFashion/Facets/Foldable.signatures.Basic.ml
+    OldFashion/Facets/Foldable.signatures.Right.Basic.ml
+    OldFashion/Facets/Foldable.signatures.Right.ml
+    OldFashion/Facets/Foldable.signatures.Short.Basic.ml
+    OldFashion/Facets/Foldable.signatures.Short.Right.Basic.ml
+    OldFashion/Facets/Foldable.signatures.Short.Right.ml
+    OldFashion/Facets/Foldable.signatures.Short.ml
+    OldFashion/Facets/Foldable.signatures.ml
+    OldFashion/Facets/Scanable.ml
+    OldFashion/Facets/Scanable.signatures.Right.ToContainer.ml
+    OldFashion/Facets/Scanable.signatures.Right.ml
+    OldFashion/Facets/Scanable.signatures.Short.Right.ToContainer.ml
+    OldFashion/Facets/Scanable.signatures.Short.Right.ml
+    OldFashion/Facets/Scanable.signatures.Short.ToContainer.ml
+    OldFashion/Facets/Scanable.signatures.Short.ml
+    OldFashion/Facets/Scanable.signatures.ToContainer.ml
+    OldFashion/Facets/Scanable.signatures.ml
+    OldFashion/Implementation/Array.ml
+    OldFashion/Implementation/BinaryHeap.ml
+    OldFashion/Implementation/Heap.ml
+    OldFashion/Implementation/InChannel.ml
+    OldFashion/Implementation/InFile.ml
+    OldFashion/Implementation/OutChannel.ml
+    OldFashion/Implementation/OutFile.ml
+    OldFashion/Implementation/PriorityQueue.ml
+    OldFashion/Implementation/SortedMap.ml
+    OldFashion/Implementation/StandardOutChannel.ml
+    OldFashion/Implementation/StdErr.ml
+    OldFashion/Implementation/StdIn.ml
+    OldFashion/Implementation/StdOut.ml
+    OldFashion/Specializations/List.ml
+    OldFashion/Specializations/Option.ml
+    OldFashion/Specializations/Reference.ml
+    OldFashion/Specializations/SortedMap.ml
+    OldFashion/Specializations/SortedSet.ml
+    Reset/Compare.ml
+    Reset/Equate.ml
+    Reset/OCamlStandard.ml
+    Reset/PervasivesWhitelist.ml
+    Reset/PervasivesWhitelist.mli
+    Reset/ResetPervasives.ml
+    Reset/ResetStandardLibrary.ml
+    Reset/Shorten.ml
+    Testing/Test.ml
+    Testing/Testing.ml
+    Testing/Testing.mli
+    Testing/Tests.ml
+    Wrappers/Lazy.ml
+    Wrappers/Option.ml
+    Wrappers/Reference.ml
+    Wrappers/Tuple2.ml
+    Wrappers/Tuple3.ml
+    Wrappers/Tuple4.ml
+    Wrappers/Tuple5.ml
+  )
+  (action (run %{bin:cppo} -D TESTING_GENERAL -V OCAML:%{ocaml_version} %{src} -o %{targets}))
 )
 
 (library

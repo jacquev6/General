@@ -53,7 +53,7 @@ module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
   let equal x y = M.equal x y ~equal_a:A.equal ~equal_b:B.equal ~equal_c:C.equal ~equal_d:D.equal ~equal_e:E.equal
 end
 
-module Tests_ = struct
+module Tests_alpha(Testing: Testing) = struct
   module Examples = struct
     module type Element = sig
       type t
@@ -63,6 +63,7 @@ module Tests_ = struct
 
     module type S0 = sig
       type t
+      val values: t list
       val equalities: t list list
       val differences: (t * t) list
     end
@@ -70,6 +71,7 @@ module Tests_ = struct
     module type S1 = sig
       type 'a t
       module A: Element
+      val values: A.t t list
       val equalities: A.t t list list
       val differences: (A.t t * A.t t) list
     end
@@ -78,6 +80,7 @@ module Tests_ = struct
       type ('a, 'b) t
       module A: Element
       module B: Element
+      val values: (A.t, B.t) t list
       val equalities: (A.t, B.t) t list list
       val differences: ((A.t, B.t) t * (A.t, B.t) t) list
     end
@@ -87,6 +90,7 @@ module Tests_ = struct
       module A: Element
       module B: Element
       module C: Element
+      val values: (A.t, B.t, C.t) t list
       val equalities: (A.t, B.t, C.t) t list list
       val differences: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
     end
@@ -97,6 +101,7 @@ module Tests_ = struct
       module B: Element
       module C: Element
       module D: Element
+      val values: (A.t, B.t, C.t, D.t) t list
       val equalities: (A.t, B.t, C.t, D.t) t list list
       val differences: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
     end
@@ -108,6 +113,7 @@ module Tests_ = struct
       module C: Element
       module D: Element
       module E: Element
+      val values: (A.t, B.t, C.t, D.t, E.t) t list
       val equalities: (A.t, B.t, C.t, D.t, E.t) t list list
       val differences: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
     end
@@ -145,10 +151,9 @@ module Tests_ = struct
     end
   end
 
-  module MakeMakers(MakeExamples: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> Examples.S0 with type t := M.t)(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct
+  module MakeMakers(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct
     module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
       open Testing
-      module E = MakeExamples(M)(E)
       let test = "EquatableBasic" >:: [
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end

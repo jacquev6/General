@@ -1,10 +1,3 @@
-open Foundations
-
-module OCSS = OCamlStandard.Sys
-module OCSPf = OCamlStandard.Printf (* @todo Put StdOut in Foundations *)
-
-(* Running *)
-
 module Result = struct
   module Status = struct
     type failure =
@@ -15,6 +8,7 @@ module Result = struct
       | WrongExceptionNamed of string * exn * CallStack.t option
       | Custom of string
 
+    #ifdef TESTING_GENERAL
     let failure_repr = function
       | NotEqual (x, y) ->
         Format.apply "NotEqual (%S, %S)" x y
@@ -28,12 +22,14 @@ module Result = struct
         Format.apply "WrongExceptionNamed (%S, %s, %s)" expected (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
       | Custom x ->
         Format.apply "Custom %S" x
+    #endif
 
     type t =
       | Success
       | Failure of failure
       | Error of exn * CallStack.t option
 
+    #ifdef TESTING_GENERAL
     let repr = function
       | Success ->
         "Success"
@@ -41,6 +37,7 @@ module Result = struct
         Format.apply "Failure (%s)" (failure_repr reason)
       | Error (exc, bt) ->
         Format.apply "Error (%s, %s)" (Exception.repr exc) (Option.repr ~repr_a:CallStack.to_string bt)
+    #endif
 
     let to_string = function
         | Success ->
@@ -94,8 +91,10 @@ module Result = struct
         errors = errors + errors';
       }
 
+    #ifdef TESTING_GENERAL
     let repr {successes; failures; errors} =
       Format.apply "{successes=%i; failures=%i; errors=%i}" successes failures errors
+    #endif
   end
 
   type group = {
@@ -108,6 +107,7 @@ module Result = struct
     | Single of single
     | Group of group
 
+  #ifdef TESTING_GENERAL
   let rec repr = function
     | Single {label; status} ->
       Format.apply "Single {label=%S; status=%s}" label (Status.repr status)
@@ -116,6 +116,7 @@ module Result = struct
 
   let equal x y =
     Equate.Poly.equal x y
+  #endif
 
   let to_indented_strings ~verbose =
     let rec aux indent = function
@@ -185,7 +186,7 @@ let command_line_main ~argv test =
   let result = run test in
   result
   |> Result.to_indented_strings ~verbose
-  |> List.iter ~f:(OCSPf.printf "%s\n");
+  |> List.iter ~f:(StdOut.print "%s\n");
   match result with
     | Result.Single {Result.status=Result.Status.Success; _}
     | Result.Group {Result.counts={Result.Counts.failures=0; errors=0; _}; _} ->
@@ -209,7 +210,12 @@ let (~:) format =
 
 (* Checks *)
 
-let javascript = String.has_suffix OCSS.argv.(0) ~suf:".js"
+type context = NodeJs | ByteCode | Native of int * int * int
+
+let context =
+  [(".js", NodeJs); (".bc", ByteCode); (".exe", Native OCAML_VERSION)]
+  |> List.try_find_map ~f:(fun (suf, ret) -> Option.some_if' (String.has_suffix OCamlStandard.Sys.argv.(0) ~suf) ret)
+  |> Option.value_def ~def:ByteCode
 
 let fail format =
   Format.with_result
@@ -244,6 +250,14 @@ let check ~repr ~equal ~expected actual =
 let check_poly ~repr ~expected actual =
   check ~repr ~equal:Equate.Poly.equal ~expected actual
 
+let check_compare = Compare.(check ~repr ~equal)
+
+let check_eq = check_compare ~expected:Compare.EQ
+
+let check_lt = check_compare ~expected:Compare.LT
+
+let check_gt = check_compare ~expected:Compare.GT
+
 let check_bool ~expected actual =
   check ~repr:Bool.repr ~equal:Bool.equal ~expected actual
 
@@ -256,13 +270,15 @@ let check_false actual =
 let check_string ~expected actual =
   check ~repr:String.repr ~equal:String.equal ~expected actual
 
-(* @todo check_char (difficulty: Char is in Implementation, not Foundation) *)
+let check_char = Char.(check ~repr ~equal)
 
 let check_int ~expected actual =
   check ~repr:Int.repr ~equal:Int.equal ~expected actual
 
+(*
 let check_42 actual =
   check ~repr:Int.repr ~equal:Int.equal ~expected:42 actual
+*)
 
 let check_float ?precision ~expected actual =
   check ~repr:Float.repr ~equal:(Float.approx_equal ?precision) ~expected actual
@@ -299,8 +315,10 @@ let check_int_option ~expected actual =
 let check_some_int ~expected actual =
   check_int_option ~expected:(Some expected) actual
 
+(*
 let check_some_42 actual =
   check_some_int ~expected:42 actual
+*)
 
 let check_none_int actual =
   check_int_option ~expected:None actual

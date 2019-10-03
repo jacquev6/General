@@ -1,24 +1,26 @@
 #include "../Generated/Facets/Number.ml"
 
-module Tests = struct
-  include Tests_
+module Tests_beta(Testing: Testing) = struct
+  include Tests_alpha(Testing)
 
-  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
-    include E
+  module EquatableTests = Equatable.Tests_beta(Testing)
+  module OfIntTests = OfInt.Tests_beta(Testing)
+  module OfFloatTests = OfFloat.Tests_beta(Testing)
+  module ParsableTests = Parsable.Tests_beta(Testing)
 
-    let equalities = equalities @ [
-      [M.zero; M.of_int 0; M.of_float 0.; M.of_string "0"];
-      [M.one; M.of_int 1; M.of_float 1.; M.of_string "1"];
-    ]
+  include MakeMakers(functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> struct
+    module EquatableTesters = EquatableTests.MakeTesters(M)
+    module OfIntTesters = OfIntTests.MakeTesters(M)
+    module OfFloatTesters = OfFloatTests.MakeTesters(M)
+    module ParsableTesters = ParsableTests.MakeTesters(M)(E)
 
-    let differences = differences @ [
-      (M.zero, M.one);
-    ]
-  end
-
-  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
     let tests = []
-  end
-
-  include MakeMakers(MakeExamples)(MakeTests)
+      @ (EquatableTesters.test_different_pair ((M.zero, "zero"), (M.one, "one")))
+      @ (OfIntTesters.test_conversion (0, M.zero))
+      @ (OfIntTesters.test_conversion (1, M.one))
+      @ (OfFloatTesters.test_conversion (0., M.zero))
+      @ (OfFloatTesters.test_conversion (1., M.one))
+      @ (ParsableTesters.test_conversion ("0", M.zero))
+      @ (ParsableTesters.test_conversion ("1", M.one))
+  end)
 end

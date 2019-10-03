@@ -7,26 +7,33 @@ module PredSucc = struct
   end)
 end
 
-module Tests = struct
-  include Tests_
+module Tests_beta(Testing: Testing) = struct
+  include Tests_alpha(Testing)
 
-  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = E
-
-  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+  module MakeTesters(M: Testable.S0): sig
+    val test_succession: (M.t * string) * (M.t * string) -> Test.t list
+  end = struct
     open Testing
-    open M
 
-    let tests = (
-      E.successions
-      |> List.flat_map ~f:(fun (p, s) ->
-        let rp = repr p and rs = repr s in
-        [
-          ~: "succ %s" rp (lazy (check ~repr ~equal ~expected:s (succ p)));
-          ~: "pred %s" rs (lazy (check ~repr ~equal ~expected:p (pred s)));
-        ]
-      )
-    )
+    let check_m = M.(check ~repr ~equal)
+
+    let test_succession ((x, rx), (y, ry)) = [
+      ~: "PredSucc: succ %s" rx (lazy (M.succ x |> check_m ~expected:y));
+      ~: "PredSucc: pred %s" ry (lazy (M.pred y |> check_m ~expected:x));
+    ]
   end
 
-  include MakeMakers(MakeExamples)(MakeTests)
+  module MakeExpectations(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+    let successions =
+      E.successions
+      |> List.map ~f:(fun (x, y) -> ((x, M.repr x), (y, M.repr y)))
+  end
+
+  include MakeMakers(functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> struct
+    module Expectations = MakeExpectations(M)(E)
+    module Testers = MakeTesters(M)
+
+    let tests = []
+      @ (List.flat_map Expectations.successions ~f:Testers.test_succession)
+  end)
 end

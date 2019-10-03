@@ -1,21 +1,22 @@
 #include "../Generated/Facets/Displayable.ml"
 
-module Tests = struct
-  include Tests_
+module Tests_beta(Testing: Testing) = struct
+  include Tests_alpha(Testing)
 
-  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = E
-
-  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+  module MakeTesters(M: Testable.S0): sig
+    val test_conversion: (M.t * string) * string -> Test.t list
+  end = struct
     open Testing
-    open M
 
-    let tests = (
-      E.displays
-      |> List.map ~f:(fun (v, expected) ->
-        ~: "to_string %s" expected (lazy (check_string ~expected (to_string v)))
-      )
-    )
+    let test_conversion ((x, rx), y) = [
+      ~: "Displayable: to_string %s" rx (lazy (M.to_string x |> check_string ~expected:y));
+    ]
   end
 
-  include MakeMakers(MakeExamples)(MakeTests)
+  include MakeMakers(functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> struct
+    module Testers = MakeTesters(M)
+
+    let tests = []
+      @ (List.flat_map E.conversions_to_string ~f:(fun (x, y) -> Testers.test_conversion ((x, M.repr x), y)))
+  end)
 end

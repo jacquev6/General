@@ -1,7 +1,9 @@
 module Testable: sig
   module type S0 = sig
     type t
+    val equal: t -> t -> bool
     val of_float: float -> t
     val of_int: int -> t
+    val repr: t -> string
   end
 end

@@ -1,8 +1,4 @@
-#include "../Generated/Atoms/Bytes.ml"
-
-module OCSB = OCamlStandard.Bytes
-
-module Self = struct
+module Basic = struct
   type t = bytes
 
   module O = struct
@@ -13,49 +9,60 @@ module Self = struct
   include (Compare.Poly: module type of Compare.Poly with module O := O)
   include (Equate.Poly: module type of Equate.Poly with module O := O)
 
-  let of_string = OCSB.of_string
-  let to_string = OCSB.to_string
+  let of_string = OCamlStandard.Bytes.of_string
+  let to_string = OCamlStandard.Bytes.to_string
 
   let repr x =
     x
     |> to_string
     |> Format.apply "%S"
 
-  let get = OCSB.get
-  let set = OCSB.set
+  let get = OCamlStandard.Bytes.get
+  let set = OCamlStandard.Bytes.set
 
-  let size = OCSB.length
+  let size = OCamlStandard.Bytes.length
 
-  let empty = OCSB.empty
+  let empty = OCamlStandard.Bytes.empty
 
-  let make ~len =
-    OCSB.create len
+  let make ~len = OCamlStandard.Bytes.create len
 end
 
-include Self
+module Extended(Facets: Facets) = struct
+  include Basic
 
-module Tests = Tests_.Make(Self)(struct
-  let representations = [
-    (of_string "foo", "\"foo\"");
-    (of_string "bar\"baz", "\"bar\\\"baz\"");
-  ]
+  #ifdef TESTING_GENERAL
+  module MakeTests(Standard: Standard) = struct
+    open Standard
 
-  let displays = [
-    (of_string "foo", "foo");
-    (of_string "bar\"baz", "bar\"baz");
-  ]
+    #include "../Generated/Atoms/Bytes.ml"
 
-  let equalities = [
-    [of_string "foo"];
-  ]
+    include Tests_.Make(Basic)(struct
+      let values = [of_string "foo"]
 
-  let differences = [
-    (of_string "foo", of_string "bar");
-  ]
+      let representations = [
+        (of_string "foo", "\"foo\"");
+        (of_string "bar\"baz", "\"bar\\\"baz\"");
+      ]
 
-  let orders = [
-    [of_string "aaaa"; of_string "aaaaa"; of_string "aaaab"; of_string "ab"; of_string "b"];
-  ]
-end)(struct
-  let tests = []
-end)
+      let conversions_to_string = [
+        (of_string "foo", "foo");
+        (of_string "bar\"baz", "bar\"baz");
+      ]
+
+      let equalities = []
+
+      let differences = [
+        (of_string "foo", of_string "bar");
+      ]
+
+      let strict_orders = [
+        [of_string "aaaa"; of_string "aaaaa"; of_string "aaaab"; of_string "ab"; of_string "b"];
+      ]
+
+      let order_classes = []
+    end)(struct
+      let tests = []
+    end)
+  end
+  #endif
+end

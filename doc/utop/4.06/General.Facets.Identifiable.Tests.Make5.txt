@@ -7,6 +7,7 @@ module Make5(M: General.Facets.Identifiable.Tests.Testable.S5)(E: sig
   val differences: ((A.t, B.t, C.t, D.t, E.t) M.t * (A.t, B.t, C.t, D.t, E.t) M.t) list
   val equalities: (A.t, B.t, C.t, D.t, E.t) M.t list list
   val representations: ((A.t, B.t, C.t, D.t, E.t) M.t * string) list
+  val values: (A.t, B.t, C.t, D.t, E.t) M.t list
 end): sig
   val test: General.Test.t
 end

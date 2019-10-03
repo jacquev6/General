@@ -53,7 +53,7 @@ module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
   let compare x y = M.compare x y ~compare_a:A.compare ~compare_b:B.compare ~compare_c:C.compare ~compare_d:D.compare ~compare_e:E.compare
 end
 
-module Tests_ = struct
+module Tests_alpha(Testing: Testing) = struct
   module Examples = struct
     module type Element = sig
       type t
@@ -64,23 +64,26 @@ module Tests_ = struct
 
     module type S0 = sig
       type t
-      val orders: t list list
-      val equalities: t list list
+      val values: t list
+      val order_classes: t list list
+      val strict_orders: t list list
     end
 
     module type S1 = sig
       type 'a t
       module A: Element
-      val orders: A.t t list list
-      val equalities: A.t t list list
+      val values: A.t t list
+      val order_classes: A.t t list list
+      val strict_orders: A.t t list list
     end
 
     module type S2 = sig
       type ('a, 'b) t
       module A: Element
       module B: Element
-      val orders: (A.t, B.t) t list list
-      val equalities: (A.t, B.t) t list list
+      val values: (A.t, B.t) t list
+      val order_classes: (A.t, B.t) t list list
+      val strict_orders: (A.t, B.t) t list list
     end
 
     module type S3 = sig
@@ -88,8 +91,9 @@ module Tests_ = struct
       module A: Element
       module B: Element
       module C: Element
-      val orders: (A.t, B.t, C.t) t list list
-      val equalities: (A.t, B.t, C.t) t list list
+      val values: (A.t, B.t, C.t) t list
+      val order_classes: (A.t, B.t, C.t) t list list
+      val strict_orders: (A.t, B.t, C.t) t list list
     end
 
     module type S4 = sig
@@ -98,8 +102,9 @@ module Tests_ = struct
       module B: Element
       module C: Element
       module D: Element
-      val orders: (A.t, B.t, C.t, D.t) t list list
-      val equalities: (A.t, B.t, C.t, D.t) t list list
+      val values: (A.t, B.t, C.t, D.t) t list
+      val order_classes: (A.t, B.t, C.t, D.t) t list list
+      val strict_orders: (A.t, B.t, C.t, D.t) t list list
     end
 
     module type S5 = sig
@@ -109,8 +114,9 @@ module Tests_ = struct
       module C: Element
       module D: Element
       module E: Element
-      val orders: (A.t, B.t, C.t, D.t, E.t) t list list
-      val equalities: (A.t, B.t, C.t, D.t, E.t) t list list
+      val values: (A.t, B.t, C.t, D.t, E.t) t list
+      val order_classes: (A.t, B.t, C.t, D.t, E.t) t list list
+      val strict_orders: (A.t, B.t, C.t, D.t, E.t) t list list
     end
   end
 
@@ -152,10 +158,9 @@ module Tests_ = struct
     end
   end
 
-  module MakeMakers(MakeExamples: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> Examples.S0 with type t := M.t)(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct
+  module MakeMakers(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct
     module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
       open Testing
-      module E = MakeExamples(M)(E)
       let test = "ComparableBasic" >:: [
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end

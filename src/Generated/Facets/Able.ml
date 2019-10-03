@@ -108,7 +108,7 @@ module Specialize5(M: S5)(A: S0)(B: S0)(C: S0)(D: S0)(E: S0) = struct
   include (Comparable_: Comparable.S0 with type t := t and module O := O)
 end
 
-module Tests_ = struct
+module Tests_alpha(Testing: Testing) = struct
   module Examples = struct
     module type Element = sig
       type t
@@ -117,23 +117,23 @@ module Tests_ = struct
 
     module type S0 = sig
       type t
-      include Identifiable.Tests.Examples.S0 with type t := t
-      include Comparable.Tests.Examples.S0 with type t := t
+      include Identifiable.Tests_beta(Testing).Examples.S0 with type t := t
+      include Comparable.Tests_beta(Testing).Examples.S0 with type t := t
     end
 
     module type S1 = sig
       type 'a t
       module A: Element
-      include Identifiable.Tests.Examples.S1 with type 'a t := 'a t and module A := A
-      include Comparable.Tests.Examples.S1 with type 'a t := 'a t and module A := A
+      include Identifiable.Tests_beta(Testing).Examples.S1 with type 'a t := 'a t and module A := A
+      include Comparable.Tests_beta(Testing).Examples.S1 with type 'a t := 'a t and module A := A
     end
 
     module type S2 = sig
       type ('a, 'b) t
       module A: Element
       module B: Element
-      include Identifiable.Tests.Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
-      include Comparable.Tests.Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
+      include Identifiable.Tests_beta(Testing).Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
+      include Comparable.Tests_beta(Testing).Examples.S2 with type ('a, 'b) t := ('a, 'b) t and module A := A and module B := B
     end
 
     module type S3 = sig
@@ -141,8 +141,8 @@ module Tests_ = struct
       module A: Element
       module B: Element
       module C: Element
-      include Identifiable.Tests.Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
-      include Comparable.Tests.Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
+      include Identifiable.Tests_beta(Testing).Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
+      include Comparable.Tests_beta(Testing).Examples.S3 with type ('a, 'b, 'c) t := ('a, 'b, 'c) t and module A := A and module B := B and module C := C
     end
 
     module type S4 = sig
@@ -151,8 +151,8 @@ module Tests_ = struct
       module B: Element
       module C: Element
       module D: Element
-      include Identifiable.Tests.Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
-      include Comparable.Tests.Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
+      include Identifiable.Tests_beta(Testing).Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
+      include Comparable.Tests_beta(Testing).Examples.S4 with type ('a, 'b, 'c, 'd) t := ('a, 'b, 'c, 'd) t and module A := A and module B := B and module C := C and module D := D
     end
 
     module type S5 = sig
@@ -162,8 +162,8 @@ module Tests_ = struct
       module C: Element
       module D: Element
       module E: Element
-      include Identifiable.Tests.Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
-      include Comparable.Tests.Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
+      include Identifiable.Tests_beta(Testing).Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
+      include Comparable.Tests_beta(Testing).Examples.S5 with type ('a, 'b, 'c, 'd, 'e) t := ('a, 'b, 'c, 'd, 'e) t and module A := A and module B := B and module C := C and module D := D and module E := E
     end
   end
 
@@ -193,13 +193,12 @@ module Tests_ = struct
     end
   end
 
-  module MakeMakers(MakeExamples: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> Examples.S0 with type t := M.t)(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct
+  module MakeMakers(MakeTests: functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> sig val tests: Test.t list end) = struct
     module Make0(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
       open Testing
-      module E = MakeExamples(M)(E)
       let test = "Able" >:: [
-        (let module T = Identifiable.Tests.Make0(M)(E) in T.test);
-        (let module T = Comparable.Tests.Make0(M)(E) in T.test);
+        (let module T_alpha = Identifiable.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);
+        (let module T_alpha = Comparable.Tests_beta(Testing) in let module T = T_alpha.Make0(M)(E) in T.test);
       ] @ (let module T = MakeTests(M)(E) in T.tests)
     end
 

@@ -11,8 +11,8 @@ module Tests_ = struct
 
   module Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end) = struct
     open Testing
-    let test = "Tuple4" >:: [
+    let test = "Tuple4" >:: OCamlStandard.Pervasives.( @ ) [
       (let module T = Facets.Able.Tests.Make4(M)(E) in T.test);
-    ] @ Tests.tests
+    ] Tests.tests
   end
 end

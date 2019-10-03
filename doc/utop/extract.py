@@ -30,6 +30,11 @@ class FunctorArgument:
         return "({}: {})".format(self.name, self.signature.text(indent))
 
 
+class NullFunctorArgument:
+    def text(self, indent):
+        return "()"
+
+
 class Alias:
     def __init__(self, name, base):
         self.name = name
@@ -135,12 +140,15 @@ class UTop:
             self.__assert_token("functor")
             while self.__peek_token() == "(":
                 self.__assert_token("(")
-                name = self.__next_token()
-                self.__assert_token(":")
-                signature = self.__parse_signature()
-                argument = FunctorArgument(name, signature)
-                self.__assert_token(")")
-                arguments.append(argument)
+                if self.__peek_token() == ")":
+                    self.__assert_token(")")
+                    arguments.append(NullFunctorArgument())
+                else:
+                    name = self.__next_token()
+                    self.__assert_token(":")
+                    signature = self.__parse_signature()
+                    self.__assert_token(")")
+                    arguments.append(FunctorArgument(name, signature))
             self.__assert_token("->")
         return arguments
 

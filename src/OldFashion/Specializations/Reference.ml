@@ -1,6 +1,7 @@
 module Int = struct
   module Spe = Reference.Specialize(Int)
   module Ringoid = Reference.SpecializeRingoid(Int)
+  module PredSucc = Reference.SpecializePredSucc(Int)
 
   module O = struct
     include Spe.O
@@ -9,9 +10,7 @@ module Int = struct
 
   include (Spe: module type of Spe with module O := O)
   include (Ringoid: module type of Ringoid with type t := t and module O := O)
-
-  let increment = OCSP.incr
-  let decrement = OCSP.decr
+  include (PredSucc: module type of PredSucc with type t := t)
 end
 
 module Float = struct

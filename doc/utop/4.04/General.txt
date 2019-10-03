@@ -62,7 +62,6 @@ module General: sig
   module StringSortedSet
   module Test
   module Testing
-  module Tests
   module Tuple2
   module Tuple3
   module Tuple4

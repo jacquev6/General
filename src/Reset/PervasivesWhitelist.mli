@@ -56,6 +56,8 @@ val (!): 'a OCamlStandard.Pervasives.ref -> 'a
 
 (** **Polymorphic comparison** *)
 
+(* @todo Should we really publish these? They are error-prone when comparing types with specialized comparisons. And yet so practical... *)
+
 val (=): 'a -> 'a -> bool
 val (<>): 'a -> 'a -> bool
 

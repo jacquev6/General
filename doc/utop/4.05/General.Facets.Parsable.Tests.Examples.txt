@@ -1,6 +1,8 @@
 module Examples: sig
   module type S0 = sig
     type t
-    val literals: (string * t) list
+    val conversions_from_string: (string * t) list
+    val module_name: string
+    val unconvertible_strings: string list
   end
 end

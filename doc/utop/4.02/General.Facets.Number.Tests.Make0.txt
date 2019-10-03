@@ -1,14 +1,19 @@
 module Make0(M: General.Facets.Number.Tests.Testable.S0)(E: sig
   val additions: (M.t * M.t * M.t) list
+  val conversions_from_float: (float * M.t) list
+  val conversions_from_int: (int * M.t) list
+  val conversions_from_string: (bytes * M.t) list
+  val conversions_to_string: (M.t * bytes) list
   val differences: (M.t * M.t) list
-  val displays: (M.t * bytes) list
   val divisions: (M.t * M.t * M.t) list
   val equalities: M.t list list
   val exponentiations: (M.t * int * M.t) list
-  val literals: (bytes * M.t) list
+  val module_name: bytes
   val multiplications: (M.t * M.t * M.t) list
   val negations: (M.t * M.t) list
   val representations: (M.t * bytes) list
+  val unconvertible_strings: bytes list
+  val values: M.t list
 end): sig
   val test: General.Test.t
 end

@@ -1,36 +1,42 @@
 #include "../Generated/Facets/RealNumber.ml"
 
-module Tests = struct
-  include Tests_
+module Tests_beta(Testing: Testing) = struct
+  include Tests_alpha(Testing)
 
-  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
-    include E
+  module ComparableTests = Comparable.Tests_beta(Testing)
+  module RingoidTests = Ringoid.Tests_beta(Testing)
+  module ToIntTests = ToInt.Tests_beta(Testing)
+  module ToFloatTests = ToFloat.Tests_beta(Testing)
 
-    let orders = orders @ [
-      [M.zero; M.one];
-    ]
-  end
-
-  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+  module MakeTesters(M: Testable.S0): sig
+    val test_negation: (M.t * string) * (M.t * string) -> Test.t list
+  end = struct
     open Testing
 
-    let tests = (
-      E.negations
-      |> List.flat_map ~f:(fun (x, y) ->
-        let abs_x = M.(if greater_or_equal x zero then x else y)
-        and abs_y = M.(if greater_or_equal y zero then y else x) in
-        [
-          ~: "abs %s" (M.repr x) (lazy M.(check ~repr ~equal ~expected:abs_x (abs x)));
-          ~: "abs %s" (M.repr y) (lazy M.(check ~repr ~equal ~expected:abs_y (abs y)));
-        ]
-      )
-    ) @ [
-      "to_int zero" >: (lazy (check_int ~expected:0 M.(to_int zero)));
-      "to_float zero" >: (lazy (check_float_exact ~expected:0. M.(to_float zero)));
-      "to_int one" >: (lazy (check_int ~expected:1 M.(to_int one)));
-      "to_float one" >: (lazy (check_float_exact ~expected:1. M.(to_float one)));
+    let check_m = M.(check ~repr ~equal)
+
+    let test_negation ((x, rx), (y, ry)) = [
+      ~: "RealNumber: abs %s" rx (lazy (M.abs x |> check_m ~expected:x));
+      ~: "RealNumber: abs %s" ry (lazy (M.abs y |> check_m ~expected:x));
     ]
   end
 
-  include MakeMakers(MakeExamples)(MakeTests)
+  include MakeMakers(functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> struct
+    module Expectations = RingoidTests.MakeExpectations(M)(E)
+    module Testers = MakeTesters(M)
+    module ComparableTesters = ComparableTests.MakeTesters(M)
+    module ToIntTesters = ToIntTests.MakeTesters(M)
+    module ToFloatTesters = ToFloatTests.MakeTesters(M)
+
+    let zero = (M.zero, "zero")
+    let one = (M.one, "one")
+
+    let tests = []
+      @ (List.flat_map Expectations.negations ~f:Testers.test_negation)
+      @ (ComparableTesters.test_ordered_pair (zero, one))
+      @ (ToIntTesters.test_conversion (zero, 0))
+      @ (ToIntTesters.test_conversion (one, 1))
+      @ (ToFloatTesters.test_conversion (zero, 0.))
+      @ (ToFloatTesters.test_conversion (one, 1.))
+  end)
 end

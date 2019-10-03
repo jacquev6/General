@@ -1,0 +1,29 @@
+(rule
+  (targets General.ml)
+  (deps ../src/General_for_tests.ml)
+  (action (copy ../src/General_for_tests.ml General.ml))
+)
+
+(executable
+  (name unit_tests)
+  (libraries num)
+  (js_of_ocaml (flags "+nat.js"))
+)
+
+(alias
+  (name runtest)
+  (deps unit_tests.bc)
+  (action (run %{exe:unit_tests.bc}))
+)
+
+(alias
+  (name runtest)
+  (deps unit_tests.exe)
+  (action (run %{exe:unit_tests.exe}))
+)
+
+(alias
+  (name runtest)
+  (deps unit_tests.bc.js)
+  (action (run %{bin:node} %{exe:unit_tests.bc.js}))
+)

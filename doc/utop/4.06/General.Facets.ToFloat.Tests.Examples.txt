@@ -1,5 +1,6 @@
 module Examples: sig
   module type S0 = sig
     type t
+    val conversions_to_float: (t * float) list
   end
 end

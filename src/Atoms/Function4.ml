@@ -1,6 +1,4 @@
-#include "../Generated/Atoms/Function4.ml"
-
-module Self = struct
+module Basic = struct
   type ('a, 'b, 'c, 'd, 'z) t = 'a -> 'b -> 'c -> 'd -> 'z
 
   let flip f =
@@ -16,15 +14,25 @@ module Self = struct
       f x y z u
 end
 
-include Self
+module Extended(Facets: Facets) = struct
+  include Basic
 
-module Tests = Tests_.Make(Self)(struct
-end)(struct
-  open Testing
+  #ifdef TESTING_GENERAL
+  module MakeTests(Standard: Standard) = struct
+    open Standard
 
-  let tests = [
-    "flip" >: (lazy (check_string ~expected:"2 7 5 9" ((flip (Format.apply "%d %d %d %d")) 9 5 7 2)));
-    "curry" >: (lazy (check_int ~expected:6 ((curry (fun (x, y, z, u) -> x - y * z + u)) 7 2 3 5)));
-    "uncurry" >: (lazy (check_string ~expected:"7 2 4 5" ((uncurry (Format.apply "%d %d %d %d")) (7, 2, 4, 5))));
-  ]
-end)
+    #include "../Generated/Atoms/Function4.ml"
+
+    include Tests_.Make(Basic)(struct
+    end)(struct
+      open Testing
+
+      let tests = [
+        "Function4: flip" >: (lazy (check_string ~expected:"2 7 5 9" ((flip (Format.apply "%d %d %d %d")) 9 5 7 2)));
+        "Function4: uncurry" >: (lazy (check_string ~expected:"7 2 4 5" ((uncurry (Format.apply "%d %d %d %d")) (7, 2, 4, 5))));
+        "Function4: curry" >: (lazy (check_string ~expected:"7 2 4 5" ((curry (uncurry (Format.apply "%d %d %d %d"))) 7 2 4 5)));
+      ]
+    end)
+  end
+  #endif
+end

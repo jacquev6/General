@@ -1,16 +1,24 @@
 module Make0(M: General.Facets.FixedWidthInteger.Tests.Testable.S0)(E: sig
   val additions: (M.t * M.t * M.t) list
+  val conversions_from_float: (float * M.t) list
+  val conversions_from_int: (int * M.t) list
+  val conversions_from_string: (string * M.t) list
+  val conversions_to_float: (M.t * float) list
+  val conversions_to_int: (M.t * int) list
+  val conversions_to_string: (M.t * string) list
   val differences: (M.t * M.t) list
-  val displays: (M.t * string) list
   val divisions: (M.t * M.t * M.t) list
   val equalities: M.t list list
   val exponentiations: (M.t * int * M.t) list
-  val literals: (string * M.t) list
+  val module_name: string
   val multiplications: (M.t * M.t * M.t) list
   val negations: (M.t * M.t) list
-  val orders: M.t list list
+  val order_classes: M.t list list
   val representations: (M.t * string) list
+  val strict_orders: M.t list list
   val successions: (M.t * M.t) list
+  val unconvertible_strings: string list
+  val values: M.t list
 end): sig
   val test: General.Test.t
 end

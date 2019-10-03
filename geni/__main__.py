@@ -111,6 +111,7 @@ def atom(
         name=name,
         type_params=type_params,
         type=type,
+        type_definition=None,
         arity=arity,
         bases=bases,
         exceptions=exceptions,
@@ -141,6 +142,7 @@ def wrapper(
         name=name,
         type_params=type_params,
         type=type,
+        type_definition=None,
         arity=arity,
         bases=bases,
         operators=operators,
@@ -153,7 +155,7 @@ def wrapper(
     return wrapper
 
 
-def make_unit_tests():
+def make_all_please_use_symbols():
     types = set()
     values = set()
     with open("src/Reset/ResetPervasives.ml") as f:
@@ -172,12 +174,6 @@ def make_unit_tests():
         yield f"let (_: {type_} option) = None"
     for value in sorted(values):
         yield f"let _ = {value}"
-    yield ""
-    yield "open General.Abbr"
-    yield ""
-    yield "let () ="
-    yield "  let argv = Li.of_array OCamlStandard.Sys.argv in"
-    yield "  Exit.exit (Tst.command_line_main ~argv General.Tests.test)"
 
 
 def make_dune():
@@ -187,10 +183,11 @@ def make_dune():
     yield "    (:src General.cppo.mli)"
     for name in sorted(itertools.chain(
         glob.glob("src/OldFashion/Facets/*.signatures*.ml", recursive=False),
-        glob.glob("src/Generated/*.mli", recursive=False),
-        filter(lambda path: path != "src/Reset/DefinitionHeader.ml", glob.glob("src/Reset/*.ml*", recursive=False)),
+        glob.glob("src/*/**/*.mli", recursive=True),
+        glob.glob("src/Reset/*.ml", recursive=False),
     )):
-        yield f"    {name[4:]}"
+        if name not in ["src/Reset/DefinitionHeader.ml", "src/Reset/Equate.ml", "src/Reset/Compare.ml", "src/Reset/Shorten.ml"]:
+            yield f"    {name[4:]}"
     yield "  )"
     yield "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))"
     yield ")"
@@ -199,12 +196,26 @@ def make_dune():
     yield "  (targets General.ml)"
     yield "  (deps"
     yield "    (:src General.cppo.ml)"
-    for path in sorted(glob.glob("src/**/*.ml", recursive=True)):
-        if path in ["src/Reset/SignatureHeader.ml", "src/General.cppo.ml"]:
-            continue
+    for path in sorted(itertools.chain(
+        glob.glob("src/*/**/*.ml", recursive=True),
+        glob.glob("src/*/**/*.mli", recursive=True),
+    )):
         yield f"    {path[4:]}"
     yield "  )"
     yield "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))"
+    yield ")"
+    yield ""
+    yield "(rule"
+    yield "  (targets General_for_tests.ml)"
+    yield "  (deps"
+    yield "    (:src General.cppo.ml)"
+    for path in sorted(itertools.chain(
+        glob.glob("src/*/**/*.ml", recursive=True),
+        glob.glob("src/*/**/*.mli", recursive=True),
+    )):
+        yield f"    {path[4:]}"
+    yield "  )"
+    yield "  (action (run %{bin:cppo} -D TESTING_GENERAL -V OCAML:%{ocaml_version} %{src} -o %{targets}))"
     yield ")"
     yield ""
     yield "(library"
@@ -228,13 +239,14 @@ representable = facet(
     test_examples=[val("representations", f"({t} * string) list")],
 )
 
-equalities = val("equalities", f"{t} list list")
+values_ = val("values", f"{t} list")
 
 equatable_basic = facet(
     "EquatableBasic",
     values=[val("equal", t, t, deleg("equal"), "bool")],
     test_examples=[
-        equalities,
+        values_,
+        val("equalities", f"{t} list list"),
         val("differences", f"({t} * {t}) list"),
     ],
     test_requirements=[representable],
@@ -261,7 +273,8 @@ displayable = facet(
     "Displayable",
     variadic=False,
     values=[val("to_string", t, "string")],
-    test_examples=[val("displays", f"({t} * string) list")],
+    test_examples=[val("conversions_to_string", f"({t} * string) list")],
+    test_requirements=[representable],
 )
 
 # @feature Facets.Hashable with val hash: t -> int, Poly using Hashtbl.hash
@@ -273,7 +286,11 @@ parsable = facet(
         val("try_of_string", "string", f"{t} option"),
         val("of_string", "string", t),
     ],
-    test_examples=[val("literals", f"(string * {t}) list")],
+    test_examples=[
+        val("module_name", "string"),
+        val("conversions_from_string", f"(string * {t}) list"),
+        val("unconvertible_strings", f"string list"),
+    ],
     test_requirements=[equatable_basic, representable],
 )
 
@@ -281,8 +298,9 @@ comparable_basic = facet(
     "ComparableBasic",
     values=[val("compare", t, t, deleg("compare"), "Compare.t")],
     test_examples=[
-        val("orders", f"{t} list list"),
-        equalities,
+        values_,
+        val("order_classes", f"{t} list list"),
+        val("strict_orders", f"{t} list list"),
     ],
     test_requirements=[equatable_basic, representable],
 )
@@ -349,6 +367,7 @@ ringoid_basic = facet(
         ),
     ],
     test_examples=[
+        values_,
         val("additions", f"({t} * {t} * {t}) list"),
         val("negations", f"({t} * {t}) list"),
         val("multiplications", f"({t} * {t} * {t}) list"),
@@ -401,6 +420,10 @@ of_int = facet(
     values=[
         val("of_int", "int", t),
     ],
+    test_examples=[
+        val("conversions_from_int", f"(int * {t}) list")
+    ],
+    test_requirements=[equatable_basic, representable]
 )
 
 to_int = facet(
@@ -409,14 +432,22 @@ to_int = facet(
     values=[
         val("to_int", t, "int"),
     ],
+    test_examples=[
+        val("conversions_to_int", f"({t} * int) list")
+    ],
+    test_requirements=[representable],
 )
 
 of_float = facet(
-    "OfFloat",
+    "OfFloat", # @todo (?) Rename to ConvertibleFromFloat. Same for all OfXxx and ToXxx facets. Same for Parsable and Displayable.
     variadic=False,
     values=[
         val("of_float", "float", t),
     ],
+    test_examples=[
+        val("conversions_from_float", f"(float * {t}) list")
+    ],
+    test_requirements=[equatable_basic, representable]
 )
 
 to_float = facet(
@@ -425,6 +456,10 @@ to_float = facet(
     values=[
         val("to_float", t, "float"),
     ],
+    test_examples=[
+        val("conversions_to_float", f"({t} * float) list")
+    ],
+    test_requirements=[representable],
 )
 
 pred_succ = facet(
@@ -490,6 +525,7 @@ stringable = facet(
 of_standard_numbers = facet(
     "OfStandardNumber",
     bases=[of_int, of_float],
+    test_requirements=[equatable_basic, representable],
 )
 
 number = facet(
@@ -500,6 +536,7 @@ number = facet(
 to_standard_numbers = facet(
     "ToStandardNumber",
     bases=[to_int, to_float],
+    test_requirements=[representable],
 )
 
 real_number = facet(
@@ -546,7 +583,8 @@ call_stack = atom(
             prefix="Atoms.CallStack",
             name="Location",
             type_params=None,
-            type="OCamlStandard.Printexc.location = {filename: string; line_number: int; start_char: int; end_char: int}",
+            type="OCamlStandard.Printexc.location",
+            type_definition="{filename: string; line_number: int; start_char: int; end_char: int}",
             arity=0,
             bases=[able],
             exceptions=[],
@@ -560,6 +598,7 @@ call_stack = atom(
             name="Frame",
             type_params=None,
             type="OCamlStandard.Printexc.backtrace_slot",
+            type_definition=None,
             arity=0,
             bases=[],
             exceptions=[],
@@ -739,7 +778,7 @@ big_int = atom(
 float_ = atom(
     "Float",
     type="float",
-    bases=[real_number, bounded],
+    bases=[real_number, bounded],  # @todo Capture this pair as a new facet (IE449Float? BoundedFloat? FloatingPointNumber?)
     values=[
         val("approx_equal", {"?precision": t}, t, t, "bool"),
 
@@ -784,6 +823,7 @@ float_ = atom(
             name="Class",
             type_params=None,
             type="Normal | SubNormal | Zero | Infinite | NotANumber",
+            type_definition=None,
             arity=0,
             bases=[able],
             exceptions=[],
@@ -998,57 +1038,77 @@ tuple_ = [
     for arity in range(2, max_arity)
 ]
 
-
-def gen(path, *items):
-    if os.sep in path:
+def main():
+    def gen(path, *items):
+        assert os.sep in path
         os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w") as f:
-        generate(items, file=f)
+        with open(path, "w") as f:
+            generate(items, file=f)
 
-all_items = (facets, atoms, wrappers)
+    all_items = (facets, atoms, wrappers)
 
-gen(
-    "doc/Facets.dot",
-    'digraph {',
-    '  compound=true',
-    '  rankdir="BT"',
-    '  node [shape="box"]',
-    (
+    gen(
+        "doc/Facets.dot",
+        'digraph {',
+        '  compound=true',
+        '  rankdir="BT"',
+        '  node [shape="box"]',
         (
-            f'  subgraph cluster_{items[0].prefix} {{',
-            f'    label="{items[0].prefix}"',
-            f'    labelloc="b"',
-            indent((item.graphviz_node for item in items), levels=2),
-            '  }',
+            (
+                f'  subgraph cluster_{items[0].prefix} {{',
+                f'    label="{items[0].prefix}"',
+                f'    labelloc="b"',
+                indent((item.graphviz_node for item in items), levels=2),
+                '  }',
+            )
+            for items in all_items
+        ),
+        indent(item.graphviz_links for item in itertools.chain.from_iterable(all_items)),
+        '}',
+    )
+
+    subprocess.run(["dot", "doc/Facets.dot", "-Tpng", "-odocs/Facets.png"], check=True)
+
+    shutil.rmtree("src/Generated", ignore_errors=True)
+
+    for items in all_items:
+        gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
+
+    for item in itertools.chain.from_iterable(all_items):
+        gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)
+        if hasattr(item, "types"):
+            for subtype in item.types:
+                gen(f"src/Generated/{item.prefix}/{subtype.prefix.split('.')[1]}/{subtype.name}.ml", subtype.implementation_items)
+
+    gen("src/Generated/Facets_alpha.ml", (
+        (
+            f"module {facet.name} = struct",
+            f'  #include "../Facets/{facet.name}.ml"',
+            "end",
         )
-        for items in all_items
-    ),
-    indent(item.graphviz_links for item in itertools.chain.from_iterable(all_items)),
-    '}',
-)
+        for facet in facets
+    ))
 
-subprocess.run(["dot", "doc/Facets.dot", "-Tpng", "-odocs/Facets.png"], check=True)
+    gen("src/Generated/Facets.ml", (
+        (
+            f"module {facet.name} = struct",
+            f'  include Facets_alpha.{facet.name}',
+            "  module Tests = Tests_beta(Testing)",
+            "end",
+        )
+        for facet in facets
+    ))
 
-shutil.rmtree("src/Generated", ignore_errors=True)
+    gen("src/Generated/Types.extended.ml", (
+        (
+            f"module {item.name} = {item.name}_.Extended(Facets)"
+        )
+        for items in (atoms, wrappers)
+        for item in items
+    ))
 
-for items in all_items:
-    gen(f"src/Generated/{items[0].prefix}.mli", (item.specification for item in items))
-    for item in items:
-        path = f"src/{item.prefix}/{item.name}.ml"
-        if os.path.exists(path):
-            with open(path) as f:
-                first_line = f.readlines()[0]
-            assert first_line == f'#include "../Generated/{item.prefix}/{item.name}.ml"\n', (path, first_line)
-        else:  # pragma nocover
-            with open(path, "w") as f:
-                f.write(f'#include "../Generated/{item.prefix}/{item.name}.ml"\n\n#include "empty_{item.prefix[:-1].lower()}.ml"\n')
+    gen("tst/AllPleaseUseSymbols.ml", make_all_please_use_symbols())
 
-for item in itertools.chain.from_iterable(all_items):
-    gen(f"src/Generated/{item.prefix}/{item.name}.ml", item.implementation_items)
-    if hasattr(item, "types"):
-        for subtype in item.types:
-            gen(f"src/Generated/{item.prefix}/{subtype.prefix.split('.')[1]}/{subtype.name}.ml", subtype.implementation_items)
+    gen("src/dune", make_dune())
 
-gen("unit_tests.ml", make_unit_tests())
-
-gen("src/dune", make_dune())
+main()

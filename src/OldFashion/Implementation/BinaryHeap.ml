@@ -1,5 +1,3 @@
-module OCSA = OCamlStandard.ArrayLabels
-
 type 'a t = 'a array
 
 let (empty: 'a t) = [||]
@@ -33,7 +31,7 @@ module Invariants = struct
   (*BISECT-IGNORE-END*)
 
   let is_max_heap xs ~cmp =
-    IntRange.make (OCSA.length xs)
+    IntRange.make (OCamlStandard.ArrayLabels.length xs)
     |> IntRange.for_all ~f:(fun i ->
       match cmp xs.(i) xs.(parent i) with
         | Compare.LT
@@ -60,7 +58,7 @@ let swap xs i j =
   xs.(j) <- x
 
 let add xs ~cmp x =
-  let xs = OCSA.append xs [|x|] in
+  let xs = OCamlStandard.ArrayLabels.append xs [|x|] in
   let rec aux = function
     | 0 -> ()
     | i ->
@@ -73,7 +71,7 @@ let add xs ~cmp x =
           aux p
         end
   in
-  aux ((OCSA.length xs) - 1);
+  aux ((OCamlStandard.ArrayLabels.length xs) - 1);
   xs
 
 (* @todo Define DEBUG when compiling with jbuilder --dev *)
@@ -86,10 +84,10 @@ let max xs =
   xs.(0)
 
 let pop_max xs ~cmp =
-  let len = OCSA.length xs - 1 in
+  let len = OCamlStandard.ArrayLabels.length xs - 1 in
   if len = 0 then empty else
   let last = xs.(len) in
-  let xs = OCSA.sub xs ~pos:0 ~len in
+  let xs = OCamlStandard.ArrayLabels.sub xs ~pos:0 ~len in
   xs.(0) <- last;
   let rec aux i =
     let (l, r) = children i in
@@ -121,13 +119,15 @@ let pop_max xs ~cmp =
 let pop_max xs ~cmp =
   Invariants.(xs |> validate ~cmp |> pop_max ~cmp |> validate ~cmp)
 
-module Tests = struct
+#ifdef TESTING_GENERAL
+module MakeTests(Standard: Standard) = struct
+  open Standard
   open Testing
 
   let make name ?(init=empty) fs expected =
     name >: (lazy (
       let heap = List.fold ~init ~f:(fun heap f -> f heap) fs in
-      check_int_list ~expected (OCSA.to_list heap)
+      check_int_list ~expected (OCamlStandard.ArrayLabels.to_list heap)
     ))
 
   let add x xs =
@@ -161,7 +161,7 @@ module Tests = struct
     "pop_max" >:: (
       let make xs expected =
         let name = List.repr ~repr_a:Int.repr xs in
-        make name ~init:(OCSA.of_list xs) [pop_max] expected
+        make name ~init:(OCamlStandard.ArrayLabels.of_list xs) [pop_max] expected
       in
       [
         make [1] [];
@@ -175,3 +175,4 @@ module Tests = struct
     );
   ]
 end
+#endif

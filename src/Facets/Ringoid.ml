@@ -26,115 +26,105 @@ module Exponentiate = struct
   end)
 end
 
-module Tests = struct
-  include Tests_
+module Tests_beta(Testing: Testing) = struct
+  include Tests_alpha(Testing)
 
-  module MakeExamples(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
-    open M
-
-    include E
-
-    let additions = additions @ [
-      (zero, zero, zero);
-      (one, zero, one);
-    ]
-
-    let negations = negations @ [
-      (zero, zero);
-    ]
-
-    let multiplications = multiplications @ [
-      (zero, zero, zero);
-      (one, zero, zero);
-    ]
-
-    let divisions = divisions @ [
-      (zero, one, zero);
-      (one, one, one);
-    ]
-
-    let exponentiations = exponentiations @ [
-      (zero, 0, one);
-      (zero, 1, zero);
-      (zero, 7, zero);
-      (one, 0, one);
-      (one, 1, one);
-      (one, 7, one);
-    ]
-  end
-
-  module MakeTests(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+  module MakeTesters(M: Testable.S0): sig
+    val test_value: M.t * string -> Test.t list
+    val test_addition: (M.t * string) * (M.t * string) * (M.t * string) -> Test.t list
+    val test_negation: (M.t * string) * (M.t * string) -> Test.t list
+    val test_multiplication: (M.t * string) * (M.t * string) * (M.t * string) -> Test.t list
+    val test_division: (M.t * string) * (M.t * string) * (M.t * string) -> Test.t list
+    val test_exponentiation: (M.t * string) * int * (M.t * string) -> Test.t list
+  end = struct
     open Testing
-    open M
-    open M.O
 
-    let check = check ~repr ~equal
+    let equal_mr = Tuple2.equal ~equal_a:M.equal ~equal_b:String.equal
 
-    let tests = (
-      E.additions
-      |> List.flat_map ~f:(fun (x, y, z) ->
-        let rx = repr x and ry = repr y and rz = repr z in
-        [
-          ~: "add %s %s" rx ry (lazy (check ~expected:z (add x y)));
-          ~: "add %s %s" ry rx (lazy (check ~expected:z (add y x)));
-          ~: "%s + %s" rx ry (lazy (check ~expected:z (x + y)));
-          ~: "%s + %s" ry rx (lazy (check ~expected:z (y + x)));
-          ~: "sub %s %s" rz ry (lazy (check ~expected:x (subtract z y)));
-          ~: "%s - %s" rz ry (lazy (check ~expected:x (z - y)));
-          ~: "sub %s %s" rz rx (lazy (check ~expected:y (subtract z x)));
-          ~: "%s - %s" rz rx (lazy (check ~expected:y (z - x)));
-        ]
-      )
-    ) @ (
-      E.negations
-      |> List.flat_map ~f:(fun (x, y) ->
-        let rx = repr x and ry = repr y in
-        [
-          ~: "negate %s" rx (lazy (check ~expected:y (negate x)));
-          ~: "negate %s" ry (lazy (check ~expected:x (negate y)));
-          ~: "-%s" rx (lazy (check ~expected:y (-x)));
-          ~: "-%s" ry (lazy (check ~expected:x (-y)));
-          ~: "subtract zero %s" rx (lazy (check ~expected:y (subtract zero x)));
-          ~: "subtract zero %s" ry (lazy (check ~expected:x (subtract zero y)));
-          ~: "zero - %s" rx (lazy (check ~expected:y (zero - x)));
-          ~: "zero - %s" ry (lazy (check ~expected:x (zero - y)));
-          ~: "add %s %s" rx ry (lazy (check ~expected:zero (add x y)));
-          ~: "add %s %s" ry rx (lazy (check ~expected:zero (add y x)));
-          ~: "%s + %s" rx ry (lazy (check ~expected:zero (x + y)));
-          ~: "%s + %s" ry rx (lazy (check ~expected:zero (y + x)));
-          ~: "square %s" rx (lazy (check ~expected:(negate (multiply x y)) (square x)));
-          ~: "square %s" ry (lazy (check ~expected:(negate (multiply x y)) (square y)));
-        ]
-      )
-    ) @ (
-      E.multiplications
-      |> List.flat_map ~f:(fun (x, y, expected) ->
-        let rx = repr x and ry = repr y in
-        [
-          ~: "multiply %s %s" rx ry (lazy (check ~expected (multiply x y)));
-          ~: "%s * %s" rx ry (lazy (check ~expected (x * y)));
-        ]
-      )
-    ) @ (
-      E.divisions
-      |> List.flat_map ~f:(fun (x, y, expected) ->
-        let rx = repr x and ry = repr y in
-        [
-          ~: "divide %s %s" rx ry (lazy (check ~expected (divide x y)));
-          ~: "%s / %s" rx ry (lazy (check ~expected (x / y)));
-        ]
-      )
-    ) @ (
-      E.exponentiations
-      |> List.flat_map ~f:(fun (x, n, expected) ->
-        let rx = repr x in
-        [
-          ~: "exponentiate %s %n" rx n (lazy (check ~expected (exponentiate x n)));
-          ~: "%s ** %n" rx n (lazy (check ~expected (x ** n)));
-        ]
-      )
-    )
+    let check_m = M.(check ~repr ~equal)
+
+    let zero = (M.zero, "zero")
+    let one = (M.one, "one")
+
+    let test_addition' ((x, rx), (y, ry), (z, rz)) = [
+      ~: "Ringoid: %s + %s" rx ry (lazy (M.O.(x + y) |> check_m ~expected:z));
+      ~: "Ringoid: %s - %s" rz rx (lazy (M.O.(z - x) |> check_m ~expected:y));
+    ]
+
+    let test_addition (x, y, z) =
+      if equal_mr x y then
+        test_addition' (x, y, z)
+      else
+        (test_addition' (x, y, z)) @ (test_addition' (y, x, z))
+
+    let test_negation' ((x, rx), (y, ry)) =
+      [
+        ~: "Ringoid: - %s" rx (lazy (M.O.(-x) |> check_m ~expected:y));
+      ]
+      @ test_addition' ((x, rx), (y, ry), (M.zero, "zero"))
+
+    let test_negation (x, y) =
+      if equal_mr x y then
+        test_negation' (x, y)
+      else
+        (test_negation' (x, y)) @ (test_negation' (y, x))
+
+    let test_multiplication' ((x, rx), (y, ry), (z, _rz)) = [
+      ~: "Ringoid: %s * %s" rx ry (lazy (M.O.(x * y) |> check_m ~expected:z));
+    ]
+
+    let test_multiplication (x, y, z) =
+      if equal_mr x y then
+        test_multiplication' (x, y, z)
+      else
+        (test_multiplication' (x, y, z)) @ (test_multiplication' (y, x, z))
+
+    let test_division ((x, rx), (y, ry), (z, _rz)) = [
+      ~: "Ringoid: %s / %s" rx ry (lazy (M.O.(x / y) |> check_m ~expected:z));
+    ]
+
+    let test_exponentiation ((x, rx), y, (z, _rz)) = [
+      ~: "Ringoid: exponentiate %s %i" rx y (lazy (M.exponentiate x y |> check_m ~expected:z));
+      ~: "Ringoid: %s ** %i" rx y (lazy (M.O.(x ** y) |> check_m ~expected:z));
+    ]
+
+    let test_value x = []
+      @ (test_addition (x, zero, x))
+      @ (test_multiplication (x, one, x))
+      @ (test_multiplication (x, zero, zero))
+      @ (test_division (x, one, x))
+      @ (test_exponentiation (x, 1, x))
+      @ (test_exponentiation (x, 0, one))
   end
 
-  include MakeMakers(MakeExamples)(MakeTests)
+  module RingoidBasicTests = RingoidBasic.Tests_beta(Testing)
+
+  module MakeExpectations(M: Testable.S0)(E: Examples.S0 with type t := M.t) = struct
+    include RingoidBasicTests.MakeExpectations(M)(E)
+
+    let exponentiations =
+      E.exponentiations
+      |> List.map ~f:(fun (x, y, z) -> ((x, M.repr x), y, (z, M.repr z)))
+  end
+
+  include MakeMakers(functor (M: Testable.S0) -> functor (E: Examples.S0 with type t := M.t) -> struct
+    module Expectations = MakeExpectations(M)(E)
+    module Testers = MakeTesters(M)
+
+    let zero = (M.zero, "zero")
+    let one = (M.one, "one")
+
+    let tests = []
+      @ (List.flat_map Expectations.values ~f:Testers.test_value)
+      @ (List.flat_map Expectations.additions ~f:Testers.test_addition)
+      @ (List.flat_map Expectations.negations ~f:Testers.test_negation)
+      @ (List.flat_map Expectations.multiplications ~f:Testers.test_multiplication)
+      @ (List.flat_map Expectations.divisions ~f:Testers.test_division)
+      @ (List.flat_map Expectations.exponentiations ~f:Testers.test_exponentiation)
+      @ (Testers.test_value zero)
+      @ (Testers.test_value one)
+      @ (Testers.test_negation (zero, zero))
+      @ (Testers.test_exponentiation (zero, 7, zero))
+      @ (Testers.test_exponentiation (one, 42, one))
+  end)
 end

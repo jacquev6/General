@@ -1,7 +1,8 @@
 module Make1(M: General.Facets.Comparable.Tests.Testable.S1)(E: sig
   module A: General.Facets.Comparable.Tests.Examples.Element
-  val equalities: A.t M.t list list
-  val orders: A.t M.t list list
+  val order_classes: A.t M.t list list
+  val strict_orders: A.t M.t list list
+  val values: A.t M.t list
 end): sig
   val test: General.Test.t
 end

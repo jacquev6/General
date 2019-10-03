@@ -14,6 +14,7 @@ module Examples: sig
     val differences: (t * t) list
     val equalities: t list list
     val representations: (t * bytes) list
+    val values: t list
   end
   module type S1 = sig
     module A: Element
@@ -21,6 +22,7 @@ module Examples: sig
     val differences: (A.t t * A.t t) list
     val equalities: A.t t list list
     val representations: (A.t t * bytes) list
+    val values: A.t t list
   end
   module type S2 = sig
     module A: Element
@@ -29,6 +31,7 @@ module Examples: sig
     val differences: ((A.t, B.t) t * (A.t, B.t) t) list
     val equalities: (A.t, B.t) t list list
     val representations: ((A.t, B.t) t * bytes) list
+    val values: (A.t, B.t) t list
   end
   module type S3 = sig
     module A: Element
@@ -38,6 +41,7 @@ module Examples: sig
     val differences: ((A.t, B.t, C.t) t * (A.t, B.t, C.t) t) list
     val equalities: (A.t, B.t, C.t) t list list
     val representations: ((A.t, B.t, C.t) t * bytes) list
+    val values: (A.t, B.t, C.t) t list
   end
   module type S4 = sig
     module A: Element
@@ -48,6 +52,7 @@ module Examples: sig
     val differences: ((A.t, B.t, C.t, D.t) t * (A.t, B.t, C.t, D.t) t) list
     val equalities: (A.t, B.t, C.t, D.t) t list list
     val representations: ((A.t, B.t, C.t, D.t) t * bytes) list
+    val values: (A.t, B.t, C.t, D.t) t list
   end
   module type S5 = sig
     module A: Element
@@ -59,5 +64,6 @@ module Examples: sig
     val differences: ((A.t, B.t, C.t, D.t, E.t) t * (A.t, B.t, C.t, D.t, E.t) t) list
     val equalities: (A.t, B.t, C.t, D.t, E.t) t list list
     val representations: ((A.t, B.t, C.t, D.t, E.t) t * bytes) list
+    val values: (A.t, B.t, C.t, D.t, E.t) t list
   end
 end

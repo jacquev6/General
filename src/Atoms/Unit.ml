@@ -1,7 +1,7 @@
-#include "../Generated/Atoms/Unit.ml"
+module Basic = struct
+  type t = unit
 
-module Self = struct
-  include Foundations.Unit
+  let ignore = OCamlStandard.Pervasives.ignore
 
   module O = struct
     include Compare.Poly.O
@@ -14,20 +14,32 @@ module Self = struct
   let repr () = "()"
 end
 
-include Self
+module Extended(Facets: Facets) = struct
+  include Basic
 
-module Tests = Tests_.Make(Self)(struct
-    let representations = [
+  #ifdef TESTING_GENERAL
+  module MakeTests(Standard: Standard) = struct
+    open Standard
+
+    #include "../Generated/Atoms/Unit.ml"
+
+    include Tests_.Make(Basic)(struct
+      let values = [()]
+
+      let representations = [
         ((), "()");
-    ]
+      ]
 
-    let equalities = [
-        [()];
-    ]
+      let equalities = []
 
-    let differences = []
+      let differences = []
 
-    let orders = []
-end)(struct
-  let tests = []
-end)
+      let strict_orders = []
+
+      let order_classes = []
+    end)(struct
+      let tests = []
+    end)
+  end
+  #endif
+end

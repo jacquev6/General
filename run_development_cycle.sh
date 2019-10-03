@@ -52,7 +52,7 @@ do
         $RUN coverage3 run --branch -m geni
         echo
         echo "Geni coverage:"
-        $RUN coverage3 report
+        $RUN coverage3 report --show-missing
         echo "Full report in $PWD/_builds/$OCAML_VERSION/geni_coverage/index.html"
         $RUN coverage3 html --directory=_build/geni_coverage
         rm .coverage
@@ -64,6 +64,10 @@ do
 
     # @todo Measure test coverage. If possible, module by module.
     $RUN dune runtest
+
+    rm -rf doc/unit_tests/$OCAML_VERSION
+    mkdir -p doc/unit_tests/$OCAML_VERSION
+    $RUN _build/default/tst/unit_tests.bc --verbose >doc/unit_tests/$OCAML_VERSION/all.txt
 
     if $DO_UTOP_INTERFACE
     then
@@ -82,7 +86,7 @@ do
         echo "Testing package install"
         echo "-----------------------"
 
-        $RUN opam install General
+        $RUN bash -c 'opam install General && cd /tmp && echo "open General.Abbr let _ = StdOut.print \"Hello General\"">tst.ml && echo "(executable (name tst) (libraries General))">dune && dune build @all && _build/default/tst.exe && _build/default/tst.bc'
     fi
 
     # @todo Build demo apps (as native, byte code, and js)

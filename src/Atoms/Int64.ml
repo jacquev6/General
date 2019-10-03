@@ -1,9 +1,5 @@
-#include "../Generated/Atoms/Int64.ml"
-
-module OCSI = OCamlStandard.Int64
-
-module Self = StandardInt.Make(struct
-  include OCSI
+module Basic = StandardInt.MakeBasic(struct
+  include OCamlStandard.Int64
 
   let name = "Int64"
   let repr_suffix = "L"
@@ -14,84 +10,128 @@ module Self = StandardInt.Make(struct
 #endif
 end)
 
-include Self
+module Extended(Facets: Facets) = struct
+  module Self = struct
+    include Basic
+    include StandardInt.MakeExtensions(Facets)(struct
+      include Basic
 
-module Tests = Tests_.Make(Self)(struct
-  let literals = [
-    ("43", 43L);
-    ("-12", -12L);
-  ]
+      let name = "Int64"
+    end)
+  end
 
-  let representations = [
-    (-3L, "-3L");
-    (-0L, "0L");
-    (0L, "0L");
-    (1L, "1L");
-    (15L, "15L");
-  ]
+  include Self
 
-  let displays = [
-    (-3L, "-3");
-    (-0L, "0");
-    (0L, "0");
-    (1L, "1");
-    (15L, "15");
-  ]
+  #ifdef TESTING_GENERAL
+  module MakeTests(Standard: Standard) = struct
+    open Standard
 
-  let equalities = [
-    [0L];
-    [1L];
-    [2L];
-  ]
+    #include "../Generated/Atoms/Int64.ml"
 
-  let differences = [
-    (0L, 1L);
-    (1L, -1L);
-  ]
+    include Tests_.Make(Self)(struct
+      let module_name = "Int64"
 
-  let orders = [
-    [-10L; -5L; -1L; 0L; 1L; 2L; 5L];
-  ]
+      let values = [21L; -32L]
 
-  let additions = [
-    (4L, 3L, 7L);
-    (4L, -2L, 2L);
-    (5L, -7L, -2L);
-  ]
+      let conversions_from_string = [
+        ("43", 43L);
+        ("-12", -12L);
+        ("1_000", 1000L);
+        ("0x10", 16L);
+        ("0o10", 8L);
+        ("0b10", 2L);
+      ]
 
-  let negations = [
-    (4L, -4L);
-    (-7L, 7L);
-  ]
+      let unconvertible_strings = ["a"]
 
-  let multiplications = [
-    (4L, 3L, 12L);
-    (4L, -3L, -12L);
-    (-4L, -3L, 12L);
-  ]
+      let representations = [
+        (-3L, "-3L");
+        (-0L, "0L");
+        (0L, "0L");
+        (1L, "1L");
+        (15L, "15L");
+      ]
 
-  let divisions = [
-    (5L, 2L, 2L);
-    (4L, 2L, 2L);
-    (4L, 3L, 1L);
-    (4L, 4L, 1L);
-    (4L, 5L, 0L);
-  ]
+      let conversions_to_string = [
+        (-3L, "-3");
+        (-0L, "0");
+        (0L, "0");
+        (1L, "1");
+        (15L, "15");
+      ]
 
-  let exponentiations = [
-    (3L, 3, 27L);
-    (2L, 7, 128L);
-  ]
+      let equalities = []
 
-  let successions = [
-    (1L, 2L);
-    (42L, 43L);
-    (-121L, -120L);
-  ]
-end)(struct
-  open Testing
+      let differences = [
+        (0L, 1L);
+        (1L, -1L);
+      ]
 
-  let tests = [
-    "exponentiate 2L (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "Int64.exponentiate: Negative exponent: -4") (lazy (exponentiate 2L (-4)))));
-  ]
-end)
+      let strict_orders = [
+        [-10L; -5L; -1L; 0L; 1L; 2L; 5L];
+      ]
+
+      let order_classes = []
+
+      let additions = [
+        (4L, 3L, 7L);
+        (4L, -2L, 2L);
+        (5L, -7L, -2L);
+      ]
+
+      let negations = [
+        (4L, -4L);
+      ]
+
+      let multiplications = [
+        (4L, 3L, 12L);
+        (4L, -3L, -12L);
+        (-4L, -3L, 12L);
+      ]
+
+      let divisions = [
+        (5L, 2L, 2L);
+        (4L, 2L, 2L);
+        (4L, 3L, 1L);
+        (4L, 4L, 1L);
+        (4L, 5L, 0L);
+      ]
+
+      let exponentiations = [
+        (3L, 3, 27L);
+        (2L, 7, 128L);
+      ]
+
+      let successions = [
+        (1L, 2L);
+        (42L, 43L);
+        (-121L, -120L);
+      ]
+
+      let conversions_to_int = [
+        (12L, 12)
+      ]
+
+      let conversions_from_int = [
+        (12, 12L)
+      ]
+
+      let conversions_to_float = [
+        (12L, 12.)
+      ]
+
+      let conversions_from_float = [
+        (12., 12L);
+        (12.99, 12L);
+        (-12.99, -12L);
+      ]
+    end)(struct
+      open Testing
+
+      let tests = [
+        "Int64: exponentiate 2L (-4)" >: (lazy (expect_exception ~expected:(Exception.InvalidArgument "Int64.exponentiate: Negative exponent: -4") (lazy (exponentiate 2L (-4)))));
+      ]
+    end)
+  end
+  #endif
+end

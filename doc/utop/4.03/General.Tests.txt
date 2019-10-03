@@ -1,3 +1,0 @@
-module Tests: sig
-  val test: General.Test.t
-end

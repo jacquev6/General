@@ -1,5 +1,3 @@
-module OCSP = OCamlStandard.Pervasives
-
-type t = OCSP.in_channel
+type t = OCamlStandard.Pervasives.in_channel
 
 (* @todo Alias for type P.open_flag *)

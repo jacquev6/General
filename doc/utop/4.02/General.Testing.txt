@@ -6,6 +6,7 @@ module Testing: sig
   val (~::): ('a, unit, bytes, bytes, bytes, General.Test.t list -> General.Test.t) format6 -> 'a
   val check: repr:('a -> bytes) -> equal:('a -> 'a -> bool) -> expected:'a -> 'a -> unit
   val check_bool: expected:bool -> bool -> unit
+  val check_char: expected:char -> char -> unit
   val check_false: bool -> unit
   val check_float: ?precision:float -> expected:float -> float -> unit
   val check_float_exact: expected:float -> float -> unit

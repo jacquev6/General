@@ -10,8 +10,8 @@ module Tests_ = struct
 
   module Make(M: Testable)(E: Examples)(Tests: sig val tests: Test.t list end) = struct
     open Testing
-    let test = "NativeInt" >:: [
+    let test = "NativeInt" >:: OCamlStandard.Pervasives.( @ ) [
       (let module T = Facets.FixedWidthInteger.Tests.Make0(M)(E) in T.test);
-    ] @ Tests.tests
+    ] Tests.tests
   end
 end
