@@ -17,6 +17,8 @@ module Tests = struct
     ]
     @ Tests1.tests
     @ Tests2.tests
+    @ Tests3.tests
+    @ Tests4.tests
     @ [
       "Syntactic sugar" >:: [
         "Standard" >:: Standard.[
