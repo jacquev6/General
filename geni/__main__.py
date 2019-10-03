@@ -205,6 +205,19 @@ def make_dune():
     yield "  (action (run %{bin:cppo} -V OCAML:%{ocaml_version} %{src} -o %{targets}))"
     yield ")"
     yield ""
+    yield "(rule"
+    yield "  (targets General_for_tests.ml)"
+    yield "  (deps"
+    yield "    (:src General.cppo.ml)"
+    for path in sorted(itertools.chain(
+        glob.glob("src/*/**/*.ml", recursive=True),
+        glob.glob("src/*/**/*.mli", recursive=True),
+    )):
+        yield f"    {path[4:]}"
+    yield "  )"
+    yield "  (action (run %{bin:cppo} -D TESTING_GENERAL -V OCAML:%{ocaml_version} %{src} -o %{targets}))"
+    yield ")"
+    yield ""
     yield "(library"
     yield "  (name General)"
     yield "  (public_name General)"

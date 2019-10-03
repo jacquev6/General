@@ -87,6 +87,7 @@ module Extended(Facets: Facets) = struct
 
   include Self_beta
 
+  #ifdef TESTING_GENERAL
   module MakeTests(Standard: Standard) = struct
     open Standard
 
@@ -192,4 +193,5 @@ module Extended(Facets: Facets) = struct
       ]
     end)
   end
+  #endif
 end

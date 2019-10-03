@@ -232,6 +232,7 @@ end
 
 include Self
 
+#ifdef TESTING_GENERAL
 module MakeTests(Standard: Standard) = struct
   open Standard
   open Testing
@@ -242,3 +243,4 @@ module MakeTests(Standard: Standard) = struct
     (* (let module T = Facets.FilterMapable.ToList.Tests.Make1(Self)(Self.ToList)(List) in T.test); *)
   ]
 end
+#endif

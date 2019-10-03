@@ -1,7 +1,7 @@
 (rule
   (targets General.ml)
-  (deps ../src/General.ml)
-  (action (copy ../src/General.ml General.ml))
+  (deps ../src/General_for_tests.ml)
+  (action (copy ../src/General_for_tests.ml General.ml))
 )
 
 (executable
