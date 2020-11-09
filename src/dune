@@ -170,5 +170,5 @@
   (public_name General)
   (modules General)
   (libraries num)
-  (flags (:standard -nopervasives -w @A-4-33-44-45-48))
+  (flags (:standard -nopervasives -w @A-4-33-44-45-48-67-60))
 )

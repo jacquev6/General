@@ -7,7 +7,7 @@
   #define HAS_Uchar
 #endif
 
-#if OCAML_VERSION >= (4, 4, 0)
+#if OCAML_VERSION >= (4, 4, 0) && OCAML_VERSION < (4, 12, 0)
   #define HAS_Spacetime
 #endif
 

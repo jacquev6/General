@@ -98,7 +98,7 @@ do
             echo "  (public_name General)";
             echo "  (modules General)";
             echo "  (libraries num)";
-            echo "  (flags (:standard -nopervasives -w @A-4-33-44-45-48))";
+            echo "  (flags (:standard -nopervasives -w @A-4-33-44-45-48-67-60))";
             echo ")";
         ) > src/dune
     fi
