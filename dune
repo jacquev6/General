@@ -2,7 +2,7 @@
   (name unit_tests)
   (modules unit_tests)
   (libraries General)
-  (js_of_ocaml (flags "+nat.js"))
+  (js_of_ocaml)
 )
 
 (alias
